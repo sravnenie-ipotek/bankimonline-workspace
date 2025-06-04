@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd mainapp && npm install && npm run build",
-  "outputDirectory": "mainapp/build",
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "build",
   "framework": "vite"
 } 
