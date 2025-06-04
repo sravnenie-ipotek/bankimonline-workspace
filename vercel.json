@@ -1,22 +1,4 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "mainapp/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "build"
-      }
-    },
-    {
-      "src": "api/server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/server.js"
-    }
-  ]
+  "buildCommand": "cd mainapp && npm run build",
+  "outputDirectory": "mainapp/build"
 } 
