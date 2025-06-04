@@ -1,19 +1,5 @@
-#!/usr/bin/env node
-/**
- * Bankimonline Mock API Server - Node.js Version
- * Consolidates all Python mock servers into a single Node.js application
- * 
- * Features:
- * - Mock API endpoints (port 8003)
- * - Proxy functionality for backend.bankimonline.com
- * - CORS support
- * - Comprehensive logging
- */
-
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan');
-const { createProxyMiddleware } = require('http-proxy-middleware');
 
 // Create Express app
 const app = express();
@@ -26,7 +12,6 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -261,72 +246,6 @@ app.use((err, req, res, next) => {
         error: 'Internal server error',
         message: err.message
     });
-});
-
-// Proxy server functionality (optional - can be enabled with --proxy flag)
-function createProxyServer(targetPort) {
-    const proxyApp = express();
-    
-    proxyApp.use('/', createProxyMiddleware({
-        target: `http://localhost:${targetPort}`,
-        changeOrigin: true,
-        onError: (err, req, res) => {
-            console.error('[PROXY ERROR]', err);
-            res.status(503).json({
-                error: 'Proxy error: Backend not available',
-                message: `Make sure the backend is running on http://localhost:${targetPort}`
-            });
-        },
-        onProxyReq: (proxyReq, req, res) => {
-            console.log(`[PROXY] ${req.method} ${req.path} -> http://localhost:${targetPort}${req.path}`);
-        }
-    }));
-    
-    return proxyApp;
-}
-
-// Start server
-const PORT = process.env.PORT || 8003;
-const PROXY_PORT = process.env.PROXY_PORT || 8443;
-const enableProxy = process.argv.includes('--proxy');
-
-console.log('='.repeat(60));
-console.log('  Bankimonline Mock API Server (Node.js)');
-console.log('='.repeat(60));
-
-// Start main API server
-app.listen(PORT, () => {
-    console.log(`  Mock API listening on: http://localhost:${PORT}`);
-    console.log('  Available endpoints:');
-    console.log('    GET  /health');
-    console.log('    GET  /v1/params');
-    console.log('    GET  /v1/pages');
-    console.log('    GET  /v1/locales');
-    console.log('    GET  /v1/banks');
-    console.log('    GET  /v1/cities');
-    console.log('    GET  /get-cities?lang=en');
-    console.log('    POST /sms-password-login');
-    console.log('    POST /sms-code-login');
-    console.log('='.repeat(60));
-});
-
-// Start proxy server if enabled
-if (enableProxy) {
-    const proxyApp = createProxyServer(PORT);
-    proxyApp.listen(PROXY_PORT, () => {
-        console.log(`  Proxy server listening on: http://localhost:${PROXY_PORT}`);
-        console.log(`  Proxying to: http://localhost:${PORT}`);
-        console.log('='.repeat(60));
-        console.log('  Add this to your hosts file:');
-        console.log('  127.0.0.1 backend.bankimonline.com');
-        console.log('='.repeat(60));
-    });
-}
-
-// Graceful shutdown
-process.on('SIGINT', () => {
-    console.log('\nShutting down servers...');
-    process.exit(0);
 });
 
 // Export for Vercel
