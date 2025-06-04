@@ -1,0 +1,17 @@
+.modalContent {
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: theme('colors.textTheme.primary');
+  border-radius: 0.8rem;
+  padding: 0.8rem 0;
+  overflow-x: hidden;
+}
+
+.userInfoMenuWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}

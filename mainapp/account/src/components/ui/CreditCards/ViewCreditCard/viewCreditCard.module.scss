@@ -1,0 +1,88 @@
+.cardPlate{
+    width: 267px;
+    height: 166px;
+
+    background: theme('backgroundImage.cardBack');
+    border-radius: theme('borderRadius.roundedLg');
+
+    cursor: default;
+
+    padding: 21px 18px 21px 31px;
+
+    @media (max-width: 390px) {
+        width: 100%;
+        height: 217px;
+        padding: 28px 24px 28px 40px;
+    }
+
+    @media (max-width: 336px) {
+        padding: 18px 21px 14px 24px;
+        height: 160px;
+    }
+}
+
+.topLine{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.centerLine{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    margin-top: 16px;
+    margin-bottom: 28px;
+
+    @media (max-width: 336px) {
+        margin-top: 12px;
+        margin-bottom: 8px;
+    }
+
+    .cardNumber{
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+
+        @media (max-width: 390px) {
+            margin-top: 24px;
+        }
+
+        @media (max-width: 336px) {
+            font-size: 15px;
+            margin-top: 0;
+            margin-bottom: 3px;
+        }
+    }
+}
+
+.bottomLine{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 390px) {
+        margin-top: 22px;
+    }
+
+    .cardName{
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+    }
+
+    .cardType{
+        font-size: 8.333px;
+        font-weight: 400;
+        @media (max-width: 390px) {
+            margin-right: 12px;
+            margin-top: 0;
+        }
+        @media (max-width: 336px) {margin-top: 4px}
+    }
+}

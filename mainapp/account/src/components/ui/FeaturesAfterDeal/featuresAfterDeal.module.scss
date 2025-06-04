@@ -1,0 +1,22 @@
+.featuresPlate{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.featuresPlate:last-child{
+    margin-right: 0;
+}
+
+.featuresTitle{
+    font-size: 31px;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 12px;
+    margin-top: 32px;
+
+    @media (max-width: 920px) {
+        font-size: 20px;
+        margin-bottom: 24px;
+    }
+}

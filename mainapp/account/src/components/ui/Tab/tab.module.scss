@@ -1,0 +1,71 @@
+.tabPlayaFit{
+    max-width: 100%;
+    width: fit-content;
+    @media (max-width: 920px) {overflow-x: auto}
+}
+
+.tabPlaya100{
+    max-width: 100%;
+    width: 100%;
+    @media (max-width: 920px) {overflow-x: auto}
+}
+
+.tabPlate{
+    display: flex;
+    flex-direction: column;
+}
+
+.tabTitles{
+    width: 100%;
+    display: flex;
+    margin-bottom: 38px;
+    @media (max-width: 920px) {
+        margin-bottom: 23px;
+    }
+}
+
+.tabTitle{
+    padding: 14px 32px;
+    color: theme('colors.textTheme.disabled');
+    border-bottom: 1px solid theme('colors.base.stroke');
+    cursor: pointer;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    white-space: nowrap;
+    height: 47px;
+
+    &:hover{color: theme('colors.textTheme.secondary')}
+
+    @media (max-width: 920px) {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%; /* 19.6px */
+    }
+}
+
+.tabTitleActive{
+    padding: 14px 32px;
+    color: theme('colors.accent.primary');
+    border-bottom: 2px solid theme('colors.accent.primary');
+    cursor: default;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    white-space: nowrap;
+    height: 47px;
+
+    @media (max-width: 920px) {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 140%; /* 19.6px */
+    }
+}
+
+.tabsContent{
+    width: 100%;
+}
