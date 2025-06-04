@@ -1,0 +1,26 @@
+.notificationPlate{
+  display: flex;
+  width: 30px;
+}
+
+.notificationWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.notificationIcon {
+  position: absolute;
+  top: -42%;
+  width: 1.6rem;
+  height: 1.4rem;
+  background-color: theme('colors.accent.primary');
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  color: theme('colors.textTheme.darkPrimary');
+}

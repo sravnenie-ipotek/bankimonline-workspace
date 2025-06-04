@@ -1,0 +1,127 @@
+.step-no {
+  border-radius: 50%;
+  background-color: rgb(42, 43, 49);
+  width: 1.94rem;
+  height: 1.94rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.step.active .step-no-item .step-no {
+  background-color: #fbe54d;
+  color: #000;
+}
+
+.step.passed .step-no-item .step-no {
+  background-color: #fbe54d;
+}
+
+.step-no span {
+  line-height: 120%;
+  font-weight: 600;
+}
+
+.step-no-item {
+  width: 1.94rem;
+  height: 1.94rem;
+  text-align: left;
+  color: rgb(132, 132, 132);
+}
+
+.step-title {
+  justify-content: right;
+  display: flex;
+  margin-right: 0.7rem;
+  margin-left: 0.7rem;
+}
+
+.step.active .step-title {
+  color: #fff;
+}
+
+.step.passed .step-title {
+  color: #fbe54d;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+}
+
+.step-divider {
+  position: relative;
+  border-top: 2px solid rgb(42, 43, 49);
+  box-sizing: border-box;
+  width: 4.75rem;
+  height: 0.13rem;
+  margin-left: 0.35rem;
+  margin-right: 1rem;
+}
+
+.step-divider.active {
+  border-top: 2px solid #fbe54d;
+}
+
+.mob-step-divider {
+  position: relative;
+  border-top: 2px solid rgb(42, 43, 49);
+  box-sizing: border-box;
+  width: calc(100% + 0rem);
+  height: 0.13rem;
+  margin-left: 0.35rem;
+  margin-right: 1rem;
+  top: 1.2rem;
+  left: 0rem;
+}
+
+.mob-step-divider.active {
+  border-top: 2px solid #fbe54d;
+}
+
+.steps {
+  background-color: rgb(31, 32, 35);
+  padding: 0.63rem 9.69rem;
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-size: 1.25rem;
+  color: rgb(132, 132, 132);
+  white-space: nowrap;
+  width: 100%;
+}
+
+@media (min-width: 767px) and (max-width: 1300px) {
+}
+
+.steps-inner {
+  align-self: stretch;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  padding: 1.25rem 0;
+  align-items: center;
+  justify-content: space-between;
+  width: 70.63rem;
+  margin: auto;
+}
+
+@media (min-width: 890px) and (max-width: 1300px) {
+  .steps {
+    background-color: rgb(31, 32, 35);
+    padding: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 1.25rem;
+    color: rgb(132, 132, 132);
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  .steps-inner {
+    width: 100% !important;
+  }
+}

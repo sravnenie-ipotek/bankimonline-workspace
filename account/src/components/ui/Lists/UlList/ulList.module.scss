@@ -1,0 +1,20 @@
+.UlStyle{
+    list-style: none;
+}
+
+.UlStyle li::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: theme('colors.accent.primary');
+    display: inline-block;
+}
+
+.UlStyle li{
+    margin-bottom: 9px;
+}
+
+.UlStyle li:last-child{
+    margin-bottom: 0;
+}

@@ -1,0 +1,67 @@
+.root {
+  position: relative;
+  transition: transform 0.2s linear;
+}
+.userInfoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  cursor: pointer;
+  @media (max-width: 768px) {
+    gap: 0;
+  }
+}
+
+.userName {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+  transition: transform 0.2s linear;
+}
+
+.rotate-0 {
+  transform: rotate(0deg);
+  transition: transform 0.2s linear;
+}
+
+.userInfo_container {
+  position: absolute;
+  border: 1px solid theme('colors.base.stroke');
+  border-radius: 8px;
+  background-color: theme('colors.base.base800');
+
+  @media (max-width: 1239px) {
+    top: 52px;
+  }
+}
+
+.userInfo_container__open {
+  max-height: 136px;
+  opacity: 1;
+  transition:
+    max-height 0.1s linear,
+    opacity 0.1s linear;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.userInfo_container__close {
+  max-width: 0;
+  opacity: 0;
+  transition:
+    max-height 0.5s linear,
+    opacity 0.5s linear;
+  z-index: -100;
+}
+
+.ltr {
+  right: 0;
+}
+
+.rtr {
+  left: 0;
+}

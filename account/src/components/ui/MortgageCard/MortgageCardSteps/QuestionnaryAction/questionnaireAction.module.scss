@@ -1,0 +1,14 @@
+.questionnaireAction {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: theme('colors.textTheme.primary');
+}
+
+.questionnaireAction:hover{color: theme('colors.textTheme.secondary');}
+.questionnaireAction:active{color: theme('colors.accent.primary');}
+
+.text{
+  margin-left: 6px;
+  margin-right: 6px;
+}

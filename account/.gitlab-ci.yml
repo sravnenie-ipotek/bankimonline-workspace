@@ -1,0 +1,29 @@
+stages:
+  #- prerequisite
+  #- tests
+  #- build
+  - deploy
+
+#before_script: 
+#  - echo Before script section
+
+#install_dependencies:
+#  stage: prerequisite
+#  script: 
+#    - echo install_dependencies
+
+#build_web:
+#  stage: build
+#  script: 
+#    - echo build_web
+deploy_web:
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+      when: on_success
+  stage: deploy
+  tags:
+    - deploy
+  script: 
+    - echo deploy_web
+    - ssh $SSH_USER@$SSH_HOST "cd $WORK_DIR && git config --global --add safe.directory /www/mainapp/account && git checkout $MAIN_BRANCH && git fetch && git reset --hard && git pull && npm install && npm run build && exit"
+

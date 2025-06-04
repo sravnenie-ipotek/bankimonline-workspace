@@ -1,0 +1,76 @@
+.topPlateModal{
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bottomPlateModal{
+    display: flex;
+    justify-content: space-between;
+    @media (max-width: 636px) {display: none;}
+}
+
+.buttonMarginR{
+    margin-right: 16px;
+}
+
+.buttonMarginL{
+    margin-left: 16px;
+}
+
+.bottomPlateModalModal{
+    display: none;
+    @media (max-width: 636px) {
+        flex-direction: column;
+        display: flex;
+    }
+
+    .buttonMarginMobile{
+        margin-bottom: 16px;
+    }
+    
+}
+
+.modaltextTitle{
+    font-size: 25px;
+    font-weight: 500;
+    //находится не в root
+    color: theme('colors.base.white');
+    @media (max-width: 636px) {
+        font-size: 25px;
+        font-weight: 400;
+        line-height: normal;
+        text-align: center;
+    }
+    max-width: 562px;
+
+    text-align: center;
+}
+
+.modaltextDescription{
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 16px;
+    color: theme('colors.textTheme.secondary');
+    @media (max-width: 636px) {
+        margin-top: 8px;
+        font-size: 16px;
+        font-weight: 400;
+        text-align: center;
+        font-style: normal;
+        line-height: normal;
+    }
+}
+
+.singOutPlate{
+    width: 65px;
+    height: 65px;
+    background: theme('colors.base.base800');
+    border-radius: 50%;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

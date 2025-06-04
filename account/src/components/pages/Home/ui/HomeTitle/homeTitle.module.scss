@@ -1,0 +1,31 @@
+.pageTopLine{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 42px;
+    height: 56px;
+
+    @media (max-width: 920px) {
+        margin-bottom: 32px;
+        height: 36px;
+    }
+
+    .buttonWidthR{
+        width: 420px;
+    }
+    .buttonWidthI{
+        width: 370px;
+    }
+}
+
+.pageTitle{
+    font-size: 48px;
+    font-weight: 500;
+    line-height: normal;
+
+    @media (max-width: 920px) {
+        font-size: 31px;
+        font-weight: 500;
+    }
+}

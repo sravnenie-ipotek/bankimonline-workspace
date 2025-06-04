@@ -1,0 +1,26 @@
+.modal {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: theme('colors.base.fog');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modalPlate{
+    
+    padding: 32px;
+    border-radius: 10px;
+    background: theme('colors.base.inputs');
+    @media (max-width: 920px) {
+        padding: 20px;
+        width: 100%;
+    }
+}
+
+.nonVisibleModal{
+    display: none;
+}

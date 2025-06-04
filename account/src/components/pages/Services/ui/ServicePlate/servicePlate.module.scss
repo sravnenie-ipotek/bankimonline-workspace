@@ -1,0 +1,15 @@
+.servicePlate{
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 920px) {
+        margin-bottom: 12px;
+    }
+}
+
+.messageMargin{
+    margin-bottom: 24px;
+}
+
+.accordionMargin{
+    margin-top: 24px;
+}

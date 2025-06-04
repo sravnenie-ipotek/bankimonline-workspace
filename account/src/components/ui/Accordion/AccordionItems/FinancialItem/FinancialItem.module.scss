@@ -1,0 +1,23 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.value {
+  font-size: theme('fontSize.xl');
+  font-weight: theme('fontWeight.medium');
+  line-height: 22px;
+  color: theme('colors.textTheme.primary');
+
+  @media (max-width: 320px) {
+    font-size: theme('fontSize.base');
+  }
+}
+
+.label {
+  font-size: theme('fontSize.sm');
+  font-weight: theme('fontWeight.normal');
+  line-height: 17px;
+  color: theme('colors.textTheme.darkSecondary');
+}

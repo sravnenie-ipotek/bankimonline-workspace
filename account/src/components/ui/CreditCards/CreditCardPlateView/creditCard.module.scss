@@ -1,0 +1,61 @@
+.creditCardPlate{
+  display: flex;
+  flex-direction: column;
+  max-width: 371px;
+  height: auto;
+  background-color: theme('colors.base.secondary');
+  border: 1px solid theme('colors.base.stroke');
+  border-radius: 8px;
+  padding: 10px 16px;
+  @media (max-width: 380px) {
+    gap: 11px;
+    width: fit-content;
+  }
+}
+
+.creditCardWrapper {
+  display: flex;
+  gap: 11px;
+  justify-items: center;
+  align-items: center;
+  @media (max-width: 380px) {
+    flex-wrap: wrap;
+  }
+}
+
+.creditCardDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  @media (max-width: 380px) {
+    display: none;
+  }
+}
+
+.creditCardDetailsMobile {
+  display: none;
+  @media (max-width: 380px) {
+    margin-left: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.creditCardType{
+  font-size: 16px;
+  font-weight: 500;
+  @media (max-width: 768px) {font-size: 14px}
+}
+
+.creditCardExpirationDate{
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: theme('colors.textTheme.secondary');
+  @media (max-width: 768px) {font-size: 10px}
+}
+
+.creditCardRadioButton{
+  margin-bottom: 22px;
+}

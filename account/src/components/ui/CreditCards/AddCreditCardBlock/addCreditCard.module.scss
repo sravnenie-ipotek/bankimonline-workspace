@@ -1,0 +1,36 @@
+.cardPlate{
+    width: 267px;
+    height: 166px;
+
+    background: transparent;
+    border-radius: theme('borderRadius.roundedLg');
+    border: 1px solid theme('colors.base.stroke');
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 390px) {
+        width: 100%;
+        height: 166px;
+    }
+
+    @media (max-width: 336px) {
+        height: 146px;
+    }
+
+    cursor: pointer;
+
+    &:hover{background: theme('colors.base.secondary')}
+}
+
+
+.cardCenterContent{
+    color: theme('colors.accent.primary');
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 1.5px;
+    margin-left: 6px;
+}
+
+

@@ -1,0 +1,69 @@
+.title {
+  color: #FFF;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  margin-top: 40px;
+  text-wrap: normal;
+}
+.descr {
+  color: #D0D0D0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  text-transform: none;
+  margin-top: 16px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.getButton {
+  padding: 12px 16px;
+  text-align: center;
+  line-height: 140%;
+  text-align: center;
+  border-radius: 8px;
+  width: 100%;
+  margin-top: 24px;
+  @apply font-ru font-medium text-xs text-textTheme-darkPrimary bg-accent-primary;
+}
+
+.tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  width: 100%;
+
+  text-align: left;
+  margin-top: 16px;
+  @apply font-ru font-normal text-xs text-textTheme-disabled;
+}
+
+.itemTab {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  gap: 0.63rem;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+
+  padding: 0.88rem 2rem;
+  @apply border-solid border-b border-base-secondaryDefaultButton;
+}
+
+.itemTab.active {
+  @apply border-b-2 border-solid border-accent-primary
+}

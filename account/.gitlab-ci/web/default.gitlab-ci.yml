@@ -1,0 +1,14 @@
+### ci/web/default.gitlab-ci.yml
+
+### If you need specific variables for the following job you can put them here
+
+build_web:
+  stage: build
+  script: 
+    - echo build_web
+
+
+deploy_web:
+  stage: deploy
+  script: 
+    - echo deploy_web

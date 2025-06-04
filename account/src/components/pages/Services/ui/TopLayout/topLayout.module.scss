@@ -1,0 +1,19 @@
+.mainPlate{
+    max-width: 946px;
+}
+
+.servicesPlate{
+    display: flex;
+    flex-direction: column;
+    row-gap: 40px;
+    @media (max-width: 920px) {
+        row-gap: 24px;
+    }
+}
+
+.textButtonSize{
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}

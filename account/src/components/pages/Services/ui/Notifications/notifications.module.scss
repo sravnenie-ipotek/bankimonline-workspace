@@ -1,0 +1,44 @@
+.documentStatusLabel{
+    background: theme('colors.base.base800'); //стили в случае некорректного статуса
+    color: theme('colors.textTheme.primary');
+
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    height: 56px;
+
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+    font-size: 14px;
+    font-weight: 400;
+
+    display: flex;
+    align-items: center;
+
+    margin-top: 4px;
+
+    @media (max-width: 920px) {
+        margin-top: 0px;
+    }
+
+}
+
+.replyTechnSupport, .documentsAccepted, .banksOffers {
+    background: theme('colors.success.success100');
+}
+
+.documentsNotAccepted {
+    background: theme('colors.error.error500');
+}
+
+.documentStatusLabelText{
+    width: 100%;
+    margin-left: 6px;
+    margin-right: 6px;
+    @media (max-width: 350px) {
+        font-size: 10px;
+    }
+}

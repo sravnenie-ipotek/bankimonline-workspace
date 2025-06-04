@@ -1,0 +1,286 @@
+{
+  "sidebar": {
+    "home": "בית",
+    "questionnaire": "שְׁאֵלוֹן",
+    "documents": "תיעוד",
+    "services": "שירותים",
+    "chat": "לְשׂוֹחֵחַ",
+    "payments": "תשלומים",
+    "settings": "הגדרות",
+    "exampleDocumentationCard": "העלאת מסמך",
+    "logout": "יְצִיאָה"
+  },
+
+  "header": {
+    "userName": "אלכסנדר פושקין",
+    "nowLanguage": "he"
+  },
+
+  "home": {
+    "support": "נתקלת בקשיים ביישום שלך? צור קשר",
+    "supportMobile": "תמיכה טכנית",
+    "title": "בית",
+    "titleQuestionnaireOne": "הפרופיל שלי",
+    "titleQuestionnaireMore": "הפרופילים שלי",
+    "buttonText": {
+      "completeSurvey": "תשלים את הסקר",
+      "documentsNotAccepted": "צפייה במסמכים",
+      "questionnaireNotAccepted": "צפייה במסמכים",
+      "sendApplicationBank": "הגשת בקשה לבנקים",
+      "viewOffers": "צפה בהצעות הבנק",
+      "incorrectStatus": "סטטוס שגוי"
+    }
+  },
+
+  "questionnaire": {
+    "title": "שְׁאֵלוֹן",
+    "addCoBorrower": "הוסף לווה שותף",
+    "delCoBorrower": "הסר שותף ללווה",
+    "endQuestionnaire": "תשלים את הסקר",
+    "personalData": "מידע אישי",
+    "income": "הַכנָסָה",
+    "modal": {
+      "title": "האם אתה בטוח שברצונך להסיר לווה שותף?",
+      "buttonText": "לְאַשֵׁר"
+    }
+  },
+
+  "documents": {
+    "title": "תיעוד",
+    "addCoBorrower": "הוסף לווה שותף",
+    "questionnaire": "שְׁאֵלוֹן",
+    "sendTOBank": "הגשת בקשה לבנק",
+    "loadPhone": "העלה מהטלפון",
+    "service": "שֵׁרוּת"
+  },
+
+  "payments": {
+    "title": "תשלומים",
+    "card": {
+      "title": "קלפים",
+      "chouse": "בחר כרטיס",
+      "del": "הסר את הכרטיס",
+      "nonCardTitle": "הכרטיס אינו מקושר",
+      "nonCardText": "הוסף כרטיס לתשלום עבור השירות",
+      "nonCardButton": "הוסף מפה"
+    },
+    "transactions": {
+      "title": "היסטוריית עסקאות",
+      "nonCardTitle": "אין פה כלום עדיין",
+      "nonCardText": "כאן תוכל לראות את היסטוריית העסקאות שלך",
+
+      "service": "שֵׁרוּת",
+      "sum": "סְכוּם",
+      "date": "תַאֲרִיך",
+      "status": "סטָטוּס",
+      "id": "מזהה עסקה",
+
+      "success": "הַצלָחָה",
+      "failed": "כישלון",
+
+      "download": "הורד קבלה"
+    }
+  },
+
+  "services": {
+    "title": "שירותים",
+    "titleQuestionnaire": "השירותים שלי"
+  },
+
+  "settings": {
+    "title": "הגדרות",
+    "profileDetails": "פרטי פרופיל",
+    "name": "שם פרטי שם משפחה",
+    "phone": "מספר טלפון",
+    "email": "Email",
+    "password": "סיסמה",
+    "changePassword": "שנה סיסמא",
+    "userAgreement": "תנאי שימוש",
+    "privacyPolicy": "מדיניות הפרטיות",
+    "cookie": "нет перевода",
+    "refundPolicy": "нет перевода",
+    "changePhoto": "שנה תמונת פרופיל",
+    "changeName": "שנה שם פרטי שם משפחה",
+    "changePhone": "שנה מספר טלפון",
+    "addEmail": "הזן אימייל",
+    "changeEmail": "שנה כתובת אימייל",
+    "validatePhone": "נא לבדוק SMS",
+    "validateEmail": "אנא בדוק את המייל שלך",
+    "buttonText": {
+      "save": "להציל",
+      "load": "הורד",
+      "back": "חזור",
+      "continue": "לְהַמשִׁיך"
+    },
+    "inputLabel": {
+      "name": "שם פרטי שם משפחה"
+    },
+    "inputPlaceholder": {
+      "name": "הזן את הסיסמה"
+    },
+    "inputErrors": {
+      "require": "Поле обязательно для заполнения!!!Перевод",
+      "minLength": "Минимальное значение Имя Фамилия 5 символов!!!Перевод",
+      "maxLength": "Максимальное значение Имя Фамилия 25 символов!!!Перевод"
+    }
+  },
+
+  "mortageCard": {
+    "mortgageCardDetails": {
+      "mortgageCalculation": {
+        "serviceName": "חשב את המשכנתא שלך",
+        "mainPriceName": "",
+        "addPrice": "עמלה ראשונית"
+      },
+      "mortgageRefinancing": {
+        "serviceName": "למחזר את המשכנתא שלך",
+        "mainPriceName": "יתרת משכנתא"
+      },
+      "loanCalculation": {
+        "serviceName": "חשב הלוואה",
+        "mainPriceName": "סכום האשראי",
+        "addPrice": "תשלום חודשי"
+      },
+      "loanRefinancing": {
+        "serviceName": "למחזר הלוואה",
+        "mainPriceName": "סכום כל ההלוואות",
+        "addPrice": "סך התשלום החודשי"
+      },
+
+      "mortgageTerm": "חודשים",
+      "mortgageTermName": "טווח"
+    },
+
+    "mortgageCardSteps": {
+      "stepsTitle": "מלא את הטופס במלואו, תן לבנקים להתחרות בשבילך",
+      "stepsTitleFull": "השאלון הושלם",
+      "profileStatusTitle": "תשלים את הסקר",
+      "documentsStatusTitle": "העלה מסמכים",
+      "coBorrowerProfileStatusTitleOne": "מלא את טופס בקשת הלווה",
+      "coBorrowerDocumentsStatusTitleOne": "העלה את המסמכים של הלווה",
+      "coBorrowerProfileStatusTitleMore": "מלא את שאלון הלווה #",
+      "coBorrowerDocumentsStatusTitleMore": "העלה את מסמכי הלווה #",
+
+      "progressBarText": "הושלם ב-"
+    }
+  },
+
+  "exit": {
+    "title": "האם אתה בטוח שברצונך להתנתק מהחשבון האישי שלך?",
+    "buttonText": "צא החוצה"
+  },
+
+  "labels": {
+    "serviceStatusLabel": {
+      "completeSurvey": "השלם את השאלון",
+      "documentsNotAccepted": "המסמך לא התקבל",
+      "questionnaireNotAccepted": "שאלון לא התקבל",
+      "sendApplicationBank": "שלח את בקשתך לבנק",
+      "waitResponseBank": "המתן לתגובה מהבנק",
+      "viewOffers": "ראה הצעות",
+      "theDealCompleted": "העסקה הושלמה",
+      "noData": "אין נתונים על סטטוס השאלון"
+    },
+    "documentStatusLabel": {
+      "documentsAccepted": "המסמך התקבל",
+      "documentsNotAccepted": "המסמך לא התקבל",
+      "documentsChecked": "בודק",
+      "noData": "אין נתונים על סטטוס השאלון"
+    }
+  },
+
+  "features": {
+    "titleAfter": "בחר אחד מהשירותים כדי להמשיך",
+    "titleBefore": "שירותי Bankimonline",
+    "calculateMortgage": "חישוב משכנתא",
+    "refinanceMortgage": "למחזר משכנתא",
+    "calculateLoan": "חשב אשראי",
+    "refinanceLoan": "הלוואה למחזר"
+  },
+
+  "deleteModal": {
+    "cancel": "לְבַטֵל"
+  },
+
+  "documentModal": {
+    "download": "הורד"
+  },
+
+  "cards": {
+    "creditCardPlateView": {
+      "cardType": "**** **** 2345 6789",
+      "cardExpirationDate": "תאריך תפוגה: 28/14"
+    },
+    "viewCreditCard": {
+      "cardNumber": "**** **** **** 2345",
+      "cardName": "אלכסנדר פושקין"
+    },
+    "addCard": {
+      "title": "הוסף מפה"
+    }
+  },
+
+  "profileCard": {
+    "title": "פרטי פרופיל",
+    "nameSurname": "שם פרטי שם משפחה",
+    "nameSurnameValue": "אלכסנדר פושקין",
+    "NumberPhone": "מספר טלפון"
+  },
+
+  "accordion": {
+    "title": {
+      "preliminaryProgramSelection": "НУЖЕН ПЕРЕВОД Предварительный выбор программы"
+    },
+    "items": {
+      "paymentAtEndOfTerm": "!!! НУЖЕН ПЕРЕВОД Выплата в конце срока",
+      "monthlyPayment": "תשלום חודשי"
+    }
+  },
+
+  "notifications": {
+    "notifications": "!!! Нужен перевод Уведомления",
+    "offerTitle": "!!!У банка/банков есть предложение",
+    "and": "!!!и еще",
+    "bank_1": "!!!банк",
+    "bank_2": "!!!банка",
+    "bank_5": "!!!банков",
+    "offerYou": "!!!предложили Вам",
+    "mortage": "!!!ипотечную программу",
+    "mortgageRefinancing": "!!!рефинансирование ипотеки",
+    "loan": "!!!кредит",
+    "loanRefinancing": "!!!рефинансирование кредита"
+  },
+
+  "button": {
+    "goToChat": "!!Перейти в чат",
+    "fixDocument": "!!Исправить документ",
+    "viewOffers": "!!Посмотреть программы"
+  },
+
+  "bank": {
+    "hapoalim": "!!Банк Hapoalim",
+    "leumi": "!!Банк Leumi"
+  },
+
+  "addCreditCardProps": {
+    "addCreditTitle": "הוסף מפה",
+    "addCreditCardNumberTitle": "מספר כרטיס",
+    "addCreditCardDateTitle": "תוֹקֶף",
+    "addCreditCardDateTitlePlaceholder": "חודש שנה",
+    "addCreditCardNameTitle": "שם בעל הכרטיס",
+    "addCreditCardNameTitlePlaceholder": "שם הבעלים",
+    "addCreditCardNameButton": "הוסף מפה",
+    "yup": {
+      "cardNumberMin": "בדוק שמספר הכרטיס מולא נכון",
+      "cardNumberMax": "בדוק שמספר הכרטיס מולא נכון",
+      "cardNumberRequired": "הזן את מספר הכרטיס שלך",
+      "cardDateMin": "בדוק שתקופת התוקף מולאה כהלכה",
+      "cardDateMax": "בדוק שתקופת התוקף מולאה כהלכה",
+      "cardDateRequired": "ציין את תקופת התוקף של הכרטיס",
+      "cardCVVMin": "בדוק שה-CVC/CVV ממולא כהלכה",
+      "cardCVVMax": "בדוק שה-CVC/CVV ממולא כהלכה",
+      "cardCVVRequired": "ציין כרטיסי CVC/CVV",
+      "cardName": "הזן את שם בעל הכרטיס"
+    }
+  }
+}
