@@ -1,0 +1,22 @@
+.mortgageCardTitleWrapper {
+  display: flex;
+  width: fit-content;
+  gap: 12px;
+  width: 100%;
+  justify-content: space-between;
+  .mortgageCardTitle {
+    font-size: 24px;
+    font-weight: 600;
+    line-height: normal;
+    text-wrap: wrap;
+    @media (max-width: 346px) {font-size: 22px}
+    @media (max-width: 324px) {font-size: 20px}
+    @media (max-width: 303px) {font-size: 17.4px}
+  }
+
+  .pencilIcon {
+    cursor: pointer;
+    height: fit-content;
+    margin-top: 4.5px;
+  }
+}

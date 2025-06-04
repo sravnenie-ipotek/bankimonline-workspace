@@ -1,0 +1,33 @@
+.tooltipPlate{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+}
+
+.tooltipMainPlate{
+    position: relative;
+    min-width: 200px;
+    max-width: 200px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background: theme('colors.base.base900');
+    border-radius: 4px;
+}
+
+.tooltipRectangle{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 4px 6px 4px;
+    border-color: transparent transparent theme('colors.base.base900') transparent;
+    margin-left: 8px;
+}
+
+.tooltipMessage{
+    font-size: 12px;
+    font-weight: 400;
+    //не в root
+    color: theme('colors.textTheme.primary');
+}

@@ -1,0 +1,83 @@
+.notfound-body {
+  position: relative;
+  border-top: 1px solid #333535;
+  height: calc(100vh - 5.875rem);
+  max-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.notfound-greeting {
+  margin: auto;
+  font-size: 4rem;
+  font-weight: 600;
+  @media screen and (max-width: 380px) {
+    font-size: 3rem;
+    margin-bottom: 10rem;
+  }
+}
+
+.notfound-actions {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: -40rem 0 auto auto;
+  padding: 0 1.5rem;
+  @media screen and (min-width: 380px) {
+    margin: 10rem auto;
+  }
+}
+
+.button-container {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  padding: 0 2.44rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.38rem;
+  color: black;
+  p {
+    position: relative;
+    font-weight: 600;
+    white-space: break-spaces;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.notfound-actions a {
+  border-radius: 8px;
+  background-color: #fbe54d;
+  width: 21.88rem;
+  height: 3.5rem;
+  display: flex;
+  flex-direction: row;
+  padding: 0.75rem 1rem;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: flex-start;
+  color: #161616;
+  text-decoration: none;
+  margin: 1.25rem auto auto;
+  position: relative;
+  z-index: 1;
+  @media screen and (max-width: 380px) {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.notfound-stripe {
+  position: absolute;
+  height: 727px;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-image: url('/static/404/edge.svg');
+}

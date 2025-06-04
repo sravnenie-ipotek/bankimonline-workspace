@@ -1,0 +1,327 @@
+{
+  "sidebar": {
+    "home": "Главная",
+    "questionnaire": "Анкета",
+    "documents": "Документы",
+    "services": "Услуги",
+    "chat": "Чат",
+    "payments": "Платежи",
+    "settings": "Настройки",
+    "exampleDocumentationCard": "Загрузка документа",
+    "logout": "Выход"
+  },
+
+  "header": {
+    "userName": "Александр Пушкин",
+    "nowLanguage": "ru"
+  },
+
+  "home": {
+    "support": "Возникли сложности? Обратитесь к нам",
+    "supportMobile": "Техподдержка",
+    "title": "Главная",
+    "titleQuestionnaireOne": "Моя анкета",
+    "titleQuestionnaireMore": "Мои анкеты",
+    "buttonText": {
+      "completeSurvey": "Завершить анкету'",
+      "documentsNotAccepted": "Просмотр документов",
+      "questionnaireNotAccepted": "Просмотр документов",
+      "sendApplicationBank": "Подать заявку в банки",
+      "viewOffers": "Посмотреть предложения банков",
+      "incorrectStatus": "Некорректный статус"
+    }
+  },
+
+  "questionnaire": {
+    "title": "Анкета",
+    "addCoBorrower": "Добавить созаёмщика",
+    "delCoBorrower": "Удалить созаёмщика",
+    "endQuestionnaire": "Завершить анкету",
+    "personalData": "Личные данные",
+    "income": "Доходы",
+    "modal": {
+      "title": "Вы уверены, что хотите удалить созаемщика?",
+      "buttonText": "Подтвердить"
+    }
+  },
+
+  "documents": {
+    "title": "Документы",
+    "addCoBorrower": "Добавить созаёмщика",
+    "questionnaire": "Анкета",
+    "sendTOBank": "Подать заявку в банк",
+    "loadPhone": "Загрузить из телефона",
+    "service": "Услуга"
+  },
+
+  "payments": {
+    "title": "Платежи",
+    "card": {
+      "title": "Карты",
+      "chouse": "Выбрать карту",
+      "del": "Удалить карту",
+      "nonCardTitle": "Карта не привязана",
+      "nonCardText": "Добавьте карту чтобы оплатить услугу",
+      "nonCardButton": "Добавить карту",
+      "modalTitle": "Вы точно хотите удалить карту?",
+      "modalDescription": "Нажав на кнопку 'Удалить', вы удалите всю информацию о карте",
+      "modalButton": "Удалить"
+    },
+    "transactions": {
+      "title": "История транзакций",
+      "nonCardTitle": "Здесь пока ничего нет",
+      "nonCardText": "Здесь вы сможете посмотреть историю транзакций",
+
+      "service": "Услуга",
+      "sum": "Сумма",
+      "date": "Дата",
+      "status": "Статус",
+      "id": "ID транзакции",
+
+      "success": "Успех",
+      "failed": "Провал",
+
+      "download": "Скачать чек"
+    },
+
+    "buttonText": {
+      "completeSurvey": "Завершить анкету'",
+      "documentsNotAccepted": "Просмотр документов",
+      "questionnaireNotAccepted": "Просмотр документов",
+      "sendApplicationBank": "Подать заявку в банки",
+      "viewOffers": "Посмотреть предложения банков",
+      "incorrectStatus": "Некорректный статус"
+    }
+  },
+
+  "services": {
+    "title": "Услуги",
+    "titleQuestionnaire": "Мои услуги"
+  },
+
+  "settings": {
+    "title": "Настройки",
+    "profileDetails": "Детали профиля",
+    "name": "Имя Фамилия",
+    "phone": "Номер телефона",
+    "email": "Email",
+    "password": "Пароль",
+    "changePassword": "Изменить пароль",
+    "userAgreement": "Пользовательское соглашение",
+    "privacyPolicy": "Политика конфиденциальности",
+    "cookie": "Использование файлов cookie",
+    "refundPolicy": "Политика возврата оплаты услуг",
+    "changePhoto": "Изменить фото профиля",
+    "changeName": "Изменить Фамилию Имя",
+    "changePhone": "Изменить Номер телефона",
+    "addEmail": "Введите email",
+    "changeEmail": "Изменить Email",
+    "validatePhone": "Пожалуйста, проверьте SMS",
+    "validateEmail": "Пожалуйста проверьте Email",
+
+    "buttonText": {
+      "save": "Сохранить",
+      "load": "Загрузить",
+      "back": "Назад",
+      "continue": "Продолжить"
+    },
+
+    "inputLabel": {
+      "name": "Имя Фамилия"
+    },
+    "inputPlaceholder": {
+      "name": "Введите Имя Фамилию"
+    }, 
+    "inputErrors": {
+      "require": "Поле обязательно для заполнения",
+      "minLength": "Минимальное значение Имя Фамилия 5 символов",
+      "maxLength": "Максимальное значение Имя Фамилия 25 символов"
+    }
+  },
+
+  "mortageCard": {
+    "mortgageCardDetails": {
+      "mortgageCalculation": {
+        "serviceName": "Рассчитать ипотеку",
+        "mainPriceName": "Сумма ипотеки",
+        "addPrice": "Первоначальный взнос"
+      },
+      "mortgageRefinancing": {
+        "serviceName": "Рефинансировать ипотеку",
+        "mainPriceName": "Остаток по ипотеке"
+      },
+      "loanCalculation": {
+        "serviceName": "Рассчитать кредит",
+        "mainPriceName": "Сумма кредита",
+        "addPrice": "Ежемесячный платёж"
+      },
+      "loanRefinancing": {
+        "serviceName": "Рефинансировать кредит",
+        "mainPriceName": "Сумма всех кредитов",
+        "addPrice": "Общий ежемесячный платёж"
+      },
+
+      "mortgageTerm": "мес",
+      "mortgageTermName": "Срок"
+    },
+
+    "mortgageCardSteps": {
+      "stepsTitle": "Заполните анкету до конца, позвольте банкам конкурировать за вас",
+      "stepsTitleFull": "Анкета завершена",
+      "profileStatusTitle": "Завершите анкету",
+      "documentsStatusTitle": "Загрузите документы",
+      "coBorrowerProfileStatusTitleOne": "Завершите анкету cозаемщика",
+      "coBorrowerDocumentsStatusTitleOne": "Загрузите документы cозаемщика",
+      "coBorrowerProfileStatusTitleMore": "Завершите анкету cозаемщика #",
+      "coBorrowerDocumentsStatusTitleMore": "Загрузите документы cозаемщика #",
+
+      "progressBarText": "Завершено на"
+    }
+  },
+
+  "exit": {
+    "title": "Вы уверены, что хотите выйти из Личного кабинета?",
+    "buttonText": "Выйти"
+  },
+
+  "labels": {
+    "serviceStatusLabel": {
+      "completeSurvey": "ЗАВЕРШИТЕ АНКЕТУ",
+      "documentsNotAccepted": "ДОКУМЕНТ НЕ ПРИНЯТ",
+      "questionnaireNotAccepted": "АНКЕТА НЕ ПРИНЯТА",
+      "sendApplicationBank": "ОТПРАВЬТЕ ЗАЯВКУ В БАНК",
+      "waitResponseBank": "ОЖИДАЙТЕ ОТВЕТ ОТ БАНКА",
+      "viewOffers": "ПОСМОТРИТЕ ПРЕДЛОЖЕНИЯ",
+      "theDealCompleted": "СДЕЛКА ЗАВЕРШЕНА",
+      "noData": "НЕТ ДАННЫХ ПО СТАТУСУ АНКЕТЫ"
+    },
+    "documentStatusLabel": {
+      "documentsAccepted": "ДОКУМЕНТ ПРИНЯТ",
+      "documentsNotAccepted": "ДОКУМЕНТ НЕ ПРИНЯТ",
+      "documentsChecked": "ПРОВЕРЯЕТСЯ",
+      "noData": "НЕТ ДАННЫХ ПО СТАТУСУ АНКЕТЫ"
+    }
+  },
+
+  "uploadDocument": {
+    "desktop": {
+      "title": "Загрузите документ",
+      "dropText": "Перетащите файл сюда или ",
+      "dropTextPC": "используйте компьютер",
+      "dropTextOr": "или",
+      "buttonTextMobile": "Сделайте фото через мобильное устройство",
+      "buttonTextUpload": "Загрузить"
+    }
+  },
+
+  "features": {
+    "titleAfter": "Выберите одну из услуг, чтобы продолжить",
+    "titleBefore": "Услуги Bankimonline",
+    "calculateMortgage": "Рассчитать Ипотеку",
+    "refinanceMortgage": "Рефинансировать Ипотеку",
+    "calculateLoan": "Рассчитать Кредит",
+    "refinanceLoan": "Рефинансировать Кредит"
+  },
+
+  "deleteModal": {
+    "cancel": "Отменить"
+  },
+
+  "documentModal": {
+    "download": "Скачать"
+  },
+
+  "cards": {
+    "creditCardPlateView": {
+      "cardType": "Visa **** **** 2345 1234",
+      "cardExpirationDate": "Cрок годности: 14/28"
+    },
+    "viewCreditCard": {
+      "cardNumber": "**** **** **** 2345",
+      "cardName": "Александр Пушкин"
+    },
+    "addCard": {
+      "title": "Добавить карту"
+    }
+  },
+
+  "profileCard": {
+    "title": "Детали профиля",
+    "nameSurname": "Имя Фамилия",
+    "nameSurnameValue": "Александр Пушкин",
+    "NumberPhone": "Номер телефона"
+  },
+
+  "documentationCard": {
+    "modals": {
+      "delDocument": {
+        "title": "Вы уверены, что хотите удалить документ?",
+        "buttonText": "Подтвердить"
+      }
+    },
+    "list": {
+      "li1": "В формате PDF, JPEG, JPG, HEIF",
+      "li2": "Убедитесь, что изображение четкое"
+    },
+    "uploadDocument": "Загрузить документ",
+    "sampleDocument": "Образец документа"
+  },
+
+
+  "accordion": {
+    "title": {
+      "preliminaryProgramSelection": "Предварительный выбор программы"
+    },
+    "items": {
+      "paymentAtEndOfTerm": "Выплата в конце срока",
+      "monthlyPayment": "Ежемесячный платеж"
+    }
+  },
+
+  "notifications": {
+    "notifications": "Уведомления",
+    "offerTitle": "У банка/банков есть предложение",
+    "and": "и еще",
+    "bank_1": "банк",
+    "bank_2": "банка",
+    "bank_5": "банков",
+    "offerYou": "предложили Вам",
+    "mortage": "ипотечную программу",
+    "mortgageRefinancing": "рефинансирование ипотеки",
+    "loan": "кредит",
+    "loanRefinancing": "рефинансирование кредита"
+  },
+
+  "button": {
+    "goToChat": "Перейти в чат",
+    "fixDocument": "Исправить документ",
+    "viewOffers": "Посмотреть программы"
+  },
+
+  "bank": {
+    "hapoalim": "Банк Hapoalim",
+    "leumi": "Банк Leumi"
+  },
+
+  "addCreditCardProps": {
+    "addCreditTitle": "Добавить карту",
+    "addCreditCardNumberTitle": "Номер карты",
+    "addCreditCardDateTitle": "Срок действия",
+    "addCreditCardDateTitlePlaceholder": "MM / ГГ",
+    "addCreditCardNameTitle": "Имя владельца карты",
+    "addCreditCardNameTitlePlaceholder": "Имя владельца",
+    "addCreditCardNameButton": "Добавить карту",
+    "yup": {
+      "cardNumberMin": "Проверьте правильность заполнения номера карты",
+      "cardNumberMax": "Проверьте правильность заполнения номера карты",
+      "cardNumberRequired": "Укажите номер карты",
+      "cardDateMin": "Проверьте правильность заполнения срока действия",
+      "cardDateMax": "Проверьте правильность заполнения срока действия",
+      "cardDateRequired": "Укажите срок действия карты",
+      "cardCVVMin": "Проверьте правильность заполнения CVC/CVV",
+      "cardCVVMax": "Проверьте правильность заполнения CVC/CVV",
+      "cardCVVRequired": "Укажите CVC/CVV карты",
+      "cardName": "Укажите имя владельца карты"
+    }
+  }
+}
