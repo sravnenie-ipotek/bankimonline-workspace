@@ -1,0 +1,31 @@
+.mortgageCardStepsMainWrapper {
+  position: relative;
+  display: flex;
+  width: 434px;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+
+  .mortgageCardStepsWrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .mortgageCardProgressBar{
+    margin-top: 4px;
+    width: 100%;
+  }
+
+  .questionnaireDetails {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .questionnaireActions {
+      display: flex;
+    }
+  }
+}

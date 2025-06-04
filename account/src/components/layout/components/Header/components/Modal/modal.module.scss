@@ -1,0 +1,39 @@
+.modal {
+  position: absolute;
+  top: 6.3rem;
+  right: 4.7rem;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/*
+.modal-enter {
+  opacity: 0;
+}
+.modal-enter-active {
+  opacity: 1;
+  transition: opacity 5000ms ease-in;
+}
+.modal-exit {
+  opacity: 1;
+}
+.modal-exit-active {
+  opacity: 0;
+  transition: opacity 5000ms ease-in;
+}
+*/
+
+.modalEnterDone{
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 5000ms ease;
+}
+
+.modalExit{
+  opacity: 0;
+  transition: opacity 5000ms ease;
+}

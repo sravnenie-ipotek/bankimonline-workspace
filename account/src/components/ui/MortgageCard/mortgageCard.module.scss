@@ -1,0 +1,40 @@
+.mortgageCardWrapper {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  background-color: theme('colors.base.secondary');
+  border: 1px solid theme('colors.base.stroke');
+  border-radius: 8px;
+  padding: 24px;
+  display: flex;
+  margin-top: 24px;
+  justify-content: space-between;
+  @media (max-width: 920px) {
+    width: 100%;
+    flex-direction: column;
+    padding-left: 17px;
+    padding-right: 17px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+}
+
+.mortgageCardLine{
+  min-width: 1px;
+  min-height: 100%;
+  background: theme('colors.base.stroke');
+  margin-left: 60px;
+  margin-right: 60px;
+  @media (max-width: 1020px) {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  @media (max-width: 920px) {
+    width: 100%;
+    height: 1px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+}
