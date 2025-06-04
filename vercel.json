@@ -22,10 +22,5 @@
       "src": "/(.*)",
       "dest": "/mainapp/build/$1"
     }
-  ],
-  "functions": {
-    "server.js": {
-      "maxDuration": 10
-    }
-  }
+  ]
 } 
