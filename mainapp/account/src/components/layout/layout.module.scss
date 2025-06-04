@@ -1,0 +1,17 @@
+.mainPlate{
+    //рассчёт ширины блока
+    $width: calc(100% - 276px);
+
+    background: theme('colors.base.primary');
+    color: theme('colors.textTheme.primary');
+    display: grid;
+    grid-template-columns: 276px $width;
+    min-height: 100vh;
+    @media (max-width: 920px) {grid-template-columns: 100%}
+}
+
+.layout{
+    padding: 48px 96px;
+    @media (max-width: 1240px) {padding: 36px 48px}
+    @media (max-width: 768px) {padding: 30px 20px 20px 20px}
+}

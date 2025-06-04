@@ -1,0 +1,39 @@
+@use "sass:math";
+
+.spinner {
+  position: relative;
+  width: 54px;
+  height: 54px;
+  display: inline-block;
+  padding: 10px;
+  margin-top: 18px;
+  border-radius: 10px;
+}
+
+.spinner div {
+  width: 6%;
+  height: 16%;
+  background: #FFF;
+  position: absolute;
+  left: 49%;
+  top: 43%;
+  opacity: 0;
+  border-radius: 50px;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  animation: fade 1s linear infinite;
+}
+
+@keyframes fade {
+  from {opacity: 1;}
+  to {opacity: 0.25;}
+}
+
+// Use a loop to generate the repeated styles
+$total-bars: 8;
+
+@for $i from 1 through $total-bars {
+  .spinner .bar#{$i} {
+    transform: rotate(45deg * ($i - 1)) translate(0, -130%);
+    animation-delay: math.div(1s, $total-bars) * ($i - 1) * -1;
+  }
+}

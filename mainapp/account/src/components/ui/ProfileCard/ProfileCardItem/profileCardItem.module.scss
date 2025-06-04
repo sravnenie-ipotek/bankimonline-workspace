@@ -1,0 +1,18 @@
+.profileCardItemsWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileCardItemLabel {
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: theme('colors.textTheme.secondary');
+  @media (max-width: 368px) {font-size: 1.2rem}
+}
+
+.profileCardItem {
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: theme('colors.textTheme.primary');
+  @media (max-width: 368px) {font-size: 1.4rem}
+}

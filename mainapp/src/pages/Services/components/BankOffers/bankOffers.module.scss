@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.column {
+  flex: 1;
+  min-width: calc(50% - 1rem);
+  @media (max-width: 1200px) {
+    min-width: 100%; /* Занимает всю ширину контейнера минус отступы */
+  }
+}
