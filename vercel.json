@@ -19,8 +19,16 @@
       "dest": "/server.js"
     },
     {
-      "src": "/(.*)",
+      "src": "/assets/(.*)",
+      "dest": "/mainapp/build/assets/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg))",
       "dest": "/mainapp/build/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/mainapp/build/index.html"
     }
   ]
 } 
