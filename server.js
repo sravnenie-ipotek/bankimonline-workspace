@@ -113,14 +113,13 @@ app.post('/api/sms-login', async (req, res) => {
     }
 
     try {
-        const userResult = await pool.query('SELECT * FROM users WHERE phone = $1', [mobile_number]);
+        const clientResult = await pool.query('SELECT * FROM clients WHERE phone = $1', [mobile_number]);
 
-        if (userResult.rows.length === 0) {
-            // In a real app, you might want to register the user here or deny access.
-            // For now, we'll allow any phone number to proceed to the code entry step.
+        if (clientResult.rows.length === 0) {
+            // New phone number - will create client record after OTP verification
             console.log(`[AUTH] New phone number attempt: ${mobile_number}. Allowing to proceed.`);
         } else {
-            console.log(`[AUTH] Existing user found for phone: ${mobile_number}`);
+            console.log(`[AUTH] Existing client found for phone: ${mobile_number}`);
         }
         
         // --- SMS Sending Simulation ---
@@ -162,26 +161,26 @@ app.post('/api/sms-code-login', async (req, res) => {
     }
 
     try {
-        let user;
-        const userResult = await pool.query('SELECT * FROM users WHERE phone = $1', [mobile_number]);
+        let client;
+        const clientResult = await pool.query('SELECT * FROM clients WHERE phone = $1', [mobile_number]);
 
-        if (userResult.rows.length > 0) {
-            user = userResult.rows[0];
+        if (clientResult.rows.length > 0) {
+            client = clientResult.rows[0];
         } else {
-            // If the user doesn't exist, create a new one.
-            console.log(`[AUTH] User not found. Creating new user for phone: ${mobile_number}`);
-            const newUserResult = await pool.query(
-                'INSERT INTO users (name, phone, email, password, role, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *',
-                [`User ${mobile_number}`, mobile_number, `${mobile_number}@bankim.com`, 'password-not-set', 'user']
+            // If the client doesn't exist, create a new one.
+            console.log(`[AUTH] Client not found. Creating new client for phone: ${mobile_number}`);
+            const newClientResult = await pool.query(
+                'INSERT INTO clients (first_name, last_name, email, phone, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING *',
+                ['New', 'Client', `${mobile_number}@bankim.com`, mobile_number]
             );
-            user = newUserResult.rows[0];
+            client = newClientResult.rows[0];
         }
 
         // --- JWT Generation ---
-        // Once OTP is "verified", create a JWT for the user.
+        // Once OTP is "verified", create a JWT for the client.
         const token = jwt.sign(
-            { id: user.id, phone: user.phone, role: user.role },
-            process.env.JWT_SECRET,
+            { id: client.id, phone: client.phone, type: 'client', name: `${client.first_name} ${client.last_name}` },
+            process.env.JWT_SECRET || 'fallback-secret-key',
             { expiresIn: '1h' } // Token expires in 1 hour
         );
 
@@ -193,9 +192,10 @@ app.post('/api/sms-code-login', async (req, res) => {
             data: {
                 token,
                 user: {
-                    id: user.id,
-                    name: user.name,
-                    phone: user.phone
+                    id: client.id,
+                    name: `${client.first_name} ${client.last_name}`,
+                    phone: client.phone,
+                    email: client.email
                 }
             }
         });
@@ -207,17 +207,10 @@ app.post('/api/sms-code-login', async (req, res) => {
 
 
 // Fallback for other endpoints not yet converted
-app.get('/api/v1/*', (req, res) => {
+app.all('/api/v1/*', (req, res) => {
     res.status(404).json({
         error: 'Endpoint not implemented in DB version',
-        message: `The GET endpoint ${req.path} exists in mock server but is not yet connected to the database.`
-    });
-});
-
-app.post('/api/v1/*', (req, res) => {
-    res.status(404).json({
-        error: 'Endpoint not implemented in DB version',
-        message: `The POST endpoint ${req.path} exists in mock server but is not yet connected to the database.`
+        message: `The ${req.method} endpoint ${req.path} exists in mock server but is not yet connected to the database.`
     });
 });
 
