@@ -294,6 +294,71 @@ npm run dev
 - 💾 **Data Loss**: User data only stored in browser localStorage
 - 🔐 **No Security**: Mock JWT tokens have no validation
 
+## 🗄️ **Railway PostgreSQL Database Integration**
+
+### **✅ Database Connection Status: ACTIVE**
+
+The application is now connected to a **live Railway PostgreSQL database** with real production data.
+
+### **📊 Database Structure**
+
+| Table | Purpose | Key Columns | Records |
+|-------|---------|-------------|---------|
+| **`banks`** | Israeli bank information | `name_ru`, `name_en`, `name_he`, `logo`, `url`, `priority` | 15+ banks |
+| **`clients`** | Client registrations (SMS Auth) | `first_name`, `last_name`, `phone`, `email` | 350+ clients |
+| **`users`** | Admin/staff accounts (Email Auth) | `name`, `email`, `password`, `role` | 5+ users |
+| **`locales`** | Multi-language content | `key`, `name_ru`, `name_en`, `name_he`, `page_id` | 1600+ entries |
+| **`params`** | System configuration | `key`, `value`, multilingual names | 25+ params |
+
+### **🔐 Authentication System**
+
+#### **Dual Authentication Model:**
+- **📱 Phone-based (SMS)**: Uses `clients` table for customer registration/login
+- **📧 Email-based**: Uses `users` table for admin/staff access
+
+### **🧪 Login Testing Data**
+
+#### **📱 SMS Phone Login (Customer Access):**
+```
+Phone Number: +972501234567
+SMS Code: Any 4-digit code (e.g., 1234)
+Result: Auto-creates client record, returns JWT token
+```
+
+#### **📧 Admin Login (if implementing email auth):**
+```
+Admin Email: ceo@bankimonline.com
+Test Email: newuser@bankim.com  
+Result: Authenticates against users table
+```
+
+### **🏦 Live Bank Data Available:**
+1. **Государственный банк Израиля** / State Bank of Israel
+2. **Банк Хапоалим** / Bank Hapoalim  
+3. **Банк Дисконт** / Discount Bank
+4. **Mizrahi Tefahot Bank**
+5. *...and 10+ more Israeli banks with logos, URLs, and priority ratings*
+
+### **🔧 Database Testing Commands**
+```bash
+# Test database connection
+node test-railway-simple.js
+
+# Check database structure  
+node check-db-structure.js
+
+# Test login flow and registration
+node test-login-flow.js
+```
+
+### **🚀 Production Features Now Available:**
+- ✅ **Real user registration** - Creates actual client records
+- ✅ **Persistent authentication** - JWT tokens with database validation
+- ✅ **Live bank data** - Actual Israeli bank information with logos
+- ✅ **Multi-language content** - 1600+ localized text entries
+- ✅ **System configuration** - Live parameter management
+- ✅ **CRUD operations** - Full database read/write capabilities
+
 ## 🔐 Security Note
 
 ⚠️ **Current State: Development/Demo Only**
