@@ -47,9 +47,9 @@ if not exist "mainapp\node_modules" (
 echo Starting services...
 echo.
 
-REM Start Mock API Server
-echo - Starting Mock API Server on port 8003...
-start "Mock API - Bankimonline" cmd /k "npm start"
+REM Start Database API Server
+echo - Starting Database API Server on port 8003...
+start "Database API - Bankimonline" cmd /k "npm start"
 
 REM Wait a moment for API to start
 timeout /t 3 /nobreak >nul
@@ -64,11 +64,11 @@ echo   Standalone Application Started!
 echo ========================================
 echo.
 echo Services running:
-echo   📊 Mock API Server: http://localhost:8003
-echo   🚀 React App:      http://localhost:5173
+echo   🗄️ Database API Server: http://localhost:8003
+echo   🚀 React App:           http://localhost:5173
 echo.
-echo 💡 Note: The React app will use mock data from the API server.
-echo    No PHP, database, or other services required!
+echo 💡 Note: The React app now uses REAL data from Railway PostgreSQL!
+echo    Full authentication and live bank data included!
 echo.
 echo Press any key to continue...
 pause >nul 
