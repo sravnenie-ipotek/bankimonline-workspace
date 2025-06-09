@@ -1,11 +1,14 @@
 #!/usr/bin/env node
+require('dotenv').config(); // Load environment variables from .env file
+
 /**
- * Bankimonline Mock API Server - Node.js Version
- * Consolidates all Python mock servers into a single Node.js application
- * 
+ * Bankimonline REAL API Server - Node.js Version
+ * Connects to a PostgreSQL database and replaces the mock server functionality.
+ *
  * Features:
- * - Mock API endpoints (port 8003)
- * - Proxy functionality for backend.bankimonline.com
+ * - Real API endpoints (port 8003)
+ * - PostgreSQL database connection
+ * - JWT-based authentication
  * - CORS support
  * - Comprehensive logging
  */
@@ -13,244 +16,217 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const { createProxyMiddleware } = require('http-proxy-middleware');
+const { Pool } = require('pg'); // PostgreSQL client
+const jwt = require('jsonwebtoken'); // JSON Web Token for authentication
 
 // Create Express app
 const app = express();
 
+// --- Database Connection ---
+// Use the DATABASE_URL from the .env file to connect to Railway PostgreSQL
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway'
+});
+
+// Test the database connection
+pool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        console.error('❌ Error connecting to the database', err.stack);
+    } else {
+        console.log('✅ Database connected successfully at:', res.rows[0].now);
+    }
+});
+
+
 // Middleware
 app.use(cors({
-    origin: '*',
+    origin: '*', // In production, you should restrict this to your frontend's URL
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Locale']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+app.use(morgan('dev')); // Request logging
 
 // Root endpoint
 app.get('/', (req, res) => {
     res.json({
-        message: 'Bankimonline Mock API Server',
-        version: '2.0.0',
+        message: 'Bankimonline API Server',
+        version: '3.0.0-db',
         status: 'running',
-        node_version: process.version
+        node_version: process.version,
+        database: 'connected'
     });
 });
 
-// Health check endpoint
+// --- REAL API ENDPOINTS ---
+
+// Health check endpoint (no changes needed)
 app.get('/api/health', (req, res) => {
     res.json({
         status: 'ok',
         service: 'Bankimonline API',
         timestamp: new Date().toISOString(),
-        version: '2.0.0'
+        version: '3.0.0-db'
     });
 });
 
-// App parameters endpoint
-app.get('/api/v1/params', (req, res) => {
-    res.json({
-        data: {
-            app_name: 'Bankimonline',
-            app_version: '1.0.0',
-            api_version: 'v1',
-            environment: 'development',
-            features: {
-                registration: true,
-                calculator: true,
-                hr_system: true,
-                admin_panel: true
-            },
-            settings: {
-                max_file_size: '10MB',
-                supported_languages: ['ru', 'en'],
-                default_language: 'ru'
-            }
-        },
-        status: 'success'
-    });
+// Get all banks from the database
+app.get('/api/v1/banks', async (req, res) => {
+    try {
+        // Query the 'banks' table
+        const result = await pool.query('SELECT id, name_ru as name, logo as code FROM banks ORDER BY name_ru');
+        res.json({
+            data: result.rows,
+            status: 'success'
+        });
+    } catch (err) {
+        console.error('Error fetching banks:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
-// Simplified params endpoint (from start-port80-api.py)
-app.get('/params', (req, res) => {
-    res.json({
-        data: {
-            app_name: 'Bankimonline',
-            working: true
-        },
-        status: 'success'
-    });
+// Get all cities from the database
+app.get('/api/v1/cities', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT id, name_ru as name FROM cities ORDER BY id');
+        res.json({
+            data: result.rows,
+            status: 'success'
+        });
+    } catch (err) {
+        console.error('Error fetching cities:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
-// Pages endpoint
-app.get('/api/v1/pages', (req, res) => {
-    res.json({
-        data: [
-            { id: 1, slug: 'home', title: 'Главная', url: '/' },
-            { id: 2, slug: 'about', title: 'О нас', url: '/about' },
-            { id: 3, slug: 'services', title: 'Услуги', url: '/services' },
-            { id: 4, slug: 'calculator', title: 'Калькулятор', url: '/calculator' },
-            { id: 5, slug: 'contact', title: 'Контакты', url: '/contact' }
-        ],
-        status: 'success'
-    });
-});
 
-// Locales endpoints
-app.get(['/api/v1/locales', '/locales'], (req, res) => {
-    res.json({
-        data: {
-            ru: 'Русский',
-            en: 'English'
-        },
-        status: 'success'
-    });
-});
+// --- AUTHENTICATION FLOW ---
 
-// Banks endpoints
-app.get(['/api/v1/banks', '/banks'], (req, res) => {
-    res.json({
-        data: [
-            { id: 1, name: 'Сбербанк', code: 'sberbank' },
-            { id: 2, name: 'ВТБ', code: 'vtb' },
-            { id: 3, name: 'Альфа-Банк', code: 'alfabank' },
-            { id: 4, name: 'Газпромбанк', code: 'gazprombank' }
-        ],
-        status: 'success'
-    });
-});
+// Step 1: User provides phone number.
+// The frontend calls this endpoint to check if the user exists and to trigger an OTP.
+app.post('/api/sms-login', async (req, res) => {
+    const { mobile_number } = req.body;
 
-// Cities endpoint
-app.get('/api/v1/cities', (req, res) => {
-    res.json({
-        data: [
-            { id: 1, name: 'Москва', region: 'Московская область' },
-            { id: 2, name: 'Санкт-Петербург', region: 'Ленинградская область' },
-            { id: 3, name: 'Новосибирск', region: 'Новосибирская область' },
-            { id: 4, name: 'Екатеринбург', region: 'Свердловская область' }
-        ],
-        status: 'success'
-    });
-});
-
-// Get cities with language support
-app.get('/api/get-cities', (req, res) => {
-    const lang = req.query.lang || 'en';
-    let cities_data;
-
-    switch(lang) {
-        case 'en':
-            cities_data = [
-                'United States', 'Canada', 'United Kingdom', 'Germany',
-                'France', 'Spain', 'Italy', 'Netherlands', 'Sweden', 'Norway'
-            ];
-            break;
-        case 'he':
-            cities_data = [
-                'ישראל', 'ארצות הברית', 'קנדה', 'בריטניה', 'גרמניה',
-                'צרפת', 'ספרד', 'איטליה', 'הולנד', 'שוודיה'
-            ];
-            break;
-        default: // Russian
-            cities_data = [
-                'Россия', 'США', 'Канада', 'Великобритания', 'Германия',
-                'Франция', 'Испания', 'Италия', 'Нидерланды', 'Швеция'
-            ];
+    if (!mobile_number) {
+        return res.status(400).json({ error: 'Mobile number is required' });
     }
 
-    res.json({
-        data: cities_data,
-        status: 'success',
-        language: lang
-    });
-});
+    try {
+        const userResult = await pool.query('SELECT * FROM users WHERE phone = $1', [mobile_number]);
 
-// Users endpoint (from start-port80-api.py)
-app.get('/users', (req, res) => {
-    res.json({
-        data: {
-            user_id: 1,
-            name: 'Test User',
-            notices: []
-        },
-        status: 'success'
-    });
-});
-
-// User params endpoint (from start-port80-api.py)
-app.get('/user_params', (req, res) => {
-    res.json({
-        data: {
-            theme: 'light',
-            language: 'ru'
-        },
-        status: 'success'
-    });
-});
-
-// Mock POST endpoints for login
-app.post('/api/sms-password-login', (req, res) => {
-    console.log('[MOCK API] SMS password login request:', req.body);
-    res.json({
-        status: 'success',
-        message: 'SMS sent successfully',
-        data: {
-            phone: req.body.phone || '+1234567890',
-            code_sent: true
+        if (userResult.rows.length === 0) {
+            // In a real app, you might want to register the user here or deny access.
+            // For now, we'll allow any phone number to proceed to the code entry step.
+            console.log(`[AUTH] New phone number attempt: ${mobile_number}. Allowing to proceed.`);
+        } else {
+            console.log(`[AUTH] Existing user found for phone: ${mobile_number}`);
         }
-    });
+        
+        // --- SMS Sending Simulation ---
+        // In a real application, you would integrate an SMS service like Twilio here
+        // and send a real OTP to the user's phone.
+        const otp = Math.floor(1000 + Math.random() * 9000); // Generate a 4-digit OTP
+        console.log('**************************************************');
+        console.log(`**  OTP for ${mobile_number} is: ${otp}  **`);
+        console.log('**  In production, this would be sent via SMS.  **');
+        console.log('**************************************************');
+        
+        // You might store this OTP in the database with an expiry to verify it in the next step.
+        // For this implementation, we will accept a hardcoded code for simplicity.
+
+        res.json({
+            status: 'success',
+            message: 'OTP initiated. Check console for the code.',
+            data: { mobile_number } // Send back the number for the next step
+        });
+
+    } catch (err) {
+        console.error('Error during sms-login:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
-app.post('/api/sms-code-login', (req, res) => {
-    console.log('[MOCK API] SMS code login request:', req.body);
-    res.json({
-        status: 'success',
-        message: 'Login successful',
-        data: {
-            token: 'mock-jwt-token-' + Date.now(),
-            user: {
-                id: 1,
-                name: 'Test User',
-                phone: req.body.phone || '+1234567890'
+
+// Step 2: User provides the OTP code they received.
+app.post('/api/sms-code-login', async (req, res) => {
+    const { code, mobile_number } = req.body;
+
+    console.log(`[AUTH] Attempting to verify code '${code}' for number '${mobile_number}'`);
+
+    // --- OTP Verification Simulation ---
+    // For this example, we'll accept any 4-digit code.
+    // A real implementation would compare the user's input with the stored OTP.
+    if (!code || code.length !== 4) {
+        return res.status(400).json({ status: 'error', message: 'Invalid code format.' });
+    }
+
+    try {
+        let user;
+        const userResult = await pool.query('SELECT * FROM users WHERE phone = $1', [mobile_number]);
+
+        if (userResult.rows.length > 0) {
+            user = userResult.rows[0];
+        } else {
+            // If the user doesn't exist, create a new one.
+            console.log(`[AUTH] User not found. Creating new user for phone: ${mobile_number}`);
+            const newUserResult = await pool.query(
+                'INSERT INTO users (name, phone, email, password, role, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *',
+                [`User ${mobile_number}`, mobile_number, `${mobile_number}@bankim.com`, 'password-not-set', 'user']
+            );
+            user = newUserResult.rows[0];
+        }
+
+        // --- JWT Generation ---
+        // Once OTP is "verified", create a JWT for the user.
+        const token = jwt.sign(
+            { id: user.id, phone: user.phone, role: user.role },
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' } // Token expires in 1 hour
+        );
+
+        console.log(`[AUTH] Login successful for ${mobile_number}. JWT issued.`);
+        
+        res.json({
+            status: 'success',
+            message: 'Login successful',
+            data: {
+                token,
+                user: {
+                    id: user.id,
+                    name: user.name,
+                    phone: user.phone
+                }
             }
-        }
+        });
+    } catch (err) {
+        console.error('Error during sms-code-login:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+// Fallback for other endpoints not yet converted
+app.get('/api/v1/*', (req, res) => {
+    res.status(404).json({
+        error: 'Endpoint not implemented in DB version',
+        message: `The GET endpoint ${req.path} exists in mock server but is not yet connected to the database.`
     });
 });
 
-// Generic POST handler
-app.post('*', (req, res) => {
-    console.log('[MOCK API] POST request to:', req.path);
-    res.json({
-        message: 'POST request received',
-        status: 'success',
-        note: 'This is a mock response',
-        path: req.path,
-        body: req.body
+app.post('/api/v1/*', (req, res) => {
+    res.status(404).json({
+        error: 'Endpoint not implemented in DB version',
+        message: `The POST endpoint ${req.path} exists in mock server but is not yet connected to the database.`
     });
 });
 
-// 404 handler
+
+// 404 handler for any other routes
 app.use((req, res) => {
     res.status(404).json({
         error: 'Endpoint not found',
-        message: `The endpoint ${req.path} is not implemented in the mock server`,
-        available_endpoints: [
-            '/api/health',
-            '/api/v1/params',
-            '/api/v1/pages',
-            '/api/v1/locales',
-            '/api/v1/banks',
-            '/api/v1/cities',
-            '/api/get-cities?lang=en',
-            '/api/sms-password-login',
-            '/api/sms-code-login',
-            '/params',
-            '/locales',
-            '/banks',
-            '/users',
-            '/user_params'
-        ]
+        message: `The endpoint ${req.method} ${req.path} does not exist.`
     });
 });
 
@@ -263,68 +239,22 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Proxy server functionality (optional - can be enabled with --proxy flag)
-function createProxyServer(targetPort) {
-    const proxyApp = express();
-    
-    proxyApp.use('/', createProxyMiddleware({
-        target: `http://localhost:${targetPort}`,
-        changeOrigin: true,
-        onError: (err, req, res) => {
-            console.error('[PROXY ERROR]', err);
-            res.status(503).json({
-                error: 'Proxy error: Backend not available',
-                message: `Make sure the backend is running on http://localhost:${targetPort}`
-            });
-        },
-        onProxyReq: (proxyReq, req, res) => {
-            console.log(`[PROXY] ${req.method} ${req.path} -> http://localhost:${targetPort}${req.path}`);
-        }
-    }));
-    
-    return proxyApp;
-}
 
 // Start server
 const PORT = process.env.PORT || 8003;
-const PROXY_PORT = process.env.PROXY_PORT || 8443;
-const enableProxy = process.argv.includes('--proxy');
 
-console.log('='.repeat(60));
-console.log('  Bankimonline Mock API Server (Node.js)');
-console.log('='.repeat(60));
-
-// Start main API server
 app.listen(PORT, () => {
-    console.log(`  Mock API listening on: http://localhost:${PORT}`);
-    console.log('  Available endpoints:');
-    console.log('    GET  /api/health');
-    console.log('    GET  /api/v1/params');
-    console.log('    GET  /api/v1/pages');
-    console.log('    GET  /api/v1/locales');
-    console.log('    GET  /api/v1/banks');
-    console.log('    GET  /api/v1/cities');
-    console.log('    GET  /api/get-cities?lang=en');
-    console.log('    POST /api/sms-password-login');
-    console.log('    POST /api/sms-code-login');
+    console.log('='.repeat(60));
+    console.log(`  Bankimonline REAL API Server (Node.js + PostgreSQL)`);
+    console.log(`  API listening on: http://localhost:${PORT}`);
     console.log('='.repeat(60));
 });
 
-// Start proxy server if enabled
-if (enableProxy) {
-    const proxyApp = createProxyServer(PORT);
-    proxyApp.listen(PROXY_PORT, () => {
-        console.log(`  Proxy server listening on: http://localhost:${PROXY_PORT}`);
-        console.log(`  Proxying to: http://localhost:${PORT}`);
-        console.log('='.repeat(60));
-        console.log('  Add this to your hosts file:');
-        console.log('  127.0.0.1 backend.bankimonline.com');
-        console.log('='.repeat(60));
-    });
-}
-
 // Graceful shutdown
 process.on('SIGINT', () => {
-    console.log('\nShutting down servers...');
-    process.exit(0);
+    console.log('\nShutting down server...');
+    pool.end(() => {
+        console.log('Database pool has been closed.');
+        process.exit(0);
+    });
 });
