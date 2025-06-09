@@ -196,6 +196,57 @@ app.post('/api/sms-code-login', async (req, res) => {
     }
 });
 
+// EMAIL CODE LOGIN - Step 2 (for email-based 2FA)
+app.post('/api/email-code-login', async (req, res) => {
+    const { code, email } = req.body;
+    
+    console.log(`[EMAIL 2FA] Verify ${code} for ${email}`);
+    
+    if (!code || !email || code.length !== 4) {
+        return res.status(400).json({ status: 'error', message: 'Invalid code' });
+    }
+    
+    try {
+        // Get user from database
+        const userResult = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+        
+        if (userResult.rows.length === 0) {
+            return res.status(401).json({
+                status: 'error',
+                message: 'User not found'
+            });
+        }
+        
+        const user = userResult.rows[0];
+        console.log(`[EMAIL 2FA] Code verified for: ${user.name} (${user.role})`);
+        
+        // Generate JWT token
+        const token = jwt.sign(
+            { id: user.id, email: user.email, role: user.role, name: user.name },
+            process.env.JWT_SECRET || 'secret',
+            { expiresIn: '24h' }
+        );
+        
+        res.json({
+            status: 'success',
+            message: 'Login successful',
+            data: {
+                token,
+                user: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    role: user.role
+                }
+            }
+        });
+        
+    } catch (err) {
+        console.error('Email 2FA verify error:', err);
+        res.status(500).json({ status: 'error', message: 'Server error' });
+    }
+});
+
 // 404 handler
 app.use((req, res) => {
     res.status(404).json({ error: 'Endpoint not found' });
@@ -206,6 +257,7 @@ app.listen(PORT, () => {
     console.log('🚀 Database API Server Started');
     console.log(`📡 http://localhost:${PORT}`);
     console.log('📧 Email login: POST /api/login');
+    console.log('📧 Email 2FA: POST /api/email-code-login');
     console.log('📱 SMS login: POST /api/sms-login & /api/sms-code-login');
     console.log('');
 });
