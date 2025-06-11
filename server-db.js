@@ -200,10 +200,16 @@ app.post('/api/sms-code-login', async (req, res) => {
 app.post('/api/email-code-login', async (req, res) => {
     const { code, email } = req.body;
     
-    console.log(`[EMAIL 2FA] Verify ${code} for ${email}`);
+    console.log(`[EMAIL 2FA] Verify code for ${email}`);
+    console.log(`[EMAIL 2FA] Raw request body:`, req.body);
+    console.log(`[EMAIL 2FA] Code: "${code}" (length: ${code ? code.length : 'N/A'})`);
     
-    if (!code || !email || code.length !== 4) {
-        return res.status(400).json({ status: 'error', message: 'Invalid code' });
+    if (!code || !email) {
+        return res.status(400).json({ status: 'error', message: 'Email and code are required' });
+    }
+    
+    if (code.length < 3 || code.length > 6) {
+        return res.status(400).json({ status: 'error', message: 'Code must be 3-6 digits' });
     }
     
     try {
