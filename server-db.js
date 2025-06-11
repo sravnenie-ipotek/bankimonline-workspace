@@ -105,6 +105,7 @@ app.post('/api/login', async (req, res) => {
             message: 'Login successful',
             data: {
                 token,
+                email: user.email,  // Add email at data level for frontend
                 user: {
                     id: user.id,
                     name: user.name,
