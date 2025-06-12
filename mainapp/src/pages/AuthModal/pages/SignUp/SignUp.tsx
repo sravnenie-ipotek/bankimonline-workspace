@@ -2,9 +2,9 @@ import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import YupPassword from 'yup-password'
 
-import { useAppDispatch, useAppSelector } from '@src/hooks/store'
+import { useAppDispatch } from '@src/hooks/store'
 import {
-  setActiveModal,
+  // setActiveModal,
   updateRegistrationData,
 } from '@src/pages/Services/slices/loginSlice'
 import { useSignUpMutation } from '@src/services/auth/auth'
@@ -33,43 +33,95 @@ const SignUp = () => {
     nameSurname: '',
   }
 
-  const activeTab = useAppSelector((state) => state.login.activeTab)
+  // const activeTab = useAppSelector((state) => state.login.activeTab)
+
+  const getAccountUrl = () => {
+    return import.meta.env.VITE_ACCOUNT_URL || 'http://localhost:3001/'
+  }
 
   const handleRegisterPhone = async (values: SignUpFormType) => {
+    console.log('Form values:', values)
+    
+    // Ensure phone number has + prefix
+    let phoneNumber = values.phoneNumber
+    if (phoneNumber && !phoneNumber.startsWith('+')) {
+      phoneNumber = '+' + phoneNumber
+    }
+    
+    const requestData = {
+      name: values.nameSurname,
+      mobile_number: phoneNumber,
+      email: values.email,
+      password: values.password,
+      password_confirmation: values.repeatPassword,
+    }
+    
+    console.log('Sending to API:', requestData)
+    
     try {
-      const response = await signUp({
-        name: values.nameSurname,
-        mobile_number: values.phoneNumber,
-        email: values.email,
-        password: values.password,
-        password_confirmation: values.repeatPassword,
-      }).unwrap()
+      const response = await signUp(requestData).unwrap()
+      
+      console.log('Registration successful:', response)
+      
+      // Store user data in localStorage for immediate login
+      localStorage.setItem('USER_DATA', JSON.stringify(response.data))
+      
+      // Update registration data in Redux
       dispatch(updateRegistrationData(response.data))
-      // localStorage.setItem(USER_DATA, JSON.stringify(response.data.data))
-      dispatch(setActiveModal('codeSignUp'))
+      
+      // Show success message and redirect to Personal Account
+      alert('Регистрация успешна! Перенаправляем в Личный кабинет...')
+      
+      // Redirect to Personal Account
+      window.location.href = getAccountUrl()
+      
     } catch (error) {
-      console.error(error)
-      dispatch(setActiveModal('codeSignUp'))
+      console.error('Registration error:', error)
+      alert('Ошибка регистрации. Попробуйте еще раз.')
     }
   }
 
-  const handleRegisterEmail = async (values: SignUpFormType) => {
-    try {
-      const response = await signUp({
-        name: values.nameSurname,
-        email: values.email,
-        mobile_number: values.phoneNumber,
-        password: values.password,
-        password_confirmation: values.repeatPassword,
-      }).unwrap()
-      dispatch(updateRegistrationData(response.data))
-      // localStorage.setItem(USER_DATA, JSON.stringify(response.data.data))
-      dispatch(setActiveModal('codeSignUp'))
-    } catch (error) {
-      console.error(error)
-      dispatch(setActiveModal('codeSignUp'))
+  /* const handleRegisterEmail = async (values: SignUpFormType) => {
+    console.log('Form values:', values)
+    
+    // Ensure phone number has + prefix
+    let phoneNumber = values.phoneNumber
+    if (phoneNumber && !phoneNumber.startsWith('+')) {
+      phoneNumber = '+' + phoneNumber
     }
-  }
+    
+    const requestData = {
+      name: values.nameSurname,
+      mobile_number: phoneNumber,
+      email: values.email,
+      password: values.password,
+      password_confirmation: values.repeatPassword,
+    }
+    
+    console.log('Sending to API:', requestData)
+    
+    try {
+      const response = await signUp(requestData).unwrap()
+      
+      console.log('Registration successful:', response)
+      
+      // Store user data in localStorage for immediate login
+      localStorage.setItem('USER_DATA', JSON.stringify(response.data))
+      
+      // Update registration data in Redux
+      dispatch(updateRegistrationData(response.data))
+      
+      // Show success message and redirect to Personal Account
+      alert('Регистрация успешна! Перенаправляем в Личный кабинет...')
+      
+      // Redirect to Personal Account
+      window.location.href = getAccountUrl()
+      
+    } catch (error) {
+      console.error('Registration error:', error)
+      alert('Ошибка регистрации. Попробуйте еще раз.')
+    }
+  } */
 
   const fullValidatorForSchema =
     (
@@ -98,17 +150,26 @@ const SignUp = () => {
         )
 
   const validationSchema = Yup.object().shape({
+    nameSurname: Yup.string()
+      .min(2, 'Минимум 2 символа')
+      .required('Имя и фамилия обязательны'),
+    phoneNumber: Yup.string()
+      .min(10, 'Неверный формат номера')
+      .required('Номер телефона обязателен'),
+    email: Yup.string()
+      .email('Неверный формат email')
+      .required('Email обязателен'),
     password: Yup.string()
       .password()
       .min(8, 'Минимум 8 символов')
       .minLowercase(1, 'Обязательно должны быть строчные буквы.')
       .minUppercase(1, 'Обязательно должны быть заглавные буквы.')
       .minSymbols(1, 'Обязательно должны быть специальные символы.')
-      .minNumbers(1, 'Обязательно должны быть цифры.'),
-    repeatPassword: Yup.string().equals(
-      [Yup.ref('password')],
-      'Пароли не совпадают'
-    ),
+      .minNumbers(1, 'Обязательно должны быть цифры.')
+      .required('Пароль обязателен'),
+    repeatPassword: Yup.string()
+      .equals([Yup.ref('password')], 'Пароли не совпадают')
+      .required('Подтверждение пароля обязательно'),
   })
 
   return (
@@ -118,10 +179,9 @@ const SignUp = () => {
       // @ts-ignore
       validate={fullValidatorForSchema(validationSchema)}
       onSubmit={(values) => {
-        console.log(values)
-        activeTab === 'phone'
-          ? handleRegisterPhone(values)
-          : handleRegisterEmail(values)
+        console.log('Form submitted with values:', values)
+        // Always use the same registration logic since we need both phone and email
+        handleRegisterPhone(values)
       }}
     >
       <Form>
