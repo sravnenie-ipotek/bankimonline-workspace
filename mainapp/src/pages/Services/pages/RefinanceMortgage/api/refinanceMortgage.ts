@@ -1,5 +1,7 @@
 const refinanceMortgage = async (data: any) => {
-  const url = 'https://api-dev2.bankimonline.com/api/refinance-mortgage'
+  // Get API base URL from environment variables
+  const baseUrl = process.env.VITE_NODE_API_BASE_URL || 'http://localhost:8003/api'
+  const url = `${baseUrl}/refinance-mortgage`
 
   try {
     const opts: RequestInit = {
