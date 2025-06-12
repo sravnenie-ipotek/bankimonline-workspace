@@ -65,8 +65,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "prettier --write \"./src/**/*.{js,ts,jsx,tsx,css,md,json}\"",
-    "start": "node server-db.js",
-    "start:mock": "node server-simple.js"
+    "start": "node server-simple.js",
+    "start:db": "node server-db.js"
   },
   "browserslist": {
     "production": [
