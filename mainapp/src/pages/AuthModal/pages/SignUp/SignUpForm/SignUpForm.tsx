@@ -7,11 +7,11 @@ import { Button } from '@src/components/ui/ButtonUI'
 import { CustomPhoneInput } from '@src/components/ui/CustomPhoneInput'
 import { PasswordInput } from '@src/components/ui/PasswordInput'
 import StringInput from '@src/components/ui/StringInput/StringInput'
-import { Tabs } from '@src/components/ui/Tabs'
-import { useAppDispatch, useAppSelector } from '@src/hooks/store'
+// import { Tabs } from '@src/components/ui/Tabs'
+import { useAppDispatch } from '@src/hooks/store'
 import {
   setActiveModal,
-  setActiveTab,
+  // setActiveTab,
 } from '@src/pages/Services/slices/loginSlice'
 
 import { SignUpFormType } from '../SignUp'
@@ -23,10 +23,10 @@ const SignUpForm = () => {
   const { t, i18n } = useTranslation()
   i18n.language = i18n.language?.split('-')[0]
 
-  const activeTab = useAppSelector((state) => state.login.activeTab)
+  // const activeTab = useAppSelector((state) => state.login.activeTab)
   const dispatch = useAppDispatch()
 
-  const tabs = [
+  /* const tabs = [
     {
       value: 'phone',
       label: t('phone_auth_tab'),
@@ -35,7 +35,7 @@ const SignUpForm = () => {
       value: 'email',
       label: t('email_auth_tab'),
     },
-  ]
+  ] */
 
   const {
     values,
@@ -72,11 +72,7 @@ const SignUpForm = () => {
           <p className={cx('signUp-right__header-desc')}>
             {t('register_description')}
           </p>
-          <Tabs
-            handleChange={(value) => dispatch(setActiveTab(value))}
-            tabs={tabs}
-            tab={activeTab}
-          />
+
         </div>
         <div className={cx('signUp-right__form')}>
           <div className={cx('signUp-right__form-item')}>
@@ -90,25 +86,24 @@ const SignUpForm = () => {
             />
           </div>
           <div className={cx('signUp-right__form-item')}>
-            {activeTab === 'phone' ? (
-              <>
-                <CustomPhoneInput
-                  title={t('phone_number')}
-                  tooltip={t('change_phone')}
-                  value={values.phoneNumber}
-                  handleChange={(value) => setFieldValue('phoneNumber', value)}
-                  onBlur={() => setFieldTouched('phoneNumber')}
-                  error={touched.phoneNumber && errors.phoneNumber}
-                />
-              </>
-            ) : (
-              <StringInput
-                title={t('email')}
-                placeholder="mail@mail.com"
-                onChange={(value) => setFieldValue('email', value)}
-                value={values.email}
-              />
-            )}
+            <CustomPhoneInput
+              title={t('phone_number')}
+              tooltip={t('change_phone')}
+              value={values.phoneNumber}
+              handleChange={(value) => setFieldValue('phoneNumber', value)}
+              onBlur={() => setFieldTouched('phoneNumber')}
+              error={touched.phoneNumber && errors.phoneNumber}
+            />
+          </div>
+          <div className={cx('signUp-right__form-item')}>
+            <StringInput
+              title={t('email')}
+              placeholder="mail@mail.com"
+              onChange={(value) => setFieldValue('email', value)}
+              onBlur={() => setFieldTouched('email')}
+              error={touched.email && errors.email}
+              value={values.email}
+            />
           </div>
         </div>
         <div className={cx('signUp-right__form')}>
