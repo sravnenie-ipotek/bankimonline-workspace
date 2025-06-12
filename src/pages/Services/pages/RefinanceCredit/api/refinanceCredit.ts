@@ -1,5 +1,5 @@
 const refinanceCredit = async (data: any) => {
-  const url = 'https://api-dev2.bankimonline.com/api/refinance-credit'
+  const url = 'http://localhost:8003/api/refinance-credit'
 
   try {
     const opts: RequestInit = {
