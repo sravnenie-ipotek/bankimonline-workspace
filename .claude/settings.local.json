@@ -3,7 +3,13 @@
     "allow": [
       "Bash(find:*)",
       "Bash(grep:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(unzip:*)",
+      "Bash(python3:*)",
+      "Bash(mkdir:*)",
+      "Bash(rg:*)",
+      "Bash(node test-db.js)",
+      "Bash(node:*)"
     ],
     "deny": []
   }

@@ -1,11 +1,27 @@
 import classNames from 'classnames/bind'
 import { useTranslation } from 'react-i18next'
 
+import { useAppDispatch } from '@src/hooks/store'
+import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice'
+import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
+import { openAuthModal } from '@src/pages/Services/slices/modalSlice'
+
 import { Divider } from '../Divider'
 import { Info } from '../Info'
 import styles from './bankCard.module.scss'
 
 const cx = classNames.bind(styles)
+
+type BankOfferType = {
+  id: string
+  bankName: string
+  program: string
+  rate: number
+  monthlyPayment: number
+  totalAmount: number
+  mortgageAmount: number
+}
+
 type TypeProps = {
   title: string
   infoTitle: string
@@ -13,7 +29,11 @@ type TypeProps = {
   mortgageAmount: number
   totalAmount: number
   mothlyPayment: number
+  // Bank selection data
+  bankOffer?: BankOfferType
+  onBankSelect?: (bank: BankOfferType) => void
 }
+
 const BankCard: React.FC<TypeProps> = ({
   title,
   infoTitle,
@@ -21,13 +41,48 @@ const BankCard: React.FC<TypeProps> = ({
   mortgageAmount,
   totalAmount,
   mothlyPayment,
+  bankOffer,
+  onBankSelect,
 }: TypeProps) => {
   const { t, i18n } = useTranslation()
   i18n.language = i18n.language.split('-')[0]
+  const dispatch = useAppDispatch()
 
   const formattedMortgageAmount = mortgageAmount.toLocaleString('en-US')
   const formattedTotalAmount = totalAmount.toLocaleString('en-US')
   const formattedMonthlyPayment = mothlyPayment.toLocaleString('en-US')
+
+  const handleBankSelection = () => {
+    // Create bank offer data if not provided
+    const selectedBankOffer: BankOfferType = bankOffer || {
+      id: `bank_${Date.now()}`,
+      bankName: title,
+      program: infoTitle,
+      rate: 0, // Will be extracted from children or set default
+      monthlyPayment: mothlyPayment,
+      totalAmount: totalAmount,
+      mortgageAmount: mortgageAmount
+    }
+
+    // Save selected bank to Redux state
+    dispatch(updateMortgageData({
+      selectedBank: selectedBankOffer,
+      selectedBankId: selectedBankOffer.id,
+      selectedBankName: selectedBankOffer.bankName
+    }))
+
+    // Call external handler if provided
+    if (onBankSelect) {
+      onBankSelect(selectedBankOffer)
+    }
+
+    // Show registration modal according to documentation flow
+    dispatch(setActiveModal('signUp'))
+    dispatch(openAuthModal())
+    
+    console.log(`[BANK SELECTION] Selected bank: ${selectedBankOffer.bankName}`)
+    console.log(`[BANK SELECTION] Bank data:`, selectedBankOffer)
+  }
 
   return (
     <div className={cx('card')}>
@@ -53,7 +108,11 @@ const BankCard: React.FC<TypeProps> = ({
           <p className={cx('card-check__price')}>{formattedMonthlyPayment} ₪</p>
         </div>
       </div>
-      <button type="button" className={cx('card-button')}>
+      <button 
+        type="button" 
+        className={cx('card-button')}
+        onClick={handleBankSelection}
+      >
         {t('mortgage_select_bank')}
       </button>
     </div>

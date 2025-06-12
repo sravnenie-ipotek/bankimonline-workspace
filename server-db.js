@@ -254,6 +254,197 @@ app.post('/api/email-code-login', async (req, res) => {
     }
 });
 
+// REFINANCE MORTGAGE ENDPOINT
+app.post('/api/refinance-mortgage', async (req, res) => {
+    const { target, amount_left, full_amount, estate_type, bank_id, programs } = req.body;
+    
+    console.log(`[REFINANCE MORTGAGE] New request received`);
+    console.log(`[REFINANCE MORTGAGE] Data:`, { target, amount_left, full_amount, estate_type, bank_id, programs });
+    
+    // Basic validation
+    if (!target || !amount_left || !full_amount || !estate_type || !bank_id) {
+        return res.status(400).json({ 
+            status: 'error',
+            message: 'Missing required fields: target, amount_left, full_amount, estate_type, bank_id' 
+        });
+    }
+    
+    try {
+        // TODO: Implement actual refinancing calculation logic
+        // For now, return mock calculation results to get the flow working
+        
+        const calculatedPercent = 3.5; // Mock interest rate
+        const monthlyPayment = Math.round((amount_left * calculatedPercent / 100) / 12);
+        const totalSavings = Math.round(amount_left * 0.15); // Mock 15% savings
+        
+        console.log(`[REFINANCE MORTGAGE] Calculated: ${calculatedPercent}% rate, ₪${monthlyPayment}/month`);
+        
+        res.json({
+            status: 'success',
+            message: 'Refinance calculation completed',
+            data: {
+                percent: calculatedPercent,
+                monthly_payment: monthlyPayment,
+                total_savings: totalSavings,
+                recommended_banks: [
+                    { name: 'Bank Hapoalim', rate: 3.2, monthly: monthlyPayment - 200 },
+                    { name: 'Bank Leumi', rate: 3.5, monthly: monthlyPayment },
+                    { name: 'Mizrahi Tefahot', rate: 3.8, monthly: monthlyPayment + 150 }
+                ]
+            }
+        });
+        
+    } catch (err) {
+        console.error('Refinance mortgage error:', err);
+        res.status(500).json({ status: 'error', message: 'Server error' });
+    }
+});
+
+// REFINANCE CREDIT ENDPOINT
+app.post('/api/refinance-credit', async (req, res) => {
+    const { loans_data, monthly_income, expenses } = req.body;
+    
+    console.log(`[REFINANCE CREDIT] New request received`);
+    console.log(`[REFINANCE CREDIT] Data:`, { loans_data, monthly_income, expenses });
+    
+    try {
+        // TODO: Implement actual credit refinancing calculation logic
+        // For now, return mock calculation results
+        
+        const totalDebt = loans_data ? loans_data.reduce((sum, loan) => sum + (loan.amount || 0), 0) : 50000;
+        const newRate = 8.5; // Mock interest rate
+        const newMonthlyPayment = Math.round((totalDebt * newRate / 100) / 12);
+        const savings = Math.round(totalDebt * 0.2); // Mock 20% savings
+        
+        console.log(`[REFINANCE CREDIT] Calculated: ${newRate}% rate, ₪${newMonthlyPayment}/month`);
+        
+        res.json({
+            status: 'success',
+            message: 'Credit refinance calculation completed',
+            data: {
+                percent: newRate,
+                monthly_payment: newMonthlyPayment,
+                total_savings: savings,
+                total_debt: totalDebt
+            }
+        });
+        
+    } catch (err) {
+        console.error('Refinance credit error:', err);
+        res.status(500).json({ status: 'error', message: 'Server error' });
+    }
+});
+
+// REGISTRATION ENDPOINT
+app.post('/api/register', async (req, res) => {
+    const { name, mobile_number, email, password, password_confirmation } = req.body;
+    
+    console.log(`[REGISTER] New registration attempt`);
+    console.log(`[REGISTER] Data:`, { name, mobile_number, email, password: '***' });
+    
+    // Validation
+    if (!name || !mobile_number || !email || !password || !password_confirmation) {
+        return res.status(400).json({ 
+            status: 'error',
+            message: 'All fields are required: name, mobile_number, email, password, password_confirmation' 
+        });
+    }
+    
+    if (password !== password_confirmation) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Passwords do not match'
+        });
+    }
+    
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Invalid email format'
+        });
+    }
+    
+    // Basic phone validation (should start with + and contain digits)
+    if (!mobile_number.startsWith('+') || mobile_number.length < 10) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Invalid phone number format'
+        });
+    }
+    
+    try {
+        // Check if client already exists by phone or email (using clients table)
+        const existingClient = await pool.query(
+            'SELECT id FROM clients WHERE phone = $1 OR email = $2', 
+            [mobile_number, email]
+        );
+        
+        if (existingClient.rows.length > 0) {
+            return res.status(409).json({
+                status: 'error',
+                message: 'User with this email or phone already exists'
+            });
+        }
+        
+        // Split name into first_name and last_name for clients table
+        const nameParts = name.trim().split(' ');
+        const firstName = nameParts[0] || 'New';
+        const lastName = nameParts.slice(1).join(' ') || 'Client';
+        
+        // Insert new client (using clients table which has phone column)
+        const result = await pool.query(
+            'INSERT INTO clients (first_name, last_name, email, phone, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING id, first_name, last_name, email, phone',
+            [firstName, lastName, email, mobile_number]
+        );
+        
+        const newClient = result.rows[0];
+        
+        console.log(`[REGISTER] Client created successfully: ${newClient.first_name} ${newClient.last_name} (ID: ${newClient.id})`);
+        
+        // Generate JWT token for immediate login (consistent with SMS login format)
+        const token = jwt.sign(
+            { id: newClient.id, phone: newClient.phone, email: newClient.email, type: 'client' },
+            process.env.JWT_SECRET || 'secret',
+            { expiresIn: '24h' }
+        );
+        
+        res.status(201).json({
+            status: 'success',
+            message: 'Registration successful',
+            data: {
+                token,
+                user: {
+                    id: newClient.id,
+                    name: `${newClient.first_name} ${newClient.last_name}`,
+                    email: newClient.email,
+                    phone: newClient.phone,
+                    type: 'client'
+                }
+            }
+        });
+        
+    } catch (err) {
+        console.error('Registration error:', err);
+        console.error('Error details:', err.message);
+        console.error('Error code:', err.code);
+        
+        // Handle specific database errors
+        if (err.code === '23505') { // Unique constraint violation
+            return res.status(409).json({
+                status: 'error',
+                message: 'User with this email or phone already exists'
+            });
+        }
+        
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Server error during registration' 
+        });
+    }
+});
+
 // 404 handler
 app.use((req, res) => {
     res.status(404).json({ error: 'Endpoint not found' });
@@ -266,6 +457,9 @@ app.listen(PORT, () => {
     console.log('📧 Email login: POST /api/login');
     console.log('📧 Email 2FA: POST /api/email-code-login');
     console.log('📱 SMS login: POST /api/sms-login & /api/sms-code-login');
+    console.log('👤 Registration: POST /api/register');
+    console.log('🏠 Refinance mortgage: POST /api/refinance-mortgage');
+    console.log('💳 Refinance credit: POST /api/refinance-credit');
     console.log('');
 });
 

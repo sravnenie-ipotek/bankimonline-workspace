@@ -12,3 +12,6 @@ yarn-error.log*
 .DS_Store
 .env
 backup*.sql
+
+# Internal Reports
+internalReports/

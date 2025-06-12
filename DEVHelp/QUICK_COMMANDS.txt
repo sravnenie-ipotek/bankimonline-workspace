@@ -1,0 +1,59 @@
+===============================================================================
+                        BANKIM PROJECT - QUICK COMMAND REFERENCE
+===============================================================================
+
+🚀 START DEVELOPMENT (Most Common):
+
+1. MAIN APP:
+   cd mainapp; npm run dev
+   → Access: http://localhost:5173
+
+2. ACCOUNT APP:
+   cd account; npm run dev
+   → Access: http://localhost:3001/account
+
+3. BOTH APPS (2 terminals):
+   Terminal 1: cd mainapp; npm run dev
+   Terminal 2: cd account; npm run dev
+
+===============================================================================
+
+🔧 SETUP (First Time Only):
+   npm install
+   cd mainapp; npm install
+   cd ../account; npm install
+
+📦 BUILD FOR PRODUCTION:
+   cd mainapp; npm run build
+   cd account; npm run build
+
+🌐 PREVIEW PRODUCTION BUILD:
+   cd mainapp; npm run preview
+   cd account; npm run preview
+
+===============================================================================
+
+📝 GIT WORKFLOW:
+   git status                    # Check changes
+   git add .                     # Stage all files
+   git commit -m "description"   # Commit changes
+   git push                      # Push to repository
+
+🔍 TROUBLESHOOTING:
+   - PowerShell: Use ; instead of &&
+   - Port conflicts: Check console for actual port
+   - API errors: Check browser Network tab (F12)
+   - Translation issues: Wait for i18n to load
+
+===============================================================================
+
+📱 DEVELOPMENT URLS:
+   Main App:    http://localhost:5173/
+   Account App: http://localhost:3001/account/
+   Backend API: http://localhost:8003/api/
+
+🌍 PRODUCTION URLS:
+   Main App:    https://bankimstandaloneprod.vercel.app/
+   Account App: https://bank-dev2-standalone-txwi.vercel.app/
+
+=============================================================================== 

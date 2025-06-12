@@ -2,7 +2,21 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { CalculateMortgageTypes, FormTypes } from '../types/formTypes'
 
-type CalculateMortgageState = CalculateMortgageTypes & FormTypes
+type BankOfferType = {
+  id: string
+  bankName: string
+  program: string
+  rate: number
+  monthlyPayment: number
+  totalAmount: number
+  mortgageAmount: number
+}
+
+type CalculateMortgageState = CalculateMortgageTypes & FormTypes & {
+  selectedBank?: BankOfferType
+  selectedBankId?: string
+  selectedBankName?: string
+}
 
 export const calculateMortgageSlice = createSlice({
   name: 'mortgage',
