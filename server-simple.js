@@ -103,6 +103,65 @@ app.post('/api/sms-code-login', (req, res) => {
     }
 });
 
+// Mock refinance credit endpoint
+app.post('/api/refinance-credit', (req, res) => {
+    const { loans_data, monthly_income, expenses } = req.body;
+    
+    console.log(`[REFINANCE CREDIT] Mock calculation`);
+    
+    const totalDebt = loans_data ? loans_data.reduce((sum, loan) => sum + (loan.amount || 0), 0) : 50000;
+    const newRate = 8.5;
+    const newMonthlyPayment = Math.round((totalDebt * newRate / 100) / 12);
+    const savings = Math.round(totalDebt * 0.2);
+    
+    res.json({
+        status: 'success',
+        message: 'Credit refinance calculation completed',
+        data: {
+            percent: newRate,
+            monthly_payment: newMonthlyPayment,
+            total_savings: savings,
+            total_debt: totalDebt
+        }
+    });
+});
+
+// Mock registration endpoint
+app.post('/api/register', (req, res) => {
+    const { name, mobile_number, email, password, password_confirmation } = req.body;
+    
+    console.log(`[REGISTER] Mock registration for: ${name}, ${mobile_number}`);
+    
+    if (!name || !mobile_number || !email || !password) {
+        return res.status(400).json({ 
+            status: 'error',
+            message: 'All fields are required' 
+        });
+    }
+    
+    if (password !== password_confirmation) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Passwords do not match'
+        });
+    }
+    
+    res.status(201).json({
+        status: 'success',
+        message: 'Registration successful',
+        data: {
+            token: 'mock-jwt-token',
+            user: {
+                id: 1,
+                name: name,
+                email: email,
+                phone: mobile_number,
+                type: 'client'
+            }
+        }
+    });
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log('🚀 Bankimonline API Server Started');
