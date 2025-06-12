@@ -9,7 +9,7 @@ export default defineConfig(({ command, mode }) => {
   
   return {
     build: {
-      outDir: 'dist',
+      outDir: 'build',
     },
     plugins: [react()],
     server: {
