@@ -46,7 +46,7 @@ const Settings = lazy<React.FC>(() =>
 
 const AppRoutes: React.FC = () => {
   return (
-    <Router basename={'/account'}>
+    <Router basename={'/'}>
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route element={<Layout />}>

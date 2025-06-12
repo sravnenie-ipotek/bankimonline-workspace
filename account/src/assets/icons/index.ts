@@ -45,10 +45,10 @@ import { User } from '../icons/User.tsx'
 import { UserPhoto } from '../icons/UserPhoto.tsx'
 import { UserProfile } from '../icons/UserProfile.tsx'
 import { IdentificationIcon } from './IdentificationIcon.tsx'
-import { AmericanExpress } from './PaymentSystems/AmericanExpress.tsx'
-import { Diners } from './PaymentSystems/Diners.tsx'
-import { MasterCard } from './PaymentSystems/MasterCard.tsx'
-import { Visa } from './PaymentSystems/Visa.tsx'
+import { AmericanExpress } from './paymentSystems/AmericanExpress.tsx'
+import { Diners } from './paymentSystems/Diners.tsx'
+import { MasterCard } from './paymentSystems/MasterCard.tsx'
+import { Visa } from './paymentSystems/Visa.tsx'
 
 export {
   Bell,
