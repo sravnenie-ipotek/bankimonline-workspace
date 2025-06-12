@@ -3,7 +3,7 @@ import { lazy, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { Dialog } from '@components/layout/Dialog/Dialog.tsx'
+import { Dialog } from '@components/layout/Dialog/Dialog'
 import { ErrorBoundary } from '@src/app/Errors/ErrorBoundary'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store.ts'
 import { updateWindowSize } from '@src/store/slices/windowSizeSlice.ts'
