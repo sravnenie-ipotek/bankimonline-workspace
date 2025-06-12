@@ -14,7 +14,7 @@ i18n
     ns: ['translation'], // Пространство имён для переводов
     defaultNS: 'translation',
     backend: {
-      loadPath: '/account/locale/{{lng}}/{{ns}}.json',
+      loadPath: '/locale/{{lng}}/{{ns}}.json',
     },
   })
 
