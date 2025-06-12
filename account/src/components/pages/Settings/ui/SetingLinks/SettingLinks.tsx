@@ -3,7 +3,7 @@ import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
-import styles from './settingLinks.module.scss'
+import styles from './SettingLinks.module.scss'
 
 const cx = classNames.bind(styles)
 
