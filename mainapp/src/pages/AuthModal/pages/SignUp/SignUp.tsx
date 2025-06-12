@@ -36,7 +36,7 @@ const SignUp = () => {
   // const activeTab = useAppSelector((state) => state.login.activeTab)
 
   const getAccountUrl = () => {
-    return import.meta.env.VITE_ACCOUNT_URL || 'http://localhost:3001/'
+    return process.env.VITE_ACCOUNT_URL || 'http://localhost:3001/'
   }
 
   const handleRegisterPhone = async (values: SignUpFormType) => {
