@@ -1,0 +1,1028 @@
+===============================================================================
+                      🚀 DEV PROMPT: REAL BANK STATISTICS IMPLEMENTATION
+===============================================================================
+
+TASK: Convert static bank statistics to real calculated values with hints and translations
+
+CURRENT ISSUE:
+- Active Loans: 142 (hardcoded)  
+- Avg Rate: 3.2% (hardcoded)
+- No explanations/hints for users
+- No translation support
+
+TARGET IMPLEMENTATION:
+1. 📊 REAL ACTIVE LOANS COUNT
+   - Count applications where status='approved' AND bank_id=selectedBank
+   - Show tooltip: "Total number of active loans for this bank"
+
+2. 📈 REAL AVERAGE RATE CALCULATION  
+   - Calculate weighted average: Σ(loan_amount × interest_rate) / Σ(loan_amounts)
+   - Show tooltip: "Weighted average interest rate across all active loans"
+   - Fallback to config average if no loans: (base_rate + min_rate + max_rate) / 3
+
+3. 🌐 MULTILINGUAL TOOLTIPS & HINTS
+   - Add hover hints explaining what each metric means
+   - Support Hebrew, English, Russian translations
+
+TECHNICAL IMPLEMENTATION:
+
+📦 BACKEND (server-db.js):
+```javascript
+// Add new endpoint: GET /api/admin/banks/:id/stats
+app.get('/api/admin/banks/:id/stats', requireAdmin, async (req, res) => {
+  const { id } = req.params;
+  
+  // Get active loans count
+  const activeLoansResult = await pool.query(
+    'SELECT COUNT(*) as count FROM applications WHERE bank_id = $1 AND status = $2',
+    [id, 'approved']
+  );
+  
+  // Get weighted average rate
+  const avgRateResult = await pool.query(
+    'SELECT AVG(interest_rate) as avg_rate, SUM(loan_amount * interest_rate) / SUM(loan_amount) as weighted_avg FROM applications WHERE bank_id = $1 AND status = $2',
+    [id, 'approved']
+  );
+  
+  // Fallback to config rates if no loans
+  const configResult = await pool.query(
+    'SELECT base_rate, min_rate, max_rate FROM bank_config WHERE bank_id = $1',
+    [id]
+  );
+  
+  const activeLoans = parseInt(activeLoansResult.rows[0].count);
+  let avgRate = avgRateResult.rows[0].weighted_avg;
+  
+  if (!avgRate && configResult.rows.length > 0) {
+    const config = configResult.rows[0];
+    avgRate = (parseFloat(config.base_rate) + parseFloat(config.min_rate) + parseFloat(config.max_rate)) / 3;
+  }
+  
+  res.json({
+    status: 'success',
+    data: {
+      activeLoans: activeLoans,
+      avgRate: avgRate ? parseFloat(avgRate).toFixed(2) : null,
+      hasRealData: activeLoans > 0
+    }
+  });
+});
+```
+
+🎨 FRONTEND (admin.html):
+```javascript
+async function loadBankQuickStats(bankId) {
+  try {
+    const response = await fetch(`${API_BASE}/api/admin/banks/${bankId}/stats`);
+    const result = await response.json();
+    
+    if (result.status === 'success') {
+      document.getElementById('activeLoanCount').textContent = result.data.activeLoans.toLocaleString();
+      document.getElementById('avgRate').textContent = result.data.avgRate ? `${result.data.avgRate}%` : t('no_data');
+      
+      // Add data source indicator
+      const indicator = result.data.hasRealData ? t('real_time_data') : t('calculated_from_config');
+      document.getElementById('dataSource').textContent = indicator;
+    }
+  } catch (error) {
+    console.error('Error loading bank stats:', error);
+    // Fallback to previous static values
+    document.getElementById('activeLoanCount').textContent = '142';
+    document.getElementById('avgRate').textContent = '3.2%';
+  }
+}
+```
+
+🌐 TRANSLATION ADDITIONS:
+Add to en.json:
+```json
+{
+  "bank_stats": {
+    "active_loans": "Active Loans",
+    "active_loans_hint": "Total number of approved loans currently active for this bank",
+    "avg_rate": "Average Rate",
+    "avg_rate_hint": "Weighted average interest rate across all active loans",
+    "no_data": "No Data",
+    "real_time_data": "Real-time data",
+    "calculated_from_config": "Calculated from bank configuration"
+  }
+}
+```
+
+Add to he.json:
+```json
+{
+  "bank_stats": {
+    "active_loans": "הלוואות פעילות",
+    "active_loans_hint": "מספר ההלוואות המאושרות הפעילות כעת עבור בנק זה",
+    "avg_rate": "ריבית ממוצעת",
+    "avg_rate_hint": "ריבית ממוצעת משוקללת על פני כל ההלוואות הפעילות",
+    "no_data": "אין נתונים",
+    "real_time_data": "נתונים בזמן אמת",
+    "calculated_from_config": "מחושב מתצורת הבנק"
+  }
+}
+```
+
+Add to ru.json:
+```json
+{
+  "bank_stats": {
+    "active_loans": "Активные кредиты",
+    "active_loans_hint": "Общее количество одобренных кредитов, действующих в настоящее время для этого банка",
+    "avg_rate": "Средняя ставка",
+    "avg_rate_hint": "Средневзвешенная процентная ставка по всем активным кредитам",
+    "no_data": "Нет данных",
+    "real_time_data": "Данные в реальном времени",
+    "calculated_from_config": "Рассчитано на основе конфигурации банка"
+  }
+}
+```
+
+🎯 HTML STRUCTURE WITH TOOLTIPS:
+```html
+<div class="bg-white rounded-lg shadow-sm p-4" id="bankQuickStats">
+  <div class="grid grid-cols-2 gap-4">
+    <div class="text-center">
+      <div class="text-sm text-gray-500 mb-1" title="${t('bank_stats.active_loans_hint')}">
+        ${t('bank_stats.active_loans')} ℹ️
+      </div>
+      <div class="text-lg font-bold text-indigo-600" id="activeLoanCount">-</div>
+    </div>
+    <div class="text-center">
+      <div class="text-sm text-gray-500 mb-1" title="${t('bank_stats.avg_rate_hint')}">
+        ${t('bank_stats.avg_rate')} ℹ️
+      </div>
+      <div class="text-lg font-bold text-green-600" id="avgRate">-</div>
+    </div>
+  </div>
+  <div class="text-xs text-gray-400 mt-2 text-center" id="dataSource">-</div>
+</div>
+```
+
+TESTING CHECKLIST:
+□ Test with banks that have active loans (real calculation)
+□ Test with banks that have no loans (config fallback)  
+□ Test with banks that have neither (graceful handling)
+□ Verify tooltips work in all languages
+□ Test responsive design on mobile
+□ Verify data updates when switching banks
+
+PRIORITY: HIGH - This improves user understanding of bank performance metrics
+
+===============================================================================
+                    BANK MANAGEMENT SYSTEM - MULTI-ROLE ADMIN IMPLEMENTATION
+                              WITH IMPROVED UI/UX & MULTI-LANGUAGE
+===============================================================================
+
+🎯 DOCUMENT SCOPE CLARIFICATION:
+===============================================================================
+This document is a UI/UX SPECIFICATION ONLY - NOT a complete enterprise banking system.
+
+WHAT THIS DOCUMENT SPECIFIES:
+✅ Frontend UI/UX improvements with sub-tabs organization
+✅ Multi-language support (Hebrew, English, Russian)  
+✅ Role-based interface design and navigation
+✅ Responsive design and modern styling
+✅ Client-side internationalization framework
+
+WHAT THIS DOCUMENT DOES NOT SPECIFY:
+❌ Database schema or backend architecture
+❌ API endpoints or server-side logic
+❌ Authentication/authorization systems
+❌ Data persistence or CRUD operations
+❌ Audit logging or enterprise security features
+
+IMPLEMENTATION STATUS (as of current date):
+✅ UI/UX Structure: 95% Complete - All navigation, tabs, and layout implemented
+✅ Multi-language: 100% Complete - Hebrew, English, Russian with RTL support
+✅ Role-based UI: 90% Complete - Framework ready, visibility controls implemented
+✅ Responsive Design: 100% Complete - Mobile-friendly with modern CSS
+
+FOR ENTERPRISE PRODUCTION USE, ADDITIONAL COMPONENTS NEEDED:
+- Database layer with proper schema (admin_users, bank_configurations, etc.)
+- Backend API endpoints with role-based middleware
+- Authentication/authorization system
+- Audit logging and compliance features
+- Data validation and security measures
+
+===============================================================================
+
+PURPOSE & OVERVIEW:
+This document outlines the implementation of a multi-role bank management system 
+with improved UI/UX using sub-tabs organization and full multi-language support
+(Hebrew, English, Russian) for better user experience.
+
+CURRENT STATE: Single admin with flat tab structure
+TARGET STATE: Multi-role admin with organized sub-tabs and i18n support
+
+UI/UX IMPROVEMENT GOALS:
+- Organized main tabs with logical sub-tabs
+- Intuitive navigation flow
+- Multi-language support (Hebrew, English, Russian)
+- Role-based interface customization
+- Responsive design for different screen sizes
+
+===============================================================================
+                            IMPROVED UI/UX STRUCTURE
+===============================================================================
+
+MAIN NAVIGATION STRUCTURE:
+
+📊 DASHBOARD (Main Tab)
+├── 📈 Overview
+├── 📊 System Stats  
+├── 🚨 Alerts
+└── 📋 Recent Activity
+
+🏦 BANK OPERATIONS (Main Tab)
+├── 🏪 Bank Management
+│   ├── Bank Configuration
+│   ├── Interest Rates
+│   ├── Loan Products
+│   └── Bank Analytics
+├── 🧮 Banking Standards
+│   ├── Global Standards
+│   ├── LTV Settings
+│   ├── Credit Requirements
+│   └── Risk Parameters
+└── 📊 Market Analysis
+    ├── Rate Comparison
+    ├── Competition Analysis
+    └── Market Trends
+
+👥 USER MANAGEMENT (Main Tab)
+├── 👤 User Accounts
+│   ├── Active Users
+│   ├── User Roles
+│   ├── Permissions
+│   └── Access Control
+├── 🔐 Security
+│   ├── Login Attempts
+│   ├── Session Management
+│   ├── Password Policies
+│   └── Two-Factor Auth
+└── 📋 User Analytics
+    ├── Usage Statistics
+    ├── Activity Reports
+    └── Performance Metrics
+
+⚖️ RISK & COMPLIANCE (Main Tab)
+├── 🎯 Risk Management
+│   ├── Risk Models
+│   ├── Credit Scoring
+│   ├── Portfolio Analysis
+│   └── Risk Reports
+├── 📋 Compliance
+│   ├── Audit Logs
+│   ├── Regulatory Reports
+│   ├── Compliance Monitoring
+│   └── Legal Documentation
+└── 📊 Analytics
+    ├── Risk Analytics
+    ├── Compliance Metrics
+    └── Trend Analysis
+
+📋 APPLICATIONS (Main Tab)
+├── 📝 Application Management
+├── 📊 Application Analytics
+├── 🔍 Application Review
+└── 📈 Performance Reports
+
+⚙️ SYSTEM SETTINGS (Main Tab)
+├── 🌐 Localization
+│   ├── Language Settings
+│   ├── Currency Settings
+│   ├── Regional Settings
+│   └── Translation Management
+├── 🔧 System Configuration
+│   ├── General Settings
+│   ├── Email Configuration
+│   ├── API Settings
+│   └── Integration Settings
+└── 🛠️ Maintenance
+    ├── System Health
+    ├── Database Management
+    ├── Backup & Recovery
+    └── Update Management
+
+===============================================================================
+                            MULTI-LANGUAGE IMPLEMENTATION
+===============================================================================
+
+1. LANGUAGE FILES STRUCTURE:
+
+/locales/
+├── en.json (English)
+├── he.json (Hebrew)
+└── ru.json (Russian)
+
+2. TRANSLATION KEYS STRUCTURE:
+
+{
+  "navigation": {
+    "dashboard": {
+      "en": "Dashboard",
+      "he": "לוח בקרה",
+      "ru": "Панель управления"
+    },
+    "bank_operations": {
+      "en": "Bank Operations",
+      "he": "פעילות בנקאית",
+      "ru": "Банковские операции"
+    },
+    "user_management": {
+      "en": "User Management",
+      "he": "ניהול משתמשים",
+      "ru": "Управление пользователями"
+    },
+    "risk_compliance": {
+      "en": "Risk & Compliance",
+      "he": "סיכונים ותאימות",
+      "ru": "Риски и соответствие"
+    },
+    "applications": {
+      "en": "Applications",
+      "he": "בקשות",
+      "ru": "Заявки"
+    },
+    "system_settings": {
+      "en": "System Settings",
+      "he": "הגדרות מערכת",
+      "ru": "Настройки системы"
+    }
+  },
+  "sub_navigation": {
+    "bank_management": {
+      "en": "Bank Management",
+      "he": "ניהול בנקים",
+      "ru": "Управление банками"
+    },
+    "banking_standards": {
+      "en": "Banking Standards",
+      "he": "תקני בנקאות",
+      "ru": "Банковские стандарты"
+    },
+    "user_accounts": {
+      "en": "User Accounts",
+      "he": "חשבונות משתמשים",
+      "ru": "Учетные записи"
+    },
+    "risk_management": {
+      "en": "Risk Management",
+      "he": "ניהול סיכונים",
+      "ru": "Управление рисками"
+    },
+    "compliance": {
+      "en": "Compliance",
+      "he": "תאימות",
+      "ru": "Соответствие"
+    }
+  },
+  "forms": {
+    "bank_configuration": {
+      "title": {
+        "en": "Bank Configuration",
+        "he": "הגדרות בנק",
+        "ru": "Конфигурация банка"
+      },
+      "interest_rates": {
+        "en": "Interest Rates",
+        "he": "שיעורי ריבית",
+        "ru": "Процентные ставки"
+      },
+      "base_rate": {
+        "en": "Base Rate (%)",
+        "he": "ריבית בסיס (%)",
+        "ru": "Базовая ставка (%)"
+      },
+      "min_rate": {
+        "en": "Minimum Rate (%)",
+        "he": "ריבית מינימלית (%)",
+        "ru": "Минимальная ставка (%)"
+      },
+      "max_rate": {
+        "en": "Maximum Rate (%)",
+        "he": "ריבית מקסימלית (%)",
+        "ru": "Максимальная ставка (%)"
+      }
+    }
+  }
+}
+
+===============================================================================
+                            FRONTEND IMPLEMENTATION
+===============================================================================
+
+1. MAIN NAVIGATION WITH SUB-TABS:
+
+<!-- Main Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="/assets/logo.png" alt="BankIM" height="30">
+            BankIM Admin
+        </a>
+        
+        <!-- Language Selector -->
+        <div class="navbar-nav ms-auto">
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown">
+                    <i class="fas fa-globe"></i> <span id="currentLanguage">English</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" onclick="changeLanguage('en')">🇺🇸 English</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="changeLanguage('he')">🇮🇱 עברית</a></li>
+                    <li><a class="dropdown-item" href="#" onclick="changeLanguage('ru')">🇷🇺 Русский</a></li>
+                </ul>
+            </div>
+            <div class="nav-item">
+                <a class="nav-link" href="#" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> <span data-i18n="logout">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Tab Navigation -->
+<ul class="nav nav-tabs nav-fill" id="mainTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab">
+            <i class="fas fa-chart-line"></i> <span data-i18n="navigation.dashboard">Dashboard</span>
+        </button>
+    </li>
+    <li class="nav-item" role="presentation" id="bankOpsTab">
+        <button class="nav-link" id="bank-operations-tab" data-bs-toggle="tab" data-bs-target="#bank-operations" type="button" role="tab">
+            <i class="fas fa-university"></i> <span data-i18n="navigation.bank_operations">Bank Operations</span>
+        </button>
+    </li>
+    <li class="nav-item" role="presentation" id="userMgmtTab">
+        <button class="nav-link" id="user-management-tab" data-bs-toggle="tab" data-bs-target="#user-management" type="button" role="tab">
+            <i class="fas fa-users"></i> <span data-i18n="navigation.user_management">User Management</span>
+        </button>
+    </li>
+    <li class="nav-item" role="presentation" id="riskComplianceTab">
+        <button class="nav-link" id="risk-compliance-tab" data-bs-toggle="tab" data-bs-target="#risk-compliance" type="button" role="tab">
+            <i class="fas fa-shield-alt"></i> <span data-i18n="navigation.risk_compliance">Risk & Compliance</span>
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="applications-tab" data-bs-toggle="tab" data-bs-target="#applications" type="button" role="tab">
+            <i class="fas fa-file-alt"></i> <span data-i18n="navigation.applications">Applications</span>
+        </button>
+    </li>
+    <li class="nav-item" role="presentation" id="systemSettingsTab">
+        <button class="nav-link" id="system-settings-tab" data-bs-toggle="tab" data-bs-target="#system-settings" type="button" role="tab">
+            <i class="fas fa-cog"></i> <span data-i18n="navigation.system_settings">System Settings</span>
+        </button>
+    </li>
+</ul>
+
+2. SUB-TAB CONTENT STRUCTURE:
+
+<!-- Bank Operations Tab Content -->
+<div class="tab-pane fade" id="bank-operations" role="tabpanel">
+    <div class="container-fluid mt-3">
+        <!-- Sub-navigation for Bank Operations -->
+        <ul class="nav nav-pills nav-justified mb-3" id="bankOpsSubTabs" role="tablist">
+            <li class="nav-item" role="presentation" id="bankMgmtSubTab">
+                <button class="nav-link active" id="bank-mgmt-tab" data-bs-toggle="pill" data-bs-target="#bank-mgmt" type="button" role="tab">
+                    <i class="fas fa-building"></i> <span data-i18n="sub_navigation.bank_management">Bank Management</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="banking-standards-tab" data-bs-toggle="pill" data-bs-target="#banking-standards" type="button" role="tab">
+                    <i class="fas fa-balance-scale"></i> <span data-i18n="sub_navigation.banking_standards">Banking Standards</span>
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="market-analysis-tab" data-bs-toggle="pill" data-bs-target="#market-analysis" type="button" role="tab">
+                    <i class="fas fa-chart-bar"></i> <span data-i18n="sub_navigation.market_analysis">Market Analysis</span>
+                </button>
+            </li>
+        </ul>
+        
+        <!-- Sub-tab Content -->
+        <div class="tab-content" id="bankOpsSubContent">
+            <!-- Bank Management Sub-tab -->
+            <div class="tab-pane fade show active" id="bank-mgmt" role="tabpanel">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h6 class="mb-0" data-i18n="forms.select_bank">Select Bank</h6>
+                            </div>
+                            <div class="card-body">
+                                <select id="bankSelector" class="form-select">
+                                    <option value="" data-i18n="forms.select_bank_option">Select a bank...</option>
+                                </select>
+                                
+                                <!-- Bank Quick Stats -->
+                                <div id="bankQuickStats" class="mt-3" style="display: none;">
+                                    <div class="row text-center">
+                                        <div class="col-6">
+                                            <div class="border rounded p-2">
+                                                <small class="text-muted" data-i18n="stats.active_loans">Active Loans</small>
+                                                <div class="fw-bold" id="activeLoanCount">-</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="border rounded p-2">
+                                                <small class="text-muted" data-i18n="stats.avg_rate">Avg Rate</small>
+                                                <div class="fw-bold" id="avgRate">-</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-9">
+                        <div id="bankConfigPanel" style="display: none;">
+                            <!-- Bank Configuration Tabs -->
+                            <ul class="nav nav-tabs" id="bankConfigTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="config-tab" data-bs-toggle="tab" data-bs-target="#config" type="button" role="tab">
+                                        <i class="fas fa-cog"></i> <span data-i18n="tabs.configuration">Configuration</span>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="rates-tab" data-bs-toggle="tab" data-bs-target="#rates" type="button" role="tab">
+                                        <i class="fas fa-percentage"></i> <span data-i18n="tabs.interest_rates">Interest Rates</span>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="products-tab" data-bs-toggle="tab" data-bs-target="#products" type="button" role="tab">
+                                        <i class="fas fa-box"></i> <span data-i18n="tabs.loan_products">Loan Products</span>
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="analytics-tab" data-bs-toggle="tab" data-bs-target="#analytics" type="button" role="tab">
+                                        <i class="fas fa-chart-pie"></i> <span data-i18n="tabs.analytics">Analytics</span>
+                                    </button>
+                                </li>
+                            </ul>
+                            
+                            <div class="tab-content mt-3" id="bankConfigContent">
+                                <!-- Configuration Tab -->
+                                <div class="tab-pane fade show active" id="config" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0" data-i18n="forms.bank_configuration.title">Bank Configuration</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h6 data-i18n="forms.bank_configuration.basic_info">Basic Information</h6>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" data-i18n="forms.bank_name">Bank Name</label>
+                                                        <input type="text" id="bankName" class="form-control" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" data-i18n="forms.bank_code">Bank Code</label>
+                                                        <input type="text" id="bankCode" class="form-control">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" data-i18n="forms.contact_email">Contact Email</label>
+                                                        <input type="email" id="contactEmail" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h6 data-i18n="forms.operational_settings">Operational Settings</h6>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" data-i18n="forms.processing_fee">Processing Fee (₪)</label>
+                                                        <input type="number" id="processingFee" class="form-control">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" data-i18n="forms.max_applications_per_day">Max Applications/Day</label>
+                                                        <input type="number" id="maxApplications" class="form-control">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" id="autoApproval">
+                                                            <label class="form-check-label" for="autoApproval" data-i18n="forms.auto_approval">
+                                                                Enable Auto Approval
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Interest Rates Tab -->
+                                <div class="tab-pane fade" id="rates" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="mb-0" data-i18n="forms.bank_configuration.interest_rates">Interest Rates</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" data-i18n="forms.bank_configuration.base_rate">Base Rate (%)</label>
+                                                        <input type="number" step="0.01" id="baseRate" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" data-i18n="forms.bank_configuration.min_rate">Minimum Rate (%)</label>
+                                                        <input type="number" step="0.01" id="minRate" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="mb-3">
+                                                        <label class="form-label" data-i18n="forms.bank_configuration.max_rate">Maximum Rate (%)</label>
+                                                        <input type="number" step="0.01" id="maxRate" class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Rate Adjustment Rules -->
+                                            <h6 class="mt-4" data-i18n="forms.rate_adjustment_rules">Rate Adjustment Rules</h6>
+                                            <div class="table-responsive">
+                                                <table class="table table-sm">
+                                                    <thead>
+                                                        <tr>
+                                                            <th data-i18n="table.rule_type">Rule Type</th>
+                                                            <th data-i18n="table.condition">Condition</th>
+                                                            <th data-i18n="table.adjustment">Adjustment (%)</th>
+                                                            <th data-i18n="table.actions">Actions</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="rateRulesTable">
+                                                        <!-- Populated by JavaScript -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <button class="btn btn-outline-primary btn-sm" onclick="addRateRule()">
+                                                <i class="fas fa-plus"></i> <span data-i18n="buttons.add_rule">Add Rule</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Save Button -->
+                            <div class="mt-3 text-end">
+                                <button class="btn btn-success" onclick="saveBankConfig()">
+                                    <i class="fas fa-save"></i> <span data-i18n="buttons.save_configuration">Save Configuration</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Banking Standards Sub-tab (Your existing content) -->
+            <div class="tab-pane fade" id="banking-standards" role="tabpanel">
+                <!-- Your existing banking standards content goes here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+3. INTERNATIONALIZATION JAVASCRIPT:
+
+// i18n.js - Internationalization handler
+class I18nManager {
+    constructor() {
+        this.currentLanguage = localStorage.getItem('admin_language') || 'en';
+        this.translations = {};
+        this.rtlLanguages = ['he', 'ar'];
+    }
+    
+    async loadTranslations(language) {
+        try {
+            const response = await fetch(`/locales/${language}.json`);
+            this.translations[language] = await response.json();
+            return true;
+        } catch (error) {
+            console.error(`Failed to load translations for ${language}:`, error);
+            return false;
+        }
+    }
+    
+    async changeLanguage(language) {
+        if (!this.translations[language]) {
+            const loaded = await this.loadTranslations(language);
+            if (!loaded) return false;
+        }
+        
+        this.currentLanguage = language;
+        localStorage.setItem('admin_language', language);
+        
+        // Update document direction for RTL languages
+        document.dir = this.rtlLanguages.includes(language) ? 'rtl' : 'ltr';
+        document.documentElement.lang = language;
+        
+        // Update all translated elements
+        this.updateTranslations();
+        
+        // Update language selector
+        this.updateLanguageSelector();
+        
+        return true;
+    }
+    
+    updateTranslations() {
+        const elements = document.querySelectorAll('[data-i18n]');
+        elements.forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            const translation = this.getTranslation(key);
+            if (translation) {
+                if (element.tagName === 'INPUT' && element.type === 'submit') {
+                    element.value = translation;
+                } else if (element.hasAttribute('placeholder')) {
+                    element.placeholder = translation;
+                } else {
+                    element.textContent = translation;
+                }
+            }
+        });
+    }
+    
+    getTranslation(key) {
+        const keys = key.split('.');
+        let translation = this.translations[this.currentLanguage];
+        
+        for (const k of keys) {
+            if (translation && translation[k]) {
+                translation = translation[k];
+            } else {
+                // Fallback to English if translation not found
+                translation = this.translations['en'];
+                for (const fallbackKey of keys) {
+                    if (translation && translation[fallbackKey]) {
+                        translation = translation[fallbackKey];
+                    } else {
+                        return key; // Return key if no translation found
+                    }
+                }
+                break;
+            }
+        }
+        
+        return translation;
+    }
+    
+    updateLanguageSelector() {
+        const currentLangElement = document.getElementById('currentLanguage');
+        const langNames = {
+            'en': 'English',
+            'he': 'עברית',
+            'ru': 'Русский'
+        };
+        
+        if (currentLangElement) {
+            currentLangElement.textContent = langNames[this.currentLanguage];
+        }
+    }
+    
+    // Format numbers according to locale
+    formatNumber(number, options = {}) {
+        const locales = {
+            'en': 'en-US',
+            'he': 'he-IL',
+            'ru': 'ru-RU'
+        };
+        
+        return new Intl.NumberFormat(locales[this.currentLanguage], options).format(number);
+    }
+    
+    // Format currency
+    formatCurrency(amount, currency = 'ILS') {
+        return this.formatNumber(amount, {
+            style: 'currency',
+            currency: currency
+        });
+    }
+    
+    // Format dates
+    formatDate(date, options = {}) {
+        const locales = {
+            'en': 'en-US',
+            'he': 'he-IL',
+            'ru': 'ru-RU'
+        };
+        
+        return new Intl.DateTimeFormat(locales[this.currentLanguage], options).format(date);
+    }
+}
+
+// Initialize i18n
+const i18n = new I18nManager();
+
+// Global functions for language switching
+async function changeLanguage(language) {
+    const success = await i18n.changeLanguage(language);
+    if (success) {
+        // Reload dynamic content with new language
+        if (typeof loadBankSelector === 'function') loadBankSelector();
+        if (typeof loadUsersList === 'function') loadUsersList();
+        
+        // Show success message
+        showNotification(i18n.getTranslation('messages.language_changed'), 'success');
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', async function() {
+    // Load initial translations
+    await i18n.loadTranslations(i18n.currentLanguage);
+    
+    // Load English as fallback
+    if (i18n.currentLanguage !== 'en') {
+        await i18n.loadTranslations('en');
+    }
+    
+    // Apply translations
+    i18n.updateTranslations();
+    i18n.updateLanguageSelector();
+    
+    // Set document direction
+    document.dir = i18n.rtlLanguages.includes(i18n.currentLanguage) ? 'rtl' : 'ltr';
+    document.documentElement.lang = i18n.currentLanguage;
+    
+    // Initialize role-based UI
+    initializeRoleBasedUI();
+});
+
+4. ROLE-BASED UI VISIBILITY:
+
+function setupUIForRole(role, bankId) {
+    // Hide all role-specific main tabs first
+    document.getElementById('bankOpsTab').style.display = 'none';
+    document.getElementById('userMgmtTab').style.display = 'none';
+    document.getElementById('riskComplianceTab').style.display = 'none';
+    document.getElementById('systemSettingsTab').style.display = 'none';
+    
+    // Hide sub-tabs
+    document.getElementById('bankMgmtSubTab').style.display = 'none';
+    
+    switch(role) {
+        case 'business_admin':
+            // Show all tabs for business admin
+            document.getElementById('bankOpsTab').style.display = 'block';
+            document.getElementById('userMgmtTab').style.display = 'block';
+            document.getElementById('riskComplianceTab').style.display = 'block';
+            document.getElementById('systemSettingsTab').style.display = 'block';
+            document.getElementById('bankMgmtSubTab').style.display = 'block';
+            break;
+            
+        case 'bank_admin':
+            // Show only bank operations for their bank
+            document.getElementById('bankOpsTab').style.display = 'block';
+            document.getElementById('bankMgmtSubTab').style.display = 'block';
+            
+            // Hide banking standards sub-tab
+            document.querySelector('#banking-standards-tab').parentElement.style.display = 'none';
+            
+            // Lock bank selector to their bank
+            lockBankSelector(bankId);
+            break;
+            
+        case 'risk_manager':
+            // Show only risk & compliance
+            document.getElementById('riskComplianceTab').style.display = 'block';
+            
+            // Make banking standards read-only
+            makeCalculationsReadOnly();
+            break;
+            
+        case 'compliance':
+            // Show only compliance sub-tabs
+            document.getElementById('riskComplianceTab').style.display = 'block';
+            // Hide risk management sub-tabs, show only compliance
+            break;
+    }
+}
+
+===============================================================================
+                            CSS IMPROVEMENTS FOR UI/UX
+===============================================================================
+
+/* Custom CSS for improved UI/UX */
+.nav-tabs .nav-link {
+    border-radius: 0.375rem 0.375rem 0 0;
+    margin-right: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    border-color: transparent;
+}
+
+.nav-pills .nav-link {
+    border-radius: 0.375rem;
+    margin-right: 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+/* RTL Support */
+[dir="rtl"] .nav-tabs .nav-link {
+    margin-right: 0;
+    margin-left: 0.25rem;
+}
+
+[dir="rtl"] .nav-pills .nav-link {
+    margin-right: 0;
+    margin-left: 0.25rem;
+}
+
+[dir="rtl"] .text-end {
+    text-align: left !important;
+}
+
+[dir="rtl"] .text-start {
+    text-align: right !important;
+}
+
+/* Language-specific fonts */
+[lang="he"] {
+    font-family: 'Segoe UI', 'Arial Hebrew', sans-serif;
+}
+
+[lang="ru"] {
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+    .nav-tabs .nav-link,
+    .nav-pills .nav-link {
+        font-size: 0.875rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .nav-tabs .nav-link i,
+    .nav-pills .nav-link i {
+        display: none;
+    }
+}
+
+/* Loading states */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+===============================================================================
+                            IMPLEMENTATION TIMELINE
+===============================================================================
+
+PHASE 1: UI/UX Structure (2-3 days)
+1. Implement main tab navigation with sub-tabs
+2. Create responsive layout structure
+3. Add CSS improvements and animations
+4. Test navigation flow and user experience
+
+PHASE 2: Internationalization (2-3 days)
+1. Create translation files for Hebrew, English, Russian
+2. Implement i18n JavaScript manager
+3. Add RTL support for Hebrew
+4. Test all languages and layouts
+
+PHASE 3: Role-Based Interface (2-3 days)
+1. Implement role-based tab visibility
+2. Create bank-specific interfaces
+3. Add permission-based form controls
+4. Test all user role scenarios
+
+PHASE 4: Integration & Polish (2-3 days)
+1. Integrate with existing backend
+2. Add loading states and error handling
+3. Implement responsive design improvements
+4. Performance optimization
+
+TOTAL ESTIMATED TIME: 8-12 days
+
+This improved structure provides better organization, user experience, and 
+multi-language support suitable for international banking operations. 

@@ -1,0 +1,6 @@
+File server running at http://localhost:3001/
+Admin panel available at http://localhost:3001/admin-panel
+Customer approval check at http://localhost:3001/customer-approval-check
+Main app at http://localhost:3001/
+2025-06-15T22:15:00.725Z - GET /admin-panel
+2025-06-15T22:27:51.808Z - GET /admin-panel

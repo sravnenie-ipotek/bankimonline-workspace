@@ -1,8 +1,0 @@
-### ci/shared/default.gitlab-ci.yml
-
-### If you need specific variables for the following job you can put them here
-
-install_dependencies:
-  stage: prerequisite
-  script: 
-    - echo install_dependencies

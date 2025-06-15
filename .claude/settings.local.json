@@ -9,7 +9,18 @@
       "Bash(mkdir:*)",
       "Bash(rg:*)",
       "Bash(node test-db.js)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)",
+      "Bash(npx vite:*)",
+      "Bash(rm:*)",
+      "Bash(npm install)",
+      "Bash(npx:*)",
+      "Bash(npm install:*)",
+      "Bash(pkill:*)",
+      "Bash(kill:*)",
+      "Bash(cat:*)",
+      "Bash(npm run start:db:*)"
     ],
     "deny": []
   }
