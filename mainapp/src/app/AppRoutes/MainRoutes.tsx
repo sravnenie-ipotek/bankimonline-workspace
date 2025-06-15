@@ -115,6 +115,10 @@ const Jerusalem = lazy(() =>
     default: module.Jerusalem,
   }))
 )
+
+// Admin Pages
+const AdminLogin = lazy(() => import('../../pages/Admin/AdminLogin'))
+const AdminDashboard = lazy(() => import('../../pages/Admin/AdminDashboard'))
 const MainRoutes: React.FC = () => {
   return (
     <>
@@ -204,6 +208,14 @@ const MainRoutes: React.FC = () => {
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/view/:id" element={<View />} />
               <Route path="/404" element={<NotFound type={'NOT_FOUND'} />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin">
+                <Route path="login" element={<AdminLogin />} />
+                <Route path="dashboard" element={<AdminDashboard />} />
+                <Route index element={<Navigate replace to="/admin/login" />} />
+              </Route>
+              
               <Route path="*" element={<Navigate replace to="/404" />} />
             </Route>
           </Routes>
