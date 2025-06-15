@@ -1,9 +1,0 @@
-.root {
-  display: flex;
-  width: 100%;
-  column-gap: 29px;
-
-  @media (max-width: 300px) {
-    column-gap: 10px;;
-  }
-}
