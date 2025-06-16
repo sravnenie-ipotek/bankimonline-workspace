@@ -1,0 +1,1 @@
+import{a,j as o}from"./index-8c325235.js";import{T as r}from"./TextPage-c8a28e01.js";import"./index-9bc675d4.js";const c=()=>{const{t,i18n:i}=a();return i.language=i.language.split("-")[0],o.jsx(r,{title:t("privacy_policy_title"),text:t("privacy_policy_text")})},n=c;export{n as PrivacyPolicy};
