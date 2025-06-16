@@ -1,7 +1,7 @@
 {
   "version": 2,
   "framework": null,
-  "buildCommand": "",
+  "buildCommand": "cd mainapp && npm install && npm run build",
   "outputDirectory": ".",
   "installCommand": "",
   "rewrites": [
