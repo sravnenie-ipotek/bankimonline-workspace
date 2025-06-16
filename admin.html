@@ -1572,7 +1572,7 @@
             
             try {
                 // Get user profile
-                const profileResponse = await fetch(`\/admin/profile`, {
+                const profileResponse = await fetch(`${API_BASE}/admin/profile`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -1582,7 +1582,7 @@
                 }
 
                 // Get stats
-                const statsResponse = await fetch(`\/admin/stats`, {
+                const statsResponse = await fetch(`${API_BASE}/admin/stats`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -1659,7 +1659,7 @@
             const token = localStorage.getItem('adminToken');
             
             try {
-                const statsResponse = await fetch(`\/admin/stats`, {
+                const statsResponse = await fetch(`${API_BASE}/admin/stats`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -1682,7 +1682,7 @@
             document.getElementById('main-content').innerHTML = '<div class="flex justify-center items-center h-64"><div class="text-gray-500">Loading banks...</div></div>';
             
             try {
-                const response = await fetch(`\/admin/banks`, {
+                const response = await fetch(`${API_BASE}/admin/banks`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -1714,7 +1714,7 @@
                     queryParams.append('search', search);
                 }
                 
-                const response = await fetch(`\/admin/users?${queryParams}`, {
+                const response = await fetch(`${API_BASE}/admin/users?${queryParams}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -1756,7 +1756,7 @@
             const token = localStorage.getItem('adminToken');
             
             try {
-                const response = await fetch(`\/admin/users/${userId}`, {
+                const response = await fetch(`${API_BASE}/admin/users/${userId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -1790,7 +1790,7 @@
             const token = localStorage.getItem('adminToken');
             
             try {
-                const response = await fetch(`\/admin/users/${userId}`, {
+                const response = await fetch(`${API_BASE}/admin/users/${userId}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -1825,7 +1825,7 @@
             const token = localStorage.getItem('adminToken');
             
             try {
-                const response = await fetch(`\/admin/users/${userId}`, {
+                const response = await fetch(`${API_BASE}/admin/users/${userId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1860,7 +1860,7 @@
                 queryParams.append('limit', '50');
                 queryParams.append('offset', (page - 1) * 50);
                 
-                const response = await fetch(`\/admin/applications?${queryParams}`);
+                const response = await fetch(`${API_BASE}/admin/applications?${queryParams}`);
 
                 if (response.ok) {
                     const data = await response.json();
@@ -1909,7 +1909,7 @@
 
         async function viewApplication(applicationId) {
             try {
-                const response = await fetch(`\/admin/applications/${applicationId}`);
+                const response = await fetch(`${API_BASE}/admin/applications/${applicationId}`);
 
                 if (response.ok) {
                     const result = await response.json();
@@ -2103,7 +2103,7 @@
             }
             
             try {
-                const response = await fetch(`\/admin/applications/${applicationId}/status`, {
+                const response = await fetch(`${API_BASE}/admin/applications/${applicationId}/status`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -2165,7 +2165,7 @@
             }
             
             try {
-                const response = await fetch(`\/admin/applications/${applicationId}/status`, {
+                const response = await fetch(`${API_BASE}/admin/applications/${applicationId}/status`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2193,7 +2193,7 @@
             document.getElementById('main-content').innerHTML = '<div class="flex justify-center items-center h-64"><div class="text-gray-500">Loading calculations...</div></div>';
             
             try {
-                const response = await fetch(`\/admin/calculations`, {
+                const response = await fetch(`${API_BASE}/admin/calculations`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -2227,7 +2227,7 @@
             const employment_years = parseInt(document.getElementById('enhMortgageEmployment').value);
             
             try {
-                const response = await fetch(`\/admin/calculate-enhanced-mortgage`, {
+                const response = await fetch(`${API_BASE}/admin/calculate-enhanced-mortgage`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2269,7 +2269,7 @@
             const employment_years = parseInt(document.getElementById('enhCreditEmployment').value);
             
             try {
-                const response = await fetch(`\/admin/calculate-enhanced-credit`, {
+                const response = await fetch(`${API_BASE}/admin/calculate-enhanced-credit`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2440,7 +2440,7 @@
             const initial_payment = parseInt(document.getElementById('mortgageDown').value);
             
             try {
-                const response = await fetch(`\/admin/calculate-mortgage`, {
+                const response = await fetch(`${API_BASE}/admin/calculate-mortgage`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2478,7 +2478,7 @@
             const years = parseInt(document.getElementById('creditYears').value);
             
             try {
-                const response = await fetch(`\/admin/calculate-credit`, {
+                const response = await fetch(`${API_BASE}/admin/calculate-credit`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2528,7 +2528,7 @@
             const refinance_type = document.getElementById('enhMortRefType').value;
             
             try {
-                const response = await fetch(`\/admin/calculate-enhanced-mortgage-refinance`, {
+                const response = await fetch(`${API_BASE}/admin/calculate-enhanced-mortgage-refinance`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2571,7 +2571,7 @@
             const refinance_purpose = document.getElementById('enhCredRefPurpose').value;
             
             try {
-                const response = await fetch(`\/admin/calculate-enhanced-credit-refinance`, {
+                const response = await fetch(`${API_BASE}/admin/calculate-enhanced-credit-refinance`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2746,16 +2746,16 @@
             try {
                 // Load standards for all business paths
                 const [mortgageRes, mortgageRefRes, creditRes, creditRefRes] = await Promise.all([
-                    fetch(`\/admin/banking-standards/mortgage`, {
+                    fetch(`${API_BASE}/admin/banking-standards/mortgage`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }),
-                    fetch(`\/admin/banking-standards/mortgage_refinance`, {
+                    fetch(`${API_BASE}/admin/banking-standards/mortgage_refinance`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }),
-                    fetch(`\/admin/banking-standards/credit`, {
+                    fetch(`${API_BASE}/admin/banking-standards/credit`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     }),
-                    fetch(`\/admin/banking-standards/credit_refinance`, {
+                    fetch(`${API_BASE}/admin/banking-standards/credit_refinance`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     })
                 ]);
@@ -2876,7 +2876,7 @@
             const token = localStorage.getItem('adminToken');
             
             try {
-                const response = await fetch(`\/admin/banking-standards/${standardId}`, {
+                const response = await fetch(`${API_BASE}/admin/banking-standards/${standardId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2905,7 +2905,7 @@
             const token = localStorage.getItem('adminToken');
             
             try {
-                const response = await fetch(`\/admin/banking-standards/${standardId}`, {
+                const response = await fetch(`${API_BASE}/admin/banking-standards/${standardId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -2951,7 +2951,7 @@
             const token = localStorage.getItem('adminToken');
             
             try {
-                const response = await fetch(`\/admin/banks/${bankId}`, {
+                const response = await fetch(`${API_BASE}/admin/banks/${bankId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -2985,7 +2985,7 @@
             const token = localStorage.getItem('adminToken');
             
             try {
-                const response = await fetch(`\/admin/banks/${bankId}`, {
+                const response = await fetch(`${API_BASE}/admin/banks/${bankId}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -3022,7 +3022,7 @@
             const token = localStorage.getItem('adminToken');
             
             try {
-                const response = await fetch(`\/admin/banks${isEditing ? '/' + bankId : ''}`, {
+                const response = await fetch(`${API_BASE}/admin/banks${isEditing ? '/' + bankId : ''}`, {
                     method: isEditing ? 'PUT' : 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3289,7 +3289,7 @@
 
         async function getBankingStandardsContent() {
             try {
-                const response = await fetch(`\/admin/banking-standards`, {
+                const response = await fetch(`${API_BASE}/admin/banking-standards`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
                     }
@@ -5009,7 +5009,7 @@
         // Bank Configuration Functions
         async function loadBankConfigurationData() {
             try {
-                const response = await fetch(`\/admin/banks`, {
+                const response = await fetch(`${API_BASE}/admin/banks`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
                     }
@@ -5088,7 +5088,7 @@
             try {
                 console.log(`Loading configuration for bank ${bankId}`);
                 
-                const response = await fetch(`\/admin/banks/${bankId}/config`, {
+                const response = await fetch(`${API_BASE}/admin/banks/${bankId}/config`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
                     }
@@ -5278,7 +5278,7 @@
                 document.getElementById('avgRate').textContent = '...';
                 
                 // Fetch real statistics from API
-                const response = await fetch(`\/admin/banks/${bankId}/stats`, {
+                const response = await fetch(`${API_BASE}/admin/banks/${bankId}/stats`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
                     }
@@ -5357,7 +5357,7 @@
                 saveButton.disabled = true;
 
                 // Make API call to save configuration
-                const response = await fetch(`\/admin/banks/${selectedBankId}/config`, {
+                const response = await fetch(`${API_BASE}/admin/banks/${selectedBankId}/config`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
