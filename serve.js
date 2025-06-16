@@ -42,9 +42,15 @@ const server = http.createServer((req, res) => {
   } else if (req.url.startsWith('/js/') || req.url.startsWith('/css/') || req.url.startsWith('/locales/')) {
     // Serve static files from project root
     filePath = '.' + req.url;
-  } else if (req.url === '/' || req.url === '/index.html') {
+  } else if (req.url === '/dashboard' || req.url === '/personal-admin') {
     // Serve personal admin dashboard
     filePath = './index.html';
+  } else if (req.url === '/' || req.url === '/index.html') {
+    // Serve React mainApp
+    filePath = './mainapp/build/index.html';
+  } else if (req.url.startsWith('/assets/')) {
+    // Serve React app assets
+    filePath = './mainapp/build' + req.url;
   } else {
     // For any other route, try to serve from project root first, then fallback to React app
     filePath = '.' + req.url;
@@ -61,7 +67,7 @@ const server = http.createServer((req, res) => {
       if (error.code === 'ENOENT') {
         // Try to fallback to React app's index.html for client-side routing
         if (!filePath.includes('admin') && !filePath.includes('.')) {
-          fs.readFile('./mainapp/dist/index.html', (err, indexContent) => {
+          fs.readFile('./mainapp/build/index.html', (err, indexContent) => {
             if (err) {
               res.writeHead(404);
               res.end('404 Not Found');
@@ -87,9 +93,10 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`🚀 BankimOnline Server running at http://localhost:${PORT}/`);
-  console.log(`📊 Personal Admin Dashboard: http://localhost:${PORT}/`);
+  console.log(`🏠 Main Website (React App): http://localhost:${PORT}/`);
+  console.log(`📊 Personal Admin Dashboard: http://localhost:${PORT}/dashboard`);
   console.log(`🏦 Banking Admin Panel: http://localhost:${PORT}/admin`);
   console.log(`🧮 Customer Calculator: http://localhost:${PORT}/customer`);
   console.log(`📡 API Health Check: http://localhost:8003/api/health`);
-  console.log(`\n✅ Single Domain Strategy Active - Navigation Ready!`);
+  console.log(`\n✅ Single Domain Strategy Active - MainApp + Admin Tools!`);
 });
