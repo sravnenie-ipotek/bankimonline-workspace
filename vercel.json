@@ -10,6 +10,18 @@
       "destination": "https://bankim-nodejs-api-production.up.railway.app/api/$1"
     },
     {
+      "source": "/",
+      "destination": "/landing.html"
+    },
+    {
+      "source": "/app",
+      "destination": "/mainapp/build/index.html"
+    },
+    {
+      "source": "/app/(.*)",
+      "destination": "/mainapp/build/index.html"
+    },
+    {
       "source": "/admin",
       "destination": "/admin.html"
     },
@@ -18,16 +30,12 @@
       "destination": "/customer-approval-check.html"
     },
     {
-      "source": "/dashboard",
-      "destination": "/index.html"
-    },
-    {
       "source": "/personal-admin",
       "destination": "/index.html"
     },
     {
-      "source": "/(.*)",
-      "destination": "/mainapp/build/index.html"
+      "source": "/dashboard",
+      "destination": "/index.html"
     }
   ],
   "headers": [
