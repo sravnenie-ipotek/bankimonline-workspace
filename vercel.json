@@ -18,8 +18,16 @@
       "destination": "/customer-approval-check.html"
     },
     {
-      "source": "/(.*)",
+      "source": "/dashboard",
       "destination": "/index.html"
+    },
+    {
+      "source": "/personal-admin",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/mainapp/build/index.html"
     }
   ],
   "headers": [
