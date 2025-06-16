@@ -1,6 +1,6 @@
 const refinanceMortgage = async (data: any) => {
   // Get API base URL from environment variables
-  const baseUrl = process.env.VITE_NODE_API_BASE_URL || 'http://localhost:8003/api'
+  const baseUrl = process.env.VITE_NODE_API_BASE_URL || (process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8003/api')
   const url = `${baseUrl}/refinance-mortgage`
 
   try {

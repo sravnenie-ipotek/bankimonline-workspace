@@ -22,7 +22,8 @@ const AdminLogin: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8003/api/admin/login', {
+      const API_BASE = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8003/api';
+      const response = await fetch(`${API_BASE}/admin/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

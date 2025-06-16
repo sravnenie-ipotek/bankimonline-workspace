@@ -26,8 +26,10 @@ const AdminDashboard: React.FC = () => {
 
   const loadAdminData = async (token: string) => {
     try {
+      const API_BASE = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8003/api';
+      
       // Get admin profile
-      const profileResponse = await fetch('http://localhost:8003/api/admin/profile', {
+      const profileResponse = await fetch(`${API_BASE}/admin/profile`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -39,7 +41,7 @@ const AdminDashboard: React.FC = () => {
       }
 
       // Get stats
-      const statsResponse = await fetch('http://localhost:8003/api/admin/stats', {
+      const statsResponse = await fetch(`${API_BASE}/admin/stats`, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },

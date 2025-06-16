@@ -47,7 +47,7 @@ const initialState: AdminState = {
 };
 
 // API base URL
-const API_BASE_URL = 'http://localhost:8003/api';
+const API_BASE_URL = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8003/api';
 
 /**
  * Admin Login Async Thunk
