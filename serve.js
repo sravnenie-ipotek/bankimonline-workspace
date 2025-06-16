@@ -33,11 +33,18 @@ const server = http.createServer((req, res) => {
     filePath = './customer-approval-check.html';
   } else if (req.url === '/debug.html') {
     filePath = './debug.html';
-  } else if (req.url.startsWith('/js/') || 
-             req.url.startsWith('/css/') || 
-             req.url.startsWith('/locales/')) {
-    // Serve static files directly from project root
+  } else if (req.url.startsWith('/js/') || req.url.startsWith('/css/')) {
+    // Serve admin panel JS/CSS files from project root
     filePath = '.' + req.url;
+  } else if (req.url.startsWith('/locales/') && req.url.endsWith('.json')) {
+    // Check if it's a React app translation file (has /translation.json)
+    if (req.url.includes('/translation.json')) {
+      // Serve React app translations from dist folder
+      filePath = './mainapp/dist' + req.url;
+    } else {
+      // Serve admin panel translations from project root
+      filePath = '.' + req.url;
+    }
   } else {
     // Default to React app
     filePath = req.url === '/' ? './mainapp/dist/index.html' : './mainapp/dist' + req.url;

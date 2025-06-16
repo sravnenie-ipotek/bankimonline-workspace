@@ -166,10 +166,49 @@ async function changeLanguage(language) {
     }
 }
 
+// Setup UI based on user role
+function setupUIForRole(userRole, bankId = null) {
+    // This function handles role-based UI setup
+    // For customer-approval-check.html, we don't need role-based restrictions
+    
+    // Hide/show elements based on role
+    const adminElements = document.querySelectorAll('[data-role="admin"]');
+    const bankElements = document.querySelectorAll('[data-role="bank"]');
+    const customerElements = document.querySelectorAll('[data-role="customer"]');
+    
+    // Show/hide based on role
+    switch(userRole) {
+        case 'super_admin':
+            adminElements.forEach(el => el.style.display = 'block');
+            bankElements.forEach(el => el.style.display = 'block');
+            customerElements.forEach(el => el.style.display = 'block');
+            break;
+        case 'business_admin':
+            adminElements.forEach(el => el.style.display = 'block');
+            bankElements.forEach(el => el.style.display = 'none');
+            customerElements.forEach(el => el.style.display = 'block');
+            break;
+        case 'bank_admin':
+            adminElements.forEach(el => el.style.display = 'none');
+            bankElements.forEach(el => el.style.display = 'block');
+            customerElements.forEach(el => el.style.display = 'block');
+            break;
+        default:
+            // Customer or public access
+            adminElements.forEach(el => el.style.display = 'none');
+            bankElements.forEach(el => el.style.display = 'none');
+            customerElements.forEach(el => el.style.display = 'block');
+    }
+    
+    // Store role info globally
+    window.userRole = userRole;
+    window.userBankId = bankId;
+}
+
 // Initialize role-based UI
 function initializeRoleBasedUI() {
     // Get user role from localStorage or API
-    const userRole = localStorage.getItem('userRole') || 'business_admin';
+    const userRole = localStorage.getItem('userRole') || 'customer';
     const bankId = localStorage.getItem('userBankId') || null;
     
     // Setup UI based on role
