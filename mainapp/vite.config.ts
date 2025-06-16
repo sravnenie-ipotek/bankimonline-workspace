@@ -1,6 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
-import path from 'path'
+import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -17,15 +17,15 @@ export default defineConfig(({ command, mode }) => {
     },
     resolve: {
       alias: {
-        '@assets': path.resolve(__dirname, './src/assets'),
-        '@pages': path.resolve(__dirname, './src/components/pages'),
-        '@src': path.resolve(__dirname, './src'),
-        '@components': path.resolve(__dirname, './src/components'),
-        '@static': path.resolve(__dirname, './static'),
-        '@lib': path.resolve(__dirname, './src/lib'),
-        '@shared': path.resolve(__dirname, './src/shared'),
-        '@context': path.resolve(__dirname, './src/context'),
-        '@types': path.resolve(__dirname, './src/types'),
+        '@assets': resolve(__dirname, './src/assets'),
+        '@pages': resolve(__dirname, './src/components/pages'),
+        '@src': resolve(__dirname, './src'),
+        '@components': resolve(__dirname, './src/components'),
+        '@static': resolve(__dirname, './static'),
+        '@lib': resolve(__dirname, './src/lib'),
+        '@shared': resolve(__dirname, './src/shared'),
+        '@context': resolve(__dirname, './src/context'),
+        '@types': resolve(__dirname, './src/types'),
       },
     },
     define: {
