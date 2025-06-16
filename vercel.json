@@ -4,11 +4,6 @@
   "buildCommand": "cd mainapp && npm install && npm run build",
   "outputDirectory": ".",
   "installCommand": "",
-  "functions": {
-    "api/*.js": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "build": {
     "env": {
       "CI": "",
