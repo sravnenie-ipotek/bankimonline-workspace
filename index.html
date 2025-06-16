@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankimOnline - Personal Admin Dashboard</title>
+    <link href="css/tailwind.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                        <span class="text-purple-600 font-bold text-lg">B</span>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-bold">BankimOnline</h1>
+                        <p class="text-purple-100 text-sm">Personal Admin Dashboard</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <nav class="hidden md:flex items-center space-x-4">
+                        <a href="/" class="text-purple-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium bg-purple-600">
+                            🏠 Home
+                        </a>
+                        <a href="/admin" class="text-purple-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-600">
+                            🏦 Banking Admin
+                        </a>
+                        <a href="/customer" class="text-purple-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-600">
+                            🧮 Calculator
+                        </a>
+                    </nav>
+                    <span class="text-purple-100">Welcome, Admin</span>
+                    <div class="w-8 h-8 bg-purple-300 rounded-full"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <span class="text-blue-600 text-xl">👥</span>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Total Users</h3>
+                        <p class="text-2xl font-bold text-blue-600">1,234</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                        <span class="text-green-600 text-xl">📊</span>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Applications</h3>
+                        <p class="text-2xl font-bold text-green-600">567</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <span class="text-purple-600 text-xl">💰</span>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-semibold text-gray-800">Revenue</h3>
+                        <p class="text-2xl font-bold text-purple-600">₪89K</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Banking Admin Panel -->
+            <div class="bg-white rounded-lg shadow-md card-hover cursor-pointer" onclick="window.location.href='/admin'">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">🏦</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Banking Admin Panel</h3>
+                    <p class="text-gray-600 mb-4">Manage bank configurations, user applications, and system settings.</p>
+                    <div class="flex items-center text-blue-600 font-semibold">
+                        <span>Access Panel</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Calculator -->
+            <div class="bg-white rounded-lg shadow-md card-hover cursor-pointer" onclick="window.location.href='/customer'">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">🧮</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Customer Calculator</h3>
+                    <p class="text-gray-600 mb-4">Loan approval simulator and bank comparison tool for customers.</p>
+                    <div class="flex items-center text-green-600 font-semibold">
+                        <span>Open Calculator</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Settings -->
+            <div class="bg-white rounded-lg shadow-md card-hover cursor-pointer" onclick="toggleSettings()">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">⚙️</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">System Settings</h3>
+                    <p class="text-gray-600 mb-4">Configure system parameters, API endpoints, and deployment settings.</p>
+                    <div class="flex items-center text-purple-600 font-semibold">
+                        <span>View Settings</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Documentation -->
+            <div class="bg-white rounded-lg shadow-md card-hover cursor-pointer" onclick="window.open('/api/health', '_blank')">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">📡</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">API Status</h3>
+                    <p class="text-gray-600 mb-4">Monitor API health, endpoints status, and system connectivity.</p>
+                    <div class="flex items-center text-orange-600 font-semibold">
+                        <span>Check Status</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- File Manager -->
+            <div class="bg-white rounded-lg shadow-md card-hover cursor-pointer" onclick="toggleFileManager()">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">📁</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">File Manager</h3>
+                    <p class="text-gray-600 mb-4">Browse project files, documentation, and system configurations.</p>
+                    <div class="flex items-center text-red-600 font-semibold">
+                        <span>Browse Files</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Deployment Status -->
+            <div class="bg-white rounded-lg shadow-md card-hover cursor-pointer" onclick="checkDeploymentStatus()">
+                <div class="p-6">
+                    <div class="w-16 h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-2xl">🚀</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Deployment Status</h3>
+                    <p class="text-gray-600 mb-4">Monitor Vercel and Railway deployments, check service health.</p>
+                    <div class="flex items-center text-teal-600 font-semibold">
+                        <span>Check Status</span>
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="mt-8 bg-white rounded-lg shadow-md">
+            <div class="p-6 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-800">Recent Activity</h3>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span class="text-gray-600">System deployed successfully to production</span>
+                        <span class="text-gray-400 text-sm ml-auto">2 hours ago</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span class="text-gray-600">New customer application submitted</span>
+                        <span class="text-gray-400 text-sm ml-auto">4 hours ago</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <span class="text-gray-600">Database backup completed</span>
+                        <span class="text-gray-400 text-sm ml-auto">6 hours ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <p class="text-gray-600">© 2024 BankimOnline. All rights reserved.</p>
+                <div class="flex items-center space-x-4">
+                    <span class="text-green-500">●</span>
+                    <span class="text-gray-600 text-sm">System Status: Online</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleSettings() {
+            alert('System Settings panel coming soon!');
+        }
+
+        function toggleFileManager() {
+            alert('File Manager functionality coming soon!');
+        }
+
+        function checkDeploymentStatus() {
+            window.open('https://vercel.com/dashboard', '_blank');
+        }
+
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate stats on load
+            const stats = document.querySelectorAll('.text-2xl.font-bold');
+            stats.forEach(stat => {
+                const finalValue = parseInt(stat.textContent.replace(/[^\d]/g, ''));
+                let currentValue = 0;
+                const increment = finalValue / 50;
+                const timer = setInterval(() => {
+                    currentValue += increment;
+                    if (currentValue >= finalValue) {
+                        currentValue = finalValue;
+                        clearInterval(timer);
+                    }
+                    if (stat.textContent.includes('₪')) {
+                        stat.textContent = '₪' + Math.floor(currentValue) + 'K';
+                    } else {
+                        stat.textContent = Math.floor(currentValue).toLocaleString();
+                    }
+                }, 50);
+            });
+        });
+    </script>
+</body>
+</html> 
