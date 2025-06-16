@@ -26,28 +26,28 @@ const server = http.createServer((req, res) => {
   
   let filePath = '';
   
-  // Handle admin routes FIRST - serve standalone admin page
-  if (req.url.startsWith('/admin-panel')) {
+  // Handle single domain routing strategy
+  if (req.url === '/admin' || req.url === '/admin/') {
+    filePath = './admin.html';
+  } else if (req.url === '/customer' || req.url === '/customer/') {
+    filePath = './customer-approval-check.html';
+  } else if (req.url.startsWith('/admin-panel')) {
+    // Legacy route for admin panel
     filePath = './admin.html';
   } else if (req.url.startsWith('/customer-approval-check')) {
+    // Legacy route for customer approval
     filePath = './customer-approval-check.html';
   } else if (req.url === '/debug.html') {
     filePath = './debug.html';
-  } else if (req.url.startsWith('/js/') || req.url.startsWith('/css/')) {
-    // Serve admin panel JS/CSS files from project root
+  } else if (req.url.startsWith('/js/') || req.url.startsWith('/css/') || req.url.startsWith('/locales/')) {
+    // Serve static files from project root
     filePath = '.' + req.url;
-  } else if (req.url.startsWith('/locales/') && req.url.endsWith('.json')) {
-    // Check if it's a React app translation file (has /translation.json)
-    if (req.url.includes('/translation.json')) {
-      // Serve React app translations from dist folder
-      filePath = './mainapp/dist' + req.url;
-    } else {
-      // Serve admin panel translations from project root
-      filePath = '.' + req.url;
-    }
+  } else if (req.url === '/' || req.url === '/index.html') {
+    // Serve personal admin dashboard
+    filePath = './index.html';
   } else {
-    // Default to React app
-    filePath = req.url === '/' ? './mainapp/dist/index.html' : './mainapp/dist' + req.url;
+    // For any other route, try to serve from project root first, then fallback to React app
+    filePath = '.' + req.url;
   }
   
   // Security: prevent directory traversal
@@ -86,8 +86,10 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`File server running at http://localhost:${PORT}/`);
-  console.log(`Admin panel available at http://localhost:${PORT}/admin-panel`);
-  console.log(`Customer approval check at http://localhost:${PORT}/customer-approval-check`);
-  console.log(`Main app at http://localhost:${PORT}/`);
+  console.log(`🚀 BankimOnline Server running at http://localhost:${PORT}/`);
+  console.log(`📊 Personal Admin Dashboard: http://localhost:${PORT}/`);
+  console.log(`🏦 Banking Admin Panel: http://localhost:${PORT}/admin`);
+  console.log(`🧮 Customer Calculator: http://localhost:${PORT}/customer`);
+  console.log(`📡 API Health Check: http://localhost:8003/api/health`);
+  console.log(`\n✅ Single Domain Strategy Active - Navigation Ready!`);
 });
