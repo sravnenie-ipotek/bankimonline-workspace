@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="customer_approval_check">BankimOnline - Real-Time Approval Check</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/css/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/i18n.css">
     <script src="/js/i18n.js"></script>
 </head>
@@ -174,6 +174,15 @@
                             <span data-i18n="compare_bank_offers">🏪 Compare Bank Offers</span>
                         </button>
                         <p class="text-xs text-gray-500" data-i18n="improve_criteria_first">Available when approval probability > 45%</p>
+                        
+                        <!-- Demo Button to Show Bank Requirements -->
+                        <button onclick="showBankRequirementsDemo()" 
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium w-full text-sm transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg">
+                            <span class="flex items-center justify-center">
+                                <span class="mr-2">💡</span>
+                                <span data-i18n="show_bank_requirements">Show Bank Requirements & Tips</span>
+                            </span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -513,10 +522,22 @@
             const compareBtn = document.getElementById('compareBanksBtn');
             if (data.approval_probability >= 45) {
                 compareBtn.disabled = false;
-                compareBtn.innerHTML = `<span data-i18n="compare_bank_offers">🏪 Compare Bank Offers</span>`;
+                compareBtn.className = 'bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium w-full transition-colors cursor-pointer';
+                compareBtn.innerHTML = `
+                    <span class="flex items-center justify-center">
+                        <span class="mr-2">🏦</span>
+                        <span data-i18n="compare_bank_offers">${t('compare_bank_offers') || 'Compare Bank Offers'}</span>
+                    </span>
+                `;
             } else {
                 compareBtn.disabled = true;
-                compareBtn.innerHTML = `<span data-i18n="improve_criteria_first">🏪 Improve Criteria First</span>`;
+                compareBtn.className = 'bg-gray-400 text-white px-6 py-2 rounded-md font-medium w-full cursor-not-allowed';
+                compareBtn.innerHTML = `
+                    <span class="flex items-center justify-center">
+                        <span class="mr-2">🔒</span>
+                        <span data-i18n="improve_criteria_first">${t('improve_criteria_first') || 'Improve Criteria First'}</span>
+                    </span>
+                `;
             }
         }
 
@@ -527,7 +548,16 @@
             document.getElementById('criteriaBreakdown').style.display = 'none';
             document.getElementById('concernsSection').style.display = 'none';
             document.getElementById('tipsSection').style.display = 'none';
-            document.getElementById('compareBanksBtn').disabled = true;
+            
+            const compareBtn = document.getElementById('compareBanksBtn');
+            compareBtn.disabled = true;
+            compareBtn.className = 'bg-gray-400 text-white px-6 py-2 rounded-md font-medium w-full cursor-not-allowed';
+            compareBtn.innerHTML = `
+                <span class="flex items-center justify-center">
+                    <span class="mr-2">🔒</span>
+                    <span data-i18n="improve_criteria_first">${t('improve_criteria_first') || 'Improve Criteria First'}</span>
+                </span>
+            `;
         }
 
         // Compare banks function
@@ -587,7 +617,111 @@
             bankOffers = data.bank_offers;
             
             if (data.bank_offers.length === 0) {
-                container.innerHTML = `<div class="text-gray-600 text-center py-8">${t('no_applications_found') || 'No bank offers available for your profile. Please adjust your criteria.'}</div>`;
+                container.innerHTML = `
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                        <div class="text-center mb-6">
+                            <div class="text-6xl mb-4">🏦</div>
+                            <h4 class="text-lg font-semibold text-yellow-800 mb-2">${t('no_bank_offers') || 'No Bank Offers Available'}</h4>
+                            <p class="text-yellow-700">${t('adjust_criteria_message') || 'Your current profile doesn\'t meet minimum bank requirements. Here\'s how to improve:'}</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <!-- Israeli Bank Requirements -->
+                            <div class="bg-white rounded-lg p-4 border border-yellow-300">
+                                <h5 class="font-semibold text-gray-800 mb-3 flex items-center">
+                                    🇮🇱 <span class="ml-2">${t('israeli_bank_limits') || 'Israeli Bank Requirements'}</span>
+                                </h5>
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">${t('max_ltv') || 'Max LTV Ratio'}:</span>
+                                        <span class="font-semibold">75%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">${t('max_dti') || 'Max DTI Ratio'}:</span>
+                                        <span class="font-semibold">40%</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">${t('min_credit_score') || 'Min Credit Score'}:</span>
+                                        <span class="font-semibold">650+</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">${t('min_employment') || 'Min Employment'}:</span>
+                                        <span class="font-semibold">2 years</span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span class="text-gray-600">${t('age_range') || 'Age Range'}:</span>
+                                        <span class="font-semibold">25-65</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Your Current Status -->
+                            <div class="bg-white rounded-lg p-4 border border-yellow-300">
+                                <h5 class="font-semibold text-gray-800 mb-3 flex items-center">
+                                    📊 <span class="ml-2">${t('your_current_status') || 'Your Current Status'}</span>
+                                </h5>
+                                <div class="space-y-2 text-sm" id="currentStatusBreakdown">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Fix Suggestions -->
+                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                            <h5 class="font-semibold text-blue-800 mb-3 flex items-center">
+                                💡 <span class="ml-2">${t('quick_fixes') || 'Quick Fixes to Get Bank Offers'}</span>
+                            </h5>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm" id="quickFixSuggestions">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Bank-Specific Information -->
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            <h5 class="font-semibold text-gray-800 mb-3 flex items-center">
+                                🏪 <span class="ml-2">${t('bank_specific_info') || 'Bank-Specific Requirements'}</span>
+                            </h5>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                                <div class="bg-white rounded p-3 border">
+                                    <div class="font-semibold text-blue-600 mb-2">Bank Hapoalim</div>
+                                    <div class="space-y-1">
+                                        <div>• LTV: Max 70%</div>
+                                        <div>• DTI: Max 35%</div>
+                                        <div>• Min Income: ₪15,000</div>
+                                        <div>• Credit: 700+</div>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded p-3 border">
+                                    <div class="font-semibold text-green-600 mb-2">Bank Leumi</div>
+                                    <div class="space-y-1">
+                                        <div>• LTV: Max 75%</div>
+                                        <div>• DTI: Max 40%</div>
+                                        <div>• Min Income: ₪12,000</div>
+                                        <div>• Credit: 650+</div>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded p-3 border">
+                                    <div class="font-semibold text-purple-600 mb-2">Discount Bank</div>
+                                    <div class="space-y-1">
+                                        <div>• LTV: Max 75%</div>
+                                        <div>• DTI: Max 38%</div>
+                                        <div>• Min Income: ₪18,000</div>
+                                        <div>• Credit: 680+</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-6">
+                            <button onclick="showBankRequirementsModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md font-medium">
+                                ${t('view_detailed_requirements') || '📋 View Detailed Requirements'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                // Populate current status and suggestions
+                populateCurrentStatusAndSuggestions();
                 return;
             }
             
@@ -636,6 +770,412 @@
         
         function hideBankComparison() {
             document.getElementById('bankComparisonSection').style.display = 'none';
+        }
+        
+        function populateCurrentStatusAndSuggestions() {
+            const formData = getCurrentFormData();
+            const currentStatus = calculateCurrentStatus(formData);
+            const suggestions = generateQuickFixSuggestions(formData, currentStatus);
+            
+            // Populate current status
+            const statusContainer = document.getElementById('currentStatusBreakdown');
+            if (statusContainer) {
+                statusContainer.innerHTML = Object.entries(currentStatus).map(([key, value]) => {
+                    const isGood = value.status === 'good';
+                    const statusColor = isGood ? 'text-green-600' : 'text-red-600';
+                    const statusIcon = isGood ? '✅' : '❌';
+                    
+                    return `
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">${value.label}:</span>
+                            <span class="${statusColor} font-semibold flex items-center">
+                                ${statusIcon} ${value.current}
+                            </span>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            // Populate suggestions
+            const suggestionsContainer = document.getElementById('quickFixSuggestions');
+            if (suggestionsContainer) {
+                suggestionsContainer.innerHTML = suggestions.map((suggestion, index) => `
+                    <div class="bg-white rounded-lg p-4 border border-blue-300 shadow-sm hover:shadow-md transition-all duration-200 transform hover:scale-102">
+                        <div class="flex items-center mb-3">
+                            <span class="text-2xl mr-3">${suggestion.icon || '🔧'}</span>
+                            <div class="font-semibold text-blue-800">${suggestion.title}</div>
+                        </div>
+                        <div class="text-blue-700 mb-3 text-sm leading-relaxed">${suggestion.description}</div>
+                        <button onclick="applySuggestion('${suggestion.field}', ${suggestion.value}, ${index})" 
+                                class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 transform hover:scale-105 shadow-sm hover:shadow-md w-full">
+                            <span class="flex items-center justify-center">
+                                <span class="mr-2">✨</span>
+                                ${suggestion.action}
+                            </span>
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+        
+        function getCurrentFormData() {
+            return {
+                loanType: document.getElementById('loanType').value,
+                amount: parseInt(document.getElementById('amount').value) || 0,
+                propertyValue: parseInt(document.getElementById('propertyValue').value) || 0,
+                monthlyIncome: parseInt(document.getElementById('monthlyIncome').value) || 0,
+                monthlyExpenses: parseInt(document.getElementById('monthlyExpenses').value) || 0,
+                age: parseInt(document.getElementById('age').value) || 0,
+                creditScore: parseInt(document.getElementById('creditScore').value) || 0,
+                employmentYears: parseInt(document.getElementById('employmentYears').value) || 0
+            };
+        }
+        
+        function calculateCurrentStatus(data) {
+            const ltv = data.propertyValue > 0 ? (data.amount / data.propertyValue * 100) : 0;
+            const dti = data.monthlyIncome > 0 ? (data.monthlyExpenses / data.monthlyIncome * 100) : 0;
+            
+            return {
+                ltv: {
+                    label: 'LTV Ratio',
+                    current: `${ltv.toFixed(1)}%`,
+                    status: ltv <= 75 ? 'good' : 'bad'
+                },
+                dti: {
+                    label: 'DTI Ratio',
+                    current: `${dti.toFixed(1)}%`,
+                    status: dti <= 40 ? 'good' : 'bad'
+                },
+                creditScore: {
+                    label: 'Credit Score',
+                    current: data.creditScore,
+                    status: data.creditScore >= 650 ? 'good' : 'bad'
+                },
+                employment: {
+                    label: 'Employment Years',
+                    current: `${data.employmentYears} years`,
+                    status: data.employmentYears >= 2 ? 'good' : 'bad'
+                },
+                age: {
+                    label: 'Age',
+                    current: `${data.age} years`,
+                    status: (data.age >= 25 && data.age <= 65) ? 'good' : 'bad'
+                }
+            };
+        }
+        
+        function generateQuickFixSuggestions(data, status) {
+            const suggestions = [];
+            
+            if (status.ltv.status === 'bad') {
+                const currentLTV = data.amount / data.propertyValue * 100;
+                const targetLoanAmount = Math.floor(data.propertyValue * 0.75);
+                suggestions.push({
+                    title: t('reduce_loan_amount') || 'Reduce Loan Amount',
+                    description: `${t('lower_loan_to') || 'Lower your loan to'} ₪${targetLoanAmount.toLocaleString()} ${t('to_achieve_ltv') || 'to achieve 75% LTV'}`,
+                    field: 'amount',
+                    value: targetLoanAmount,
+                    action: t('apply_fix') || 'Apply Fix',
+                    icon: '💰'
+                });
+            }
+            
+            if (status.dti.status === 'bad') {
+                const targetIncome = Math.ceil(data.monthlyExpenses / 0.35);
+                suggestions.push({
+                    title: t('increase_income') || 'Increase Monthly Income',
+                    description: `${t('increase_income_to') || 'Increase income to'} ₪${targetIncome.toLocaleString()} ${t('to_achieve_dti') || 'to achieve 35% DTI'}`,
+                    field: 'monthlyIncome',
+                    value: targetIncome,
+                    action: t('apply_fix') || 'Apply Fix',
+                    icon: '📈'
+                });
+            }
+            
+            if (status.creditScore.status === 'bad') {
+                suggestions.push({
+                    title: t('improve_credit') || 'Improve Credit Score',
+                    description: t('increase_credit_score') || 'Increase your credit score to at least 650 for better approval chances',
+                    field: 'creditScore',
+                    value: 650,
+                    action: t('set_minimum') || 'Set Minimum',
+                    icon: '⭐'
+                });
+            }
+            
+            if (status.employment.status === 'bad') {
+                suggestions.push({
+                    title: t('employment_history') || 'Employment History',
+                    description: t('banks_prefer_employment') || 'Banks prefer at least 2 years of employment history',
+                    field: 'employmentYears',
+                    value: 2,
+                    action: t('set_minimum') || 'Set Minimum',
+                    icon: '💼'
+                });
+            }
+            
+            return suggestions;
+        }
+        
+        function applySuggestion(field, value, suggestionIndex) {
+            const element = document.getElementById(field);
+            if (element) {
+                // Add loading state to button
+                const button = event.target.closest('button');
+                const originalContent = button.innerHTML;
+                button.disabled = true;
+                button.innerHTML = `
+                    <span class="flex items-center justify-center">
+                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        ${t('applying') || 'Applying...'}
+                    </span>
+                `;
+                
+                                    // Apply the fix with animation
+                setTimeout(() => {
+                    element.value = value;
+                    element.dispatchEvent(new Event('input'));
+                    updateApprovalProbability();
+                    
+                    // Highlight the changed field
+                    element.style.transition = 'all 0.3s ease';
+                    element.style.backgroundColor = '#dcfce7';
+                    element.style.borderColor = '#16a34a';
+                    
+                    // Reset field styling after animation
+                    setTimeout(() => {
+                        element.style.backgroundColor = '';
+                        element.style.borderColor = '';
+                    }, 2000);
+                    
+                    // Show success feedback
+                    showNotification(t('fix_applied') || 'Fix applied successfully!', 'success');
+                    
+                    // Update button to show success
+                    button.innerHTML = `
+                        <span class="flex items-center justify-center">
+                            <span class="mr-2">✅</span>
+                            ${t('applied') || 'Applied!'}
+                        </span>
+                    `;
+                    
+                    // Check if approval is now above threshold and update Compare Bank Offers button
+                    setTimeout(() => {
+                        const currentApproval = parseFloat(document.querySelector('.text-6xl').textContent.replace('%', ''));
+                        const compareButton = document.getElementById('compareBanksBtn');
+                        
+                        if (currentApproval >= 45 && compareButton) {
+                            compareButton.disabled = false;
+                            // Update button styling to enabled state
+                            compareButton.className = 'bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md font-medium w-full transition-colors cursor-pointer';
+                            compareButton.innerHTML = `
+                                <span class="flex items-center justify-center">
+                                    <span class="mr-2">🏦</span>
+                                    <span data-i18n="compare_bank_offers">${t('compare_bank_offers') || 'Compare Bank Offers'}</span>
+                                </span>
+                            `;
+                            
+                            // Show notification that user can now compare offers
+                            showNotification(t('can_now_compare_offers') || 'Great! You can now compare bank offers.', 'success');
+                        }
+                    }, 500);
+                    
+                    // Reset button after delay
+                    setTimeout(() => {
+                        button.disabled = false;
+                        button.innerHTML = originalContent;
+                    }, 2000);
+                }, 300);
+            }
+        }
+        
+        // Enhanced demo function with better UX
+        function showBankRequirementsDemo() {
+            // Add loading animation to button
+            const button = event.target.closest('button');
+            const originalContent = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = `
+                <span class="flex items-center justify-center">
+                    <svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span data-i18n="loading_requirements">${t('loading_requirements') || 'Loading Requirements...'}</span>
+                </span>
+            `;
+            
+            // Simulate loading delay for better UX
+            setTimeout(() => {
+                // Show the bank comparison section with fade-in effect
+                const section = document.getElementById('bankComparisonSection');
+                section.style.display = 'block';
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(20px)';
+                
+                // Simulate no bank offers to trigger the enhanced hints
+                const demoData = { bank_offers: [] };
+                displayBankOffers(demoData);
+                
+                // Animate section appearance
+                setTimeout(() => {
+                    section.style.transition = 'all 0.5s ease-out';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, 100);
+                
+                // Scroll to the section smoothly
+                setTimeout(() => {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 200);
+                
+                // Reset button after animation
+                setTimeout(() => {
+                    button.disabled = false;
+                    button.innerHTML = originalContent;
+                }, 1000);
+                
+                // Show success notification
+                showNotification(t('requirements_loaded') || 'Bank requirements loaded successfully!', 'success');
+            }, 800);
+        }
+
+        function showBankRequirementsModal() {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white rounded-lg max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-gray-900">🏦 Israeli Bank Requirements Guide</h3>
+                            <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Mortgage Requirements -->
+                            <div class="bg-blue-50 rounded-lg p-4">
+                                <h4 class="font-semibold text-blue-800 mb-4 flex items-center">
+                                    🏠 <span class="ml-2">Mortgage Requirements</span>
+                                </h4>
+                                <div class="space-y-3 text-sm">
+                                    <div>
+                                        <div class="font-medium text-gray-800">Loan-to-Value (LTV) Ratio</div>
+                                        <div class="text-gray-600">Maximum 75% for most banks</div>
+                                        <div class="text-xs text-blue-600">Higher down payment = better rates</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium text-gray-800">Debt-to-Income (DTI) Ratio</div>
+                                        <div class="text-gray-600">Maximum 40% of gross monthly income</div>
+                                        <div class="text-xs text-blue-600">Includes all monthly debt payments</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium text-gray-800">Minimum Income</div>
+                                        <div class="text-gray-600">₪12,000 - ₪18,000 per month</div>
+                                        <div class="text-xs text-blue-600">Varies by bank and loan amount</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Credit Requirements -->
+                            <div class="bg-green-50 rounded-lg p-4">
+                                <h4 class="font-semibold text-green-800 mb-4 flex items-center">
+                                    💳 <span class="ml-2">Credit Requirements</span>
+                                </h4>
+                                <div class="space-y-3 text-sm">
+                                    <div>
+                                        <div class="font-medium text-gray-800">Credit Score Range</div>
+                                        <div class="text-gray-600">650+ for approval, 750+ for best rates</div>
+                                        <div class="text-xs text-green-600">Israeli scale: 0-1000 points</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium text-gray-800">Employment History</div>
+                                        <div class="text-gray-600">Minimum 2 years stable employment</div>
+                                        <div class="text-xs text-green-600">Self-employed: 3+ years with tax returns</div>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium text-gray-800">Age Requirements</div>
+                                        <div class="text-gray-600">25-65 years old</div>
+                                        <div class="text-xs text-green-600">Loan must be repaid before age 70</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Bank Comparison Table -->
+                        <div class="mt-6">
+                            <h4 class="font-semibold text-gray-800 mb-4">Bank-by-Bank Comparison</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm border-collapse border border-gray-300">
+                                    <thead>
+                                        <tr class="bg-gray-100">
+                                            <th class="border border-gray-300 p-2 text-left">Bank</th>
+                                            <th class="border border-gray-300 p-2">Max LTV</th>
+                                            <th class="border border-gray-300 p-2">Max DTI</th>
+                                            <th class="border border-gray-300 p-2">Min Income</th>
+                                            <th class="border border-gray-300 p-2">Min Credit</th>
+                                            <th class="border border-gray-300 p-2">Special Features</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="border border-gray-300 p-2 font-medium text-blue-600">Bank Hapoalim</td>
+                                            <td class="border border-gray-300 p-2 text-center">70%</td>
+                                            <td class="border border-gray-300 p-2 text-center">35%</td>
+                                            <td class="border border-gray-300 p-2 text-center">₪15,000</td>
+                                            <td class="border border-gray-300 p-2 text-center">700</td>
+                                            <td class="border border-gray-300 p-2">Premium rates for existing customers</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 p-2 font-medium text-green-600">Bank Leumi</td>
+                                            <td class="border border-gray-300 p-2 text-center">75%</td>
+                                            <td class="border border-gray-300 p-2 text-center">40%</td>
+                                            <td class="border border-gray-300 p-2 text-center">₪12,000</td>
+                                            <td class="border border-gray-300 p-2 text-center">650</td>
+                                            <td class="border border-gray-300 p-2">Flexible terms, first-time buyer programs</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 p-2 font-medium text-purple-600">Discount Bank</td>
+                                            <td class="border border-gray-300 p-2 text-center">75%</td>
+                                            <td class="border border-gray-300 p-2 text-center">38%</td>
+                                            <td class="border border-gray-300 p-2 text-center">₪18,000</td>
+                                            <td class="border border-gray-300 p-2 text-center">680</td>
+                                            <td class="border border-gray-300 p-2">Competitive rates, fast approval</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="border border-gray-300 p-2 font-medium text-orange-600">Bank Mizrahi</td>
+                                            <td class="border border-gray-300 p-2 text-center">70%</td>
+                                            <td class="border border-gray-300 p-2 text-center">35%</td>
+                                            <td class="border border-gray-300 p-2 text-center">₪16,000</td>
+                                            <td class="border border-gray-300 p-2 text-center">720</td>
+                                            <td class="border border-gray-300 p-2">Personalized service, relationship banking</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                            <h5 class="font-semibold text-yellow-800 mb-2">💡 Pro Tips</h5>
+                            <ul class="text-sm text-yellow-700 space-y-1">
+                                <li>• Apply to multiple banks to compare offers</li>
+                                <li>• Consider using a mortgage broker for better rates</li>
+                                <li>• Existing bank customers often get preferential rates</li>
+                                <li>• Pre-approval letters are valid for 60-90 days</li>
+                                <li>• Interest rates can be negotiated based on your profile</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
         }
         
         function selectBankOffer(index) {
@@ -891,6 +1431,60 @@
         function checkAnotherApplication() {
             document.getElementById('statusCheckId').value = '';
             document.getElementById('statusContainer').innerHTML = '';
+        }
+
+        // Enhanced notification system
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            const icons = {
+                success: '✅',
+                error: '❌',
+                info: 'ℹ️',
+                warning: '⚠️'
+            };
+            
+            notification.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 transform transition-all duration-300 ${
+                type === 'success' ? 'bg-green-100 text-green-800 border border-green-200' :
+                type === 'error' ? 'bg-red-100 text-red-800 border border-red-200' :
+                type === 'warning' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200' :
+                'bg-blue-100 text-blue-800 border border-blue-200'
+            }`;
+            
+            notification.innerHTML = `
+                <div class="flex items-center">
+                    <span class="text-lg mr-3">${icons[type] || icons.info}</span>
+                    <span class="font-medium">${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-gray-500 hover:text-gray-700">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
+            
+            // Initial position (off-screen)
+            notification.style.transform = 'translateX(100%)';
+            notification.style.opacity = '0';
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+                notification.style.opacity = '1';
+            }, 100);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, 5000);
         }
 
         // Initialize form
