@@ -4,38 +4,22 @@
   "buildCommand": "",
   "outputDirectory": ".",
   "installCommand": "",
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "https://bankim-nodejs-api-production.up.railway.app/api/$1"
+      "source": "/api/(.*)",
+      "destination": "https://bankim-nodejs-api-production.up.railway.app/api/$1"
     },
     {
-      "src": "/admin/?",
-      "dest": "/admin.html"
+      "source": "/admin",
+      "destination": "/admin.html"
     },
     {
-      "src": "/customer/?",
-      "dest": "/customer-approval-check.html"
+      "source": "/customer",
+      "destination": "/customer-approval-check.html"
     },
     {
-      "src": "/css/(.*)",
-      "dest": "/css/$1"
-    },
-    {
-      "src": "/js/(.*)",
-      "dest": "/js/$1"
-    },
-    {
-      "src": "/locales/(.*)",
-      "dest": "/locales/$1"
-    },
-    {
-      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
-      "dest": "/$1"
-    },
-    {
-      "src": "/",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
