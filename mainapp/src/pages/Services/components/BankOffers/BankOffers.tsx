@@ -42,7 +42,8 @@ const BankOffers = () => {
         console.log('🔍 [BANK-OFFERS] Customer LTV:', ((requestPayload.amount / requestPayload.property_value) * 100).toFixed(1) + '%')
         console.log('🔍 [BANK-OFFERS] Customer DTI:', ((requestPayload.monthly_expenses / requestPayload.monthly_income) * 100).toFixed(1) + '%')
         
-        const response = await fetch('http://localhost:8003/api/customer/compare-banks', {
+        const API_BASE = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8003/api';
+        const response = await fetch(`${API_BASE}/customer/compare-banks`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
