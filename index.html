@@ -85,6 +85,9 @@
                         <a href="/" class="text-purple-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-600">
                             🏠 <span data-translate="home">Home</span>
                         </a>
+                        <a href="/app" class="text-purple-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-600">
+                            ⚛️ <span data-translate="main_app">MainApp</span>
+                        </a>
                         <a href="/dashboard" class="text-purple-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium bg-purple-600">
                             📊 Dashboard
                         </a>
@@ -205,16 +208,16 @@
                 </div>
             </div>
 
-            <!-- System Settings -->
-            <div class="bg-white rounded-lg shadow-md card-hover cursor-pointer" onclick="toggleSettings()">
+            <!-- MainApp (React Application) -->
+            <div class="bg-white rounded-lg shadow-md card-hover cursor-pointer" onclick="window.location.href='/app'">
                 <div class="p-6">
                     <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
-                        <span class="text-white text-2xl">⚙️</span>
+                        <span class="text-white text-2xl">⚛️</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="system_settings">System Settings</h3>
-                    <p class="text-gray-600 mb-4" data-translate="configure_system_parameters">Configure system parameters, API endpoints, and deployment settings.</p>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="main_app">MainApp</h3>
+                    <p class="text-gray-600 mb-4" data-translate="react_banking_interface">Full React banking interface with loan services and bank comparison.</p>
                     <div class="flex items-center text-purple-600 font-semibold">
-                        <span data-translate="view_settings">View Settings</span>
+                        <span data-translate="open_app">Open App</span>
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
