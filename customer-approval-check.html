@@ -446,7 +446,7 @@
             }
 
             try {
-                const response = await fetch(`${API_BASE}/api/calculate-approval-probability`, {
+                const response = await fetch(`\/calculate-approval-probability`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -598,7 +598,7 @@
                     monthly_expenses: parseInt(document.getElementById('monthlyExpenses').value)
                 };
                 
-                const response = await fetch(`${API_BASE}/api/customer/compare-banks`, {
+                const response = await fetch(`\/customer/compare-banks`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -1247,7 +1247,7 @@
                     additional_info: document.getElementById('additionalInfo').value
                 };
                 
-                const response = await fetch(`${API_BASE}/api/customer/submit-application`, {
+                const response = await fetch(`\/customer/submit-application`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -1348,7 +1348,7 @@
             }
             
             try {
-                const response = await fetch(`${API_BASE}/api/applications/${applicationId}/status`);
+                const response = await fetch(`\/applications/${applicationId}/status`);
                 
                 if (response.ok) {
                     const result = await response.json();
