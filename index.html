@@ -16,6 +16,54 @@
             transform: translateY(-5px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
+        .language-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .language-dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: white;
+            min-width: 120px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            z-index: 1000;
+            overflow: hidden;
+        }
+        .language-dropdown-content.show {
+            display: block;
+        }
+        .language-option {
+            color: #374151;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .language-option:hover {
+            background-color: #f3f4f6;
+        }
+        .language-option.active {
+            background-color: #e0e7ff;
+            color: #4f46e5;
+        }
+        .flag-icon {
+            width: 20px;
+            height: 15px;
+            margin-right: 8px;
+            border-radius: 2px;
+        }
+        [dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+        [dir="rtl"] .language-dropdown-content {
+            left: 0;
+            right: auto;
+        }
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -29,22 +77,48 @@
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold">BankimOnline</h1>
-                        <p class="text-purple-100 text-sm">Personal Admin Dashboard</p>
+                        <p class="text-purple-100 text-sm" data-translate="personal_admin_dashboard">Personal Admin Dashboard</p>
                     </div>
                 </div>
                 <div class="flex items-center space-x-4">
                     <nav class="hidden md:flex items-center space-x-4">
                         <a href="/" class="text-purple-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium bg-purple-600">
-                            🏠 Home
+                            🏠 <span data-translate="home">Home</span>
                         </a>
                         <a href="/admin" class="text-purple-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-600">
-                            🏦 Banking Admin
+                            🏦 <span data-translate="banking_admin">Banking Admin</span>
                         </a>
                         <a href="/customer" class="text-purple-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-600">
-                            🧮 Calculator
+                            🧮 <span data-translate="calculator">Calculator</span>
                         </a>
                     </nav>
-                    <span class="text-purple-100">Welcome, Admin</span>
+                    
+                    <!-- Language Dropdown -->
+                    <div class="language-dropdown">
+                        <button onclick="toggleLanguageDropdown()" class="text-purple-100 hover:text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-purple-600 flex items-center">
+                            <span class="flag-icon" id="currentFlag">🇺🇸</span>
+                            <span data-translate="language">Language</span>
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+                        <div id="languageDropdown" class="language-dropdown-content">
+                            <div class="language-option" onclick="changeLanguage('en')">
+                                <span class="flag-icon">🇺🇸</span>
+                                <span>English</span>
+                            </div>
+                            <div class="language-option" onclick="changeLanguage('he')">
+                                <span class="flag-icon">🇮🇱</span>
+                                <span>עברית</span>
+                            </div>
+                            <div class="language-option" onclick="changeLanguage('ru')">
+                                <span class="flag-icon">🇷🇺</span>
+                                <span>Русский</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <span class="text-purple-100"><span data-translate="welcome">Welcome</span>, Admin</span>
                     <div class="w-8 h-8 bg-purple-300 rounded-full"></div>
                 </div>
             </div>
@@ -61,7 +135,7 @@
                         <span class="text-blue-600 text-xl">👥</span>
                     </div>
                     <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-gray-800">Total Users</h3>
+                        <h3 class="text-lg font-semibold text-gray-800" data-translate="total_users">Total Users</h3>
                         <p class="text-2xl font-bold text-blue-600">1,234</p>
                     </div>
                 </div>
@@ -73,7 +147,7 @@
                         <span class="text-green-600 text-xl">📊</span>
                     </div>
                     <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-gray-800">Applications</h3>
+                        <h3 class="text-lg font-semibold text-gray-800" data-translate="applications">Applications</h3>
                         <p class="text-2xl font-bold text-green-600">567</p>
                     </div>
                 </div>
@@ -85,7 +159,7 @@
                         <span class="text-purple-600 text-xl">💰</span>
                     </div>
                     <div class="ml-4">
-                        <h3 class="text-lg font-semibold text-gray-800">Revenue</h3>
+                        <h3 class="text-lg font-semibold text-gray-800" data-translate="revenue">Revenue</h3>
                         <p class="text-2xl font-bold text-purple-600">₪89K</p>
                     </div>
                 </div>
@@ -100,10 +174,10 @@
                     <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center mb-4">
                         <span class="text-white text-2xl">🏦</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Banking Admin Panel</h3>
-                    <p class="text-gray-600 mb-4">Manage bank configurations, user applications, and system settings.</p>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="banking_admin_panel">Banking Admin Panel</h3>
+                    <p class="text-gray-600 mb-4" data-translate="manage_bank_configurations">Manage bank configurations, user applications, and system settings.</p>
                     <div class="flex items-center text-blue-600 font-semibold">
-                        <span>Access Panel</span>
+                        <span data-translate="access_panel">Access Panel</span>
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
@@ -117,10 +191,10 @@
                     <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-lg flex items-center justify-center mb-4">
                         <span class="text-white text-2xl">🧮</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Customer Calculator</h3>
-                    <p class="text-gray-600 mb-4">Loan approval simulator and bank comparison tool for customers.</p>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="customer_calculator">Customer Calculator</h3>
+                    <p class="text-gray-600 mb-4" data-translate="loan_approval_simulator">Loan approval simulator and bank comparison tool for customers.</p>
                     <div class="flex items-center text-green-600 font-semibold">
-                        <span>Open Calculator</span>
+                        <span data-translate="open_calculator">Open Calculator</span>
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
@@ -134,10 +208,10 @@
                     <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mb-4">
                         <span class="text-white text-2xl">⚙️</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">System Settings</h3>
-                    <p class="text-gray-600 mb-4">Configure system parameters, API endpoints, and deployment settings.</p>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="system_settings">System Settings</h3>
+                    <p class="text-gray-600 mb-4" data-translate="configure_system_parameters">Configure system parameters, API endpoints, and deployment settings.</p>
                     <div class="flex items-center text-purple-600 font-semibold">
-                        <span>View Settings</span>
+                        <span data-translate="view_settings">View Settings</span>
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
@@ -151,10 +225,10 @@
                     <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg flex items-center justify-center mb-4">
                         <span class="text-white text-2xl">📡</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">API Status</h3>
-                    <p class="text-gray-600 mb-4">Monitor API health, endpoints status, and system connectivity.</p>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="api_status">API Status</h3>
+                    <p class="text-gray-600 mb-4" data-translate="monitor_api_health">Monitor API health, endpoints status, and system connectivity.</p>
                     <div class="flex items-center text-orange-600 font-semibold">
-                        <span>Check Status</span>
+                        <span data-translate="check_status">Check Status</span>
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                         </svg>
@@ -168,10 +242,10 @@
                     <div class="w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-lg flex items-center justify-center mb-4">
                         <span class="text-white text-2xl">📁</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">File Manager</h3>
-                    <p class="text-gray-600 mb-4">Browse project files, documentation, and system configurations.</p>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="file_manager">File Manager</h3>
+                    <p class="text-gray-600 mb-4" data-translate="browse_project_files">Browse project files, documentation, and system configurations.</p>
                     <div class="flex items-center text-red-600 font-semibold">
-                        <span>Browse Files</span>
+                        <span data-translate="browse_files">Browse Files</span>
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
@@ -185,10 +259,10 @@
                     <div class="w-16 h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-lg flex items-center justify-center mb-4">
                         <span class="text-white text-2xl">🚀</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Deployment Status</h3>
-                    <p class="text-gray-600 mb-4">Monitor Vercel and Railway deployments, check service health.</p>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2" data-translate="deployment_status">Deployment Status</h3>
+                    <p class="text-gray-600 mb-4" data-translate="monitor_deployments">Monitor Vercel and Railway deployments, check service health.</p>
                     <div class="flex items-center text-teal-600 font-semibold">
-                        <span>Check Status</span>
+                        <span data-translate="check_status">Check Status</span>
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
@@ -238,20 +312,107 @@
     </footer>
 
     <script>
-        function toggleSettings() {
-            alert('System Settings panel coming soon!');
+        // Translation System
+        let currentLanguage = localStorage.getItem('language') || 'en';
+        let translations = {};
+
+        // Language configuration
+        const languageConfig = {
+            'en': { flag: '🇺🇸', name: 'English', dir: 'ltr' },
+            'he': { flag: '🇮🇱', name: 'עברית', dir: 'rtl' },
+            'ru': { flag: '🇷🇺', name: 'Русский', dir: 'ltr' }
+        };
+
+        // Load translations
+        async function loadTranslations(lang) {
+            try {
+                const response = await fetch(`/locales/${lang}.json`);
+                if (response.ok) {
+                    translations = await response.json();
+                    return true;
+                }
+            } catch (error) {
+                console.error('Error loading translations:', error);
+            }
+            return false;
         }
 
-        function toggleFileManager() {
-            alert('File Manager functionality coming soon!');
+        // Apply translations to the page
+        function applyTranslations() {
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[key]) {
+                    element.textContent = translations[key];
+                }
+            });
         }
 
-        function checkDeploymentStatus() {
-            window.open('https://vercel.com/dashboard', '_blank');
+        // Change language
+        async function changeLanguage(lang) {
+            if (lang === currentLanguage) return;
+            
+            currentLanguage = lang;
+            localStorage.setItem('language', lang);
+            
+            // Update UI direction
+            document.documentElement.dir = languageConfig[lang].dir;
+            document.documentElement.lang = lang;
+            
+            // Update flag and dropdown
+            document.getElementById('currentFlag').textContent = languageConfig[lang].flag;
+            updateActiveLanguage();
+            
+            // Load and apply translations
+            const loaded = await loadTranslations(lang);
+            if (loaded) {
+                applyTranslations();
+            }
+            
+            // Close dropdown
+            document.getElementById('languageDropdown').classList.remove('show');
         }
 
-        // Add some interactivity
-        document.addEventListener('DOMContentLoaded', function() {
+        // Toggle language dropdown
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('languageDropdown');
+            dropdown.classList.toggle('show');
+        }
+
+        // Update active language in dropdown
+        function updateActiveLanguage() {
+            const options = document.querySelectorAll('.language-option');
+            options.forEach(option => {
+                option.classList.remove('active');
+                if (option.onclick.toString().includes(`'${currentLanguage}'`)) {
+                    option.classList.add('active');
+                }
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('languageDropdown');
+            const button = event.target.closest('.language-dropdown');
+            if (!button && dropdown.classList.contains('show')) {
+                dropdown.classList.remove('show');
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Set initial language
+            document.documentElement.dir = languageConfig[currentLanguage].dir;
+            document.documentElement.lang = currentLanguage;
+            document.getElementById('currentFlag').textContent = languageConfig[currentLanguage].flag;
+            
+            // Load translations and apply them
+            const loaded = await loadTranslations(currentLanguage);
+            if (loaded) {
+                applyTranslations();
+            }
+            updateActiveLanguage();
+
             // Animate stats on load
             const stats = document.querySelectorAll('.text-2xl.font-bold');
             stats.forEach(stat => {
@@ -272,6 +433,18 @@
                 }, 50);
             });
         });
+
+        function toggleSettings() {
+            alert('System Settings panel coming soon!');
+        }
+
+        function toggleFileManager() {
+            alert('File Manager functionality coming soon!');
+        }
+
+        function checkDeploymentStatus() {
+            window.open('https://vercel.com/dashboard', '_blank');
+        }
     </script>
 </body>
 </html> 
