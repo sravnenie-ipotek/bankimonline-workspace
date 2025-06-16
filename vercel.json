@@ -1,15 +1,5 @@
 {
   "version": 2,
-  "name": "bankim-production",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "."
-      }
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -42,10 +32,6 @@
     {
       "src": "/",
       "dest": "/index.html"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
     }
   ],
   "headers": [
@@ -65,12 +51,6 @@
           "value": "Content-Type, Authorization"
         }
       ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "https://bankim-nodejs-api-production.up.railway.app/api/$1"
     }
   ]
 } 
