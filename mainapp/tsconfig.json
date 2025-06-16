@@ -2,36 +2,49 @@
   "compilerOptions": {
     "target": "ES2021",
     "useDefineForClassFields": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "lib": ["ES2021", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "noEmit": true,
     "jsx": "react-jsx",
 
+    /* Module interop */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+
     /* Linting */
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true,
+    
+    /* Type definitions */
     "typeRoots": ["./types", "./node_modules/@types"],
     "types": ["node", "sass"],
+    
+    /* Path mapping */
+    "baseUrl": ".",
     "paths": {
       "@assets/*": ["./src/assets/*"],
       "@pages/*": ["./src/components/pages/*"],
       "@src/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
-      "@static/*": ["./static"],
+      "@static/*": ["./static/*"],
       "@lib/*": ["./src/lib/*"],
       "@shared/*": ["./src/shared/*"],
       "@context/*": ["./src/context/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@types/*": ["./src/types/*"]
     }
   },
   "include": ["src/**/*", "types/**/*"],
+  "exclude": ["node_modules", "build", "dist"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
