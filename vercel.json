@@ -4,7 +4,6 @@
   "outputDirectory": "mainapp/build",
   "installCommand": "cd mainapp && npm ci",
   "framework": null,
-  "ignoreCommand": "git diff --quiet HEAD^ HEAD ./mainapp",
   "env": {
     "VITE_NODE_API_BASE_URL": "https://bankim-nodejs-api-production.up.railway.app/api",
     "VITE_API_BASE_URL": "https://bankimonlineapi-production.up.railway.app/api/v1",
