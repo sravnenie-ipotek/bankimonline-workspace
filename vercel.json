@@ -1,9 +1,11 @@
 {
   "version": 2,
+  "name": "bankim-standalone",
   "framework": null,
   "buildCommand": "cd mainapp && npm install && cross-env CI=false npm run build",
   "outputDirectory": ".",
   "installCommand": "",
+  "rootDirectory": "./",
   "build": {
     "env": {
       "CI": "false",
