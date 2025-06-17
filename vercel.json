@@ -9,28 +9,14 @@
       "dest": "https://bankim-nodejs-api-production.up.railway.app/api/$1"
     },
     {
-      "src": "/assets/(.*)",
-      "dest": "/mainapp/build/assets/$1"
-    },
-    {
-      "src": "/static/(.*)",
-      "dest": "/mainapp/build/static/$1"
-    },
-    {
-      "src": "/locales/(.*)",
-      "dest": "/mainapp/build/locales/$1"
-    },
-    {
-      "src": "/favicon.ico",
-      "dest": "/mainapp/build/favicon.ico"
-    },
-    {
       "src": "/app$",
-      "dest": "/mainapp/build/index.html"
+      "status": 301,
+      "headers": { "Location": "https://bankim-react-app.vercel.app/" }
     },
     {
       "src": "/app/(.*)",
-      "dest": "/mainapp/build/index.html"
+      "status": 301,
+      "headers": { "Location": "https://bankim-react-app.vercel.app/$1" }
     },
     {
       "src": "/admin$",
