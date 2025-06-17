@@ -20,6 +20,7 @@
     "@typescript-eslint/parser": "^6.7.5",
     "axios": "^1.1.2",
     "classnames": "^2.3.2",
+    "cross-env": "^7.0.3",
     "date-fns": "^2.30.0",
     "formik": "^2.4.5",
     "i18next": "^19.7.0",
@@ -57,7 +58,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build --mode production",
+    "build": "cross-env CI=false vite build --mode production",
+    "build:safe": "cross-env SKIP_PREFLIGHT_CHECK=true CI=false vite build --mode production",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "prettier --write \"./src/**/*.{js,ts,jsx,tsx,css,md,json}\""
