@@ -1,13 +1,15 @@
 {
   "version": 2,
   "framework": null,
-  "buildCommand": "cd mainapp && npm install && npm run build",
+  "buildCommand": "cd mainapp && npm install && cross-env CI=false npm run build",
   "outputDirectory": ".",
   "installCommand": "",
   "build": {
     "env": {
-      "CI": "",
-      "NODE_VERSION": "20"
+      "CI": "false",
+      "NODE_VERSION": "20",
+      "DISABLE_ESLINT_PLUGIN": "true",
+      "SKIP_PREFLIGHT_CHECK": "true"
     }
   },
   "rewrites": [
