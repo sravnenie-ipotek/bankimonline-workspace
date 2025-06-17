@@ -20,7 +20,10 @@
     <div id="app"></div>
     
     <script>
-        const API_BASE = 'http://localhost:8003';
+        // Environment-aware API base URL
+        const API_BASE = window.location.hostname === 'localhost' 
+            ? 'http://localhost:8003' 
+            : 'https://bankim-nodejs-api-production.up.railway.app';
         
         // Wait for i18n to be ready
         let i18nReady = false;
