@@ -1,32 +1,10 @@
 {
   "version": 2,
   "name": "bankim-standalone",
-  "builds": [
-    {
-      "src": "mainapp/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "mainapp/build",
-        "buildCommand": "npm install && cross-env CI=false npm run build"
-      }
-    }
-  ],
-  "build": {
-    "env": {
-      "CI": "false",
-      "NODE_VERSION": "20",
-      "DISABLE_ESLINT_PLUGIN": "true",
-      "SKIP_PREFLIGHT_CHECK": "true"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "https://bankim-nodejs-api-production.up.railway.app/api/$1"
-    },
-    {
-      "source": "/favicon.ico",
-      "destination": "/mainapp/build/favicon.ico"
     },
     {
       "source": "/",
