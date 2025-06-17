@@ -34,13 +34,15 @@ const server = http.createServer((req, res) => {
   } else if (req.url === '/debug.html') {
     filePath = './debug.html';
   } else if (req.url.startsWith('/js/') || 
-             req.url.startsWith('/css/') || 
-             req.url.startsWith('/locales/')) {
+             req.url.startsWith('/css/')) {
     // Serve static files directly from project root
     filePath = '.' + req.url;
+  } else if (req.url.startsWith('/locales/')) {
+    // Serve locales from React app build directory
+    filePath = './mainapp/build' + req.url;
   } else {
     // Default to React app
-    filePath = req.url === '/' ? './mainapp/dist/index.html' : './mainapp/dist' + req.url;
+    filePath = req.url === '/' ? './mainapp/build/index.html' : './mainapp/build' + req.url;
   }
   
   // Security: prevent directory traversal
@@ -54,7 +56,7 @@ const server = http.createServer((req, res) => {
       if (error.code === 'ENOENT') {
         // Try to fallback to React app's index.html for client-side routing
         if (!filePath.includes('admin') && !filePath.includes('.')) {
-          fs.readFile('./mainapp/dist/index.html', (err, indexContent) => {
+          fs.readFile('./mainapp/build/index.html', (err, indexContent) => {
             if (err) {
               res.writeHead(404);
               res.end('404 Not Found');
