@@ -10,11 +10,6 @@
     "VITE_ACCOUNT_URL": "https://bank-dev2-standalone-txwi.vercel.app",
     "VITE_ENVIRONMENT": "production"
   },
-  "functions": {
-    "mainapp/build/**": {
-      "includeFiles": "mainapp/build/**"
-    }
-  },
   "rewrites": [
     {
       "source": "/admin-panel",
