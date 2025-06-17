@@ -1,10 +1,16 @@
 {
   "version": 2,
   "name": "bankim-standalone",
-  "framework": null,
-  "buildCommand": "cd mainapp && npm install && cross-env CI=false npm run build",
-  "outputDirectory": ".",
-  "installCommand": "",
+  "builds": [
+    {
+      "src": "mainapp/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "mainapp/build",
+        "buildCommand": "npm install && cross-env CI=false npm run build"
+      }
+    }
+  ],
   "build": {
     "env": {
       "CI": "false",
@@ -13,38 +19,38 @@
       "SKIP_PREFLIGHT_CHECK": "true"
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://bankim-nodejs-api-production.up.railway.app/api/$1"
+      "src": "/api/(.*)",
+      "dest": "https://bankim-nodejs-api-production.up.railway.app/api/$1"
     },
     {
-      "source": "/",
-      "destination": "/landing.html"
+      "src": "/",
+      "dest": "/landing.html"
     },
     {
-      "source": "/app",
-      "destination": "/mainapp/build/index.html"
+      "src": "/app",
+      "dest": "/mainapp/build/index.html"
     },
     {
-      "source": "/app/(.*)",
-      "destination": "/mainapp/build/index.html"
+      "src": "/app/(.*)",
+      "dest": "/mainapp/build/index.html"
     },
     {
-      "source": "/admin",
-      "destination": "/admin.html"
+      "src": "/admin",
+      "dest": "/admin.html"
     },
     {
-      "source": "/customer",
-      "destination": "/customer-approval-check.html"
+      "src": "/customer",
+      "dest": "/customer-approval-check.html"
     },
     {
-      "source": "/personal-admin",
-      "destination": "/index.html"
+      "src": "/personal-admin",
+      "dest": "/index.html"
     },
     {
-      "source": "/dashboard",
-      "destination": "/index.html"
+      "src": "/dashboard",
+      "dest": "/index.html"
     }
   ],
   "headers": [
