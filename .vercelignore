@@ -16,6 +16,8 @@ server-db.js
 server-simple.js
 run-multi-role-migration.js
 package-lock.json
+package.json.bak
+yarn.lock
 .eslintrc.cjs
 .prettierrc
 .csscomb.json
