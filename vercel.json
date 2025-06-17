@@ -1,9 +1,5 @@
 {
-  "version": 2,
-  "name": "bankim-standalone",
-  "buildCommand": "",
-  "outputDirectory": ".",
-  "ignoreCommand": "exit 0",
+  "functions": {},
   "rewrites": [
     {
       "source": "/api/(.*)",
