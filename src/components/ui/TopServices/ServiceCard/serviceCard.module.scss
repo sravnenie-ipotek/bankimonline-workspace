@@ -1,0 +1,58 @@
+.service-card {
+  display: flex;
+  padding: 2rem 3.5625rem 0rem 3.5625rem;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0.4375rem;
+  background: theme("colors.base.secondary");
+  height: 100%;
+  width: 16.5625rem;
+  transition: all 0.1s ease-in-out;
+  gap: 1.5rem;
+  &:hover {
+    background: theme("colors.base.base800");
+    transition: all 0.1s ease-in-out;
+  }
+  @media (max-width: 1140px) {
+    width: 15.4375rem;
+    padding: 2rem 3.5625rem 0rem 3.5625rem;
+  }
+  @media (max-width: 1280px) {
+    flex-direction: row;
+    width: auto;
+    gap: 2rem;
+    padding: 1.125rem 1.375rem;
+    justify-content: space-between;
+  }
+  &__icon {
+    html[dir="rtl"] & {
+      transform: scale(-1, 1);
+    }
+  }
+  &__title {
+    font-size: 1.5625rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    color: theme("colors.textTheme.primary");
+    margin-top: -0.1rem;
+    text-align: center;
+  }
+  &__tablet {
+    display: flex;
+    align-items: center;
+    gap: 1.6rem;
+    &-icon {
+      width: 4rem;
+      height: 4rem;
+    }
+    &-title {
+      font-size: 1.125rem;
+      font-style: normal;
+      font-weight: 500;
+      line-height: normal;
+      width: 6.125rem;
+    }
+  }
+}
