@@ -1,0 +1,22 @@
+.string-input {
+  border-radius: 0.25rem;
+  border: 1px solid #333535;
+  background: #2a2b31;
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  dialog & {
+    background: theme("colors.base.base800");
+    border: 1px solid theme("colors.base.tertiaryDisabledButton");
+  }
+}
+
+.error {
+  border: 1px solid #e76143;
+  dialog & {
+    border: 1px solid #e76143;
+  }
+}

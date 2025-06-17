@@ -1,0 +1,15 @@
+.info {
+  border-radius: 0.5rem;
+  border: 1px dashed #46a08f;
+  display: flex;
+  padding: 0.9375rem 1.5rem;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 31.6rem;
+  &-title {
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 140%;
+  }
+}
