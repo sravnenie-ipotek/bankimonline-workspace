@@ -1,6 +1,10 @@
 node_modules
 .git
-mainapp
+mainapp/src
+mainapp/node_modules
+mainapp/package.json
+mainapp/tsconfig.json
+mainapp/vite.config.ts
 backup
 DEVHelp
 internalReports
@@ -16,4 +20,7 @@ package-lock.json
 .prettierrc
 .csscomb.json
 .gitlab-ci.yml
-railway.json 
+railway.json
+tsconfig.json
+vite.config.ts
+src/ 
