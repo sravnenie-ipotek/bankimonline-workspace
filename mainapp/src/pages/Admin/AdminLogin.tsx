@@ -3,8 +3,7 @@
  * Handles authentication for admin users
  */
 
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // Simple component to test if the issue is with imports
