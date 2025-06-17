@@ -5,7 +5,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-    "allowJs": false,
+    "allowJs": true,
     "checkJs": false,
 
     "moduleResolution": "bundler",
@@ -18,7 +18,12 @@
     "esModuleInterop": true,
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": false,
-    "allowArbitraryExtensions": true
+    "allowArbitraryExtensions": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "build", "dist", "**/*.test.*", "**/*.spec.*"]
