@@ -1,0 +1,105 @@
+.mortgage-data {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__text {
+      font-size: 1.9375rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    &__button {
+      display: flex;
+      width: 15.5625rem;
+      padding: 0.75rem 1rem;
+      align-items: center;
+      border-radius: 0.5rem;
+      border: 1px solid #333535;
+      gap: 1.3rem;
+      justify-content: flex-end;
+    }
+  }
+  &-form {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    &__items {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+}
+
+.button-left__icon {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.3rem;
+}
+
+.col {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.col-1 {
+  flex-basis: 20.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.col-2 {
+  flex-basis: 20.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.col-3 {
+  flex-basis: 15.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.col-4 {
+  flex-basis: 12.5rem;
+  flex-basis: 2rem;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  cursor: pointer;
+}
+
+.delete-icon {
+  border-radius: 0.5rem;
+  border: 1px solid theme("colors.base.secondaryDefaultButton");
+  width: 100%;
+  display: flex;
+  padding: 0.75rem 1rem;
+  align-items: center;
+  justify-content: center;
+  color: theme("colors.warning.validation");
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.title {
+  margin-bottom: 0.75rem;
+}

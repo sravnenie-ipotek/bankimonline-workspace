@@ -1,0 +1,1 @@
+const l=(r,n,t,e=5)=>{if(r===null||n===null)return 1;if(t<=0||r<=0||e<=0||n>=r)return 0;const o=r-n,c=e/12/100,s=Math.pow(1+c,t*12),u=o*c*s/(s-1);return Math.trunc(u)},h=(r,n,t,e=5)=>{if(r===null||n===null)return 1;const o=r-n,c=e/12/100;if(o<=0||c<=0||t<=0)return 0;const u=Math.log(t/(t-o*c))/Math.log(1+c)/12;return Math.trunc(u)};export{h as a,l as c};

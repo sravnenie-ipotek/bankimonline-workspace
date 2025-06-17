@@ -1,0 +1,22 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import classNames from 'classnames/bind';
+import Dropzone from 'react-dropzone';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+import { ArrowSquareOut } from '@assets/icons/ArrowSquareOut';
+import { PlayIcon } from '@assets/icons/PlayIcon';
+import { UploadSimpleIcon } from '@assets/icons/UploadSimpleIcon';
+import BackButton from '@src/components/ui/BackButton/BackButton';
+import { Button } from '@src/components/ui/ButtonUI';
+import Divider from '@src/components/ui/Divider/Divider';
+import FormCaption from '@src/components/ui/FormCaption/FormCaption';
+import { NewButton } from '@src/components/ui/NewButton';
+import styles from './uploadReport.module.scss';
+const cx = classNames.bind(styles);
+const UploadReport = () => {
+    const { t, i18n } = useTranslation();
+    i18n.language = i18n.language.split('-')[0];
+    const navigate = useNavigate();
+    return (_jsx("div", { className: 'step1', children: _jsxs("div", { className: 'home step1-container noborder', children: [_jsx(FormCaption, { title: t('upload_report_title'), subtitle: t('upload_report_subtitle') }), _jsxs("div", { className: cx('upload-buttons'), children: [_jsx(NewButton, { text: t('video_instruction'), leftSection: _jsx(PlayIcon, {}) }), _jsx(NewButton, { text: t('download_report_here'), rightSection: _jsx(ArrowSquareOut, {}) })] }), _jsx(Divider, {}), _jsx(Dropzone, { onDrop: (acceptedFiles) => console.log(acceptedFiles), children: ({ getRootProps, getInputProps }) => (_jsx("section", { className: cx('upload-report-file'), children: _jsxs("div", { ...getRootProps(), className: cx('upload-report-file__wrapper'), children: [_jsx("input", { ...getInputProps() }), _jsx(UploadSimpleIcon, {}), _jsxs("p", { className: cx('upload-report-file__text'), children: [t('dropzone_upload_report'), _jsx("span", { style: { color: '#FBE54D' }, children: t('dropzone_comp_upload_report') })] })] }) })) }), _jsx("div", { className: cx('submit-buttons'), children: _jsxs("div", { className: cx('submit-buttons__wrapper'), children: [_jsx(BackButton, { title: t('button_back'), handleClick: () => navigate('/services/refinance-mortgage/1') }), _jsx(Button, { onClick: () => navigate('/services/refinance-mortgage/1'), children: t('button_next_save') })] }) })] }) }));
+};
+export default UploadReport;

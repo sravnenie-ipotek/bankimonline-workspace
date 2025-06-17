@@ -1,0 +1,99 @@
+.phone-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.phone-input {
+  border-radius: 0.25rem;
+  border: 1px solid #41434e !important;
+  background: #35373f !important;
+  height: 3rem;
+  font-size: 1rem !important;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%; /* 1.4rem */
+  width: 100% !important;
+  height: 3rem !important;
+  padding-left: 6rem !important;
+  &::placeholder {
+    color: theme("colors.textTheme.disabled");
+  }
+  html[dir="rtl"] & {
+    padding-right: 100px !important;
+    text-align: right;
+  }
+}
+
+.phone-button {
+  border-radius: 0.25rem !important;
+  border: 1px solid #41434e !important;
+  background: #35373f !important;
+  width: 5.125rem;
+  & > div[class*="open"] {
+    &:before {
+      transform: translateY(-50%) rotate(-180deg);
+      top: 45%;
+    }
+  }
+  & > div {
+    background: #35373f !important;
+    width: 80px !important;
+    padding-left: 1rem !important;
+    border-top-left-radius: 0.25rem !important;
+    border-bottom-left-radius: 0.25rem !important;
+    html[dir="rtl"] & {
+      padding-right: 0.9rem !important;
+      border-radius: 0 !important;
+      border-top-right-radius: 0.25rem !important;
+      border-bottom-right-radius: 0.25rem !important;
+    }
+    &:before {
+      content: url("/static/caretdown.svg");
+      position: absolute;
+      top: 55%;
+      right: 10px;
+      transform: translateY(-50%);
+      // transition: all 0.1s ease-in-out;
+      html[dir="rtl"] & {
+        top: 60%;
+        right: 45px;
+      }
+    }
+    & > div {
+      & > div {
+        display: none;
+      }
+    }
+  }
+}
+
+.phone-dropdown {
+  border-radius: 0.35rem !important;
+  border: 1px solid #41434e !important;
+  background: #35373f !important;
+  width: 220px !important;
+
+  & > li {
+    background-color: #35373f !important;
+
+    &:not(:first-child):hover {
+      background: hsla(0, 0%, 9%, 1) !important;
+      border-radius: 0.35rem !important;
+    }
+  }
+}
+
+.phone-search {
+  background: #35373f !important;
+  & > input {
+    padding: 0.5rem 0.5rem !important;
+    border-radius: 0.3125rem !important;
+    border: 1px solid #333535 !important;
+    background: #2a2b31 !important;
+  }
+}
+
+.error {
+  border: 1px solid #e76143 !important;
+}
