@@ -1,0 +1,1 @@
+import{j as i}from"./index-1d92caf1.js";import{C as r}from"./Container-61d06680.js";import"./index-f859d475.js";const e=()=>i.jsx(r,{children:i.jsx("div",{children:"Leumi Page"})}),s=e;export{s as Leumi};

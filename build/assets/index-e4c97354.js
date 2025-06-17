@@ -1,0 +1,1 @@
+import{j as i}from"./index-1d92caf1.js";import{C as e}from"./Container-61d06680.js";import"./index-f859d475.js";const n=()=>i.jsx(e,{children:i.jsx("div",{children:"Beinleumi Page"})}),t=n;export{t as Beinleumi};
