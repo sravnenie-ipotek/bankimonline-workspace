@@ -8,6 +8,22 @@
       "destination": "https://bankim-nodejs-api-production.up.railway.app/api/$1"
     },
     {
+      "source": "/assets/(.*)",
+      "destination": "/mainapp/build/assets/$1"
+    },
+    {
+      "source": "/static/(.*)",
+      "destination": "/mainapp/build/static/$1"
+    },
+    {
+      "source": "/locales/(.*)",
+      "destination": "/mainapp/build/locales/$1"
+    },
+    {
+      "source": "/favicon.ico",
+      "destination": "/mainapp/build/favicon.ico"
+    },
+    {
       "source": "/",
       "destination": "/landing.html"
     },
