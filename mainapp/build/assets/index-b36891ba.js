@@ -1,0 +1,1 @@
+import{j as t}from"./index-411e1bde.js";import{C as i}from"./Container-ce0e6364.js";import"./index-7093dc03.js";const n=()=>t.jsx(i,{children:t.jsx("div",{children:"MercantileDiscount Page"})}),s=n;export{s as MercantileDiscount};

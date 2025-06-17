@@ -1,0 +1,109 @@
+.mainWrapper {
+  position: relative;
+  max-width: 1174px;
+  width: 100%;
+  display: flex;
+  padding-top: 18px;
+  @apply bg-base-base900;
+  &:after{
+    display: block;
+  }
+}
+.presentation {
+  padding: 40px 36px 0 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 557px;
+  width: 100%;
+  text-align: left;
+  @apply hidden md:flex;
+}
+
+.form {
+  padding: 30px 10px 55px 20px;
+}
+
+.logoIcon {
+  width: 40px;
+  height: 40px;
+  @apply bg-accent-primary rounded-lg;
+}
+
+.infoTitle {
+  line-height: 140%;
+  @apply font-ru font-medium text-sm text-accent-primary;
+}
+
+.infoDescr {
+  line-height: 140%;
+  text-transform: none;
+  text-align: justify;
+  @apply font-normal text-textTheme-primary text-2xs;
+}
+
+.wrapperImgs {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.bank {
+  position: absolute;
+  bottom: -22px;
+  left: -40px;
+;
+}
+
+.form {
+  text-align: left;
+}
+.formTitle {
+  font-size: 25px;
+  line-height: normal;
+  @apply font-ru font-normal text-xl text-textTheme-primary;
+}
+
+.formDescr {
+  line-height: 140%;
+  text-transform: none;
+  margin-top: 16px;
+  @apply font-ru font-normal text-2xs text-textTheme-secondary;
+}
+
+.formWrapper {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+  @apply sm:grid-cols-2;
+}
+
+.policy {
+  margin: 24px 0;
+  text-transform: none;
+  line-height: 140%;
+  @apply font-normal text-3xs text-textTheme-secondary;
+}
+
+.link {
+  text-decoration-line: underline;
+  cursor: pointer;
+  @apply text-accent-primary;
+}
+
+.button {
+  text-align: center;
+  line-height: 140%;
+  padding: 12px 16px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #41434E;
+  margin-top: 16px;
+  @apply font-ru font-medium text-xs bg-accent-primary text-textTheme-darkPrimary disabled:text-textTheme-disabled disabled:border-base-tertiaryDisabledButton disabled:bg-base-tertiaryDisabledButton;
+}
+
+.auth {
+  margin-top: 16px;
+}

@@ -1,0 +1,20 @@
+import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
+import classNames from 'classnames/bind';
+import { useTranslation } from 'react-i18next';
+import useDisclosure from '@src/hooks/useDisclosure';
+import getYearWord from '@src/utils/helpers/getYearWord.ts';
+import { CalendarBlankIcon } from '../../../assets/icons/CalendarBlankIcon';
+import { InfoIcon } from '../../../assets/icons/InfoIcon';
+import { PercentIcon } from '../../../assets/icons/PercentIcon';
+import { BankInfoModal } from './BankInfoModal';
+import styles from './programmCard.module.scss';
+const cx = classNames.bind(styles);
+const ProgrammCard = ({ title, mortgageAmount, monthlyPayment, percent, period, description, conditionFinance, conditionPeriod, conditionBid, }) => {
+    const { t, i18n } = useTranslation();
+    i18n.language = i18n.language.split('-')[0];
+    const formattedMortgageAmount = mortgageAmount.toLocaleString('en-US');
+    const formattedMonthlyPayment = monthlyPayment.toLocaleString('en-US');
+    const [opened, { open, close }] = useDisclosure();
+    return (_jsxs(_Fragment, { children: [_jsxs("div", { className: cx('card'), children: [_jsxs("div", { className: cx('card-title'), children: [_jsx("span", { className: cx('card-title__ellipse') }), _jsx("p", { className: cx('card-title__text'), children: title }), _jsx(InfoIcon, { className: cx('card-title__info'), onClick: open, size: 20 })] }), _jsxs("div", { className: cx('wrapper'), children: [_jsxs("div", { className: cx('card-content'), children: [_jsx("p", { className: cx('card-content__desc'), children: t('mortgage_total') }), _jsxs("p", { className: cx('card-content__price'), children: [formattedMortgageAmount, " \u20AA"] })] }), _jsxs("div", { className: cx('card-content'), children: [_jsx("p", { className: cx('card-content__desc'), children: t('mortgage_monthly') }), _jsxs("p", { className: cx('card-content__price'), children: [formattedMonthlyPayment, " \u20AA"] })] })] }), _jsxs("div", { className: cx('wrapper'), children: [_jsxs("div", { className: cx('card-desc'), children: [_jsx(PercentIcon, {}), _jsxs("div", { className: cx('card-desc__content'), children: [_jsx("p", { className: cx('card-desc__content-desc'), children: t('mortgage_percnt') }), _jsxs("p", { className: cx('card-desc__content-title'), children: [percent, "%"] })] })] }), _jsxs("div", { className: cx('card-desc'), children: [_jsx(CalendarBlankIcon, {}), _jsxs("div", { className: cx('card-desc__content'), children: [_jsx("p", { className: cx('card-desc__content-desc'), children: t('mortgage_term') }), _jsxs("p", { className: cx('card-desc__content-title'), children: [period, " ", getYearWord(period)] })] })] })] })] }), _jsx(BankInfoModal, { isVisible: opened, onClose: close, title: title, description: description, conditionFinance: conditionFinance, conditionPeriod: conditionPeriod, conditionBid: conditionBid })] }));
+};
+export default ProgrammCard;
