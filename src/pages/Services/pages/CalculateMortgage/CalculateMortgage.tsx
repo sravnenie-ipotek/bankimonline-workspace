@@ -1,0 +1,63 @@
+import { Suspense } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useNavigate, useParams } from 'react-router-dom'
+
+import { Loader } from '@components/layout/Loader'
+import { ProgressBar } from '@components/ui/ProgressBar'
+import NotFound from '@src/app/Errors/NotFound/NotFound.tsx'
+import { useAppSelector } from '@src/hooks/store'
+import { FirstStep } from '@src/pages/Services/pages/CalculateMortgage/pages/FirstStep'
+import { FourthStep } from '@src/pages/Services/pages/CalculateMortgage/pages/FourthStep'
+import { SecondStep } from '@src/pages/Services/pages/CalculateMortgage/pages/SecondStep'
+import { ThirdStep } from '@src/pages/Services/pages/CalculateMortgage/pages/ThirdStep'
+
+const CalculateMortgage = () => {
+  const { stepNumber } = useParams()
+  const { t, i18n } = useTranslation()
+
+  const navigate = useNavigate()
+  i18n.language = i18n.language.split('-')[0]
+
+  const isLogin = useAppSelector((state) => state.login.isLogin)
+
+  if (!isLogin && stepNumber !== '1') {
+    navigate('/services/calculate-mortgage/1')
+    return
+  }
+
+  const data = [
+    t('calculate_mortgage_calculator'),
+    t('calculate_mortgage_anketa'),
+    t('calculate_mortgage_income'),
+    t('calculate_mortgage_programs'),
+  ]
+
+  let stepComponent
+
+  switch (stepNumber) {
+    case '1':
+      stepComponent = <FirstStep />
+      break
+    case '2':
+      stepComponent = <SecondStep />
+      break
+    case '3':
+      stepComponent = <ThirdStep />
+      break
+    case '4':
+      stepComponent = <FourthStep />
+      break
+    default:
+      stepComponent = <NotFound type={'NOT_FOUND'} />
+      break
+  }
+
+  return (
+    <>
+      {stepNumber !== '4' && <ProgressBar progress={stepNumber} data={data} />}
+      <Suspense fallback={<Loader />}>{stepComponent}</Suspense>
+    </>
+  )
+}
+
+export default CalculateMortgage

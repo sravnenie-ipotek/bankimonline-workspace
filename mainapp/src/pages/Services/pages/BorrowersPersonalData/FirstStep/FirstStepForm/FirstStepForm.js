@@ -1,0 +1,28 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useFormikContext } from 'formik';
+import { useTranslation } from 'react-i18next';
+import { FormContainer } from '@components/ui/FormContainer';
+import { Row } from '@components/ui/Row';
+import Divider from '@src/components/ui/Divider/Divider';
+import FormCaption from '@src/components/ui/FormCaption/FormCaption';
+import { RowTwo } from '@src/components/ui/RowTwo';
+import { AdditionalCitizenship } from '@src/pages/Services/components/AdditionalCitizenships';
+import { Birthday } from '@src/pages/Services/components/Birthday';
+import { Childrens } from '@src/pages/Services/components/Childrens';
+import { CitizenshipsDropdown } from '@src/pages/Services/components/CitizenshipsDropdown';
+import { CountriesPayTaxes } from '@src/pages/Services/components/CountriesPayTaxes';
+import { Education } from '@src/pages/Services/components/Education';
+import { HowMuchChildrens } from '@src/pages/Services/components/HowMuchChildrens';
+import { Info } from '@src/pages/Services/components/Info';
+import { IsForeigner } from '@src/pages/Services/components/IsForeigner';
+import { MedicalInsurance } from '@src/pages/Services/components/MedicalInsurance';
+import { NameSurname } from '@src/pages/Services/components/NameSurname';
+import { PublicPerson } from '@src/pages/Services/components/PublicPerson';
+import { Taxes } from '@src/pages/Services/components/Taxes';
+const FirstStepForm = () => {
+    const { t, i18n } = useTranslation();
+    i18n.language = i18n.language.split('-')[0];
+    const { values } = useFormikContext();
+    return (_jsxs(FormContainer, { children: [_jsx(FormCaption, { title: t('borrowers_personal_data_title') }), _jsx(RowTwo, { children: _jsx(Info, {}) }), _jsxs(Row, { children: [_jsx(NameSurname, {}), _jsx(Birthday, {}), _jsx(Education, {})] }), _jsxs(Row, { children: [_jsx(AdditionalCitizenship, {}), _jsx(Taxes, {}), _jsx(Childrens, {}), values.additionalCitizenships === 'yes' && _jsx(CitizenshipsDropdown, {}), values.taxes === 'yes' && _jsx(CountriesPayTaxes, {}), values.childrens === 'yes' && _jsx(HowMuchChildrens, {})] }), _jsx(Divider, {}), _jsxs(Row, { children: [_jsx(MedicalInsurance, {}), _jsx(IsForeigner, {}), _jsx(PublicPerson, {})] })] }));
+};
+export default FirstStepForm;

@@ -1,4 +1,4 @@
 dist
 node_modules
 /.idea/
-/build/
+# /build/ - Allow build for production deployment

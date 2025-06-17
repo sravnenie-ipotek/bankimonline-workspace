@@ -408,4 +408,6 @@ For database integration questions:
 
 **Made with ❤️ for the Bankimonline development team** 
 
-*This standalone version provides both immediate demo capabilities and a clear path to full production deployment with the included database backup.* 
+*This standalone version provides both immediate demo capabilities and a clear path to full production deployment with the included database backup.* #   T r i g g e r   d e p l o y m e n t  
+ #   T r i g g e r   d e p l o y m e n t   w i t h   f i x e d   v e r c e l . j s o n  
+ 
