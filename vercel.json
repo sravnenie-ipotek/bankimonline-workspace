@@ -3,6 +3,12 @@
   "outputDirectory": "mainapp/build",
   "installCommand": "cd mainapp && npm install",
   "framework": null,
+  "env": {
+    "VITE_NODE_API_BASE_URL": "https://bankim-nodejs-api-production.up.railway.app/api",
+    "VITE_API_BASE_URL": "https://bankimonlineapi-production.up.railway.app/api/v1",
+    "VITE_ACCOUNT_URL": "https://bank-dev2-standalone-txwi.vercel.app",
+    "VITE_ENVIRONMENT": "production"
+  },
   "rewrites": [
     {
       "source": "/admin-panel",
