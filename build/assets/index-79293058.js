@@ -1,0 +1,1 @@
+import{b as e,j as i}from"./index-1d92caf1.js";import{T as s}from"./TextPage-2fbd644b.js";import"./index-f859d475.js";const a=()=>{const{t,i18n:o}=e();return o.language=o.language.split("-")[0],i.jsx(s,{title:t("cookie_title"),text:t("cookie_text")})},l=a;export{l as Cookie};
