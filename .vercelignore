@@ -1,18 +1,44 @@
+# Ignore everything except mainapp
+/*
+!/mainapp/
+!/vercel.json
+
+# But ignore these in mainapp
+mainapp/node_modules/
+mainapp/.env.local
+mainapp/.env.development.local
+mainapp/.env.test.local
+mainapp/.env.production.local
+mainapp/npm-debug.log*
+mainapp/yarn-debug.log*
+mainapp/yarn-error.log*
+
+# Ignore build artifacts in root
+/build/
+/dist/
+/public/
+/src/
+index.html.backup
+*.log
+
+# Ignore dev files
+server-db.js
+serve.js
+start-dev.js
+DEVHelp/
+backup/
+migrations/
+internalReports/
+toDev/
+
 node_modules
 .git
 mainapp/src
-mainapp/node_modules
 mainapp/package.json
 mainapp/tsconfig.json
 mainapp/vite.config.ts
-backup
-DEVHelp
-internalReports
-migrations
 .claude
 .gitlab-ci
-*.log
-server-db.js
 server-simple.js
 run-multi-role-migration.js
 package-lock.json
@@ -24,5 +50,4 @@ yarn.lock
 .gitlab-ci.yml
 railway.json
 tsconfig.json
-vite.config.ts
-src/ 
+vite.config.ts 
