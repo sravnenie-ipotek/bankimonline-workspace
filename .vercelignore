@@ -1,7 +1,20 @@
-# Ignore everything except mainapp
-/*
-!/mainapp/
-!/vercel.json
+# Focus only on mainapp for Vercel build
+node_modules
+.git
+*.log
+server-db.js
+serve.js
+start-dev.js
+DEVHelp/
+backup/
+migrations/
+internalReports/
+toDev/
+src_backup/
+*.backup
+
+# Allow mainapp directory
+!mainapp/
 
 # But ignore these in mainapp
 mainapp/node_modules/
@@ -11,43 +24,4 @@ mainapp/.env.test.local
 mainapp/.env.production.local
 mainapp/npm-debug.log*
 mainapp/yarn-debug.log*
-mainapp/yarn-error.log*
-
-# Ignore build artifacts in root
-/build/
-/dist/
-/public/
-/src/
-index.html.backup
-*.log
-
-# Ignore dev files
-server-db.js
-serve.js
-start-dev.js
-DEVHelp/
-backup/
-migrations/
-internalReports/
-toDev/
-
-node_modules
-.git
-mainapp/src
-mainapp/package.json
-mainapp/tsconfig.json
-mainapp/vite.config.ts
-.claude
-.gitlab-ci
-server-simple.js
-run-multi-role-migration.js
-package-lock.json
-package.json.bak
-yarn.lock
-.eslintrc.cjs
-.prettierrc
-.csscomb.json
-.gitlab-ci.yml
-railway.json
-tsconfig.json
-vite.config.ts 
+mainapp/yarn-error.log* 
