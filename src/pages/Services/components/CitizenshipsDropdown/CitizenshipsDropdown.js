@@ -1,0 +1,25 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useFormikContext } from 'formik';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Column } from '@components/ui/Column';
+import { MultiSelect } from '@components/ui/MultiSelect';
+import { TitleElement } from '@components/ui/TitleElement';
+import { useGetCitiesQuery } from '../../api/api.ts';
+const CitizenshipsDropdown = () => {
+    const { t, i18n } = useTranslation();
+    i18n.language = i18n.language.split('-')[0];
+    const { values, setFieldValue, errors, touched, setFieldTouched } = useFormikContext();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const { data: data, isLoading, isError } = useGetCitiesQuery();
+    const [selectedCitizenship, setSelectedCitizenship] = useState(['']);
+    useEffect(() => {
+        if (!isLoading && !isError && data) {
+            setSelectedCitizenship(Object.values(data.data));
+        }
+    }, [data, isLoading, isError]);
+    console.log(selectedCitizenship);
+    return (_jsxs(Column, { children: [_jsx(TitleElement, { title: t('calculate_mortgage_citizenship_title') }), _jsx(MultiSelect, { data: selectedCitizenship, placeholder: t('calculate_mortgage_citizenship_ph'), searchable: true, searchPlaceholder: t('search'), nothingFoundText: t('nothing_found'), searchDescription: t('countries'), value: values.citizenshipsDropdown, onChange: (value) => setFieldValue('citizenshipsDropdown', value), onBlur: () => setFieldTouched('citizenshipsDropdown', true), error: touched.citizenshipsDropdown && errors.citizenshipsDropdown })] }));
+};
+export default CitizenshipsDropdown;
