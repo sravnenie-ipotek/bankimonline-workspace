@@ -1,55 +1,56 @@
 {
+  "version": 2,
   "buildCommand": "",
   "outputDirectory": ".",
   "installCommand": "",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://bankim-nodejs-api-production.up.railway.app/api/$1"
+      "src": "/api/(.*)",
+      "dest": "https://bankim-nodejs-api-production.up.railway.app/api/$1"
     },
     {
-      "source": "/assets/(.*)",
-      "destination": "/mainapp/build/assets/$1"
+      "src": "/assets/(.*)",
+      "dest": "/mainapp/build/assets/$1"
     },
     {
-      "source": "/static/(.*)",
-      "destination": "/mainapp/build/static/$1"
+      "src": "/static/(.*)",
+      "dest": "/mainapp/build/static/$1"
     },
     {
-      "source": "/locales/(.*)",
-      "destination": "/mainapp/build/locales/$1"
+      "src": "/locales/(.*)",
+      "dest": "/mainapp/build/locales/$1"
     },
     {
-      "source": "/favicon.ico",
-      "destination": "/mainapp/build/favicon.ico"
+      "src": "/favicon.ico",
+      "dest": "/mainapp/build/favicon.ico"
     },
     {
-      "source": "/",
-      "destination": "/landing.html"
+      "src": "/app$",
+      "dest": "/mainapp/build/index.html"
     },
     {
-      "source": "/app",
-      "destination": "/mainapp/build/index.html"
+      "src": "/app/(.*)",
+      "dest": "/mainapp/build/index.html"
     },
     {
-      "source": "/app/(.*)",
-      "destination": "/mainapp/build/index.html"
+      "src": "/admin$",
+      "dest": "/admin.html"
     },
     {
-      "source": "/admin",
-      "destination": "/admin.html"
+      "src": "/customer$",
+      "dest": "/customer-approval-check.html"
     },
     {
-      "source": "/customer",
-      "destination": "/customer-approval-check.html"
+      "src": "/personal-admin$",
+      "dest": "/index.html"
     },
     {
-      "source": "/personal-admin",
-      "destination": "/index.html"
+      "src": "/dashboard$",
+      "dest": "/index.html"
     },
     {
-      "source": "/dashboard",
-      "destination": "/index.html"
+      "src": "/$",
+      "dest": "/landing.html"
     }
   ],
   "headers": [
