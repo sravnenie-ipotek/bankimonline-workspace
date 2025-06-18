@@ -2,7 +2,7 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy package files
+# Copy package files for dependency installation
 COPY package*.json ./
 COPY mainapp/package*.json ./mainapp/
 
@@ -13,14 +13,16 @@ RUN npm install --no-cache --prefer-offline
 WORKDIR /app/mainapp
 RUN npm install --no-cache --prefer-offline
 
-# Build React app
+# Go back to root and copy all source files
+WORKDIR /app
+COPY . .
+
+# Now build React app (after source files are copied)
+WORKDIR /app/mainapp
 RUN npm run build
 
-# Go back to root
+# Go back to root for final setup
 WORKDIR /app
-
-# Copy all source files
-COPY . .
 
 # Expose port
 EXPOSE 8003
