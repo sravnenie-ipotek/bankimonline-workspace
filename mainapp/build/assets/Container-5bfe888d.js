@@ -1,0 +1,1 @@
+import{c as s,R as n}from"./index-eb3aa3d7.js";import{P as r}from"./index-a5a970b9.js";var o="/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/src/components/ui/Container/Container.tsx";const t=s.bind(r),c=({children:e,...a})=>n.createElement("div",{className:t("container"),...a,__self:void 0,__source:{fileName:o,lineNumber:14,columnNumber:5}},e);export{c as C};
