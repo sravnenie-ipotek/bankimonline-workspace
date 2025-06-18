@@ -24,8 +24,43 @@ pool.query('SELECT NOW()', (err, res) => {
     }
 });
 
+// Get CORS origins from environment variable or use defaults
+const getCorsOrigins = () => {
+    if (process.env.CORS_ALLOWED_ORIGINS) {
+        // If it's just '*', return '*' for all origins
+        if (process.env.CORS_ALLOWED_ORIGINS.trim() === '*') {
+            return '*';
+        }
+        // Otherwise split comma-separated values
+        return process.env.CORS_ALLOWED_ORIGINS.split(',').map(url => url.trim());
+    }
+    
+    // Default origins for development
+    return [
+        'http://localhost:3001',
+        'http://localhost:3000',
+        'https://bank-react-27qu39ml7-michaels-projects-8d0f6093.vercel.app',
+        'https://bank-react-git-main-michaels-projects-8d0f6093.vercel.app',
+        'https://bank-dev2-standalone-txwi.vercel.app',
+        /https:\/\/.*\.vercel\.app$/
+    ];
+};
+
 // Middleware
-app.use(cors({ origin: '*' }));
+const corsOptions = {
+    origin: getCorsOrigins(),
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    optionsSuccessStatus: 200
+};
+
+// Log CORS configuration for debugging
+console.log('🔒 CORS Configuration:');
+console.log('📝 CORS_ALLOWED_ORIGINS env var:', process.env.CORS_ALLOWED_ORIGINS || 'Not set');
+console.log('🌐 Resolved CORS origins:', corsOptions.origin);
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
