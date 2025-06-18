@@ -1,0 +1,1 @@
+import{j as e}from"./index-d69ab70d.js";import{C as r}from"./Container-9a672b5f.js";import"./index-c89ce6ee.js";const s=()=>e.jsx(r,{children:e.jsx("div",{children:"Jerusalem Page"})});export{s as Jerusalem};
