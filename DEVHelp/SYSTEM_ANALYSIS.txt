@@ -9,52 +9,45 @@
 └─────────────────────────────────────────────────────────────────────────────┘
 
         ┌─────────────────┐         ┌─────────────────┐         ┌─────────────────┐
-        │     VERCEL      │         │    RAILWAY      │         │     GITHUB      │
-        │   (Frontend)    │         │   (Backend)     │         │   (Source)      │
+        │     GITHUB      │         │     RAILWAY     │         │   POSTGRESQL    │
+        │   (Source)      │────────▶│ (Full Stack)    │────────▶│   (Database)    │
         └─────────────────┘         └─────────────────┘         └─────────────────┘
                 │                           │                           │
         ┌───────▼─────────┐         ┌───────▼─────────┐         ┌───────▼─────────┐
-        │  Main App       │         │  Laravel API    │         │  Repository     │
-        │ bankimstandalone│◄────────┤ bankimonlineapi │         │ dev2Prod/       │
-        │ prod.vercel.app │         │ -production     │         │ standAlone_     │
-        │                 │         │ .up.railway.app │         │ bankim          │
+        │  Repository     │         │  Single Service │         │  Managed DB     │
+        │ MichaelMishaev/ │         │ bankim-         │         │ Railway         │
+        │ bankDev2_       │         │ standalone      │         │ PostgreSQL      │
+        │ standalone      │         │                 │         │                 │
         └─────────────────┘         └─────────────────┘         └─────────────────┘
                 │                           │
         ┌───────▼─────────┐         ┌───────▼─────────┐
-        │  Account App    │         │  Node.js API    │
-        │ bank-dev2-      │         │ bankim-nodejs-  │
-        │ standalone-     │         │ api-production  │
-        │ txwi.vercel.app │         │ .up.railway.app │
+        │  Auto Deploy    │         │  Unified Server │
+        │ Webhook on      │         │ server-db.js    │
+        │ Push to Main    │         │ Express + React │
         └─────────────────┘         └─────────────────┘
-                │                           │
-                └───────────┬───────────────┘
-                            │
-                    ┌───────▼─────────┐
-                    │   PostgreSQL    │
-                    │   Database      │
-                    │   (Railway)     │
-                    └─────────────────┘
 
 ===============================================================================
                                🌐 DEPLOYMENT MATRIX
 ===============================================================================
 
 ┌─────────────────┬─────────────────────┬─────────────────────┬─────────────────┐
-│ SERVICE         │ PLATFORM            │ URL                 │ STATUS          │
+│ COMPONENT       │ PLATFORM            │ URL                 │ STATUS          │
 ├─────────────────┼─────────────────────┼─────────────────────┼─────────────────┤
-│ Main App        │ Vercel              │ bankimstandalone    │ ✅ DEPLOYED     │
-│ (Frontend)      │                     │ prod.vercel.app     │                 │
+│ Full Stack App  │ Railway             │ bankim-standalone-  │ ✅ DEPLOYED     │
+│ (Frontend+API)  │                     │ production.up.      │                 │
+│                 │                     │ railway.app         │                 │
 ├─────────────────┼─────────────────────┼─────────────────────┼─────────────────┤
-│ Account App     │ Vercel              │ bank-dev2-standalone│ ✅ DEPLOYED     │
-│ (Frontend)      │                     │ -txwi.vercel.app    │                 │
+│ React Frontend  │ Railway (Static)    │ / (root path)       │ ✅ SERVED       │
+│                 │                     │ Served by Express   │                 │
 ├─────────────────┼─────────────────────┼─────────────────────┼─────────────────┤
-│ Laravel API     │ Railway             │ bankimonlineapi-    │ ✅ DEPLOYED     │
-│ (Backend)       │                     │ production.up.      │                 │
-│                 │                     │ railway.app/api/v1  │                 │
+│ API Endpoints   │ Railway (Express)   │ /api/*              │ ✅ RUNNING      │
+│                 │                     │ Same domain         │                 │
 ├─────────────────┼─────────────────────┼─────────────────────┼─────────────────┤
-│ Node.js API     │ Railway             │ bankim-nodejs-api-  │ ✅ DEPLOYED     │
-│ (Backend)       │                     │ production.up.      │                 │
-│                 │                     │ railway.app/api     │                 │
+│ Legacy Admin    │ Railway (Static)    │ /admin.html         │ ✅ SERVED       │
+│                 │                     │ Served by Express   │                 │
+├─────────────────┼─────────────────────┼─────────────────────┼─────────────────┤
+│ Legacy Customer │ Railway (Static)    │ /customer-approval- │ ✅ SERVED       │
+│                 │                     │ check.html          │                 │
 ├─────────────────┼─────────────────────┼─────────────────────┼─────────────────┤
 │ Database        │ Railway             │ Internal Railway    │ ✅ RUNNING      │
 │ (PostgreSQL)    │                     │ Network             │                 │
@@ -64,156 +57,171 @@
                            🔐 CREDENTIALS & ACCESS INFORMATION
 ===============================================================================
 
-🏢 VERCEL ACCOUNT:
-────────────────────
-Platform: https://vercel.com
-Projects:
-├── bankim_standaloneprod (Main App)
-│   ├── Domain: bankimstandaloneprod.vercel.app
-│   ├── Framework: Vite + React
-│   ├── Root Directory: mainapp/
-│   └── Auto-deploy: GitHub branch (main)
-│
-└── bankim-account (Account App)
-    ├── Domain: bank-dev2-standalone-txwi.vercel.app
-    ├── Framework: Vite + React
-    ├── Root Directory: account/
-    └── Auto-deploy: GitHub branch (main)
-
 🚂 RAILWAY ACCOUNT:
 ─────────────────────
 Platform: https://railway.app
-Projects:
-├── bankimonlineapi-production (Laravel)
-│   ├── Service: Laravel PHP Application
-│   ├── Database: Shared PostgreSQL
-│   ├── Domain: bankimonlineapi-production.up.railway.app
-│   └── Environment: Production
-│
-├── bankim-nodejs-api-production (Node.js)
-│   ├── Service: Node.js Application
-│   ├── Database: Shared PostgreSQL (same as Laravel)
-│   ├── Domain: bankim-nodejs-api-production.up.railway.app
-│   └── Environment: Production
-│
-└── PostgreSQL Database
-    ├── Type: Shared Database
-    ├── Version: PostgreSQL 13+
-    ├── Access: Internal Railway Network
-    └── Used by: Both Laravel and Node.js services
+Project: bankim-standalone
+Service: bankim-standalone-production
+
+DEPLOYMENT CONFIGURATION:
+├── Repository: MichaelMishaev/bankDev2_standalone
+├── Branch: main (auto-deploy)
+├── Build System: Nixpacks
+├── Start Command: node server-db.js
+├── Build Command: Automated via nixpacks.toml
+└── Environment: Production
+
+RAILWAY SERVICE DETAILS:
+├── Service Name: bankim-standalone
+├── Domain: bankim-standalone-production.up.railway.app
+├── Runtime: Node.js 20.x
+├── Database: Shared PostgreSQL instance
+└── Auto-scaling: Enabled
 
 📂 GITHUB REPOSITORY:
 ────────────────────────
-Repository: dev2Prod/standAlone_bankim
+Repository: MichaelMishaev/bankDev2_standalone
 Branch Strategy:
-├── main (Production branch)
-├── Auto-deploy to Vercel on push
-└── Contains: Frontend apps + Documentation
+├── main (Production branch - auto-deploy to Railway)
+├── Contains: Full-stack application
+├── Structure:
+│   ├── server-db.js (Main server file)
+│   ├── mainapp/ (React application)
+│   ├── railway.json (Railway configuration)
+│   ├── nixpacks.toml (Build configuration)
+│   ├── package.json (Server dependencies)
+│   └── Legacy HTML files (admin.html, customer-approval-check.html)
 
 ===============================================================================
                            ⚙️ ENVIRONMENT VARIABLES MATRIX
 ===============================================================================
 
-🔵 MAIN APP (Vercel - bankimstandaloneprod):
-──────────────────────────────────────────────
-VITE_API_BASE_URL         = https://bankimonlineapi-production.up.railway.app/api/v1
-VITE_NODE_API_BASE_URL    = https://bankim-nodejs-api-production.up.railway.app/api
-VITE_ACCOUNT_URL          = https://bank-dev2-standalone-txwi.vercel.app
-VITE_ENVIRONMENT          = production
-
-🟢 ACCOUNT APP (Vercel - bankim-account):
-────────────────────────────────────────────
-VITE_API_BASE_URL         = https://bankimonlineapi-production.up.railway.app/api/v1
-VITE_ENVIRONMENT          = production
-
-🟠 LARAVEL API (Railway - bankimonlineapi-production):
-─────────────────────────────────────────────────────
-DB_CONNECTION             = pgsql
-DB_HOST                   = [Railway Internal]
-DB_PORT                   = 5432
-DB_DATABASE               = railway
-DB_USERNAME               = postgres
-DB_PASSWORD               = [Auto-generated]
-APP_ENV                   = production
-APP_DEBUG                 = false
-APP_URL                   = https://bankimonlineapi-production.up.railway.app
-
-🔴 NODE.JS API (Railway - bankim-nodejs-api-production):
-───────────────────────────────────────────────────────
-DATABASE_URL              = postgresql://[auto-configured]
+🚂 RAILWAY SERVICE ENVIRONMENT:
+──────────────────────────────────
+DATABASE_URL              = postgresql://[auto-configured by Railway]
 NODE_ENV                  = production
 PORT                      = [Auto-assigned by Railway]
+JWT_SECRET                = [Set in Railway dashboard]
+CORS_ALLOWED_ORIGINS      = * (allows all origins)
+
+🔧 BUILD ENVIRONMENT:
+────────────────────────
+NODE_VERSION              = 20.x (via nixpacks.toml)
+NPM_VERSION               = Bundled with Node.js 20
+BUILD_COMMAND             = Automated via nixpacks phases
+INSTALL_COMMAND           = npm install (root + mainapp)
 
 ===============================================================================
                              📊 DATA FLOW ARCHITECTURE
 ===============================================================================
 
-USER INTERACTION FLOW:
-─────────────────────────
+UNIFIED ARCHITECTURE FLOW:
+─────────────────────────────
 
    ┌──────────────┐    HTTPS Request     ┌─────────────────┐
-   │     USER     │───────────────────►  │   MAIN APP      │
-   │   (Browser)  │                      │   (Vercel)      │
+   │     USER     │───────────────────►  │   RAILWAY       │
+   │   (Browser)  │                      │   SERVICE       │
    └──────────────┘                      └─────────────────┘
           │                                       │
-          │ Account Access                        │ API Calls
-          ▼                                       ▼
-   ┌─────────────────┐                   ┌─────────────────┐
-   │  ACCOUNT APP    │                   │  LARAVEL API    │
-   │   (Vercel)      │◄──────────────────┤   (Railway)     │
-   └─────────────────┘    User Data      └─────────────────┘
-          │                                       │
-          │ Profile Updates                       │ Database
           │                                       ▼
           │                               ┌─────────────────┐
-          │                               │   PostgreSQL    │
-          │                               │   DATABASE      │
-          │                               │   (Railway)     │
+          │                               │  server-db.js   │
+          │                               │  (Express.js)   │
           │                               └─────────────────┘
-          │                                       ▲
-          │ Refinance/SMS                         │ Data Storage
-          ▼                                       │
-   ┌─────────────────┐                   ┌─────────────────┐
-   │  NODE.JS API    │───────────────────┤  Shared Access  │
-   │   (Railway)     │    Database       └─────────────────┘
-   └─────────────────┘
+          │                                       │
+          │                              ┌────────┴────────┐
+          │                              │                 │
+          ▼                              ▼                 ▼
+   ┌─────────────────┐            ┌─────────────────┐ ┌─────────────────┐
+   │  REACT APP      │            │   API ROUTES    │ │  STATIC FILES   │
+   │  (mainapp/build)│            │   /api/*        │ │  (HTML/CSS/JS)  │
+   │  Served as      │            │                 │ │                 │
+   │  Static Files   │            │  - Auth         │ │  - admin.html   │
+   │                 │            │  - Banking      │ │  - customer-    │
+   │  Route: /       │            │  - Admin        │ │    approval-    │
+   │                 │            │  - Health       │ │    check.html   │
+   └─────────────────┘            └─────────────────┘ └─────────────────┘
+          │                              │
+          │                              ▼
+          │                       ┌─────────────────┐
+          │                       │   PostgreSQL    │
+          │                       │   DATABASE      │
+          │                       │   (Railway)     │
+          │                       └─────────────────┘
+          │                              ▲
+          │ Same Origin Requests         │ Database
+          └──────────────────────────────┘ Operations
+
+BENEFITS OF UNIFIED ARCHITECTURE:
+├── ✅ No CORS issues (same origin)
+├── ✅ Single deployment to manage
+├── ✅ Cost effective (one service)
+├── ✅ Simplified authentication
+├── ✅ Better performance
+└── ✅ Easier debugging
 
 ===============================================================================
                            🔧 BUILD & DEPLOYMENT PROCESS
 ===============================================================================
 
-VERCEL DEPLOYMENT (Frontend):
+RAILWAY DEPLOYMENT WORKFLOW:
 ────────────────────────────────
 
-1. Code Push to GitHub
-   └── Triggers automatic Vercel deployment
+1. DEVELOPER COMMITS & PUSHES:
+   ├── git add .
+   ├── git commit -m "message"
+   └── git push origin main
 
-2. Build Process:
-   ├── Framework Detection: Vite
-   ├── Install Command: npm install
-   ├── Build Command: npm run build
-   ├── Output Directory: dist/
-   └── Environment Variables: Injected during build
+2. GITHUB WEBHOOK:
+   └── Triggers Railway deployment automatically
 
-3. Deployment:
-   ├── Static files served via Vercel CDN
-   ├── Environment variables available at runtime
-   └── Custom domains configured
+3. RAILWAY BUILD PROCESS (Nixpacks):
+   ├── Phase 1 - Setup: Install Node.js 20
+   ├── Phase 2 - Install: npm install (server dependencies)
+   ├── Phase 3 - Build: 
+   │   ├── cd mainapp
+   │   ├── npm install (React dependencies)
+   │   ├── npm run build (creates mainapp/build/)
+   │   └── cd ..
+   └── Phase 4 - Start: node server-db.js
 
-RAILWAY DEPLOYMENT (Backend):
-────────────────────────────────
+4. SERVICE DEPLOYMENT:
+   ├── Express server starts on Railway-assigned port
+   ├── Serves React build from mainapp/build/
+   ├── Provides API endpoints at /api/*
+   ├── Serves legacy HTML files
+   ├── Connects to PostgreSQL database
+   └── Application goes live
 
-1. Manual Deployment or Git Integration
-2. Container Build:
-   ├── Laravel: PHP with Composer
-   ├── Node.js: Node runtime with npm
-   └── Database: Managed PostgreSQL
+NIXPACKS CONFIGURATION (nixpacks.toml):
+──────────────────────────────────────────
+```toml
+[phases.setup]
+nixPkgs = ['nodejs_20']
 
-3. Service Configuration:
-   ├── Auto-scaling enabled
-   ├── Health checks configured
-   ├── Environment variables secured
-   └── Internal networking between services
+[phases.install]
+cmds = ['npm install']
+
+[phases.build]
+cmds = ['cd mainapp && npm install && npm run build && cd ..']
+
+[start]
+cmd = 'node server-db.js'
+```
+
+RAILWAY CONFIGURATION (railway.json):
+────────────────────────────────────────
+```json
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "node server-db.js"
+  }
+}
+```
 
 ===============================================================================
                            🚨 MONITORING & HEALTH CHECKS
@@ -222,24 +230,33 @@ RAILWAY DEPLOYMENT (Backend):
 SERVICE STATUS MONITORING:
 ─────────────────────────────
 
-✅ VERCEL SERVICES:
-├── Main App: Monitor via Vercel dashboard
-├── Account App: Monitor via Vercel dashboard
-├── Uptime: 99.9% SLA
-└── Performance: Global CDN
+✅ RAILWAY SERVICE:
+├── Dashboard: https://railway.app → Project → bankim-standalone
+├── Logs: Real-time application logs in Railway dashboard
+├── Metrics: CPU, Memory, Network usage
+├── Deployments: Build history and status
+└── Database: PostgreSQL connection and performance
 
-✅ RAILWAY SERVICES:
-├── Laravel API: Health endpoint /api/v1/health
-├── Node.js API: Health endpoint /api/health
-├── Database: Railway internal monitoring
-└── Uptime: 99.9% SLA
+✅ APPLICATION HEALTH:
+├── Health Endpoint: GET /api/health
+├── Database Check: Included in health endpoint
+├── Server Status: Express server uptime
+└── Build Status: React app build verification
+
+HEALTH CHECK ENDPOINTS:
+─────────────────────────
+├── GET /api/health → Server and database status
+├── GET / → React app (SPA routing)
+├── GET /admin.html → Legacy admin interface
+├── GET /customer-approval-check.html → Legacy customer interface
+└── GET /api/admin/stats → Admin dashboard (requires auth)
 
 ALERT MECHANISMS:
 ─────────────────────
-├── Vercel: Email notifications on deployment failures
 ├── Railway: Dashboard alerts on service issues
-├── Browser: Network errors visible in dev tools
-└── Application: Error boundaries for user experience
+├── Application: Error boundaries in React
+├── Server: Express error handling middleware
+└── Database: Connection error logging
 
 ===============================================================================
                            🔄 BACKUP & DISASTER RECOVERY
@@ -249,47 +266,61 @@ DATABASE BACKUP (Railway):
 ─────────────────────────────
 ├── Automatic daily backups
 ├── Point-in-time recovery available
-├── Backup retention: 7 days (free tier)
-└── Manual backup: Via Railway dashboard
+├── Backup retention: Based on Railway plan
+├── Manual backup: Via Railway dashboard
+└── Database export: SQL dump available
 
 CODE BACKUP (GitHub):
 ─────────────────────────
 ├── Git version control
 ├── Complete project history
 ├── Branch protection on main
-└── Redundant copies on local machines
+├── Local development copies
+└── Railway deployment snapshots
 
 DEPLOYMENT ROLLBACK:
 ───────────────────────
-├── Vercel: Previous deployments accessible
-├── Railway: Deployment history available
+├── Railway: Previous deployments accessible
 ├── Git: Revert commits and redeploy
-└── Environment: Quick rollback via dashboard
+├── Database: Restore from backup if needed
+└── Environment: Quick rollback via Railway dashboard
+
+DISASTER RECOVERY PLAN:
+──────────────────────────
+1. Service Down: Check Railway status and logs
+2. Database Issues: Verify connection and restore if needed
+3. Code Issues: Git revert and redeploy
+4. Complete Failure: Restore from backups and redeploy
+5. DNS Issues: Railway handles domain management
 
 ===============================================================================
                            📈 PERFORMANCE OPTIMIZATION
 ===============================================================================
 
-FRONTEND OPTIMIZATION:
-─────────────────────────
-├── Vite: Fast build tool with HMR
-├── Code splitting: Lazy loading routes
-├── Assets: Optimized images and fonts
-└── CDN: Vercel global edge network
+RAILWAY PLATFORM OPTIMIZATIONS:
+──────────────────────────────────
+├── Auto-scaling: Based on traffic demand
+├── Global CDN: Railway edge network
+├── Container optimization: Efficient resource usage
+├── Database connection pooling: PostgreSQL optimization
+└── Build caching: Faster subsequent deployments
 
-BACKEND OPTIMIZATION:
-────────────────────────
-├── Laravel: Optimized queries and caching
-├── Node.js: Efficient API endpoints
-├── Database: Indexed queries
-└── Railway: Auto-scaling based on traffic
+APPLICATION OPTIMIZATIONS:
+─────────────────────────────
+├── React Build: Production-optimized bundle (Vite)
+├── Static Assets: Served directly by Express
+├── API Responses: Minimal JSON payloads
+├── Database Queries: Indexed and optimized
+├── Compression: Gzip enabled for responses
+└── Caching: Express static file caching
 
-NETWORK OPTIMIZATION:
-────────────────────────
-├── HTTPS: All communications encrypted
-├── Compression: Gzip enabled
-├── Caching: Browser and CDN caching
-└── Connection: Keep-alive enabled
+DEVELOPMENT OPTIMIZATIONS:
+─────────────────────────────
+├── Hot Module Replacement: Vite development server
+├── Build Speed: Separated server and client dependencies
+├── Development Mode: Local server with live reload
+├── Error Handling: Comprehensive error boundaries
+└── Debugging: Source maps enabled in development
 
 ===============================================================================
                            📋 MAINTENANCE CHECKLIST
@@ -297,24 +328,27 @@ NETWORK OPTIMIZATION:
 
 DAILY CHECKS:
 ─────────────────
-□ Monitor application uptime
-□ Check error logs in dashboards
+□ Monitor Railway service status
+□ Check application health endpoint
 □ Verify critical user flows work
-□ Monitor database performance
+□ Review error logs in Railway dashboard
+□ Monitor database performance metrics
 
 WEEKLY MAINTENANCE:
 ──────────────────────
 □ Review deployment logs
 □ Update dependencies (security patches)
-□ Monitor usage metrics
+□ Monitor usage metrics and costs
 □ Backup verification
+□ Performance metrics review
 
 MONTHLY REVIEWS:
 ───────────────────
+□ Security audit and updates
 □ Performance optimization review
-□ Security audit
-□ Cost optimization
+□ Cost optimization analysis
 □ Infrastructure scaling assessment
+□ Documentation updates
 
 ===============================================================================
                            🎯 TROUBLESHOOTING GUIDE
@@ -322,55 +356,159 @@ MONTHLY REVIEWS:
 
 DEPLOYMENT ISSUES:
 ─────────────────────
-❌ Vercel Build Failures:
-├── Check build logs in Vercel dashboard
-├── Verify environment variables
-├── Test build locally: npm run build
+❌ Railway Build Failures:
+├── Check nixpacks.toml configuration
+├── Verify Node.js version compatibility
+├── Review build logs in Railway dashboard
+├── Test build locally with ./build-railway.sh
 └── Check for dependency conflicts
 
-❌ Railway Service Issues:
-├── Check service logs in Railway dashboard
-├── Verify database connectivity
-├── Monitor resource usage
-└── Check environment variable configuration
+❌ Service Startup Issues:
+├── Check Railway service logs
+├── Verify environment variables
+├── Test server locally: node server-db.js
+├── Check database connection
+└── Verify port configuration
 
-API CONNECTION ISSUES:
-─────────────────────────
-❌ CORS Errors:
-├── Verify API CORS configuration
-├── Check request headers
-└── Validate API endpoints
+APPLICATION ISSUES:
+──────────────────────
+❌ React App Not Loading:
+├── Check if mainapp/build/ exists
+├── Verify build process completed
+├── Test React build locally
+├── Check Express static file serving
+└── Verify React Router configuration
 
-❌ Environment Variable Issues:
-├── Verify VITE_ prefix for frontend vars
-├── Check Vercel environment variables
-├── Force redeploy without build cache
-└── Validate variable values
+❌ API Endpoints Failing:
+├── Check Railway application logs
+├── Verify database connection
+├── Test endpoints with curl/Postman
+├── Check CORS configuration
+└── Verify JWT authentication
+
+❌ Database Connection Issues:
+├── Check DATABASE_URL environment variable
+├── Verify Railway database service status
+├── Test connection in Railway dashboard
+├── Check for connection pool limits
+└── Review database logs
+
+LOCAL DEVELOPMENT ISSUES:
+────────────────────────────
+❌ Missing Dependencies:
+├── Run npm install in root directory
+├── Run npm install in mainapp/ directory
+├── Check package.json files
+└── Clear node_modules and reinstall
+
+❌ Port Conflicts:
+├── EADDRINUSE Port 3001: Kill process or change port
+├── EADDRINUSE Port 8003: Kill process or change port
+├── Use netstat to find conflicting processes
+└── Check both serve.js and server-db.js ports
+
+❌ Build Errors:
+├── Check React app dependencies
+├── Verify Vite configuration
+├── Test build: cd mainapp && npm run build
+└── Check for TypeScript errors
 
 ===============================================================================
                            📊 COST OPTIMIZATION
 ===============================================================================
 
-CURRENT USAGE (Free Tiers):
+CURRENT USAGE (Railway):
 ───────────────────────────────
-├── Vercel: 2 projects (within free limits)
-├── Railway: 2 services + database (within free limits)
-├── GitHub: Public repository (free)
-└── Total Monthly Cost: $0 (Free tier usage)
+├── Service: bankim-standalone (within free/hobby limits)
+├── Database: PostgreSQL (shared, within limits)
+├── Build Minutes: Tracked per deployment
+├── Bandwidth: Monitored usage
+└── Total Monthly Cost: Based on Railway plan
 
 SCALING CONSIDERATIONS:
 ──────────────────────────
-├── Vercel Pro: $20/month per member (custom domains, analytics)
-├── Railway Hobby: $5/month per service (more resources)
-├── Database: Upgrade for more storage/connections
-└── CDN: Additional bandwidth for high traffic
+├── Railway Pro: $20/month (more resources, custom domains)
+├── Database Upgrade: More storage and connections
+├── Multiple Environments: Staging + Production
+├── Custom Domain: Professional branding
+└── Enhanced Monitoring: Advanced metrics and alerts
+
+COST OPTIMIZATION STRATEGIES:
+────────────────────────────────
+├── Efficient builds: Minimize build time and frequency
+├── Resource monitoring: Track CPU and memory usage
+├── Database optimization: Efficient queries and indexing
+├── Caching strategies: Reduce API calls and database hits
+└── Traffic optimization: CDN usage and compression
+
+===============================================================================
+                           🔗 IMPORTANT URLS & ENDPOINTS
+===============================================================================
+
+PRODUCTION URLS:
+───────────────────
+├── Main Application: https://bankim-standalone-production.up.railway.app/
+├── API Health Check: https://bankim-standalone-production.up.railway.app/api/health
+├── Admin Interface: https://bankim-standalone-production.up.railway.app/admin.html
+├── Customer Interface: https://bankim-standalone-production.up.railway.app/customer-approval-check.html
+└── Railway Dashboard: https://railway.app/project/[project-id]
+
+DEVELOPMENT URLS:
+────────────────────
+├── Local Server: http://localhost:8003
+├── Local Health: http://localhost:8003/api/health
+├── React Development: http://localhost:3000 (if using npm start in mainapp/)
+└── Admin Local: http://localhost:8003/admin.html
+
+API ENDPOINTS:
+─────────────────
+├── GET /api/health → Server and database status
+├── POST /api/login → Email authentication
+├── POST /api/sms-login → SMS authentication request
+├── POST /api/sms-code-login → SMS code verification
+├── POST /api/customer/compare-banks → Bank comparison
+├── POST /api/customer/submit-application → Application submission
+├── GET /api/admin/stats → Admin statistics (requires auth)
+├── GET /api/admin/banks → Bank management (requires auth)
+└── GET /api/admin/applications → Application management (requires auth)
+
+===============================================================================
+                           📝 DEVELOPMENT WORKFLOW
+===============================================================================
+
+GETTING STARTED:
+───────────────────
+1. Clone repository: git clone [repo-url]
+2. Install server dependencies: npm install
+3. Install React dependencies: cd mainapp && npm install
+4. Set up environment variables (copy from Railway)
+5. Start development: npm run dev (or node start-dev.js)
+6. Test locally: Open http://localhost:8003
+
+DEVELOPMENT COMMANDS:
+────────────────────────
+├── npm run dev → Start development servers
+├── npm start → Start production server
+├── node server-db.js → Start server only
+├── cd mainapp && npm start → Start React development server
+├── cd mainapp && npm run build → Build React app
+└── ./build-railway.sh → Test Railway build locally
+
+DEPLOYMENT WORKFLOW:
+───────────────────────
+1. Make changes and test locally
+2. Commit changes: git add . && git commit -m "message"
+3. Push to main: git push origin main
+4. Railway auto-deploys via webhook
+5. Monitor deployment in Railway dashboard
+6. Verify deployment at production URL
 
 ===============================================================================
 
 CREATED: December 2024
 PROJECT: Bankim Standalone Banking Application
-VERSION: Production v1.0
-ARCHITECTURE: Multi-platform distributed system
+VERSION: Production v5.0 (Railway Migration)
+ARCHITECTURE: Unified full-stack Railway deployment
 LAST UPDATED: December 2024
 
 =============================================================================== 
