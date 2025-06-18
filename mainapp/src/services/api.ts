@@ -6,8 +6,10 @@ const getApiBaseUrl = () => {
   if (process.env.VITE_NODE_API_BASE_URL) {
     return process.env.VITE_NODE_API_BASE_URL
   }
-  // Fallback to production API for deployment, localhost for development
-  return process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8003/api'
+  // Always use Railway backend in production, localhost for development
+  return process.env.NODE_ENV === 'production' 
+    ? 'https://bankim-nodejs-api-production.up.railway.app/api' 
+    : 'http://localhost:8003/api'
 }
 
 export const api = createApi({
