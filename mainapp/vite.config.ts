@@ -4,9 +4,11 @@ import { resolve } from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  mode: 'production',
   build: {
     outDir: 'build',
     sourcemap: false,
+    minify: 'terser',
     rollupOptions: {
       output: {
         manualChunks: undefined,
@@ -19,10 +21,11 @@ export default defineConfig({
     }),
   ],
   define: {
-    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    'process.env.NODE_ENV': JSON.stringify('production'),
     'process.env.VITE_NODE_API_BASE_URL': JSON.stringify(process.env.VITE_NODE_API_BASE_URL),
     'process.env.VITE_ACCOUNT_URL': JSON.stringify(process.env.VITE_ACCOUNT_URL),
     'global': 'globalThis',
+    '__DEV__': false,
   },
   resolve: {
     alias: {

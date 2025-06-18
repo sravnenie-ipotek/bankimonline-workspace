@@ -1,0 +1,1 @@
+import{j as o}from"./index-d69ab70d.js";import{C as i}from"./Container-9a672b5f.js";import"./index-c89ce6ee.js";const r=()=>o.jsx(i,{children:o.jsx("div",{children:"Cooperation Page"})});export{r as Cooperation};

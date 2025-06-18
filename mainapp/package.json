@@ -95,6 +95,7 @@
     "postcss": "^8.4.31",
     "prettier": "^3.0.3",
     "stylelint-config-prettier": "^9.0.5",
+    "terser": "^5.43.0",
     "ts-node": "^10.9.1",
     "vite": "^4.4.9",
     "vite-plugin-i18n-resources": "^1.0.3",
