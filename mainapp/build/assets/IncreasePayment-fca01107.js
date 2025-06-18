@@ -1,0 +1,1 @@
+import{k as e,d as a,a as t}from"./index-09bacb8e.js";import{M as s}from"./componentsByIncomeSource-e4854958.js";const i=e({name:"activeField",initialState:"",reducers:{setActiveField:(e,a)=>a.payload}}),{setActiveField:c}=i.actions,n=()=>{const{t:e,i18n:i}=a();return i.language=i.language.split("-")[0],t.jsx(s,{children:e("calculate_mortgage_ctx_1")})};export{n as I,c as s};

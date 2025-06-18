@@ -1,0 +1,1 @@
+import{c as e,j as n}from"./index-09bacb8e.js";import{P as i}from"./index-df54a9f4.js";const s=e.bind(i),a=({children:e,...i})=>n.jsxDEV("div",{className:s("container"),...i,children:e},void 0,!1,{fileName:"/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/src/components/ui/Container/Container.tsx",lineNumber:14,columnNumber:5},globalThis);export{a as C};
