@@ -1,0 +1,16 @@
+[phases.setup]
+nixPkgs = ['nodejs_20', 'npm-10_x']
+
+[phases.install]
+cmds = ['npm ci']
+
+[phases.build]
+cmds = [
+  'cd mainapp',
+  'npm ci', 
+  'npm run build',
+  'cd ..'
+]
+
+[start]
+cmd = 'node server-db.js' 
