@@ -1,1 +1,0 @@
-import{j as i}from"./index-d69ab70d.js";import{C as s}from"./Container-9a672b5f.js";import"./index-c89ce6ee.js";const o=()=>i.jsx(s,{children:i.jsx("div",{children:"Discount Page"})});export{o as Discount};
