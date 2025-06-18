@@ -1,1 +1,0 @@
-import{j as r}from"./index-e2c44293.js";import{C as e}from"./Container-ab61394f.js";import"./index-0c199e27.js";const o=()=>r.jsx(e,{children:r.jsx("div",{children:"TendersForBrokers Page"})}),i=o;export{i as TendersForBrokers};
