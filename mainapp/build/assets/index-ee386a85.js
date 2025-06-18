@@ -1,0 +1,1 @@
+import{d as n,a as s}from"./index-595b925c.js";import{T as a}from"./TextPage-3039e3eb.js";import"./index-26c8a1fd.js";const r=()=>{const{t,i18n:e}=n();return e.language=e.language.split("-")[0],s.jsx(a,{title:t("refund_title"),text:t("refund_text")})},f=r;export{f as Refund};
