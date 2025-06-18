@@ -1,0 +1,1 @@
+import{b as s,j as r}from"./index-e2c44293.js";import{T as a}from"./TextPage-db301d19.js";import"./index-0c199e27.js";const n=()=>{const{t,i18n:e}=s();return e.language=e.language.split("-")[0],r.jsx(a,{title:t("terms_title"),text:t("terms_text")})};export{n as default};
