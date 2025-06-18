@@ -27,9 +27,9 @@ pool.query('SELECT NOW()', (err, res) => {
 // Get CORS origins from environment variable or use defaults
 const getCorsOrigins = () => {
     if (process.env.CORS_ALLOWED_ORIGINS) {
-        // If it's just '*', return '*' for all origins
+        // If it's just '*', return true to allow all origins
         if (process.env.CORS_ALLOWED_ORIGINS.trim() === '*') {
-            return '*';
+            return true;
         }
         // Otherwise split comma-separated values
         return process.env.CORS_ALLOWED_ORIGINS.split(',').map(url => url.trim());
@@ -39,14 +39,17 @@ const getCorsOrigins = () => {
     return [
         'http://localhost:3001',
         'http://localhost:3000',
-        'http://localhost:8003'
+        'http://localhost:8003',
+        // Railway domains
+        'https://bankdev2standalone-production.up.railway.app',
+        'https://bankim-nodejs-api-production.up.railway.app'
     ];
 };
 
 // Middleware
 const corsOptions = {
     origin: getCorsOrigins(),
-    credentials: true,
+    credentials: false, // Set to false when allowing all origins
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
     optionsSuccessStatus: 200
