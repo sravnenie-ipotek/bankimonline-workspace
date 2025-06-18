@@ -4,7 +4,6 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "buildCommand": "npm ci && cd mainapp && npm ci && npm run build",
     "startCommand": "node server-db.js"
   }
 } 
