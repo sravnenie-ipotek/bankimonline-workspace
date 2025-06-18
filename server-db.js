@@ -141,7 +141,7 @@ app.get('/api/v1/banks', async (req, res) => {
     }
 });
 
-// Cities endpoint
+// Cities endpoint (legacy v1)
 app.get('/api/v1/cities', (req, res) => {
     res.json({
         data: [
@@ -150,6 +150,61 @@ app.get('/api/v1/cities', (req, res) => {
             { id: 3, name: 'Haifa' }
         ],
         status: 'success'
+    });
+});
+
+// Cities endpoint with localization (frontend expects this)
+app.get('/api/get-cities', (req, res) => {
+    const lang = req.query.lang || 'en';
+    
+    console.log(`[CITIES] Request for language: ${lang}`);
+    
+    const cities = {
+        en: [
+            { id: 1, name: 'Tel Aviv', value: 'tel-aviv' },
+            { id: 2, name: 'Jerusalem', value: 'jerusalem' },
+            { id: 3, name: 'Haifa', value: 'haifa' },
+            { id: 4, name: 'Rishon LeZion', value: 'rishon-lezion' },
+            { id: 5, name: 'Petah Tikva', value: 'petah-tikva' },
+            { id: 6, name: 'Ashdod', value: 'ashdod' },
+            { id: 7, name: 'Netanya', value: 'netanya' },
+            { id: 8, name: 'Beer Sheva', value: 'beer-sheva' },
+            { id: 9, name: 'Holon', value: 'holon' },
+            { id: 10, name: 'Ramat Gan', value: 'ramat-gan' }
+        ],
+        he: [
+            { id: 1, name: 'תל אביב', value: 'tel-aviv' },
+            { id: 2, name: 'ירושלים', value: 'jerusalem' },
+            { id: 3, name: 'חיפה', value: 'haifa' },
+            { id: 4, name: 'ראשון לציון', value: 'rishon-lezion' },
+            { id: 5, name: 'פתח תקווה', value: 'petah-tikva' },
+            { id: 6, name: 'אשדוד', value: 'ashdod' },
+            { id: 7, name: 'נתניה', value: 'netanya' },
+            { id: 8, name: 'באר שבע', value: 'beer-sheva' },
+            { id: 9, name: 'חולון', value: 'holon' },
+            { id: 10, name: 'רמת גן', value: 'ramat-gan' }
+        ],
+        ru: [
+            { id: 1, name: 'Тель-Авив', value: 'tel-aviv' },
+            { id: 2, name: 'Иерусалим', value: 'jerusalem' },
+            { id: 3, name: 'Хайфа', value: 'haifa' },
+            { id: 4, name: 'Ришон ле-Цион', value: 'rishon-lezion' },
+            { id: 5, name: 'Петах-Тиква', value: 'petah-tikva' },
+            { id: 6, name: 'Ашдод', value: 'ashdod' },
+            { id: 7, name: 'Нетания', value: 'netanya' },
+            { id: 8, name: 'Беэр-Шева', value: 'beer-sheva' },
+            { id: 9, name: 'Холон', value: 'holon' },
+            { id: 10, name: 'Рамат-Ган', value: 'ramat-gan' }
+        ]
+    };
+    
+    const cityList = cities[lang] || cities['en'];
+    
+    res.json({
+        status: 'success',
+        data: cityList,
+        language: lang,
+        total: cityList.length
     });
 });
 
@@ -3990,6 +4045,7 @@ app.listen(PORT, () => {
     console.log('📧 Email 2FA: POST /api/email-code-login');
     console.log('📱 SMS login: POST /api/sms-login & /api/sms-code-login');
     console.log('👤 Registration: POST /api/register');
+    console.log('🏙️ Cities: GET /api/get-cities?lang=xx');
     console.log('🏠 Refinance mortgage: POST /api/refinance-mortgage');
     console.log('💳 Refinance credit: POST /api/refinance-credit');
     console.log('🔐 Admin login: POST /api/admin/login');
