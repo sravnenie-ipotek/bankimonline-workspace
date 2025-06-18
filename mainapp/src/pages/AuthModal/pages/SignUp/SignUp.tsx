@@ -36,7 +36,18 @@ const SignUp = () => {
   // const activeTab = useAppSelector((state) => state.login.activeTab)
 
   const getAccountUrl = () => {
-    return process.env.VITE_ACCOUNT_URL || 'http://localhost:3001/'
+    // For production, use current domain; for development, use localhost:3001
+    if (process.env.VITE_ACCOUNT_URL) {
+      return process.env.VITE_ACCOUNT_URL
+    }
+    
+    // If we're on Railway production, stay on the same domain
+    if (window.location.hostname.includes('railway.app')) {
+      return window.location.origin + '/'
+    }
+    
+    // Default to localhost for development
+    return 'http://localhost:3001/'
   }
 
   const handleRegisterPhone = async (values: SignUpFormType) => {
