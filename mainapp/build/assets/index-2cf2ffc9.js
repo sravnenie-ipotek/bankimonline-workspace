@@ -1,0 +1,1 @@
+import{j as i}from"./index-d69ab70d.js";import{C as s}from"./Container-9a672b5f.js";import"./index-c89ce6ee.js";const a=()=>i.jsx(s,{children:i.jsx("div",{children:"Vacancies Page"})});export{a as Vacancies};

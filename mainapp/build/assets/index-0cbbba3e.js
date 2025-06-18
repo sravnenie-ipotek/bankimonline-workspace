@@ -1,0 +1,1 @@
+import{j as i}from"./index-d69ab70d.js";import{C as o}from"./Container-9a672b5f.js";import"./index-c89ce6ee.js";const r=()=>i.jsx(o,{children:i.jsx("div",{children:"Apoalim Page"})});export{r as Apoalim};
