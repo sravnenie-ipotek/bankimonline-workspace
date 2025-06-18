@@ -8,6 +8,11 @@ export default defineConfig({
     outDir: 'build',
   },
   plugins: [react()],
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+    'process.env.VITE_NODE_API_BASE_URL': JSON.stringify(process.env.VITE_NODE_API_BASE_URL),
+    'process.env.VITE_ACCOUNT_URL': JSON.stringify(process.env.VITE_ACCOUNT_URL),
+  },
   resolve: {
     alias: {
       '@src': resolve(__dirname, './src'),
