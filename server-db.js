@@ -101,7 +101,14 @@ app.get('/', (req, res) => {
 
 // Health check
 app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', database: 'connected' });
+    res.json({ 
+        status: 'ok', 
+        database: 'connected',
+        version: '5.0.0-cors-fix',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development',
+        corsEnabled: true
+    });
 });
 
 // CORS test endpoint
