@@ -35,14 +35,11 @@ const getCorsOrigins = () => {
         return process.env.CORS_ALLOWED_ORIGINS.split(',').map(url => url.trim());
     }
     
-    // Default origins for development
+    // Default origins for development and Railway deployment
     return [
         'http://localhost:3001',
         'http://localhost:3000',
-        'https://bank-react-27qu39ml7-michaels-projects-8d0f6093.vercel.app',
-        'https://bank-react-git-main-michaels-projects-8d0f6093.vercel.app',
-        'https://bank-dev2-standalone-txwi.vercel.app',
-        /https:\/\/.*\.vercel\.app$/
+        'http://localhost:8003'
     ];
 };
 
