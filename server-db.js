@@ -65,16 +65,31 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
-// Serve static files (HTML, CSS, JS)
-app.use(express.static('.'));
+// Serve static files from React build
+const path = require('path');
 
-// Root endpoint
+// Serve React build files (for Railway deployment)
+app.use(express.static(path.join(__dirname, 'mainapp/build')));
+
+// Serve root static files (admin.html, etc.)
+app.use(express.static(__dirname));
+
+// Root endpoint - serve React app
 app.get('/', (req, res) => {
-    res.json({
-        message: 'Bankimonline Database API',
-        version: '4.0.0',
-        database: 'Railway PostgreSQL'
-    });
+    const reactIndexPath = path.join(__dirname, 'mainapp/build/index.html');
+    const fs = require('fs');
+    
+    // Check if React build exists, otherwise serve API info
+    if (fs.existsSync(reactIndexPath)) {
+        res.sendFile(reactIndexPath);
+    } else {
+        res.json({
+            message: 'Bankimonline Database API',
+            version: '4.0.0',
+            database: 'Railway PostgreSQL',
+            note: 'React build not found - serving API only'
+        });
+    }
 });
 
 // Health check
@@ -3916,9 +3931,22 @@ app.get('/api/applications/:id/status', async (req, res) => {
     }
 });
 
-// 404 handler
-app.use((req, res) => {
-    res.status(404).json({ error: 'Endpoint not found' });
+// Handle React Router (catch-all for non-API routes)
+app.get('*', (req, res) => {
+    // Only serve React app for non-API routes
+    if (!req.path.startsWith('/api/')) {
+        const reactIndexPath = path.join(__dirname, 'mainapp/build/index.html');
+        const fs = require('fs');
+        
+        if (fs.existsSync(reactIndexPath)) {
+            res.sendFile(reactIndexPath);
+        } else {
+            res.status(404).send('React app not built. Run: cd mainapp && npm run build');
+        }
+    } else {
+        // 404 for API routes
+        res.status(404).json({ error: 'API endpoint not found' });
+    }
 });
 
 // Start server
