@@ -15,11 +15,7 @@ export default defineConfig({
   },
   plugins: [
     react({
-      jsxRuntime: 'automatic',
-      jsxImportSource: 'react',
-      babel: {
-        plugins: [],
-      },
+      jsxRuntime: 'classic',
     }),
   ],
   define: {
