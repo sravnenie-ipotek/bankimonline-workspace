@@ -24,11 +24,18 @@ pool.query('SELECT NOW()', (err, res) => {
     }
 });
 
-// Get CORS origins from environment variable or use defaults
+// Get CORS origins - Railway deployment should allow all origins
 const getCorsOrigins = () => {
+    // Check if we're in Railway production environment
+    if (process.env.RAILWAY_ENVIRONMENT === 'production' || process.env.NODE_ENV === 'production') {
+        console.log('🚀 Production environment detected - allowing all origins');
+        return true; // Allow all origins in production
+    }
+    
     if (process.env.CORS_ALLOWED_ORIGINS) {
         // If it's just '*', return true to allow all origins
         if (process.env.CORS_ALLOWED_ORIGINS.trim() === '*') {
+            console.log('🌐 CORS_ALLOWED_ORIGINS=* detected - allowing all origins');
             return true;
         }
         // Otherwise split comma-separated values
@@ -95,6 +102,25 @@ app.get('/', (req, res) => {
 // Health check
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', database: 'connected' });
+});
+
+// CORS test endpoint
+app.get('/api/cors-test', (req, res) => {
+    res.json({ 
+        message: 'CORS test successful',
+        origin: req.headers.origin || 'no-origin',
+        timestamp: new Date().toISOString(),
+        corsOrigins: corsOptions.origin
+    });
+});
+
+// OPTIONS handler for preflight requests
+app.options('*', (req, res) => {
+    console.log(`[CORS] Preflight request from origin: ${req.headers.origin}`);
+    res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+    res.sendStatus(200);
 });
 
 // Banks endpoint
