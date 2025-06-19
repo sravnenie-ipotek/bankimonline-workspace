@@ -1,6 +1,7 @@
 import classnames from 'classnames/bind'
 import React from 'react'
 
+import { useAppSelector } from '@src/hooks/store'
 import { CurrencyIcon } from '@assets/icons/CurrencyIcon'
 
 import styles from './control.module.scss'
@@ -38,6 +39,7 @@ const Control: React.FC<ControlProps> = ({
   rightSection,
   type = 'comma',
 }) => {
+  const { currency } = useAppSelector((state) => state.currency);
   const formattedValue = value !== null ? value.toLocaleString('en-US') : ''
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,6 +67,12 @@ const Control: React.FC<ControlProps> = ({
     }
   }
 
+  const currencySymbols = {
+    ILS: '₪',
+    USD: '$',
+    EUR: '€',
+  };
+
   return (
     <div className={cx('container', `${error && 'error'}`)}>
       <input
@@ -77,8 +85,8 @@ const Control: React.FC<ControlProps> = ({
       />
 
       {!disableCurrency && !rightSection ? (
-        <div className={cx('currencyImage')}>
-          <CurrencyIcon />
+        <div className={cx('currencySymbol')}>
+          {currencySymbols[currency]}
         </div>
       ) : (
         <div className={cx('currencyImage')}>{rightSection}</div>

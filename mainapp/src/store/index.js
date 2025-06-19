@@ -17,6 +17,7 @@ import otherBorrowersReducer from '../pages/Services/slices/otherBorrowersSlice.
 import refinanceMortgageReducer from '../pages/Services/slices/refinanceMortgageSlice.ts';
 import languageReducer from './slices/languageSlice';
 import windowSizeReducer from './slices/windowSizeSlice';
+import currencyReducer from './slices/currencySlice.ts';
 const persistConfig = {
     key: 'calculateMortgage',
     storage,
@@ -62,10 +63,16 @@ const languagePersistConfig = {
     storage,
 };
 const persistedLanguageReducer = persistReducer(languagePersistConfig, languageReducer);
+const currencyPersistConfig = {
+    key: 'currency',
+    storage,
+};
+const persistedCurrencyReducer = persistReducer(currencyPersistConfig, currencyReducer);
 const store = configureStore({
     reducer: {
         [api.reducerPath]: api.reducer,
         language: persistedLanguageReducer,
+        currency: persistedCurrencyReducer,
         windowSize: windowSizeReducer,
         auth: authReducer,
         login: persistedLoginReducer,

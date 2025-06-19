@@ -23,15 +23,15 @@ const Company = () => {
         <div className={cx('company')}>
           <div className={cx('company-title')}>{t('footer_company')}</div>
           <div className={cx('company-items')}>
-            <a className={cx('company-items__text')}>{t('footer_contacts')}</a>
+            <a onClick={() => navigate('/contacts')} className={cx('company-items__text')}>{t('footer_contacts')}</a>
             <a
               onClick={() => navigate('/about')}
               className={cx('company-items__text')}
             >
               {t('footer_about')}
             </a>
-            <a className={cx('company-items__text')}>{t('footer_vacancy')}</a>
-            <a className={cx('company-items__text')}>{t('footer_partner')}</a>
+            <a onClick={() => navigate('/vacancies')} className={cx('company-items__text')}>{t('footer_vacancy')}</a>
+            <a onClick={() => navigate('/cooperation')} className={cx('company-items__text')}>{t('footer_partner')}</a>
           </div>
         </div>
       )}
@@ -53,10 +53,10 @@ const Company = () => {
               opened: opened,
             })}
           >
-            <a>{t('footer_about')}</a>
-            <a>{t('footer_contacts')}</a>
-            <a>{t('footer_vacancy')}</a>
-            <a>{t('footer_partner')}</a>
+            <a onClick={() => navigate('/about')}>{t('footer_about')}</a>
+            <a onClick={() => navigate('/contacts')}>{t('footer_contacts')}</a>
+            <a onClick={() => navigate('/vacancies')}>{t('footer_vacancy')}</a>
+            <a onClick={() => navigate('/cooperation')}>{t('footer_partner')}</a>
           </div>
         </div>
       )}

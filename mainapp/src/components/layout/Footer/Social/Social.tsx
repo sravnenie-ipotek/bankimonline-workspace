@@ -32,8 +32,17 @@ export default function Social() {
       </a>
 
       <a
+        aria-label="telegram"
+        href="https://t.me/your_telegram_handle"
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img className={'telegram'} alt="" src="/static/telegram.svg" />
+      </a>
+
+      <a
         aria-label="twitter"
-        href="https://twitter.соm"
+        href="https://twitter.com"
         target="_blank"
         rel="noreferrer"
       >
