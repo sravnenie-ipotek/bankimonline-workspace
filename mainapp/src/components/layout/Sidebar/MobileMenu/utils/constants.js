@@ -19,8 +19,20 @@ export const SOCIAL_ITEM = [
     },
     {
         id: 4,
+        href: 'https://t.me/your_telegram_handle',
+        src: '/static/mobile-menu/telegram.svg',
+        alt: 'TELEGRAM',
+    },
+    {
+        id: 5,
         href: 'https://twitter.com/',
         src: '/static/mobile-menu/twitter.svg',
         alt: 'TWITTER',
+    },
+    {
+        id: 6,
+        href: 'https://wa.me/972537162235',
+        src: '/static/mobile-menu/whatsapp.svg',
+        alt: 'WHATSAPP',
     },
 ];

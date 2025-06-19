@@ -23,6 +23,18 @@ export default function Documents() {
           <div className={cx('documents-title')}>{t('footer_legal')}</div>
           <div className={cx('documents-items')}>
             <a
+              onClick={() => navigate('/tenders-for-brokers')}
+              className={cx('documents-items__links')}
+            >
+              {t('footer_tenders_brokers')}
+            </a>
+            <a
+              onClick={() => navigate('/tenders-for-lawyers')}
+              className={cx('documents-items__links')}
+            >
+              {t('footer_tenders_lawyers')}
+            </a>
+            <a
               onClick={() => navigate('/terms')}
               className={cx('documents-items__links')}
             >
@@ -67,10 +79,12 @@ export default function Documents() {
               opened: opened,
             })}
           >
-            <a href="/terms">{t('footer_legal_1')}</a>
-            <a>{t('footer_legal_2')}</a>
-            <a>{t('footer_legal_3')}</a>
-            <a>{t('footer_legal_4')}</a>
+            <a onClick={() => navigate('/tenders-for-brokers')}>{t('footer_tenders_brokers')}</a>
+            <a onClick={() => navigate('/tenders-for-lawyers')}>{t('footer_tenders_lawyers')}</a>
+            <a onClick={() => navigate('/terms')}>{t('footer_legal_1')}</a>
+            <a onClick={() => navigate('/privacy-policy')}>{t('footer_legal_2')}</a>
+            <a onClick={() => navigate('/cookie')}>{t('footer_legal_3')}</a>
+            <a onClick={() => navigate('/refund')}>{t('footer_legal_4')}</a>
           </div>
         </div>
       )}

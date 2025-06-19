@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { PartnerCardFifth } from '@assets/icons/PartnersIcon/PartnerCardFifth'
@@ -23,21 +24,16 @@ const PartnersSwiper = () => {
   i18n.language = i18n.language?.split('-')[0]
 
   const slides = [
-    <PartnerCardFirst key={1} />,
-    <PartnerCardSecond key={2} />,
-    <PartnerCardThird key={3} />,
-    <PartnerCardFourth key={4} />,
-    <PartnerCardFifth key={5} />,
-    <PartnerCardSixth key={6} />,
-    <PartnerCardSeventh key={7} />,
-    <PartnerCardFirst key={1} />,
-    <PartnerCardSecond key={2} />,
-    <PartnerCardThird key={3} />,
-    <PartnerCardFourth key={4} />,
-    <PartnerCardFifth key={5} />,
-    <PartnerCardSixth key={6} />,
-    <PartnerCardSeventh key={7} />,
+    { component: <PartnerCardFirst />, link: '/banks/leumi' },
+    { component: <PartnerCardSecond />, link: '/banks/discount' },
+    { component: <PartnerCardThird />, link: '/banks/beinleumi' },
+    { component: <PartnerCardFourth />, link: '/banks/jerusalem' },
+    { component: <PartnerCardFifth />, link: '/banks/apoalim' },
+    { component: <PartnerCardSixth />, link: '/banks/mercantile-discount' },
+    { component: <PartnerCardSeventh />, link: '#' }, // No link for Mizrahi-Tefahot yet
   ]
+
+  const loopedSlides = [...slides, ...slides] // Loop manually for the swiper
 
   return (
     <div className={cx('swiper__wrapper')}>
@@ -46,9 +42,11 @@ const PartnersSwiper = () => {
       </div>
 
       <Swiper slidesPerView={'auto'} loop={true} className={cx('swiper')}>
-        {slides.map((item, index) => (
+        {loopedSlides.map((slide, index) => (
           <SwiperSlide className={cx('swiper__item')} key={index}>
-            <div className={cx('swiper__item-img')}>{item}</div>
+            <Link to={slide.link} className={cx('swiper__item-img')}>
+              {slide.component}
+            </Link>
           </SwiperSlide>
         ))}
         <SwiperLeftButtons />
