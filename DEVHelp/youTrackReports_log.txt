@@ -1,0 +1,179 @@
+## YouTrack Analysis Log
+
+**Issue:** OS-94
+**File Created:** 2024-07-25
+
+---
+**Last Completed Step:** Action #4 - Videoplayer Modal
+
+**Summary:**
+- Identified a gap where clicking the fullscreen icon on the promo banner opened a new tab instead of a modal.
+- Developed a new reusable `VideoPlayerModal` component.
+- Integrated the modal into the `VideoPoster` component.
+- Fixed `vite.config.ts` to enable proper development server operation.
+- Corrected environment variable usage in `api.ts` from `process.env` to `import.meta.env`.
+- **Status:** Development for Action #4 is complete and verified by the user.
+
+**Next Step:**
+- Proceed with Action #5: 'Mute/Unmute' functionality.
+---
+**Last Completed Step:** Action #5 - Mute/Unmute
+
+**Summary:**
+- Analyzed the mute/unmute functionality in `VideoPoster.tsx`.
+- The implementation correctly uses state to toggle sound and switch icons.
+- The feature fully matches the YouTrack requirements. No gaps found.
+- **Status:** Analysis for Action #5 is complete.
+
+**Next Step:**
+- Proceed with Action #6: 'Calculate Mortgage' button.
+---
+**Last Completed Step:** Action #6 - 'Calculate Mortgage' Button
+
+**Summary:**
+- Analyzed the 'Calculate Mortgage' button on the main page.
+- The button correctly links to the `/calculate-mortgage` route.
+- Verified that the route is correctly configured in `MainRoutes.tsx` to render the `CalculateMortgage` component.
+- The feature fully matches the YouTrack requirements. No gaps found.
+- **Status:** Analysis for Action #6 is complete.
+
+**Next Step:**
+- Proceed with Action #7: 'Refinance Mortgage' button.
+---
+**Last Completed Step:** Action #7 - 'Refinance Mortgage' Button
+
+**Summary:**
+- Analyzed the 'Refinance Mortgage' button on the main page.
+- The button correctly links to the `/refinance-mortgage` route.
+- Verified that the route is correctly configured in `MainRoutes.tsx`.
+- The feature fully matches the YouTrack requirements. No gaps found.
+- **Status:** Analysis for Action #7 is complete.
+
+**Next Step:**
+- Proceed with Action #8: 'Calculate Credit' button.
+---
+**Last Completed Step:** Action #8 - 'Calculate Credit' Button
+
+**Summary:**
+- Analyzed the 'Calculate Credit' button on the main page.
+- The button correctly links to the `/calculate-credit` route.
+- Verified that the route is correctly configured in `MainRoutes.tsx`.
+- The feature fully matches the YouTrack requirements. No gaps found.
+- **Status:** Analysis for Action #8 is complete.
+
+**Next Step:**
+- Proceed with Action #9: 'Refinance Credit' button.
+---
+**Last Completed Step:** Action #9 - 'Refinance Credit' Button
+
+**Summary:**
+- Analyzed the 'Refinance Credit' button on the main page.
+- The button correctly links to the `/refinance-credit` route.
+- Verified that the route is correctly configured in `MainRoutes.tsx`.
+- The feature fully matches the YouTrack requirements. No gaps found.
+- **Status:** Analysis for Action #9 is complete.
+
+**Next Step:**
+- Proceed with Action #10: 'Bank Partners' section.
+---
+**Last Completed Step:** Action #10 - Bank Partners Carousel
+
+**Summary:**
+- Analyzed the `PartnersSwiper` component.
+- Identified a gap where the partner bank logos were not clickable.
+- Modified the component to wrap each logo in a `<Link>` from `react-router-dom`, pointing to the appropriate bank page.
+- The feature now correctly implements the requirements from the YouTrack ticket.
+- **Status:** Development for Action #10 is complete.
+
+**Next Step:**
+- Proceed with Action #11: 'How It Works' section.
+---
+**Last Completed Step:** Action #11 - 'How It Works' Section
+
+**Summary:**
+- Analyzed the `HowItWorks` component.
+- Confirmed that the implementation uses a 3-step structure by rendering `Step1`, `Step2`, and `Step3` components, which matches the YouTrack requirement and Figma design.
+- The feature fully matches the YouTrack requirements. No gaps found.
+- **Status:** Analysis for Action #11 is complete.
+
+**Next Step:**
+- Proceed with Action #12 & #13: Footer links ('About' and 'Vacancies').
+---
+**Last Completed Step:** Actions #12 & #13 - Footer 'About' and 'Vacancies' Links
+
+**Summary:**
+- Analyzed the `Company.tsx` footer component.
+- Identified a gap where the 'Vacancies' link was not functional on desktop.
+- Identified a major gap where none of the company links were functional in the mobile accordion view.
+- Implemented `onClick` handlers for all links ('About', 'Vacancies', 'Contacts', 'Partner') on both desktop and mobile to ensure they navigate correctly.
+- **Status:** Development for Actions #12 & #13 is complete.
+
+---
+**Last Completed Step:** Actions #14-21 - Footer Document Links
+
+**Summary:**
+- Analyzed the `Documents.tsx` footer component.
+- Identified a gap where 'Tenders for Brokers' and 'Tenders for Lawyers' links were missing.
+- Identified a gap where most document links were not functional in the mobile accordion view.
+- Added the missing links and implemented `onClick` handlers for all document links on both desktop and mobile.
+- **Status:** Development for Actions #14 through #21 is complete.
+
+**Next Step:**
+- Proceed with Action #22: Social Media links.
+---
+**Last Completed Step:** Actions #22-25 - Social Media Links
+
+**Summary:**
+- Analyzed the `Social.tsx` footer component.
+- Confirmed that links for Facebook, Instagram, and WhatsApp were correctly implemented.
+- Identified a gap where the Telegram link was missing.
+- Identified a broken URL for the Twitter link.
+- Added the Telegram link with a placeholder URL and fixed the Twitter URL.
+- **Status:** Development for Actions #22-25 is complete.
+
+**Next Step:**
+- Proceed with Actions #26-34: Language and Currency selectors.
+---
+**Last Completed Step:** Actions #26-34 - Language and Currency Selectors
+
+**Summary:**
+- **Language Selector (Actions #26-31):** Confirmed that the language selector is fully implemented using `i18next` and functions correctly. No gaps found.
+- **Currency Selector (Actions #32-34):** Analyzed the codebase for a currency selector. Found underlying support (translation keys, helper functions) but the UI component itself is completely missing. This is a major implementation gap.
+- **Status:** Analysis for Actions #26-34 is complete.
+
+---
+### **OS-94 ANALYSIS COMPLETE**
+All 34 actions in this ticket have been analyzed. All identified gaps have been developed and fixed, with the exception of the missing Currency Selector, which would require significant new development.
+
+---
+**Last Completed Step:** Actions #32-34 - Currency Selector Implementation
+
+**Summary:**
+- **Task:** Developed the missing Currency Selector feature.
+- **Redux:** Created a `currencySlice` to manage global currency state ('ILS', 'USD', 'EUR') and persisted it.
+- **Component:** Built a new `CurrencySelector` dropdown UI component.
+- **Integration:**
+  - Added the selector to the main application header.
+  - Modified the `FormattedInput` component to connect to the Redux store and display the correct currency symbol.
+- **Status:** Development for the Currency Selector is complete and ready for user review.
+
+--- 
+**Last Completed Step:** Currency Selector - i18n
+
+**Summary:**
+- **Task:** Added internationalization to the Currency Selector dropdown.
+- **Action:**
+  - Added translation keys (`currency_ils`, `currency_usd`, `currency_eur`) to the `en.json`, and `he.json` files.
+  - Modified the `CurrencySelector.tsx` component to use the `t()` function and provide fallback values.
+- **Known Issue:** Encountered a persistent, unresolvable issue with the automated tool when trying to update the `ru.json` file. Multiple attempts to fix the file failed. As a result, Russian translations for the currency selector are not functional.
+- **Status:** i18n implementation is complete, with a known issue for the Russian language.
+
+---
+**Future Task:** Real-Time Currency Conversion
+**Issue:** OS-94 (Follow-up)
+**Summary:**
+- **Requirement:** The user has clarified that selecting a currency should not just change the symbol, but also convert all monetary values in the application based on current exchange rates.
+- **Task:** This is a major feature. A new development task should be created to implement a currency conversion service. This will involve fetching exchange rates from a reliable API and integrating the conversion logic throughout the application, especially in the calculation components.
+- **Status:** This task is logged for future implementation and is not part of the current scope for OS-94.
+
+--- 

@@ -3,6 +3,7 @@ import { FC } from 'react'
 
 import Header from '@components/layout/Sidebar/MobileMenu/Header/Header.tsx'
 import MobileChangeLanguage from '@components/layout/Sidebar/MobileMenu/MobileChangeLanguage/MobileChangeLanguage.tsx'
+import MobileCurrencySelector from '@components/layout/Sidebar/MobileMenu/MobileCurrencySelector/MobileCurrencySelector.tsx'
 import Navigation from '@components/layout/Sidebar/MobileMenu/Navigation/Navigation.tsx'
 import SocialList from '@components/layout/Sidebar/MobileMenu/SocialList/SocialList.tsx'
 
@@ -26,6 +27,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, onClick }) => {
       <div className={cx('body')}>
         <Navigation />
         <MobileChangeLanguage />
+        <MobileCurrencySelector />
       </div>
       <SocialList />
     </div>

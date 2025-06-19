@@ -12,6 +12,7 @@ import { openAuthModal } from '@src/pages/Services/slices/modalSlice.ts'
 
 import './Header.module.scss'
 import styles from './Header.module.scss'
+import CurrencySelector from '@src/components/ui/CurrencySelector/CurrencySelector'
 
 const cx = classNames.bind(styles)
 
@@ -35,6 +36,7 @@ export default function LoginLanguage() {
       {isDesktop && (
         <>
           {!isService && <ChangeLanguage />}
+          {!isService && <CurrencySelector />}
           <div className={cx('w-fit')}>
             <Button
               variant={isService ? 'transparent' : 'primary'}
