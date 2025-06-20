@@ -34,6 +34,93 @@
           }
         }
       ]
+    },
+    "OS-127": {
+      "status": "analysis_blocked",
+      "summary": "Backend task for 'РЕФИНАНСИРОВАТЬ ИПОТЕКУ. УСЛУГА 2. до регистрации' (Refinance Mortgage Service 2, pre-registration). Analysis blocked due to missing issue description in YouTrack. Found existing frontend implementation and basic backend endpoints, but cannot proceed without detailed requirements.",
+      "gaps_fixed": [],
+      "major_gaps_open": [],
+      "blocking_issues": [
+        {
+          "issue": "Missing issue description in YouTrack",
+          "details": {
+            "problem": "OS-127 has no description field populated in YouTrack, making it impossible to follow the sequential analysis workflow as specified in the AI Assistant Workflow.",
+            "impact": "Cannot identify specific backend requirements, API endpoints needed, business logic specifications, or integration points.",
+            "current_state": {
+              "frontend": "Fully implemented 4-step mortgage refinancing flow with form validation and Russian translations",
+              "backend": "Basic /api/refinance-mortgage endpoint exists with mock calculations, enhanced admin endpoint available",
+              "admin_interface": "Full admin panel for testing refinance calculations implemented"
+            },
+            "required_action": "User must provide detailed OS-127 requirements or point to related issues with specifications",
+            "severity": "Blocker - Cannot proceed with analysis without requirements"
+          }
+        }
+      ]
+    },
+    "OS-128": {
+      "status": "SEQUENTIAL_ANALYSIS_IN_PROGRESS",
+      "title": "1. Главная страница / Стр. 1 Действий 34",
+      "description": "Main page with 34 actions - comprehensive requirements found",
+      "project": "OS (01_Все услуги до регистрации)",
+      "reporter": "nataliyapm",
+      "created": "January 11, 2025",
+      "updated": "January 29, 2025",
+      "current_analysis": {
+        "phase": "SEQUENTIAL_REQUIREMENT_ANALYSIS",
+        "status": "COMPLETED_INITIAL_DESIGN_ANALYSIS",
+        "current_action": 1,
+        "action_description": "Starting sequential analysis of 15 actions.",
+        "figma_url": null,
+        "requirements_found": "COMPREHENSIVE_DESCRIPTION_AVAILABLE",
+        "total_actions": 34,
+        "figma_urls_found": [
+          "Web version: node-id=5424-321143",
+          "Mobile version: node-id=588-131255",
+          "Multiple action-specific Figma references throughout"
+        ],
+        "next_steps": [
+          "Process each Figma URL as encountered",
+          "Compare visual designs against current implementation",
+          "Identify gaps for each of the 34 actions",
+          "Create comprehensive implementation plan"
+        ]
+      },
+      "implementation_status": "ANALYZING_AGAINST_FIGMA_DESIGNS",
+      "notes": "Beginning sequential analysis of 34 actions with Figma design validation"
+    },
+    "OS-160": {
+    },
+    "OS-96": {
+      "status": "ANALYSIS_IN_PROGRESS",
+      "title": "02. Калькулятор ипотеки",
+      "description": "Mortgage Calculator. Service 1, pre-registration. 15 actions.",
+      "project": "OS (01_Все услуги до регистрации)",
+      "reporter": "nataliyapm",
+      "created": "January 11, 2025",
+      "updated": "February 21, 2025",
+      "current_analysis": {
+        "phase": "ANALYSIS_COMPLETE",
+        "status": "COMPLETED_WITH_GAPS",
+        "current_action": 15,
+        "action_description": "Analysis of all 15 actions is complete.",
+        "figma_url": null,
+        "summary": {
+          "status": "Mostly implemented, but with key mismatches.",
+          "mismatches": [
+            "Overall Structure: Implemented as a 4-step wizard, but designed as a single page.",
+            "City Data Source (Action #8): Uses a hardcoded list instead of fetching from the admin panel.",
+            "Sticky Continue Button (Action #15): The button scrolls with the page instead of being fixed to the bottom."
+          ],
+          "matches": "12 out of 15 actions were a complete match, including all validation, input formatting, and field inter-dependencies."
+        },
+        "requirements_found": "COMPREHENSIVE_DESCRIPTION_AVAILABLE",
+        "total_actions": 15,
+        "figma_urls_found": [
+          "Web version: node-id=588-135180",
+          "Mobile version: node-id=588-131553",
+          "Comparison version: node-id=2058-311372"
+        ]
+      }
     }
   }
 } 
