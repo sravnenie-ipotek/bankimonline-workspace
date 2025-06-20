@@ -19,6 +19,7 @@ interface CustomPhoneInputProps {
   onBlur?: () => void
   error?: string | boolean
   tooltip?: string
+  onlyCountries?: string[]
 }
 export function CustomPhoneInput({
   title,
@@ -27,6 +28,7 @@ export function CustomPhoneInput({
   error,
   onBlur,
   tooltip,
+  onlyCountries = ['il', 'us', 'ru'],
 }: CustomPhoneInputProps) {
   const id = useId()
   const { t, i18n } = useTranslation()
@@ -50,6 +52,7 @@ export function CustomPhoneInput({
         searchNotFound={t('nothing_found')}
         disableSearchIcon
         country={'il'}
+        onlyCountries={onlyCountries}
         value={value}
         onBlur={onBlur}
         onChange={(phone) => handleChange(phone)}

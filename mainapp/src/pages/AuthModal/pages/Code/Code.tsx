@@ -40,7 +40,7 @@ const Code: React.FC<TypeProps> = ({
       validationSchema={validationSchema}
       validateOnMount
       initialValues={initialValues}
-      onSubmit={(values) => console.log(values)}
+      onSubmit={onSubmit}
     >
       <Form>
         <CodeForm

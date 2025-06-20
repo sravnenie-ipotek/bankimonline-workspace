@@ -16,7 +16,7 @@ import { SingleButton } from '../../../../components/SingleButton'
 import { FirstStepForm } from './FirstStepForm/FirstStepForm'
 
 export const validationSchema = Yup.object().shape({
-  purposeOfLoan: Yup.string().required('Выберите ответ'),
+  purposeOfLoan: Yup.string().required(i18next.t('error_select_answer')),
   loanAmount: Yup.number()
     .when('purposeOfLoan', {
       is: i18next.t('calculate_credit_target_option_6'),
@@ -31,6 +31,21 @@ export const validationSchema = Yup.object().shape({
     .required(i18next.t('error_required_to_fill_out')),
   whenDoYouNeedMoney: Yup.string().required(i18next.t('error_select_answer')),
   loanDeferral: Yup.string().required(i18next.t('error_select_answer')),
+  priceOfEstate: Yup.number().when('purposeOfLoan', {
+    is: 'option_6',
+    then: (schema) => schema.required(i18next.t('error_required_to_fill_out')),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  cityWhereYouBuy: Yup.string().when('purposeOfLoan', {
+    is: 'option_6',
+    then: (schema) => schema.required(i18next.t('error_select_answer')),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  haveMortgage: Yup.string().when('purposeOfLoan', {
+    is: 'option_6',
+    then: (schema) => schema.required(i18next.t('error_select_answer')),
+    otherwise: (schema) => schema.notRequired(),
+  }),
   period: Yup.number()
     .min(1, i18next.t('error_min__credit_period'))
     .max(30, i18next.t('error_max_credit_period'))

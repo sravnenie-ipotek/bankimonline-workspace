@@ -20,11 +20,17 @@ import { CalculateCreditTypes } from '@src/pages/Services/types/formTypes'
 import calculateMonthlyPayment from '@src/utils/helpers/calculateMonthlyPayment'
 import calculatePeriod from '@src/utils/helpers/calculatePeriod'
 
+interface CityOption {
+  value: string
+  label: string
+}
+
 export const FirstStepForm: FC = () => {
   const [maxMonthlyPayment, setMaxMonthlyPayment] = useState(51130)
   const [minMonthlyPayment, setMinMonthlyPayment] = useState(2654)
+  const [cityOptions, setCityOptions] = useState<CityOption[]>([])
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
+  const lang = i18n.language.split('-')[0]
 
   const creditPurposes = [
     { value: 'option_1', label: t('calculate_credit_target_option_1') },
@@ -52,17 +58,34 @@ export const FirstStepForm: FC = () => {
     { value: 'option_7', label: t('calculate_credit_prolong_option_7') },
   ]
 
-  const cityWhereYouBuyOptions = [
-    { value: 'city_1', label: t('calculate_mortgage_city_1') },
-    { value: 'city_2', label: t('calculate_mortgage_city_2') },
-    { value: 'city_3', label: t('calculate_mortgage_city_3') },
-  ]
-
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<CalculateCreditTypes>()
 
   const activeField = useAppSelector((state) => state.activeField)
   const dispatch = useAppDispatch()
+
+  // Fetch cities from API
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await fetch(`/api/get-cities?lang=${lang}`)
+        const data = await response.json()
+        if (data.status === 'success') {
+          const formattedCities = data.data.map((city) => ({
+            value: city.value,
+            label: city.name,
+          }))
+          setCityOptions(formattedCities)
+        } else {
+          console.error('Failed to fetch cities:', data.message)
+        }
+      } catch (error) {
+        console.error('Error fetching cities:', error)
+      }
+    }
+
+    fetchCities()
+  }, [lang])
 
   const handleChangePeriod = (value: number | string | null) => {
     dispatch(setActiveField('period'))
@@ -212,7 +235,7 @@ export const FirstStepForm: FC = () => {
               <Column>
                 <DropdownMenu
                   title={t('calculate_mortgage_city')}
-                  data={cityWhereYouBuyOptions}
+                  data={cityOptions}
                   placeholder={t('city')}
                   value={values.cityWhereYouBuy}
                   onChange={(value) => setFieldValue('cityWhereYouBuy', value)}

@@ -21,6 +21,7 @@ type LoginSlice = {
     | 'newPassword'
     | 'codeNewPassword'
     | 'success'
+    | 'phoneVerification'
   registrationData: RegistrationDataTypes
   loginData: LoginFormTypes
   isLogin: boolean

@@ -64,7 +64,8 @@ const StyledSelect = styled(Select)`
 
 const CurrencySelector: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { currency } = useAppSelector((state) => state.currency);
+  const currencyState = useAppSelector((state) => state.currency);
+  const currency = currencyState?.currency || 'ILS'; // Provide fallback
   const { t } = useTranslation();
 
   const currencies = [

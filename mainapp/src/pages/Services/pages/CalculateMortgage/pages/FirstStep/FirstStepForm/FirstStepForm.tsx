@@ -58,12 +58,6 @@ const FirstStepForm = () => {
     { value: '4', label: t('calculate_mortgage_when_options_4') },
   ]
 
-  const cityWhereYouBuyOptions = [
-    { value: '1', label: t('calculate_mortgage_city_1') },
-    { value: '2', label: t('calculate_mortgage_city_2') },
-    { value: '3', label: t('calculate_mortgage_city_3') },
-  ]
-
   const TypeSelectOptions = [
     { value: '1', label: t('calculate_mortgage_type_options_1') },
     { value: '2', label: t('calculate_mortgage_type_options_2') },
