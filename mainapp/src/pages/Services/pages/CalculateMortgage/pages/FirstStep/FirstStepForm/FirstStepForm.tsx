@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
+import { useEffect, useState } from 'react'
 
 import InitialFeeContext from '@components/ui/ContextButtons/InitialFeeContext/InitialFeeContext'
 import CreditParams from '@components/ui/CreditParams'
@@ -16,10 +17,39 @@ import { useAppDispatch } from '@src/hooks/store'
 import { setActiveField } from '@src/pages/Services/slices/activeField'
 import { CalculateMortgageTypes } from '@src/pages/Services/types/formTypes'
 
+interface CityOption {
+  value: string
+  label: string
+}
+
 const FirstStepForm = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
+  const lang = i18n.language.split('-')[0]
   const dispatch = useAppDispatch()
+
+  const [cityOptions, setCityOptions] = useState<CityOption[]>([])
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await fetch(`/api/get-cities?lang=${lang}`)
+        const data = await response.json()
+        if (data.status === 'success') {
+          const formattedCities = data.data.map((city) => ({
+            value: city.value,
+            label: city.name,
+          }))
+          setCityOptions(formattedCities)
+        } else {
+          console.error('Failed to fetch cities:', data.message)
+        }
+      } catch (error) {
+        console.error('Error fetching cities:', error)
+      }
+    }
+
+    fetchCities()
+  }, [lang])
 
   const WhenDoYouNeedMoneyOptions = [
     { value: '1', label: t('calculate_mortgage_when_options_1') },
@@ -72,7 +102,7 @@ const FirstStepForm = () => {
           <Column>
             <DropdownMenu
               title={t('calculate_mortgage_city')}
-              data={cityWhereYouBuyOptions}
+              data={cityOptions}
               placeholder={t('city')}
               value={values.cityWhereYouBuy}
               onChange={(value) => setFieldValue('cityWhereYouBuy', value)}

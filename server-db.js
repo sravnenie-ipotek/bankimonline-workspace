@@ -154,58 +154,32 @@ app.get('/api/v1/cities', (req, res) => {
 });
 
 // Cities endpoint with localization (frontend expects this)
-app.get('/api/get-cities', (req, res) => {
+app.get('/api/get-cities', async (req, res) => {
     const lang = req.query.lang || 'en';
-    
-    console.log(`[CITIES] Request for language: ${lang}`);
-    
-    const cities = {
-        en: [
-            { id: 1, name: 'Tel Aviv', value: 'tel-aviv' },
-            { id: 2, name: 'Jerusalem', value: 'jerusalem' },
-            { id: 3, name: 'Haifa', value: 'haifa' },
-            { id: 4, name: 'Rishon LeZion', value: 'rishon-lezion' },
-            { id: 5, name: 'Petah Tikva', value: 'petah-tikva' },
-            { id: 6, name: 'Ashdod', value: 'ashdod' },
-            { id: 7, name: 'Netanya', value: 'netanya' },
-            { id: 8, name: 'Beer Sheva', value: 'beer-sheva' },
-            { id: 9, name: 'Holon', value: 'holon' },
-            { id: 10, name: 'Ramat Gan', value: 'ramat-gan' }
-        ],
-        he: [
-            { id: 1, name: 'תל אביב', value: 'tel-aviv' },
-            { id: 2, name: 'ירושלים', value: 'jerusalem' },
-            { id: 3, name: 'חיפה', value: 'haifa' },
-            { id: 4, name: 'ראשון לציון', value: 'rishon-lezion' },
-            { id: 5, name: 'פתח תקווה', value: 'petah-tikva' },
-            { id: 6, name: 'אשדוד', value: 'ashdod' },
-            { id: 7, name: 'נתניה', value: 'netanya' },
-            { id: 8, name: 'באר שבע', value: 'beer-sheva' },
-            { id: 9, name: 'חולון', value: 'holon' },
-            { id: 10, name: 'רמת גן', value: 'ramat-gan' }
-        ],
-        ru: [
-            { id: 1, name: 'Тель-Авив', value: 'tel-aviv' },
-            { id: 2, name: 'Иерусалим', value: 'jerusalem' },
-            { id: 3, name: 'Хайфа', value: 'haifa' },
-            { id: 4, name: 'Ришон ле-Цион', value: 'rishon-lezion' },
-            { id: 5, name: 'Петах-Тиква', value: 'petah-tikva' },
-            { id: 6, name: 'Ашдод', value: 'ashdod' },
-            { id: 7, name: 'Нетания', value: 'netanya' },
-            { id: 8, name: 'Беэр-Шева', value: 'beer-sheva' },
-            { id: 9, name: 'Холон', value: 'holon' },
-            { id: 10, name: 'Рамат-Ган', value: 'ramat-gan' }
-        ]
-    };
-    
-    const cityList = cities[lang] || cities['en'];
-    
-    res.json({
-        status: 'success',
-        data: cityList,
-        language: lang,
-        total: cityList.length
-    });
+    const validLangs = ['en', 'he', 'ru'];
+    const selectedLang = validLangs.includes(lang) ? lang : 'en';
+    const nameColumn = `name_${selectedLang}`;
+
+    console.log(`[CITIES] Request for language: ${selectedLang}`);
+
+    try {
+        const query = `SELECT id, value, ${nameColumn} as name FROM cities ORDER BY ${nameColumn}`;
+        const result = await pool.query(query);
+        
+        res.json({
+            status: 'success',
+            data: result.rows,
+            language: selectedLang,
+            total: result.rowCount
+        });
+    } catch (err) {
+        console.error('Error fetching cities from database:', err);
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Internal server error while fetching cities',
+            language: selectedLang
+        });
+    }
 });
 
 // EMAIL LOGIN ENDPOINT
