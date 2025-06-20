@@ -163,7 +163,7 @@ app.get('/api/get-cities', async (req, res) => {
     console.log(`[CITIES] Request for language: ${selectedLang}`);
 
     try {
-        const query = `SELECT id, value, ${nameColumn} as name FROM cities ORDER BY ${nameColumn}`;
+        const query = `SELECT id, key as value, ${nameColumn} as name FROM cities ORDER BY ${nameColumn}`;
         const result = await pool.query(query);
         
         res.json({
@@ -4008,6 +4008,24 @@ app.get('*', (req, res) => {
     } else {
         // 404 for API routes
         res.status(404).json({ error: 'API endpoint not found' });
+    }
+});
+
+app.get('/api/get-table-schema', async (req, res) => {
+    const { tableName } = req.query;
+    if (!tableName) {
+        return res.status(400).send('tableName query parameter is required.');
+    }
+    try {
+        const query = `
+            SELECT column_name, data_type 
+            FROM information_schema.columns 
+            WHERE table_name = $1;
+        `;
+        const result = await pool.query(query, [tableName]);
+        res.json(result.rows);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
     }
 });
 
