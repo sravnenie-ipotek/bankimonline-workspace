@@ -85,6 +85,12 @@ const PrivacyPolicy = lazy(() =>
   }))
 )
 
+const RegistrationPage = lazy(() =>
+  import('../../pages/Registration/RegistrationPage').then((module) => ({
+    default: module.default,
+  }))
+)
+
 const Apoalim = lazy(() =>
   import('../../pages/Banks/pages/Apoalim').then((module) => ({
     default: module.Apoalim,
@@ -208,6 +214,7 @@ const MainRoutes: React.FC = () => {
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/view/:id" element={<View />} />
               <Route path="/404" element={<NotFound type={'NOT_FOUND'} />} />
+              <Route path="/registration" element={<RegistrationPage />} />
               
               {/* Admin Routes */}
               <Route path="/admin">

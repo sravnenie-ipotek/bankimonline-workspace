@@ -40,6 +40,21 @@ const Modal: FC<IDialogParams> = ({
     onCancel && onCancel()
   }
 
+  // Handle click outside modal to close
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+    const rect = (e.target as HTMLDialogElement).getBoundingClientRect()
+    const isInDialog = (
+      e.clientX >= rect.left &&
+      e.clientX <= rect.right &&
+      e.clientY >= rect.top &&
+      e.clientY <= rect.bottom
+    )
+    
+    if (!isInDialog) {
+      closeDialog()
+    }
+  }
+
   return (
     <>
       {isVisible &&
@@ -47,10 +62,12 @@ const Modal: FC<IDialogParams> = ({
           <dialog
             ref={dialogRef}
             className={cx('overlayDialogWrapper', className)}
+            onClick={handleBackdropClick}
           >
             <div
               className={cx('dialogHeader')}
               style={{ direction: i18n.language === 'he' ? 'ltr' : 'rtl' }}
+              onClick={(e) => e.stopPropagation()}
             >
               {title && <h3 className={cx('dialogTitle')}>{title}</h3>}
               <button
@@ -61,7 +78,9 @@ const Modal: FC<IDialogParams> = ({
                 <Close size={24} color="white" />
               </button>
             </div>
-            {children}
+            <div onClick={(e) => e.stopPropagation()}>
+              {children}
+            </div>
           </dialog>,
           document.body
         )}

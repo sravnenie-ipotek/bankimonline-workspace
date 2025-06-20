@@ -63,44 +63,44 @@ const VideoPoster: React.FC<TypeProps> = ({
 
   return (
     <>
-      <div className={cx('video', videoClasses)}>
-        <video loop muted autoPlay poster="/static/Background.png">
-          <source src="/static/promo.mp4" type="video/mp4" />
-          <source src="/static/promo.webm" type="video/webm" />
-        </video>
-        <div className={cx('video-wrapper')}>
-          <div className={cx('video-titles')}>
-            <h2 className={cx('video-titles__title')}>{title}</h2>
-            <p className={cx('video-titles__subtitle')}>{subtitle}</p>
-            <span className={cx('video-titles__text')}>{text}</span>
-          </div>
-          <div className={cx('video-buttons')}>
+    <div className={cx('video', videoClasses)}>
+      <video loop muted autoPlay poster="/static/Background.png">
+        <source src="/static/promo.mp4" type="video/mp4" />
+        <source src="/static/promo.webm" type="video/webm" />
+      </video>
+      <div className={cx('video-wrapper')}>
+        <div className={cx('video-titles')}>
+          <h2 className={cx('video-titles__title')}>{title}</h2>
+          <p className={cx('video-titles__subtitle')}>{subtitle}</p>
+          <span className={cx('video-titles__text')}>{text}</span>
+        </div>
+        <div className={cx('video-buttons')}>
             <div
               onClick={() => setIsPlayerOpen(true)}
               className="cursor-pointer"
               aria-label="Open video player"
               role="button"
             >
-              <ArrowsOutSimpleIcon size={isMobile ? 24 : 32} />
+            <ArrowsOutSimpleIcon size={isMobile ? 24 : 32} />
             </div>
-            <div
-              onClick={handleMute}
-              ref={soundControlsRef}
-              className="cursor-pointer"
-            >
-              {isMuted ? (
-                <SpeakerOffIcon size={isMobile ? 40 : 73} />
-              ) : (
-                <SpeakerOnIcon size={isMobile ? 40 : 73} />
-              )}
-            </div>
+          <div
+            onClick={handleMute}
+            ref={soundControlsRef}
+            className="cursor-pointer"
+          >
+            {isMuted ? (
+              <SpeakerOffIcon size={isMobile ? 40 : 73} />
+            ) : (
+              <SpeakerOnIcon size={isMobile ? 40 : 73} />
+            )}
           </div>
         </div>
-        <audio loop ref={audioElementRef}>
-          <source src="/static/promo.ogg" type="audio/ogg" />
-          <source src="/static/promo.mp3" type="audio/mpeg" />
-        </audio>
       </div>
+      <audio loop ref={audioElementRef}>
+        <source src="/static/promo.ogg" type="audio/ogg" />
+        <source src="/static/promo.mp3" type="audio/mpeg" />
+      </audio>
+    </div>
       <VideoPlayerModal
         isOpen={isPlayerOpen}
         onClose={() => setIsPlayerOpen(false)}
