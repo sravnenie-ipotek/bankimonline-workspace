@@ -14,6 +14,7 @@ import styles from './authModal.module.scss'
 import { Auth } from './pages/Auth'
 import { Code } from './pages/Code'
 import NewPassword from './pages/NewPassword/NewPassword'
+import PhoneVerificationModal from './pages/PhoneVerification/PhoneVerificationModal'
 import { ResetPassword } from './pages/ResetPassword'
 import { SignUp } from './pages/SignUp'
 import { Success } from './pages/Success'
@@ -135,6 +136,9 @@ const AuthModal = () => {
       break
     case 'success':
       activeModalComponent = <Success />
+      break
+    case 'phoneVerification':
+      activeModalComponent = <PhoneVerificationModal />
       break
     default:
       break

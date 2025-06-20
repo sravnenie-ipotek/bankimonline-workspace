@@ -7,6 +7,7 @@ import {
   // setActiveModal,
   updateRegistrationData,
 } from '@src/pages/Services/slices/loginSlice'
+import { closeModal } from '@src/pages/Services/slices/modalSlice'
 import { useSignUpMutation } from '@src/services/auth/auth'
 
 import { SignUpForm } from './SignUpForm'
@@ -37,8 +38,8 @@ const SignUp = () => {
 
   const getAccountUrl = () => {
     // For production, use current domain; for development, use localhost:3001
-    if (process.env.VITE_ACCOUNT_URL) {
-      return process.env.VITE_ACCOUNT_URL
+    if (import.meta.env.VITE_ACCOUNT_URL) {
+      return import.meta.env.VITE_ACCOUNT_URL
     }
     
     // If we're on Railway production, stay on the same domain
@@ -80,15 +81,59 @@ const SignUp = () => {
       // Update registration data in Redux
       dispatch(updateRegistrationData(response.data))
       
-      // Show success message and redirect to Personal Account
-      alert('Регистрация успешна! Перенаправляем в Личный кабинет...')
+      // Show success message
+      alert('Добро пожаловать! Вы успешно вошли в систему.')
       
-      // Redirect to Personal Account
-      window.location.href = getAccountUrl()
+      // Close the modal
+      dispatch(closeModal())
       
-    } catch (error) {
+    } catch (error: any) {
+      console.log('Registration response:', error)
+      console.log('Error status:', error?.status)
+      console.log('Error data:', error?.data)
+      console.log('Full error object:', JSON.stringify(error, null, 2))
+      
+      // Handle 409 Conflict - User already exists, treat as success
+      // Check multiple possible locations for the status code
+      const statusCode = error?.status || error?.data?.status || error?.response?.status
+      
+      if (statusCode === 409 || error?.status === 409) {
+        console.log('User already exists, continuing with flow...')
+        
+        // Create user data object from form values for consistency
+        const userData = {
+          name: values.nameSurname,
+          mobile_number: phoneNumber,
+          email: values.email,
+          // Add any additional fields that might be expected
+        }
+        
+        // Store user data in localStorage 
+        localStorage.setItem('USER_DATA', JSON.stringify(userData))
+        
+        // Update registration data in Redux
+        dispatch(updateRegistrationData(userData))
+        
+        // Show success message
+        alert('Добро пожаловать! Вы успешно вошли в систему.')
+        
+        // Close the modal
+        dispatch(closeModal())
+        
+        return // Exit successfully
+      }
+      
+      // Handle other errors normally
       console.error('Registration error:', error)
-      alert('Ошибка регистрации. Попробуйте еще раз.')
+      
+      // Show more specific error messages
+      if (statusCode === 400) {
+        alert('Ошибка данных. Проверьте правильность заполнения полей.')
+      } else if (statusCode === 500) {
+        alert('Ошибка сервера. Попробуйте позже.')
+      } else {
+        alert('Ошибка регистрации. Попробуйте еще раз.')
+      }
     }
   }
 

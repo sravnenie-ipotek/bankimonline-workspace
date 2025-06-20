@@ -46,6 +46,8 @@ const getCorsOrigins = () => {
     return [
         'http://localhost:3001',
         'http://localhost:3000',
+        'http://localhost:5173', // Vite dev server
+        'http://localhost:5174', // Vite dev server (alternative port)
         'http://localhost:8003',
         // Railway domains
         'https://bankdev2standalone-production.up.railway.app',
@@ -237,7 +239,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 // SMS LOGIN - Step 1
-app.post('/api/sms-login', async (req, res) => {
+app.post('/api/phone-login', async (req, res) => {
     const { mobile_number } = req.body;
     
     console.log(`[SMS] Request for: ${mobile_number}`);
@@ -263,7 +265,7 @@ app.post('/api/sms-login', async (req, res) => {
 });
 
 // SMS LOGIN - Step 2
-app.post('/api/sms-code-login', async (req, res) => {
+app.post('/api/phone-code-login', async (req, res) => {
     const { code, mobile_number } = req.body;
     
     console.log(`[SMS] Verify ${code} for ${mobile_number}`);

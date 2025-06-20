@@ -28,7 +28,7 @@ export default function LoginLanguage() {
   const { isDesktop } = useWindowResize()
   const handleLogin = () => {
     dispatch(openAuthModal())
-    dispatch(setActiveModal('auth'))
+    dispatch(setActiveModal('confirmPhone'))
   }
 
   return (
