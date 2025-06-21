@@ -47,7 +47,7 @@ const AdditionalIncomeModal = () => {
     ),
     additionalIncomeAmount: Yup.number().when('additionalIncome', {
       is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value === 'no',
+        value !== null && value !== undefined && value !== '' && value !== 'option_1',
       then: (shema) => shema.required(i18next.t('error_fill_field')),
       otherwise: (shema) => shema.notRequired(),
     }),
