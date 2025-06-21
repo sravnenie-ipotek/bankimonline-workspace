@@ -12,6 +12,7 @@ import { CaretDownIcon } from '@assets/icons/CaretDownIcon'
 import { CheckIcon } from '@assets/icons/CheckIcon'
 import { IsraelFlagIcon } from '@assets/icons/IsraelFlagIcon'
 import { RussiaFlagIcon } from '@assets/icons/RussiaFlagIcon'
+import { USFlagIcon } from '@assets/icons/USFlagIcon'
 import Header from '@components/layout/Sidebar/MobileMenu/Header/Header.tsx'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store.ts'
 import { changeLanguage } from '@src/store/slices/languageSlice.ts'
@@ -63,6 +64,12 @@ const MobileChangeLanguage = () => {
       country: 'ישראל',
       language: 'עִברִית',
       icon: <IsraelFlagIcon />,
+    },
+    {
+      value: 'en',
+      country: 'United States',
+      language: 'English',
+      icon: <USFlagIcon />,
     },
   ]
 

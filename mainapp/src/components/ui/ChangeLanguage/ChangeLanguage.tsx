@@ -13,6 +13,7 @@ import { CaretUpIcon } from '@assets/icons/CaretUpIcon'
 import { CheckIcon } from '@assets/icons/CheckIcon'
 import { IsraelFlagIcon } from '@assets/icons/IsraelFlagIcon'
 import { RussiaFlagIcon } from '@assets/icons/RussiaFlagIcon'
+import { USFlagIcon } from '@assets/icons/USFlagIcon'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { changeLanguage } from '@src/store/slices/languageSlice'
 
@@ -66,6 +67,12 @@ const ChangeLanguage = () => {
       country: 'ישראל',
       language: 'עִברִית',
       icon: <IsraelFlagIcon />,
+    },
+    {
+      value: 'en',
+      country: 'United States',
+      language: 'English',
+      icon: <USFlagIcon />,
     },
   ]
 

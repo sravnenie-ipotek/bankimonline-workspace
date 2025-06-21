@@ -4,8 +4,16 @@ import { initReactI18next } from 'react-i18next'
 
 import format from './i18n-format.ts'
 
+// Get language from localStorage or default to 'ru'
+const getInitialLanguage = (): string => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('language') || 'ru'
+  }
+  return 'ru'
+}
+
 const i18nConfig: InitOptions = {
-  lng: 'ru', // Язык по умолчанию
+  lng: getInitialLanguage(), // Язык из localStorage или по умолчанию
   fallbackLng: 'ru', // Язык, который будет использоваться в случае отсутствия перевода
   interpolation: {
     escapeValue: false,
