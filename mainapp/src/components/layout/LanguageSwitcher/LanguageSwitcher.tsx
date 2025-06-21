@@ -11,16 +11,24 @@ interface LanguageOption {
 interface LanguagesOptions {
   ru: LanguageOption[]
   he: LanguageOption[]
+  en: LanguageOption[]
 }
 
 const languagesOptions: LanguagesOptions = {
   ru: [
     { value: 'ru', label: 'Россия' },
     { value: 'he', label: 'Израиль' },
+    { value: 'en', label: 'США' },
   ],
   he: [
     { value: 'ru', label: 'רוּסִיָה' },
     { value: 'he', label: 'ישראל' },
+    { value: 'en', label: 'ארצות הברית' },
+  ],
+  en: [
+    { value: 'ru', label: 'Russia' },
+    { value: 'he', label: 'Israel' },
+    { value: 'en', label: 'United States' },
   ],
 }
 
