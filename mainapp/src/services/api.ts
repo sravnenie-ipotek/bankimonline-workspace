@@ -7,9 +7,10 @@ const getApiBaseUrl = () => {
     return import.meta.env.VITE_NODE_API_BASE_URL
   }
   
-  // Always use Railway production URL since we're deploying to Railway
-  // In development, the server runs on Railway too, so we use the same URL
-  return 'https://bankdev2standalone-production.up.railway.app/api'
+  // Always use Railway backend in production, localhost for development
+  return import.meta.env.MODE === 'production' 
+    ? 'https://bankim-nodejs-api-production.up.railway.app/api' 
+    : 'http://localhost:8003/api'
 }
 
 export const api = createApi({

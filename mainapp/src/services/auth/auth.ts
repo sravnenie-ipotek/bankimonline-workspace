@@ -11,21 +11,21 @@ export const authApiSlice = api.injectEndpoints({
     }),
     signInPhone: builder.mutation({
       query: (body) => ({
-        url: '/phone-password-login',
+        url: '/auth-password',
         method: 'POST',
         body,
       }),
     }),
     signInName: builder.mutation({
       query: (body) => ({
-        url: '/phone-login',
+        url: '/auth-mobile',
         method: 'POST',
         body,
       }),
     }),
     sendSmsCodeMobile: builder.mutation({
       query: (body) => ({
-        url: '/phone-code-login',
+        url: '/auth-verify',
         method: 'POST',
         body,
       }),

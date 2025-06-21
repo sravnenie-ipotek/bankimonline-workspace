@@ -239,7 +239,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 // SMS LOGIN - Step 1
-app.post('/api/phone-login', async (req, res) => {
+app.post('/api/auth-mobile', async (req, res) => {
     const { mobile_number } = req.body;
     
     console.log(`[SMS] Request for: ${mobile_number}`);
@@ -265,7 +265,7 @@ app.post('/api/phone-login', async (req, res) => {
 });
 
 // SMS LOGIN - Step 2
-app.post('/api/phone-code-login', async (req, res) => {
+app.post('/api/auth-verify', async (req, res) => {
     const { code, mobile_number } = req.body;
     
     console.log(`[SMS] Verify ${code} for ${mobile_number}`);

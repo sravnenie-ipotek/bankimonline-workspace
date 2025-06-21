@@ -65,7 +65,7 @@ app.get('/api/v1/cities', (req, res) => {
 });
 
 // Mock authentication endpoints
-app.post('/api/phone-login', (req, res) => {
+app.post('/api/auth-mobile', (req, res) => {
     const { mobile_number } = req.body;
     
     console.log(`[AUTH] SMS login request for: ${mobile_number}`);
@@ -77,7 +77,7 @@ app.post('/api/phone-login', (req, res) => {
     });
 });
 
-app.post('/api/phone-code-login', (req, res) => {
+app.post('/api/auth-verify', (req, res) => {
     const { code, mobile_number } = req.body;
     
     console.log(`[AUTH] Code verification: ${code} for ${mobile_number}`);
