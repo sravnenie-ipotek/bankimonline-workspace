@@ -26,7 +26,7 @@ const AdminDashboard: React.FC = () => {
 
   const loadAdminData = async (token: string) => {
     try {
-      const API_BASE = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8003/api';
+      const API_BASE = 'https://bankdev2standalone-production.up.railway.app/api';
       
       // Get admin profile
       const profileResponse = await fetch(`${API_BASE}/admin/profile`, {
