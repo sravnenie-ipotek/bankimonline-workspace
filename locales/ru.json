@@ -253,9 +253,9 @@
   "check_another_application": "Проверить другую заявку",
   
   "mortgage": "Ипотека",
-  "mortgage_refinance": "Рефинансирование ипотеки",
+  "mortgage_refinance": "Перекредитование ипотеки",
   "credit": "Кредит",
-  "credit_refinance": "Рефинансирование кредита",
+  "credit_refinance": "Перекредитование",
   "personal_loan": "Личный кредит",
   
   "pending_review": "Ожидает рассмотрения",
@@ -270,11 +270,11 @@
   "loan_amount": "Сумма кредита",
   "property_value": "Стоимость недвижимости",
   "monthly_income": "Ежемесячный доход",
-  "monthly_expenses": "Ежемесячные расходы",
+  "monthly_expenses": "Месячные расходы",
   "age": "Возраст",
   "credit_score": "Кредитный рейтинг",
-  "employment_years": "Годы работы",
-  "existing_debts": "Существующие ежемесячные долги",
+  "employment_years": "Стаж работы (в годах)",
+  "existing_debts": "Текущие месячные обязательства"
   
   "all_statuses": "Все статусы",
   "all_types": "Все типы",
@@ -656,7 +656,7 @@
   "employment_history": "История трудоустройства",
   "ltv_ratio": "Коэффициент LTV",
   "dti_ratio": "Коэффициент DTI",
-  "employment_years": "Годы работы",
+  "employment_years": "Стаж работы (в годах)",
   "fix_applied": "Исправление успешно применено!",
   "mortgage_requirements": "Требования к ипотеке",
   "credit_requirements": "Кредитные требования",
