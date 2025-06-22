@@ -80,7 +80,7 @@ const SourceOfIncomeModal: React.FC = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        validateOnMount={true}
+        validateOnMount={false}
         onSubmit={(values) => {
           dispatch(
             updateSourceOfIncomeModal({ id: modalId, pageId, ...values })

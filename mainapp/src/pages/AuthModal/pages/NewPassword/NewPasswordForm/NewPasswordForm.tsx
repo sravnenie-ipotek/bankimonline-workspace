@@ -24,8 +24,6 @@ const NewPasswordForm = () => {
     touched,
   } = useFormikContext<NewPasswordFormType>()
 
-  console.log(errors)
-
   return (
     <div className={cx('newPassword')}>
       <div className={cx('newPassword-header')}>

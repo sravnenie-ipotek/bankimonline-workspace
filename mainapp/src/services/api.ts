@@ -2,15 +2,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 // Get API base URL from environment variables
 const getApiBaseUrl = () => {
-  // For Node.js API endpoints (refinance services)
-  if (import.meta.env.VITE_NODE_API_BASE_URL) {
-    return import.meta.env.VITE_NODE_API_BASE_URL
+  // In production, prioritize environment variables
+  if (import.meta.env.PROD) {
+    // Use environment variable if available, otherwise fallback to Railway production
+    return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankdev2standalone-production.up.railway.app/api'
   }
   
-  // Always use Railway backend in production, localhost for development
-  return import.meta.env.MODE === 'production' 
-    ? 'https://bankim-nodejs-api-production.up.railway.app/api' 
-    : 'http://localhost:8003/api'
+  // In development, use environment variable or localhost
+  return import.meta.env.VITE_NODE_API_BASE_URL || 'http://localhost:8003/api'
 }
 
 export const api = createApi({
