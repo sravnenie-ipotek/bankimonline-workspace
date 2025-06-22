@@ -1,0 +1,5 @@
+@import '../EmailSettingsModal/emailSettingsModal.module.scss';
+
+.phone-input {
+  @extend .email-input;
+} 

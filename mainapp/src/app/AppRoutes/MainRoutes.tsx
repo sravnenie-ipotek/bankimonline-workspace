@@ -122,6 +122,13 @@ const Jerusalem = lazy(() =>
   }))
 )
 
+// Personal Cabinet
+const PersonalCabinet = lazy(() =>
+  import('../../pages/PersonalCabinet/PersonalCabinet').then((module) => ({
+    default: module.PersonalCabinet,
+  }))
+)
+
 // Admin Pages
 const AdminLogin = lazy(() => import('../../pages/Admin/AdminLogin'))
 const AdminDashboard = lazy(() => import('../../pages/Admin/AdminDashboard'))
@@ -215,6 +222,9 @@ const MainRoutes: React.FC = () => {
               <Route path="/view/:id" element={<View />} />
               <Route path="/404" element={<NotFound type={'NOT_FOUND'} />} />
               <Route path="/registration" element={<RegistrationPage />} />
+              
+              {/* Personal Cabinet */}
+              <Route path="/personal-cabinet" element={<PersonalCabinet />} />
               
               {/* Admin Routes */}
               <Route path="/admin">

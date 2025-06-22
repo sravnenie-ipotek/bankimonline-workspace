@@ -248,9 +248,9 @@
   "check_another_application": "Check Another Application",
   
   "mortgage": "Mortgage",
-  "mortgage_refinance": "Mortgage Refinance",
+  "mortgage_refinance": "Mortgage Refinancing",
   "credit": "Credit",
-  "credit_refinance": "Credit Refinance",
+  "credit_refinance": "Credit Refinancing",
   "personal_loan": "Personal Loan",
   
   "pending_review": "Pending Review",
@@ -269,7 +269,7 @@
   "age": "Age",
   "credit_score": "Credit Score",
   "employment_years": "Employment Years",
-  "existing_debts": "Existing Monthly Debts",
+  "existing_debts": "Current Monthly Obligations",
   
   "all_statuses": "All Statuses",
   "all_types": "All Types",
@@ -287,9 +287,9 @@
   "estimated_rate": "Estimated Rate",
   "ltv_ratio": "LTV Ratio",
   "dti_ratio": "DTI Ratio",
-  "approval_probability": "Approval Probability",
+  "approval_probability": "Pre-approval Probability",
   "bank_offers": "Bank Offers",
-  "offers_count": "offers available",
+  "offers_count": "competitive offers available"
   
   "language": "Language",
   "english": "English",
