@@ -12,8 +12,6 @@ const PhoneInput = () => {
   const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<LoginFormTypes>()
 
-  console.log(errors)
-
   return (
     <>
       <CustomPhoneInput

@@ -1,17 +1,9 @@
 .video-modal {
-  :global(.modal-content) {
-    padding: 0;
-    background-color: transparent;
-    box-shadow: none;
-    max-width: 90vw;
-    max-height: 90vh;
+  .video-player {
+    width: 100%;
+    height: auto;
+    max-width: 800px;
+    max-height: 450px;
+    object-fit: contain;
   }
 }
-
-.video-player {
-  width: 100%;
-  height: auto;
-  max-height: 90vh;
-  border-radius: 0.625rem;
-  outline: none;
-} 

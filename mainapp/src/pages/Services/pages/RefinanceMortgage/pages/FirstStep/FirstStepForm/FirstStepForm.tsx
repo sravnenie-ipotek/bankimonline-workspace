@@ -119,8 +119,6 @@ const FirstStepForm = () => {
     values.period,
   ])
 
-  console.log(errors)
-
   return (
     <>
       <FormContainer>
