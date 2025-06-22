@@ -1,0 +1,22 @@
+"instructions": {
+  "purpose": "This file contains YouTrack issues organized by issue number for development gap analysis",
+  "primary_objective": "Compare OS-... issue requirements against actual implemented features to identify development gaps",
+  "usage": [
+    "Each issue contains its complete information including status, implementation details, and key findings",
+    "Issues are sorted numerically for easy reference",
+    "This is a consolidated view from multiple YouTrack report files"
+  ],
+  "gap_analysis_process": [
+    "Review OS-... issues to understand original requirements and specifications",
+    "Compare requirements against actual developed features and implementation",
+    "Identify gaps between planned features and delivered functionality",
+    "Cross-reference identified gaps with Figma designs for UI/UX validation",
+    "Verify gaps against business logic requirements for functional completeness",
+    "Document all findings for development prioritization"
+  ],
+  "validation_sources": [
+    "Figma designs for visual and interaction requirements",
+    "Business logic documentation for functional specifications",
+    "YouTrack reports for implementation status tracking"
+  ]
+}
