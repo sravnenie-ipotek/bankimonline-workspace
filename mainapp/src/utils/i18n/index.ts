@@ -4,26 +4,27 @@ import { initReactI18next } from 'react-i18next'
 
 import format from './i18n-format.ts'
 
-// Get language from localStorage or default to 'ru'
+// Get language from localStorage or default to 'en'
 const getInitialLanguage = (): string => {
   if (typeof window !== 'undefined') {
-    return localStorage.getItem('language') || 'ru'
+    return localStorage.getItem('language') || 'en'
   }
-  return 'ru'
+  return 'en'
 }
 
 const i18nConfig: InitOptions = {
-  lng: getInitialLanguage(), // Язык из localStorage или по умолчанию
-  fallbackLng: 'ru', // Язык, который будет использоваться в случае отсутствия перевода
+  lng: getInitialLanguage(), // Language from localStorage or default to English
+  fallbackLng: 'en', // Fallback language is English
   interpolation: {
     escapeValue: false,
     format,
   },
-  ns: ['translation'], // Пространство имён для переводов
+  ns: ['translation'], // Namespace for translations
   defaultNS: 'translation',
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',
   },
+  debug: false, // Enable debug logging
 }
 
 i18n.use(HttpBackend).use(initReactI18next).init(i18nConfig)

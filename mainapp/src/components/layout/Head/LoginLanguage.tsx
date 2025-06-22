@@ -35,8 +35,8 @@ export default function LoginLanguage() {
     <div className={cx('login-language')}>
       {isDesktop && (
         <>
-          {!isService && <ChangeLanguage />}
-          {!isService && <CurrencySelector />}
+          <ChangeLanguage />
+          <CurrencySelector />
           <div className={cx('w-fit')}>
             <Button
               variant={isService ? 'transparent' : 'primary'}

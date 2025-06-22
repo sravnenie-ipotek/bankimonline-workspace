@@ -23,7 +23,7 @@ import styles from './changeLanguage.module.scss'
 const cx = classNames.bind(styles)
 const ChangeLanguage = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedLanguage, setSelectedLanguage] = useState('ru')
+  const [selectedLanguage, setSelectedLanguage] = useState('en')
 
   const wrapperRef = useRef<HTMLDivElement>(null)
 
@@ -57,10 +57,10 @@ const ChangeLanguage = () => {
 
   const data = [
     {
-      value: 'ru',
-      country: 'Россия',
-      language: 'Русский',
-      icon: <RussiaFlagIcon />,
+      value: 'en',
+      country: 'United States',
+      language: 'English',
+      icon: <USFlagIcon />,
     },
     {
       value: 'he',
@@ -69,10 +69,10 @@ const ChangeLanguage = () => {
       icon: <IsraelFlagIcon />,
     },
     {
-      value: 'en',
-      country: 'United States',
-      language: 'English',
-      icon: <USFlagIcon />,
+      value: 'ru',
+      country: 'Россия',
+      language: 'Русский',
+      icon: <RussiaFlagIcon />,
     },
   ]
 
