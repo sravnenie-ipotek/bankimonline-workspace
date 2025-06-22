@@ -248,9 +248,9 @@
   "check_another_application": "בדוק בקשה אחרת",
   
   "mortgage": "משכנתא",
-  "mortgage_refinance": "מחזור משכנתא",
+  "mortgage_refinance": "מימון מחדש של משכנתא",
   "credit": "אשראי",
-  "credit_refinance": "מחזור אשראי",
+  "credit_refinance": "מימון מחדש של אשראי",
   "personal_loan": "הלוואה אישית",
   
   "pending_review": "ממתין לבדיקה",
@@ -262,7 +262,7 @@
   "rejected": "נדחה",
   "cancelled": "בוטל",
   
-  "loan_amount": "סכום הלוואה",
+  "loan_amount": "סכום אשראי",
   "property_value": "שווי נכס",
   "monthly_income": "הכנסה חודשית",
   "monthly_expenses": "הוצאות חודשיות",
