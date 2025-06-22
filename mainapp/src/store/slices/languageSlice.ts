@@ -6,12 +6,12 @@ interface LanguageState {
   language: string
 }
 
-// Get language from localStorage or default to 'ru'
+// Get language from localStorage or default to 'en'
 const getInitialLanguage = (): string => {
   if (typeof window !== 'undefined') {
-    return localStorage.getItem('language') || 'ru'
+    return localStorage.getItem('language') || 'en'
   }
-  return 'ru'
+  return 'en'
 }
 
 const getInitialFont = (language: string): string => {
