@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik'
-import { FC, useEffect, useLayoutEffect, useState } from 'react'
+import { FC, useEffect, useLayoutEffect, useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Column } from '@components/ui/Column'
@@ -31,23 +31,24 @@ export const FirstStepForm: FC = () => {
   const [cityOptions, setCityOptions] = useState<CityOption[]>([])
   const { t, i18n } = useTranslation()
 
-  const creditPurposes = [
+  // Use useMemo to ensure dropdown options update when translations change
+  const creditPurposes = useMemo(() => [
     { value: 'option_1', label: t('calculate_credit_target_option_1') },
     { value: 'option_2', label: t('calculate_credit_target_option_2') },
     { value: 'option_3', label: t('calculate_credit_target_option_3') },
     { value: 'option_4', label: t('calculate_credit_target_option_4') },
     { value: 'option_5', label: t('calculate_credit_target_option_5') },
     { value: 'option_6', label: t('calculate_credit_target_option_6') },
-  ]
+  ], [t])
 
-  const WhenDoYouNeedMoneyOptions = [
+  const WhenDoYouNeedMoneyOptions = useMemo(() => [
     { value: 'option_1', label: t('calculate_mortgage_when_options_1') },
     { value: 'option_2', label: t('calculate_mortgage_when_options_2') },
     { value: 'option_3', label: t('calculate_mortgage_when_options_3') },
     { value: 'option_4', label: t('calculate_mortgage_when_options_4') },
-  ]
+  ], [t])
 
-  const loanDeferralOptions = [
+  const loanDeferralOptions = useMemo(() => [
     { value: 'option_1', label: t('calculate_credit_prolong_option_1') },
     { value: 'option_2', label: t('calculate_credit_prolong_option_2') },
     { value: 'option_3', label: t('calculate_credit_prolong_option_3') },
@@ -55,7 +56,7 @@ export const FirstStepForm: FC = () => {
     { value: 'option_5', label: t('calculate_credit_prolong_option_5') },
     { value: 'option_6', label: t('calculate_credit_prolong_option_6') },
     { value: 'option_7', label: t('calculate_credit_prolong_option_7') },
-  ]
+  ], [t])
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<CalculateCreditTypes>()
