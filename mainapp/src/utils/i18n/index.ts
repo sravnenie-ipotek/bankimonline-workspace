@@ -26,6 +26,9 @@ const i18nConfig: InitOptions = {
     requestOptions: {
       cache: 'no-cache', // Prevent caching issues
     },
+    addPath: '/locales/add/{{lng}}/{{ns}}',
+    allowMultiLoading: false,
+    reloadInterval: false,
   },
   debug: true, // Enable debug logging to see what's happening
   react: {
@@ -46,9 +49,34 @@ i18n
   .init(i18nConfig)
   .then(() => {
     console.log('✅ i18n initialized successfully')
+    console.log('🔍 Available resources:', i18n.store.data)
+    console.log('🔍 Current language:', i18n.language)
+    
+    // Test specific translations
+    const testKeys = ['yes', 'no', 'calculate_mortgage_is_medinsurance', 'calculate_mortgage_children18']
+    testKeys.forEach(key => {
+      const translation = i18n.t(key)
+      console.log(`🧪 "${key}" = "${translation}"`)
+      if (translation === key) {
+        console.warn(`⚠️ Translation key "${key}" not found!`)
+      }
+    })
   })
   .catch((error) => {
     console.error('❌ i18n initialization failed:', error)
   })
+
+// Add event listeners for debugging
+i18n.on('initialized', () => {
+  console.log('🎯 i18n initialized event fired')
+})
+
+i18n.on('loaded', (loaded) => {
+  console.log('📦 i18n resources loaded:', loaded)
+})
+
+i18n.on('languageChanged', (lng) => {
+  console.log('🔄 Language changed to:', lng)
+})
 
 export default i18n
