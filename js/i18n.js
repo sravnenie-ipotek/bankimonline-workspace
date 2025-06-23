@@ -1,18 +1,84 @@
 // i18n.js - Complete Internationalization Manager as specified in bankMgmt.txt
 class I18nManager {
     constructor() {
-        this.currentLanguage = localStorage.getItem('admin_language') || 'en';
+        this.currentLanguage = localStorage.getItem('admin_language') || 'he'; // Default to Hebrew
         this.translations = {};
         this.rtlLanguages = ['he', 'ar'];
+        this.initialized = false;
+    }
+    
+    async init() {
+        try {
+            console.log('🚀 Initializing i18n...');
+            
+            // Load all supported languages
+            const languages = ['en', 'he', 'ru'];
+            
+            for (const lang of languages) {
+                await this.loadTranslations(lang);
+            }
+            
+            // Set the current language
+            await this.changeLanguage(this.currentLanguage);
+            
+            this.initialized = true;
+            console.log('✅ i18n initialization complete');
+            
+            // Test critical translations
+            this.testTranslations();
+            
+        } catch (error) {
+            console.error('❌ i18n initialization failed:', error);
+        }
+    }
+    
+    testTranslations() {
+        const testKeys = [
+            'calculate_mortgage_when_options_ph',
+            'calculate_mortgage_first_ph', 
+            'calculate_mortgage_type_ph',
+            'city',
+            'button_next'
+        ];
+        
+        console.log('🧪 Testing translations:');
+        testKeys.forEach(key => {
+            const translation = this.getTranslation(key);
+            console.log(`"${key}" = "${translation}"`);
+        });
     }
     
     async loadTranslations(language) {
         try {
-            const response = await fetch(`/locales/${language}.json`);
-            this.translations[language] = await response.json();
-            return true;
+            // Try multiple paths to find translations
+            const paths = [
+                `/locales/${language}/translation.json`,
+                `/locales/${language}.json`,
+                `./locales/${language}/translation.json`,
+                `./locales/${language}.json`,
+                `locales/${language}/translation.json`,
+                `locales/${language}.json`
+            ];
+            
+            for (const path of paths) {
+                try {
+                    console.log(`🔍 Trying to load: ${path}`);
+                    const response = await fetch(path);
+                    if (response.ok) {
+                        this.translations[language] = await response.json();
+                        console.log(`✅ Loaded translations from: ${path}`);
+                        console.log(`📦 ${language} translations:`, Object.keys(this.translations[language]).length, 'keys');
+                        return true;
+                    }
+                } catch (e) {
+                    console.log(`❌ Failed to load from: ${path}`, e.message);
+                }
+            }
+            
+            console.error(`❌ Failed to load translations for ${language} from any path`);
+            return false;
         } catch (error) {
-            console.error(`Failed to load translations for ${language}:`, error);
+            console.error(`❌ Failed to load translations for ${language}:`, error);
             return false;
         }
     }
@@ -20,7 +86,10 @@ class I18nManager {
     async changeLanguage(language) {
         if (!this.translations[language]) {
             const loaded = await this.loadTranslations(language);
-            if (!loaded) return false;
+            if (!loaded) {
+                console.warn(`⚠️ Language ${language} not loaded, falling back to English`);
+                language = 'en';
+            }
         }
         
         this.currentLanguage = language;
@@ -36,15 +105,18 @@ class I18nManager {
         // Update language selector
         this.updateLanguageSelector();
         
+        console.log(`🔄 Language changed to: ${language}`);
         return true;
     }
     
     updateTranslations() {
         const elements = document.querySelectorAll('[data-i18n]');
+        console.log(`🔄 Updating ${elements.length} translation elements`);
+        
         elements.forEach(element => {
             const key = element.getAttribute('data-i18n');
             const translation = this.getTranslation(key);
-            if (translation) {
+            if (translation && translation !== key) {
                 if (element.tagName === 'INPUT' && element.type === 'submit') {
                     element.value = translation;
                 } else if (element.hasAttribute('placeholder')) {
@@ -52,11 +124,16 @@ class I18nManager {
                 } else {
                     element.textContent = translation;
                 }
+                console.log(`✅ Updated "${key}" to "${translation}"`);
+            } else {
+                console.warn(`⚠️ No translation found for "${key}"`);
             }
         });
     }
     
     getTranslation(key) {
+        if (!key) return '';
+        
         const keys = key.split('.');
         let translation = this.translations[this.currentLanguage];
         
@@ -66,18 +143,20 @@ class I18nManager {
             } else {
                 // Fallback to English if translation not found
                 translation = this.translations['en'];
-                for (const fallbackKey of keys) {
-                    if (translation && translation[fallbackKey]) {
-                        translation = translation[fallbackKey];
-                    } else {
-                        return key; // Return key if no translation found
+                if (translation) {
+                    for (const fallbackKey of keys) {
+                        if (translation && translation[fallbackKey]) {
+                            translation = translation[fallbackKey];
+                        } else {
+                            return key; // Return key if no translation found
+                        }
                     }
                 }
                 break;
             }
         }
         
-        return translation;
+        return translation || key;
     }
     
     // Alias for getTranslation
@@ -131,6 +210,11 @@ class I18nManager {
 
 // Initialize i18n
 const i18n = new I18nManager();
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', async () => {
+    await i18n.init();
+});
 
 // Make i18n available globally for admin.html
 window.i18n = {
