@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 
 import InitialFeeContext from '@components/ui/ContextButtons/InitialFeeContext/InitialFeeContext'
 import CreditParams from '@components/ui/CreditParams'
@@ -50,25 +50,26 @@ const FirstStepForm = () => {
     fetchCities()
   }, [i18n.language])
 
-  const WhenDoYouNeedMoneyOptions = [
+  // Use useMemo to ensure dropdown options update when translations change
+  const WhenDoYouNeedMoneyOptions = useMemo(() => [
     { value: '1', label: t('calculate_mortgage_when_options_1') },
     { value: '2', label: t('calculate_mortgage_when_options_2') },
     { value: '3', label: t('calculate_mortgage_when_options_3') },
     { value: '4', label: t('calculate_mortgage_when_options_4') },
-  ]
+  ], [t])
 
-  const TypeSelectOptions = [
+  const TypeSelectOptions = useMemo(() => [
     { value: '1', label: t('calculate_mortgage_type_options_1') },
     { value: '2', label: t('calculate_mortgage_type_options_2') },
     { value: '3', label: t('calculate_mortgage_type_options_3') },
     { value: '4', label: t('calculate_mortgage_type_options_4') },
-  ]
+  ], [t])
 
-  const WillBeYourFirstOptions = [
+  const WillBeYourFirstOptions = useMemo(() => [
     { value: '1', label: t('calculate_mortgage_first_options_1') },
     { value: '2', label: t('calculate_mortgage_first_options_2') },
     { value: '3', label: t('calculate_mortgage_first_options_3') },
-  ]
+  ], [t])
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<CalculateMortgageTypes>()
