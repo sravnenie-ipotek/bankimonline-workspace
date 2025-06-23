@@ -31,7 +31,7 @@ const FirstStepForm = () => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await fetch(`/api/get-cities?lang=${lang}`)
+        const response = await fetch(`/api/get-cities?lang=${i18n.language}`)
         const data = await response.json()
         if (data.status === 'success') {
           const formattedCities = data.data.map((city) => ({
@@ -48,7 +48,7 @@ const FirstStepForm = () => {
     }
 
     fetchCities()
-  }, [lang])
+  }, [i18n.language])
 
   const WhenDoYouNeedMoneyOptions = [
     { value: '1', label: t('calculate_mortgage_when_options_1') },

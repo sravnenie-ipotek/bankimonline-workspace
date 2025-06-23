@@ -31,10 +31,24 @@ const i18nConfig: InitOptions = {
   react: {
     useSuspense: false, // Disable suspense to prevent loading issues
   },
-  initImmediate: false, // Don't initialize immediately
+  initImmediate: true, // Initialize immediately
   load: 'languageOnly', // Load only the language, not region variants
+  preload: ['en', 'he', 'ru'], // Preload all supported languages
+  returnEmptyString: false, // Return key instead of empty string when translation missing
+  returnNull: false, // Don't return null for missing translations
+  saveMissing: false, // Don't save missing translations
 }
 
-i18n.use(HttpBackend).use(initReactI18next).init(i18nConfig)
+// Initialize i18n with error handling
+i18n
+  .use(HttpBackend)
+  .use(initReactI18next)
+  .init(i18nConfig)
+  .then(() => {
+    console.log('✅ i18n initialized successfully')
+  })
+  .catch((error) => {
+    console.error('❌ i18n initialization failed:', error)
+  })
 
 export default i18n
