@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik'
-import { memo, useEffect, useLayoutEffect, useState } from 'react'
+import { memo, useEffect, useLayoutEffect, useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Column } from '@components/ui/Column'
@@ -29,29 +29,30 @@ const FirstStepForm = () => {
   const dispatch = useAppDispatch()
   const activeField = useAppSelector((state) => state.activeField)
 
-  const TypeSelectOptions = [
+  // Use useMemo to ensure dropdown options update when translations change
+  const TypeSelectOptions = useMemo(() => [
     { value: 'option_1', label: t('calculate_mortgage_type_options_1') },
     { value: 'option_2', label: t('calculate_mortgage_type_options_2') },
     { value: 'option_3', label: t('calculate_mortgage_type_options_3') },
     { value: 'option_4', label: t('calculate_mortgage_type_options_4') },
     { value: 'option_5', label: t('calculate_mortgage_type_options_5') },
-  ]
+  ], [t])
 
-  const WhyDoYouRefinanceOptions = [
+  const WhyDoYouRefinanceOptions = useMemo(() => [
     { value: 'option_1', label: t('mortgage_refinance_why_option_1') },
     { value: 'option_2', label: t('mortgage_refinance_why_option_2') },
     { value: 'option_3', label: t('mortgage_refinance_why_option_3') },
     { value: 'option_4', label: t('mortgage_refinance_why_option_4') },
     { value: 'option_5', label: t('mortgage_refinance_why_option_5') },
-  ]
+  ], [t])
 
-  const WhereIsRegisteredOptions = [
+  const WhereIsRegisteredOptions = useMemo(() => [
     { value: 'option_1', label: t('mortgage_refinance_reg_option_1') },
     { value: 'option_2', label: t('mortgage_refinance_reg_option_2') },
     { value: 'option_3', label: t('mortgage_refinance_reg_option_3') },
     { value: 'option_4', label: t('mortgage_refinance_reg_option_4') },
     { value: 'option_5', label: t('mortgage_refinance_reg_option_5') },
-  ]
+  ], [t])
 
   const BankSelectOptions = [
     { value: 'hapoalim', label: 'Bank Hapoalim' },
