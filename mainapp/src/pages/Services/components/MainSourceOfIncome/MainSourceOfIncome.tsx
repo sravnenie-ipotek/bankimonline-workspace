@@ -8,7 +8,6 @@ import { FormTypes } from '../../types/formTypes'
 
 const MainSourceOfIncome = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const MainSourceOfIncomeOptions = [
     { value: 'option_1', label: t('calculate_mortgage_main_source_option_1') },

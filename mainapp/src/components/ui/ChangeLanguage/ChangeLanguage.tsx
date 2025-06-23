@@ -28,7 +28,6 @@ const ChangeLanguage = () => {
   const wrapperRef = useRef<HTMLDivElement>(null)
 
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const language = useAppSelector((state) => state.language.language)
 

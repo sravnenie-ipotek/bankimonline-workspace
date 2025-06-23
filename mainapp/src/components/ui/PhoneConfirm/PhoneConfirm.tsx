@@ -6,7 +6,6 @@ import './PhoneConfirm.css'
 // Компонент окна подтверждения телефона
 export default function PhoneConfirm() {
   const { i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const handleClosePhone = () => {
     document.getElementsByClassName('phone-confirm')[0].classList.add('hidden')

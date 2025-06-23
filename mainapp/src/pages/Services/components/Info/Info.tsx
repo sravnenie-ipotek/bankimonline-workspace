@@ -9,7 +9,6 @@ const cx = classNames.bind(styles)
 
 const Info = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   return (
     <div className={cx('info')}>
       <div>

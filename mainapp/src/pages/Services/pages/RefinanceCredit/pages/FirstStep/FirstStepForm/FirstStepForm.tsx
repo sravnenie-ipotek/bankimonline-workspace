@@ -16,7 +16,6 @@ import { CreditData } from './ui/CreditData'
 
 const FirstStepForm = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const WhyYouTakeCreditOptions = [
     { value: 'option_1', label: t('calculate_credit_why_option_1') },

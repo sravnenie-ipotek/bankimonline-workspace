@@ -6,7 +6,6 @@ import { RowTwo } from '@src/components/ui/RowTwo'
 
 const PhoneEdit = () => {
   const { i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   return (
     <RowTwo>

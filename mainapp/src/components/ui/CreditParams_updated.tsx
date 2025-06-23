@@ -34,7 +34,6 @@ export const CreditParams_updated: FC<TypesValues> = ({
   // const [minMonthlyPayment, setMinMonthlyPayment] = useState(2654)
 
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   // const { activeField, setActiveField } = useContext(ActiveFieldContext)
 

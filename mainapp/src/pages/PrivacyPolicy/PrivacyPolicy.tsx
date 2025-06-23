@@ -4,7 +4,6 @@ import { TextPage } from '@src/components/ui/TextPage'
 
 const PrivacyPolicy = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   return (
     <TextPage
       title={t('privacy_policy_title')}

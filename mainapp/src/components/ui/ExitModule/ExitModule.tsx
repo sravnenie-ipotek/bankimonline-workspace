@@ -25,7 +25,6 @@ const ExitModule: React.FC<TypeProps> = ({
 }) => {
   const dialogRef = useRef<HTMLDialogElement | null>(null)
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   useEffect(() => {
     if (isVisible) dialogRef?.current?.showModal()

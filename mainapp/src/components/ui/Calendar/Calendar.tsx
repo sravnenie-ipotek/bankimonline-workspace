@@ -46,7 +46,6 @@ const Calendar: React.FC<PropTypes> = ({
   const { colors } = useTheme()
 
   // Установка текущего языка приложения
-  i18n.language = i18n.language.split('-')[0]
 
   // Функция для создания списка годов
   function range(startYear: number, currentYear: number): number[] {

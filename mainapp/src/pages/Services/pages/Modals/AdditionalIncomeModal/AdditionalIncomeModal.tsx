@@ -14,7 +14,6 @@ import { AdditionalIncomeForm } from './AdditionalIncomeForm'
 
 const AdditionalIncomeModal = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const dispatch = useAppDispatch()
 
