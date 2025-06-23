@@ -20,7 +20,6 @@ export default function CreditParams() {
   const [minMonthlyPayment, setMinMonthlyPayment] = useState(2654)
 
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const { setFieldValue, values, errors } =
     useFormikContext<CalculateMortgageTypes>()

@@ -24,7 +24,10 @@ const i18nConfig: InitOptions = {
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',
   },
-  debug: false, // Enable debug logging
+  debug: false, // Disable debug logging for production
+  react: {
+    useSuspense: false, // Disable suspense to prevent loading issues
+  },
 }
 
 i18n.use(HttpBackend).use(initReactI18next).init(i18nConfig)

@@ -15,7 +15,6 @@ import styles from './obligationForm.module.scss'
 const cx = classNames.bind(styles)
 const ObligationForm = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const { handleSubmit, isValid, values } =
     useFormikContext<ObligationModalTypes>()
 

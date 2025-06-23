@@ -108,6 +108,17 @@ ul.dropdown li {
   width: 2rem;
 }
 
+.flag-en {
+  background: url(/static/lang/en.svg) no-repeat;
+  height: 2rem;
+  width: 2rem;
+}
+
+.language-switcher-en {
+  right: 34rem;
+  width: 14.375rem;
+}
+
 @media (max-width: 890px) {
   .language-switcher-ru {
     position: absolute;
@@ -120,6 +131,13 @@ ul.dropdown li {
     position: absolute;
     right: -2rem;
     top: 0.8rem;
+  }
+
+  .language-switcher-en {
+    position: absolute;
+    right: 0;
+    top: 0.8rem;
+    left: 7rem;
   }
 }
 з @media (min-width: 890px) {

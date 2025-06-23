@@ -57,7 +57,6 @@ export const validationSchema = Yup.object().shape({
 
 const FirstStep: FC = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const dispatch = useAppDispatch()
 
   const navigate = useNavigate()

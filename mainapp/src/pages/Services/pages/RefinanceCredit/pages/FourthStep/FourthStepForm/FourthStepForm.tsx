@@ -11,7 +11,6 @@ import { UserParams } from '@src/pages/Services/components/UserParams'
 
 const FourthStepForm = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const userData = useAppSelector((state) => state.login.loginData)
   // const creditParameters = useAppSelector((state) => state.refinanceCredit)

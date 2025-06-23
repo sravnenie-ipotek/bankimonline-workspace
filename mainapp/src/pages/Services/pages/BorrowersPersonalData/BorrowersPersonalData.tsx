@@ -10,7 +10,6 @@ import { useAppSelector } from '@src/hooks/store'
 const BorrowersPersonalData = () => {
   const { stepNumber } = useParams()
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const navigate = useNavigate()
 
   const isLogin = useAppSelector((state) => state.login.isLogin)
