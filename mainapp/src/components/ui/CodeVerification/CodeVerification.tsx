@@ -1,6 +1,7 @@
 import { useFormik, useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
 
+import { validationSchemaEN } from '@components/layout/Flows/validations/validationSchemaEN.ts'
 import { validationSchemaHE } from '@components/layout/Flows/validations/validationSchemaHE.ts'
 import { validationSchemaRU } from '@components/layout/Flows/validations/validationSchemaRU.ts'
 import { CodeInput } from '@components/ui/CodeInput'
@@ -44,6 +45,8 @@ export function CodeVerification<
     validationSchema:
       i18n.language === 'he'
         ? validationSchemaHE.AuthFlow.CodeVerify
+        : i18n.language === 'en'
+        ? validationSchemaEN.AuthFlow.CodeVerify
         : validationSchemaRU.AuthFlow.CodeVerify,
     validateOnMount: false,
   })
