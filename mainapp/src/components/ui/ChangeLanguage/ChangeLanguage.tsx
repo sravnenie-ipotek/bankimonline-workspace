@@ -82,6 +82,12 @@ const ChangeLanguage = () => {
       await i18n.changeLanguage(newLanguage)
       setSelectedLanguage(newLanguage)
       dispatch(changeLanguage(newLanguage))
+      
+      // Immediately update document direction
+      const dir = newLanguage === 'he' ? 'rtl' : 'ltr'
+      document.documentElement.dir = dir
+      document.documentElement.setAttribute('dir', dir)
+      document.documentElement.lang = newLanguage
     } catch (error) {
       console.error('Error changing language:', error)
     }
