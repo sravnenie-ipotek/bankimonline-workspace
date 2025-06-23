@@ -12,7 +12,12 @@ export const TranslationDebug: React.FC = () => {
     'title_compare',
     'fill_form_text',
     'app_name',
-    'compare_in_5mins'
+    'compare_in_5mins',
+    'calculate_mortgage_is_medinsurance',
+    'yes',
+    'no',
+    'calculate_mortgage_is_foreigner', 
+    'calculate_mortgage_children18'
   ]
 
   return (
