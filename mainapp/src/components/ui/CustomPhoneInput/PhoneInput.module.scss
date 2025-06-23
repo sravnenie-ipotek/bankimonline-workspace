@@ -27,8 +27,8 @@
   html[dir="rtl"] & {
     padding-left: 1rem !important;
     padding-right: 6rem !important;
-    text-align: right !important;
-    direction: ltr !important; // Keep direction LTR for phone numbers even in RTL layout
+    direction: ltr !important; // Always LTR for phone numbers
+    text-align: left !important; // Always left-align phone numbers
   }
 }
 
@@ -38,6 +38,13 @@
     
     .react-tel-input {
       direction: ltr !important;
+    }
+    
+    // Force phone input to be LTR
+    input {
+      direction: ltr !important;
+      text-align: left !important;
+      unicode-bidi: embed !important;
     }
   }
 }
@@ -113,6 +120,22 @@ html[dir="rtl"] {
   .phone-input {
     padding-left: 1rem !important;
     padding-right: 6rem !important;
+    direction: ltr !important;
+    text-align: left !important;
+  }
+  
+  // Ensure all phone-related inputs are LTR
+  .react-tel-input input {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: embed !important;
+  }
+  
+  // Target the specific phone input component
+  .phone-wrapper input[type="tel"] {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: embed !important;
   }
 }
 
