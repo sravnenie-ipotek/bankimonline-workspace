@@ -12,6 +12,7 @@ import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
 import { openAuthModal } from '@src/pages/Services/slices/modalSlice'
 
 import TopServices from '../../components/ui/TopServices/TopServices'
+import TranslationDebug from '../../components/debug/TranslationDebug'
 import styles from './home.module.scss'
 
 const cx = classNames.bind(styles)
@@ -30,6 +31,7 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <TranslationDebug />
       <div className={cx('home')}>
         <Container>
           <VideoPoster

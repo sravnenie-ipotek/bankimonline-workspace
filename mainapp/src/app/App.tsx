@@ -42,7 +42,27 @@ const App = () => {
     // Initialize translations and wait for them to load
     const initializeTranslations = async () => {
       try {
+        // Wait for i18n to be initialized first
+        if (!i18n.isInitialized) {
+          await new Promise((resolve) => {
+            i18n.on('initialized', resolve)
+          })
+        }
+        
+        // Change language and wait for resources to load
         await i18n.changeLanguage(language)
+        
+        // Verify translations are actually loaded
+        const testTranslation = i18n.t('fill_form', { lng: language })
+        console.log('🧪 Test translation for "fill_form":', testTranslation)
+        
+        if (testTranslation === 'fill_form') {
+          console.log('⚠️ Translations not loaded yet, retrying...')
+          // Try to reload resources
+          await i18n.reloadResources(language)
+          await new Promise(resolve => setTimeout(resolve, 500)) // Wait a bit more
+        }
+        
         setTranslationsLoaded(true)
         document.documentElement.setAttribute('dir', direction)
         document.documentElement.setAttribute('lang', language)

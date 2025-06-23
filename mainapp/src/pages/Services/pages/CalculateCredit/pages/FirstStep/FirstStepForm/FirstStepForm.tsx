@@ -67,7 +67,7 @@ export const FirstStepForm: FC = () => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await fetch(`/api/get-cities?lang=${lang}`)
+        const response = await fetch(`/api/get-cities?lang=${i18n.language}`)
         const data = await response.json()
         if (data.status === 'success') {
           const formattedCities = data.data.map((city) => ({
@@ -84,7 +84,7 @@ export const FirstStepForm: FC = () => {
     }
 
     fetchCities()
-  }, [lang])
+  }, [i18n.language])
 
   const handleChangePeriod = (value: number | string | null) => {
     dispatch(setActiveField('period'))
