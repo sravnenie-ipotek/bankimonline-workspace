@@ -72,12 +72,12 @@ const CreditData = () => {
     close()
   }
 
-  const data = [
-    { value: 'hapoalim', label: 'Bank Hapoalim' },
-    { value: 'leumi', label: 'Leumi Bank' },
-    { value: 'discount', label: 'Discount Bank' },
-    { value: 'massad', label: 'Massad Bank' },
-    { value: 'israel', label: 'Bank of Israel' },
+  const banks = [
+    { value: 'hapoalim', label: t('bank_hapoalim') },
+    { value: 'leumi', label: t('bank_leumi') },
+    { value: 'discount', label: t('bank_discount') },
+    { value: 'massad', label: t('bank_massad') },
+    { value: 'israel', label: t('bank_israel') },
   ]
 
   return (
@@ -97,7 +97,7 @@ const CreditData = () => {
                     <div className={cx('col', 'col-1')}>
                       <DropdownMenu
                         title={t('bank_apply_credit')}
-                        data={data}
+                        data={banks}
                         placeholder={t('calculate_mortgage_first_ph')}
                         value={item.bank}
                         onChange={(value) =>
@@ -209,7 +209,7 @@ const CreditData = () => {
                   <Column>
                     <DropdownMenu
                       title={t('bank_apply_credit')}
-                      data={data}
+                      data={banks}
                       placeholder={t('calculate_mortgage_first_ph')}
                       value={item.bank}
                       onChange={(value) =>
@@ -312,7 +312,7 @@ const CreditData = () => {
                   <Column>
                     <DropdownMenu
                       title={t('bank_apply_credit')}
-                      data={data}
+                      data={banks}
                       placeholder={t('calculate_mortgage_first_ph')}
                       value={item.bank}
                       onChange={(value) =>

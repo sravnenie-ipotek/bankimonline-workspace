@@ -160,7 +160,7 @@ const BankOffers = () => {
         'Состоит из двух процентов: Меняющийся (0,25%) Постоянный (1,5%) = 1,75%',
     },
     {
-      title: 'Плавающий процент с прикреплением к инфляции ',
+              title: t('floating_interest_inflation'),
       mortgageAmount: 1000000,
       monthlyPayment: 10000,
       percent: 2.1,

@@ -580,8 +580,8 @@
 
         // Discover and load all available YouTrack JSON files from youtrackReports folder
         async function discoverFiles() {
-            const potentialFiles = [
-                // Files in youtrackReports folder
+            // Only check for files we know exist
+            const knownFiles = [
                 'youtrackReports/youTrackReports.json',
                 'youtrackReports/youTrackReports_136-200.json',
                 'youtrackReports/youTrackReports_200-300.json',
@@ -589,37 +589,11 @@
                 'youtrackReports/youTrackReports_400-500.json',
                 'youtrackReports/youTrackReports_500-600.json',
                 'youtrackReports/youTrackReports_600-628.json',
-                'youtrackReports/youTrackReports_LK.json',
-                
-                // Additional potential range files
-                'youtrackReports/youTrackReports_1-100.json',
-                'youtrackReports/youTrackReports_100-136.json',
-                'youtrackReports/youTrackReports_628-700.json',
-                'youtrackReports/youTrackReports_700-800.json',
-                'youtrackReports/youTrackReports_800-900.json',
-                'youtrackReports/youTrackReports_900-1000.json'
+                'youtrackReports/youTrackReports_LK.json'
             ];
 
-            const availableFiles = [];
-            console.log('Starting file discovery...');
-            
-            for (const filePath of potentialFiles) {
-                try {
-                    console.log(`Checking ${filePath}...`);
-                    const response = await fetch(`./${filePath}`);
-                    if (response.ok) {
-                        console.log(`✅ Found: ${filePath}`);
-                        availableFiles.push(filePath);
-                    } else {
-                        console.log(`❌ Not found (${response.status}): ${filePath}`);
-                    }
-                } catch (error) {
-                    console.log(`❌ Error accessing ${filePath}:`, error.message);
-                }
-            }
-            
-            console.log(`Discovery complete. Found ${availableFiles.length} files.`);
-            return availableFiles;
+            console.log('Loading known YouTrack files...');
+            return knownFiles;
         }
 
         // Load and parse JSON data

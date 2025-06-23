@@ -10,11 +10,11 @@ const Bank = () => {
   const { t, i18n } = useTranslation()
 
   const BankSelectOptions = [
-    { value: 'hapoalim', label: 'Bank Hapoalim' },
-    { value: 'leumi', label: 'Leumi Bank' },
-    { value: 'discount', label: 'Discount Bank' },
-    { value: 'massad', label: 'Massad Bank' },
-    { value: 'israel', label: 'Bank of Israel' },
+    { value: 'hapoalim', label: t('bank_hapoalim') },
+    { value: 'leumi', label: t('bank_leumi') },
+    { value: 'discount', label: t('bank_discount') },
+    { value: 'massad', label: t('bank_massad') },
+    { value: 'israel', label: t('bank_israel') },
   ]
 
   const { values, setFieldValue, errors, touched, setFieldTouched } =
