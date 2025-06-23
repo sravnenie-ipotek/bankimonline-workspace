@@ -30,7 +30,6 @@ export const FirstStepForm: FC = () => {
   const [minMonthlyPayment, setMinMonthlyPayment] = useState(2654)
   const [cityOptions, setCityOptions] = useState<CityOption[]>([])
   const { t, i18n } = useTranslation()
-  const lang = i18n.language.split('-')[0]
 
   const creditPurposes = [
     { value: 'option_1', label: t('calculate_credit_target_option_1') },

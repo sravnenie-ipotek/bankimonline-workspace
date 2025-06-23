@@ -31,7 +31,6 @@ const CodeForm: React.FC<TypeProps> = ({
   onBack,
 }) => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
 
   const { values, setFieldValue, isValid } = useFormikContext<CodeFormType>()
   const registrationData = useAppSelector((state) => state.login.registrationData)

@@ -21,7 +21,6 @@ const Layout: React.FC = () => {
   const pathMap = location.pathname.split('/')
   const isService = pathMap.includes('services')
   const { i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
   const { isOn: isOpen, toggle: toggleOpen } = useToggle(false)
   const { isDesktop } = useWindowResize()
   const {

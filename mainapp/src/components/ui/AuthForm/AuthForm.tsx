@@ -34,7 +34,6 @@
 //   const dispatch = useDispatch()
 
 //   const { t, i18n } = useTranslation()
-//   i18n.language = i18n.language?.split('-')[0]
 
 //   const activeTab = useSelector(activeTabSelector)
 //   const [signInEmail] = useSignInEmailMutation()

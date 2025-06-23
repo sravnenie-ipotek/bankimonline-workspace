@@ -10,7 +10,6 @@ interface PropTypes {
 // Компонент кнопки
 const Button: React.FC<PropTypes> = ({ name, title, handleClick }) => {
   const { i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
 
   return (
     <span

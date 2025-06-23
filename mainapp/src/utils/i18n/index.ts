@@ -23,11 +23,16 @@ const i18nConfig: InitOptions = {
   defaultNS: 'translation',
   backend: {
     loadPath: '/locales/{{lng}}/{{ns}}.json',
+    requestOptions: {
+      cache: 'no-cache', // Prevent caching issues
+    },
   },
-  debug: false, // Disable debug logging for production
+  debug: true, // Enable debug logging to see what's happening
   react: {
     useSuspense: false, // Disable suspense to prevent loading issues
   },
+  initImmediate: false, // Don't initialize immediately
+  load: 'languageOnly', // Load only the language, not region variants
 }
 
 i18n.use(HttpBackend).use(initReactI18next).init(i18nConfig)
