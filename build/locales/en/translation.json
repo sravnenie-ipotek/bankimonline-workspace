@@ -18,7 +18,7 @@
   "mortgage_calculator_text": "Use our mortgage calculator to obtain accurate mortgage estimates",
   "fill_form_text": "Enter your mortgage details and complete\nour comprehensive application form",
   "fill_form_text_tablet": "You enter your mortgage details and fill out\na single form",
-  "get_program_text": "Based on banking requirements and your profile,\nwe'll identify optimal lending institutions and programs"
+  "get_program_text": "Based on banking requirements and your profile,\nwe'll identify optimal lending institutions and programs",
   "get_program_text_tablet": "Based on bank requirements and questionnaire data,\nwe'll select banks and programs with the best terms",
   "account": "Log into your personal account",
   "footer_text": "Bankimonline is an Israeli financial services company specializing in mortgage and credit solutions, partnering with leading banks across multiple countries.",
@@ -46,7 +46,7 @@
   "calculate_mortgage_programs_m": "Programs",
   "calculate_mortgage_title": "Calculate your mortgage quickly and efficiently",
   "calculate_mortgage_banner_title": "Mortgage calculation",
-  "calculate_mortgage_banner_subtext": "Discover multiple competitive options and offers from leading market providers"
+  "calculate_mortgage_banner_subtext": "Discover multiple competitive options and offers from leading market providers",
   "calculate_mortgage_price": "Housing cost",
   "calculate_mortgage_down_payment": "Down payment",
   "calculate_mortgage_currency": "Currency",

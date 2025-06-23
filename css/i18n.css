@@ -112,11 +112,31 @@
 /* Form inputs RTL */
 [dir="rtl"] input[type="text"],
 [dir="rtl"] input[type="email"],
-[dir="rtl"] input[type="tel"],
 [dir="rtl"] input[type="number"],
 [dir="rtl"] textarea,
 [dir="rtl"] select {
     text-align: right;
+}
+
+/* Phone inputs should always be LTR */
+[dir="rtl"] input[type="tel"] {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: embed !important;
+}
+
+/* React phone input specific styling */
+[dir="rtl"] .react-tel-input input {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: embed !important;
+}
+
+/* Custom phone input wrapper */
+[dir="rtl"] .phone-wrapper input {
+    direction: ltr !important;
+    text-align: left !important;
+    unicode-bidi: embed !important;
 }
 
 /* Language selector */
