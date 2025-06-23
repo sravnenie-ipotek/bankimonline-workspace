@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind'
-import { lazy, useEffect } from 'react'
+import { lazy, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -27,6 +27,7 @@ const App = () => {
   )
 
   const { i18n } = useTranslation()
+  const [translationsLoaded, setTranslationsLoaded] = useState(false)
 
   useEffect(() => {
     /*
@@ -38,10 +39,22 @@ const App = () => {
     //   window.location.href = 'https://dev2.bankimonline.com'
     // }
 
-    i18n.changeLanguage(language)
-    document.documentElement.setAttribute('dir', direction)
-    document.documentElement.setAttribute('lang', language)
-  }, [language])
+    // Initialize translations and wait for them to load
+    const initializeTranslations = async () => {
+      try {
+        await i18n.changeLanguage(language)
+        setTranslationsLoaded(true)
+        document.documentElement.setAttribute('dir', direction)
+        document.documentElement.setAttribute('lang', language)
+        console.log('✅ Translations loaded for language:', language)
+      } catch (error) {
+        console.error('❌ Error loading translations:', error)
+        setTranslationsLoaded(true) // Continue anyway
+      }
+    }
+
+    initializeTranslations()
+  }, [language, i18n, direction])
 
   const dispatch = useAppDispatch()
 
@@ -61,6 +74,22 @@ const App = () => {
       window.removeEventListener('resize', handleResize)
     }
   }, [dispatch])
+
+  // Show loading state until translations are loaded
+  if (!translationsLoaded) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        backgroundColor: '#161616',
+        color: '#FBE54D'
+      }}>
+        <div>Loading translations...</div>
+      </div>
+    )
+  }
 
   return (
     <section

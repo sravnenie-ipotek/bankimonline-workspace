@@ -25,7 +25,6 @@ const USER_DATA = 'USER_DATA'
 
 const AuthModal = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
 
   const [sendCodeMobile] = useSendSmsCodeMobileMutation()
   const [sendCodeEmail] = useSendSmsCodeEmailMutation()
