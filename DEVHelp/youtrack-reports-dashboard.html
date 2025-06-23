@@ -589,6 +589,7 @@
                 'youtrackReports/youTrackReports_400-500.json',
                 'youtrackReports/youTrackReports_500-600.json',
                 'youtrackReports/youTrackReports_600-628.json',
+                'youtrackReports/youTrackReports_LK.json',
                 
                 // Additional potential range files
                 'youtrackReports/youTrackReports_1-100.json',
@@ -600,18 +601,24 @@
             ];
 
             const availableFiles = [];
+            console.log('Starting file discovery...');
             
             for (const filePath of potentialFiles) {
                 try {
+                    console.log(`Checking ${filePath}...`);
                     const response = await fetch(`./${filePath}`);
                     if (response.ok) {
+                        console.log(`✅ Found: ${filePath}`);
                         availableFiles.push(filePath);
+                    } else {
+                        console.log(`❌ Not found (${response.status}): ${filePath}`);
                     }
                 } catch (error) {
-                    // File doesn't exist, skip it
+                    console.log(`❌ Error accessing ${filePath}:`, error.message);
                 }
             }
             
+            console.log(`Discovery complete. Found ${availableFiles.length} files.`);
             return availableFiles;
         }
 
@@ -633,21 +640,29 @@
 
                 const filePromises = availableFiles.map(async (filePath) => {
                     try {
+                        console.log(`Loading ${filePath}...`);
                         const response = await fetch(`./${filePath}`);
                         if (response.ok) {
                             const data = await response.json();
                             const fileName = filePath.split('/').pop(); // Extract just the filename
+                            console.log(`✅ Successfully loaded ${filePath}`);
                             return { data, name: fileName, fullPath: filePath };
+                        } else {
+                            console.error(`❌ Failed to load ${filePath}: HTTP ${response.status}`);
                         }
                         return null;
                     } catch (error) {
-                        console.warn(`Could not load ${filePath}:`, error);
+                        console.error(`❌ Error loading ${filePath}:`, error);
                         return null;
                     }
                 });
 
                 const results = await Promise.all(filePromises);
                 const validResults = results.filter(result => result !== null);
+
+                if (validResults.length === 0) {
+                    throw new Error('No YouTrack files could be loaded. Please check the file paths and server configuration.');
+                }
 
                 // Parse reports from all loaded files
                 allReports = [];
