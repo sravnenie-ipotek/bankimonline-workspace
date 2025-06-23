@@ -55,20 +55,20 @@ const MobileChangeLanguage = () => {
   const data = [
     {
       value: 'ru',
-      country: 'Россия',
-      language: 'Русский',
+      country: t('country_russia'),
+      language: t('language_russian'),
       icon: <RussiaFlagIcon />,
     },
     {
       value: 'he',
-      country: 'ישראל',
-      language: 'עִברִית',
+      country: t('country_israel'),
+      language: t('language_hebrew'),
       icon: <IsraelFlagIcon />,
     },
     {
       value: 'en',
-      country: 'United States',
-      language: 'English',
+      country: t('country_us'),
+      language: t('language_english'),
       icon: <USFlagIcon />,
     },
   ]
