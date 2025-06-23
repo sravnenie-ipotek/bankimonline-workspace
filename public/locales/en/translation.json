@@ -1,6 +1,6 @@
 {
   "calculate_mortgage": "Calculate Mortgage",
-  "refinance_mortgage": "Refinance Mortgage",
+  "refinance_mortgage": "Refinance Mortgage", 
   "calculate_credit": "Calculate Credit",
   "refinance_credit": "Refinance Credit",
   "video_calculate_mortgage_title": "Mortgage Calculation",
@@ -10,6 +10,9 @@
   "calculate_mortgage_price": "Property price",
   "show_offers": "Show offers",
   "fill_form": "Fill the form",
+  "title_compare": "Compare Mortgages",
+  "TITLE_COMPARE": "Compare Mortgages",
+  "compare_in_5minutes": "Find your optimal mortgage in 5 minutes",
   "button_next": "Next",
   "button_save": "Save",
   "button_continue": "Continue",
