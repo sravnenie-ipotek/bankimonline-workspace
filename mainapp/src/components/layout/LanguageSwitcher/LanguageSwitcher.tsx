@@ -24,7 +24,6 @@ interface Props {
 
 export default function LanguageSwitcher({ className = '', onChange }: Props) {
   const { t, i18n } = useTranslation()
-  const currentLang = i18n.language?.split('-')[0]
   const languageOptions = getLanguageOptions(t)
 
   const selectedLangOption = languageOptions?.find(

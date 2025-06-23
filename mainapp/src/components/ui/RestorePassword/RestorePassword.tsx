@@ -14,7 +14,6 @@
 
 // export function RestorePassword() {
 //   const { t, i18n } = useTranslation()
-//   i18n.language = i18n.language?.split('-')[0]
 
 //   const formikContext = useFormikContext<IInitialValuesState>()
 //   const formik = useFormik<

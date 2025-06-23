@@ -26,7 +26,6 @@
 //   const formikContext = useFormikContext<IInitialValuesState>()
 //   const activeTab = useSelector(activeTabSelector)
 //   const { t, i18n } = useTranslation()
-//   i18n.language = i18n.language?.split('-')[0]
 
 //   const formik = useFormik<Pick<IInitialValuesState, 'phone' | 'email'>>({
 //     initialValues: {

@@ -5,7 +5,6 @@ import './Terms.css'
 
 const Body: React.FC = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
 
   return (
     <div className={'home'} style={{ paddingTop: '0' }}>

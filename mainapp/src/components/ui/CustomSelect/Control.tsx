@@ -6,7 +6,6 @@ import styled from '@emotion/styled'
 // компонент выпадающего списка
 const Control = (p: { name: string }) => {
   const { i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
 
   return styled(Select)`
     align-self: stretch;

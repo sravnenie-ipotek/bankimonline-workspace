@@ -24,7 +24,6 @@ interface CityOption {
 
 const FirstStepForm = () => {
   const { t, i18n } = useTranslation()
-  const lang = i18n.language.split('-')[0]
   const dispatch = useAppDispatch()
 
   const [cityOptions, setCityOptions] = useState<CityOption[]>([])

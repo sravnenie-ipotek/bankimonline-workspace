@@ -9,7 +9,6 @@ import Step3 from './Step3'
 // Компонент для бока на главной - как это работает
 const HowItWorks = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
   return (
     <div className={'how-it-works'}>
       <div className={'how-it-works-title-' + i18n.language}>

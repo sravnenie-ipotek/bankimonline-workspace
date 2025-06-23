@@ -10,7 +10,6 @@ const cx = classNames.bind(styles)
 // Компонет блока с информацией
 export default function InfoBlock() {
   const { i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
 
   return (
     <div className={cx('footer-info')}>

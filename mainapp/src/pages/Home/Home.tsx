@@ -19,7 +19,6 @@ const cx = classNames.bind(styles)
 // Компонент главной страницы
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
   
   // TEST: Phone verification modal
   const dispatch = useAppDispatch()

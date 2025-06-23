@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 // Компонент бургерменю
 export default function Burger() {
   const { i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
 
   return (
     <>

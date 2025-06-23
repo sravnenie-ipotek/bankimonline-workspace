@@ -27,7 +27,6 @@
 //   const restorePasswordStep = useSelector(restorePasswordStepSelector)
 //   const activeTab = useSelector(activeTabSelector)
 //   const { t, i18n } = useTranslation()
-//   i18n.language = i18n.language?.split('-')[0]
 
 //   const handleVerifyStep = () => {
 //     dispatch(setRestorePasswordSteps(ERestorePasswordSteps.TypeVerify))

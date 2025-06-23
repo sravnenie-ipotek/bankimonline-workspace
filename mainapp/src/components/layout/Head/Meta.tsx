@@ -8,7 +8,6 @@ import './Header.module.scss'
 // Компонент заголовка
 const Meta: React.FC = () => {
   const { i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
   
   const { direction, language } = useAppSelector((state) => state.language)
 

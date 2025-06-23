@@ -21,7 +21,6 @@ const cx = classNames.bind(styles)
 
 const SignUpForm = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language?.split('-')[0]
 
   // const activeTab = useAppSelector((state) => state.login.activeTab)
   const dispatch = useAppDispatch()
