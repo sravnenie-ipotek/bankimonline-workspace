@@ -54,12 +54,11 @@ const FirstStepForm = () => {
     { value: 'option_5', label: t('mortgage_refinance_reg_option_5') },
   ], [t])
 
-  const BankSelectOptions = [
-    { value: 'hapoalim', label: 'Bank Hapoalim' },
-    { value: 'leumi', label: 'Leumi Bank' },
-    { value: 'discount', label: 'Discount Bank' },
-    { value: 'massad', label: 'Massad Bank' },
-    { value: 'israel', label: 'Bank of Israel' },
+  const banks = [
+    { value: 'hapoalim', label: t('bank_hapoalim') },
+    { value: 'leumi', label: t('bank_leumi') },
+    { value: 'discount', label: t('bank_discount') },
+    { value: 'massad', label: t('bank_massad') },
   ]
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
@@ -183,7 +182,7 @@ const FirstStepForm = () => {
           </Column>
           <Column>
             <DropdownMenu
-              data={BankSelectOptions}
+              data={banks}
               title={t('mortgage_refinance_bank')}
               placeholder={t('calculate_mortgage_citizenship_ph')}
               value={values.bank}
