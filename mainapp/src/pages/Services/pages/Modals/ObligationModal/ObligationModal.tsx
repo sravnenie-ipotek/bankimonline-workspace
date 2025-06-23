@@ -13,7 +13,6 @@ import { ObligationForm } from './ObligationForm'
 
 const ObligationModal = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const dispatch = useAppDispatch()
 

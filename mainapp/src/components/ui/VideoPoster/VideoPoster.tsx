@@ -37,7 +37,6 @@ const VideoPoster: React.FC<TypeProps> = ({
   }
 
   const { i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   useEffect(() => {
     if (audioElementRef.current) {

@@ -9,7 +9,6 @@ import { FormTypes } from '../../types/formTypes'
 
 const AdditionalCitizenship = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const { values, setFieldValue, errors, touched } =
     useFormikContext<FormTypes>()

@@ -32,7 +32,6 @@ export function CustomPhoneInput({
 }: CustomPhoneInputProps) {
   const id = useId()
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   return (
     <div className={cx('phone-wrapper')}>

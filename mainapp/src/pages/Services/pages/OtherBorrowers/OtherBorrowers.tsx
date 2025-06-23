@@ -12,7 +12,6 @@ import { SecondStep } from '@src/pages/Services/pages/OtherBorrowers/SecondStep'
 const OtherBorrowers = () => {
   const { stepNumber } = useParams()
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const navigate = useNavigate()
   const isLogin = useAppSelector((state) => state.login.isLogin)

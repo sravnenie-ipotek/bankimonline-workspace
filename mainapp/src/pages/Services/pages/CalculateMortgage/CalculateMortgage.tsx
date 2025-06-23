@@ -16,7 +16,6 @@ const CalculateMortgage = () => {
   const { t, i18n } = useTranslation()
 
   const navigate = useNavigate()
-  i18n.language = i18n.language.split('-')[0]
 
   const isLogin = useAppSelector((state) => state.login.isLogin)
 

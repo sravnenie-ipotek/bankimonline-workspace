@@ -8,7 +8,6 @@ import { LoginFormTypes } from '../../LoginForm'
 
 const NameSurnameLogin = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<LoginFormTypes>()
 

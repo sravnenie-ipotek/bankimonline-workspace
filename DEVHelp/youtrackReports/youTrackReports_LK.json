@@ -53,6 +53,172 @@
   },
   "issues": [
     {
+      "issue_id": "LK-122",
+      "title": "26.0. Главная. Заявка. Ответы от банка",
+      "description": "Default screen when user completed entire userflow for one service until Personal Cabinet registration, registered and landed on main page. Shows application status, progress, and bank responses.",
+      "actions_required": 25,
+      "actions_completed": 19,
+      "completion_percentage": 75,
+      "status": "🔶 PARTIALLY IMPLEMENTED - EXCELLENT FOUNDATION, MISSING MAIN COMPONENT",
+      "analysis": {
+        "gap_analysis_result": "🔶 PARTIAL IMPLEMENTATION - Excellent infrastructure exists but main dashboard component missing",
+        "requirements_completeness": "✅ COMPLETE - All 25 actions properly documented in YouTrack",
+        "figma_integration": "✅ COMPLETE - Web design analyzed and accessible",
+        "technical_specifications": "✅ COMPLETE - Frontend layout and component requirements specified",
+        "business_logic": "✅ COMPLETE - Application status display and progress tracking defined",
+        "user_experience": "✅ COMPLETE - Main dashboard workflow clearly documented",
+        "implementation_status": "🔶 PARTIAL - Infrastructure excellent but main content component missing",
+        "detailed_analysis": {
+          "figma_vs_codebase_comparison": {
+            "personal_cabinet_layout": {
+              "figma_design": "✅ Sidebar navigation with 'Главная' (Home) link, top header with notifications",
+              "current_implementation": "✅ FULLY IMPLEMENTED - PersonalCabinetLayout with perfect sidebar and header",
+              "gap_severity": "NONE"
+            },
+            "main_dashboard_page": {
+              "figma_design": "✅ 'Главная' page with 'Моя Анкета' section, application status, progress bar",
+              "current_implementation": "❌ MISSING - Currently shows SettingsPage instead of dashboard",
+              "gap_severity": "HIGH"
+            },
+            "application_status_display": {
+              "figma_design": "✅ Credit calculation service display with loan amount (1,000,000 ₪), term (360 months), down payment (500,000 ₪)",
+              "current_implementation": "❌ MISSING - No application status component",
+              "gap_severity": "HIGH"
+            },
+            "progress_section": {
+              "figma_design": "✅ Progress bar showing 70% completion with text 'Закончите анкету, позвольте банкам конкурировать за вас'",
+              "current_implementation": "🔶 PARTIAL - ProgressBar component exists but not integrated",
+              "gap_severity": "MEDIUM"
+            },
+            "action_buttons": {
+              "figma_design": "✅ 'Закончить анкету' and 'Загрузите документы' action buttons",
+              "current_implementation": "❌ MISSING - No action buttons component for dashboard",
+              "gap_severity": "MEDIUM"
+            },
+            "program_dropdown": {
+              "figma_design": "✅ 'Предварительно выбранная программа' dropdown selector",
+              "current_implementation": "❌ MISSING - No program selector component",
+              "gap_severity": "MEDIUM"
+            },
+            "complete_button": {
+              "figma_design": "✅ Yellow 'Завершить анкету' (Complete application) button",
+              "current_implementation": "🔶 PARTIAL - Button components exist but not configured for dashboard",
+              "gap_severity": "LOW"
+            },
+            "technical_support": {
+              "figma_design": "✅ 'Техподдержка' (Technical support) button at bottom",
+              "current_implementation": "❌ MISSING - No technical support button",
+              "gap_severity": "LOW"
+            }
+          },
+          "infrastructure_analysis": {
+            "layout_system": "✅ EXCELLENT - PersonalCabinetLayout with sidebar, header, content areas",
+            "routing_system": "🔶 PARTIAL - Route exists but shows wrong component",
+            "component_library": "✅ EXCELLENT - ProgressBar, ServiceCard, Button, Modal components available",
+            "styling_system": "✅ EXCELLENT - Dark theme with exact Figma colors (#161616, #242529, #FBE54D)",
+            "state_management": "✅ READY - React hooks and context available",
+            "translation_system": "✅ READY - i18n configured for Russian/English/Hebrew"
+          },
+          "available_components": {
+            "progress_bar": "✅ AVAILABLE - /mainapp/src/components/ui/ProgressBar/ProgressBar.tsx",
+            "service_cards": "✅ AVAILABLE - TopServices with calculate-credit, refinance-mortgage cards",
+            "buttons": "✅ AVAILABLE - SingleButton and various UI button components",
+            "modals": "✅ AVAILABLE - Complete modal infrastructure",
+            "layout": "✅ AVAILABLE - PersonalCabinetLayout with sidebar and header"
+          }
+        }
+      },
+      "figma_links": {
+        "web_version": "https://www.figma.com/file/HohJkXPxsFPjAt5ZnpggrV/Bankimonline-Dahsboard-%7C-%D0%9B%D0%B8%D1%87%D0%BD%D1%8B%D0%B9-%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82?type=design&node-id=1542-256370&mode=design&t=tlDxFy9QIBPlmBpr-4",
+        "mobile_version": "https://www.figma.com/file/HohJkXPxsFPjAt5ZnpggrV/Bankimonline-Dahsboard-%7C-%D0%9B%D0%B8%D1%87%D0%BD%D1%8B%D0%B9-%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82?type=design&node-id=1542-256370&mode=design&t=tlDxFy9QIBPlmBpr-4"
+      },
+      "development_preparation": {
+        "priority": "HIGH - Main dashboard page required",
+        "estimated_effort": "2-3 development days",
+        "dependencies": ["PersonalCabinet routing structure update", "Application data context", "Progress calculation logic"],
+        "technical_requirements": {
+          "new_components": [
+            "MainDashboard component (main dashboard page)",
+            "ApplicationStatus component (loan details display)",
+            "ActionButtons component (complete application, upload docs)",
+            "ServiceSummary component (current service display)",
+            "ProgramSelector component (dropdown for selected program)"
+          ],
+          "routing_updates": [
+            "/personal-cabinet -> MainDashboard (instead of SettingsPage)",
+            "/personal-cabinet/settings -> SettingsPage (new route)"
+          ],
+          "state_management": [
+            "Application context for loan data",
+            "Progress tracking state",
+            "Service status management"
+          ],
+          "integration_points": [
+            "ProgressBar component integration",
+            "ServiceCard component reuse",
+            "Button component styling",
+            "Modal system for actions"
+          ]
+        }
+      }
+    },
+    {
+      "issue_id": "LK-123",
+      "title": "26.1. Главная. Открытие уведомления",
+      "description": "User opens notification from the main page notification bell. Shows notification dropdown with list of notifications, timestamps, and mark as read functionality.",
+      "actions_required": 6,
+      "actions_completed": 4,
+      "completion_percentage": 67,
+      "status": "🔶 PARTIALLY IMPLEMENTED - EXCELLENT FOUNDATION, MISSING DROPDOWN",
+      "analysis": {
+        "gap_analysis_result": "🔶 PARTIAL IMPLEMENTATION - Notification bell and badge perfect, dropdown component missing",
+        "requirements_completeness": "✅ COMPLETE - All 6 actions properly documented in YouTrack",
+        "figma_integration": "✅ ACCESSIBLE - Design reviewed and analyzed",
+        "current_implementation": {
+          "notification_button": "✅ PERFECT - Bell icon, badge, click handler all implemented",
+          "notification_badge": "✅ PERFECT - Shows count with proper #FBE54D yellow styling",
+          "notification_dropdown": "❌ MISSING - Core dropdown component not implemented",
+          "notification_data": "❌ MISSING - State management for notifications missing",
+          "mark_as_read": "❌ MISSING - Functionality not implemented"
+        },
+        "infrastructure_quality": "✅ EXCELLENT - TopHeader component, SCSS modules, click handlers ready",
+        "component_reusability": "✅ HIGH - Can extend existing TopHeader patterns",
+        "design_system_compliance": "✅ PERFECT - Badge colors and styling match design system",
+        "effort_estimate": "1-2 development days",
+        "priority": "Medium - Enhances user experience but not critical path",
+        "implementation_notes": "Excellent foundation exists. Need to create NotificationDropdown component with proper positioning and state management.",
+        "figma_design_notes": "Clean dropdown design with notification list, timestamps, read/unread states, proper shadows and spacing"
+      }
+    },
+    {
+      "issue_id": "LK-124",
+      "title": "26.2 Личный кабинет. Главная. Услуга не выбрана. Общая",
+      "description": "Default state when user registers without selecting a service initially. Shows service selection cards on main page with heading 'Choose one of the services to continue'.",
+      "actions_required": 14,
+      "actions_completed": 12,
+      "completion_percentage": 86,
+      "status": "🔶 PARTIALLY IMPLEMENTED - EXCELLENT FOUNDATION, MISSING INTEGRATION",
+      "analysis": {
+        "gap_analysis_result": "🔶 PARTIAL IMPLEMENTATION - TopServices component perfect, needs PersonalCabinet integration",
+        "requirements_completeness": "✅ COMPLETE - All 14 actions properly documented in YouTrack",
+        "figma_integration": "✅ ACCESSIBLE - Design reviewed and analyzed",
+        "current_implementation": {
+          "top_services_component": "✅ PERFECT - All 4 service cards implemented with icons, routing, responsive design",
+          "service_cards": "✅ PERFECT - Calculate Mortgage, Refinance Mortgage, Calculate Credit, Refinance Credit",
+          "personal_cabinet_integration": "❌ MISSING - TopServices not used in PersonalCabinet context",
+          "service_selection_page": "❌ MISSING - Main page component for 'no service selected' state",
+          "heading_text": "❌ MISSING - 'Выберите одну из услуг, чтобы продолжить' heading"
+        },
+        "infrastructure_quality": "✅ EXCELLENT - PersonalCabinetLayout, TopServices, ServiceCard all ready",
+        "component_reusability": "✅ HIGH - TopServices component can be directly integrated",
+        "design_system_compliance": "✅ PERFECT - Dark theme, yellow accents, responsive design",
+        "effort_estimate": "1 development day",
+        "priority": "Medium - Service selection enhances user flow",
+        "implementation_notes": "Excellent foundation exists. TopServices component perfectly matches Figma design. Need simple integration into PersonalCabinet.",
+        "figma_design_notes": "Shows 4 service cards in 2x2 grid with icons, titles, proper spacing. Dark theme with yellow accents. Perfect match to existing TopServices component."
+      }
+    },
+    {
       "issue_id": "LK-179",
       "title": "48.7. Настройки. Изменить e-mail. Проверка адреса Email. Общая. Личный кабинет / Стр. 48.7. Действий 5",
       "description": "Email verification modal for confirming email address changes with SMS code input",
@@ -2925,5 +3091,78 @@
     "status": "🔴 CRITICAL GAPS IDENTIFIED - COMPLETE PAYMENTS PAGE MISSING",
     "completion_percentage": 30,
     "last_updated": "2025-01-21 14:38:00"
+  },
+  "LK-125": {
+    "issue_title": "Survey Remaining Questions Personal Data General Personal Cabinet (27. Анкета оставшиеся вопросы. Личные данные. Общая. Личный кабинет / Стр. 27. Действий 17)",
+    "figma_designs": {
+      "web": "https://www.figma.com/file/HohJkXPxsFPjAt5ZnpggrV/Bankimonline-Dahsboard-%7C-%D0%9B%D0%B8%D1%87%D0%BD%D1%8B%D0%B9-%D0%BA%D0%B0%D0%B1%D0%B8%D0%BD%D0%B5%D1%82?type=design&node-id=1705-305712&mode=design&t=tlDxFy9QIBPlmBpr-4",
+      "mobile": "Not accessible"
+    },
+    "actions_count": 17,
+    "requirements_analysis": {
+      "main_functionality": "Comprehensive personal data survey form with 17 actions including address, ID, document issue date, gender, email, property ownership questions, sales contract status, children information, and conditional logic for children's ages",
+      "figma_design_reviewed": false,
+      "figma_access_status": "❌ FIGMA ACCESS FAILED - Node ID 1705:305712 not accessible",
+      "key_features": [
+        "Personal data form with name, surname, birthday, education fields",
+        "Additional citizenship questions with conditional dropdown",
+        "Tax payment questions with country selection",
+        "Children information with conditional age fields",
+        "Medical insurance, foreigner status, public person questions",
+        "Gender/sex selection field (mentioned in requirements)",
+        "Address input fields (mentioned in requirements)",
+        "ID document fields with issue date",
+        "Email field component",
+        "Property ownership questions",
+        "Sales contract status questions",
+        "Conditional logic for children's ages",
+        "Form validation with comprehensive error handling",
+        "Dark theme styling matching PersonalCabinet design",
+        "Responsive layout with Row/Column structure"
+      ]
+    },
+    "implementation_analysis": {
+      "existing_components": [
+        "EXCELLENT BorrowersPersonalData implementation in Services section",
+        "FirstStepForm component has comprehensive personal data form with all core fields",
+        "Components perfectly match requirements: NameSurname, Birthday, Education, AdditionalCitizenship, Taxes, Childrens, HowMuchChildrens, MedicalInsurance, IsForeigner, PublicPerson, FamilyStatus",
+        "All form validation, error handling, and conditional logic already implemented",
+        "Uses Formik with comprehensive validation schema (27 validation rules)",
+        "FormTypes interface covers all required fields for personal data survey",
+        "Translation system with proper i18n integration",
+        "Dark theme styling matches PersonalCabinet design system",
+        "Row/Column layout system for responsive design",
+        "YesNo components for boolean questions, DropdownMenu for selections",
+        "Conditional rendering for dependent fields (citizenship, taxes, children)"
+      ],
+      "gaps_identified": [
+        "Missing gender/sex field component (found in registration flow validation)",
+        "Missing address and ID document fields (mentioned in requirements)",
+        "Missing email field component (exists in profile settings)",
+        "Missing property ownership and sales contract questions",
+        "Missing PersonalCabinet context adaptation",
+        "Missing survey state management integration"
+      ],
+      "components_ready": [
+        "NameSurname, Birthday, Education components",
+        "AdditionalCitizenship, Taxes, Childrens components",
+        "HowMuchChildrens, MedicalInsurance, IsForeigner, PublicPerson components",
+        "FamilyStatus, YesNo, DropdownMenu components",
+        "FormContainer, Row, Column, Divider, FormCaption components",
+        "Formik validation and error handling system"
+      ]
+    },
+    "priority": "Medium",
+    "effort_estimate": "3-4 development days",
+    "dependencies": [
+      "PersonalCabinet routing configuration",
+      "Survey state management system",
+      "Profile data integration",
+      "Additional field components (Gender, Address, ID, Email, Property)",
+      "Survey completion tracking"
+    ],
+    "status": "🔶 PARTIALLY IMPLEMENTED - EXCELLENT FOUNDATION, NEEDS ADAPTATION AND MISSING FIELDS",
+    "completion_percentage": 75,
+    "last_updated": "2025-01-21 14:31:00"
   }
 } 

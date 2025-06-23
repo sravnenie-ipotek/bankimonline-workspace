@@ -14,7 +14,6 @@ const cx = classnames.bind(styles)
 
 const InitialFeeContext: React.FC = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const { values } = useFormikContext<CalculateMortgageTypes>()
 
   const formattedValue = values.initialFee.toLocaleString('en-US')

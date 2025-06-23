@@ -40,7 +40,6 @@ const BankInfoModal: React.FC<BankInfoModalProps> = ({
   conditionBid,
 }) => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const [activeTab, setActiveTab] = useState(tabs[0].value)
 
   const handleChangeTab = (value: string) => {

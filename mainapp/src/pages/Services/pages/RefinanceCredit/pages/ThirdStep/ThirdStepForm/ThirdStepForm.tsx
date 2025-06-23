@@ -43,7 +43,6 @@ import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
 // Компонент расчета ипотеки - 3 шаг
 const ThirdStepForm = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const navigate = useNavigate()
 
   const { values } = useFormikContext<FormTypes>()

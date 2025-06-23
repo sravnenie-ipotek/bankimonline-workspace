@@ -28,7 +28,6 @@ const UserProfileCard: React.FC<TypeProps> = ({
   onDelete,
 }: TypeProps) => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const [isMenuVisible, setMenuVisible] = useState(false)
 
   const toggleMenu = () => {

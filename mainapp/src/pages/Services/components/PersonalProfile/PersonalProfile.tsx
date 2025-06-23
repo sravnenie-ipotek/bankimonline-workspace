@@ -16,7 +16,6 @@ type TypeProps = {
 }
 const PersonalProfile: React.FC<TypeProps> = ({ name, phone }: TypeProps) => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const navigate = useNavigate()
   return (
     <Column>

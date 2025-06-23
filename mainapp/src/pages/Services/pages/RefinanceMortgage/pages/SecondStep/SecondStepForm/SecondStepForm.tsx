@@ -30,7 +30,6 @@ import { FormTypes } from '@src/pages/Services/types/formTypes'
 // Компонент расчета ипотеки - 2 шаг
 const SecondStepForm = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const { values } = useFormikContext<FormTypes>()
 

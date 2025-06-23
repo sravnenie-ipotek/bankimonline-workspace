@@ -24,7 +24,6 @@ const MortgageParameters: React.FC<TypeProps> = ({
   credit,
 }: TypeProps) => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const navigate = useNavigate()
 
   const formattedCost = cost?.toLocaleString('en-US')

@@ -23,7 +23,6 @@ import { MortgageData } from './ui/MortgageData'
 
 const FirstStepForm = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const [maxMonthlyPayment, setMaxMonthlyPayment] = useState(51130)
   const [minMonthlyPayment, setMinMonthlyPayment] = useState(2654)
 

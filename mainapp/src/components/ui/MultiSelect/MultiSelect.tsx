@@ -39,7 +39,6 @@ const MultiSelect: React.FC<TypeProps> = ({
   error,
 }: TypeProps) => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
   const [isOpen, setIsOpen] = useState(false)
   const [searchTerm, setSearchTerm] = useState('')
   const [checkItem, setCheckItem] = useState<string[]>([])

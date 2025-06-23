@@ -8,7 +8,6 @@ import { FormTypes } from '../../types/formTypes'
 
 const Obligation = () => {
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   const { values, setFieldValue, touched, errors, setFieldTouched } =
     useFormikContext<FormTypes>()

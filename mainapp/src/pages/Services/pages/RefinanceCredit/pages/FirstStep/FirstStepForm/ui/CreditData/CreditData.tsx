@@ -39,7 +39,6 @@ const CreditData = () => {
   const { isDesktop, isTablet, isMobile } = useWindowResize()
 
   const { t, i18n } = useTranslation()
-  i18n.language = i18n.language.split('-')[0]
 
   useEffect(() => {
     setCreditData(values.creditData)
