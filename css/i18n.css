@@ -139,6 +139,29 @@
     unicode-bidi: embed !important;
 }
 
+/* OTP/Verification code inputs should always be LTR */
+[dir="rtl"] .react-otp-input {
+    direction: ltr !important;
+    flex-direction: row !important;
+}
+
+[dir="rtl"] .react-otp-input input {
+    direction: ltr !important;
+    text-align: center !important;
+    unicode-bidi: embed !important;
+}
+
+/* Code input wrapper - ensure LTR for verification codes */
+[dir="rtl"] .wrapper {
+    direction: ltr !important;
+}
+
+[dir="rtl"] .itemCode {
+    direction: ltr !important;
+    text-align: center !important;
+    unicode-bidi: embed !important;
+}
+
 /* Language selector */
 .language-selector {
     transition: all 0.2s ease;

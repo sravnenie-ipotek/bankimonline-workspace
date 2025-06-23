@@ -8,29 +8,12 @@ interface LanguageOption {
   label: string
 }
 
-interface LanguagesOptions {
-  ru: LanguageOption[]
-  he: LanguageOption[]
-  en: LanguageOption[]
-}
-
-const languagesOptions: LanguagesOptions = {
-  ru: [
-    { value: 'ru', label: 'Россия' },
-    { value: 'he', label: 'Израиль' },
-    { value: 'en', label: 'США' },
-  ],
-  he: [
-    { value: 'ru', label: 'רוּסִיָה' },
-    { value: 'he', label: 'ישראל' },
-    { value: 'en', label: 'ארצות הברית' },
-  ],
-  en: [
-    { value: 'ru', label: 'Russia' },
-    { value: 'he', label: 'Israel' },
-    { value: 'en', label: 'United States' },
-  ],
-}
+// This will be generated dynamically based on current language
+const getLanguageOptions = (t: any): LanguageOption[] => [
+  { value: 'ru', label: t('country_russia') },
+  { value: 'he', label: t('country_israel') },
+  { value: 'en', label: t('country_us') },
+]
 
 interface Props {
   className?: string
@@ -40,10 +23,9 @@ interface Props {
 }
 
 export default function LanguageSwitcher({ className = '', onChange }: Props) {
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation()
   const currentLang = i18n.language?.split('-')[0]
-  const languageOptions =
-    languagesOptions[currentLang as keyof LanguagesOptions]
+  const languageOptions = getLanguageOptions(t)
 
   const selectedLangOption = languageOptions?.find(
     (option: { value: string }) => option.value === currentLang
