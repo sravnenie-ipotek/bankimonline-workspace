@@ -1,6 +1,6 @@
 {
   "calculate_mortgage": "Calculate Mortgage",
-  "refinance_mortgage": "Refinance Mortgage", 
+  "refinance_mortgage": "Refinance Mortgage",
   "calculate_credit": "Calculate Credit",
   "refinance_credit": "Refinance Credit",
   "video_calculate_mortgage_title": "Mortgage Calculation",
@@ -60,5 +60,13 @@
   "not_found": "Not found",
   "page_not_found": "Page not found",
   "go_back": "Go back",
-  "home": "Home"
+  "home": "Home",
+  "mortgage_refinance": "Mortgage Refinance",
+  "credit_refinance": "Credit Refinance",
+  "app_name": "Bankimonline",
+  "document_title": "Bankimonline",
+  "compare_in_5mins": "Compare mortgages in 5 minutes",
+  "show_variants": "We present multiple competitive options from leading market providers",
+  "yes": "Yes",
+  "no": "No"
 }
