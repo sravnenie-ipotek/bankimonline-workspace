@@ -22,7 +22,7 @@ const i18nConfig: InitOptions = {
   ns: ['translation'], // Namespace for translations
   defaultNS: 'translation',
   backend: {
-    loadPath: '/locales/{{lng}}/{{ns}}.json',
+    loadPath: '/locales/{{lng}}/{{ns}}.json?v=' + Date.now(),
     requestOptions: {
       cache: 'no-cache', // Prevent caching issues
     },
