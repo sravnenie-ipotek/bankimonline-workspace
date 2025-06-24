@@ -113,6 +113,23 @@
   gap: 16px;
 }
 
+.warning-section {
+  padding: 16px;
+  background-color: rgba(251, 229, 77, 0.1);
+  border: 1px solid rgba(251, 229, 77, 0.3);
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.warning-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #fbe54d;
+  line-height: 1.5;
+  margin: 0;
+}
+
 .agreement-text {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
@@ -207,6 +224,17 @@
 .checkbox-text {
   flex: 1;
   margin-top: -2px; /* Align with checkbox */
+}
+
+.agreement-link {
+  color: #fbe54d;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #e6ce45;
+  }
 }
 
 .button-group {

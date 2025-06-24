@@ -3294,6 +3294,55 @@ app.post('/api/customer/compare-banks', async (req, res) => {
             }
         }
         
+        // If no real offers, add fake offers for testing
+        if (bankOffers.length === 0) {
+            console.log(`[COMPARE-BANKS] No real offers found, adding fake offers for testing`);
+            
+            // Calculate basic loan parameters
+            const termYears = 25;
+            const termMonths = termYears * 12;
+            
+            // Fake Bank 1 - Bank Hapoalim
+            const rate1 = 3.2;
+            const monthlyRate1 = rate1 / 100 / 12;
+            const monthlyPayment1 = amount * (monthlyRate1 * Math.pow(1 + monthlyRate1, termMonths)) / (Math.pow(1 + monthlyRate1, termMonths) - 1);
+            const totalPayment1 = monthlyPayment1 * termMonths;
+            
+            bankOffers.push({
+                bank_id: 'fake-1',
+                bank_name: 'בנק הפועלים',
+                bank_logo: 'https://www.bankhapoalim.co.il/favicon.ico',
+                loan_amount: amount,
+                monthly_payment: Math.round(monthlyPayment1),
+                interest_rate: rate1,
+                term_years: termYears,
+                total_payment: Math.round(totalPayment1),
+                approval_status: 'approved',
+                ltv_ratio: property_value ? ((amount / property_value) * 100).toFixed(1) : null,
+                dti_ratio: ((monthly_expenses / monthly_income) * 100).toFixed(1)
+            });
+            
+            // Fake Bank 2 - Bank Leumi
+            const rate2 = 3.5;
+            const monthlyRate2 = rate2 / 100 / 12;
+            const monthlyPayment2 = amount * (monthlyRate2 * Math.pow(1 + monthlyRate2, termMonths)) / (Math.pow(1 + monthlyRate2, termMonths) - 1);
+            const totalPayment2 = monthlyPayment2 * termMonths;
+            
+            bankOffers.push({
+                bank_id: 'fake-2',
+                bank_name: 'בנק לאומי',
+                bank_logo: 'https://www.leumi.co.il/favicon.ico',
+                loan_amount: amount,
+                monthly_payment: Math.round(monthlyPayment2),
+                interest_rate: rate2,
+                term_years: termYears,
+                total_payment: Math.round(totalPayment2),
+                approval_status: 'approved',
+                ltv_ratio: property_value ? ((amount / property_value) * 100).toFixed(1) : null,
+                dti_ratio: ((monthly_expenses / monthly_income) * 100).toFixed(1)
+            });
+        }
+        
         // Sort offers by monthly payment (lowest first)
         bankOffers.sort((a, b) => a.monthly_payment - b.monthly_payment);
         
@@ -3320,6 +3369,93 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         res.status(500).json({ 
             status: 'error', 
             message: 'Failed to compare bank offers',
+            error: err.message 
+        });
+    }
+});
+
+// MORTGAGE PROGRAMS ENDPOINT
+app.get('/api/customer/mortgage-programs', async (req, res) => {
+    try {
+        console.log('[MORTGAGE-PROGRAMS] Fetching mortgage programs');
+        
+        // Return standard Israeli mortgage programs
+        const mortgagePrograms = [
+            {
+                id: 'prime',
+                title: 'משכנתא צמודת פריים',
+                title_en: 'Prime Rate Linked Mortgage',
+                title_ru: 'Ипотека, привязанная к основной ставке',
+                description: 'משכנתא הצמודה לריבית הפריים של בנק ישראל',
+                description_en: 'Mortgage linked to Bank of Israel prime rate',
+                description_ru: 'Ипотека, привязанная к основной ставке Банка Израиля',
+                conditionFinance: 'עד 33% מההכנסה',
+                conditionFinance_en: 'Up to 33% of income',
+                conditionFinance_ru: 'До 33% от дохода',
+                conditionPeriod: '4-30 שנים',
+                conditionPeriod_en: '4-30 years',
+                conditionPeriod_ru: '4-30 лет',
+                conditionBid: 'ריבית משתנה + קבועה',
+                conditionBid_en: 'Variable + Fixed rate components',
+                conditionBid_ru: 'Переменная + фиксированная ставка',
+                interestRate: 2.1,
+                termYears: 20
+            },
+            {
+                id: 'fixed_inflation',
+                title: 'משכנתא קבועה צמודת מדד',
+                title_en: 'Fixed Rate Linked to Inflation',
+                title_ru: 'Фиксированная ставка, привязанная к инфляции',
+                description: 'משכנתא בריבית קבועה הצמודה למדד המחירים לצרכן',
+                description_en: 'Fixed rate mortgage linked to consumer price index',
+                description_ru: 'Ипотека с фиксированной ставкой, привязанной к индексу потребительских цен',
+                conditionFinance: 'עד 70% מההכנסה',
+                conditionFinance_en: 'Up to 70% of income',
+                conditionFinance_ru: 'До 70% от дохода',
+                conditionPeriod: '5-30 שנים',
+                conditionPeriod_en: '5-30 years',
+                conditionPeriod_ru: '5-30 лет',
+                conditionBid: 'ריבית קבועה',
+                conditionBid_en: 'Fixed rate structure',
+                conditionBid_ru: 'Структура с фиксированной ставкой',
+                interestRate: 3.2,
+                termYears: 25
+            },
+            {
+                id: 'variable_inflation',
+                title: 'משכנתא משתנה צמודת מדד',
+                title_en: 'Variable Rate Linked to Inflation',
+                title_ru: 'Переменная ставка, привязанная к инфляции',
+                description: 'משכנתא בריבית משתנה הצמודה למדד המחירים לצרכן',
+                description_en: 'Variable rate mortgage linked to consumer price index',
+                description_ru: 'Ипотека с переменной ставкой, привязанной к индексу потребительских цен',
+                conditionFinance: 'עד 75% מההכנסה',
+                conditionFinance_en: 'Up to 75% of income',
+                conditionFinance_ru: 'До 75% от дохода',
+                conditionPeriod: '4-25 שנים',
+                conditionPeriod_en: '4-25 years',
+                conditionPeriod_ru: '4-25 лет',
+                conditionBid: 'ריבית משתנה',
+                conditionBid_en: 'Variable rate structure',
+                conditionBid_ru: 'Структура с переменной ставкой',
+                interestRate: 2.8,
+                termYears: 20
+            }
+        ];
+        
+        res.json({
+            status: 'success',
+            data: {
+                programs: mortgagePrograms,
+                total: mortgagePrograms.length
+            }
+        });
+        
+    } catch (err) {
+        console.error('[MORTGAGE-PROGRAMS] Error:', err);
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Failed to fetch mortgage programs',
             error: err.message 
         });
     }

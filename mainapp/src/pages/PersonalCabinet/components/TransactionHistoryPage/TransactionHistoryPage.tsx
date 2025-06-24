@@ -86,6 +86,10 @@ export const TransactionHistoryPage: React.FC = () => {
     return status === 'success' ? 'status--success' : 'status--failed'
   }
 
+  // For demo purposes, you can toggle this to test empty state
+  const showEmptyState = false // Set to true to test empty state
+  const displayTransactions = showEmptyState ? [] : transactions
+
   return (
     <div className={cx('transaction-history-page')}>
       {/* Page Title */}
@@ -115,96 +119,166 @@ export const TransactionHistoryPage: React.FC = () => {
         </h2>
       </div>
 
-      {/* Transaction Table */}
-      <div className={cx('table-container')}>
-        <table className={cx('transaction-table')}>
-          {/* Table Header */}
-          <thead className={cx('table-header')}>
-            <tr>
-              <th className={cx('header-cell', 'header-service')}>
-                {t('table_service', 'Услуга')}
-              </th>
-              <th className={cx('header-cell', 'header-amount')}>
-                {t('table_amount', 'Сумма')}
-              </th>
-              <th className={cx('header-cell', 'header-date')}>
-                {t('table_date', 'Дата')}
-              </th>
-              <th className={cx('header-cell', 'header-status')}>
-                {t('table_status', 'Статус')}
-              </th>
-              <th className={cx('header-cell', 'header-transaction-id')}>
-                {t('table_transaction_id', 'ID транзакции')}
-              </th>
-              <th className={cx('header-cell', 'header-actions')}>
-                {/* Actions column - no header text */}
-              </th>
-            </tr>
-          </thead>
-
-          {/* Table Body */}
-          <tbody className={cx('table-body')}>
-            {transactions.map((transaction) => (
-              <tr key={transaction.id} className={cx('table-row')}>
-                {/* Service */}
-                <td className={cx('table-cell', 'cell-service')}>
-                  <span className={cx('service-name')}>
-                    {transaction.service}
-                  </span>
-                </td>
-
-                {/* Amount */}
-                <td className={cx('table-cell', 'cell-amount')}>
-                  <span className={cx('amount-value')}>
-                    {transaction.amount}
-                  </span>
-                </td>
-
-                {/* Date */}
-                <td className={cx('table-cell', 'cell-date')}>
-                  <div className={cx('date-container')}>
-                    <span className={cx('date-value')}>
-                      {transaction.date}
-                    </span>
-                    <span className={cx('time-value')}>
-                      {transaction.time}
-                    </span>
-                  </div>
-                </td>
-
-                {/* Status */}
-                <td className={cx('table-cell', 'cell-status')}>
-                  <span className={cx('status', getStatusClass(transaction.status))}>
-                    {getStatusText(transaction.status)}
-                  </span>
-                </td>
-
-                {/* Transaction ID */}
-                <td className={cx('table-cell', 'cell-transaction-id')}>
-                  <span className={cx('transaction-id')}>
-                    {transaction.transactionId}
-                  </span>
-                </td>
-
-                {/* Actions */}
-                <td className={cx('table-cell', 'cell-actions')}>
-                  <button
-                    className={cx('download-button')}
-                    onClick={() => handleDownloadReceipt(transaction.transactionId)}
-                  >
-                    <div className={cx('download-icon')}>
-                      <DownloadSimpleIcon />
-                    </div>
-                    <span className={cx('download-text')}>
-                      {t('download_receipt', 'Скачать чек')}
-                    </span>
-                  </button>
-                </td>
+      {/* Transaction Table or Empty State */}
+      {displayTransactions.length > 0 ? (
+        <div className={cx('table-container')}>
+          <table className={cx('transaction-table')}>
+            {/* Table Header */}
+            <thead className={cx('table-header')}>
+              <tr>
+                <th className={cx('header-cell', 'header-service')}>
+                  {t('table_service', 'Услуга')}
+                </th>
+                <th className={cx('header-cell', 'header-amount')}>
+                  {t('table_amount', 'Сумма')}
+                </th>
+                <th className={cx('header-cell', 'header-date')}>
+                  {t('table_date', 'Дата')}
+                </th>
+                <th className={cx('header-cell', 'header-status')}>
+                  {t('table_status', 'Статус')}
+                </th>
+                <th className={cx('header-cell', 'header-transaction-id')}>
+                  {t('table_transaction_id', 'ID транзакции')}
+                </th>
+                <th className={cx('header-cell', 'header-actions')}>
+                  {/* Actions column - no header text */}
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+
+            {/* Table Body */}
+            <tbody className={cx('table-body')}>
+              {displayTransactions.map((transaction) => (
+                <tr key={transaction.id} className={cx('table-row')}>
+                  {/* Service */}
+                  <td className={cx('table-cell', 'cell-service')}>
+                    <span className={cx('service-name')}>
+                      {transaction.service}
+                    </span>
+                  </td>
+
+                  {/* Amount */}
+                  <td className={cx('table-cell', 'cell-amount')}>
+                    <span className={cx('amount-value')}>
+                      {transaction.amount}
+                    </span>
+                  </td>
+
+                  {/* Date */}
+                  <td className={cx('table-cell', 'cell-date')}>
+                    <div className={cx('date-container')}>
+                      <span className={cx('date-value')}>
+                        {transaction.date}
+                      </span>
+                      <span className={cx('time-value')}>
+                        {transaction.time}
+                      </span>
+                    </div>
+                  </td>
+
+                  {/* Status */}
+                  <td className={cx('table-cell', 'cell-status')}>
+                    <span className={cx('status', getStatusClass(transaction.status))}>
+                      {getStatusText(transaction.status)}
+                    </span>
+                  </td>
+
+                  {/* Transaction ID */}
+                  <td className={cx('table-cell', 'cell-transaction-id')}>
+                    <span className={cx('transaction-id')}>
+                      {transaction.transactionId}
+                    </span>
+                  </td>
+
+                  {/* Actions */}
+                  <td className={cx('table-cell', 'cell-actions')}>
+                    <button
+                      className={cx('download-button')}
+                      onClick={() => handleDownloadReceipt(transaction.transactionId)}
+                    >
+                      <div className={cx('download-icon')}>
+                        <DownloadSimpleIcon />
+                      </div>
+                      <span className={cx('download-text')}>
+                        {t('download_receipt', 'Скачать чек')}
+                      </span>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        /* Empty State */
+        <div className={cx('empty-state-container')}>
+          {/* Skeleton Table */}
+          <div className={cx('table-container')}>
+            <table className={cx('transaction-table')}>
+              {/* Table Header */}
+              <thead className={cx('table-header')}>
+                <tr>
+                  <th className={cx('header-cell', 'header-service')}>
+                    {t('table_service', 'Услуга')}
+                  </th>
+                  <th className={cx('header-cell', 'header-amount')}>
+                    {t('table_amount', 'Сумма')}
+                  </th>
+                  <th className={cx('header-cell', 'header-date')}>
+                    {t('table_date', 'Дата')}
+                  </th>
+                  <th className={cx('header-cell', 'header-status')}>
+                    {t('table_status', 'Статус')}
+                  </th>
+                  <th className={cx('header-cell', 'header-transaction-id')}>
+                    {t('table_transaction_id', 'ID транзакции')}
+                  </th>
+                  <th className={cx('header-cell', 'header-actions')}>
+                    {/* Actions column - no header text */}
+                  </th>
+                </tr>
+              </thead>
+
+              {/* Skeleton Rows */}
+              <tbody className={cx('table-body')}>
+                {[1, 2, 3].map((skeletonRow) => (
+                  <tr key={`skeleton-${skeletonRow}`} className={cx('table-row', 'skeleton-row')}>
+                    <td className={cx('table-cell')}>
+                      <div className={cx('skeleton-placeholder', 'skeleton-service')} />
+                    </td>
+                    <td className={cx('table-cell')}>
+                      <div className={cx('skeleton-placeholder', 'skeleton-amount')} />
+                    </td>
+                    <td className={cx('table-cell')}>
+                      <div className={cx('skeleton-placeholder', 'skeleton-date')} />
+                    </td>
+                    <td className={cx('table-cell')}>
+                      <div className={cx('skeleton-placeholder', 'skeleton-status')} />
+                    </td>
+                    <td className={cx('table-cell')}>
+                      <div className={cx('skeleton-placeholder', 'skeleton-transaction-id')} />
+                    </td>
+                    <td className={cx('table-cell')}>
+                      <div className={cx('skeleton-placeholder', 'skeleton-actions')} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Empty State Message */}
+          <div className={cx('empty-state-message')}>
+            <h3 className={cx('empty-state-title')}>
+              {t('empty_state_title', 'Здесь пока ничего нет')}
+            </h3>
+            <p className={cx('empty-state-description')}>
+              {t('empty_state_description', 'Здесь вы сможете посмотреть историю транзакций')}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   )
 } 

@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import classNames from 'classnames/bind'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import styles from './changeEmailModal.module.scss'
 
@@ -10,6 +11,7 @@ interface ChangeEmailModalProps {
   isOpen: boolean
   onClose: () => void
   onSuccess?: (email: string) => void
+  currentEmail?: string
 }
 
 // Close Icon
@@ -22,12 +24,21 @@ const CloseIcon = () => (
 export const ChangeEmailModal: React.FC<ChangeEmailModalProps> = ({
   isOpen,
   onClose,
-  onSuccess
+  onSuccess,
+  currentEmail
 }) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [isAgreed, setIsAgreed] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+
+  // Auto-fill current email if provided
+  useEffect(() => {
+    if (currentEmail && isOpen) {
+      setEmail(currentEmail)
+    }
+  }, [currentEmail, isOpen])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -44,6 +55,7 @@ export const ChangeEmailModal: React.FC<ChangeEmailModalProps> = ({
       if (onSuccess) {
         onSuccess(email)
       }
+      // Note: In real implementation, this would trigger LK-179 email verification modal
       onClose()
     } catch (error) {
       console.error('Error changing email:', error)
@@ -58,6 +70,10 @@ export const ChangeEmailModal: React.FC<ChangeEmailModalProps> = ({
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsAgreed(e.target.checked)
+  }
+
+  const handleUserAgreementClick = () => {
+    navigate('/terms')
   }
 
   const handleBackdropClick = (e: React.MouseEvent) => {
@@ -100,6 +116,13 @@ export const ChangeEmailModal: React.FC<ChangeEmailModalProps> = ({
               />
             </div>
 
+            {/* Warning Description - Action #6 */}
+            <div className={cx('warning-section')}>
+              <p className={cx('warning-text')}>
+                {t('email_change_warning', 'Предупреждение о том, что произойдет при смене адреса электронной почты.')}
+              </p>
+            </div>
+
             {/* User Agreement */}
             <div className={cx('agreement-section')}>
               <div className={cx('agreement-text')}>
@@ -124,7 +147,14 @@ export const ChangeEmailModal: React.FC<ChangeEmailModalProps> = ({
                   />
                   <span className={cx('checkbox-custom')}></span>
                   <span className={cx('checkbox-text')}>
-                    {t('agree_to_terms', 'Я согласен с условиями изменения email')}
+                    {t('agree_to_terms_start', 'Я согласен с условиями')}{' '}
+                    <span 
+                      className={cx('agreement-link')}
+                      onClick={handleUserAgreementClick}
+                    >
+                      {t('user_agreement', 'пользовательского соглашения')}
+                    </span>
+                    {' '}{t('and_email_change', 'и изменения email')}
                   </span>
                 </label>
               </div>
