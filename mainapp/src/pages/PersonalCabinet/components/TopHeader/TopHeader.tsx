@@ -29,7 +29,11 @@ const ChevronDownIcon = () => (
   </svg>
 )
 
-export const TopHeader: React.FC = () => {
+interface TopHeaderProps {
+  onToggleSidebar?: () => void
+}
+
+export const TopHeader: React.FC<TopHeaderProps> = ({ onToggleSidebar }) => {
   const { t } = useTranslation()
   const [showProfileMenu, setShowProfileMenu] = useState(false)
   const [showNotifications, setShowNotifications] = useState(false)

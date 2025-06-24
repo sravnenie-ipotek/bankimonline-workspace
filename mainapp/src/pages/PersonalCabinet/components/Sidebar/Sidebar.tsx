@@ -7,6 +7,13 @@ import styles from './sidebar.module.scss'
 
 const cx = classNames.bind(styles)
 
+// Hamburger Menu Icon
+const HamburgerIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+    <path d="M3 5h14v2H3V5zm0 4h14v2H3V9zm0 4h14v2H3v-2z"/>
+  </svg>
+)
+
 // SVG Icons as components (simplified for now - would use actual SVG assets)
 const HomeIcon = () => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
@@ -57,7 +64,12 @@ const SignOutIcon = () => (
   </svg>
 )
 
-export const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isCollapsed?: boolean
+  onToggle?: () => void
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed = false, onToggle }) => {
   const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
@@ -130,14 +142,27 @@ export const Sidebar: React.FC = () => {
   }
 
   return (
-    <div className={cx('sidebar')}>
-      {/* Logo Section */}
+    <div className={cx('sidebar', { 'sidebar--collapsed': isCollapsed })}>
+      {/* Logo Section with Hamburger */}
       <div className={cx('logo-section')}>
-        <div className={cx('logo')}>
-          <div className={cx('logo-icon')}>
-            {/* BankimOnline Logo */}
-            <span className={cx('logo-text')}>BANKIMONLINE</span>
-          </div>
+        <div className={cx('logo-header')}>
+          {/* Hamburger Menu Button */}
+          <button 
+            className={cx('hamburger-button')}
+            onClick={onToggle}
+            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            <HamburgerIcon />
+          </button>
+          
+          {/* Logo - hidden when collapsed */}
+          {!isCollapsed && (
+            <div className={cx('logo')}>
+              <div className={cx('logo-icon')}>
+                <span className={cx('logo-text')}>BANKIMONLINE</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -149,18 +174,23 @@ export const Sidebar: React.FC = () => {
               key={item.key}
               className={cx('nav-item', { 'nav-item--active': item.active })}
               onClick={() => handleNavigation(item.path)}
+              title={isCollapsed ? item.label : undefined}
             >
               <div className={cx('nav-item-content')}>
                 <div className={cx('nav-item-icon')}>
                   {item.icon}
                 </div>
-                <span className={cx('nav-item-label')}>
-                  {item.label}
-                </span>
-                {item.notification && (
-                  <div className={cx('notification-badge')}>
-                    {item.notification}
-                  </div>
+                {!isCollapsed && (
+                  <>
+                    <span className={cx('nav-item-label')}>
+                      {item.label}
+                    </span>
+                    {item.notification && (
+                      <div className={cx('notification-badge')}>
+                        {item.notification}
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </button>
@@ -168,8 +198,8 @@ export const Sidebar: React.FC = () => {
         </nav>
       </div>
 
-      {/* Divider */}
-      <div className={cx('divider')} />
+      {/* Divider - hidden when collapsed */}
+      {!isCollapsed && <div className={cx('divider')} />}
 
       {/* Bottom Navigation */}
       <div className={cx('bottom-navigation')}>
@@ -182,16 +212,19 @@ export const Sidebar: React.FC = () => {
                 'nav-item--settings': item.key === 'settings' && item.active
               })}
               onClick={() => handleNavigation(item.path)}
+              title={isCollapsed ? item.label : undefined}
             >
               <div className={cx('nav-item-content')}>
                 <div className={cx('nav-item-icon')}>
                   {item.icon}
                 </div>
-                <span className={cx('nav-item-label')}>
-                  {item.label}
-                </span>
+                {!isCollapsed && (
+                  <span className={cx('nav-item-label')}>
+                    {item.label}
+                  </span>
+                )}
               </div>
-              {item.key === 'settings' && item.active && (
+              {item.key === 'settings' && item.active && !isCollapsed && (
                 <div className={cx('active-indicator')} />
               )}
             </button>
