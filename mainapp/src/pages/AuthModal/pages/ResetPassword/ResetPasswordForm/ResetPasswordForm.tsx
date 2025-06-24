@@ -70,6 +70,8 @@ const ResetPasswordForm = () => {
             placeholder="mail@mail.com"
             onChange={(value) => setFieldValue('email', value)}
             value={values.email}
+            error={touched.email && errors.email}
+            onBlur={() => setFieldTouched('email')}
           />
         )}
       </div>

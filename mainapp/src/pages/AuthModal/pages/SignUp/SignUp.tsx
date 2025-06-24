@@ -181,10 +181,7 @@ const SignUp = () => {
 
   const fullValidatorForSchema =
     (
-      schema: Yup.ObjectSchema<{
-        password: string
-        newPassword: string
-      }>
+      schema: Yup.ObjectSchema<SignUpFormType>
     ) =>
     (values: SignUpFormType) =>
       schema
@@ -195,9 +192,7 @@ const SignUp = () => {
         .then(() => ({}))
         .catch(({ inner }) =>
           inner.reduce(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            (memo, { path, message }) => ({
+            (memo: Record<string, string[]>, { path, message }: { path: string; message: string }) => ({
               ...memo,
               [path]: (memo[path] || []).concat(message),
             }),
@@ -231,8 +226,6 @@ const SignUp = () => {
   return (
     <Formik
       initialValues={initialValues}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       validate={fullValidatorForSchema(validationSchema)}
       onSubmit={(values) => {
         console.log('Form submitted with values:', values)
