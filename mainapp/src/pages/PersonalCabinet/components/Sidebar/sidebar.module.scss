@@ -7,18 +7,76 @@
   flex-direction: column;
   padding: 0;
   overflow-y: auto;
+  transition: all 0.3s ease;
+
+  &--collapsed {
+    .navigation-section,
+    .bottom-navigation {
+      padding-left: 4px;
+      padding-right: 4px;
+    }
+
+    .nav-item {
+      justify-content: center;
+      padding: 10px 4px;
+    }
+
+    .nav-item-content {
+      justify-content: center;
+    }
+
+    .logo-section {
+      padding: 16px 4px;
+    }
+
+    .hamburger-button {
+      margin: 0 auto;
+    }
+  }
 }
 
 .logo-section {
   padding: 16px;
   border-bottom: none;
+  transition: padding 0.3s ease;
+}
+
+.logo-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 56px;
+  gap: 12px;
+}
+
+.hamburger-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #d0d0d0;
+  flex-shrink: 0;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+  }
+
+  &:active {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
 }
 
 .logo {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 56px;
+  flex: 1;
 }
 
 .logo-text {
@@ -32,6 +90,7 @@
 .navigation-section {
   flex: 1;
   padding: 32px 8px 0 8px;
+  transition: padding 0.3s ease;
 }
 
 .nav-list {
@@ -79,6 +138,7 @@
   align-items: center;
   gap: 8px;
   width: 100%;
+  transition: all 0.3s ease;
 }
 
 .nav-item-icon {
@@ -106,6 +166,9 @@
   color: #d0d0d0;
   line-height: 1.4;
   flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   .nav-item--active & {
     color: #ffffff;
@@ -130,6 +193,7 @@
   align-items: center;
   justify-content: center;
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 .active-indicator {
@@ -150,6 +214,7 @@
 
 .bottom-navigation {
   padding: 0 8px 32px 8px;
+  transition: padding 0.3s ease;
 }
 
 /* Responsive adjustments */
@@ -174,6 +239,19 @@
     flex-direction: row;
     padding: 16px;
     overflow-x: auto;
+
+    &--collapsed {
+      height: 60px;
+      
+      .logo-section {
+        padding: 0 16px 0 0;
+      }
+
+      .navigation-section,
+      .bottom-navigation {
+        display: none;
+      }
+    }
   }
   
   .logo-section {
@@ -181,6 +259,11 @@
     padding: 0 16px 0 0;
     border-bottom: none;
     border-right: 1px solid #333535;
+  }
+
+  .logo-header {
+    height: auto;
+    min-height: 40px;
   }
   
   .navigation-section,

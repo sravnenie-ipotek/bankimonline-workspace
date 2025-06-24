@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import { useTranslation } from 'react-i18next'
 
@@ -14,19 +14,27 @@ interface PersonalCabinetLayoutProps {
 
 export const PersonalCabinetLayout: React.FC<PersonalCabinetLayoutProps> = ({ children }) => {
   const { t } = useTranslation()
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
+
+  const toggleSidebar = () => {
+    setIsSidebarCollapsed(!isSidebarCollapsed)
+  }
 
   return (
     <div className={cx('layout')}>
-      {/* Left Sidebar - 276px width */}
-      <div className={cx('sidebar-container')}>
-        <Sidebar />
+      {/* Left Sidebar - Collapsible width */}
+      <div className={cx('sidebar-container', { 'sidebar-container--collapsed': isSidebarCollapsed })}>
+        <Sidebar 
+          isCollapsed={isSidebarCollapsed} 
+          onToggle={toggleSidebar}
+        />
       </div>
 
       {/* Main Content Area */}
-      <div className={cx('main-container')}>
+      <div className={cx('main-container', { 'main-container--expanded': isSidebarCollapsed })}>
         {/* Top Header */}
         <div className={cx('header-container')}>
-          <TopHeader />
+          <TopHeader onToggleSidebar={toggleSidebar} />
         </div>
 
         {/* Page Content */}
