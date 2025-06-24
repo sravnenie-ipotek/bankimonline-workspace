@@ -6,6 +6,8 @@ import classNames from 'classnames/bind'
 import { PersonalCabinetLayout } from '../PersonalCabinetLayout/PersonalCabinetLayout'
 import { DocumentUploadModal } from '../modals/DocumentUploadModal/DocumentUploadModal'
 import { DocumentDeleteModal } from '../modals/DocumentDeleteModal/DocumentDeleteModal'
+import { DocumentPreviewModal } from '../modals/DocumentPreviewModal/DocumentPreviewModal'
+import { QRCodeUploadModal } from '../modals/QRCodeUploadModal/QRCodeUploadModal'
 import { Button } from '@src/components/ui/ButtonUI'
 import { Document } from '@src/assets/icons/Document'
 
@@ -19,6 +21,7 @@ interface UploadedDocument {
   type: string
   size: number
   uploadDate: Date
+  url?: string
 }
 
 interface DocumentsPageProps {
@@ -32,7 +35,10 @@ export const DocumentsPage: React.FC<DocumentsPageProps> = ({
   const navigate = useNavigate()
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false)
+  const [isQRCodeModalOpen, setIsQRCodeModalOpen] = useState(false)
   const [documentToDelete, setDocumentToDelete] = useState<UploadedDocument | null>(null)
+  const [documentToPreview, setDocumentToPreview] = useState<UploadedDocument | null>(null)
   const [uploadedDocuments, setUploadedDocuments] = useState<UploadedDocument[]>([
     // Sample documents for demonstration
     {
@@ -40,14 +46,24 @@ export const DocumentsPage: React.FC<DocumentsPageProps> = ({
       name: 'Паспорт.pdf',
       type: 'application/pdf',
       size: 1024000,
-      uploadDate: new Date('2024-01-15')
+      uploadDate: new Date('2024-01-15'),
+      url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf'
     },
     {
       id: '2',
       name: 'Справка о доходах.docx',
       type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       size: 512000,
-      uploadDate: new Date('2024-01-16')
+      uploadDate: new Date('2024-01-16'),
+      url: 'https://file-examples.com/storage/fe68c9fa7b66d447a9c13c1/2017/10/file_example_DOC_100kB.doc'
+    },
+    {
+      id: '3',
+      name: 'Фото документа.jpg',
+      type: 'image/jpeg',
+      size: 256000,
+      uploadDate: new Date('2024-01-17'),
+      url: 'https://via.placeholder.com/800x600/2a2b31/ffffff?text=Sample+Document'
     }
   ])
 
@@ -68,7 +84,8 @@ export const DocumentsPage: React.FC<DocumentsPageProps> = ({
       name: file.name,
       type: file.type,
       size: file.size,
-      uploadDate: new Date()
+      uploadDate: new Date(),
+      url: URL.createObjectURL(file)
     }
     
     setUploadedDocuments(prev => [...prev, newDocument])
@@ -91,6 +108,29 @@ export const DocumentsPage: React.FC<DocumentsPageProps> = ({
   const handleCancelDelete = () => {
     setDocumentToDelete(null)
     setIsDeleteModalOpen(false)
+  }
+
+  const handlePreviewDocument = (document: UploadedDocument) => {
+    setDocumentToPreview(document)
+    setIsPreviewModalOpen(true)
+  }
+
+  const handleClosePreview = () => {
+    setDocumentToPreview(null)
+    setIsPreviewModalOpen(false)
+  }
+
+  const handleOpenQRCodeModal = () => {
+    setIsQRCodeModalOpen(true)
+  }
+
+  const handleCloseQRCodeModal = () => {
+    setIsQRCodeModalOpen(false)
+  }
+
+  const handleQRCodeBack = () => {
+    setIsQRCodeModalOpen(false)
+    // Navigate back to documents page (current page)
   }
 
   const formatFileSize = (bytes: number): string => {
@@ -145,14 +185,24 @@ export const DocumentsPage: React.FC<DocumentsPageProps> = ({
                 <p className={cx('upload-description')}>
                   {t('upload_documents_description', 'Выберите и загрузите необходимые документы')}
                 </p>
-                <Button
-                  variant="primary"
-                  size="medium"
-                  onClick={handleOpenUploadModal}
-                  className={cx('upload-button')}
-                >
-                  {t('upload_documents', 'Загрузите документы')}
-                </Button>
+                <div className={cx('upload-buttons')}>
+                  <Button
+                    variant="primary"
+                    size="medium"
+                    onClick={handleOpenUploadModal}
+                    className={cx('upload-button')}
+                  >
+                    {t('upload_documents', 'Загрузите документы')}
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="medium"
+                    onClick={handleOpenQRCodeModal}
+                    className={cx('qr-button')}
+                  >
+                    {t('upload_via_qr', 'QR-код для мобильного')}
+                  </Button>
+                </div>
               </div>
             </div>
 
@@ -176,21 +226,37 @@ export const DocumentsPage: React.FC<DocumentsPageProps> = ({
                           </p>
                         </div>
                       </div>
-                      <button
-                        className={cx('delete-button')}
-                        onClick={() => handleDeleteDocument(document)}
-                        title={t('delete_document', 'Удалить документ')}
-                      >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                          <path 
-                            d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14zM10 11v6M14 11v6" 
-                            stroke="currentColor" 
-                            strokeWidth="2" 
-                            strokeLinecap="round" 
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </button>
+                      <div className={cx('document-actions')}>
+                        <button
+                          className={cx('preview-button')}
+                          onClick={() => handlePreviewDocument(document)}
+                          title={t('preview_document', 'Просмотреть документ')}
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path 
+                              d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" 
+                              stroke="currentColor" 
+                              strokeWidth="2"
+                            />
+                            <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2"/>
+                          </svg>
+                        </button>
+                        <button
+                          className={cx('delete-button')}
+                          onClick={() => handleDeleteDocument(document)}
+                          title={t('delete_document', 'Удалить документ')}
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path 
+                              d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14zM10 11v6M14 11v6" 
+                              stroke="currentColor" 
+                              strokeWidth="2" 
+                              strokeLinecap="round" 
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -231,6 +297,24 @@ export const DocumentsPage: React.FC<DocumentsPageProps> = ({
         onClose={handleCancelDelete}
         onConfirm={handleConfirmDelete}
         documentName={documentToDelete?.name}
+      />
+
+      <DocumentPreviewModal
+        isOpen={isPreviewModalOpen}
+        onClose={handleClosePreview}
+        document={documentToPreview ? {
+          id: documentToPreview.id,
+          name: documentToPreview.name,
+          type: documentToPreview.type,
+          url: documentToPreview.url || '',
+          size: documentToPreview.size
+        } : undefined}
+      />
+
+      <QRCodeUploadModal
+        isOpen={isQRCodeModalOpen}
+        onClose={handleCloseQRCodeModal}
+        onBack={handleQRCodeBack}
       />
     </div>
   )

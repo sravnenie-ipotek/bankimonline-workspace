@@ -1,0 +1,1 @@
+export { BankConfirmationPage } from './BankConfirmationPage' 

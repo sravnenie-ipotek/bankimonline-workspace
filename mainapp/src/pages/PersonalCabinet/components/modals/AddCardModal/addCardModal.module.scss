@@ -1,0 +1,202 @@
+@import '../../../personalCabinet.module.scss';
+
+.modal-container {
+  .ant-modal-content {
+    background: var(--lk-bg-secondary) !important;
+    border: 1px solid var(--lk-border-primary) !important;
+    border-radius: 12px !important;
+    max-width: 600px !important;
+    width: 100% !important;
+  }
+
+  .ant-modal-header {
+    background: transparent !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+  }
+
+  .ant-modal-body {
+    padding: 0 !important;
+  }
+
+  .ant-modal-close {
+    display: none !important;
+  }
+}
+
+.modal-content {
+  padding: 2rem;
+  color: var(--lk-text-primary);
+  font-family: 'Roboto', sans-serif;
+  max-width: 600px;
+  width: 100%;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 1.5625rem; // 25px
+  font-weight: 500;
+  color: var(--lk-text-primary);
+  margin: 0;
+  line-height: 1.2;
+  font-family: 'Roboto', sans-serif;
+}
+
+.card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  
+  .form-field--half {
+    flex: 1;
+  }
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.submit-button,
+.cancel-button {
+  flex: 1;
+  max-width: 200px;
+  height: 48px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    
+    &:hover {
+      transform: none;
+      box-shadow: none;
+    }
+  }
+}
+
+.submit-button {
+  background: var(--lk-accent-primary);
+  color: white;
+  border-color: var(--lk-accent-primary);
+
+  &:hover:not(:disabled) {
+    background: var(--lk-accent-secondary);
+    border-color: var(--lk-accent-secondary);
+  }
+
+  &:active:not(:disabled) {
+    background: var(--lk-accent-tertiary);
+  }
+}
+
+.cancel-button {
+  background: transparent;
+  color: var(--lk-text-primary);
+  border-color: var(--lk-border-primary);
+
+  &:hover:not(:disabled) {
+    background: var(--lk-bg-tertiary);
+    border-color: var(--lk-border-secondary);
+  }
+
+  &:active:not(:disabled) {
+    background: var(--lk-bg-quaternary);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.375rem; // 22px
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 1.5rem;
+    
+    .form-field--half {
+      flex: none;
+    }
+  }
+
+  .button-group {
+    gap: 1rem;
+  }
+
+  .submit-button,
+  .cancel-button {
+    max-width: none;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1rem;
+  }
+
+  .modal-title {
+    font-size: 1.25rem; // 20px
+  }
+
+  .card-form {
+    gap: 1.25rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .submit-button,
+  .cancel-button {
+    max-width: none;
+    width: 100%;
+  }
+} 

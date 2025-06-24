@@ -186,6 +186,20 @@ Customer → Fills Form → Gets Approval % → Sees Multiple Bank Options → C
 
 ## 🚀 DEVELOPMENT SECTIONS TO IMPLEMENT
 
+### **SECTION 0: PRODUCTION CONFIGURATION TASKS**
+**Priority**: CRITICAL - Required before production deployment
+
+1. **Google Maps API Key Configuration**
+   - **File**: Environment variables / Production config
+   - **Task**: Configure production Google Maps API key for appointment scheduling system
+   - **Details**: 
+     - Set up Google Cloud Console project
+     - Enable Maps JavaScript API
+     - Configure API key with proper restrictions
+     - Add REACT_APP_GOOGLE_MAPS_API_KEY to environment variables
+     - Test map functionality in production environment
+   - **Related**: LK-149 Bank Appointment Scheduling System
+
 ### **SECTION 1: MULTI-BANK COMPARISON ENDPOINT**
 **File**: `server-db.js` (add after line 2222)
 **Endpoint**: `POST /api/customer/compare-banks`

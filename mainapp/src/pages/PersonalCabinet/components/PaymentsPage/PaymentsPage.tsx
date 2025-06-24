@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { CardDeleteModal } from '../modals/CardDeleteModal'
+import { AddCardModal } from '../modals/AddCardModal'
 
 import styles from './paymentsPage.module.scss'
 
@@ -68,6 +70,9 @@ export const PaymentsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('cards')
   const [cards, setCards] = useState<CardData[]>(mockCards)
   const [showCardMenu, setShowCardMenu] = useState<string | null>(null)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [cardToDelete, setCardToDelete] = useState<CardData | null>(null)
+  const [showAddCardModal, setShowAddCardModal] = useState(false)
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab)
@@ -89,14 +94,51 @@ export const PaymentsPage: React.FC = () => {
     setShowCardMenu(showCardMenu === cardId ? null : cardId)
   }
 
-  const handleDeleteCard = (cardId: string) => {
-    setCards(cards.filter(card => card.id !== cardId))
-    setShowCardMenu(null)
+  const handleDeleteCardClick = (cardId: string) => {
+    const card = cards.find(c => c.id === cardId)
+    if (card) {
+      setCardToDelete(card)
+      setShowDeleteModal(true)
+      setShowCardMenu(null)
+    }
+  }
+
+  const handleConfirmDelete = () => {
+    if (cardToDelete) {
+      setCards(cards.filter(card => card.id !== cardToDelete.id))
+      setCardToDelete(null)
+    }
+  }
+
+  const handleCancelDelete = () => {
+    setShowDeleteModal(false)
+    setCardToDelete(null)
   }
 
   const handleAddCard = () => {
-    // Handle add card functionality
-    console.log('Add card clicked')
+    setShowAddCardModal(true)
+  }
+
+  const handleAddCardSubmit = (cardData: any) => {
+    // Generate new ID
+    const newId = (cards.length + 1).toString()
+    
+    // Create new card object
+    const newCard: CardData = {
+      id: newId,
+      number: cardData.cardNumber,
+      name: cardData.cardholderName,
+      type: 'visa', // Default to visa, could be determined from card number
+      selected: false
+    }
+    
+    // Add to cards array
+    setCards(prev => [...prev, newCard])
+    setShowAddCardModal(false)
+  }
+
+  const handleAddCardClose = () => {
+    setShowAddCardModal(false)
   }
 
   return (
@@ -196,7 +238,7 @@ export const PaymentsPage: React.FC = () => {
                       <div className={cx('card-menu-dropdown')}>
                         <button
                           className={cx('menu-item', 'menu-item--delete')}
-                          onClick={() => handleDeleteCard(card.id)}
+                          onClick={() => handleDeleteCardClick(card.id)}
                         >
                           {t('delete_card', 'Удалить карту')}
                         </button>
@@ -233,6 +275,21 @@ export const PaymentsPage: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Card Delete Confirmation Modal */}
+      <CardDeleteModal
+        isOpen={showDeleteModal}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        cardNumber={cardToDelete?.number}
+      />
+
+      {/* Add Card Modal */}
+      <AddCardModal
+        isOpen={showAddCardModal}
+        onClose={handleAddCardClose}
+        onSubmit={handleAddCardSubmit}
+      />
     </div>
   )
 } 

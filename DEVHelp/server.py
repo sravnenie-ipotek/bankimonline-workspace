@@ -4,6 +4,7 @@ import http.server
 import socketserver
 import os
 import sys
+import errno
 from urllib.parse import urlparse
 
 class CORSHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
@@ -34,21 +35,41 @@ def run_server(port=52530):
     print(f"\nServing files from: {os.getcwd()}")
     print("\nAvailable YouTrack files:")
     
-    # List available files
-    if os.path.exists("youtrackReports"):
-        files = os.listdir("youtrackReports")
-        for f in sorted(files):
-            if f.endswith('.json'):
-                print(f"  - youtrackReports/{f}")
+    # List available files with error handling
+    try:
+        if os.path.exists("youtrackReports"):
+            files = os.listdir("youtrackReports")
+            json_files = [f for f in sorted(files) if f.endswith('.json')]
+            if json_files:
+                for f in json_files:
+                    print(f"  - youtrackReports/{f}")
+            else:
+                print("  - No JSON files found in youtrackReports directory")
+        else:
+            print("  - youtrackReports directory not found")
+    except OSError as e:
+        print(f"  - Error accessing youtrackReports directory: {e}")
     
     print("\nServer logs:")
     
-    with socketserver.TCPServer(("", port), handler) as httpd:
-        try:
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            print("\nServer stopped.")
-            return
+    try:
+        with socketserver.TCPServer(("", port), handler) as httpd:
+            print(f"✅ Server successfully started on port {port}")
+            try:
+                httpd.serve_forever()
+            except KeyboardInterrupt:
+                print("\n🛑 Server stopped by user.")
+                return
+    except OSError as e:
+        if e.errno == 48:  # Address already in use
+            print(f"❌ Port {port} is already in use. Try a different port.")
+            print(f"   Suggestion: python3 server.py {port + 1}")
+        else:
+            print(f"❌ Failed to start server: {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"❌ Unexpected server error: {e}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     port = 52530
