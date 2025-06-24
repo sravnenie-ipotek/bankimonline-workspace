@@ -82,11 +82,17 @@ const ChangeLanguage = () => {
       setSelectedLanguage(newLanguage)
       dispatch(changeLanguage(newLanguage))
       
+      // Save to localStorage with the same key as admin system
+      localStorage.setItem('admin_language', newLanguage)
+      localStorage.setItem('language', newLanguage) // Keep for backward compatibility
+      
       // Immediately update document direction
       const dir = newLanguage === 'he' ? 'rtl' : 'ltr'
       document.documentElement.dir = dir
       document.documentElement.setAttribute('dir', dir)
       document.documentElement.lang = newLanguage
+      
+      console.log(`🔄 Language changed to: ${newLanguage}`)
     } catch (error) {
       console.error('Error changing language:', error)
     }
