@@ -65,35 +65,35 @@ export const Sidebar: React.FC = () => {
   const navigationItems = [
     {
       key: 'home',
-      label: t('nav_home', 'Главная'),
+      label: t('nav_home', 'Main'),
       icon: <HomeIcon />,
       path: '/personal-cabinet',
       active: location.pathname === '/personal-cabinet'
     },
     {
       key: 'profile',
-      label: t('nav_profile', 'Анкета'),
+      label: t('nav_profile', 'Profile'),
       icon: <ProfileIcon />,
       path: '/personal-cabinet/main-borrower-personal-data',
       active: location.pathname.includes('/personal-data')
     },
     {
       key: 'documents',
-      label: t('nav_documents', 'Документы'),
+      label: t('nav_documents', 'Documents'),
       icon: <DocumentIcon />,
       path: '/personal-cabinet/documents',
       active: location.pathname.includes('/documents')
     },
     {
       key: 'services',
-      label: t('nav_services', 'Услуги'),
+      label: t('nav_services', 'Services'),
       icon: <ServicesIcon />,
       path: '/personal-cabinet',
       active: location.pathname === '/personal-cabinet'
     },
     {
       key: 'chat',
-      label: t('nav_chat', 'Чат'),
+      label: t('nav_chat', 'Chat'),
       icon: <ChatIcon />,
       path: '/personal-cabinet/chat',
       active: location.pathname.includes('/chat'),
@@ -104,21 +104,21 @@ export const Sidebar: React.FC = () => {
   const bottomNavigationItems = [
     {
       key: 'payments',
-      label: t('nav_payments', 'Платежи'),
+      label: t('nav_payments', 'Payments'),
       icon: <PaymentsIcon />,
       path: '/payments',
       active: location.pathname.includes('/payments')
     },
     {
       key: 'settings',
-      label: t('nav_settings', 'Настройки'),
+      label: t('nav_settings', 'Settings'),
       icon: <SettingsIcon />,
       path: '/personal-cabinet/settings',
       active: location.pathname.includes('/settings')
     },
     {
       key: 'signout',
-      label: t('nav_signout', 'Выйти'),
+      label: t('nav_signout', 'Sign Out'),
       icon: <SignOutIcon />,
       path: '/signout',
       active: false
