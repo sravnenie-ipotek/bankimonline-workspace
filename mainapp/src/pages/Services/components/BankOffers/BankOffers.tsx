@@ -5,6 +5,13 @@ import { useTranslation } from 'react-i18next'
 import { BankCard } from '@components/ui/BankCard'
 import { ProgrammCard } from '@components/ui/ProgrammCard'
 import { useAppSelector } from '@src/hooks/store'
+import { 
+  fetchBankOffers, 
+  fetchMortgagePrograms, 
+  transformUserDataToRequest,
+  type BankOffer,
+  type MortgageProgram 
+} from '@src/services/bankOffersApi'
 
 import styles from './bankOffers.module.scss'
 
@@ -13,166 +20,117 @@ const cx = classNames.bind(styles)
 const BankOffers = () => {
   const { t, i18n } = useTranslation()
 
-  const [banks, setBanks] = useState<any[]>([])
+  const [banks, setBanks] = useState<BankOffer[]>([])
+  const [mortgagePrograms, setMortgagePrograms] = useState<MortgageProgram[]>([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<string | null>(null)
 
   // Get mortgage parameters from Redux store
   const mortgageParameters = useAppSelector((state) => state.mortgage)
+  const userPersonalData = useAppSelector((state) => state.mortgage)
+  const userIncomeData = useAppSelector((state) => state.mortgage.incomeData)
 
   useEffect(() => {
-    const fetchBankOffers = async () => {
+    const loadBankOffers = async () => {
       try {
         setLoading(true)
         setError(null)
         
-        const requestPayload = {
-          loan_type: 'mortgage',
-          amount: mortgageParameters.priceOfEstate - mortgageParameters.initialFee || 496645,
-          property_value: mortgageParameters.priceOfEstate || 1000000,
-          monthly_income: 25000, // Default for testing
-          age: 35, // Default for testing
-          credit_score: 750, // Default for testing
-          employment_years: 5, // Default for testing
-          monthly_expenses: 8000, // Default for testing
-        }
+        // Transform user data to API request format
+        const requestPayload = transformUserDataToRequest(
+          mortgageParameters, 
+          userPersonalData, 
+          userIncomeData
+        )
         
         console.log('🚀 [BANK-OFFERS] Making API request with payload:', requestPayload)
-        console.log('🔍 [BANK-OFFERS] Customer LTV:', ((requestPayload.amount / requestPayload.property_value) * 100).toFixed(1) + '%')
-        console.log('🔍 [BANK-OFFERS] Customer DTI:', ((requestPayload.monthly_expenses / requestPayload.monthly_income) * 100).toFixed(1) + '%')
         
-        const API_BASE = 'https://bankdev2standalone-production.up.railway.app/api';
-        const response = await fetch(`${API_BASE}/customer/compare-banks`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(requestPayload),
-        })
+        // Fetch bank offers from API
+        const bankOffers = await fetchBankOffers(requestPayload)
         
-        console.log('📡 [BANK-OFFERS] API Response status:', response.status)
-        console.log('📡 [BANK-OFFERS] API Response headers:', Object.fromEntries(response.headers.entries()))
-        
-        if (!response.ok) {
-          const errorText = await response.text()
-          console.error('❌ [BANK-OFFERS] API Error:', response.status, errorText)
-          throw new Error(`API Error: ${response.status} - ${errorText}`)
-        }
-        
-        const data = await response.json()
-        console.log('📦 [BANK-OFFERS] Full API Response:', data)
-        
-        // Transform API response to match component structure
-        const bankOffers = data.data?.bank_offers || []
-        console.log('🏦 [BANK-OFFERS] Bank offers array:', bankOffers)
-        console.log('🔢 [BANK-OFFERS] Number of bank offers:', bankOffers.length)
+        console.log('🏦 [BANK-OFFERS] Received bank offers:', bankOffers.length)
         
         if (bankOffers.length === 0) {
           console.warn('⚠️ [BANK-OFFERS] NO BANK OFFERS FOUND!')
-          console.log('🔍 [BANK-OFFERS] Possible reasons:')
-          console.log('   - LTV too high (Customer: ' + ((requestPayload.amount / requestPayload.property_value) * 100).toFixed(1) + '%)')
-          console.log('   - DTI too high (Customer: ' + ((requestPayload.monthly_expenses / requestPayload.monthly_income) * 100).toFixed(1) + '%)')
-          console.log('   - Credit score too low (Customer: ' + requestPayload.credit_score + ')')
-          console.log('   - Income too low (Customer: ₪' + requestPayload.monthly_income + ')')
-          console.log('   - Age restrictions (Customer: ' + requestPayload.age + ' years)')
           console.log('💡 [BANK-OFFERS] Check admin panel banking standards!')
         }
         
-        const transformedBanks = bankOffers.map((offer: any, index: number) => {
-          console.log(`🏛️ [BANK-OFFERS] Processing bank ${index + 1}:`, offer.bank_name, 'Status:', offer.approval_status)
-          
-          // Calculate and display customer financial ratios for this bank
-          const customerLTV = ((requestPayload.amount / requestPayload.property_value) * 100).toFixed(1)
-          const customerDTI = ((requestPayload.monthly_expenses / requestPayload.monthly_income) * 100).toFixed(1)
-          
-          console.log(`📊 [BANK-OFFERS] Customer Profile for ${offer.bank_name}:`)
-          console.log(`   💰 Loan Amount: ₪${requestPayload.amount.toLocaleString()}`)
-          console.log(`   🏠 Property Value: ₪${requestPayload.property_value.toLocaleString()}`)
-          console.log(`   📈 Customer LTV: ${customerLTV}% (Bank LTV: ${offer.ltv_ratio?.toFixed(1) || 'N/A'}%)`)
-          console.log(`   📊 Customer DTI: ${customerDTI}% (Bank DTI: ${offer.dti_ratio?.toFixed(1) || 'N/A'}%)`)
-          console.log(`   💳 Credit Score: ${requestPayload.credit_score}`)
-          console.log(`   💵 Monthly Income: ₪${requestPayload.monthly_income.toLocaleString()}`)
-          console.log(`   💸 Monthly Expenses: ₪${requestPayload.monthly_expenses.toLocaleString()}`)
-          console.log(`   🎂 Age: ${requestPayload.age} years`)
-          console.log(`   💼 Employment: ${requestPayload.employment_years} years`)
-          console.log(`   ✅ Final Decision: ${offer.approval_status.toUpperCase()}`)
-          console.log(`   💰 Monthly Payment: ₪${offer.monthly_payment?.toLocaleString() || 'N/A'}`)
-          console.log(`   📈 Interest Rate: ${offer.interest_rate?.toFixed(2) || 'N/A'}%`)
-          console.log(`   ⏱️ Term: ${offer.term_years || 'N/A'} years`)
-          console.log(`   ────────────────────────────────────────────────────────`)
-          
-          return {
-            title: offer.bank_name || `${t('mortgage_bank_name')}${index + 1}`,
-            infoTitle: t('mortgage_register'),
-            mortgageAmount: offer.loan_amount || mortgageParameters.priceOfEstate - mortgageParameters.initialFee,
-            totalAmount: offer.total_payment || mortgageParameters.priceOfEstate,
-            monthlyPayment: offer.monthly_payment || 10000,
-            interestRate: offer.interest_rate || 2.1,
-            approvalStatus: offer.approval_status || 'pending',
-            bankId: offer.bank_id,
-            bankLogo: offer.bank_logo,
-            ltvRatio: offer.ltv_ratio,
-            dtiRatio: offer.dti_ratio,
-            termYears: offer.term_years
-          }
-        })
-        
-        console.log('✅ [BANK-OFFERS] Transformed banks for display:', transformedBanks)
-        setBanks(transformedBanks)
+        setBanks(bankOffers)
         
       } catch (error: any) {
         console.error('💥 [BANK-OFFERS] Error fetching bank offers:', error)
         setError(error.message || 'Unknown error occurred')
       } finally {
         setLoading(false)
-        console.log('🏁 [BANK-OFFERS] Fetch completed')
       }
     }
 
-    fetchBankOffers()
-  }, [mortgageParameters, t])
+    loadBankOffers()
+  }, [mortgageParameters, userPersonalData, userIncomeData, t])
 
-  const offers = [
-    {
+  useEffect(() => {
+    const loadMortgagePrograms = async () => {
+      try {
+        const programs = await fetchMortgagePrograms()
+        
+        // Map API data to use correct language fields based on current language
+        const currentLang = i18n.language || 'en'
+        const mappedPrograms = programs.map((program: any) => ({
+          id: program.id,
+          title: currentLang === 'he' ? program.title : 
+                 currentLang === 'ru' ? program.title_ru : 
+                 program.title_en,
+          description: currentLang === 'he' ? program.description : 
+                      currentLang === 'ru' ? program.description_ru : 
+                      program.description_en,
+          conditionFinance: currentLang === 'he' ? program.conditionFinance : 
+                           currentLang === 'ru' ? program.conditionFinance_ru : 
+                           program.conditionFinance_en,
+          conditionPeriod: currentLang === 'he' ? program.conditionPeriod : 
+                          currentLang === 'ru' ? program.conditionPeriod_ru : 
+                          program.conditionPeriod_en,
+          conditionBid: currentLang === 'he' ? program.conditionBid : 
+                       currentLang === 'ru' ? program.conditionBid_ru : 
+                       program.conditionBid_en,
+          interestRate: program.interestRate,
+          termYears: program.termYears
+        }))
+        
+        setMortgagePrograms(mappedPrograms)
+      } catch (error) {
+        console.warn('⚠️ [MORTGAGE-PROGRAMS] Failed to fetch programs, using fallback')
+        // Fallback to basic program types if API fails
+        setMortgagePrograms([
+          {
+            id: 'prime',
       title: t('mortgage_prime_percent'),
-      mortgageAmount: 1000000,
-      monthlyPayment: 10000,
-      percent: 2.1,
-      period: 4,
-      description:
-        'Процентная ставка в этой кредитной линии меняется каждый месяц в соответствии с процентной ставкой, установленной Банком Израиля. Любое изменение в процентной ставке Банка Израиля приводит к немедленному изменению суммы ежемесячного платежа. Использование этой линии ограничено до 1/3 от общей суммы ипотеки. Нет прикрепления к инфляции. На этой линии нет штрафов за досрочное погашение, за исключением операционного сбора (обычно 60 шекелей) и комиссии за не уведомление банка о досрочном погашении (0,1% от суммы погашения).',
-      conditionFinance: 'до 33%',
-      conditionPeriod: '4-30 лет',
-      conditionBid:
-        'Состоит из двух процентов: Меняющийся (0,25%) Постоянный (1,5%) = 1,75',
-    },
-    {
-      title: 'Фиксированный процент, прикрепленный к инфляции',
-      mortgageAmount: 1000000,
-      monthlyPayment: 10000,
-      percent: 2.1,
-      period: 4,
-      description:
-        'Процентная ставка в этой кредитной линии меняется каждый месяц в соответствии с процентной ставкой, установленной Банком Израиля. Любое изменение в процентной ставке Банка Израиля приводит к немедленному изменению суммы ежемесячного платежа. Использование этой линии ограничено до 1/3 от общей суммы ипотеки. Нет прикрепления к инфляции. На этой линии нет штрафов за досрочное погашение, за исключением операционного сбора (обычно 60 шекелей) и комиссии за не уведомление банка о досрочном погашении (0,1% от суммы погашения).',
-      conditionFinance: 'до 33%',
-      conditionPeriod: '4-30 лет',
-      conditionBid:
-        'Состоит из двух процентов: Меняющийся (0,25%) Постоянный (1,5%) = 1,75%',
-    },
-    {
-              title: t('floating_interest_inflation'),
-      mortgageAmount: 1000000,
-      monthlyPayment: 10000,
-      percent: 2.1,
-      period: 4,
-      description:
-        'Процентная ставка в этой кредитной линии меняется каждый месяц в соответствии с процентной ставкой, установленной Банком Израиля. Любое изменение в процентной ставке Банка Израиля приводит к немедленному изменению суммы ежемесячного платежа. Использование этой линии ограничено до 1/3 от общей суммы ипотеки. Нет прикрепления к инфляции. На этой линии нет штрафов за досрочное погашение, за исключением операционного сбора (обычно 60 шекелей) и комиссии за не уведомление банка о досрочном погашении (0,1% от суммы погашения).',
-      conditionFinance: 'до 33%',
-      conditionPeriod: '4-30 лет',
-      conditionBid:
-        'Состоит из двух процентов: Меняющийся (0,25%) Постоянный (1,5%) = 1,75%',
-    },
-  ]
+            description: t('prime_description') || 'Prime rate linked mortgage program',
+            conditionFinance: t('up_to_33_percent') || 'Up to 33%',
+            conditionPeriod: t('4_to_30_years') || '4-30 years',
+            conditionBid: t('prime_rate_structure') || 'Variable + Fixed components'
+          },
+          {
+            id: 'fixed_inflation',
+            title: t('mortgage_fix_percent') || 'Fixed rate linked to inflation',
+            description: t('fixed_inflation_description') || 'Fixed rate with inflation adjustment',
+            conditionFinance: t('up_to_70_percent') || 'Up to 70%',
+            conditionPeriod: t('5_to_30_years') || '5-30 years',
+            conditionBid: t('fixed_rate_structure') || 'Fixed rate structure'
+          },
+          {
+            id: 'variable_inflation',
+            title: t('mortgage_float_percent') || 'Variable rate linked to inflation',
+            description: t('variable_inflation_description') || 'Variable rate with inflation adjustment',
+            conditionFinance: t('up_to_75_percent') || 'Up to 75%',
+            conditionPeriod: t('4_to_25_years') || '4-25 years',
+            conditionBid: t('variable_rate_structure') || 'Variable rate structure'
+          }
+        ])
+      }
+    }
+
+    loadMortgagePrograms()
+  }, [t, i18n.language])
 
   if (loading) {
     return <div className={cx('container')}>Loading bank offers...</div>
@@ -191,28 +149,37 @@ const BankOffers = () => {
         </div>
       ) : (
         banks.map((bank, index) => (
-          <Fragment key={index}>
+          <Fragment key={bank.bank_id || index}>
             <div className={cx('column')}>
               <BankCard
-                key={index}
-                title={bank.title}
-                infoTitle={bank.infoTitle}
-                mortgageAmount={bank.mortgageAmount}
-                totalAmount={bank.totalAmount}
-                mothlyPayment={bank.monthlyPayment}
+                key={bank.bank_id || index}
+                title={bank.bank_name || `${t('mortgage_bank_name')}${index + 1}`}
+                infoTitle={t('mortgage_register')}
+                mortgageAmount={bank.loan_amount}
+                totalAmount={bank.total_payment}
+                mothlyPayment={bank.monthly_payment}
+                bankOffer={{
+                  id: bank.bank_id,
+                  bankName: bank.bank_name,
+                  program: 'Mortgage Program',
+                  rate: bank.interest_rate,
+                  monthlyPayment: bank.monthly_payment,
+                  totalAmount: bank.total_payment,
+                  mortgageAmount: bank.loan_amount
+                }}
               >
-                {offers.map((offer, index) => (
+                {mortgagePrograms.map((program, programIndex) => (
                   <ProgrammCard
-                    key={index}
-                    title={offer.title}
-                    percent={bank.interestRate || offer.percent}
-                    mortgageAmount={offer.mortgageAmount}
-                    monthlyPayment={offer.monthlyPayment}
-                    period={offer.period}
-                    description={offer.description}
-                    conditionFinance={offer.conditionFinance}
-                    conditionPeriod={offer.conditionPeriod}
-                    conditionBid={offer.conditionBid}
+                    key={programIndex}
+                    title={program.title}
+                    percent={bank.interest_rate || program.interestRate || 2.1}
+                    mortgageAmount={bank.loan_amount}
+                    monthlyPayment={bank.monthly_payment}
+                    period={bank.term_years || program.termYears || 20}
+                    description={program.description}
+                    conditionFinance={program.conditionFinance}
+                    conditionPeriod={program.conditionPeriod}
+                    conditionBid={program.conditionBid}
                   />
                 ))}
               </BankCard>

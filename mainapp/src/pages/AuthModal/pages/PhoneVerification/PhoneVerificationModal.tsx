@@ -30,23 +30,23 @@ const PhoneVerificationModal = () => {
 
   const validateName = (name: string): string | undefined => {
     if (!name.trim()) {
-      return 'Имя и фамилия обязательны'
+      return t('name_required', 'Имя и фамилия обязательны')
     }
     if (!/^[a-zA-Zа-яА-Я\u0590-\u05FF\s]+$/.test(name)) {
-      return 'Используйте только буквы и пробелы'
+      return t('name_letters_only', 'Используйте только буквы и пробелы')
     }
     if (name.trim().length < 2) {
-      return 'Минимум 2 символа'
+      return t('name_min_length', 'Минимум 2 символа')
     }
     return undefined
   }
 
   const validatePhone = (phone: string): string | undefined => {
     if (!phone.trim()) {
-      return 'Номер телефона обязателен'
+      return t('phone_required', 'Номер телефона обязателен')
     }
     if (!/^\+?[\d\s-()]+$/.test(phone)) {
-      return 'Введите корректный номер телефона'
+      return t('phone_invalid', 'Введите корректный номер телефона')
     }
     return undefined
   }
@@ -83,10 +83,6 @@ const PhoneVerificationModal = () => {
     }
 
     try {
-      // Mock SMS sending
-      console.log('Sending SMS to:', formData.phone)
-      console.log('User data:', formData)
-      
       // Save data to localStorage for development
       localStorage.setItem('phoneVerificationData', JSON.stringify({
         name: formData.name,
@@ -97,7 +93,8 @@ const PhoneVerificationModal = () => {
       // Navigate to SMS verification
       dispatch(setActiveModal('codeSignUp'))
     } catch (error) {
-      console.error('Error sending SMS:', error)
+      // Handle error silently or show user-friendly message
+      setErrors({ phone: t('sms_send_error', 'Ошибка отправки SMS. Попробуйте еще раз.') })
     }
   }
 
@@ -130,7 +127,7 @@ const PhoneVerificationModal = () => {
         <div>
           <input 
             type="text" 
-            placeholder="Имя Фамилия"
+            placeholder={t('name_placeholder', 'Имя Фамилия')}
             value={formData.name}
             onChange={handleNameChange}
             style={{ 
@@ -157,7 +154,7 @@ const PhoneVerificationModal = () => {
             onChange={handlePhoneChange}
             onlyCountries={['il', 'us', 'ru']}
             preferredCountries={['il', 'us', 'ru']}
-            placeholder="Номер телефона"
+            placeholder={t('phone_placeholder', 'Номер телефона')}
             inputStyle={{
               width: '100%',
               padding: '12px 12px 12px 58px',
@@ -197,30 +194,30 @@ const PhoneVerificationModal = () => {
 
         <div style={{ marginTop: '16px', textAlign: 'center' }}>
           <p style={{ fontSize: '14px', color: '#666666', lineHeight: '1.4', margin: '0' }}>
-            Нажимая кнопку "Продолжить" я принимаю условия{' '}
+            {t('agreement_text_start', 'Нажимая кнопку "Продолжить" я принимаю условия')}{' '}
             <span 
               style={{ color: '#007bff', textDecoration: 'underline', cursor: 'pointer' }}
               onClick={handleUserAgreementClick}
             >
-              Пользовательского соглашения
+              {t('user_agreement', 'Пользовательского соглашения')}
             </span>
-            {' '}и{' '}
+            {' '}{t('and', 'и')}{' '}
             <span 
               style={{ color: '#007bff', textDecoration: 'underline', cursor: 'pointer' }}
               onClick={handlePrivacyPolicyClick}
             >
-              Политики конфиденциальности
+              {t('privacy_policy', 'Политики конфиденциальности')}
             </span>
           </p>
         </div>
 
         <div style={{ marginTop: '24px', textAlign: 'center', fontSize: '14px', color: '#666666' }}>
-          <span>Уже являетесь нашим клиентом? </span>
+          <span>{t('already_client', 'Уже являетесь нашим клиентом?')} </span>
           <span 
             style={{ color: '#007bff', textDecoration: 'underline', cursor: 'pointer', marginLeft: '4px' }}
             onClick={handleLoginClick}
           >
-            Войдите здесь
+            {t('login_here', 'Войдите здесь')}
           </span>
         </div>
       </div>

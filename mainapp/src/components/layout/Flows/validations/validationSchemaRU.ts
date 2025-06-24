@@ -64,15 +64,12 @@ const validationPassword = Yup.string()
       }
 
       if (errors.length > 0) {
-        //TODO: разобраться с типизацией (хотя все работатет)
-        throw new Yup.ValidationError({
-          errors: errors,
-          inner: true,
-          path: 'password',
-          message: errors,
-          value: value,
-          name: 'ValidationError',
-        } as any)
+        // Fixed typing: Properly construct ValidationError with correct types
+        throw new Yup.ValidationError(
+          errors,
+          value,
+          'password'
+        )
       }
 
       return true

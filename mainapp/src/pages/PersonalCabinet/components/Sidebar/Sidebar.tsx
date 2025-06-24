@@ -67,8 +67,8 @@ export const Sidebar: React.FC = () => {
       key: 'home',
       label: t('nav_home', 'Главная'),
       icon: <HomeIcon />,
-      path: '/',
-      active: false
+      path: '/personal-cabinet',
+      active: location.pathname === '/personal-cabinet'
     },
     {
       key: 'profile',
@@ -107,14 +107,14 @@ export const Sidebar: React.FC = () => {
       label: t('nav_payments', 'Платежи'),
       icon: <PaymentsIcon />,
       path: '/payments',
-      active: false
+      active: location.pathname.includes('/payments')
     },
     {
       key: 'settings',
       label: t('nav_settings', 'Настройки'),
       icon: <SettingsIcon />,
-      path: '/personal-cabinet',
-      active: location.pathname.includes('/personal-cabinet')
+      path: '/personal-cabinet/settings',
+      active: location.pathname.includes('/settings')
     },
     {
       key: 'signout',

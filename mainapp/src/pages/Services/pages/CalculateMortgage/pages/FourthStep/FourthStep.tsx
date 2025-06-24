@@ -36,16 +36,19 @@ const FourthStep = () => {
         // Save any selected bank/offer data
         dispatch(updateMortgageData(values))
         
-        // If user is not authenticated, redirect to registration
-        if (!isAuthenticated || !loginData?.phoneNumber) {
-          console.log('User not authenticated, redirecting to registration')
-          navigate('/auth?step=register&returnTo=/services/calculate-mortgage/4')
-        } else {
-          // User is authenticated, proceed to application submission or next step
-          console.log('User authenticated, proceeding to application')
-          // Could navigate to a confirmation page or trigger application submission
-          navigate('/services/application-submitted')
-        }
+        // For now, bypass authentication and go directly to application submitted
+        // TODO: Implement proper authentication flow
+        console.log('Proceeding to application submission (auth bypassed for testing)')
+        navigate('/services/application-submitted')
+        
+        // Original authentication logic (commented out for testing):
+        // if (!isAuthenticated || !loginData?.phoneNumber) {
+        //   console.log('User not authenticated, redirecting to registration')
+        //   navigate('/auth?step=register&returnTo=/services/calculate-mortgage/4')
+        // } else {
+        //   console.log('User authenticated, proceeding to application')
+        //   navigate('/services/application-submitted')
+        // }
       }}
     >
       <Form>

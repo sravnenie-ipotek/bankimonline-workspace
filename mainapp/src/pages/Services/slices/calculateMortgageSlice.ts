@@ -12,15 +12,24 @@ type BankOfferType = {
   mortgageAmount: number
 }
 
+type IncomeDataType = {
+  monthlyIncome?: number
+  employmentYears?: number
+  monthlyExpenses?: number
+}
+
 type CalculateMortgageState = CalculateMortgageTypes & FormTypes & {
   selectedBank?: BankOfferType
   selectedBankId?: string
   selectedBankName?: string
+  incomeData?: IncomeDataType
 }
 
 export const calculateMortgageSlice = createSlice({
   name: 'mortgage',
-  initialState: {} as unknown as CalculateMortgageState,
+  initialState: {
+    incomeData: {}
+  } as unknown as CalculateMortgageState,
   reducers: {
     updateMortgageData: (state, action) => {
       const newValues = { ...action.payload }
@@ -40,9 +49,15 @@ export const calculateMortgageSlice = createSlice({
         ...newValues,
       }
     },
+    updateIncomeData: (state, action) => {
+      state.incomeData = {
+        ...state.incomeData,
+        ...action.payload,
+      }
+    },
   },
 })
 
-export const { updateMortgageData } = calculateMortgageSlice.actions
+export const { updateMortgageData, updateIncomeData } = calculateMortgageSlice.actions
 
 export default calculateMortgageSlice.reducer
