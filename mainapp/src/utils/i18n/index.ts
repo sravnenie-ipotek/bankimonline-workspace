@@ -5,9 +5,10 @@ import { initReactI18next } from 'react-i18next'
 import format from './i18n-format.ts'
 
 // Get language from localStorage or default to 'en'
+// Use the same key as admin system for consistency
 const getInitialLanguage = (): string => {
   if (typeof window !== 'undefined') {
-    return localStorage.getItem('language') || 'en'
+    return localStorage.getItem('admin_language') || localStorage.getItem('language') || 'en'
   }
   return 'en'
 }

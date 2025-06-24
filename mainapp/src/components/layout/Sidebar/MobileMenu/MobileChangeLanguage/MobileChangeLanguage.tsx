@@ -78,6 +78,12 @@ const MobileChangeLanguage = () => {
       await i18n.changeLanguage(newLanguage)
       setSelectedLanguage(newLanguage)
       dispatch(changeLanguage(newLanguage))
+      
+      // Save to localStorage with the same key as admin system
+      localStorage.setItem('admin_language', newLanguage)
+      localStorage.setItem('language', newLanguage) // Keep for backward compatibility
+      
+      console.log(`🔄 Mobile language changed to: ${newLanguage}`)
     } catch (error) {
       console.error('Error changing language:', error)
     }
