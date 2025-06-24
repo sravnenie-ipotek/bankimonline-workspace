@@ -24,25 +24,56 @@ const mimeTypes = {
 const server = http.createServer((req, res) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
   
+  // Parse URL to separate path from query parameters
+  const url = new URL(req.url, `http://localhost:${PORT}`);
+  const pathname = url.pathname;
+  
+  // Handle API requests - proxy to database server
+  if (pathname.startsWith('/api/')) {
+    console.log(`🔄 Proxying API request: ${req.url} to port 8003`);
+    
+    const options = {
+      hostname: 'localhost',
+      port: 8003,
+      path: req.url,
+      method: req.method,
+      headers: req.headers
+    };
+    
+    const proxyReq = http.request(options, (proxyRes) => {
+      res.writeHead(proxyRes.statusCode, proxyRes.headers);
+      proxyRes.pipe(res, { end: true });
+    });
+    
+    proxyReq.on('error', (err) => {
+      console.error('❌ Proxy error:', err);
+      res.writeHead(500);
+      res.end('API server unavailable');
+    });
+    
+    req.pipe(proxyReq, { end: true });
+    return;
+  }
+  
   let filePath = '';
   
   // Handle admin routes FIRST - serve standalone admin page
-  if (req.url.startsWith('/admin-panel')) {
+  if (pathname.startsWith('/admin-panel')) {
     filePath = './admin.html';
-  } else if (req.url.startsWith('/customer-approval-check')) {
+  } else if (pathname.startsWith('/customer-approval-check')) {
     filePath = './customer-approval-check.html';
-  } else if (req.url === '/debug.html') {
+  } else if (pathname === '/debug.html') {
     filePath = './debug.html';
-  } else if (req.url.startsWith('/js/') || 
-             req.url.startsWith('/css/')) {
+  } else if (pathname.startsWith('/js/') || 
+             pathname.startsWith('/css/')) {
     // Serve static files directly from project root
-    filePath = '.' + req.url;
-  } else if (req.url.startsWith('/locales/')) {
+    filePath = '.' + pathname;
+  } else if (pathname.startsWith('/locales/')) {
     // Serve locales from React app build directory
-    filePath = './mainapp/build' + req.url;
+    filePath = './mainapp/build' + pathname;
   } else {
     // Default to React app
-    filePath = req.url === '/' ? './mainapp/build/index.html' : './mainapp/build' + req.url;
+    filePath = pathname === '/' ? './mainapp/build/index.html' : './mainapp/build' + pathname;
   }
   
   // Security: prevent directory traversal
@@ -66,6 +97,7 @@ const server = http.createServer((req, res) => {
             }
           });
         } else {
+          console.error(`File not found: ${filePath} (requested: ${req.url})`);
           res.writeHead(404);
           res.end('404 Not Found');
         }
