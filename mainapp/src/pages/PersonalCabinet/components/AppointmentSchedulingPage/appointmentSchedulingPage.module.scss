@@ -1,0 +1,276 @@
+.appointment-scheduling-page {
+  padding: 32px;
+  background-color: #161616;
+  color: #FFFFFF;
+  min-height: 100vh;
+  
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.return-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: #242529;
+  border: 1px solid #404040;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #2A2A2E;
+    border-color: #505050;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+/* Page Title */
+.page-title {
+  font-size: 48px;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  color: #FFFFFF;
+  margin-bottom: 40px;
+  line-height: 1.2;
+  
+  @media (max-width: 768px) {
+    font-size: 32px;
+    margin-bottom: 24px;
+  }
+}
+
+/* Form Section */
+.appointment-form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.form-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  /* Override dropdown menu styles for dark theme */
+  :global(.dropdown-menu) {
+    background-color: #242529;
+    border: 1px solid #404040;
+    color: #FFFFFF;
+    
+    &:focus {
+      border-color: #FBE54D;
+      box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2);
+    }
+  }
+
+  /* Override calendar styles for dark theme */
+  :global(.calendar) {
+    background-color: #242529;
+    border: 1px solid #404040;
+    color: #FFFFFF;
+    
+    &:focus-within {
+      border-color: #FBE54D;
+      box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2);
+    }
+  }
+}
+
+/* Map Section */
+.map-section {
+  width: 100%;
+  height: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #404040;
+  margin-bottom: 40px;
+  
+  @media (max-width: 768px) {
+    height: 300px;
+    margin-bottom: 24px;
+  }
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+}
+
+.back-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  background-color: transparent;
+  border: 1px solid #404040;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+
+  &:hover {
+    background-color: #242529;
+    border-color: #505050;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+.schedule-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 32px;
+  background-color: #FBE54D;
+  border: 1px solid #FBE54D;
+  border-radius: 8px;
+  color: #161616;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+
+  &:hover:not(:disabled) {
+    background-color: #F5DC3A;
+    border-color: #F5DC3A;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(251, 229, 77, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(251, 229, 77, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+/* Loading State */
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #161616;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error States */
+.form-field {
+  :global(.error) {
+    color: #FF6B6B;
+    font-size: 14px;
+    margin-top: 4px;
+  }
+}
+
+/* Focus States */
+.form-field {
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #FBE54D;
+    box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .appointment-scheduling-page {
+    padding: 24px;
+  }
+  
+  .form-section {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .appointment-scheduling-page {
+    padding: 12px;
+  }
+  
+  .page-title {
+    font-size: 24px;
+  }
+  
+  .form-section {
+    grid-template-columns: 1fr;
+  }
+  
+  .return-button,
+  .back-button,
+  .schedule-button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+} 

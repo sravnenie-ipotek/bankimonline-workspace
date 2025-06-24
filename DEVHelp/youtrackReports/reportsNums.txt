@@ -1,7 +1,8 @@
-Total unique OS numbers found:      336
+Total unique issue numbers found: 411 (338 OS + 73 LK)
 
-Sorted list of all OS numbers:
-==============================
+Sorted list of all OS numbers found in youTrackReports files:
+========================================================
+
 OS-94
 OS-95
 OS-96
@@ -338,3 +339,82 @@ OS-626
 OS-627
 OS-628
 OS-629
+
+Sorted list of all LK numbers found in youTrackReports files:
+========================================================
+
+LK-122
+LK-123
+LK-124
+LK-125
+LK-126
+LK-127
+LK-128
+LK-129
+LK-130
+LK-131
+LK-132
+LK-133
+LK-134
+LK-135
+LK-136
+LK-137
+LK-149
+LK-150
+LK-151
+LK-152
+LK-153
+LK-154
+LK-155
+LK-156
+LK-157
+LK-158
+LK-159
+LK-160
+LK-161
+LK-162
+LK-163
+LK-164
+LK-165
+LK-166
+LK-167
+LK-168
+LK-169
+LK-170
+LK-171
+LK-172
+LK-173
+LK-174
+LK-175
+LK-176
+LK-177
+LK-178
+LK-179
+LK-180
+LK-181
+LK-182
+
+Notable gaps in OS sequence:
+===========================
+Missing: OS-138 (between OS-137 and OS-139)
+Missing: OS-192 (between OS-191 and OS-193)
+Missing: OS-230 through OS-260 (31 consecutive issues)
+Missing: OS-371 through OS-399 (29 consecutive issues)
+Missing: OS-411 through OS-499 (89 consecutive issues)
+Missing: OS-511 through OS-516 (6 consecutive issues)
+Missing: OS-523 through OS-564 (42 consecutive issues)
+Missing: OS-596 (between OS-595 and OS-597)
+
+Total missing OS issues in documented ranges: ~197 issues
+
+Notable gaps in LK sequence:
+===========================
+Missing: LK-2 through LK-24
+Missing: LK-29
+Missing: LK-33 through LK-121
+Missing: LK-138 through LK-156
+
+Primary LK number ranges:
+========================
+Early references: LK-1, LK-25 through LK-32
+Main range: LK-122 through LK-182 (with gap at LK-138 through LK-156)

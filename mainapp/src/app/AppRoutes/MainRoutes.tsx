@@ -183,6 +183,19 @@ const CreditHistoryConsentPage = lazy(() =>
   }))
 )
 
+const BankAuthorizationPage = lazy(() =>
+  import('../../pages/PersonalCabinet/components/BankAuthorizationPage').then((module) => ({
+    default: module.default,
+  }))
+)
+
+// Mobile Upload
+const MobileDocumentUploadPage = lazy(() =>
+  import('../../pages/MobileDocumentUpload/MobileDocumentUploadPage').then((module) => ({
+    default: module.MobileDocumentUploadPage,
+  }))
+)
+
 // Admin Pages
 const AdminLogin = lazy(() => import('../../pages/Admin/AdminLogin'))
 const AdminDashboard = lazy(() => import('../../pages/Admin/AdminDashboard'))
@@ -294,9 +307,17 @@ const MainRoutes: React.FC = () => {
               <Route path="/personal-cabinet/credit-history" element={<CreditHistoryPage />} />
               <Route path="/personal-cabinet/documents" element={<DocumentsPage />} />
               <Route path="/personal-cabinet/credit-history-consent" element={<CreditHistoryConsentPage />} />
+              <Route path="/personal-cabinet/bank-authorization" element={<BankAuthorizationPage />} />
               <Route path="/payments" element={<PersonalCabinet />} />
               <Route path="/payments/history" element={<PersonalCabinet />} />
               
+              {/* Mobile Upload Route - Outside Layout for full mobile experience */}
+            </Route>
+            
+            {/* Mobile Upload - Standalone page without main layout */}
+            <Route path="/mobile-upload/:uploadId" element={<MobileDocumentUploadPage />} />
+            
+            <Route element={<Layout />}>
               {/* Admin Routes */}
               <Route path="/admin">
                 <Route path="login" element={<AdminLogin />} />
