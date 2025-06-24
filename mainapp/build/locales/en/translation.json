@@ -146,5 +146,7 @@
   "language_english": "English",
   "language_hebrew": "Hebrew",
   "language_russian": "Russian",
-  "sel_cntr": "Select Country"
+  "sel_cntr": "Select Country",
+  "main_dashboard_title": "Main",
+  "choose_service_message": "Choose one of the services to continue"
 }

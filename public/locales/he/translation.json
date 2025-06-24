@@ -283,5 +283,7 @@
   "language_english": "אנגלית",
   "language_hebrew": "עברית",
   "language_russian": "רוסית",
-  "sel_cntr": "בחר מדינה"
+  "sel_cntr": "בחר מדינה",
+  "main_dashboard_title": "ראשי",
+  "choose_service_message": "בחר אחד מהשירותים כדי להמשיך"
 }

@@ -259,5 +259,7 @@
   "language_english": "Английский",
   "language_hebrew": "Иврит",
   "language_russian": "Русский",
-  "sel_cntr": "Выберите страну"
+  "sel_cntr": "Выберите страну",
+  "main_dashboard_title": "Главная",
+  "choose_service_message": "Выберите одну из услуг, чтобы продолжить"
 }
