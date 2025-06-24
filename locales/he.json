@@ -130,6 +130,7 @@
   "yes": "כן",
   "no": "לא",
   "not_found_greeting": "הדף לא נמצא",
+  "fallback_greeting": "אירעה שגיאה במערכת",
   "calc_mortgage_subtext_1500,000": "עד ₪1,500,000",
   "calc_mortgage_subtext_350": "עד 350%",
   "credit_refinance_title": "מחזור אשראי",
