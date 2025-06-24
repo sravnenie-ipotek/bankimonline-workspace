@@ -334,5 +334,13 @@
   "calculate_mortgage_sphere_option_7": "מכירות ושיווק",
   "calculate_mortgage_sphere_option_8": "שירותים ואירוח",
   "calculate_mortgage_sphere_option_9": "ייצור ולוגיסטיקה",
-  "calculate_mortgage_sphere_option_10": "אחר"
+  "calculate_mortgage_sphere_option_10": "אחר",
+  "nav_home": "ראשי",
+  "nav_profile": "פרופיל",
+  "nav_documents": "מסמכים",
+  "nav_services": "שירותים",
+  "nav_chat": "צ'אט",
+  "nav_payments": "תשלומים",
+  "nav_settings": "הגדרות",
+  "nav_signout": "יציאה"
 }
