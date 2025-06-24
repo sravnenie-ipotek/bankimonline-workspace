@@ -74,29 +74,29 @@ export const Sidebar: React.FC = () => {
       key: 'profile',
       label: t('nav_profile', 'Анкета'),
       icon: <ProfileIcon />,
-      path: '/services/borrowers-personal-data/1',
-      active: false
+      path: '/personal-cabinet/main-borrower-personal-data',
+      active: location.pathname.includes('/personal-data')
     },
     {
       key: 'documents',
       label: t('nav_documents', 'Документы'),
       icon: <DocumentIcon />,
-      path: '/documents',
-      active: false
+      path: '/personal-cabinet/documents',
+      active: location.pathname.includes('/documents')
     },
     {
       key: 'services',
       label: t('nav_services', 'Услуги'),
       icon: <ServicesIcon />,
-      path: '/services',
-      active: true // Services is highlighted in Figma
+      path: '/personal-cabinet',
+      active: location.pathname === '/personal-cabinet'
     },
     {
       key: 'chat',
       label: t('nav_chat', 'Чат'),
       icon: <ChatIcon />,
-      path: '/chat',
-      active: false,
+      path: '/personal-cabinet/chat',
+      active: location.pathname.includes('/chat'),
       notification: 2
     }
   ]

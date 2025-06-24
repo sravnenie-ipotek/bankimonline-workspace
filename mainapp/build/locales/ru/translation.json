@@ -243,5 +243,21 @@
   "sidebar_business_1": "Для бизнеса",
   "sidebar_business_2": "Партнерство",
   "sidebar_business_3": "Тендеры для брокеров",
-  "sidebar_business_4": "Тендеры для юристов"
+  "sidebar_business_4": "Тендеры для юристов",
+  "nav_home": "Главная",
+  "nav_profile": "Анкета",
+  "nav_documents": "Документы",
+  "nav_services": "Услуги",
+  "nav_chat": "Чат",
+  "nav_payments": "Платежи",
+  "nav_settings": "Настройки",
+  "nav_signout": "Выйти",
+  "country": "Страна",
+  "country_us": "США",
+  "country_israel": "Израиль",
+  "country_russia": "Россия",
+  "language_english": "Английский",
+  "language_hebrew": "Иврит",
+  "language_russian": "Русский",
+  "sel_cntr": "Выберите страну"
 }

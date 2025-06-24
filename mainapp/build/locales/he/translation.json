@@ -267,5 +267,21 @@
   "gender_male": "זכר",
   "gender_female": "נקבה",
   "property_ownership_title": "האם המבקש יהיה רשום כאחד מבעלי הנכס?",
-  "property_ownership_placeholder": "בחר תשובה"
+  "property_ownership_placeholder": "בחר תשובה",
+  "nav_home": "ראשי",
+  "nav_profile": "אנקטה",
+  "nav_documents": "מסמכים",
+  "nav_services": "שירותים",
+  "nav_chat": "צ'אט",
+  "nav_payments": "תשלומים",
+  "nav_settings": "הגדרות",
+  "nav_signout": "יציאה",
+  "country": "מדינה",
+  "country_us": "ארצות הברית",
+  "country_israel": "ישראל",
+  "country_russia": "רוסיה",
+  "language_english": "אנגלית",
+  "language_hebrew": "עברית",
+  "language_russian": "רוסית",
+  "sel_cntr": "בחר מדינה"
 }
