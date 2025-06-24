@@ -41,6 +41,12 @@ const OtherBorrowers = lazy(() =>
   }))
 )
 
+const ApplicationSubmitted = lazy(() =>
+  import('../../pages/Services/pages/ApplicationSubmitted').then((module) => ({
+    default: module.ApplicationSubmitted,
+  }))
+)
+
 const View = lazy(() => import('../../pages/View.tsx'))
 const NotFound = lazy(() => import('@src/app/Errors/NotFound/NotFound.tsx'))
 const Terms = lazy(() => import('../../pages/Terms/Terms.tsx'))
@@ -129,6 +135,54 @@ const PersonalCabinet = lazy(() =>
   }))
 )
 
+const PartnerPersonalDataPage = lazy(() =>
+  import('../../pages/PersonalCabinet/components/PartnerPersonalDataPage').then((module) => ({
+    default: module.PartnerPersonalDataPage,
+  }))
+)
+
+const MainBorrowerPersonalDataPage = lazy(() =>
+  import('../../pages/PersonalCabinet/components/MainBorrowerPersonalDataPage').then((module) => ({
+    default: module.MainBorrowerPersonalDataPage,
+  }))
+)
+
+const CoBorrowerPersonalDataPage = lazy(() =>
+  import('../../pages/PersonalCabinet/components/CoBorrowerPersonalDataPage').then((module) => ({
+    default: module.CoBorrowerPersonalDataPage,
+  }))
+)
+
+const IncomeDataPage = lazy(() =>
+  import('../../pages/PersonalCabinet/components/IncomeDataPage').then((module) => ({
+    default: module.default,
+  }))
+)
+
+const CoBorrowerIncomeDataPage = lazy(() =>
+  import('../../pages/PersonalCabinet/components/CoBorrowerIncomeDataPage').then((module) => ({
+    default: module.default,
+  }))
+)
+
+const CreditHistoryPage = lazy(() =>
+  import('../../pages/PersonalCabinet/components/CreditHistoryPage').then((module) => ({
+    default: module.default,
+  }))
+)
+
+const DocumentsPage = lazy(() =>
+  import('../../pages/PersonalCabinet/components/DocumentsPage').then((module) => ({
+    default: module.default,
+  }))
+)
+
+const CreditHistoryConsentPage = lazy(() =>
+  import('../../pages/PersonalCabinet/components/CreditHistoryConsentPage').then((module) => ({
+    default: module.default,
+  }))
+)
+
 // Admin Pages
 const AdminLogin = lazy(() => import('../../pages/Admin/AdminLogin'))
 const AdminDashboard = lazy(() => import('../../pages/Admin/AdminDashboard'))
@@ -186,6 +240,12 @@ const MainRoutes: React.FC = () => {
                   path="other-borrowers/:stepNumber"
                   element={<OtherBorrowers />}
                 />
+
+                {/*Application Submitted Confirmation*/}
+                <Route
+                  path="application-submitted"
+                  element={<ApplicationSubmitted />}
+                />
               </Route>
               {/*<Route path='/services/calculate-mortgage/step-4' element={<CalculateMortgage4 />} />*/}
 
@@ -225,6 +285,17 @@ const MainRoutes: React.FC = () => {
               
               {/* Personal Cabinet */}
               <Route path="/personal-cabinet" element={<PersonalCabinet />} />
+              <Route path="/personal-cabinet/settings" element={<PersonalCabinet />} />
+              <Route path="/personal-cabinet/partner-personal-data" element={<PartnerPersonalDataPage />} />
+              <Route path="/personal-cabinet/main-borrower-personal-data" element={<MainBorrowerPersonalDataPage />} />
+              <Route path="/personal-cabinet/co-borrower-personal-data" element={<CoBorrowerPersonalDataPage />} />
+              <Route path="/personal-cabinet/income-data" element={<IncomeDataPage />} />
+              <Route path="/personal-cabinet/co-borrower-income-data" element={<CoBorrowerIncomeDataPage />} />
+              <Route path="/personal-cabinet/credit-history" element={<CreditHistoryPage />} />
+              <Route path="/personal-cabinet/documents" element={<DocumentsPage />} />
+              <Route path="/personal-cabinet/credit-history-consent" element={<CreditHistoryConsentPage />} />
+              <Route path="/payments" element={<PersonalCabinet />} />
+              <Route path="/payments/history" element={<PersonalCabinet />} />
               
               {/* Admin Routes */}
               <Route path="/admin">

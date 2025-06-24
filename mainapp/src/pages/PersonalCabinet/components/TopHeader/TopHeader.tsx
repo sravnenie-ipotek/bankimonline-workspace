@@ -3,6 +3,7 @@ import classNames from 'classnames/bind'
 import { useTranslation } from 'react-i18next'
 
 import styles from './topHeader.module.scss'
+import { NotificationDropdown, NotificationItem } from '../NotificationDropdown/NotificationDropdown'
 
 const cx = classNames.bind(styles)
 
@@ -31,6 +32,7 @@ const ChevronDownIcon = () => (
 export const TopHeader: React.FC = () => {
   const { t } = useTranslation()
   const [showProfileMenu, setShowProfileMenu] = useState(false)
+  const [showNotifications, setShowNotifications] = useState(false)
 
   // Mock user data - in real app would come from auth context
   const userData = {
@@ -39,13 +41,79 @@ export const TopHeader: React.FC = () => {
     avatar: null
   }
 
+  // Mock notifications data - in real app would come from API/context
+  const mockNotifications: NotificationItem[] = [
+    {
+      id: '1',
+      type: 'success',
+      title: 'Паспорт лицевая сторона',
+      message: 'Паспорт принят',
+      time: '16:04',
+      date: '20.01.2023',
+      isRead: false
+    },
+    {
+      id: '2',
+      type: 'error',
+      title: 'Банк Hapoalim',
+      message: '"Паспорт лицевая сторона" есть ошибки',
+      time: '16:04',
+      date: '20.01.2023',
+      actionText: 'Перейти к чат',
+      actionType: 'chat',
+      isRead: false
+    },
+    {
+      id: '3',
+      type: 'error',
+      title: 'Bank Hapoalim',
+      message: 'Документ не принят. Документ плохо видно. Пожалуйста убедитесь что документ хорошо видно и попробуйте снова',
+      time: '16:04',
+      date: '20.01.2023',
+      actionText: 'Исправить документ',
+      actionType: 'document',
+      isRead: true
+    },
+    {
+      id: '4',
+      type: 'bank',
+      title: 'У банка/банков есть предложение',
+      message: 'Bank Leumi, Bank Hapoalim и еще 3 банка предложили вам ипотечную программу',
+      time: '16:04',
+      date: '20.01.2023',
+      actionText: 'Посмотреть программы',
+      actionType: 'program',
+      isRead: true
+    }
+  ]
+
   const handleProfileClick = () => {
     setShowProfileMenu(!showProfileMenu)
   }
 
   const handleNotificationClick = () => {
-    // Handle notification click
-    console.log('Notifications clicked')
+    setShowNotifications(!showNotifications)
+  }
+
+  const handleNotificationItemClick = (notification: NotificationItem) => {
+    console.log('Notification clicked:', notification)
+    // Handle notification click - navigate to relevant page
+  }
+
+  const handleNotificationActionClick = (notification: NotificationItem) => {
+    console.log('Notification action clicked:', notification)
+    // Handle action click based on actionType
+    switch (notification.actionType) {
+      case 'chat':
+        // Navigate to chat
+        break
+      case 'document':
+        // Navigate to document upload
+        break
+      case 'program':
+        // Navigate to programs
+        break
+    }
   }
 
   return (
@@ -68,7 +136,7 @@ export const TopHeader: React.FC = () => {
                 <NotificationIcon />
               </div>
               <div className={cx('notification-badge')}>
-                2
+                {mockNotifications.filter(n => !n.isRead).length}
               </div>
             </button>
           </div>
@@ -110,6 +178,15 @@ export const TopHeader: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Notification Dropdown */}
+      <NotificationDropdown
+        isOpen={showNotifications}
+        onClose={() => setShowNotifications(false)}
+        notifications={mockNotifications}
+        onNotificationClick={handleNotificationItemClick}
+        onActionClick={handleNotificationActionClick}
+      />
     </div>
   )
 } 

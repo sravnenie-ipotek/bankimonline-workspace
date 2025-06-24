@@ -13,7 +13,7 @@ const Greeting: React.FC<ErrorType> = ({ type }) => {
   return (
     <div className={cx('notfound-greeting')}>
       {type === 'NOT_FOUND' && <span>{t('not_found_greeting')}</span>}
-      {type === 'FALLBACK' && <span>{t('not_found_greeting')}</span>}
+      {type === 'FALLBACK' && <span>{t('fallback_greeting')}</span>}
     </div>
   )
 }

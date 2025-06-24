@@ -49,20 +49,17 @@ const CodeForm: React.FC<TypeProps> = ({
     }
   }, [countdown, canResendSMS])
 
+  // SMS resend constants
+  const SMS_COUNTDOWN_SECONDS = 60
+  const SMS_DELAY_MS = 1000
+
   // Mock SMS resend function
   const handleResendSMS = async () => {
     if (!canResendSMS) return
 
     try {
-      // Mock SMS sending delay
-      console.log('🔄 Resending SMS to:', registrationData.mobile_number)
-      
-      // Save unregistered user data
+      // Save user verification attempt data
       const userData = {
-        ip: await fetch('https://api.ipify.org?format=json')
-          .then(res => res.json())
-          .then(data => data.ip)
-          .catch(() => 'unknown'),
         name: registrationData.nameSurname || 'Unknown',
         phone: registrationData.mobile_number || 'Unknown',
         service: 'phone_verification',
@@ -75,16 +72,15 @@ const CodeForm: React.FC<TypeProps> = ({
       localStorage.setItem('unregistered_users', JSON.stringify(existingData))
       
       // Mock API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000))
+      await new Promise(resolve => setTimeout(resolve, SMS_DELAY_MS))
       
-      console.log('✅ SMS sent successfully (mocked)')
-      
-      // Start 1-minute countdown
+      // Start countdown
       setCanResendSMS(false)
-      setCountdown(60)
+      setCountdown(SMS_COUNTDOWN_SECONDS)
       
     } catch (error) {
-      console.error('❌ Failed to resend SMS:', error)
+      // Handle error silently or show user-friendly message
+      setCanResendSMS(true)
     }
   }
 

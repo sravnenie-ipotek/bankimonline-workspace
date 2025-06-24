@@ -31,6 +31,12 @@ export interface FormTypes {
   amountIncomeCurrentYear: number | null
   noIncome: string
   whoAreYouForBorrowers: string
+  // New fields for LK-127 Partner Personal Data
+  address?: string
+  idDocument?: string
+  documentIssueDate?: string
+  gender?: string
+  propertyOwnership?: string
 }
 
 export interface CalculateMortgageTypes {

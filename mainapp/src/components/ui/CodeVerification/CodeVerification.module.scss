@@ -40,6 +40,12 @@
 .sendAgainButton {
   opacity: 0.9;
   @apply text-accent-primary;
+  
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    @apply text-textTheme-disabled;
+  }
 }
 
 .wrapperButtons {

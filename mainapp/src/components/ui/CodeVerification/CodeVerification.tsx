@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { useFormik, useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
 
@@ -30,6 +31,41 @@ export function CodeVerification<
   const formikContext = useFormikContext<T>()
 
   const { t, i18n } = useTranslation()
+
+  // Rate limiting state for email resend
+  const [canResendEmail, setCanResendEmail] = useState(true)
+  const [emailCountdown, setEmailCountdown] = useState(0)
+
+  // Countdown timer effect for email
+  useEffect(() => {
+    if (emailCountdown > 0) {
+      const timer = setTimeout(() => setEmailCountdown(emailCountdown - 1), 1000)
+      return () => clearTimeout(timer)
+    } else if (emailCountdown === 0 && !canResendEmail) {
+      setCanResendEmail(true)
+    }
+  }, [emailCountdown, canResendEmail])
+
+  // Handle email resend with rate limiting
+  const handleResendEmail = async () => {
+    if (!canResendEmail) return
+
+    try {
+      console.log('🔄 Resending email code to:', formikContext.values.email)
+      
+      // Mock email sending delay
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      console.log('✅ Email code sent successfully (mocked)')
+      
+      // Start 60-second countdown
+      setCanResendEmail(false)
+      setEmailCountdown(60)
+      
+    } catch (error) {
+      console.error('❌ Failed to resend email code:', error)
+    }
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -92,9 +128,19 @@ export function CodeVerification<
                 </div>
                 <div className={styles.sendAgainWrapper}>
                   <span>{t('not_received_sms')}</span>
-                  <button className={styles.sendAgainButton}>
-                    {t('send_sms_code_again')}
-                  </button>
+                  {canResendEmail ? (
+                    <button 
+                      type="button"
+                      className={styles.sendAgainButton}
+                      onClick={handleResendEmail}
+                    >
+                      {t('send_sms_code_again')}
+                    </button>
+                  ) : (
+                    <span className={`${styles.sendAgainButton} ${styles.disabled}`}>
+                      {t('send_sms_code_again')} ({emailCountdown}s)
+                    </span>
+                  )}
                 </div>
               </>
             )
