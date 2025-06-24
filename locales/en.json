@@ -94,5 +94,7 @@
   "compare_in_5mins": "Compare mortgages in 5 minutes",
   "show_variants": "We show several competitive options from leading market providers",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "not_found_greeting": "Page not found",
+  "fallback_greeting": "A system error occurred"
 } 

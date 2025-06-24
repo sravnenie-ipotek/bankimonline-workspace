@@ -318,5 +318,21 @@
   "unemployed": "מובטל",
   "select_bank": "Bank Hapoalim",
   "select_branch": "Israel Hapoalim",
-  "select_answer": "בחר תשובה"
+  "select_answer": "בחר תשובה",
+  "calculate_mortgage_monthy_income_title": "הכנסה חודשית",
+  "calculate_mortgage_company": "חברה",
+  "calculate_mortgage_stere": "תחום פעילות",
+  "calculate_mortgage_sphere": "תחום פעילות",
+  "calculate_mortgage_start_date": "תאריך התחלת עבודה",
+  "calculate_mortgage_profession": "מקצוע",
+  "calculate_mortgage_sphere_option_1": "בנקאות ופיננסים",
+  "calculate_mortgage_sphere_option_2": "טכנולוגיה וסייבר",
+  "calculate_mortgage_sphere_option_3": "רפואה ובריאות",
+  "calculate_mortgage_sphere_option_4": "חינוך והוראה",
+  "calculate_mortgage_sphere_option_5": "משפטים ויעוץ",
+  "calculate_mortgage_sphere_option_6": "הנדסה ובנייה",
+  "calculate_mortgage_sphere_option_7": "מכירות ושיווק",
+  "calculate_mortgage_sphere_option_8": "שירותים ואירוח",
+  "calculate_mortgage_sphere_option_9": "ייצור ולוגיסטיקה",
+  "calculate_mortgage_sphere_option_10": "אחר"
 }
