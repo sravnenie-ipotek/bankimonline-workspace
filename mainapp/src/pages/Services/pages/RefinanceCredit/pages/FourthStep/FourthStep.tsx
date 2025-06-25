@@ -6,6 +6,8 @@ import { Container } from '@components/ui/Container'
 import { DoubleButtons } from '@src/pages/Services/components/DoubleButtons'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice'
+import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
+import { openAuthModal } from '@src/pages/Services/slices/modalSlice'
 
 import FourthStepForm from './FourthStepForm/FourthStepForm'
 
@@ -36,14 +38,14 @@ const FourthStep = () => {
         // Save any selected bank/offer data
         dispatch(updateMortgageData(values))
         
-        // If user is not authenticated, redirect to registration
+        // If user is not authenticated, open auth modal
         if (!isAuthenticated || !loginData?.phoneNumber) {
-          console.log('User not authenticated, redirecting to registration')
-          navigate('/auth?step=register&returnTo=/services/refinance-credit/4')
+          console.log('User not authenticated, opening auth modal')
+          dispatch(openAuthModal())
+          dispatch(setActiveModal('signUp'))
         } else {
-          // User is authenticated, proceed to application submission or next step
+          // User is authenticated, proceed to application submission
           console.log('User authenticated, proceeding to application')
-          // Could navigate to a confirmation page or trigger application submission
           navigate('/services/application-submitted')
         }
       }}
