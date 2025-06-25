@@ -20,27 +20,27 @@ export const ServiceSelectionDashboard: React.FC = () => {
 
   const services: ServiceCard[] = [
     {
-      id: 'calculate-mortgage',
-      title: t('calculate_mortgage', 'Рассчитать Ипотеку'),
-      icon: '/assets/mortgage-icon.png',
+      id: 'mortgage',
+      title: t('calculate_mortgage', 'מחזור אשראי'),
+      icon: '/static/mortgage-icon.png',
       route: '/services/calculate-mortgage/1'
     },
     {
       id: 'refinance-mortgage',
-      title: t('refinance_mortgage', 'Рефинансировать Ипотеку'),
-      icon: '/assets/refinance-mortgage-icon.png',
+      title: t('refinance_mortgage', 'מחזור משכנתא'),
+      icon: '/static/refinance-mortgage-icon.png',
       route: '/services/refinance-mortgage/1'
     },
     {
-      id: 'calculate-credit',
-      title: t('calculate_credit', 'Рассчитать кредит'),
-      icon: '/assets/credit-icon.png',
+      id: 'credit',
+      title: t('calculate_credit', 'חישוב אשראי'),
+      icon: '/static/credit-icon.png',
       route: '/services/calculate-credit/1'
     },
     {
       id: 'refinance-credit',
-      title: t('refinance_credit', 'Рефинансировать кредит'),
-      icon: '/assets/refinance-credit-icon.png',
+      title: t('refinance_credit', 'מחזור אשראי'),
+      icon: '/static/refinance-credit-icon.png',
       route: '/services/refinance-credit/1'
     }
   ]
