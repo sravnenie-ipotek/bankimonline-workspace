@@ -37,7 +37,12 @@ const SignUp = () => {
   // const activeTab = useAppSelector((state) => state.login.activeTab)
 
   const getAccountUrl = () => {
-    // For production, use current domain; for development, use localhost:3001
+    // Check if we're running on localhost (development)
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return 'http://localhost:3001/'
+    }
+    
+    // Use environment variable if available
     if (import.meta.env.VITE_ACCOUNT_URL) {
       return import.meta.env.VITE_ACCOUNT_URL
     }
@@ -47,8 +52,8 @@ const SignUp = () => {
       return window.location.origin + '/'
     }
     
-    // Default to localhost for development
-    return 'http://localhost:3001/'
+    // Default fallback
+    return window.location.origin + '/'
   }
 
   const handleRegisterPhone = async (values: SignUpFormType) => {
