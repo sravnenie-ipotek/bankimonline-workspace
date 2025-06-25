@@ -81,24 +81,45 @@ const MainBorrowerPersonalDataPage: React.FC<MainBorrowerPersonalDataPageProps> 
   const { t } = useTranslation()
   const navigate = useNavigate()
 
-  const initialValues: Partial<FormTypes> = {
-    nameSurname: '',
-    birthday: new Date(new Date().setFullYear(new Date().getFullYear() - 18)).getTime(),
-    education: '',
-    address: '',
-    idDocument: '',
-    documentIssueDate: '',
-    gender: '',
-    additionalCitizenships: null,
+  // Mock user data for demonstration
+  const mockUserData = {
+    nameSurname: 'דוד כהן',
+    birthday: new Date('1985-06-25').getTime(),
+    education: 'תואר ראשון',
+    address: 'רחוב הרצל 123, תל אביב',
+    idDocument: '123456789',
+    documentIssueDate: '2020-01-15',
+    gender: 'male',
+    additionalCitizenships: 'no',
     citizenshipsDropdown: [],
-    taxes: null,
+    taxes: 'no',
     countriesPayTaxes: [],
-    childrens: null,
-    howMuchChildrens: 1,
-    medicalInsurance: null,
-    isForeigner: null,
-    publicPerson: null,
-    propertyOwnership: '',
+    childrens: 'yes',
+    howMuchChildrens: 2,
+    medicalInsurance: 'yes',
+    isForeigner: 'no',
+    publicPerson: 'no',
+    propertyOwnership: 'owner',
+  }
+
+  const initialValues: Partial<FormTypes> = {
+    nameSurname: mockUserData.nameSurname,
+    birthday: mockUserData.birthday,
+    education: mockUserData.education,
+    address: mockUserData.address,
+    idDocument: mockUserData.idDocument,
+    documentIssueDate: mockUserData.documentIssueDate,
+    gender: mockUserData.gender,
+    additionalCitizenships: mockUserData.additionalCitizenships,
+    citizenshipsDropdown: mockUserData.citizenshipsDropdown,
+    taxes: mockUserData.taxes,
+    countriesPayTaxes: mockUserData.countriesPayTaxes,
+    childrens: mockUserData.childrens,
+    howMuchChildrens: mockUserData.howMuchChildrens,
+    medicalInsurance: mockUserData.medicalInsurance,
+    isForeigner: mockUserData.isForeigner,
+    publicPerson: mockUserData.publicPerson,
+    propertyOwnership: mockUserData.propertyOwnership,
   }
 
   const handleSubmit = (values: Partial<FormTypes>) => {
