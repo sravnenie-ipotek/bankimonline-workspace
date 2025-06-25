@@ -390,20 +390,5 @@
   "balance": "יתרה",
   "programm": "תוכנית",
   "add_programm": "הוסף תוכנית",
-  "error_balance": "סכום היתרות בתוכניות ({{sumBalance}}) חייב להיות שווה ליתרת המשכנתא הכוללת ({{fullBalance}}). חסרים: {{notEnoughBalance}}",
-  "year_plural": "שנים",
-  "footer_legal": "משפטי",
-  "footer_legal_1": "תנאי השירות",
-  "footer_legal_2": "מדיניות פרטיות",
-  "footer_legal_3": "מדיניות עוגיות",
-  "footer_legal_4": "מדיניות החזרות",
-  "footer_tenders_brokers": "מכרזים למתווכים",
-  "footer_tenders_lawyers": "מכרזים לעורכי דין",
-  "footer_company": "החברה",
-  "footer_contacts": "צור קשר",
-  "footer_about": "אודותינו",
-  "footer_vacancy": "משרות פנויות",
-  "footer_partner": "שותפות",
-  "footer_writeus": "כתבו לנו",
-  "footer_copyright": "כל הזכויות שמורות"
+  "error_balance": "סכום היתרות בתוכניות ({{sumBalance}}) חייב להיות שווה ליתרת המשכנתא הכוללת ({{fullBalance}}). חסרים: {{notEnoughBalance}}"
 }
