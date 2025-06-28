@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 
 import { CodeVerification } from '@components/ui/CodeVerification'
-import { CloseIcon } from '@assets/icons/Close'
+import { Close } from '@assets/icons/Close'
 import styles from './phoneVerificationModal.module.scss'
 
 const cx = classNames.bind(styles)
@@ -74,7 +74,7 @@ export const PhoneVerificationModal: React.FC<PhoneVerificationModalProps> = ({
             type="button"
             aria-label={t('close', 'Закрыть')}
           >
-            <CloseIcon />
+            <Close />
           </button>
 
           {/* Phone Verification Form */}
