@@ -1,0 +1,385 @@
+OS TASKS STRUCTURE: OS-94 to OS-126
+===========================================
+
+This document contains the structured breakdown of OS tasks from OS-94 to OS-126,
+organized by functionality and user flow phases.
+
+===========================================
+MAIN PAGES & LANDING
+===========================================
+
+OS-94
+Status: О
+1. Главная страница / Стр. 1 Действий 34
+----------------------------------------------
+Full Title: 1. Главная страница
+Page: Стр. 1 
+Actions Count: Действий 34
+Figma Link: [TO BE ADDED]
+Notes: Main landing page with comprehensive user interaction flow
+
+OS-95
+Status: О
+1.1. Главная. Videoplayer / Стр. 1.1 Действий 8
+--------------------------------------------------
+Full Title: 1.1. Главная. Videoplayer
+Page: Стр. 1.1
+Actions Count: Действий 8
+Figma Link: [TO BE ADDED]
+Notes: Video player functionality on main page
+
+===========================================
+CALCULATORS & TOOLS
+===========================================
+
+OS-96
+Status: О
+02. Калькулятор ипотеки
+---------------------------
+Full Title: 02. Калькулятор ипотеки
+Page: [NOT SPECIFIED]
+Actions Count: [NOT SPECIFIED]
+Figma Link: [TO BE ADDED]
+Notes: Core calculation tool for mortgage planning
+
+===========================================
+PHONE VERIFICATION FLOW
+===========================================
+
+OS-97
+Status: О
+3. Ввод номера телефона. Общая. До регистрации / Стр. 3. Действий 8
+-----------------------------------------------------------------------
+Full Title: 3. Ввод номера телефона. Общая. До регистрации
+Page: Стр. 3
+Actions Count: Действий 8
+Figma Link: [TO BE ADDED]
+Notes: Initial phone verification step
+
+OS-98: Ввод кода. Общая. До регистрации / Стр. 3.1. Действий 5
+--------------------------------------------------------------
+Status: О (Open)
+Description: SMS code input screen (pre-registration)
+Page: 3.1
+Actions Count: 5
+Figma Link: [TO BE ADDED]
+Notes: SMS verification code entry
+
+===========================================
+PERSONAL DATA FORMS
+===========================================
+
+OS-99: Анкета личных данных
+----------------------------
+Status: О (Open)
+Description: Personal data questionnaire
+Page: 4
+Actions Count: [NOT SPECIFIED]
+Figma Link: [TO BE ADDED]
+Notes: Personal information collection form
+
+OS-100: Анкета партнера. Личные данные. Общая. До регистрации / Стр. 5. Действий 18
+-----------------------------------------------------------------------------------
+Status: О (Open)
+Description: Partner questionnaire - Personal data (pre-registration)
+Page: 5
+Actions Count: 18
+Figma Link: [TO BE ADDED]
+Notes: Partner personal information form
+
+===========================================
+INCOME & FINANCIAL DATA
+===========================================
+
+OS-101: Анкета партнера. Доходы. Общая. До регистрации / Стр. 6. Действий 20
+-----------------------------------------------------------------------------
+Status: О (Open)
+Description: Partner questionnaire - Income data (pre-registration)
+Page: 6
+Actions Count: 20
+Figma Link: [TO BE ADDED]
+Notes: Partner income information form
+
+OS-102: Анкета доходов. Наемный работник
+----------------------------------------
+Status: О (Open)
+Description: Income questionnaire for employees
+Page: 7
+Actions Count: [NOT SPECIFIED]
+Figma Link: [TO BE ADDED]
+Notes: Employee-specific income form
+
+OS-103: Добавление источника дохода. Общая. До регистрации / Стр. 7.1. Действий 9
+---------------------------------------------------------------------------------
+Status: О (Open)
+Description: Add income source (pre-registration)
+Page: 7.1
+Actions Count: 9
+Figma Link: [TO BE ADDED]
+Notes: Primary income source addition
+
+OS-104: Добавление доп. источника дохода. Общая. До регистрации / Стр. 7.2. Действий 5
+--------------------------------------------------------------------------------------
+Status: О (Open)
+Description: Add additional income source (pre-registration)
+Page: 7.2
+Actions Count: 5
+Figma Link: [TO BE ADDED]
+Notes: Secondary income source addition
+
+OS-105: Добавление долгового обязательства. Общая. До регистрации / Стр. 7.3. Действий 7
+----------------------------------------------------------------------------------------
+Status: О (Open)
+Description: Add debt obligation (pre-registration)
+Page: 7.3
+Actions Count: 7
+Figma Link: [TO BE ADDED]
+Notes: Debt and liability information
+
+===========================================
+CO-BORROWER DATA
+===========================================
+
+OS-106: Личные данные созаемщика. Общая. До регистрации / Стр. 8. Действий 20
+-----------------------------------------------------------------------------
+Status: О (Open)
+Description: Co-borrower personal data (pre-registration)
+Page: 8
+Actions Count: 20
+Figma Link: [TO BE ADDED]
+Notes: Co-borrower personal information
+
+OS-107: Доходы созаемщика. Общая. До регистрации / Стр. 9 Действий 20
+---------------------------------------------------------------------
+Status: О (Open)
+Description: Co-borrower income data (pre-registration)
+Page: 9
+Actions Count: 20
+Figma Link: [TO BE ADDED]
+Notes: Co-borrower income information
+
+===========================================
+PROCESSING & RESULTS
+===========================================
+
+OS-108: Экран загрузки. Общая. До регистрации / Стр. 10. Действия 2
+-------------------------------------------------------------------
+Status: О (Open)
+Description: Loading screen (pre-registration)
+Page: 10
+Actions Count: 2
+Figma Link: [TO BE ADDED]
+Notes: Processing/loading interface
+
+OS-109: Выбор программ ипотеки
+-------------------------------
+Status: О (Open)
+Description: Mortgage program selection
+Page: 11.0
+Actions Count: [NOT SPECIFIED]
+Figma Link: [TO BE ADDED]
+Notes: Mortgage options display
+
+OS-110: Детали банка. Описание
+-------------------------------
+Status: О (Open)
+Description: Bank details - Description
+Page: 11.1
+Actions Count: [NOT SPECIFIED]
+Figma Link: [TO BE ADDED]
+Notes: Bank information and description
+
+OS-111: Детали банка. Условия
+------------------------------
+Status: О (Open)
+Description: Bank details - Terms and conditions
+Page: 11.2
+Actions Count: [NOT SPECIFIED]
+Figma Link: [TO BE ADDED]
+Notes: Bank terms and conditions
+
+===========================================
+REGISTRATION FLOW
+===========================================
+
+OS-112: Регистрация по номеру телефона. Общая. До регистрации / Стр. 12. Действий 12
+------------------------------------------------------------------------------------
+Status: О (Open)
+Description: Phone number registration (pre-registration)
+Page: 12
+Actions Count: 12
+Figma Link: [TO BE ADDED]
+Notes: Phone-based registration process
+
+OS-113: Регистрация по Email. Общая. До регистрации / Стр. 12.1 Действий 12
+---------------------------------------------------------------------------
+Status: О (Open)
+Description: Email registration (pre-registration)
+Page: 12.1
+Actions Count: 12
+Figma Link: [TO BE ADDED]
+Notes: Email-based registration process
+
+===========================================
+LOGIN FLOW
+===========================================
+
+OS-114: Форма входа по телефону. Общая. До регистрации / Стр. 13. Действий 8
+----------------------------------------------------------------------------
+Status: О (Open)
+Description: Phone login form (pre-registration)
+Page: 13
+Actions Count: 8
+Figma Link: [TO BE ADDED]
+Notes: Phone-based login interface
+
+OS-115: Форма входа. Проверка SMS. Общая. До регистрации / Стр. 13.1. Действий 5
+--------------------------------------------------------------------------------
+Status: О (Open)
+Description: Login SMS verification (pre-registration)
+Page: 13.1
+Actions Count: 5
+Figma Link: [TO BE ADDED]
+Notes: SMS verification for login
+
+OS-116: Форма входа по email. Общая. До регистрации / Стр. 13.2. Действий 8
+---------------------------------------------------------------------------
+Status: О (Open)
+Description: Email login form (pre-registration)
+Page: 13.2
+Actions Count: 8
+Figma Link: [TO BE ADDED]
+Notes: Email-based login interface
+
+OS-117: Форма входа. Email код. Общая. До регистрации / Стр. 13.3. Действий 5
+-----------------------------------------------------------------------------
+Status: О (Open)
+Description: Login email code verification (pre-registration)
+Page: 13.3
+Actions Count: 5
+Figma Link: [TO BE ADDED]
+Notes: Email verification code for login
+
+===========================================
+PASSWORD RECOVERY FLOW
+===========================================
+
+OS-118: Восстановить пароль по телефону. Общая. До регистрации / Стр. 14. Действий 5
+------------------------------------------------------------------------------------
+Status: О (Open)
+Description: Phone password recovery (pre-registration)
+Page: 14
+Actions Count: 5
+Figma Link: [TO BE ADDED]
+Notes: Phone-based password reset
+
+OS-119: Восстановить пароль. Проверка SMS. Общая. До регистрации / Стр. 14.1. Действий 5
+----------------------------------------------------------------------------------------
+Status: О (Open)
+Description: Password recovery SMS verification (pre-registration)
+Page: 14.1
+Actions Count: 5
+Figma Link: [TO BE ADDED]
+Notes: SMS verification for password reset
+
+OS-120: Восстановить пароль. Выбор нового пароля. Общая. До регистрации / Стр. 14.2. Действий 4
+-----------------------------------------------------------------------------------------------
+Status: О (Open)
+Description: New password selection (pre-registration)
+Page: 14.2
+Actions Count: 4
+Figma Link: [TO BE ADDED]
+Notes: New password creation interface
+
+OS-121: Пароль успешно восстановлен. Общая. До регистрации / Стр. 14.3. Действий 2
+----------------------------------------------------------------------------------
+Status: О (Open)
+Description: Password successfully recovered (pre-registration)
+Page: 14.3
+Actions Count: 2
+Figma Link: [TO BE ADDED]
+Notes: Password reset confirmation
+
+OS-122: Восстановить пароль по Email. Общая. До регистрации / Стр. 14.4. Действий 5
+-----------------------------------------------------------------------------------
+Status: О (Open)
+Description: Email password recovery (pre-registration)
+Page: 14.4
+Actions Count: 5
+Figma Link: [TO BE ADDED]
+Notes: Email-based password reset
+
+OS-123: Восстановить пароль. Email код. Общая. До регистрации / Стр. 14.5. Действий 5
+-------------------------------------------------------------------------------------
+Status: О (Open)
+Description: Password recovery email code (pre-registration)
+Page: 14.5
+Actions Count: 5
+Figma Link: [TO BE ADDED]
+Notes: Email verification code for password reset
+
+===========================================
+ERROR & SYSTEM PAGES
+===========================================
+
+OS-124: Ошибка 404. Общая. До регистрации / Стр. 14А. Действий 3
+----------------------------------------------------------------
+Status: О (Open)
+Description: 404 Error page (pre-registration)
+Page: 14А
+Actions Count: 3
+Figma Link: [TO BE ADDED]
+Notes: Page not found error handling
+
+OS-125: Fallback. Общая. До регистрации / Стр. 14B. Действий 3
+--------------------------------------------------------------
+Status: О (Open)
+Description: Fallback page (pre-registration)
+Page: 14B
+Actions Count: 3
+Figma Link: [TO BE ADDED]
+Notes: General error fallback page
+
+OS-126: Загрузка. Общая. До регистрации / Стр. 14C. Действий 2
+--------------------------------------------------------------
+Status: О (Open)
+Description: Loading page (pre-registration)
+Page: 14C
+Actions Count: 2
+Figma Link: [TO BE ADDED]
+Notes: General loading interface
+
+===========================================
+SUMMARY STATISTICS
+===========================================
+
+Total OS Tasks: 33 (OS-94 to OS-126)
+Total Specified Actions: 245+ actions across all specified pages
+Page Range: 1 to 14C
+Status: All marked as "О" (Open)
+Context: All tasks are in "До регистрации" (Pre-registration) phase
+
+===========================================
+NOTES FOR IMPLEMENTATION
+===========================================
+
+1. All tasks are currently in pre-registration phase
+2. Action counts are specified for most tasks - these represent user interaction points
+3. Pages follow a logical flow from landing → verification → forms → results → auth
+4. Figma links need to be populated for each task
+5. Some tasks (OS-96, OS-99, OS-102, OS-109, OS-110, OS-111) don't have action counts specified
+6. The flow covers: Landing → Calculator → Phone Verification → Data Collection → Results → Registration/Login → Error Handling
+
+===========================================
+FIGMA LINK TEMPLATE
+===========================================
+
+When adding Figma links, use this format:
+https://www.figma.com/file/[FILE_ID]/[FILE_NAME]?type=design&node-id=[NODE_ID]&mode=design&t=[TOKEN]
+
+Example from previous reference:
+https://www.figma.com/file/5gG20FeBfpj7yM6P5MVK4b/Bankimonline-Web-|-До-Регистрации?type=design&node-id=588-135315&mode=design&t=lp80Lgk1WA60OQTK-4
+
+===========================================
+END OF DOCUMENT
+=========================================== 

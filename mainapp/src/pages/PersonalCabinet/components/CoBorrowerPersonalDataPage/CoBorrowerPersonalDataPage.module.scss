@@ -130,6 +130,77 @@
     text-align: center !important;
   }
   
+  /* Navigation buttons styling to match Figma Actions #24 & #25 */
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    gap: 20px;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  .back-button {
+    padding: 12px 32px;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #666;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-family: 'Roboto', sans-serif;
+    min-width: 120px;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: #999;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: #fbe54d;
+      box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2);
+    }
+  }
+
+  .save-button {
+    padding: 12px 32px;
+    background-color: #fbe54d;
+    color: #000000;
+    border: 1px solid #fbe54d;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-family: 'Roboto', sans-serif;
+    min-width: 140px;
+    
+    &:hover {
+      background-color: #e6d145;
+      border-color: #e6d145;
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.3);
+    }
+    
+    &:disabled {
+      background-color: #666;
+      color: #999;
+      border-color: #666;
+      cursor: not-allowed;
+    }
+  }
+
   /* Button styling */
   button {
     font-family: 'Roboto', sans-serif !important;

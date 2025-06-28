@@ -299,6 +299,9 @@ const MainRoutes: React.FC = () => {
               {/* Personal Cabinet */}
               <Route path="/personal-cabinet" element={<PersonalCabinet />} />
               <Route path="/personal-cabinet/settings" element={<PersonalCabinet />} />
+              <Route path="/personal-cabinet/questionnaire" element={<PersonalCabinet />} />
+              <Route path="/personal-cabinet/questionnaire-overview" element={<PersonalCabinet />} />
+              <Route path="/personal-cabinet/notifications" element={<PersonalCabinet />} />
               <Route path="/personal-cabinet/partner-personal-data" element={<PartnerPersonalDataPage />} />
               <Route path="/personal-cabinet/main-borrower-personal-data" element={<MainBorrowerPersonalDataPage />} />
               <Route path="/personal-cabinet/co-borrower-personal-data" element={<CoBorrowerPersonalDataPage />} />

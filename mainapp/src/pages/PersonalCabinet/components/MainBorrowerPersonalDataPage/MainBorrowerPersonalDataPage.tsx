@@ -34,6 +34,12 @@ import { DocumentIssueDate } from '@pages/Services/components/DocumentIssueDate'
 import { Gender } from '@pages/Services/components/Gender'
 import { PropertyOwnership } from '@pages/Services/components/PropertyOwnership'
 
+// Import missing components for Actions #17, #24, #25, #26
+import { Borrowers } from '@pages/Services/components/Borrowers'
+import { FamilyStatus } from '@pages/Services/components/FamilyStatus'
+import { PartnerPayMortgage } from '@pages/Services/components/PartnerPayMortgage'
+import { AddPartner } from '@pages/Services/components/AddPartner'
+
 import { FormTypes } from '@pages/Services/types/formTypes'
 import styles from './MainBorrowerPersonalDataPage.module.scss'
 
@@ -58,6 +64,13 @@ const validationSchema = Yup.object().shape({
   isForeigner: Yup.string().required('יש לבחור תשובה'),
   publicPerson: Yup.string().required('יש לבחור תשובה'),
   propertyOwnership: Yup.string().required('יש לבחור תשובה'),
+  borrowers: Yup.number().min(1, 'יש לבחור לפחות לווה אחד').required('מספר לווים נדרש'),
+  familyStatus: Yup.string().required('יש לבחור מצב משפחתי'),
+  partnerPayMortgage: Yup.string().when('familyStatus', {
+    is: 'married',
+    then: (schema) => schema.required('יש לבחור תשובה'),
+    otherwise: (schema) => schema.notRequired(),
+  }),
   citizenshipsDropdown: Yup.array().when('additionalCitizenships', {
     is: 'yes',
     then: (schema) => schema.min(1, 'יש לבחור לפחות אזרחות אחת'),
@@ -100,6 +113,10 @@ const MainBorrowerPersonalDataPage: React.FC<MainBorrowerPersonalDataPageProps> 
     isForeigner: 'no',
     publicPerson: 'no',
     propertyOwnership: 'owner',
+    borrowers: 1,
+    familyStatus: 'married',
+    partnerPayMortgage: 'yes',
+    addPartner: '',
   }
 
   const initialValues: Partial<FormTypes> = {
@@ -120,6 +137,10 @@ const MainBorrowerPersonalDataPage: React.FC<MainBorrowerPersonalDataPageProps> 
     isForeigner: mockUserData.isForeigner,
     publicPerson: mockUserData.publicPerson,
     propertyOwnership: mockUserData.propertyOwnership,
+    borrowers: mockUserData.borrowers,
+    familyStatus: mockUserData.familyStatus,
+    partnerPayMortgage: mockUserData.partnerPayMortgage,
+    addPartner: mockUserData.addPartner,
   }
 
   const handleSubmit = (values: Partial<FormTypes>) => {
@@ -163,26 +184,22 @@ const MainBorrowerPersonalDataPage: React.FC<MainBorrowerPersonalDataPageProps> 
                 text={t('data_privacy_info', 'Ваши данные не попадут третьим лицам кроме банков партнеров и брокеров, мы соблюдаем закон о защите данных')}
               />
 
+              {/* Actions #4-6: Basic Personal Information */}
               <Row>
                 <NameSurname />
                 <Birthday />
                 <Education />
               </Row>
 
-              <Row>
-                <Address />
-                <IDDocument />
-              </Row>
-
-              <Row>
-                <DocumentIssueDate />
-                <Gender />
-              </Row>
-
+              {/* Actions #7-9: Citizenship and Family Questions */}
               <Row>
                 <AdditionalCitizenship />
                 <Taxes />
                 <Childrens />
+              </Row>
+
+              {/* Actions #10-13: Conditional Fields */}
+              <Row>
                 {values.additionalCitizenships === 'yes' && <CitizenshipsDropdown />}
                 {values.taxes === 'yes' && <CountriesPayTaxes />}
                 {values.childrens === 'yes' && <HowMuchChildrens />}
@@ -190,6 +207,7 @@ const MainBorrowerPersonalDataPage: React.FC<MainBorrowerPersonalDataPageProps> 
 
               <Divider />
 
+              {/* Actions #14-16: Insurance and Status */}
               <Row>
                 <MedicalInsurance />
                 <IsForeigner />
@@ -198,13 +216,49 @@ const MainBorrowerPersonalDataPage: React.FC<MainBorrowerPersonalDataPageProps> 
 
               <Divider />
 
+              {/* Action #17: Total Borrowers */}
               <Row>
+                <Borrowers />
+                <Column />
+                <Column />
+              </Row>
+
+              <Divider />
+
+              {/* Actions #18-20: Address and Document Information */}
+              <Row>
+                <Address />
+                <IDDocument />
+                <DocumentIssueDate />
+              </Row>
+
+              <Row>
+                <Gender />
                 <PropertyOwnership />
                 <Column />
               </Row>
 
               <Divider />
 
+              {/* Actions #24-26: Family Status and Partner Information */}
+              <Row>
+                <FamilyStatus />
+                {values.familyStatus === 'married' && <PartnerPayMortgage />}
+                <Column />
+              </Row>
+
+              {/* Action #26: Add Partner */}
+              {values.familyStatus === 'married' && values.partnerPayMortgage === 'yes' && (
+                <Row>
+                  <AddPartner />
+                  <Column />
+                  <Column />
+                </Row>
+              )}
+
+              <Divider />
+
+              {/* Actions #27-28: Navigation Buttons */}
               <div style={{ display: 'flex', gap: '20px', marginTop: '20px' }}>
                 <button 
                   type="button" 

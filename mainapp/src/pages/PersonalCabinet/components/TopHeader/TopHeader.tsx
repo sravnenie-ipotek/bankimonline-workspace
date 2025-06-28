@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import classNames from 'classnames/bind'
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 
 import styles from './topHeader.module.scss'
 import { NotificationDropdown, NotificationItem } from '../NotificationDropdown/NotificationDropdown'
@@ -35,6 +36,7 @@ interface TopHeaderProps {
 
 export const TopHeader: React.FC<TopHeaderProps> = ({ onToggleSidebar }) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [showProfileMenu, setShowProfileMenu] = useState(false)
   const [showNotifications, setShowNotifications] = useState(false)
 
@@ -96,6 +98,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onToggleSidebar }) => {
   }
 
   const handleNotificationClick = () => {
+    // Toggle notification dropdown visibility as shown in Figma design
     setShowNotifications(!showNotifications)
   }
 
