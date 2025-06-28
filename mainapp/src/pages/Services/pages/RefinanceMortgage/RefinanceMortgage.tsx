@@ -11,6 +11,7 @@ import { FirstStep } from './pages/FirstStep'
 import { FourthStep } from './pages/FourthStep'
 import { SecondStep } from './pages/SecondStep'
 import { ThirdStep } from './pages/ThirdStep'
+import { UploadReport } from './pages/UploadReport'
 
 const RefinanceMortgage = () => {
   const { stepNumber } = useParams()
@@ -46,19 +47,20 @@ const RefinanceMortgage = () => {
     case '4':
       stepComponent = <FourthStep />
       break
-    // case 'upload-report':
-    //   stepComponent = <UploadReport />
-    //   break
+    case 'upload-report':
+      stepComponent = <UploadReport />
+      break
     default:
       stepComponent = <NotFound type={'NOT_FOUND'} />
       break
   }
 
-  // const progressValue = stepNumber === 'upload-report' ? '1' : stepNumber
+  const progressValue = stepNumber === 'upload-report' ? '1' : stepNumber
 
   return (
     <>
-      {stepNumber !== '4' && <ProgressBar progress={stepNumber} data={data} />}
+      {stepNumber !== '4' && stepNumber !== 'upload-report' && <ProgressBar progress={progressValue} data={data} />}
+      {stepNumber === 'upload-report' && <ProgressBar progress="1" data={[t('upload_report_progress'), t('mortgage_refinance_step_2'), t('mortgage_refinance_step_3')]} />}
       <Suspense fallback={<Loader />}>{stepComponent}</Suspense>
     </>
   )

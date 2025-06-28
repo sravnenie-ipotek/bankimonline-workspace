@@ -118,9 +118,26 @@ export const ChangeEmailModal: React.FC<ChangeEmailModalProps> = ({
 
             {/* Warning Description - Action #6 */}
             <div className={cx('warning-section')}>
-              <p className={cx('warning-text')}>
-                {t('email_change_warning', 'Предупреждение о том, что произойдет при смене адреса электронной почты.')}
-              </p>
+              <h3 className={cx('warning-title')}>
+                {t('email_change_title', 'Что произойдет после смены email?')}
+              </h3>
+              <div className={cx('warning-details')}>
+                <p>{t('email_warning_p1', 'Как владелец старого адреса электронной почты, вы предоставляете владельцу нового адреса электронной почты полный доступ ко всей информации на панели клиентов «Bankimonline Dashboard» и истории разговоров в службе поддержки')}</p>
+                <p>{t('email_warning_p2', 'Старый адрес электронной почты больше не будет получать системные напоминания и уведомления или будут перенаправлены на адрес электронной почты')}</p>
+                <p>{t('email_warning_p3', 'Вы должны подтвердить свой новый адрес электронной почты, введя код который придет на новый адрес электронной почты')}</p>
+                <p>{t('email_warning_p4', 'У вас не будет доступа к вашей учетной записи с прежним адресом электронной почты после завершения процесса проверки.')}</p>
+              </div>
+              <div className={cx('confirmation-section')}>
+                <p className={cx('confirmation-text')}>
+                  {t('email_confirmation', 'Я подтверждаю, что:')}
+                </p>
+                <p className={cx('confirmation-detail')}>
+                  {t('email_confirmation_detail1', '• Я являюсь владельцем нового адреса электронной почты (согласно условиям пользовательского соглашения)')}
+                </p>
+                <p className={cx('confirmation-detail')}>
+                  {t('email_confirmation_detail2', '• Я являюсь владельцем этой учетной записи Bankimonline и прошу изменить адрес электронной почты учетной записи.')}
+                </p>
+              </div>
             </div>
 
             {/* User Agreement */}

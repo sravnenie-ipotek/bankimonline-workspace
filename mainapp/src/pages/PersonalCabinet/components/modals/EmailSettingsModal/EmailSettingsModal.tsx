@@ -89,7 +89,7 @@ export const EmailSettingsModal: React.FC<EmailSettingsModalProps> = ({
                 value={email}
                 onChange={handleEmailChange}
                 className={cx('email-input')}
-                placeholder={t('email_placeholder', 'Введите ваш email')}
+                placeholder={t('email_placeholder', 'example@bankimonline.com')}
                 required
                 autoFocus
               />

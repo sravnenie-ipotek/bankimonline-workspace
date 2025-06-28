@@ -264,7 +264,12 @@
     }
 
     .volume-container {
-      display: none; // Hide volume control on mobile
+      display: flex; // Show volume control on mobile (fixed iOS bug)
+      
+      .volume-slider {
+        opacity: 1; // Always visible on mobile for touch interaction
+        width: 60px; // Smaller width for mobile
+      }
     }
 
     .time-display {

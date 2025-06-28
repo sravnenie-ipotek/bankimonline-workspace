@@ -16,6 +16,8 @@
   },
   "scripts": {
     "start": "node server-db.js",
-    "dev": "node start-dev.js"
+    "dev": "node start-dev.js",
+    "sync-translations": "node scripts/sync-translations.js",
+    "translations": "node scripts/sync-translations.js"
   }
 }

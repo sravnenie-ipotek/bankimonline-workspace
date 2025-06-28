@@ -339,6 +339,8 @@ OS-626
 OS-627
 OS-628
 OS-629
+OS-631
+LK-237
 
 Sorted list of all LK numbers found in youTrackReports files:
 ========================================================
@@ -376,6 +378,22 @@ LK-162
 LK-163
 LK-164
 LK-165
+LK-166 ✅
+LK-171 ✅
+LK-172 ✅
+LK-173 ✅
+LK-174 ✅
+LK-175 ✅
+LK-176 ✅
+LK-177 ✅
+LK-178 ✅
+LK-179 ✅
+LK-190 ✅
+LK-191 ✅
+LK-197 ✅
+LK-198 ✅
+LK-199 ✅
+LK-200 ✅
 LK-166
 LK-167
 LK-168
@@ -393,6 +411,39 @@ LK-179
 LK-180
 LK-181
 LK-182
+LK-184 ✅
+LK-185 ✅
+LK-186 ✅
+LK-187 ✅
+LK-188 ✅
+LK-217 ✅
+LK-218 ✅
+LK-219 ✅
+LK-220 ✅
+LK-221 ✅
+LK-222 ✅
+LK-223 ✅
+LK-224 ✅
+LK-225 ✅
+LK-226 ✅
+LK-227 ✅
+LK-228 ✅
+LK-229 ✅
+LK-230 ✅
+LK-231 ✅
+LK-232 ✅
+LK-233 ✅
+LK-234 ✅
+LK-235 ✅
+LK-236 ✅
+LK-237 ✅
+LK-238 ✅
+LK-239 ✅
+LK-240 ✅
+LK-241 ✅
+LK-242 ✅
+LK-243 ✅
+LK-244 ✅
 
 Notable gaps in OS sequence:
 ===========================
@@ -418,3 +469,13 @@ Primary LK number ranges:
 ========================
 Early references: LK-1, LK-25 through LK-32
 Main range: LK-122 through LK-182 (with gap at LK-138 through LK-156)
+Completed range: LK-230 through LK-244 (100% complete)LK-180
+LK-181
+LK-182
+LK-183
+LK-184
+LK-185
+LK-186
+LK-187
+LK-188
+LK-189

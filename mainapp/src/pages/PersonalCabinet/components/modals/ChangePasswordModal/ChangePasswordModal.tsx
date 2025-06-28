@@ -19,6 +19,22 @@ const CloseIcon = () => (
   </svg>
 )
 
+// Eye Icon for password visibility
+const EyeIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+    <circle cx="12" cy="12" r="3"/>
+  </svg>
+)
+
+// Eye Off Icon for password visibility
+const EyeOffIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+    <line x1="1" y1="1" x2="23" y2="23"/>
+  </svg>
+)
+
 export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({
   isOpen,
   onClose,
@@ -29,6 +45,11 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  
+  // Password visibility states
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false)
+  const [showNewPassword, setShowNewPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -73,7 +94,7 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({
           {/* Header */}
           <div className={cx('modal-header')}>
             <h2 className={cx('modal-title')}>
-              {t('change_password', 'Изменить пароль')}
+              {t('change_password', 'Изменить Пароль')}
             </h2>
             <button 
               className={cx('close-button')}
@@ -86,38 +107,77 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({
 
           {/* Form */}
           <form onSubmit={handleSubmit} className={cx('modal-form')}>
+            {/* Current Password Field */}
             <div className={cx('input-group')}>
-              <input
-                type="password"
-                value={currentPassword}
-                onChange={(e) => setCurrentPassword(e.target.value)}
-                className={cx('password-input')}
-                placeholder={t('current_password', 'Текущий пароль')}
-                required
-                autoFocus
-              />
+              <label className={cx('field-label')}>
+                {t('current_password_label', 'Текущий пароль')}
+              </label>
+              <div className={cx('password-input-wrapper')}>
+                <input
+                  type={showCurrentPassword ? 'text' : 'password'}
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  className={cx('password-input')}
+                  placeholder={t('enter_password', 'Введите пароль')}
+                  required
+                  autoFocus
+                />
+                <button
+                  type="button"
+                  className={cx('password-toggle')}
+                  onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                >
+                  {showCurrentPassword ? <EyeOffIcon /> : <EyeIcon />}
+                </button>
+              </div>
             </div>
 
+            {/* New Password Field */}
             <div className={cx('input-group')}>
-              <input
-                type="password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                className={cx('password-input')}
-                placeholder={t('new_password', 'Новый пароль')}
-                required
-              />
+              <label className={cx('field-label')}>
+                {t('new_password_label', 'Придумайте пароль')}
+              </label>
+              <div className={cx('password-input-wrapper')}>
+                <input
+                  type={showNewPassword ? 'text' : 'password'}
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className={cx('password-input')}
+                  placeholder={t('enter_password', 'Введите пароль')}
+                  required
+                />
+                <button
+                  type="button"
+                  className={cx('password-toggle')}
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                >
+                  {showNewPassword ? <EyeOffIcon /> : <EyeIcon />}
+                </button>
+              </div>
             </div>
 
+            {/* Confirm Password Field */}
             <div className={cx('input-group')}>
-              <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className={cx('password-input')}
-                placeholder={t('confirm_password', 'Подтвердить пароль')}
-                required
-              />
+              <label className={cx('field-label')}>
+                {t('confirm_password_label', 'Повторите пароль')}
+              </label>
+              <div className={cx('password-input-wrapper')}>
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className={cx('password-input')}
+                  placeholder={t('enter_password', 'Введите пароль')}
+                  required
+                />
+                <button
+                  type="button"
+                  className={cx('password-toggle')}
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                  {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
+                </button>
+              </div>
             </div>
 
             <div className={cx('button-group')}>
@@ -126,7 +186,7 @@ export const ChangePasswordModal: React.FC<ChangePasswordModalProps> = ({
                 className={cx('continue-button')}
                 disabled={!currentPassword.trim() || !newPassword.trim() || !confirmPassword.trim() || isLoading}
               >
-                {isLoading ? t('loading', 'Загрузка...') : t('change_password', 'Изменить пароль')}
+                {isLoading ? t('loading', 'Загрузка...') : t('continue', 'Продолжить')}
               </button>
             </div>
           </form>

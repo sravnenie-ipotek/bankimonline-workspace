@@ -1,0 +1,353 @@
+.notifications-page {
+  width: 100%;
+  background-color: #161616;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+
+  .content {
+    padding: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    @media (max-width: 768px) {
+      padding: 16px;
+    }
+  }
+
+  .page-header {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #333535;
+
+    .page-title {
+      font-size: 48px;
+      font-weight: 500;
+      color: #ffffff;
+      margin: 0;
+
+      @media (max-width: 768px) {
+        font-size: 32px;
+      }
+    }
+  }
+
+  .notifications-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .notification-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px;
+    background-color: #242529;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &:hover {
+      background-color: #2a2a2f;
+      border-color: #FBE54D;
+    }
+
+    &.notification-unread {
+      border-color: #FBE54D;
+      background-color: #2a2a2f;
+    }
+
+    @media (max-width: 768px) {
+      padding: 16px;
+      gap: 12px;
+    }
+  }
+
+  .notification-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+
+    @media (max-width: 768px) {
+      width: 40px;
+      height: 40px;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+
+      @media (max-width: 768px) {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .notification-success .notification-icon {
+    background-color: #10b981;
+  }
+
+  .notification-error .notification-icon {
+    background-color: #ef4444;
+  }
+
+  .notification-bank .notification-icon {
+    background-color: #3b82f6;
+  }
+
+  .notification-chat .notification-icon {
+    background-color: #8b5cf6;
+  }
+
+  .notification-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 16px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
+  .notification-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.3;
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
+  }
+
+  .notification-time {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    flex-shrink: 0;
+
+    @media (max-width: 768px) {
+      align-items: flex-start;
+      flex-direction: row;
+      gap: 8px;
+    }
+
+    .date, .time {
+      font-size: 14px;
+      color: #9ca3af;
+      font-weight: 400;
+
+      @media (max-width: 768px) {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .notification-message {
+    font-size: 16px;
+    color: #d1d5db;
+    line-height: 1.5;
+    margin: 0 0 16px 0;
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+  }
+
+  .notification-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+
+    @media (max-width: 768px) {
+      margin-top: 12px;
+    }
+  }
+
+  .action-button {
+    background-color: #FBE54D;
+    color: #161616;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+
+    &:hover {
+      background-color: #f9d71c;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      padding: 10px 16px;
+      font-size: 12px;
+    }
+  }
+
+  .unread-indicator {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 12px;
+    height: 12px;
+    background-color: #FBE54D;
+    border-radius: 50%;
+
+    @media (max-width: 768px) {
+      top: 12px;
+      right: 12px;
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 64px 32px;
+    color: #9ca3af;
+
+    .empty-text {
+      font-size: 18px;
+      margin: 0;
+
+      @media (max-width: 768px) {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+
+    @media (max-width: 768px) {
+      margin-top: 24px;
+      gap: 4px;
+    }
+  }
+
+  .page-button {
+    background-color: transparent;
+    color: #9ca3af;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: #374151;
+      color: #ffffff;
+    }
+
+    &.page-active {
+      background-color: #FBE54D;
+      color: #161616;
+      border-color: #FBE54D;
+    }
+
+    &.page-next {
+      background-color: #374151;
+      color: #ffffff;
+      border-color: #374151;
+
+      &:hover {
+        background-color: #4b5563;
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding: 8px 12px;
+      font-size: 12px;
+      min-width: 36px;
+      height: 36px;
+    }
+  }
+}
+
+// Dark theme enhancements
+.notifications-page {
+  // Scrollbar styling for dark theme
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #242529;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #4b5563;
+  }
+}
+
+// Animation for notification cards
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notification-card {
+  animation: slideInUp 0.3s ease;
+}
+
+// Focus states for accessibility
+.action-button:focus,
+.page-button:focus {
+  outline: 2px solid #FBE54D;
+  outline-offset: 2px;
+}
+
+.notification-card:focus {
+  outline: 2px solid #FBE54D;
+  outline-offset: 2px;
+} 

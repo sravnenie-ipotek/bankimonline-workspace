@@ -121,13 +121,52 @@
   margin-bottom: 8px;
 }
 
-.warning-text {
+.warning-title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fbe54d;
+  line-height: 1.4;
+  margin: 0 0 16px 0;
+}
+
+.warning-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+
+  p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #d0d0d0;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.confirmation-section {
+  border-top: 1px solid rgba(251, 229, 77, 0.2);
+  padding-top: 16px;
+}
+
+.confirmation-text {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   color: #fbe54d;
-  line-height: 1.5;
-  margin: 0;
+  line-height: 1.4;
+  margin: 0 0 8px 0;
+}
+
+.confirmation-detail {
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #d0d0d0;
+  line-height: 1.4;
+  margin: 4px 0;
 }
 
 .agreement-text {

@@ -10,30 +10,42 @@ import { PaymentsPage } from './components/PaymentsPage/PaymentsPage'
 import { TransactionHistoryPage } from './components/TransactionHistoryPage/TransactionHistoryPage'
 import { AppointmentSchedulingPage } from './components/AppointmentSchedulingPage/AppointmentSchedulingPage'
 import { EmailSettingsModal } from './components/modals/EmailSettingsModal/EmailSettingsModal'
+import { EmailVerificationModal } from './components/modals/EmailVerificationModal/EmailVerificationModal'
+import { PhoneVerificationModal } from './components/modals/PhoneVerificationModal/PhoneVerificationModal'
 import { ChangeEmailModal } from './components/modals/ChangeEmailModal/ChangeEmailModal'
 import { ChangePhoneModal } from './components/modals/ChangePhoneModal/ChangePhoneModal'
+import { PhoneVerificationModal } from './components/modals/PhoneVerificationModal/PhoneVerificationModal'
 import { ChangePasswordModal } from './components/modals/ChangePasswordModal/ChangePasswordModal'
-import { ProfilePhotoModal } from './components/modals/ProfilePhotoModal/ProfilePhotoModal'
+import { ChangeNameModal } from './components/modals/ChangeNameModal/ChangeNameModal'
+import UploadProfilePhotoModal from './components/modals/UploadProfilePhotoModal/UploadProfilePhotoModal'
 import { BankMeetingConfirmationModal } from './components/modals/BankMeetingConfirmationModal/BankMeetingConfirmationModal'
 import { ApplicationAcceptedModal } from './components/modals/ApplicationAcceptedModal/ApplicationAcceptedModal'
 import { PaymentConfirmationModal } from './components/modals/PaymentConfirmationModal/PaymentConfirmationModal'
 import { PaymentModal } from './components/modals/PaymentModal/PaymentModal'
 import { OfferModal } from './components/modals/OfferModal/OfferModal'
 import { ProgramConditionsModal } from './components/modals/ProgramConditionsModal/ProgramConditionsModal'
+import { CoBorrowerDeleteModal } from './components/modals/CoBorrowerDeleteModal/CoBorrowerDeleteModal'
+import { CoBorrowerSelectionModal } from './components/modals/CoBorrowerSelectionModal/CoBorrowerSelectionModal'
 import { ProgramSelectionPage } from './components/ProgramSelectionPage/ProgramSelectionPage'
 import { HiddenBankProgramSelectionPage } from './components/HiddenBankProgramSelectionPage/HiddenBankProgramSelectionPage'
 import { ProgramSelectionCalculationPage } from './components/ProgramSelectionCalculationPage/ProgramSelectionCalculationPage'
 import { BankConfirmationPage } from './components/BankConfirmationPage/BankConfirmationPage'
 import { MainDashboard } from './components/MainDashboard/MainDashboard'
 import { ServiceSelectionDashboard } from './components/ServiceSelectionDashboard/ServiceSelectionDashboard'
+import { QuestionnaireOverviewPage } from './components/QuestionnaireOverviewPage/QuestionnaireOverviewPage'
+import { NotificationsPage } from './components/NotificationsPage/NotificationsPage'
+import { ExitModule } from '@src/components/ui/ExitModule'
 
 const cx = classNames.bind(styles)
 
 export type ModalType = 
-  | 'emailSettings' 
+    | 'emailSettings'
+  | 'emailVerification'
   | 'changeEmail'
   | 'changePhone'
-  | 'changePassword' 
+  | 'phoneVerification'
+  | 'changePassword'
+  | 'changeName'
   | 'profilePhoto'
   | 'bankMeetingConfirmation'
   | 'applicationAccepted'
@@ -41,6 +53,9 @@ export type ModalType =
   | 'payment'
   | 'offer'
   | 'programConditions'
+  | 'coBorrowerDelete'
+  | 'coBorrowerSelection'
+  | 'logout'
   | null
 
 const PersonalCabinet: React.FC = () => {
@@ -50,11 +65,17 @@ const PersonalCabinet: React.FC = () => {
   const [activeModal, setActiveModal] = useState<ModalType>(null)
   const [appointmentData, setAppointmentData] = useState<any>(null)
   const [programData, setProgramData] = useState<any>(null)
+  const [emailToVerify, setEmailToVerify] = useState<string>('')
+  const [phoneToVerify, setPhoneToVerify] = useState<string>('')
+  const [coBorrowerToDelete, setCoBorrowerToDelete] = useState<{id: string, name?: string} | null>(null)
 
   const handleCloseModal = () => {
     setActiveModal(null)
     setAppointmentData(null)
     setProgramData(null)
+    setEmailToVerify('')
+    setPhoneToVerify('')
+    setCoBorrowerToDelete(null)
   }
 
   const handleOpenModal = (modalType: ModalType, data?: any) => {
@@ -62,10 +83,26 @@ const PersonalCabinet: React.FC = () => {
     if (data) {
       if (modalType === 'programConditions') {
         setProgramData(data)
+      } else if (modalType === 'coBorrowerDelete') {
+        setCoBorrowerToDelete(data)
       } else {
         setAppointmentData(data)
       }
     }
+  }
+
+  // Handle logout functionality - LK-226
+  const handleLogout = () => {
+    // Clear user authentication state
+    // In real app: clear tokens, user data, etc.
+    localStorage.removeItem('authToken')
+    localStorage.removeItem('userData')
+    
+    // Navigate to main page
+    navigate('/')
+    
+    // Close modal
+    handleCloseModal()
   }
 
   // Mock user state - in real app would come from context/state
@@ -89,6 +126,10 @@ const PersonalCabinet: React.FC = () => {
       return <HiddenBankProgramSelectionPage />
     } else if (path.includes('/program-selection')) {
       return <ProgramSelectionPage />
+    } else if (path.includes('/questionnaire-overview') || path === '/personal-cabinet/questionnaire') {
+      return <QuestionnaireOverviewPage onOpenModal={handleOpenModal} />
+    } else if (path.includes('/notifications') || path === '/personal-cabinet/notifications') {
+      return <NotificationsPage onOpenModal={handleOpenModal} />
     } else if (path.includes('/settings') || path === '/personal-cabinet/settings') {
       return <SettingsPage onOpenModal={handleOpenModal} />
     } else {
@@ -140,17 +181,33 @@ const PersonalCabinet: React.FC = () => {
 
   return (
     <div className={cx('personal-cabinet')}>
-      <PersonalCabinetLayout>
+      <PersonalCabinetLayout onOpenModal={handleOpenModal}>
         {renderCurrentPage()}
       </PersonalCabinetLayout>
 
-      {/* Email Settings Modal - LK-180 */}
+      {/* Email Settings Modal - LK-242 */}
       <EmailSettingsModal 
         isOpen={activeModal === 'emailSettings'}
         onClose={handleCloseModal}
         onSuccess={(email) => {
           console.log('Email settings updated:', email)
+          setEmailToVerify(email)
+          setActiveModal('emailVerification')
+        }}
+      />
+
+      {/* Email Verification Modal - LK-241 */}
+      <EmailVerificationModal 
+        isOpen={activeModal === 'emailVerification'}
+        email={emailToVerify}
+        onClose={handleCloseModal}
+        onSuccess={() => {
+          console.log('Email verification successful for:', emailToVerify)
           handleCloseModal()
+          // In real app: update user email in backend, refresh settings
+        }}
+        onBack={() => {
+          setActiveModal('emailSettings')
         }}
       />
 
@@ -170,12 +227,28 @@ const PersonalCabinet: React.FC = () => {
         isOpen={activeModal === 'changePhone'}
         onClose={handleCloseModal}
         onSuccess={(phone) => {
-          console.log('Phone changed to:', phone)
-          handleCloseModal()
+          console.log('Phone updated, starting verification:', phone)
+          setPhoneToVerify(phone)
+          setActiveModal('phoneVerification')
         }}
       />
 
-      {/* Change Password Modal - LK-175 */}
+      {/* Phone Verification Modal - LK-239 */}
+      <PhoneVerificationModal 
+        isOpen={activeModal === 'phoneVerification'}
+        phone={phoneToVerify}
+        onClose={handleCloseModal}
+        onSuccess={() => {
+          console.log('Phone verification successful for:', phoneToVerify)
+          handleCloseModal()
+          // In real app: update user phone in backend, refresh settings
+        }}
+        onBack={() => {
+          setActiveModal('changePhone')
+        }}
+      />
+
+      {/* Change Password Modal - LK-237 */}
       <ChangePasswordModal 
         isOpen={activeModal === 'changePassword'}
         onClose={handleCloseModal}
@@ -185,13 +258,26 @@ const PersonalCabinet: React.FC = () => {
         }}
       />
 
-      {/* Profile Photo Modal - LK-174 */}
-      <ProfilePhotoModal 
+      {/* Change Name Modal - LK-235 */}
+      <ChangeNameModal 
+        isOpen={activeModal === 'changeName'}
+        onClose={handleCloseModal}
+        currentName="Александр Пушкин" // In real app, get from user state
+        onSuccess={(name) => {
+          console.log('Name changed to:', name)
+          handleCloseModal()
+          // In real app: update user name in backend, refresh settings
+        }}
+      />
+
+      {/* Profile Photo Modal - LK-236 */}
+      <UploadProfilePhotoModal 
         isOpen={activeModal === 'profilePhoto'}
         onClose={handleCloseModal}
-        onSuccess={(photo) => {
+        onSave={(photo) => {
           console.log('Profile photo uploaded:', photo.name)
           handleCloseModal()
+          // In real app: upload to backend, update user profile
         }}
       />
 
@@ -233,6 +319,46 @@ const PersonalCabinet: React.FC = () => {
         isOpen={activeModal === 'programConditions'}
         onClose={handleCloseModal}
         programData={programData}
+      />
+
+      {/* Co-borrower Delete Modal - LK-229 */}
+      <CoBorrowerDeleteModal 
+        isOpen={activeModal === 'coBorrowerDelete'}
+        onClose={handleCloseModal}
+        coBorrowerName={coBorrowerToDelete?.name}
+        onConfirm={() => {
+          // Handle co-borrower deletion
+          if (coBorrowerToDelete?.id) {
+            console.log('Deleting co-borrower:', coBorrowerToDelete.id)
+            // In real app: dispatch deleteOtherBorrowers action with ID
+            // dispatch(deleteOtherBorrowers(coBorrowerToDelete.id))
+          }
+        }}
+      />
+
+      {/* Co-borrower Selection Modal - LK-222 */}
+      <CoBorrowerSelectionModal 
+        isOpen={activeModal === 'coBorrowerSelection'}
+        onClose={handleCloseModal}
+        onContinue={(selectedCoBorrowers) => {
+          // Handle co-borrower selection
+          console.log('Selected co-borrowers:', selectedCoBorrowers)
+          // In real app: save selected co-borrowers to state/API
+          // dispatch(setSelectedCoBorrowers(selectedCoBorrowers))
+        }}
+        onSkip={() => {
+          // Handle skip step
+          console.log('Co-borrower selection skipped')
+          // In real app: proceed without co-borrowers
+        }}
+      />
+
+      {/* Logout Confirmation Modal - LK-226 */}
+      <ExitModule 
+        isVisible={activeModal === 'logout'}
+        onCancel={handleCloseModal}
+        onSubmit={handleLogout}
+        text={t('logout_confirmation', 'Вы уверены, что хотите выйти из Личного кабинета?')}
       />
     </div>
   )
