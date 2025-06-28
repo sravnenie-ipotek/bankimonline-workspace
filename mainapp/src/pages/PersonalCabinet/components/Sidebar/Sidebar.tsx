@@ -67,9 +67,10 @@ const SignOutIcon = () => (
 interface SidebarProps {
   isCollapsed?: boolean
   onToggle?: () => void
+  onOpenModal?: (modalType: string) => void
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed = false, onToggle }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed = false, onToggle, onOpenModal }) => {
   const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
@@ -137,8 +138,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed = false, onToggle 
     }
   ]
 
-  const handleNavigation = (path: string) => {
-    navigate(path)
+  const handleNavigation = (path: string, key?: string) => {
+    // Handle logout modal trigger - LK-226
+    if (key === 'signout' && onOpenModal) {
+      onOpenModal('logout')
+    } else {
+      navigate(path)
+    }
   }
 
   return (
@@ -173,7 +179,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed = false, onToggle 
             <button
               key={item.key}
               className={cx('nav-item', { 'nav-item--active': item.active })}
-              onClick={() => handleNavigation(item.path)}
+              onClick={() => handleNavigation(item.path, item.key)}
               title={isCollapsed ? item.label : undefined}
             >
               <div className={cx('nav-item-content')}>
@@ -211,7 +217,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isCollapsed = false, onToggle 
                 'nav-item--active': item.active,
                 'nav-item--settings': item.key === 'settings' && item.active
               })}
-              onClick={() => handleNavigation(item.path)}
+              onClick={() => handleNavigation(item.path, item.key)}
               title={isCollapsed ? item.label : undefined}
             >
               <div className={cx('nav-item-content')}>

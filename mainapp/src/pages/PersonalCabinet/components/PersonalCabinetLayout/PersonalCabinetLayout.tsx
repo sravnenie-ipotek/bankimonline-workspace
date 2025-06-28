@@ -10,9 +10,10 @@ const cx = classNames.bind(styles)
 
 interface PersonalCabinetLayoutProps {
   children: React.ReactNode
+  onOpenModal?: (modalType: string) => void
 }
 
-export const PersonalCabinetLayout: React.FC<PersonalCabinetLayoutProps> = ({ children }) => {
+export const PersonalCabinetLayout: React.FC<PersonalCabinetLayoutProps> = ({ children, onOpenModal }) => {
   const { t } = useTranslation()
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false)
 
@@ -27,6 +28,7 @@ export const PersonalCabinetLayout: React.FC<PersonalCabinetLayoutProps> = ({ ch
         <Sidebar 
           isCollapsed={isSidebarCollapsed} 
           onToggle={toggleSidebar}
+          onOpenModal={onOpenModal}
         />
       </div>
 

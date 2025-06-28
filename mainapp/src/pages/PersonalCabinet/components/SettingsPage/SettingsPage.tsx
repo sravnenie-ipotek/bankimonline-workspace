@@ -102,7 +102,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onOpenModal }) => {
                 </div>
                 <div 
                   className={cx('dropdown-item')}
-                  onClick={() => handleMenuItemClick(null)}
+                  onClick={() => handleMenuItemClick('changeName')}
                 >
                   <UserIcon />
                   <span>{t('change_name', 'Изменить Фамилию Имя')}</span>
@@ -188,6 +188,44 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onOpenModal }) => {
             <LockIcon />
             <span>{t('change_password', 'Изменить пароль')}</span>
           </button>
+        </div>
+      </div>
+
+      {/* Footer Links Section - Actions #14-#17 */}
+      <div className={cx('footer-links-section')}>
+        <div className={cx('footer-links-grid')}>
+          <a 
+            href="/terms" 
+            className={cx('footer-link')}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t('user_agreement', 'Пользовательское соглашение')}
+          </a>
+          <a 
+            href="/privacy" 
+            className={cx('footer-link')}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t('privacy_policy', 'Политика конфиденциальности')}
+          </a>
+          <a 
+            href="/cookie" 
+            className={cx('footer-link')}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t('cookie_policy', 'Использование файлов cookie')}
+          </a>
+          <a 
+            href="/refund" 
+            className={cx('footer-link')}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {t('refund_policy', 'Политика возврата оплаты услуг')}
+          </a>
         </div>
       </div>
     </div>

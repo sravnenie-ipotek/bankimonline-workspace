@@ -33,6 +33,7 @@ const UploadReport = () => {
           <NewButton
             text={t('download_report_here')}
             rightSection={<ArrowSquareOut />}
+            onClick={() => window.open('https://www.creditdata.org.il/', '_blank')}
           />
         </div>
         <Divider />

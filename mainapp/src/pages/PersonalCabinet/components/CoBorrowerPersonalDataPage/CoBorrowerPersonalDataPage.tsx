@@ -26,9 +26,16 @@ import Divider from '@components/ui/Divider/Divider'
 import FormCaption from '@components/ui/FormCaption/FormCaption'
 import { Info } from '@pages/Services/components/Info'
 import { PersonalCabinetLayout } from '../PersonalCabinetLayout/PersonalCabinetLayout'
+import { ProgressBar } from '@components/ui/ProgressBar'
 
 import { FormTypes } from '@pages/Services/types/formTypes'
 import styles from './CoBorrowerPersonalDataPage.module.scss'
+
+// Extended interface for co-borrower with missing fields
+interface CoBorrowerFormTypes extends Partial<FormTypes> {
+  respondentRelationship?: string     // Action #19 - Respondent relationship
+  familyStatus?: string               // Action #20 - Family status
+}
 
 const cx = classNames.bind(styles)
 
@@ -67,9 +74,11 @@ const validationSchema = Yup.object().shape({
   medicalInsurance: Yup.string().required('Medical insurance selection is required'),
   isForeigner: Yup.string().required('Foreigner status is required'),
   publicPerson: Yup.string().required('Public person status is required'),
+  respondentRelationship: Yup.string().required('Respondent relationship is required'),
+  familyStatus: Yup.string().required('Family status is required'),
 })
 
-const initialValues: Partial<FormTypes> = {
+const initialValues: CoBorrowerFormTypes = {
   nameSurname: {
     name: '',
     surname: '',
@@ -95,6 +104,8 @@ const initialValues: Partial<FormTypes> = {
   medicalInsurance: '',
   isForeigner: '',
   publicPerson: '',
+  respondentRelationship: '',     // Action #19 
+  familyStatus: '',               // Action #20
   // NOTE: No propertyOwnership for co-borrower
 }
 
@@ -105,7 +116,7 @@ export const CoBorrowerPersonalDataPage: React.FC = () => {
   // Co-borrower name from Figma design
   const coBorrowerName = "Людмила Пушкина"
 
-  const handleSubmit = (values: Partial<FormTypes>) => {
+  const handleSubmit = (values: CoBorrowerFormTypes) => {
     console.log('Co-borrower personal data submitted:', values)
     // Handle form submission
     navigate('/personal-cabinet')
@@ -123,6 +134,15 @@ export const CoBorrowerPersonalDataPage: React.FC = () => {
             >
               {t('back_to_personal_cabinet', 'Вернуться в личный кабинет')}
             </button>
+          </div>
+
+          {/* Action #3 - Progress Bar */}
+          <div className={cx('progress-bar-container')}>
+            <ProgressBar 
+              currentStep={3} 
+              totalSteps={5} 
+              label={t('progress_personal_data', 'Шаг 3 из 5: Личные данные созаемщика')}
+            />
           </div>
 
           <FormContainer>
@@ -245,7 +265,7 @@ export const CoBorrowerPersonalDataPage: React.FC = () => {
                     </Column>
                   </Row>
 
-                  {/* Row 5: Is Foreigner, Public Person */}
+                  {/* Row 5: Is Foreigner, Public Person, Respondent Relationship */}
                   <Row>
                     <Column>
                       <IsForeigner
@@ -264,33 +284,87 @@ export const CoBorrowerPersonalDataPage: React.FC = () => {
                       />
                     </Column>
                     <Column>
-                      {/* Empty column to maintain layout */}
+                      {/* Action #19 - Respondent Relationship */}
+                      <div className={cx('form-field')}>
+                        <label htmlFor="respondentRelationship">
+                          {t('respondent_relationship', 'Отношение к заявителю')}
+                        </label>
+                        <select
+                          id="respondentRelationship"
+                          name="respondentRelationship"
+                          value={values.respondentRelationship || ''}
+                          onChange={(e) => setFieldValue('respondentRelationship', e.target.value)}
+                          className={cx('select-input')}
+                        >
+                          <option value="">{t('select_relationship', 'Выберите отношение')}</option>
+                          <option value="spouse">{t('spouse', 'Супруг/супруга')}</option>
+                          <option value="parent">{t('parent', 'Родитель')}</option>
+                          <option value="child">{t('child', 'Ребенок')}</option>
+                          <option value="sibling">{t('sibling', 'Брат/сестра')}</option>
+                          <option value="relative">{t('relative', 'Родственник')}</option>
+                          <option value="friend">{t('friend', 'Друг')}</option>
+                          <option value="business_partner">{t('business_partner', 'Деловой партнер')}</option>
+                          <option value="other">{t('other', 'Другое')}</option>
+                        </select>
+                        {errors.respondentRelationship && touched.respondentRelationship && (
+                          <div className={cx('error')}>{errors.respondentRelationship}</div>
+                        )}
+                      </div>
                     </Column>
                   </Row>
 
-                  {/* Navigation Buttons */}
+                  {/* Row 6: Family Status */}
                   <Row>
                     <Column>
-                      <Button
-                        variant="secondary"
-                        onClick={() => navigate('/personal-cabinet')}
-                        type="button"
-                      >
-                        {t('button_back', 'Назад')}
-                      </Button>
+                      {/* Action #20 - Family Status */}
+                      <div className={cx('form-field')}>
+                        <label htmlFor="familyStatus">
+                          {t('family_status', 'Семейное положение')}
+                        </label>
+                        <select
+                          id="familyStatus"
+                          name="familyStatus"
+                          value={values.familyStatus || ''}
+                          onChange={(e) => setFieldValue('familyStatus', e.target.value)}
+                          className={cx('select-input')}
+                        >
+                          <option value="">{t('select_family_status', 'Выберите семейное положение')}</option>
+                          <option value="single">{t('single', 'Холост/не замужем')}</option>
+                          <option value="married">{t('married', 'Женат/замужем')}</option>
+                          <option value="divorced">{t('divorced', 'Разведен(а)')}</option>
+                          <option value="widowed">{t('widowed', 'Вдовец/вдова')}</option>
+                          <option value="civil_union">{t('civil_union', 'Гражданский брак')}</option>
+                          <option value="separated">{t('separated', 'В разводе')}</option>
+                        </select>
+                        {errors.familyStatus && touched.familyStatus && (
+                          <div className={cx('error')}>{errors.familyStatus}</div>
+                        )}
+                      </div>
                     </Column>
                     <Column>
                       {/* Empty column for spacing */}
                     </Column>
                     <Column>
-                      <Button
-                        variant="primary"
-                        type="submit"
-                      >
-                        {t('button_save', 'Сохранить')}
-                      </Button>
+                      {/* Empty column for spacing */}
                     </Column>
                   </Row>
+
+                  {/* Navigation Buttons - Actions #24 & #25 */}
+                  <div className={cx('navigation-buttons')}>
+                    <button
+                      type="button"
+                      className={cx('back-button')}
+                      onClick={() => navigate('/personal-cabinet')}
+                    >
+                      {t('button_back', 'Назад')}
+                    </button>
+                    <button
+                      type="submit"
+                      className={cx('save-button')}
+                    >
+                      {t('button_save', 'Сохранить')}
+                    </button>
+                  </div>
 
                   <Info text={t('form_info', 'Все поля обязательны для заполнения')} />
                 </Form>
