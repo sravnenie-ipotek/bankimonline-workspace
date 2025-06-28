@@ -20,7 +20,8 @@
       "Bash(pkill:*)",
       "Bash(kill:*)",
       "Bash(cat:*)",
-      "Bash(npm run start:db:*)"
+      "Bash(npm run start:db:*)",
+      "mcp__ide__getDiagnostics"
     ],
     "deny": []
   }

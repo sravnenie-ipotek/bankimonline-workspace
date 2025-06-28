@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Formik, Form } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
@@ -9,8 +9,7 @@ import { FormContainer } from '@components/ui/FormContainer'
 import { Row } from '@components/ui/Row'
 import { Column } from '@components/ui/Column'
 import Divider from '@components/ui/Divider/Divider'
-import FormCaption from '@components/ui/FormCaption/FormCaption'
-import { Info } from '@pages/Services/components/Info'
+import { Info } from '../../../Services/components/Info'
 import { PersonalCabinetLayout } from '../PersonalCabinetLayout/PersonalCabinetLayout'
 import { Button } from '@components/ui/ButtonUI'
 
@@ -173,7 +172,6 @@ const CoBorrowerIncomeDataPage: React.FC<CoBorrowerIncomeDataPageProps> = ({
 }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const [showAdditionalAccounts, setShowAdditionalAccounts] = useState(false)
 
   // Get current month names (dynamic based on current date)
   const getCurrentMonthNames = () => {
@@ -244,7 +242,8 @@ const CoBorrowerIncomeDataPage: React.FC<CoBorrowerIncomeDataPageProps> = ({
   }
 
   const handleAddBankAccount = () => {
-    setShowAdditionalAccounts(true)
+    // Add bank account functionality - would open modal in full implementation
+    console.log('Add bank account modal would open here')
   }
 
   const incomeSourceOptions = [
@@ -325,10 +324,7 @@ const CoBorrowerIncomeDataPage: React.FC<CoBorrowerIncomeDataPageProps> = ({
 
           {/* Information Banner */}
           <div className={cx('info-banner')}>
-            <Info 
-              text={t('data_privacy_message', 'Ваши данные не попадут третьим лицам кроме банков партнеров и брокеров, мы соблюдаем закон о защите данных')}
-              variant="success"
-            />
+            <Info />
           </div>
 
           <FormContainer>
@@ -498,8 +494,8 @@ const CoBorrowerIncomeDataPage: React.FC<CoBorrowerIncomeDataPageProps> = ({
                           )}
                         </div>
                       </Column>
-                    )}
-                  </Row>
+                    </Row>
+                  )}
 
                   {/* Monthly Income Fields - only show if not unemployed */}
                   {values.mainIncomeSource !== 'unemployed' && (
