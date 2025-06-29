@@ -8,7 +8,14 @@ import { Button } from '@components/ui/ButtonUI'
 import styles from './skipCookie.module.scss'
 
 const cx = classNames.bind(styles)
-const SkipCookie: React.FC = () => {
+
+type SkipCookieProps = {
+  onAccept?: () => void    // Действие #13: Accept cookies
+  onClose?: () => void     // Действие #18: Close cookies
+  onInfo?: () => void      // Действие #24: Cookie info (if needed)
+}
+
+const SkipCookie: React.FC<SkipCookieProps> = ({ onAccept, onClose, onInfo }) => {
   const { t } = useTranslation()
   const [isCookieVisible, setCookieVisible] = useState(false)
 
@@ -25,11 +32,17 @@ const SkipCookie: React.FC = () => {
 
   // скрывает уведомление о куках
   const handleSkipCookie = () => {
+    if (onClose) {
+      onClose() // Call parent callback (Действие #18)
+    }
     setCookieVisible(false)
   }
 
   // соглашается с куками
   const handleCookie = () => {
+    if (onAccept) {
+      onAccept() // Call parent callback (Действие #13)
+    }
     setCookieVisible(false)
     localStorage.setItem('cookie', '1')
   }
