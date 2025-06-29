@@ -314,6 +314,75 @@ app.post('/api/auth-verify', async (req, res) => {
     }
 });
 
+// PHONE + PASSWORD LOGIN - Step 1 (as per Confluence requirements)
+app.post('/api/auth-password', async (req, res) => {
+    const { mobile_number, password } = req.body;
+    
+    console.log(`[PHONE LOGIN] Request for: ${mobile_number}`);
+    
+    if (!mobile_number || !password) {
+        return res.status(400).json({ status: 'error', message: 'Phone number and password are required' });
+    }
+    
+    try {
+        // Normalize phone number - remove spaces and keep only digits and +
+        const normalizedPhone = mobile_number.replace(/\s+/g, '');
+        console.log(`[PHONE LOGIN] Normalized phone: ${normalizedPhone}`);
+        
+        // Check if user exists with this phone number
+        const clientResult = await pool.query('SELECT * FROM clients WHERE phone = $1', [normalizedPhone]);
+        
+        if (clientResult.rows.length === 0) {
+            return res.status(401).json({
+                status: 'error',
+                message: 'שם המשתמש או הסיסמה שגויים' // Hebrew: "Username or password is incorrect"
+            });
+        }
+        
+        const client = clientResult.rows[0];
+        console.log(`[PHONE LOGIN] User found: ${client.first_name} ${client.last_name}`);
+        
+        // Verify password hash
+        if (!client.password_hash) {
+            return res.status(401).json({
+                status: 'error',
+                message: 'שם המשתמש או הסיסמה שגויים' // Hebrew: "Username or password is incorrect"
+            });
+        }
+        
+        const bcrypt = require('bcryptjs');
+        const isPasswordValid = await bcrypt.compare(password, client.password_hash);
+        
+        if (!isPasswordValid) {
+            console.log(`[PHONE LOGIN] Invalid password for: ${normalizedPhone}`);
+            return res.status(401).json({
+                status: 'error',
+                message: 'שם המשתמש או הסיסמה שגויים' // Hebrew: "Username or password is incorrect"
+            });
+        }
+        
+        console.log(`[PHONE LOGIN] Password verified for: ${normalizedPhone}`);
+        
+        // Generate SMS code (4-digit OTP)
+        const otp = Math.floor(1000 + Math.random() * 9000);
+        console.log(`*** SMS CODE for ${normalizedPhone}: ${otp} ***`);
+        
+        // Return success - frontend will proceed to SMS verification step
+        res.json({
+            status: 'success',
+            message: 'SMS code sent',
+            data: {
+                mobile_number: normalizedPhone,
+                // Don't include user data yet - that comes after SMS verification
+            }
+        });
+        
+    } catch (err) {
+        console.error('Phone login error:', err);
+        res.status(500).json({ status: 'error', message: 'Server error' });
+    }
+});
+
 // EMAIL CODE LOGIN - Step 2 (for email-based 2FA)
 app.post('/api/email-code-login', async (req, res) => {
     const { code, email } = req.body;

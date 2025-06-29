@@ -152,3 +152,71 @@ html[dir="rtl"] .burger_icon {
   margin-left: 14px;
   margin-right: 0;
 }
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .nav_container {
+    width: 100vw;
+    transform: translateX(-100%);
+    
+    &_expanded {
+      transform: translateX(0);
+    }
+  }
+
+  .nav_wrapper {
+    padding-top: 80px;
+    gap: 40px;
+  }
+
+  .nav_inner {
+    margin: 0 0 0 60px;
+    font-size: 20px;
+    
+    html[dir="rtl"] & {
+      margin: 0 60px 0 0;
+    }
+  }
+
+  .box {
+    width: 35px;
+    height: 180px;
+    
+    &_expanded {
+      transform: translateY(-50%) translateX(30%);
+    }
+  }
+
+  html[dir="rtl"] .nav_container {
+    transform: translateX(100%);
+    
+    &_expanded {
+      transform: translateX(0);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .nav_wrapper {
+    padding-top: 60px;
+    gap: 30px;
+  }
+
+  .nav_inner {
+    margin: 0 0 0 40px;
+    font-size: 18px;
+    
+    html[dir="rtl"] & {
+      margin: 0 40px 0 0;
+    }
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .menu_item {
+    margin: 4px 0;
+    padding: 4px 0;
+  }
+}

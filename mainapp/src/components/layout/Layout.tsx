@@ -8,6 +8,7 @@ import Header from '@components/layout/Head/Header.tsx'
 import MobileMenu from '@components/layout/Sidebar/MobileMenu/MobileMenu.tsx'
 import { SidebarClosed } from '@components/layout/Sidebar/SideberClosed'
 import { useToggle } from '@src/hooks/useToggle.ts'
+import { usePersistentToggle } from '@src/hooks/usePersistentToggle.ts'
 import { useWindowResize } from '@src/hooks/useWindowResize.ts'
 import { AuthModal } from '@src/pages/AuthModal'
 
@@ -21,7 +22,7 @@ const Layout: React.FC = () => {
   const pathMap = location.pathname.split('/')
   const isService = pathMap.includes('services')
   const { i18n } = useTranslation()
-  const { isOn: isOpen, toggle: toggleOpen } = useToggle(false)
+  const { isOn: isOpen, toggle: toggleOpen } = usePersistentToggle('sidebar-open', false)
   const { isDesktop } = useWindowResize()
   const {
     isOn: isSubMenuOpen,

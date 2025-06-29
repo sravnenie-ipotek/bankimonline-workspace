@@ -1,0 +1,50 @@
+{
+  "mcpServers": {
+    "Figma": {
+      "type": "sse",
+      "url": "http://127.0.0.1:3845/sse"
+    },
+    "Atlassian": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "CONFLUENCE_URL=https://bankimonline.atlassian.net/wiki",
+        "-e",
+        "CONFLUENCE_USERNAME=aizek941977@gmail.com",
+        "-e",
+        "CONFLUENCE_API_TOKEN=ATATT3xFfGF0XRg2UdkqruKrN3r6_VR0_PeUeqM7xQsxmjXHJjTupEU5iPcP1VsFkpbw3j1epWNlPymHZ6nxnFWW58cTQox-k-C2SliHVq4FSECPzVPi2dkspWTuMZF2xMVkqDM3kqysGAmuEBuE5CJB1efdSVdNG8XP1IJhIbGRDho0vwQcSgA=F2D161D1",
+        "ghcr.io/sooperset/mcp-atlassian:latest"
+      ],
+      "env": {}
+    },
+    "YouTrack": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "YOUTRACK_URL=https://bankimonline.youtrack.cloud",
+        "-e",
+        "YOUTRACK_API_TOKEN=perm-TWljaGFlbE1pc2hhZXY=.NTItMg==.gp1oOluQ91U8ri7SHeVYQPO3JvQEu8",
+        "-e",
+        "YOUTRACK_CLOUD=true",
+        "tonyzorin/youtrack-mcp:latest"
+      ],
+      "env": {}
+    },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "env": {}
+    }
+  }
+}

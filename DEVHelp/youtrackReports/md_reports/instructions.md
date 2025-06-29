@@ -1,207 +1,249 @@
-# YouTrack Issues Processing Instructions
-
-## Purpose
+Purpose
 YouTrack issues organized by issue number for systematic development gap analysis.
+Primary Objective: Compare OS-... issue requirements against actual implemented features to identify development gaps.
+Mandatory Logging
+Action Log
 
-**Primary Objective**: Compare OS-... issue requirements against actual implemented features to identify development gaps.
+ALWAYS write ALL moves and actions to: youTrackReports_log.txt
+If influence task: Write to influence_log.txt
 
-## Mandatory Logging
+Start Analysis Log
 
-### Action Log
-- **ALWAYS** write ALL moves and actions to: `youTrackReports_log.txt`
+CRITICAL: When starting analysis of OS-[NUMBER], write OS-[NUMBER] to: reportsNums.txt
+If influence task: Write influence name format to: reportsNums.txt
 
-### Start Analysis Log
-- **CRITICAL**: When starting analysis of OS-[NUMBER], write `OS-[NUMBER]` to: `reportsNums.txt`
+Completion Log
 
-### Completion Log
-- After finishing each OS-... issue, add **ONLY** the issue number to: `youTrackReports_log.txt`
+After finishing each OS-... issue, add ONLY the issue number to: youTrackReports_log.txt
+If influence task: Add to influence_log.txt
 
-### Figma URLs
-- **ALWAYS** add Figma URLs to log files when writing to youTrackReports_ files
+Figma URLs
 
-## File Management Rules
+ALWAYS add Figma URLs to log files when writing to youTrackReports_ files
+If influence task: Add Figma URLs to influence files
 
-### File Naming Pattern
-- Format: `youTrackReports_[START_NUMBER]-[END_NUMBER].json`
-- **Range Limit**: Each file MUST contain NO MORE than 100 OS issues
+File Management Rules
+File Naming Pattern
 
-### File Creation Logic
+Format: youTrackReports_[START_NUMBER]-[END_NUMBER].json
+If influence task: Format: influence_[START_NAME]-[END_NAME].json
+Range Limit: Each file MUST contain NO MORE than 100 OS issues
 
-1. **Step 1**: Check if current OS-[NUMBER] falls within existing youTrackReports_ file range
-2. **Step 2**: If OS number is WITHIN range: Add to existing file
-3. **Step 3**: If OS number is OUTSIDE range but file has <100 OS issues: Extend range and rename file
-4. **Step 4**: If extending would exceed 100 OS limit: Create new file
+File Creation Logic
 
-#### Examples
-- **Extend Range**: `youTrackReports_625-628.json + OS-650 → youTrackReports_625-650.json` (if total ≤100)
-- **New File**: If `youTrackReports_625-724.json` exists (100 OS) + OS-750 → create `youTrackReports_750-750.json`
+Step 1: Check if current OS-[NUMBER] falls within existing youTrackReports_ file range (or influence name in influence_ file)
+Step 2: If OS number is WITHIN range: Add to existing file
+Step 3: If OS number is OUTSIDE range but file has <100 OS issues: Extend range and rename file
+Step 4: If extending would exceed 100 OS limit: Create new file
 
-### File Content Requirements
-- Complete OS issue analysis
-- ALL Figma URLs encountered during analysis
-- Documented development gaps
-- Business logic and design validation outcomes
+Examples
 
-## Processing Order
+Extend Range: youTrackReports_625-628.json + OS-650 → youTrackReports_625-650.json (if total ≤100)
+New File: If youTrackReports_625-724.json exists (100 OS) + OS-750 → create youTrackReports_750-750.json
+Influence Example: influence_taskA-taskC.json + taskE → influence_taskA-taskE.json
 
-### Multiple Issues
-- If multiple OS-... issues exist, process them **ONE BY ONE** in the **EXACT order** provided by user
+File Content Requirements
 
-### Sequential Rule
-- **NEVER** process multiple OS-... issues simultaneously
+Complete OS issue analysis (or influence task analysis)
+ALL Figma URLs encountered during analysis
+Documented development gaps
+Business logic and design validation outcomes
 
-### Completion Requirement
-- **FULLY** complete current OS-... issue before starting next one
+Processing Order
+Multiple Issues
 
-## Figma Protocol
+If multiple OS-... issues exist, process them ONE BY ONE in the EXACT order provided by user
 
-### Priority
-⚠️ **VERY VERY VERY IMPORTANT**: Always check for Figma URLs - this is **CRITICAL**
+Sequential Rule
 
-### Access Check
-- If you **CANNOT ACCESS** Figma, **IMMEDIATELY STOP** processing
+NEVER process multiple OS-... issues simultaneously
 
-### Error Handling
-- If Figma access error occurs, **IMMEDIATELY STOP** processing
+Completion Requirement
 
-### URL Delivery
-- Send **ONE** Figma URL at a time (including embedded Figma URLs)
-- **DO NOT** send all URLs at once - send one by one
+FULLY complete current OS-... issue before starting next one
 
-### Wait Condition
-- Wait for user to open Figma desktop and say 'continue'
+Figma Protocol
+Priority
+⚠️ VERY VERY VERY IMPORTANT: Always check for Figma URLs - this is CRITICAL
+Access Check
 
-### Continuation
-- After user says continue, proceed to next Figma URL if more exist
+IF you CAN ACCESS Figma: Continue processing normally, DO NOT STOP
+IF you CANNOT ACCESS Figma: IMMEDIATELY STOP processing
 
-### Completion
-- Resume analysis only after **ALL** Figma URLs have been processed
+Error Handling
 
-### URL Storage
-- Store **ALL** encountered Figma URLs in the corresponding youTrackReports_ file
+IF you CAN ACCESS Figma: Continue with analysis, no stopping required
+IF Figma access error occurs: IMMEDIATELY STOP processing
 
-## Gap Analysis Workflow
+URL Delivery
 
-### Step 1: Start Analysis
-- **Action**: `LOG: Starting analysis of OS-[NUMBER]`
-- **Description**: Begin processing single OS-... issue from user-provided order
-- **File Action**: Determine target youTrackReports_ file using file_management_rules
-- **CRITICAL**: Write `OS-[NUMBER]` to reportsNums.txt when starting analysis
+IF you CANNOT ACCESS Figma: Send ONE Figma URL at a time (including embedded Figma URLs)
+DO NOT send all URLs at once - send one by one
 
-### Step 2: Review Requirements
-- **Action**: `LOG: Reviewing requirements for OS-[NUMBER]`
-- **Description**: Extract and understand original requirements and specifications
+Wait Condition
 
-### Step 3: Compare Implementation
-- **Action**: `LOG: Comparing implementation vs requirements for OS-[NUMBER]`
-- **Description**: Compare requirements against actual developed features
+ONLY IF you CANNOT ACCESS Figma: Wait for user to open Figma desktop and say 'continue'
 
-### Step 4: Identify Gaps
-- **Action**: `LOG: Identifying gaps for OS-[NUMBER]`
-- **Description**: Document gaps between planned features and delivered functionality
+Continuation
 
-### Step 5: Figma Validation
-- **Action**: `LOG: Checking Figma validation for OS-[NUMBER]`
-- **Description**: Cross-reference gaps with Figma designs (FOLLOW FIGMA PROTOCOL)
-- **Critical Action**: **CAPTURE and STORE** all Figma URLs encountered
+ONLY IF you CANNOT ACCESS Figma: After user says continue, proceed to next Figma URL if more exist
 
-### Step 6: Business Logic Verification
-- **Action**: `LOG: Verifying business logic for OS-[NUMBER]`
-- **Description**: Verify gaps against business logic requirements
+Completion
 
-### Step 7: Document Findings
-- **Action**: `LOG: Documenting findings for OS-[NUMBER]`
-- **Description**: Document all findings for development prioritization
+IF you CAN ACCESS Figma: Process all Figma URLs and continue analysis
+IF you CANNOT ACCESS Figma: Resume analysis only after ALL Figma URLs have been processed
 
-### Step 8: Update Files
-- **Action**: `LOG: Updating youTrackReports file for OS-[NUMBER]`
-- **Description**: Update/create youTrackReports_ file following file_management_rules
-- **Requirements**:
-  - Include complete OS analysis
-  - Include ALL Figma URLs found
-  - Update file range if necessary
-  - Rename file if range extended
-  - Create new file if 100 OS limit reached
+URL Storage
 
-### Step 9: Complete
-- **Action**: `LOG: Completed OS-[NUMBER]`
-- **Description**: Add ONLY the OS number to youTrackReports_log.txt completion log
+Store ALL encountered Figma URLs in the corresponding youTrackReports_ file
+If influence task: Store in corresponding influence_ file
 
-## File Update Decision Matrix
+Gap Analysis Workflow
+Step 1: Start Analysis
 
-### Scenario 1
-- **Condition**: OS number within existing file range AND file has <100 OS
-- **Action**: Add to existing file, no rename needed
+Action: LOG: Starting analysis of OS-[NUMBER] (or influence name)
+Description: Begin processing single OS-... issue from user-provided order (or influence task)
+File Action: Determine target youTrackReports_ file using file_management_rules (or influence_ file)
+CRITICAL: Write OS-[NUMBER] to reportsNums.txt when starting analysis (or influence name)
 
-### Scenario 2
-- **Condition**: OS number outside existing file range AND total would be ≤100 OS
-- **Action**: Extend range, rename file to new range
+Step 2: Review Requirements
 
-### Scenario 3
-- **Condition**: OS number outside existing file range AND total would exceed 100 OS
-- **Action**: Create new `youTrackReports_[OS_NUMBER]-[OS_NUMBER].json` file
+Action: LOG: Reviewing requirements for OS-[NUMBER]
+Description: Extract and understand original requirements and specifications
 
-### Scenario 4
-- **Condition**: No existing youTrackReports_ files
-- **Action**: Create `youTrackReports_[OS_NUMBER]-[OS_NUMBER].json`
+Step 3: Compare Implementation
 
-## Validation Sources
+Action: LOG: Comparing implementation vs requirements for OS-[NUMBER]
+Description: Compare requirements against actual developed features
 
-### Figma (HIGHEST PRIORITY)
-- Figma designs for visual and interaction requirements
-- **STORE ALL URLs**
+Step 4: Identify Gaps
 
-### Business Logic
-- Business logic documentation for functional specifications
+Action: LOG: Identifying gaps for OS-[NUMBER]
+Description: Document gaps between planned features and delivered functionality
 
-### YouTrack
-- YouTrack reports for implementation status tracking
+Step 5: Figma Validation
 
-## Error Handling
+Action: LOG: Checking Figma validation for OS-[NUMBER]
+Description: Cross-reference gaps with Figma designs (FOLLOW FIGMA PROTOCOL)
+Critical Action: CAPTURE and STORE all Figma URLs encountered
 
-### Figma Errors
-- **STOP** immediately, send ONE URL, wait for 'continue' command
+Step 6: Business Logic Verification
 
-### File Access Errors
-- LOG error and request user assistance
+Action: LOG: Verifying business logic for OS-[NUMBER]
+Description: Verify gaps against business logic requirements
 
-### Data Inconsistencies
-- LOG discrepancy and continue with available data
+Step 7: Document Findings
 
-### File Management Errors
-- LOG file operation failure and request user guidance
+Action: LOG: Documenting findings for OS-[NUMBER]
+Description: Document all findings for development prioritization
 
-## Success Criteria
+Step 8: Update Files
 
-### Per Issue
-- Each OS-... issue completely analyzed with all gaps documented
+Action: LOG: Updating youTrackReports file for OS-[NUMBER] (or influence file)
+Description: Update/create youTrackReports_ file following file_management_rules (or influence_ file)
+Requirements:
 
-### Logging Complete
-- All actions logged in youTrackReports_log.txt
+Include complete OS analysis (or influence task analysis)
+Include ALL Figma URLs found
+Update file range if necessary
+Rename file if range extended
+Create new file if 100 OS limit reached
 
-### Files Updated
-- Corresponding youTrackReports files updated with proper naming
 
-### Figma Validated
-- All Figma URLs processed successfully AND stored in files
 
-### File Integrity
-- All files respect 100 OS limit and proper range naming
+Step 9: Complete
 
-## Critical Reminders
+Action: LOG: Completed OS-[NUMBER] (or influence name)
+Description: Add ONLY the OS number to youTrackReports_log.txt completion log (or influence name to influence_log.txt)
 
-### Figma Storage
-- **NEVER** lose Figma URLs - they **MUST** be stored in youTrackReports_ files
+File Update Decision Matrix
+Scenario 1
 
-### File Limits
-- **NEVER** exceed 100 OS issues per youTrackReports_ file
+Condition: OS number within existing file range AND file has <100 OS
+Action: Add to existing file, no rename needed
 
-### Range Accuracy
-- File names **MUST** accurately reflect the OS number range contained
+Scenario 2
 
-### Sequential Processing
-- **COMPLETE** each OS fully before starting next one
+Condition: OS number outside existing file range AND total would be ≤100 OS
+Action: Extend range, rename file to new range
 
----
+Scenario 3
 
-**Note**: These instructions are designed for systematic processing of OS-... issues with comprehensive gap analysis and proper file management. Always follow the Figma protocol and maintain accurate logging throughout the process. 
+Condition: OS number outside existing file range AND total would exceed 100 OS
+Action: Create new youTrackReports_[OS_NUMBER]-[OS_NUMBER].json file (or influence_[NAME]-[NAME].json)
+
+Scenario 4
+
+Condition: No existing youTrackReports_ files (or influence_ files)
+Action: Create youTrackReports_[OS_NUMBER]-[OS_NUMBER].json (or influence_[NAME]-[NAME].json)
+
+Validation Sources
+Figma (HIGHEST PRIORITY)
+
+Figma designs for visual and interaction requirements
+STORE ALL URLs
+
+Business Logic
+
+Business logic documentation for functional specifications
+
+YouTrack
+
+YouTrack reports for implementation status tracking
+If influence task: Use influence tracking sources
+
+Error Handling
+Figma Errors
+
+IF you CAN ACCESS Figma: Continue processing normally
+IF you CANNOT ACCESS Figma: STOP immediately, send ONE URL, wait for 'continue' command
+
+File Access Errors
+
+LOG error and request user assistance
+
+Data Inconsistencies
+
+LOG discrepancy and continue with available data
+
+File Management Errors
+
+LOG file operation failure and request user guidance
+
+Success Criteria
+Per Issue
+
+Each OS-... issue completely analyzed with all gaps documented
+
+Logging Complete
+
+All actions logged in youTrackReports_log.txt (or influence_log.txt for influence tasks)
+
+Files Updated
+
+Corresponding youTrackReports files updated with proper naming (or influence files)
+
+Figma Validated
+
+All Figma URLs processed successfully AND stored in files
+
+File Integrity
+
+All files respect 100 OS limit and proper range naming
+
+Critical Reminders
+Figma Storage
+
+NEVER lose Figma URLs - they MUST be stored in youTrackReports_ files (or influence_ files for influence tasks)
+
+File Limits
+
+NEVER exceed 100 OS issues per youTrackReports_ file
+
+Range Accuracy
+
+File names MUST accurately reflect the OS number range contained
+
+Sequential Processing
+
+COMPLETE each OS fully before starting next one
