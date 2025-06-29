@@ -21,8 +21,20 @@
       "Bash(kill:*)",
       "Bash(cat:*)",
       "Bash(npm run start:db:*)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "Bash(claude mcp:*)",
+      "mcp__Atlassian__confluence_get_page",
+      "mcp__Atlassian__confluence_get_page_children",
+      "mcp__Figma__get_image",
+      "mcp__Atlassian__confluence_search"
     ],
     "deny": []
-  }
+  },
+  "enabledMcpjsonServers": [
+    "Figma",
+    "Atlassian",
+    "YouTrack",
+    "playwright"
+  ],
+  "enableAllProjectMcpServers": true
 }

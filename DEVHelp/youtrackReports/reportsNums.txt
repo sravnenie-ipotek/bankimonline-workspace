@@ -1,3 +1,6 @@
+1-GLAVNAYA-gap-analysis
+1-GLAVNAYA-login-button-analysis
+
 Total unique issue numbers found: 411 (338 OS + 73 LK)
 
 Sorted list of all OS numbers found in youTrackReports files:

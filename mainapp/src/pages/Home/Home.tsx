@@ -12,7 +12,6 @@ import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
 import { openAuthModal } from '@src/pages/Services/slices/modalSlice'
 
 import TopServices from '../../components/ui/TopServices/TopServices'
-import TranslationDebug from '../../components/debug/TranslationDebug'
 import styles from './home.module.scss'
 
 const cx = classNames.bind(styles)
@@ -287,38 +286,23 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <TranslationDebug />
       <div className={cx('home')}>
         <Container>
           {/* 
-            ДЕЙСТВИЕ #1: Login button in header (handled by VideoPoster component)
             ДЕЙСТВИЕ #4: Music toggle in video player
             ДЕЙСТВИЕ #5: Fullscreen mode in video player
-            TODO: Add onLoginClick, onMusicToggle, onFullscreen props to VideoPoster component
+            Connected to action handlers below
           */}
           <VideoPoster
             title={t('title_compare')}
             subtitle={t('compare_in_5minutes')}
             text={t('show_offers')}
+            onMusicToggle={handleAction4_ToggleMusic}
+            onFullscreen={handleAction5_Fullscreen}
           />
           
           {/* TEST BUTTON - Links to OS-97 (Phone verification) */}
-          <div style={{ margin: '20px 0', textAlign: 'center' }}>
-            <button 
-              onClick={handleTestPhoneModal}
-              style={{
-                backgroundColor: '#007bff',
-                color: 'white',
-                padding: '12px 24px',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontSize: '16px'
-              }}
-            >
-              🧪 TEST: Open Phone Verification Modal (OS-97)
-            </button>
-          </div>
+
         </Container>
         
         {/* 
@@ -333,26 +317,37 @@ const Home: React.FC = () => {
         {/* 
           ДЕЙСТВИЕ #11: Партнеры - следующий
           ДЕЙСТВИЕ #34: Партнеры - предыдущий 
-          TODO: Add onNext, onPrev props to PartnersSwiper component
+          Connected to action handlers below
         */}
-        <PartnersSwiper />
+        <PartnersSwiper 
+          onNext={handleAction11_PartnersNext}
+          onPrevious={handleAction34_PartnersPrev}
+        />
         
         {/* 
           ДЕЙСТВИЕ #12: Как это работает - шаг 1
           ДЕЙСТВИЕ #30: Как это работает - шаг 2
           ДЕЙСТВИЕ #31: Как это работает - шаг 3
-          TODO: Add step click handlers to HowItWorks component
+          Connected to action handlers below
         */}
-        <HowItWorks />
+        <HowItWorks 
+          onStep1Click={handleAction12_Step1}
+          onStep2Click={handleAction30_Step2}
+          onStep3Click={handleAction31_Step3}
+        />
       </div>
       
       {/* 
         ДЕЙСТВИЕ #13: Принять куки
         ДЕЙСТВИЕ #18: Закрыть куки
         ДЕЙСТВИЕ #24: Использование куки (ссылка в тексте)
-        TODO: Add callback props to SkipCookie component
+        Connected to action handlers below
       */}
-      <SkipCookie />
+      <SkipCookie 
+        onAccept={handleAction13_AcceptCookies}
+        onClose={handleAction18_CloseCookies}
+        onInfo={handleAction24_CookieUsage}
+      />
     </>
   )
 }

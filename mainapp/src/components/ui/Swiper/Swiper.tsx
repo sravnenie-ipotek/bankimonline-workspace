@@ -19,7 +19,12 @@ import styles from './swiper.module.scss'
 
 const cx = classNames.bind(styles)
 
-const PartnersSwiper = () => {
+type PartnersSwiperProps = {
+  onNext?: () => void      // Действие #11: Partners - next
+  onPrevious?: () => void  // Действие #34: Partners - previous
+}
+
+const PartnersSwiper: React.FC<PartnersSwiperProps> = ({ onNext, onPrevious }) => {
   const { t, i18n } = useTranslation()
 
   const slides = [
@@ -48,8 +53,8 @@ const PartnersSwiper = () => {
             </Link>
           </SwiperSlide>
         ))}
-        <SwiperLeftButtons />
-        <SwiperRightButtons />
+        <SwiperLeftButtons onPrevious={onPrevious} />
+        <SwiperRightButtons onNext={onNext} />
       </Swiper>
     </div>
   )

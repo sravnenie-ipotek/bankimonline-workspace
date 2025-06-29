@@ -19,12 +19,16 @@ type TypeProps = {
   subtitle?: string
   text?: string
   size?: 'normal' | 'small'
+  onMusicToggle?: () => void  // Действие #4: Music toggle
+  onFullscreen?: () => void   // Действие #5: Fullscreen mode
 }
 const VideoPoster: React.FC<TypeProps> = ({
   title,
   subtitle,
   text,
   size = 'normal',
+  onMusicToggle,
+  onFullscreen,
 }) => {
   const audioElementRef = useRef<HTMLAudioElement | null>(null)
   const soundControlsRef = useRef<HTMLDivElement | null>(null)
@@ -46,6 +50,11 @@ const VideoPoster: React.FC<TypeProps> = ({
   }, [])
 
   const handleMute = () => {
+    // Call parent callback if provided (Действие #4)
+    if (onMusicToggle) {
+      onMusicToggle()
+    }
+    
     setIsMuted((prevIsMuted) => {
       if (audioElementRef.current) {
         if (prevIsMuted) {
@@ -58,6 +67,14 @@ const VideoPoster: React.FC<TypeProps> = ({
       }
       return !prevIsMuted
     })
+  }
+  
+  const handleFullscreen = () => {
+    // Call parent callback if provided (Действие #5)
+    if (onFullscreen) {
+      onFullscreen()
+    }
+    setIsPlayerOpen(true)
   }
 
   return (
@@ -75,7 +92,7 @@ const VideoPoster: React.FC<TypeProps> = ({
         </div>
         <div className={cx('video-buttons')}>
             <div
-              onClick={() => setIsPlayerOpen(true)}
+              onClick={handleFullscreen}
               className="cursor-pointer"
               aria-label="Open video player"
               role="button"
