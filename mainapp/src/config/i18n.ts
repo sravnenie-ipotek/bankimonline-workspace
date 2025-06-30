@@ -1,4 +1,4 @@
-export const defaultLanguage = 'en'
+export const defaultLanguage = 'he'
 
 export const supportedLanguages = [
   { code: 'en', name: 'English' },

@@ -1,7 +1,7 @@
 // i18n.js - Complete Internationalization Manager as specified in bankMgmt.txt
 class I18nManager {
     constructor() {
-        this.currentLanguage = localStorage.getItem('admin_language') || 'en';
+        this.currentLanguage = localStorage.getItem('admin_language') || 'he';
         this.translations = {};
         this.rtlLanguages = ['he', 'ar'];
     }
@@ -64,8 +64,8 @@ class I18nManager {
             if (translation && translation[k]) {
                 translation = translation[k];
             } else {
-                // Fallback to English if translation not found
-                translation = this.translations['en'];
+                // Fallback to Hebrew if translation not found
+                translation = this.translations['he'];
                 for (const fallbackKey of keys) {
                     if (translation && translation[fallbackKey]) {
                         translation = translation[fallbackKey];
@@ -220,9 +220,9 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Load initial translations
     await i18n.loadTranslations(i18n.currentLanguage);
     
-    // Load English as fallback
-    if (i18n.currentLanguage !== 'en') {
-        await i18n.loadTranslations('en');
+    // Load Hebrew as fallback
+    if (i18n.currentLanguage !== 'he') {
+        await i18n.loadTranslations('he');
     }
     
     // Update global window.i18n with loaded translations

@@ -23,7 +23,7 @@ const cx = classNames.bind(styles)
 
 const MobileChangeLanguage = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedLanguage, setSelectedLanguage] = useState('ru')
+  const [selectedLanguage, setSelectedLanguage] = useState('he')
   const wrapperRef = useRef<HTMLDivElement>(null)
 
   const { t, i18n } = useTranslation()

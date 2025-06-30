@@ -4,18 +4,18 @@ import { initReactI18next } from 'react-i18next'
 
 import format from './i18n-format.ts'
 
-// Get language from localStorage or default to 'en'
+// Get language from localStorage or default to 'he' (Hebrew)
 // Use the same key as admin system for consistency
 const getInitialLanguage = (): string => {
   if (typeof window !== 'undefined') {
-    return localStorage.getItem('admin_language') || localStorage.getItem('language') || 'en'
+    return localStorage.getItem('admin_language') || localStorage.getItem('language') || 'he'
   }
-  return 'en'
+  return 'he'
 }
 
 const i18nConfig: InitOptions = {
-  lng: getInitialLanguage(), // Language from localStorage or default to English
-  fallbackLng: 'en', // Fallback language is English
+  lng: getInitialLanguage(), // Language from localStorage or default to Hebrew
+  fallbackLng: 'he', // Fallback language is Hebrew
   interpolation: {
     escapeValue: false,
     format,
@@ -39,7 +39,7 @@ const i18nConfig: InitOptions = {
   },
   initImmediate: false, // Don't initialize immediately to ensure proper loading
   load: 'languageOnly', // Load only the language, not region variants
-  preload: ['en', 'he', 'ru'], // Preload all supported languages
+  preload: ['he', 'en', 'ru'], // Preload all supported languages (Hebrew first)
   returnEmptyString: false, // Return key instead of empty string when translation missing
   returnNull: false, // Don't return null for missing translations
   saveMissing: false, // Don't save missing translations
