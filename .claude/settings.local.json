@@ -26,15 +26,26 @@
       "mcp__Atlassian__confluence_get_page",
       "mcp__Atlassian__confluence_get_page_children",
       "mcp__Figma__get_image",
-      "mcp__Atlassian__confluence_search"
+      "mcp__Atlassian__confluence_search",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_install",
+      "Bash(npm start)",
+      "Bash(npm run build:*)",
+      "Bash(npm run preview:*)",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_type",
+      "mcp__playwright__browser_close",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_snapshot"
     ],
     "deny": []
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "Figma",
     "Atlassian",
     "YouTrack",
     "playwright"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }
