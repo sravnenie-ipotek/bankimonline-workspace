@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind'
 
+import MobileChangeLanguage from '@components/layout/Sidebar/MobileMenu/MobileChangeLanguage/MobileChangeLanguage.tsx'
 import NavigationList from '@components/layout/Sidebar/MobileMenu/Navigation/NavigationList/NavigationList.tsx'
 import NavigationSubMenu from '@components/layout/Sidebar/MobileMenu/Navigation/NavigationSubMenu/NavigationSubMenu.tsx'
 import {
@@ -26,6 +27,7 @@ const Navigation = () => {
   return (
     <>
       <nav className={cx('nav')}>
+        <MobileChangeLanguage />
         <NavigationList
           items={menuItems}
           title="sidebar_company"
