@@ -17,9 +17,9 @@ import FirstStepForm from './FirstStepForm/FirstStepForm'
 export const validationSchema = Yup.object().shape({
   priceOfEstate: Yup.number()
     .max(10000000, i18next.t('error_max_price'))
-    .required(i18next.t('error_required_to_fill_out')),
-  cityWhereYouBuy: Yup.string().required(i18next.t('error_select_answer')),
-  whenDoYouNeedMoney: Yup.string().required(i18next.t('error_select_answer')),
+    .required(i18next.t('error_property_value_required')),
+  cityWhereYouBuy: Yup.string().required(i18next.t('error_city_required')),
+  whenDoYouNeedMoney: Yup.string().required(i18next.t('error_when_need_mortgage')),
   initialFee: Yup.number()
     .test(
       'initial-payment-percentage',
@@ -29,19 +29,19 @@ export const validationSchema = Yup.object().shape({
         return validateInitialPayment(priceOfEstate, value)
       }
     )
-    .required(i18next.t('error_required_to_fill_out')),
-  typeSelect: Yup.string().required(i18next.t('error_select_answer')),
-  willBeYourFirst: Yup.string().required(i18next.t('error_select_answer')),
+    .required(i18next.t('error_initial_payment_required')),
+  typeSelect: Yup.string().required(i18next.t('error_mortgage_type_required')),
+  willBeYourFirst: Yup.string().required(i18next.t('error_first_home_required')),
   period: Yup.number()
     .min(4, i18next.t('error_min_period'))
     .max(30, i18next.t('error_max_period'))
-    .required(i18next.t('error_required_to_fill_out')),
+    .required(i18next.t('error_period_required')),
   monthlyPayment: Yup.number()
     .min(
       2654,
-      'Размер ежемесячного платежа не может быть меньше 2,654 иначе срок будет больше 30 лет'
+      i18next.t('error_min_monthly_payment')
     )
-    .required(i18next.t('error_required_to_fill_out')),
+    .required(i18next.t('error_monthly_payment_required')),
 })
 
 export function validateInitialPayment(priceOfEstate: number, value?: number) {

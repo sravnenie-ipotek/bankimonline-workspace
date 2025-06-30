@@ -55,7 +55,16 @@ const SkipCookie: React.FC<SkipCookieProps> = ({ onAccept, onClose, onInfo }) =>
     <div className={cx('cookie-holder')}>
       <div className={cx('cookie')}>
         <img src="/static/cookie.svg" width="52" height="52" alt="" />
-        <span className={cx('cookie-text')}>{t('cookie')}</span>
+        <div className={cx('cookie-text')}>
+          <span>{t('cookie_message')}</span>
+          <span 
+            className={cx('cookie-learn-more')}
+            onClick={onInfo}
+            style={{ cursor: 'pointer', textDecoration: 'underline', color: '#F5D547' }}
+          >
+            {t('cookie_learn_more')}
+          </span>
+        </div>
         <span className={cx('accept_btn')}>
           <Button
             variant={'primary'}
@@ -63,7 +72,7 @@ const SkipCookie: React.FC<SkipCookieProps> = ({ onAccept, onClose, onInfo }) =>
             className={cx('cookie_accept')}
             onClick={handleCookie}
           >
-            {t('accept_cookie')}
+            {t('cookie_accept')}
           </Button>
         </span>
         <span>
