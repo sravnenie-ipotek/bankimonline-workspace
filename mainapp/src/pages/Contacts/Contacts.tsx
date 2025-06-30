@@ -6,206 +6,94 @@ import styles from './contacts.module.scss'
 
 const cx = classNames.bind(styles)
 
-interface ContactSection {
-  id: string
-  title: string
-  items: ContactItem[]
-}
-
-interface ContactItem {
-  title: string
-  phone?: string
-  email?: string
-  whatsapp?: string
-  description?: string
-}
-
-interface SocialLink {
+interface ContactFormData {
   name: string
-  url: string
-  icon: string
+  email: string
+  phone: string
+  message: string
+}
+
+interface FormErrors {
+  name?: string
+  email?: string
+  phone?: string
+  message?: string
 }
 
 const Contacts: React.FC = () => {
   const { t } = useTranslation()
-  const [activeTab, setActiveTab] = useState<string>('general')
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  })
+  const [errors, setErrors] = useState<FormErrors>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitSuccess, setSubmitSuccess] = useState(false)
 
-  // Main company contact info
-  const mainContacts = {
+  // Company contact information
+  const contactInfo = {
     address: t('contacts_address'),
     phone: '04-6232280',
-    email: 'info@bankimonline.com'
+    email: 'info@bankimonline.com',
+    workingHours: t('contacts_working_hours')
   }
 
-  // Contact categories/tabs
-  const contactCategories = [
-    { id: 'general', title: t('contacts_general_questions'), key: 'general' },
-    { id: 'services', title: t('contacts_service_questions'), key: 'services' },
-    { id: 'realestate', title: t('contacts_realestate_questions'), key: 'realestate' },
-    { id: 'cooperation', title: t('contacts_cooperation'), key: 'cooperation' }
-  ]
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {}
 
-  // Contact sections data
-  const contactSections: Record<string, ContactSection[]> = {
-    general: [
-      {
-        id: 'tech-support',
-        title: t('contacts_tech_support'),
-        items: [
-          {
-            title: t('contacts_tech_support'),
-            phone: '04-6232280',
-            email: 'support@bankimonline.com',
-            whatsapp: '+972546232280'
-          }
-        ]
-      },
-      {
-        id: 'general-info',
-        title: t('contacts_general_info'),
-        items: [
-          {
-            title: t('contacts_general_info'),
-            phone: '04-6232280',
-            email: 'info@bankimonline.com',
-            whatsapp: '+972546232280'
-          }
-        ]
-      },
-      {
-        id: 'customer-service',
-        title: t('contacts_customer_service'),
-        items: [
-          {
-            title: t('contacts_customer_service'),
-            phone: '04-6232280',
-            email: 'customerservice@bankimonline.com',
-            whatsapp: '+972546232280'
-          }
-        ]
-      }
-    ],
-    services: [
-      {
-        id: 'mortgage-services',
-        title: t('contacts_mortgage_refinance'),
-        items: [
-          {
-            title: t('contacts_mortgage_refinance'),
-            phone: '046232276',
-            email: 'mortgage@bankimonline.com',
-            whatsapp: '+972546232276',
-            description: t('contacts_mortgage_desc')
-          }
-        ]
-      },
-      {
-        id: 'credit-services',
-        title: t('contacts_credit_refinance'),
-        items: [
-          {
-            title: t('contacts_credit_refinance'),
-            phone: '046232276',
-            email: 'loans@bankimonline.com',
-            whatsapp: '+972546232276',
-            description: t('contacts_credit_desc')
-          }
-        ]
-      }
-    ],
-    realestate: [
-      {
-        id: 'buy-sell',
-        title: t('contacts_buy_sell_realestate'),
-        items: [
-          {
-            title: t('contacts_buy_sell_realestate'),
-            phone: '046232275',
-            email: 'realestate@bankimonline.com',
-            whatsapp: '+972546232275',
-            description: t('contacts_buy_sell_desc')
-          }
-        ]
-      },
-      {
-        id: 'rental',
-        title: t('contacts_rental_realestate'),
-        items: [
-          {
-            title: t('contacts_rental_realestate'),
-            phone: '046232275',
-            email: 'realestate@bankimonline.com',
-            whatsapp: '+972546232275',
-            description: t('contacts_rental_desc')
-          }
-        ]
-      }
-    ],
-    cooperation: [
-      {
-        id: 'partnerships',
-        title: t('contacts_partnerships_management'),
-        items: [
-          {
-            title: t('contacts_partnerships_management'),
-            phone: '046232277',
-            email: 'partnerships@bankimonline.com',
-            whatsapp: '+972546232277'
-          }
-        ]
-      },
-      {
-        id: 'management',
-        title: t('contacts_management'),
-        items: [
-          {
-            title: t('contacts_management'),
-            phone: '046232277',
-            email: 'founder@bankimonline.com',
-            whatsapp: '+972546232277'
-          }
-        ]
-      },
-      {
-        id: 'accounting',
-        title: t('contacts_accounting'),
-        items: [
-          {
-            title: t('contacts_accounting'),
-            phone: '046232277',
-            email: 'accountant@bankimonline.com',
-            whatsapp: '+972546232277'
-          }
-        ]
-      },
-      {
-        id: 'fax',
-        title: t('contacts_fax'),
-        items: [
-          {
-            title: t('contacts_fax_number'),
-            phone: '046232278'
-          }
-        ]
-      }
-    ]
+    if (!formData.name.trim()) {
+      newErrors.name = t('contact_form_name_required')
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = t('contact_form_email_required')
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = t('contact_form_email_invalid')
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = t('contact_form_phone_required')
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = t('contact_form_message_required')
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
   }
 
-  // Social media links
-  const socialLinks: SocialLink[] = [
-    { name: 'Instagram', url: 'https://instagram.com/bankimonline', icon: 'instagram' },
-    { name: 'YouTube', url: 'https://youtube.com/bankimonline', icon: 'youtube' },
-    { name: 'Facebook', url: 'https://facebook.com/bankimonline', icon: 'facebook' },
-    { name: 'Twitter', url: 'https://twitter.com/bankimonline', icon: 'twitter' },
-    { name: 'WhatsApp', url: 'https://wa.me/972546232280', icon: 'whatsapp' }
-  ]
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+    
+    // Clear error when user starts typing
+    if (errors[name as keyof FormErrors]) {
+      setErrors(prev => ({ ...prev, [name]: undefined }))
+    }
+  }
 
-  const handleTabClick = (tabId: string) => {
-    setActiveTab(tabId)
-    // Scroll to the corresponding section
-    const element = document.getElementById(`section-${tabId}`)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!validateForm()) {
+      return
+    }
+
+    setIsSubmitting(true)
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      setSubmitSuccess(true)
+      setFormData({ name: '', email: '', phone: '', message: '' })
+    } catch (error) {
+      console.error('Form submission error:', error)
+    } finally {
+      setIsSubmitting(false)
     }
   }
 
@@ -217,152 +105,174 @@ const Contacts: React.FC = () => {
       case 'email':
         window.open(`mailto:${value}`, '_self')
         break
-      case 'whatsapp':
-        window.open(`https://wa.me/${value.replace(/[^0-9]/g, '')}`, '_blank')
-        break
       default:
         break
     }
   }
 
-  const handleSocialClick = (url: string) => {
-    window.open(url, '_blank')
+  const openMap = () => {
+    const address = encodeURIComponent(contactInfo.address)
+    window.open(`https://maps.google.com/maps?q=${address}`, '_blank')
   }
-
-  const renderContactCard = (item: ContactItem, index: number) => (
-    <div key={index} className={cx('contact-card')}>
-      <h4 className={cx('contact-card-title')}>{item.title}</h4>
-      {item.description && (
-        <p className={cx('contact-card-description')}>{item.description}</p>
-      )}
-      <div className={cx('contact-card-info')}>
-        {item.phone && (
-          <div className={cx('contact-item')}>
-            <span className={cx('contact-label')}>{t('contacts_phone')}:</span>
-            <button
-              className={cx('contact-link')}
-              onClick={() => handleContactClick('phone', item.phone!)}
-            >
-              {item.phone}
-            </button>
-          </div>
-        )}
-        {item.email && (
-          <div className={cx('contact-item')}>
-            <span className={cx('contact-label')}>{t('contacts_email')}:</span>
-            <button
-              className={cx('contact-link')}
-              onClick={() => handleContactClick('email', item.email!)}
-            >
-              {item.email}
-            </button>
-          </div>
-        )}
-        {item.whatsapp && (
-          <div className={cx('contact-item')}>
-            <span className={cx('contact-label')}>WhatsApp:</span>
-            <button
-              className={cx('contact-link', 'whatsapp')}
-              onClick={() => handleContactClick('whatsapp', item.whatsapp!)}
-            >
-              {item.whatsapp}
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  )
 
   return (
     <div className={cx('contacts')}>
       <Container>
-        {/* Main Contact Info Section */}
+        {/* Page Header */}
         <section className={cx('hero-section')}>
           <div className={cx('hero-content')}>
             <h1 className={cx('page-title')}>{t('contacts_title')}</h1>
-            <div className={cx('main-contact-info')}>
-              <div className={cx('main-contact-item')}>
-                <h3>{t('contacts_main_office')}</h3>
-                <p className={cx('address')}>{mainContacts.address}</p>
-              </div>
-              <div className={cx('main-contact-item')}>
-                <h3>{t('contacts_phone')}</h3>
-                <button
-                  className={cx('main-contact-link')}
-                  onClick={() => handleContactClick('phone', mainContacts.phone)}
-                >
-                  {mainContacts.phone}
-                </button>
-              </div>
-              <div className={cx('main-contact-item')}>
-                <h3>{t('contacts_email')}</h3>
-                <button
-                  className={cx('main-contact-link')}
-                  onClick={() => handleContactClick('email', mainContacts.email)}
-                >
-                  {mainContacts.email}
-                </button>
-              </div>
-            </div>
+            <p className={cx('page-subtitle')}>{t('contacts_subtitle')}</p>
           </div>
         </section>
 
-        {/* Contact Categories Navigation */}
-        <section className={cx('categories-section')}>
-          <div className={cx('categories-nav')}>
-            {contactCategories.map((category) => (
-              <button
-                key={category.id}
-                className={cx('category-button', {
-                  active: activeTab === category.id
-                })}
-                onClick={() => handleTabClick(category.id)}
-              >
-                {category.title}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        {/* Contact Sections */}
-        {Object.entries(contactSections).map(([sectionKey, sections]) => (
-          <section
-            key={sectionKey}
-            id={`section-${sectionKey}`}
-            className={cx('contact-section', {
-              active: activeTab === sectionKey
-            })}
-          >
-            <div className={cx('section-content')}>
-              {sections.map((section) => (
-                <div key={section.id} className={cx('section-group')}>
-                  <h2 className={cx('section-title')}>{section.title}</h2>
-                  <div className={cx('contact-cards')}>
-                    {section.items.map((item, index) => renderContactCard(item, index))}
-                  </div>
-                </div>
-              ))}
+        <div className={cx('contact-content')}>
+          {/* Contact Information */}
+          <section className={cx('contact-info-section')}>
+            <h2 className={cx('section-title')}>{t('contacts_info_title')}</h2>
+            <div className={cx('contact-info-grid')}>
+              <div className={cx('contact-info-card')}>
+                <h3 className={cx('info-title')}>{t('contacts_address_title')}</h3>
+                <p className={cx('info-text')}>{contactInfo.address}</p>
+                <button 
+                  className={cx('map-button')}
+                  onClick={openMap}
+                >
+                  {t('contacts_view_map')}
+                </button>
+              </div>
+              
+              <div className={cx('contact-info-card')}>
+                <h3 className={cx('info-title')}>{t('contacts_phone_title')}</h3>
+                <button
+                  className={cx('contact-link')}
+                  onClick={() => handleContactClick('phone', contactInfo.phone)}
+                >
+                  {contactInfo.phone}
+                </button>
+                <p className={cx('info-text')}>{contactInfo.workingHours}</p>
+              </div>
+              
+              <div className={cx('contact-info-card')}>
+                <h3 className={cx('info-title')}>{t('contacts_email_title')}</h3>
+                <button
+                  className={cx('contact-link')}
+                  onClick={() => handleContactClick('email', contactInfo.email)}
+                >
+                  {contactInfo.email}
+                </button>
+              </div>
             </div>
           </section>
-        ))}
 
-        {/* Social Media Section */}
-        <section className={cx('social-section')}>
-          <h2 className={cx('social-title')}>{t('contacts_follow_us')}</h2>
-          <div className={cx('social-links')}>
-            {socialLinks.map((social) => (
-              <button
-                key={social.name}
-                className={cx('social-link', social.icon)}
-                onClick={() => handleSocialClick(social.url)}
-                aria-label={`${t('contacts_follow_us')} ${social.name}`}
-              >
-                <span className={cx('social-icon')}></span>
-                <span className={cx('social-name')}>{social.name}</span>
-              </button>
-            ))}
-          </div>
-        </section>
+          {/* Contact Form */}
+          <section className={cx('contact-form-section')}>
+            <h2 className={cx('section-title')}>{t('contacts_form_title')}</h2>
+            
+            {submitSuccess ? (
+              <div className={cx('success-message')}>
+                <h3>{t('contact_form_success_title')}</h3>
+                <p>{t('contact_form_success_message')}</p>
+                <button 
+                  className={cx('reset-button')}
+                  onClick={() => setSubmitSuccess(false)}
+                >
+                  {t('contact_form_send_another')}
+                </button>
+              </div>
+            ) : (
+              <form className={cx('contact-form')} onSubmit={handleSubmit}>
+                <div className={cx('form-row')}>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')} htmlFor="name">
+                      {t('contact_form_name')} *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className={cx('form-input', { error: errors.name })}
+                      placeholder={t('contact_form_name_placeholder')}
+                    />
+                    {errors.name && <span className={cx('error-text')}>{errors.name}</span>}
+                  </div>
+                  
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')} htmlFor="email">
+                      {t('contact_form_email')} *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className={cx('form-input', { error: errors.email })}
+                      placeholder={t('contact_form_email_placeholder')}
+                    />
+                    {errors.email && <span className={cx('error-text')}>{errors.email}</span>}
+                  </div>
+                </div>
+                
+                <div className={cx('form-group')}>
+                  <label className={cx('form-label')} htmlFor="phone">
+                    {t('contact_form_phone')} *
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className={cx('form-input', { error: errors.phone })}
+                    placeholder={t('contact_form_phone_placeholder')}
+                  />
+                  {errors.phone && <span className={cx('error-text')}>{errors.phone}</span>}
+                </div>
+                
+                <div className={cx('form-group')}>
+                  <label className={cx('form-label')} htmlFor="message">
+                    {t('contact_form_message')} *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className={cx('form-textarea', { error: errors.message })}
+                    placeholder={t('contact_form_message_placeholder')}
+                    rows={5}
+                  />
+                  {errors.message && <span className={cx('error-text')}>{errors.message}</span>}
+                </div>
+                
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={cx('submit-button', { loading: isSubmitting })}
+                >
+                  {isSubmitting ? t('contact_form_sending') : t('contact_form_submit')}
+                </button>
+              </form>
+            )}
+          </section>
+
+          {/* Interactive Map Section */}
+          <section className={cx('map-section')}>
+            <h2 className={cx('section-title')}>{t('contacts_map_title')}</h2>
+            <div className={cx('map-container')}>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3375.4682!2d34.7749!3d32.0568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4d6e6f4f4f4f%3A0x4f4f4f4f4f4f4f4f!2sHerzl%20St%201%2C%20Tel%20Aviv-Yafo!5e0!3m2!1sen!2sil!4v1234567890"
+                className={cx('map-iframe')}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title={t('contacts_map_title')}
+              />
+            </div>
+          </section>
+        </div>
       </Container>
     </div>
   )

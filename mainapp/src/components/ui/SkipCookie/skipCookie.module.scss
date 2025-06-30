@@ -20,8 +20,22 @@
   padding: 24px 0;
   color: white;
   max-width: 439px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   @media screen and (max-width: 931px) {
     text-align: center;
+    font-size: 12px;
+  }
+}
+
+.cookie-learn-more {
+  color: #F5D547 !important;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 14px;
+  margin-top: 4px;
+  @media screen and (max-width: 931px) {
     font-size: 12px;
   }
 }
