@@ -20,6 +20,27 @@ export default defineConfig({
   },
   build: {
     outDir: 'build',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // React core
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          // UI libraries
+          'ui-vendor': ['@mui/material', '@emotion/react', '@emotion/styled'],
+          // State management
+          'state-vendor': ['@reduxjs/toolkit', 'react-redux', 'redux-persist'],
+          // Form handling
+          'form-vendor': ['formik', 'yup', 'yup-password', 'yup-phone-lite'],
+          // Utilities
+          'utils-vendor': ['axios', 'moment', 'date-fns', 'classnames', 'js-cookie'],
+          // i18n
+          'i18n-vendor': ['i18next', 'react-i18next', 'i18next-browser-languagedetector', 'i18next-http-backend'],
+          // UI components
+          'components-vendor': ['react-select', 'react-datepicker', 'react-dropzone', 'react-phone-input-2', 'react-otp-input', 'swiper', 'react-toastify']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000, // Increase limit to 1MB to reduce warnings
   },
   server: {
     proxy: {
