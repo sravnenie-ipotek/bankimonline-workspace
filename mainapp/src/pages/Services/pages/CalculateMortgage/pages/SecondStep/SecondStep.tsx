@@ -7,7 +7,7 @@ import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgage
 
 import { DoubleButtons } from '../../../../components/DoubleButtons'
 import { SecondStepForm } from './SecondStepForm'
-import { validationSchema } from './constants'
+import { getValidationSchema } from './constants'
 
 const SecondStep = () => {
   const dispatch = useAppDispatch()
@@ -40,7 +40,7 @@ const SecondStep = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      validationSchema={getValidationSchema()}
       validateOnMount={true}
       onSubmit={(values) => {
         dispatch(updateMortgageData(values))
