@@ -156,6 +156,7 @@ const CreditData = () => {
                         title={t('refinance_credit_end_date')}
                         placeholder={t('date_ph')}
                         value={item.endDate}
+                        allowFuture={true}
                         onChange={(value) =>
                           setFieldValue(
                             `creditData.${item.id - 1}.endDate`,
@@ -258,6 +259,7 @@ const CreditData = () => {
                       title={t('refinance_credit_end_date')}
                       placeholder={t('date_ph')}
                       value={item.endDate}
+                      allowFuture={true}
                       onChange={(value) =>
                         setFieldValue(
                           `creditData.${item.id - 1}.endDate`,
@@ -361,6 +363,7 @@ const CreditData = () => {
                       title={t('refinance_credit_end_date')}
                       placeholder={t('date_ph')}
                       value={item.endDate}
+                      allowFuture={true}
                       onChange={(value) =>
                         setFieldValue(
                           `creditData.${item.id - 1}.endDate`,
