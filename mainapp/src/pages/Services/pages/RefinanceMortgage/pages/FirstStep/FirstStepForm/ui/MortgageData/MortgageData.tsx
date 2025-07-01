@@ -133,6 +133,8 @@ const MortgageData = () => {
                           value
                         )
                       }
+                      onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.program`)}
+                      error={touched.mortgageData?.[item.id - 1]?.program && errors.mortgageData?.[item.id - 1]?.program}
                     />
                   </div>
                   <div className={cx('col', 'col-2')}>
@@ -145,20 +147,24 @@ const MortgageData = () => {
                           value
                         )
                       }
-                      onBlur={() => setFieldTouched('mortgageData', true)}
-                      error={touched.mortgageData && errors.mortgageData}
+                      onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.balance`)}
+                      error={touched.mortgageData?.[item.id - 1]?.balance && errors.mortgageData?.[item.id - 1]?.balance}
                     />
                   </div>
                   <div className={cx('col', 'col-3')}>
                     <Calendar
                       placeholder={t('date_ph')}
                       value={item.endDate}
+                      allowFuture={true}
+                      blockPastDates={true}
                       onChange={(value) =>
                         setFieldValue(
                           `mortgageData.${item.id - 1}.endDate`,
                           value
                         )
                       }
+                      onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.endDate`)}
+                      error={touched.mortgageData?.[item.id - 1]?.endDate && errors.mortgageData?.[item.id - 1]?.endDate}
                     />
                   </div>
                   <div className={cx('col', 'col-4')}>
@@ -169,6 +175,8 @@ const MortgageData = () => {
                       handleChange={(value) =>
                         setFieldValue(`mortgageData.${item.id - 1}.bid`, value)
                       }
+                      onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.bid`)}
+                      error={touched.mortgageData?.[item.id - 1]?.bid && errors.mortgageData?.[item.id - 1]?.bid}
                       rightSection={<PercentIcon color="#FFF" />}
                     />
                   </div>
@@ -217,6 +225,8 @@ const MortgageData = () => {
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.program`)}
+                        error={touched.mortgageData?.[item.id - 1]?.program && errors.mortgageData?.[item.id - 1]?.program}
                       />
                     </Column>
                     <Column>
@@ -230,6 +240,8 @@ const MortgageData = () => {
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.balance`)}
+                        error={touched.mortgageData?.[item.id - 1]?.balance && errors.mortgageData?.[item.id - 1]?.balance}
                       />
                     </Column>
                     <Column>
@@ -237,12 +249,16 @@ const MortgageData = () => {
                         title={t('end_date')}
                         placeholder={t('date_ph')}
                         value={item.endDate}
+                        allowFuture={true}
+                        blockPastDates={true}
                         onChange={(value) =>
                           setFieldValue(
                             `mortgageData.${item.id - 1}.endDate`,
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.endDate`)}
+                        error={touched.mortgageData?.[item.id - 1]?.endDate && errors.mortgageData?.[item.id - 1]?.endDate}
                       />
                     </Column>
                     <Column>
@@ -256,6 +272,8 @@ const MortgageData = () => {
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.bid`)}
+                        error={touched.mortgageData?.[item.id - 1]?.bid && errors.mortgageData?.[item.id - 1]?.bid}
                         rightSection={<PercentIcon color="#FFF" />}
                       />
                     </Column>
@@ -302,6 +320,8 @@ const MortgageData = () => {
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.program`)}
+                        error={touched.mortgageData?.[item.id - 1]?.program && errors.mortgageData?.[item.id - 1]?.program}
                       />
                     </Column>
                     <Column>
@@ -315,6 +335,8 @@ const MortgageData = () => {
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.balance`)}
+                        error={touched.mortgageData?.[item.id - 1]?.balance && errors.mortgageData?.[item.id - 1]?.balance}
                       />
                     </Column>
                     <Column>
@@ -322,12 +344,16 @@ const MortgageData = () => {
                         title={t('end_date')}
                         placeholder={t('date_ph')}
                         value={item.endDate}
+                        allowFuture={true}
+                        blockPastDates={true}
                         onChange={(value) =>
                           setFieldValue(
                             `mortgageData.${item.id - 1}.endDate`,
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.endDate`)}
+                        error={touched.mortgageData?.[item.id - 1]?.endDate && errors.mortgageData?.[item.id - 1]?.endDate}
                       />
                     </Column>
                     <Column>
@@ -341,6 +367,8 @@ const MortgageData = () => {
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.bid`)}
+                        error={touched.mortgageData?.[item.id - 1]?.bid && errors.mortgageData?.[item.id - 1]?.bid}
                         rightSection={<PercentIcon color="#FFF" />}
                       />
                     </Column>
@@ -372,6 +400,7 @@ const MortgageData = () => {
       </div>
       <ExitModule
         text={t('remove_programm')}
+        subtitle={t('remove_mortgage_program_subtitle')}
         isVisible={opened}
         onCancel={close}
         onSubmit={removeMortgageData}

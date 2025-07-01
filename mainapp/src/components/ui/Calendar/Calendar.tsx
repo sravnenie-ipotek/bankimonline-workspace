@@ -27,6 +27,7 @@ type PropTypes = {
   error?: FormikErrors<Date>
   isMaxAge?: boolean
   allowFuture?: boolean
+  blockPastDates?: boolean // Блокировать выбор прошедших дат
 }
 
 const cx = classNames.bind(styles)
@@ -42,6 +43,7 @@ const Calendar: React.FC<PropTypes> = ({
   onBlur,
   isMaxAge,
   allowFuture,
+  blockPastDates,
 }) => {
   const { t, i18n } = useTranslation() // Использование i18next для мультиязычности
   const [isCalendarOpen, setCalendarOpen] = useState(false)
@@ -113,6 +115,7 @@ const Calendar: React.FC<PropTypes> = ({
       >
         {/* Использование библиотеки react-datepicker для отображения календаря */}
         <DatePicker
+          minDate={blockPastDates ? new Date() : undefined}
           maxDate={
             isMaxAge
               ? new Date(new Date().setFullYear(new Date().getFullYear() - 18))

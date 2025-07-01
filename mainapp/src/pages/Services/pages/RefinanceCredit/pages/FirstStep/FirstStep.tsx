@@ -26,6 +26,24 @@ export const validationSchema = Yup.object().shape({
   monthlyPayment: Yup.number().required(
     i18next.t('error_required_to_fill_out')
   ),
+  creditData: Yup.array().of(
+    Yup.object().shape({
+      bank: Yup.string().required(i18next.t('error_credit_bank_required')),
+      amount: Yup.number()
+        .positive(i18next.t('error_credit_amount_positive'))
+        .required(i18next.t('error_credit_amount_required')),
+      monthlyPayment: Yup.number()
+        .positive(i18next.t('error_credit_payment_positive'))
+        .required(i18next.t('error_credit_payment_required')),
+      startDate: Yup.string().required(i18next.t('error_credit_start_date_required')),
+      endDate: Yup.string().required(i18next.t('error_credit_end_date_required')),
+      earlyRepayment: Yup.number().when(['../refinancingCredit'], {
+        is: (refinancingCredit: string) => refinancingCredit && refinancingCredit !== 'option_3',
+        then: (schema) => schema.positive(i18next.t('error_credit_early_payment_positive')).required(i18next.t('error_credit_early_payment_required')),
+        otherwise: (schema) => schema.nullable()
+      })
+    })
+  ).min(1, i18next.t('error_credit_data_required')),
 })
 
 const FirstStep = () => {
@@ -79,7 +97,7 @@ const FirstStep = () => {
             />
             <FirstStepForm />
           </Container>
-          <SingleButton />
+          <SingleButton showValidationHints={true} />
         </Form>
       </Formik>
       <LoginModal />

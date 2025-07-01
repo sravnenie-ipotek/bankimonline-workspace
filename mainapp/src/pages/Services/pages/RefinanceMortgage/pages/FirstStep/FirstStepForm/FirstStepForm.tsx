@@ -49,9 +49,6 @@ const FirstStepForm = () => {
   const WhereIsRegisteredOptions = useMemo(() => [
     { value: 'option_1', label: t('mortgage_refinance_reg_option_1') },
     { value: 'option_2', label: t('mortgage_refinance_reg_option_2') },
-    { value: 'option_3', label: t('mortgage_refinance_reg_option_3') },
-    { value: 'option_4', label: t('mortgage_refinance_reg_option_4') },
-    { value: 'option_5', label: t('mortgage_refinance_reg_option_5') },
   ], [t])
 
   const banks = [
@@ -211,7 +208,12 @@ const FirstStepForm = () => {
               placeholder={t('date_ph')}
               value={values.startDate}
               onChange={(value) => setFieldValue('startDate', value)}
+              onBlur={() => setFieldTouched('startDate')}
+              error={touched.startDate && errors.startDate}
             />
+            {touched.startDate && errors.startDate && (
+              <Error error={errors.startDate} />
+            )}
           </Column>
           {values.whyRefinancingMortgage === 'option_2' && (
             <Column>
@@ -294,9 +296,10 @@ const FirstStepForm = () => {
                 dispatch(setActiveField('monthlyPayment'))
                 setFieldValue('monthlyPayment', value)
               }}
+              onBlur={() => setFieldTouched('monthlyPayment')}
             />
             <IncreasePayment />
-            {errors.monthlyPayment && <Error error={errors.monthlyPayment} />}
+            {touched.monthlyPayment && errors.monthlyPayment && <Error error={errors.monthlyPayment} />}
           </Column>
 
           <Column />
