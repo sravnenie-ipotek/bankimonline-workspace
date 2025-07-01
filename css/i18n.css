@@ -187,15 +187,15 @@
 
 /* Font adjustments for different languages */
 [lang="he"] {
-    font-family: "Segoe UI", "David", "Times New Roman", serif;
+    font-family: "Arimo", sans-serif;
 }
 
 [lang="ru"] {
-    font-family: "Segoe UI", "Arial", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 [lang="en"] {
-    font-family: "Segoe UI", "Arial", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 /* Modal RTL adjustments */
@@ -545,11 +545,11 @@ input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus,
 
 /* Language-specific font families */
 [lang="he"] {
-    font-family: 'Segoe UI', 'Noto Sans Hebrew', 'Arial Hebrew', sans-serif;
+    font-family: 'Arimo', sans-serif;
 }
 
 [lang="ru"] {
-    font-family: 'Segoe UI', 'Arial', 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* RTL tab adjustments */
@@ -707,11 +707,11 @@ button:focus, input:focus, select:focus, textarea:focus {
 
 /* Language-specific fonts - AS SPECIFIED */
 [lang="he"] {
-    font-family: 'Segoe UI', 'Arial Hebrew', sans-serif;
+    font-family: 'Arimo', sans-serif;
 }
 
 [lang="ru"] {
-    font-family: 'Segoe UI', 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 /* Responsive improvements for Bootstrap navigation */
