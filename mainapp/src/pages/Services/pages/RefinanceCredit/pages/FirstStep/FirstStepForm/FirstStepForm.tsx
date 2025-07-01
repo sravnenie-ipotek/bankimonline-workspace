@@ -83,7 +83,7 @@ const FirstStepForm = () => {
                 min={4}
                 max={30}
                 error={errors.period}
-                title={t('calculate_mortgage_period')}
+                title={t('credit_loan_period')}
                 handleChange={(value) => setFieldValue('period', value)}
               />
               {errors.period && <Error error={errors.period} />}
