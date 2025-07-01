@@ -66,6 +66,8 @@ const FirstStepForm = () => {
             title={t('calculate_mortgage_initial_payment')}
             handleChange={(value) => setFieldValue('monthlyPayment', value)}
             value={values.monthlyPayment}
+            onBlur={() => setFieldTouched('monthlyPayment')}
+            error={touched.monthlyPayment && errors.monthlyPayment}
           />
         </Column>
       )}
@@ -85,6 +87,7 @@ const FirstStepForm = () => {
                 error={errors.period}
                 title={t('credit_loan_period')}
                 handleChange={(value) => setFieldValue('period', value)}
+                onBlur={() => setFieldTouched('period')}
               />
               {errors.period && <Error error={errors.period} />}
             </Column>
