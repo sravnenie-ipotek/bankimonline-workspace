@@ -26,6 +26,7 @@ type PropTypes = {
   onBlur?: () => void
   error?: FormikErrors<Date>
   isMaxAge?: boolean
+  allowFuture?: boolean
 }
 
 const cx = classNames.bind(styles)
@@ -40,6 +41,7 @@ const Calendar: React.FC<PropTypes> = ({
   error,
   onBlur,
   isMaxAge,
+  allowFuture,
 }) => {
   const { t, i18n } = useTranslation() // Использование i18next для мультиязычности
   const [isCalendarOpen, setCalendarOpen] = useState(false)
@@ -77,6 +79,8 @@ const Calendar: React.FC<PropTypes> = ({
     getYear(new Date().setMonth(new Date().getMonth() - 1200)),
     isMaxAge
       ? getYear(new Date().setMonth(new Date().getMonth() - 18 * 12))
+      : allowFuture
+      ? getYear(new Date()) + 50 // Добавляем 50 лет в будущее для выбора дат окончания кредитов
       : getYear(new Date())
   )
 
@@ -112,6 +116,8 @@ const Calendar: React.FC<PropTypes> = ({
           maxDate={
             isMaxAge
               ? new Date(new Date().setFullYear(new Date().getFullYear() - 18))
+              : allowFuture
+              ? new Date(new Date().setFullYear(new Date().getFullYear() + 50))
               : new Date()
           }
           placeholderText={placeholder}
