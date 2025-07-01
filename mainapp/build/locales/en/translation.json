@@ -265,6 +265,7 @@
   "mortgage_refinance_reg_option_2": "No, Not Registered",
   "mortgage_refinance_bank": "Current Bank",
   "mortgage_refinance_type": "Current Interest Type",
+  "mortgage_refinance_type_ph": "Select Interest Type",
   "start_date_mortgage_title": "Mortgage Start Date",
   "enter_mortgage_info": "Enter Mortgage Details",
   "bid": "Interest Rate",
@@ -302,8 +303,13 @@
   "contacts_map_title": "Our Location",
   "country": "Country",
   "banks_partners": "Partner Banks",
+  "calc_mortrage_subtext_1": "Financing Amount:",
+  "calc_mortrage_subtext_3": "Financing Percentage:",
   "cookie": "This website uses cookies to improve your experience. Continuing to browse constitutes consent to the use of cookies.",
   "accept_cookie": "I Accept",
+  "cookie_message": "Our website processes Cookies to improve services. By staying on the site, you agree to the use of Cookie files.",
+  "cookie_learn_more": "Learn more about using Cookie files.",
+  "cookie_accept": "Accept Cookies",
   "error_select_answer": "Please select an option",
   "error_required_to_fill_out": "Required field",
   "error_max_price": "Maximum price is 10,000,000 ₪",
@@ -330,5 +336,8 @@
   "error_foreigner_required": "Please select foreign resident status",
   "error_public_person_required": "Please select public person status",
   "error_family_status_required": "Please select marital status",
-  "error_partner_mortgage_required": "Please select if your partner will participate in the mortgage"
+  "error_partner_mortgage_required": "Please select if your partner will participate in the mortgage",
+  "error_refinance_balance_greater_than_property": "Mortgage balance cannot be greater than property value",
+  "error_refinance_property_less_than_balance": "Full property value cannot be less than mortgage balance",
+  "error_refinance_mortgage_balance_mismatch": "The sum of mortgage balances does not match the specified value"
 }

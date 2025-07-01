@@ -16,19 +16,19 @@ const InitialFeeContext: React.FC = () => {
   const { t, i18n } = useTranslation()
   const { values } = useFormikContext<CalculateMortgageTypes>()
 
-  const formattedValue = values.initialFee.toLocaleString('en-US')
-  const percentFinanced = Math.trunc(
-    (values.initialFee / values.priceOfEstate) * 100
+  const financingAmount = (values.priceOfEstate - values.initialFee).toLocaleString('en-US')
+  const financingPercentage = Math.trunc(
+    ((values.priceOfEstate - values.initialFee) / values.priceOfEstate) * 100
   )
 
   return (
     <Message style={{ marginTop: '2px' }}>
       <span className={cx('margin-sides')}>{t('calc_mortrage_subtext_1')}</span>
-      <b className={cx('bold-text')}>{formattedValue} ₪</b>
+      <b className={cx('bold-text')}>{financingAmount} ₪</b>
       <br />
       <span className={cx('margin-sides')}>{t('calc_mortrage_subtext_3')}</span>
       <b className={cx('bold-text')}>
-        {percentFinanced === Infinity ? 0 : percentFinanced} %
+        {isNaN(financingPercentage) || financingPercentage < 0 ? 0 : financingPercentage}%
       </b>
     </Message>
   )

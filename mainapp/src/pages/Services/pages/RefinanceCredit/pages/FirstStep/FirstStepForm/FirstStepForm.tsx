@@ -36,7 +36,7 @@ const FirstStepForm = () => {
           <DropdownMenu
             data={WhyYouTakeCreditOptions}
             title={t('mortgage_credit_why')}
-            placeholder={t('calculate_mortgage_citizenship_ph')}
+            placeholder={t('credit_refinance_why_ph')}
             value={values.refinancingCredit}
             onChange={(value) => setFieldValue('refinancingCredit', value)}
             onBlur={() => setFieldTouched('refinancingCredit')}

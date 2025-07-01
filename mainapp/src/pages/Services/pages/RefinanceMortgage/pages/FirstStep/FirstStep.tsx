@@ -16,12 +16,12 @@ import FirstStepForm from './FirstStepForm/FirstStepForm'
 
 export const validationSchema = Yup.object().shape({
   whyRefinancingMortgage: Yup.string().required(
-    i18next.t('error_select_answer')
+    i18next.t('error_refinance_why_required')
   ),
   mortgageBalance: Yup.number()
     .test(
       'is-less',
-      'Остаток по ипотеке не может быть больше чем стоимость недвижимости',
+      i18next.t('error_refinance_balance_greater_than_property'),
       function (this: Yup.TestContext, mortgageBalance?: number) {
         const { priceOfEstate } = this.parent
 
@@ -39,7 +39,7 @@ export const validationSchema = Yup.object().shape({
   priceOfEstate: Yup.number()
     .test(
       'is-greater',
-      'Полная стоимость недвижимости не может быть меньше чем остаток ипотеки',
+      i18next.t('error_refinance_property_less_than_balance'),
       function (this: Yup.TestContext, priceOfEstate?: number) {
         const { mortgageBalance } = this.parent
 
@@ -53,26 +53,26 @@ export const validationSchema = Yup.object().shape({
       }
     )
     .required(i18next.t('error_required_to_fill_out')),
-  typeSelect: Yup.string().required(i18next.t('error_select_answer')),
-  bank: Yup.string().required(i18next.t('error_select_answer')),
-  propertyRegistered: Yup.string().required(i18next.t('error_select_answer')),
+  typeSelect: Yup.string().required(i18next.t('error_refinance_type_required')),
+  bank: Yup.string().required(i18next.t('error_refinance_bank_required')),
+  propertyRegistered: Yup.string().required(i18next.t('error_refinance_registered_required')),
   period: Yup.number()
     .min(4, i18next.t('error_min_period'))
     .max(30, i18next.t('error_max_period'))
     .required(i18next.t('error_required_to_fill_out')),
   decreaseMortgage: Yup.string().when('whyRefinancingMortgage', {
     is: i18next.t('calculate_mortgage_type_options_2'),
-    then: (shema) => shema.required(i18next.t('error_select_answer')),
+    then: (shema) => shema.required(i18next.t('error_required_to_fill_out')),
     otherwise: (shema) => shema.notRequired(),
   }),
   increaseMortgage: Yup.string().when('whyRefinancingMortgage', {
     is: i18next.t('calculate_mortgage_type_options_3'),
-    then: (shema) => shema.required(i18next.t('error_select_answer')),
+    then: (shema) => shema.required(i18next.t('error_required_to_fill_out')),
     otherwise: (shema) => shema.notRequired(),
   }),
   mortgageData: Yup.array().test(
     'is-balance-sum-equal',
-    'Сумма балансов ипотек не соответствует заданному значению',
+    i18next.t('error_refinance_mortgage_balance_mismatch'),
     function () {
       const totalBalance = this.parent.mortgageData.reduce(
         (sum: number, item: { balance: number }) => sum + (item.balance || 0),
