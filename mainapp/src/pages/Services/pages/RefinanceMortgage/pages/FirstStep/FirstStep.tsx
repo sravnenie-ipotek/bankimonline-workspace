@@ -56,9 +56,13 @@ export const validationSchema = Yup.object().shape({
   typeSelect: Yup.string().required(i18next.t('error_refinance_type_required')),
   bank: Yup.string().required(i18next.t('error_refinance_bank_required')),
   propertyRegistered: Yup.string().required(i18next.t('error_refinance_registered_required')),
+  startDate: Yup.string().required(i18next.t('error_refinance_start_date_required')),
   period: Yup.number()
     .min(4, i18next.t('error_min_period'))
     .max(30, i18next.t('error_max_period'))
+    .required(i18next.t('error_required_to_fill_out')),
+  monthlyPayment: Yup.number()
+    .positive(i18next.t('error_mortgage_payment_positive'))
     .required(i18next.t('error_required_to_fill_out')),
   decreaseMortgage: Yup.string().when('whyRefinancingMortgage', {
     is: i18next.t('calculate_mortgage_type_options_2'),
@@ -70,7 +74,18 @@ export const validationSchema = Yup.object().shape({
     then: (shema) => shema.required(i18next.t('error_required_to_fill_out')),
     otherwise: (shema) => shema.notRequired(),
   }),
-  mortgageData: Yup.array().test(
+  mortgageData: Yup.array().of(
+    Yup.object().shape({
+      program: Yup.string().required(i18next.t('error_mortgage_program_required')),
+      balance: Yup.number()
+        .positive(i18next.t('error_mortgage_balance_positive'))
+        .required(i18next.t('error_mortgage_balance_required')),
+      endDate: Yup.string().required(i18next.t('error_mortgage_end_date_required')),
+      bid: Yup.number()
+        .positive(i18next.t('error_mortgage_bid_positive'))
+        .required(i18next.t('error_mortgage_bid_required')),
+    })
+  ).test(
     'is-balance-sum-equal',
     i18next.t('error_refinance_mortgage_balance_mismatch'),
     function () {

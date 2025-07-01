@@ -15,6 +15,7 @@ type TypeProps = {
   onCancel: () => void
   onSubmit: () => void
   text: string
+  subtitle?: string
 }
 
 const ExitModule: React.FC<TypeProps> = ({
@@ -22,6 +23,7 @@ const ExitModule: React.FC<TypeProps> = ({
   onCancel,
   onSubmit,
   text,
+  subtitle,
 }) => {
   const dialogRef = useRef<HTMLDialogElement | null>(null)
   const { t, i18n } = useTranslation()
@@ -45,6 +47,7 @@ const ExitModule: React.FC<TypeProps> = ({
               <SignOut />
             </div>
             <div className={cx('dialog-text')}>{text}</div>
+            {subtitle && <div className={cx('dialog-subtitle')}>{subtitle}</div>}
             <div className={cx('dialog-buttons')}>
               <NewButton
                 text={t('confirm')}

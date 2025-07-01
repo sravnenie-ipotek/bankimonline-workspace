@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind'
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
+import { useState } from 'react'
 
 import { Button } from '@components/ui/ButtonUI'
 
@@ -8,9 +9,43 @@ import styles from './singleButton.module.scss'
 
 const cx = classNames.bind(styles)
 
-const SingleButton = () => {
+interface SingleButtonProps {
+  showValidationHints?: boolean
+}
+
+const SingleButton: React.FC<SingleButtonProps> = ({ 
+  showValidationHints = false 
+}) => {
   const { t } = useTranslation()
-  const { isValid, handleSubmit } = useFormikContext()
+  const { isValid, handleSubmit, errors, values, setFieldTouched } = useFormikContext<any>()
+  const [showErrors, setShowErrors] = useState(false)
+
+  const handleClick = () => {
+    if (isValid) {
+      handleSubmit()
+    } else if (showValidationHints) {
+      // Mark all fields as touched to show errors
+      const touchAllFields = (obj: any, path = '') => {
+        Object.keys(obj).forEach(key => {
+          const currentPath = path ? `${path}.${key}` : key
+          setFieldTouched(currentPath, true)
+          
+          if (Array.isArray(obj[key])) {
+            obj[key].forEach((_: any, index: number) => {
+              if (typeof obj[key][index] === 'object' && obj[key][index] !== null) {
+                touchAllFields(obj[key][index], `${currentPath}.${index}`)
+              }
+            })
+          } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+            touchAllFields(obj[key], currentPath)
+          }
+        })
+      }
+      
+      touchAllFields(values)
+      setShowErrors(true)
+    }
+  }
 
   return (
     <div className={cx('submit-btn')}>
@@ -18,7 +53,7 @@ const SingleButton = () => {
         <div className={cx('buttons')}>
           <Button
             isDisabled={!isValid}
-            onClick={handleSubmit as () => void}
+            onClick={handleClick}
             size="smallLong"
             type="button"
           >

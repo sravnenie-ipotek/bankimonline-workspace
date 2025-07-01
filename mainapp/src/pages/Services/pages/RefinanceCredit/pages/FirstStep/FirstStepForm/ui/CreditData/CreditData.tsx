@@ -34,7 +34,7 @@ export type CreditDataTypes = {
 const CreditData = () => {
   const [creditData, setCreditData] = useState<CreditDataTypes[]>([])
   const [idToDelete, setIdToDelete] = useState<number | null>(null)
-  const { values, setFieldValue } = useFormikContext<RefinanceCreditTypes>()
+  const { values, setFieldValue, errors, touched, setFieldTouched } = useFormikContext<RefinanceCreditTypes>()
   const [opened, { open, close }] = useDisclosure(false)
   const { isDesktop, isTablet, isMobile } = useWindowResize()
 
@@ -103,6 +103,8 @@ const CreditData = () => {
                         onChange={(value) =>
                           setFieldValue(`creditData.${item.id - 1}.bank`, value)
                         }
+                        onBlur={() => setFieldTouched(`creditData.${item.id - 1}.bank`)}
+                        error={touched.creditData?.[item.id - 1]?.bank && errors.creditData?.[item.id - 1]?.bank}
                       />
                     </div>
                     <div className={cx('col', 'col-2')}>
@@ -116,6 +118,8 @@ const CreditData = () => {
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`creditData.${item.id - 1}.amount`)}
+                        error={touched.creditData?.[item.id - 1]?.amount && errors.creditData?.[item.id - 1]?.amount}
                       />
                     </div>
                     <div className={cx('col', 'col-3')}>
@@ -129,6 +133,8 @@ const CreditData = () => {
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`creditData.${item.id - 1}.monthlyPayment`)}
+                        error={touched.creditData?.[item.id - 1]?.monthlyPayment && errors.creditData?.[item.id - 1]?.monthlyPayment}
                       />
                     </div>
                     <div className={cx('col', 'col-4')}>
@@ -149,6 +155,8 @@ const CreditData = () => {
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`creditData.${item.id - 1}.startDate`)}
+                        error={touched.creditData?.[item.id - 1]?.startDate && errors.creditData?.[item.id - 1]?.startDate}
                       />
                     </div>
                     <div className={cx('col', 'col-2')}>
@@ -163,6 +171,8 @@ const CreditData = () => {
                             value
                           )
                         }
+                        onBlur={() => setFieldTouched(`creditData.${item.id - 1}.endDate`)}
+                        error={touched.creditData?.[item.id - 1]?.endDate && errors.creditData?.[item.id - 1]?.endDate}
                       />
                     </div>
                     <div className={cx('col', 'col-3')}>
@@ -178,6 +188,8 @@ const CreditData = () => {
                                 value
                               )
                             }
+                            onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
+                            error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
                           />
                         )}
                     </div>
@@ -216,6 +228,8 @@ const CreditData = () => {
                       onChange={(value) =>
                         setFieldValue(`creditData.${item.id - 1}.bank`, value)
                       }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.bank`)}
+                      error={touched.creditData?.[item.id - 1]?.bank && errors.creditData?.[item.id - 1]?.bank}
                     />
                   </Column>
                   <Column>
@@ -226,6 +240,8 @@ const CreditData = () => {
                       handleChange={(value) =>
                         setFieldValue(`creditData.${item.id - 1}.amount`, value)
                       }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.amount`)}
+                      error={touched.creditData?.[item.id - 1]?.amount && errors.creditData?.[item.id - 1]?.amount}
                     />
                   </Column>
                   <Column>
@@ -239,6 +255,8 @@ const CreditData = () => {
                           value
                         )
                       }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.monthlyPayment`)}
+                      error={touched.creditData?.[item.id - 1]?.monthlyPayment && errors.creditData?.[item.id - 1]?.monthlyPayment}
                     />
                   </Column>
                   <Column>
@@ -252,6 +270,8 @@ const CreditData = () => {
                           value
                         )
                       }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.startDate`)}
+                      error={touched.creditData?.[item.id - 1]?.startDate && errors.creditData?.[item.id - 1]?.startDate}
                     />
                   </Column>
                   <Column>
@@ -266,6 +286,8 @@ const CreditData = () => {
                           value
                         )
                       }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.endDate`)}
+                      error={touched.creditData?.[item.id - 1]?.endDate && errors.creditData?.[item.id - 1]?.endDate}
                     />
                   </Column>
                   {values.refinancingCredit &&
@@ -281,6 +303,8 @@ const CreditData = () => {
                               value
                             )
                           }
+                          onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
+                          error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
                         />
                       </Column>
                     )}
@@ -320,6 +344,8 @@ const CreditData = () => {
                       onChange={(value) =>
                         setFieldValue(`creditData.${item.id - 1}.bank`, value)
                       }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.bank`)}
+                      error={touched.creditData?.[item.id - 1]?.bank && errors.creditData?.[item.id - 1]?.bank}
                     />
                   </Column>
                   <Column>
@@ -330,6 +356,8 @@ const CreditData = () => {
                       handleChange={(value) =>
                         setFieldValue(`creditData.${item.id - 1}.amount`, value)
                       }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.amount`)}
+                      error={touched.creditData?.[item.id - 1]?.amount && errors.creditData?.[item.id - 1]?.amount}
                     />
                   </Column>
                   <Column>
@@ -343,6 +371,8 @@ const CreditData = () => {
                           value
                         )
                       }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.monthlyPayment`)}
+                      error={touched.creditData?.[item.id - 1]?.monthlyPayment && errors.creditData?.[item.id - 1]?.monthlyPayment}
                     />
                   </Column>
                   <Column>
@@ -356,6 +386,8 @@ const CreditData = () => {
                           value
                         )
                       }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.startDate`)}
+                      error={touched.creditData?.[item.id - 1]?.startDate && errors.creditData?.[item.id - 1]?.startDate}
                     />
                   </Column>
                   <Column>
@@ -370,6 +402,8 @@ const CreditData = () => {
                           value
                         )
                       }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.endDate`)}
+                      error={touched.creditData?.[item.id - 1]?.endDate && errors.creditData?.[item.id - 1]?.endDate}
                     />
                   </Column>
                   {values.refinancingCredit &&
@@ -385,6 +419,8 @@ const CreditData = () => {
                               value
                             )
                           }
+                          onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
+                          error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
                         />
                       </Column>
                     )}
@@ -413,6 +449,7 @@ const CreditData = () => {
       </div>
       <ExitModule
         text={t('remove_credit')}
+        subtitle={t('remove_credit_subtitle')}
         isVisible={opened}
         onCancel={close}
         onSubmit={removeCreditData}
