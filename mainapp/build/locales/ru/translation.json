@@ -208,6 +208,7 @@
   "mortgage_refinance_reg_option_2": "Нет, не зарегистрирована",
   "mortgage_refinance_bank": "Текущий банк",
   "mortgage_refinance_type": "Тип текущей процентной ставки",
+  "mortgage_refinance_type_ph": "Выберите тип процентной ставки",
   "start_date_mortgage_title": "Дата начала ипотеки",
   "enter_mortgage_info": "Введите данные ипотеки",
   "bid": "Процентная ставка",
@@ -257,6 +258,8 @@
   "contacts_map_title": "Наше местоположение",
   "country": "Страна",
   "banks_partners": "Банки-партнеры",
+  "calc_mortrage_subtext_1": "Сумма финансирования:",
+  "calc_mortrage_subtext_3": "Процент финансирования:",
   "cookie": "Этот веб-сайт использует файлы cookie для улучшения вашего опыта. Продолжение просмотра означает согласие на использование cookie.",
   "accept_cookie": "Принимаю",
   "error_select_answer": "Пожалуйста, выберите вариант",
@@ -285,5 +288,8 @@
   "error_foreigner_required": "Пожалуйста, выберите статус иностранного резидента",
   "error_public_person_required": "Пожалуйста, выберите статус публичного лица",
   "error_family_status_required": "Пожалуйста, выберите семейное положение",
-  "error_partner_mortgage_required": "Пожалуйста, выберите будет ли ваш партнер участвовать в ипотеке"
+  "error_partner_mortgage_required": "Пожалуйста, выберите будет ли ваш партнер участвовать в ипотеке",
+  "error_refinance_balance_greater_than_property": "Остаток по ипотеке не может быть больше чем стоимость недвижимости",
+  "error_refinance_property_less_than_balance": "Полная стоимость недвижимости не может быть меньше чем остаток ипотеки",
+  "error_refinance_mortgage_balance_mismatch": "Сумма балансов ипотек не соответствует заданному значению"
 }

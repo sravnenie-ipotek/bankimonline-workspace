@@ -127,7 +127,7 @@ const FirstStepForm = () => {
             <DropdownMenu
               data={WhyDoYouRefinanceOptions}
               title={t('mortgage_refinance_why')}
-              placeholder={t('calculate_mortgage_citizenship_ph')}
+              placeholder={t('mortgage_refinance_why_ph')}
               value={values.whyRefinancingMortgage}
               onChange={(value) =>
                 setFieldValue('whyRefinancingMortgage', value)
@@ -184,7 +184,7 @@ const FirstStepForm = () => {
             <DropdownMenu
               data={banks}
               title={t('mortgage_refinance_bank')}
-              placeholder={t('calculate_mortgage_citizenship_ph')}
+              placeholder={t('mortgage_refinance_bank_ph')}
               value={values.bank}
               onChange={(value) => setFieldValue('bank', value)}
               onBlur={() => setFieldTouched('bank')}
@@ -195,7 +195,7 @@ const FirstStepForm = () => {
             <DropdownMenu
               data={WhereIsRegisteredOptions}
               title={t('mortgage_refinance_registered')}
-              placeholder={t('calculate_mortgage_citizenship_ph')}
+              placeholder={t('mortgage_refinance_registered_ph')}
               value={values.propertyRegistered}
               onChange={(value) => setFieldValue('propertyRegistered', value)}
               onBlur={() => setFieldTouched('propertyRegistered')}
