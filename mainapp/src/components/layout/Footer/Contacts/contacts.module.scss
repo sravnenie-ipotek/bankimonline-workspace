@@ -22,6 +22,15 @@
       color: theme("colors.textTheme.secondary");
       display: flex;
       gap: 0.5rem;
+      a {
+        color: theme("colors.textTheme.secondary");
+        text-decoration: none;
+        transition: color 0.2s ease;
+        &:hover {
+          color: theme("colors.textTheme.primary");
+          text-decoration: underline;
+        }
+      }
     }
   }
 }
@@ -46,10 +55,22 @@
   &-items {
     opacity: 0;
     padding: 0 1.5rem;
-    transition: all 0.1s ease;
+    transition: all 0.3s ease;
     height: 0;
     overflow: hidden;
     pointer-events: none;
+    .contacts-items__text {
+      padding: 0.5rem 0;
+      a {
+        color: theme("colors.textTheme.secondary");
+        text-decoration: none;
+        transition: color 0.2s ease;
+        &:hover {
+          color: theme("colors.textTheme.primary");
+          text-decoration: underline;
+        }
+      }
+    }
   }
   &-contacts {
     width: 100%;
@@ -57,10 +78,11 @@
 }
 
 .opened {
-  opacity: 100;
-  transition: all 0.1s ease;
-  height: 100%;
+  opacity: 1;
+  transition: all 0.3s ease;
+  height: auto;
   padding: 1.5rem;
+  pointer-events: auto;
 }
 
 .caret-down-opened {
