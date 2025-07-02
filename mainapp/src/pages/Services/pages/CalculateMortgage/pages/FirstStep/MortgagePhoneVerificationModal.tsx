@@ -1,11 +1,14 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { closeModal } from '@src/pages/Services/slices/modalSlice'
 import { setActiveModal, setIsLogin } from '@src/pages/Services/slices/loginSlice'
 import PhoneVerificationModalDark from '@src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModalDark'
+import PhoneVerificationModalDarkHe from '@src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModalDarkHe'
 
 const MortgagePhoneVerificationModal: React.FC = () => {
+  const { i18n } = useTranslation()
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const location = useLocation()
@@ -31,7 +34,12 @@ const MortgagePhoneVerificationModal: React.FC = () => {
 
   if (!isOpen) return null
 
-  return (
+  return i18n.language === 'he' ? (
+    <PhoneVerificationModalDarkHe 
+      onClose={handleClose}
+      onSuccess={handleSuccess}
+    />
+  ) : (
     <PhoneVerificationModalDark 
       onClose={handleClose}
       onSuccess={handleSuccess}
