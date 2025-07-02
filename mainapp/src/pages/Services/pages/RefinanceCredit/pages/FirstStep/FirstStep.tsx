@@ -70,6 +70,15 @@ const FirstStep = () => {
   const tomorrow = new Date()
   tomorrow.setDate(tomorrow.getDate() + 1)
   const tomorrowString = tomorrow.toISOString().split('T')[0]
+  
+  // Get realistic default dates for credit
+  const fiveYearsAgo = new Date()
+  fiveYearsAgo.setFullYear(fiveYearsAgo.getFullYear() - 5)
+  const fiveYearsAgoString = fiveYearsAgo.toISOString().split('T')[0]
+  
+  const tenYearsFromNow = new Date()
+  tenYearsFromNow.setFullYear(tenYearsFromNow.getFullYear() + 10)
+  const tenYearsFromNowString = tenYearsFromNow.toISOString().split('T')[0]
 
   const initialValues = {
     refinancingCredit: savedValue.refinancingCredit || '',
@@ -81,8 +90,8 @@ const FirstStep = () => {
         bank: 'hapoalim',
         amount: null,
         monthlyPayment: null,
-        startDate: '',
-        endDate: tomorrowString,
+        startDate: fiveYearsAgoString,
+        endDate: tenYearsFromNowString,
         earlyRepayment: null,
       },
     ],
