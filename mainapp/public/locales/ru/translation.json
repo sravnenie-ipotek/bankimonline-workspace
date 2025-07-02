@@ -376,5 +376,18 @@
   "nothing_found": "Результаты не найдены",
   "countries": "Страны",
   "apply": "Применить",
-  "credit_refinance_banner_subtext": "Подберем для вас лучшие предложения на рынке"
+  "credit_refinance_banner_subtext": "Подберем для вас лучшие предложения на рынке",
+  "error_credit_end_date_validation": "Дата окончания должна быть позже даты начала",
+  "list_credits_title": "Список кредитов",
+  "bank_apply_credit": "В каком банке оформлен кредит?",
+  "amount_credit_title": "Полная сумма кредита",
+  "add_credit": "Добавить кредит",
+  "refinance_credit_start_date": "Дата оформления кредита",
+  "refinance_credit_end_date": "Дата окончания кредита",
+  "credit_refinance_why": "Цель рефинансирования кредита",
+  "credit_refinance_why_ph": "Выберите цель",
+  "calculate_credit_why_option_1": "Снижение процентной ставки",
+  "calculate_credit_why_option_2": "Объединение кредитов", 
+  "calculate_credit_why_option_3": "Снижение ежемесячного платежа",
+  "calculate_credit_why_option_4": "Увеличить Платеж, чтобы уменьшить срок"
 }
