@@ -21,6 +21,12 @@ const SingleButton: React.FC<SingleButtonProps> = ({
   const [showErrors, setShowErrors] = useState(false)
 
   const handleClick = () => {
+    console.log('=== VALIDATION DEBUG ===')
+    console.log('isValid:', isValid)
+    console.log('values:', values)
+    console.log('errors:', errors)
+    console.log('========================')
+    
     if (isValid) {
       handleSubmit()
     } else if (showValidationHints) {
@@ -52,10 +58,13 @@ const SingleButton: React.FC<SingleButtonProps> = ({
       <div className={cx('wrapper')}>
         <div className={cx('buttons')}>
           <Button
-            isDisabled={!isValid}
             onClick={handleClick}
             size="smallLong"
             type="button"
+            style={{
+              opacity: isValid ? 1 : 0.6,
+              cursor: isValid ? 'pointer' : 'not-allowed'
+            }}
           >
             {t('button_next')}
           </Button>
