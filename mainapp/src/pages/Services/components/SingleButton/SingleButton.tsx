@@ -21,35 +21,42 @@ const SingleButton: React.FC<SingleButtonProps> = ({
   const [showErrors, setShowErrors] = useState(false)
 
   const handleClick = () => {
-    console.log('=== VALIDATION DEBUG ===')
+    console.log('=== BUTTON CLICKED ===')
     console.log('isValid:', isValid)
     console.log('values:', values)
     console.log('errors:', errors)
     console.log('========================')
     
     if (isValid) {
+      console.log('Form is valid - submitting!')
       handleSubmit()
-    } else if (showValidationHints) {
-      // Mark all fields as touched to show errors
-      const touchAllFields = (obj: any, path = '') => {
-        Object.keys(obj).forEach(key => {
-          const currentPath = path ? `${path}.${key}` : key
-          setFieldTouched(currentPath, true)
-          
-          if (Array.isArray(obj[key])) {
-            obj[key].forEach((_: any, index: number) => {
-              if (typeof obj[key][index] === 'object' && obj[key][index] !== null) {
-                touchAllFields(obj[key][index], `${currentPath}.${index}`)
-              }
-            })
-          } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-            touchAllFields(obj[key], currentPath)
-          }
-        })
+    } else {
+      console.log('Form is invalid - showing errors')
+      if (showValidationHints) {
+        // Mark all fields as touched to show errors
+        const touchAllFields = (obj: any, path = '') => {
+          Object.keys(obj).forEach(key => {
+            const currentPath = path ? `${path}.${key}` : key
+            setFieldTouched(currentPath, true)
+            
+            if (Array.isArray(obj[key])) {
+              obj[key].forEach((_: any, index: number) => {
+                if (typeof obj[key][index] === 'object' && obj[key][index] !== null) {
+                  touchAllFields(obj[key][index], `${currentPath}.${index}`)
+                }
+              })
+            } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+              touchAllFields(obj[key], currentPath)
+            }
+          })
+        }
+        
+        touchAllFields(values)
+        setShowErrors(true)
       }
-      
-      touchAllFields(values)
-      setShowErrors(true)
+      // FORCE SUBMIT FOR DEBUGGING
+      console.log('FORCING SUBMIT FOR DEBUGGING')
+      handleSubmit()
     }
   }
 
@@ -62,8 +69,10 @@ const SingleButton: React.FC<SingleButtonProps> = ({
             size="smallLong"
             type="button"
             style={{
-              opacity: isValid ? 1 : 0.6,
-              cursor: isValid ? 'pointer' : 'not-allowed'
+              opacity: 1,
+              cursor: 'pointer',
+              pointerEvents: 'auto',
+              zIndex: 9999
             }}
           >
             {t('button_next')}
