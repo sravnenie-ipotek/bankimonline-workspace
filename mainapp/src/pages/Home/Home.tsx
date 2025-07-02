@@ -1,9 +1,10 @@
 import classNames from 'classnames/bind'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import HowItWorks from '@components/ui/HowItWorks'
 import SkipCookie from '@components/ui/SkipCookie/SkipCookie.tsx'
+import CookiePolicyModal from '@components/ui/CookiePolicyModal/CookiePolicyModal'
 import { Container } from '@src/components/ui/Container'
 import { PartnersSwiper } from '@src/components/ui/Swiper'
 import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
@@ -83,6 +84,9 @@ const cx = classNames.bind(styles)
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation()
   const dispatch = useAppDispatch()
+  
+  // State for Cookie Policy Modal
+  const [isCookiePolicyModalOpen, setIsCookiePolicyModalOpen] = useState(false)
   
   // ============================================
   // OS-94 ДЕЙСТВИЯ (ACTIONS) - 34 TOTAL
@@ -209,6 +213,7 @@ const Home: React.FC = () => {
   // Действие #24: Использование куки (Cookie usage)
   const handleAction24_CookieUsage = () => {
     console.log('OS-94 Действие #24: Использование куки')
+    setIsCookiePolicyModalOpen(true)
   }
   
   // Действие #25: Политика возврата (Refund policy)
@@ -347,6 +352,12 @@ const Home: React.FC = () => {
         onAccept={handleAction13_AcceptCookies}
         onClose={handleAction18_CloseCookies}
         onInfo={handleAction24_CookieUsage}
+      />
+      
+      {/* Cookie Policy Modal */}
+      <CookiePolicyModal 
+        isOpen={isCookiePolicyModalOpen}
+        onClose={() => setIsCookiePolicyModalOpen(false)}
       />
     </>
   )
