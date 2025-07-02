@@ -1,1 +1,0 @@
-import{j as t}from"./index-1d92caf1.js";import{C as o}from"./Container-61d06680.js";import"./index-f859d475.js";const s=()=>t.jsx(o,{children:t.jsx("div",{children:"Contacts Page"})}),c=s;export{c as Contacts};
