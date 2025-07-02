@@ -21,6 +21,7 @@
   padding: 24px 24px 32px 24px;
   position: relative;
   animation: fadeInScale 0.3s ease-out;
+  text-align: left;
 
   @media (max-width: 768px) {
     padding: 20px;
@@ -93,6 +94,7 @@
   color: #ffffff;
   margin: 0 60px 16px 0;
   max-width: 380px;
+  text-align: left;
 
   @media (max-width: 768px) {
     font-size: 22px;
@@ -116,6 +118,7 @@
   opacity: 0.9;
   margin: 0 60px 24px 0;
   max-width: 380px;
+  text-align: left;
 
   @media (max-width: 768px) {
     font-size: 15px;
@@ -133,47 +136,187 @@
 .formContainer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
+  margin-top: 8px;
 }
 
 .inputGroup {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .input {
   width: 100%;
-  height: 48px;
+  height: 52px;
   background-color: #2a2b31;
-  border: 1px solid #333535;
-  border-radius: 5px;
-  padding: 12px 24px;
+  border: 1px solid #424545;
+  border-radius: 6px;
+  padding: 16px 20px;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 400;
   color: #ffffff;
   outline: none;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
+  text-align: left;
+  direction: ltr;
 
   &::placeholder {
     color: #848484;
   }
 
   &:focus {
-    border-color: #424545;
+    border-color: #fbe54d;
+    box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2);
+    background-color: #2e2f35;
   }
 
   &.inputError {
     border-color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
   }
 }
 
 .phoneContainer {
   width: 100%;
+  position: relative;
   
   .react-tel-input {
     width: 100%;
+    direction: ltr;
+    
+    .form-control {
+      width: 100% !important;
+      height: 52px !important;
+      background-color: #2a2b31 !important;
+      border: 1px solid #424545 !important;
+      border-radius: 6px !important;
+      padding: 16px 20px 16px 76px !important;
+      font-family: 'Roboto', sans-serif !important;
+      font-size: 16px !important;
+      font-weight: 400 !important;
+      color: #ffffff !important;
+      outline: none !important;
+      text-align: left !important;
+      transition: all 0.2s ease !important;
+      
+      &::placeholder {
+        color: #848484 !important;
+      }
+      
+      &:focus {
+        border-color: #fbe54d !important;
+        box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2) !important;
+        background-color: #2e2f35 !important;
+      }
+    }
+    
+    .flag-dropdown {
+      background-color: #2a2b31 !important;
+      border: 1px solid #424545 !important;
+      border-right: 1px solid #424545 !important;
+      border-radius: 6px 0 0 6px !important;
+      height: 52px !important;
+      width: 74px !important;
+      transition: all 0.2s ease !important;
+      
+      &:hover {
+        background-color: #35373f !important;
+        border-color: #fbe54d !important;
+      }
+      
+      .selected-flag {
+        width: 74px !important;
+        height: 52px !important;
+        padding: 0 14px !important;
+        background-color: transparent !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        
+        .flag {
+          width: 22px !important;
+          height: 16px !important;
+          margin: 0 !important;
+          margin-right: 6px !important;
+          border-radius: 2px !important;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        .arrow {
+          border-top: 5px solid #d0d0d0 !important;
+          border-left: 4px solid transparent !important;
+          border-right: 4px solid transparent !important;
+          margin-left: 6px !important;
+          margin-top: 2px !important;
+          transition: transform 0.2s ease !important;
+        }
+        
+        &.open .arrow {
+          transform: rotate(180deg) !important;
+        }
+      }
+    }
+    
+    .country-list {
+      background-color: #2a2b31 !important;
+      border: 1px solid #424545 !important;
+      border-radius: 5px !important;
+      margin-top: 2px !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+      max-height: 200px !important;
+      overflow-y: auto !important;
+      
+      .country {
+        color: #ffffff !important;
+        background-color: #2a2b31 !important;
+        padding: 10px 12px !important;
+        display: flex !important;
+        align-items: center !important;
+        
+        &:hover {
+          background-color: #35373f !important;
+        }
+        
+        &.highlight {
+          background-color: #35373f !important;
+        }
+        
+        .flag {
+          width: 18px !important;
+          height: 12px !important;
+          margin-right: 8px !important;
+        }
+        
+        .country-name {
+          flex: 1 !important;
+        }
+        
+        .dial-code {
+          color: #d0d0d0 !important;
+          font-weight: 500 !important;
+        }
+      }
+    }
+    
+    .search-box {
+      background-color: #35373f !important;
+      border: 1px solid #424545 !important;
+      border-radius: 4px !important;
+      color: #ffffff !important;
+      padding: 8px 12px !important;
+      margin: 8px !important;
+      
+      &::placeholder {
+        color: #848484 !important;
+      }
+      
+      &:focus {
+        border-color: #fbe54d !important;
+        outline: none !important;
+      }
+    }
   }
 }
 
@@ -182,13 +325,15 @@
   height: 48px !important;
   background-color: #2a2b31 !important;
   border: 1px solid #424545 !important;
-  border-radius: 4px !important;
-  padding: 12px 16px 12px 66px !important;
+  border-radius: 5px !important;
+  padding: 12px 16px 12px 70px !important;
   font-family: 'Roboto', sans-serif !important;
   font-size: 16px !important;
   font-weight: 400 !important;
   color: #ffffff !important;
   outline: none !important;
+  text-align: left !important;
+  direction: ltr !important;
 
   &::placeholder {
     color: #848484 !important;
@@ -196,7 +341,7 @@
 
   &:focus {
     border-color: #fbe54d !important;
-    box-shadow: none !important;
+    box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2) !important;
   }
 
   &.phoneInputError {
@@ -205,30 +350,43 @@
 }
 
 .phoneButton {
-  background-color: transparent !important;
+  background-color: #2a2b31 !important;
   border: 1px solid #424545 !important;
-  border-right: none !important;
-  border-radius: 4px 0 0 4px !important;
+  border-right: 1px solid #424545 !important;
+  border-radius: 5px 0 0 5px !important;
   padding: 0 !important;
   height: 48px !important;
-  width: 66px !important;
+  width: 68px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.05) !important;
+    background-color: #35373f !important;
   }
 
   .selected-flag {
     width: 100% !important;
     height: 100% !important;
-    padding: 0 10px !important;
+    padding: 0 12px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 
     .flag {
+      width: 20px !important;
+      height: 15px !important;
       margin: 0 !important;
+      margin-right: 6px !important;
+      border-radius: 2px !important;
     }
 
     .arrow {
-      border-top-color: #848484 !important;
-      margin-left: 8px !important;
+      border-top: 4px solid #d0d0d0 !important;
+      border-left: 3px solid transparent !important;
+      border-right: 3px solid transparent !important;
+      margin-left: 4px !important;
+      border-bottom: none !important;
     }
   }
 }
@@ -236,14 +394,18 @@
 .phoneDropdown {
   background-color: #2a2b31 !important;
   border: 1px solid #424545 !important;
-  border-radius: 4px !important;
+  border-radius: 5px !important;
   margin-top: 2px !important;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+  max-height: 200px !important;
+  overflow-y: auto !important;
 
   .country {
     color: #ffffff !important;
     background-color: #2a2b31 !important;
-    padding: 8px 10px !important;
+    padding: 10px 12px !important;
+    display: flex !important;
+    align-items: center !important;
 
     &:hover {
       background-color: #35373f !important;
@@ -253,8 +415,20 @@
       background-color: #35373f !important;
     }
 
+    .flag {
+      width: 18px !important;
+      height: 12px !important;
+      margin-right: 8px !important;
+      border-radius: 2px !important;
+    }
+
+    .country-name {
+      flex: 1 !important;
+    }
+
     .dial-code {
-      color: #848484 !important;
+      color: #d0d0d0 !important;
+      font-weight: 500 !important;
     }
   }
 
@@ -264,32 +438,46 @@
 }
 
 .phoneSearch {
-  background-color: #2a2b31 !important;
+  background-color: #35373f !important;
   border: 1px solid #424545 !important;
   border-radius: 4px !important;
   color: #ffffff !important;
-  padding: 8px 10px !important;
+  padding: 8px 12px !important;
   margin: 8px !important;
 
   &::placeholder {
     color: #848484 !important;
   }
+
+  &:focus {
+    border-color: #fbe54d !important;
+    outline: none !important;
+  }
 }
 
 .errorMessage {
   font-family: 'Roboto', sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   color: #dc3545;
-  margin-top: 4px;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  
+  &::before {
+    content: "⚠";
+    font-size: 12px;
+  }
 }
 
 .agreementText {
   font-family: 'Roboto', sans-serif;
-  font-size: 12px;
-  line-height: 1.4;
+  font-size: 13px;
+  line-height: 1.5;
   color: #d0d0d0;
   opacity: 0.9;
-  margin: 0;
+  margin: 8px 0 0 0;
+  text-align: center;
 }
 
 .link {
@@ -306,28 +494,31 @@
 
 .continueButton {
   width: 100%;
-  height: 48px;
+  height: 52px;
   background-color: #35373f;
   border: none;
   border-radius: 8px;
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   color: #848484;
   cursor: not-allowed;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 8px;
 
   &:not(.continueButtonDisabled) {
     background-color: #fbe54d;
     color: #161616;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(251, 229, 77, 0.3);
 
     &:hover {
       background-color: #f9dd00;
       transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(251, 229, 77, 0.4);
     }
 
     &:active {
@@ -347,8 +538,8 @@
   line-height: 1.4;
   color: #d0d0d0;
   opacity: 0.9;
-  text-align: left;
-  margin: 0;
+  text-align: center;
+  margin: 16px 0 0 0;
 }
 
 .loginLink {
@@ -365,5 +556,76 @@
   &:hover {
     opacity: 0.8;
     text-decoration: underline;
+  }
+}
+
+// RTL Support for Hebrew
+[dir="rtl"] {
+  .modalContent {
+    text-align: right;
+  }
+
+  .title, .subtitle {
+    text-align: right;
+  }
+
+  .closeButton {
+    left: 20px;
+    right: auto;
+
+    @media (max-width: 480px) {
+      left: 12px;
+      right: auto;
+    }
+  }
+
+  .title {
+    margin: 0 0 16px 60px;
+
+    @media (max-width: 768px) {
+      margin: 0 0 16px 50px;
+    }
+
+    @media (max-width: 480px) {
+      margin: 0 0 12px 40px;
+    }
+  }
+
+  .subtitle {
+    margin: 0 0 24px 60px;
+
+    @media (max-width: 768px) {
+      margin: 0 0 20px 50px;
+    }
+
+    @media (max-width: 480px) {
+      margin: 0 0 16px 40px;
+    }
+  }
+
+  .input {
+    text-align: right;
+    direction: rtl;
+  }
+
+  .phoneContainer {
+    .react-tel-input {
+      direction: ltr; // Keep phone input LTR always
+      
+      .form-control {
+        text-align: left !important;
+        direction: ltr !important;
+      }
+    }
+  }
+
+  .agreementText {
+    text-align: right;
+    direction: rtl;
+  }
+
+  .loginPrompt {
+    text-align: right;
+    direction: rtl;
   }
 }
