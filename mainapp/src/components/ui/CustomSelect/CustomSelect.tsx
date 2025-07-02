@@ -28,6 +28,7 @@ export default function CustomSelect({
         {typeof title !== 'undefined' ? <Title title={title} /> : <></>}
         <ControlSelect
           valueField="value"
+          labelField="label"
           name={name}
           searchable={false}
           className={name}
@@ -47,6 +48,7 @@ export default function CustomSelect({
       <ControlSelect
         values={values}
         valueField="value"
+        labelField="label"
         name={name}
         searchable={false}
         className={name}

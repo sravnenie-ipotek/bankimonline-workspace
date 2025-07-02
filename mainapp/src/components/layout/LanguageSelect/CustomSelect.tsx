@@ -75,6 +75,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({
 }) => (
   <ControlSelect
     valueField="value"
+    labelField="label"
     name={name}
     searchable={false}
     className={name}
