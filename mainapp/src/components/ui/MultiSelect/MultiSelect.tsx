@@ -85,9 +85,11 @@ const MultiSelect: React.FC<TypeProps> = ({
   }, [handleClickOutside])
 
   const filteredOptions = Array.isArray(data)
-    ? data.filter((item) =>
-        item.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? data.filter((item) => {
+        // Ensure item is a string before calling toLowerCase
+        const itemString = typeof item === 'string' ? item : String(item)
+        return itemString.toLowerCase().includes(searchTerm.toLowerCase())
+      })
     : []
 
   return (
