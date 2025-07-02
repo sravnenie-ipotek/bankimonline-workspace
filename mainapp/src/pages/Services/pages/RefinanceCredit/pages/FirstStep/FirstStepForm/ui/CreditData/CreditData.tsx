@@ -40,6 +40,9 @@ const CreditData = () => {
 
   const { t, i18n } = useTranslation()
 
+  // Check if early repayment should be shown based on refinancing goal
+  const shouldShowEarlyRepayment = values.refinancingCredit === 'option_2' || values.refinancingCredit === 'option_4'
+
   useEffect(() => {
     setCreditData(values.creditData)
   }, [values.creditData])
@@ -176,19 +179,21 @@ const CreditData = () => {
                       />
                     </div>
                     <div className={cx('col', 'col-3')}>
-                      <FormattedInput
-                        title={t('early_repayment')}
-                        placeholder="1,000,000"
-                        value={item.earlyRepayment}
-                        handleChange={(value) =>
-                          setFieldValue(
-                            `creditData.${item.id - 1}.earlyRepayment`,
-                            value
-                          )
-                        }
-                        onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
-                        error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
-                      />
+                      {shouldShowEarlyRepayment && (
+                        <FormattedInput
+                          title={t('early_repayment')}
+                          placeholder="1,000,000"
+                          value={item.earlyRepayment}
+                          handleChange={(value) =>
+                            setFieldValue(
+                              `creditData.${item.id - 1}.earlyRepayment`,
+                              value
+                            )
+                          }
+                          onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
+                          error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
+                        />
+                      )}
                     </div>
                     <div className={cx('col', 'col-4')}></div>
                   </div>
@@ -288,19 +293,21 @@ const CreditData = () => {
                     />
                   </Column>
                   <Column>
-                    <FormattedInput
-                      title={t('early_repayment')}
-                      placeholder="1,000,000"
-                      value={item.earlyRepayment}
-                      handleChange={(value) =>
-                        setFieldValue(
-                          `creditData.${item.id - 1}.earlyRepayment`,
-                          value
-                        )
-                      }
-                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
-                      error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
-                    />
+                    {shouldShowEarlyRepayment && (
+                      <FormattedInput
+                        title={t('early_repayment')}
+                        placeholder="1,000,000"
+                        value={item.earlyRepayment}
+                        handleChange={(value) =>
+                          setFieldValue(
+                            `creditData.${item.id - 1}.earlyRepayment`,
+                            value
+                          )
+                        }
+                        onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
+                        error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
+                      />
+                    )}
                   </Column>
                   {item.id !== 1 && (
                     <Column>
@@ -401,19 +408,21 @@ const CreditData = () => {
                     />
                   </Column>
                   <Column>
-                    <FormattedInput
-                      title={t('early_repayment')}
-                      placeholder="1,000,000"
-                      value={item.earlyRepayment}
-                      handleChange={(value) =>
-                        setFieldValue(
-                          `creditData.${item.id - 1}.earlyRepayment`,
-                          value
-                        )
-                      }
-                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
-                      error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
-                    />
+                    {shouldShowEarlyRepayment && (
+                      <FormattedInput
+                        title={t('early_repayment')}
+                        placeholder="1,000,000"
+                        value={item.earlyRepayment}
+                        handleChange={(value) =>
+                          setFieldValue(
+                            `creditData.${item.id - 1}.earlyRepayment`,
+                            value
+                          )
+                        }
+                        onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
+                        error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
+                      />
+                    )}
                   </Column>
                   {item.id !== 1 && (
                     <Column>

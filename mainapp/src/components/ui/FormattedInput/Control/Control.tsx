@@ -40,7 +40,7 @@ const Control: React.FC<ControlProps> = ({
   type = 'comma',
 }) => {
   const { currency } = useAppSelector((state) => state.currency);
-  const formattedValue = value !== null ? value.toLocaleString('en-US') : ''
+  const formattedValue = (value != null) ? value.toLocaleString('en-US') : ''
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value
