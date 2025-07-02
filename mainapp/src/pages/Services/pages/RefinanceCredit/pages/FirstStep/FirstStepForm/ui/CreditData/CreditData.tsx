@@ -152,6 +152,7 @@ const CreditData = () => {
                         title={t('refinance_credit_start_date')}
                         placeholder={t('date_ph')}
                         value={item.startDate}
+                        isCreditDate={true}
                         onChange={(value) =>
                           setFieldValue(
                             `creditData.${item.id - 1}.startDate`,
@@ -266,6 +267,7 @@ const CreditData = () => {
                       title={t('refinance_credit_start_date')}
                       placeholder={t('date_ph')}
                       value={item.startDate}
+                      isCreditDate={true}
                       onChange={(value) =>
                         setFieldValue(
                           `creditData.${item.id - 1}.startDate`,
@@ -381,6 +383,7 @@ const CreditData = () => {
                       title={t('refinance_credit_start_date')}
                       placeholder={t('date_ph')}
                       value={item.startDate}
+                      isCreditDate={true}
                       onChange={(value) =>
                         setFieldValue(
                           `creditData.${item.id - 1}.startDate`,
