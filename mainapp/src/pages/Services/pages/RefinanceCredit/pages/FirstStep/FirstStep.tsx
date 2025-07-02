@@ -1,6 +1,5 @@
 import { Form, Formik } from 'formik'
 import i18next from 'i18next'
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import * as Yup from 'yup'
@@ -44,13 +43,10 @@ export const validationSchema = Yup.object().shape({
           if (!value || !startDate) return true;
           return new Date(value) > new Date(startDate);
         }),
-      earlyRepayment: Yup.number().when('$refinancingCredit', {
-        is: (value: string) => value === 'option_2' || value === 'option_4',
-        then: (schema) => schema
-          .positive(i18next.t('error_credit_early_payment_positive'))
-          .required(i18next.t('error_credit_early_payment_required')),
-        otherwise: (schema) => schema.notRequired(),
-      }),
+      earlyRepayment: Yup.number()
+        .positive(i18next.t('error_credit_early_payment_positive'))
+        .nullable()
+        .notRequired(),
     })
   ).min(1, i18next.t('error_credit_data_required')),
 })
@@ -62,8 +58,6 @@ const FirstStep = () => {
 
   const savedValue = useAppSelector((state) => state.refinanceCredit)
   const isLogin = useAppSelector((state) => state.login.isLogin)
-  
-  const [refinancingCredit, setRefinancingCredit] = useState(savedValue.refinancingCredit || '')
 
   // Get tomorrow's date for default end date
   const tomorrow = new Date()
@@ -92,8 +86,6 @@ const FirstStep = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        validationContext={{ refinancingCredit }}
-        enableReinitialize={true}
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateRefinanceCreditData(values))
@@ -105,26 +97,17 @@ const FirstStep = () => {
           }
         }}
       >
-        {({ values, setFieldValue }) => {
-          // Update refinancing credit state when form value changes
-          if (values.refinancingCredit !== refinancingCredit) {
-            setRefinancingCredit(values.refinancingCredit)
-          }
-          
-          return (
-            <Form>
-              <Container>
-                <VideoPoster
-                  title={t('credit_refinance_title')}
-                  text={t('credit_refinance_banner_subtext')}
-                  size="small"
-                />
-                <FirstStepForm />
-              </Container>
-              <SingleButton showValidationHints={true} />
-            </Form>
-          )
-        }}
+        <Form>
+          <Container>
+            <VideoPoster
+              title={t('credit_refinance_title')}
+              text={t('credit_refinance_banner_subtext')}
+              size="small"
+            />
+            <FirstStepForm />
+          </Container>
+          <SingleButton showValidationHints={true} />
+        </Form>
       </Formik>
       <LoginModal />
     </>
