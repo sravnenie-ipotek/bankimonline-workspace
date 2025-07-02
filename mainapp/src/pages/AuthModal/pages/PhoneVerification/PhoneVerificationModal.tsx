@@ -30,23 +30,23 @@ const PhoneVerificationModal = () => {
 
   const validateName = (name: string): string | undefined => {
     if (!name.trim()) {
-      return t('name_required', 'Имя и фамилия обязательны')
+      return t('name_required')
     }
     if (!/^[a-zA-Zа-яА-Я\u0590-\u05FF\s]+$/.test(name)) {
-      return t('name_letters_only', 'Используйте только буквы и пробелы')
+      return t('name_letters_only')
     }
     if (name.trim().length < 2) {
-      return t('name_min_length', 'Минимум 2 символа')
+      return t('name_min_length')
     }
     return undefined
   }
 
   const validatePhone = (phone: string): string | undefined => {
     if (!phone.trim()) {
-      return t('phone_required', 'Номер телефона обязателен')
+      return t('phone_required')
     }
     if (!/^\+?[\d\s-()]+$/.test(phone)) {
-      return t('phone_invalid', 'Введите корректный номер телефона')
+      return t('phone_invalid')
     }
     return undefined
   }
@@ -94,7 +94,7 @@ const PhoneVerificationModal = () => {
       dispatch(setActiveModal('codeSignUp'))
     } catch (error) {
       // Handle error silently or show user-friendly message
-      setErrors({ phone: t('sms_send_error', 'Ошибка отправки SMS. Попробуйте еще раз.') })
+      setErrors({ phone: t('sms_send_error') })
     }
   }
 
@@ -116,10 +116,10 @@ const PhoneVerificationModal = () => {
     <div style={{ padding: '32px', maxWidth: '500px', margin: '0 auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '32px' }}>
         <h2 style={{ fontSize: '24px', fontWeight: '600', color: '#161616', marginBottom: '16px' }}>
-          {t('enter_phone_number_login', 'Введите свой номер телефона, чтобы получить предложения от банков')}
+          {t('enter_phone_number_login')}
         </h2>
         <p style={{ fontSize: '16px', color: '#666666', lineHeight: '1.5', margin: '0' }}>
-          {t('confirm_phone_number_login', 'Подтвердите свой номер телефона, чтобы мы смогли прислать SMS с решением от банков. Мы гарантируем безопасность и сохранность ваших данных.')}
+          {t('confirm_phone_number_login')}
         </p>
       </div>
 
@@ -127,7 +127,7 @@ const PhoneVerificationModal = () => {
         <div>
           <input 
             type="text" 
-            placeholder={t('name_placeholder', 'Имя Фамилия')}
+            placeholder={t('name_placeholder')}
             value={formData.name}
             onChange={handleNameChange}
             style={{ 
@@ -154,7 +154,7 @@ const PhoneVerificationModal = () => {
             onChange={handlePhoneChange}
             onlyCountries={['il', 'us', 'ru']}
             preferredCountries={['il', 'us', 'ru']}
-            placeholder={t('phone_placeholder', 'Номер телефона')}
+            placeholder={t('phone_placeholder')}
             inputStyle={{
               width: '100%',
               padding: '12px 12px 12px 58px',
@@ -189,35 +189,35 @@ const PhoneVerificationModal = () => {
             transition: 'background-color 0.2s'
           }}
         >
-          {t('continue', 'Продолжить')}
+          {t('continue')}
         </button>
 
         <div style={{ marginTop: '16px', textAlign: 'center' }}>
           <p style={{ fontSize: '14px', color: '#666666', lineHeight: '1.4', margin: '0' }}>
-            {t('agreement_text_start', 'Нажимая кнопку "Продолжить" я принимаю условия')}{' '}
+            {t('agreement_text_start')}{' '}
             <span 
               style={{ color: '#007bff', textDecoration: 'underline', cursor: 'pointer' }}
               onClick={handleUserAgreementClick}
             >
-              {t('user_agreement', 'Пользовательского соглашения')}
+              {t('user_agreement')}
             </span>
-            {' '}{t('and', 'и')}{' '}
+            {' '}{t('and')}{' '}
             <span 
               style={{ color: '#007bff', textDecoration: 'underline', cursor: 'pointer' }}
               onClick={handlePrivacyPolicyClick}
             >
-              {t('privacy_policy', 'Политики конфиденциальности')}
+              {t('privacy_policy')}
             </span>
           </p>
         </div>
 
         <div style={{ marginTop: '24px', textAlign: 'center', fontSize: '14px', color: '#666666' }}>
-          <span>{t('already_client', 'Уже являетесь нашим клиентом?')} </span>
+          <span>{t('already_client')} </span>
           <span 
             style={{ color: '#007bff', textDecoration: 'underline', cursor: 'pointer', marginLeft: '4px' }}
             onClick={handleLoginClick}
           >
-            {t('login_here', 'Войдите здесь')}
+            {t('login_here')}
           </span>
         </div>
       </div>
