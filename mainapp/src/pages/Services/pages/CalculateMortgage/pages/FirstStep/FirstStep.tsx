@@ -11,7 +11,7 @@ import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgage
 import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
 
 import { SingleButton } from '../../../../components/SingleButton'
-import { LoginModal } from '../../../Modals/LoginModal'
+import MortgagePhoneVerificationModal from './MortgagePhoneVerificationModal'
 import FirstStepForm from './FirstStepForm/FirstStepForm'
 
 export const validationSchema = Yup.object().shape({
@@ -102,7 +102,7 @@ const FirstStep = () => {
           <SingleButton />
         </Form>
       </Formik>
-      <LoginModal />
+      <MortgagePhoneVerificationModal />
     </>
   )
 }
