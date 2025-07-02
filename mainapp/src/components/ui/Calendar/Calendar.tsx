@@ -28,6 +28,7 @@ type PropTypes = {
   isMaxAge?: boolean
   allowFuture?: boolean
   blockPastDates?: boolean // Блокировать выбор прошедших дат
+  isCreditDate?: boolean // Для кредитных дат - ограничить диапазон до 30 лет
 }
 
 const cx = classNames.bind(styles)
@@ -44,6 +45,7 @@ const Calendar: React.FC<PropTypes> = ({
   isMaxAge,
   allowFuture,
   blockPastDates,
+  isCreditDate,
 }) => {
   const { t, i18n } = useTranslation() // Использование i18next для мультиязычности
   const [isCalendarOpen, setCalendarOpen] = useState(false)
@@ -78,7 +80,9 @@ const Calendar: React.FC<PropTypes> = ({
 
   // Создание списка годов для выбора
   const years = range(
-    getYear(new Date().setMonth(new Date().getMonth() - 1200)),
+    isCreditDate
+      ? getYear(new Date().setMonth(new Date().getMonth() - 30 * 12)) // 30 лет назад для кредитов
+      : getYear(new Date().setMonth(new Date().getMonth() - 1200)), // 100 лет назад по умолчанию
     isMaxAge
       ? getYear(new Date().setMonth(new Date().getMonth() - 18 * 12))
       : allowFuture
