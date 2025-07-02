@@ -1,4 +1,4 @@
-/* Hebrew RTL Phone Verification Modal Styles */
+/* Hebrew RTL Phone Verification Modal Styles - Exact copy with RTL modifications */
 
 .modalContainer {
   position: fixed;
@@ -6,380 +6,559 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.78);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 1000;
   padding: 20px;
-  direction: rtl;
 }
 
 .modalContent {
-  background: #1a1a1a;
-  border-radius: 16px;
-  width: 100%;
+  background-color: #2a2b31;
+  border-radius: 10px;
+  border: 1px solid #333535;
   max-width: 480px;
-  max-height: 90vh;
-  overflow-y: auto;
+  width: 100%;
+  padding: 24px 24px 32px 24px;
   position: relative;
-  padding: 32px;
-  direction: rtl;
-  font-family: 'Heebo', Arial, sans-serif;
+  animation: fadeInScale 0.3s ease-out;
+  text-align: right; /* RTL for Hebrew */
+
+  @media (max-width: 768px) {
+    padding: 20px;
+    max-width: calc(100% - 40px);
+  }
+
+  @media (max-width: 480px) {
+    padding: 16px;
+    max-width: calc(100% - 32px);
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .closeButton {
   position: absolute;
-  top: 16px;
-  left: 16px; /* Hebrew RTL: close button on left */
-  background: none;
+  top: 20px;
+  left: 20px; /* Hebrew RTL: close button on left */
+  background: transparent;
   border: none;
-  color: #666;
+  color: #ffffff;
   cursor: pointer;
-  padding: 8px;
+  padding: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
   border-radius: 4px;
-  transition: color 0.2s ease;
-  font-size: 24px;
-  line-height: 1;
   z-index: 10;
 
   &:hover {
-    color: #999;
+    background-color: rgba(255, 255, 255, 0.1);
+    opacity: 0.8;
+  }
+
+  svg, img {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media (max-width: 480px) {
+    top: 12px;
+    left: 12px;
+    width: 28px;
+    height: 28px;
+    
+    svg, img {
+      width: 18px;
+      height: 18px;
+    }
   }
 }
 
 .title {
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
+  font-weight: 400;
+  line-height: 1.2;
   color: #ffffff;
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1.3;
-  margin: 0 0 12px 0;
+  margin: 0 0 16px 60px; /* RTL: margin left instead of right */
+  max-width: 380px;
   text-align: right; /* Hebrew RTL alignment */
-  max-width: calc(100% - 60px);
-  direction: rtl;
+
+  @media (max-width: 768px) {
+    font-size: 22px;
+    margin: 0 0 16px 50px;
+    max-width: calc(100% - 60px);
+  }
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+    margin: 0 0 12px 40px;
+    max-width: calc(100% - 50px);
+  }
 }
 
 .subtitle {
-  color: #b3b3b3;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.4;
-  margin: 0 0 32px 0;
+  color: #d0d0d0;
+  opacity: 0.9;
+  margin: 0 0 24px 60px; /* RTL: margin left instead of right */
+  max-width: 380px;
   text-align: right; /* Hebrew RTL alignment */
-  direction: rtl;
+
+  @media (max-width: 768px) {
+    font-size: 15px;
+    margin: 0 0 20px 50px;
+    max-width: calc(100% - 60px);
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+    margin: 0 0 16px 40px;
+    max-width: calc(100% - 50px);
+  }
 }
 
 .formContainer {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  direction: rtl;
+  margin-top: 8px;
 }
 
 .inputGroup {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  direction: rtl;
 }
 
 .input {
-  background: #2d2d2d;
-  border: 1px solid #404040;
-  border-radius: 8px;
-  color: #ffffff;
-  font-size: 16px;
-  padding: 12px 16px;
   width: 100%;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  height: 52px;
+  background-color: #2a2b31;
+  border: 1px solid #424545;
+  border-radius: 6px;
+  padding: 16px 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ffffff;
+  outline: none;
+  transition: all 0.2s ease;
+  text-align: right; /* Hebrew RTL alignment */
   direction: rtl;
-  text-align: right;
 
   &::placeholder {
-    color: #666;
-    text-align: right;
+    color: #848484;
   }
 
   &:focus {
-    outline: none;
-    border-color: #0066cc;
+    border-color: #fbe54d;
+    box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2);
+    background-color: #2e2f35;
   }
 
   &.inputError {
-    border-color: #ff4444;
+    border-color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
   }
 }
 
-/* Hebrew RTL Phone Input Styles */
 .phoneContainer {
+  width: 100%;
   position: relative;
-  direction: ltr; /* Phone input needs LTR for proper flag positioning */
   
-  :global(.react-tel-input) {
-    direction: ltr;
+  .react-tel-input {
+    width: 100%;
+    position: relative;
     
     .form-control {
-      background: #2d2d2d !important;
-      border: 1px solid #404040 !important;
-      border-radius: 8px !important;
-      color: #ffffff !important;
-      font-size: 16px !important;
-      height: 48px !important;
-      padding-left: 88px !important; /* Space for flag dropdown */
-      padding-right: 16px !important;
       width: 100% !important;
-      box-sizing: border-box !important;
+      height: 48px !important;
+      background-color: #2a2b31 !important;
+      border: 1px solid #424545 !important;
+      border-radius: 6px !important;
+      padding: 0 16px 0 90px !important; /* RTL: padding right for flag on left */
+      font-family: 'Roboto', sans-serif !important;
+      font-size: 16px !important;
+      font-weight: 400 !important;
+      color: #ffffff !important;
+      outline: none !important;
+      text-align: left !important;
       transition: border-color 0.2s ease !important;
+      direction: ltr !important;
       
       &::placeholder {
-        color: #666 !important;
+        color: #848484 !important;
+        font-size: 16px !important;
       }
       
       &:focus {
-        outline: none !important;
-        border-color: #0066cc !important;
+        border-color: #fbe54d !important;
+        box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2) !important;
+      }
+      
+      &:hover {
+        border-color: #5a5c64 !important;
       }
     }
     
     .flag-dropdown {
-      background: #2d2d2d !important;
-      border: 1px solid #404040 !important;
-      border-radius: 8px 0 0 8px !important;
+      position: absolute !important;
+      right: 1px !important; /* RTL: flag on right side which appears left visually */
+      top: 1px !important;
       width: 88px !important;
-      height: 48px !important;
+      height: 46px !important;
+      background-color: transparent !important;
+      border: none !important;
+      border-left: 1px solid #424545 !important; /* RTL: border left instead of right */
+      border-radius: 0 5px 5px 0 !important; /* RTL: flip border radius */
+      transition: background-color 0.2s ease !important;
+      z-index: 5 !important;
+      cursor: pointer !important;
       
       &:hover {
-        background: #3d3d3d !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
       }
       
       .selected-flag {
-        background: transparent !important;
-        padding: 0 12px !important;
+        width: 100% !important;
         height: 100% !important;
+        padding: 0 8px !important;
+        background: transparent !important;
         display: flex !important;
         align-items: center !important;
-        justify-content: center !important;
+        justify-content: space-between !important;
+        gap: 6px !important;
         
         .flag {
           width: 20px !important;
           height: 14px !important;
-          margin-right: 8px !important;
+          margin: 0 !important;
+          border-radius: 2px !important;
+          object-fit: cover !important;
+          border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          flex-shrink: 0 !important;
+        }
+        
+        .dial-code {
+          color: #ffffff !important;
+          font-size: 14px !important;
+          font-weight: 500 !important;
+          flex-shrink: 0 !important;
+          min-width: 32px !important;
         }
         
         .arrow {
-          border-top: 4px solid #666 !important;
+          border-top: 4px solid #d0d0d0 !important;
           border-left: 3px solid transparent !important;
           border-right: 3px solid transparent !important;
-          width: 0 !important;
-          height: 0 !important;
-          margin-left: 8px !important;
+          transition: transform 0.2s ease !important;
+          flex-shrink: 0 !important;
         }
         
-        &:hover .arrow {
-          border-top-color: #999 !important;
+        &.open .arrow {
+          transform: rotate(180deg) !important;
         }
       }
     }
     
     .country-list {
-      background: #2d2d2d !important;
-      border: 1px solid #404040 !important;
-      border-radius: 8px !important;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+      position: absolute !important;
+      right: 0 !important; /* RTL: dropdown on right side */
+      top: 100% !important;
       width: 300px !important;
+      background-color: #2a2b31 !important;
+      border: 1px solid #424545 !important;
+      border-radius: 6px !important;
+      margin-top: 2px !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
       max-height: 200px !important;
-      z-index: 10000 !important;
+      overflow-y: auto !important;
+      z-index: 1000 !important;
       
       .country {
-        background: transparent !important;
         color: #ffffff !important;
-        padding: 12px 16px !important;
-        cursor: pointer !important;
+        background-color: transparent !important;
+        padding: 10px 12px !important;
         display: flex !important;
         align-items: center !important;
+        cursor: pointer !important;
+        transition: background-color 0.2s ease !important;
+        gap: 8px !important;
+        
+        &:hover, &.highlight {
+          background-color: #35373f !important;
+        }
         
         .flag {
-          width: 20px !important;
-          height: 14px !important;
-          margin-right: 12px !important;
+          width: 18px !important;
+          height: 12px !important;
+          margin: 0 !important;
+          border-radius: 2px !important;
+          object-fit: cover !important;
+          border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          flex-shrink: 0 !important;
         }
         
         .country-name {
           flex: 1 !important;
           font-size: 14px !important;
+          font-weight: 400 !important;
+          min-width: 0 !important;
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
+          white-space: nowrap !important;
         }
         
         .dial-code {
+          color: #d0d0d0 !important;
+          font-weight: 500 !important;
           font-size: 14px !important;
-          color: #b3b3b3 !important;
+          flex-shrink: 0 !important;
+          min-width: 40px !important;
+          text-align: right !important;
         }
-        
-        &:hover,
-        &.highlight {
-          background: #3d3d3d !important;
-        }
+      }
+    }
+    
+    .search-box {
+      background-color: #35373f !important;
+      border: 1px solid #424545 !important;
+      border-radius: 4px !important;
+      color: #ffffff !important;
+      padding: 8px 12px !important;
+      margin: 8px !important;
+      font-size: 14px !important;
+      
+      &::placeholder {
+        color: #848484 !important;
+      }
+      
+      &:focus {
+        border-color: #fbe54d !important;
+        outline: none !important;
+        box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2) !important;
       }
     }
   }
 }
 
 .phoneInput {
-  background: #2d2d2d !important;
-  border: 1px solid #404040 !important;
-  border-radius: 8px !important;
-  color: #ffffff !important;
-  font-size: 16px !important;
+  width: 100% !important;
   height: 48px !important;
-  padding-left: 88px !important;
-  padding-right: 16px !important;
-  
+  background-color: #2a2b31 !important;
+  border: 1px solid #424545 !important;
+  border-radius: 6px !important;
+  padding: 0 16px 0 90px !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  color: #ffffff !important;
+  outline: none !important;
+  text-align: left !important;
+  direction: ltr !important;
+  transition: border-color 0.2s ease !important;
+
   &::placeholder {
-    color: #666 !important;
+    color: #848484 !important;
+    font-size: 16px !important;
   }
-  
+
   &:focus {
-    outline: none !important;
-    border-color: #0066cc !important;
+    border-color: #fbe54d !important;
+    box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2) !important;
   }
-  
+
+  &:hover {
+    border-color: #5a5c64 !important;
+  }
+
   &.phoneInputError {
-    border-color: #ff4444 !important;
+    border-color: #dc3545 !important;
   }
 }
 
 .phoneButton {
-  background: #2d2d2d !important;
-  border: 1px solid #404040 !important;
-  border-radius: 8px 0 0 8px !important;
+  position: absolute !important;
+  right: 1px !important; /* RTL: button on right side */
+  top: 1px !important;
   width: 88px !important;
-  height: 48px !important;
-  
+  height: 46px !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-left: 1px solid #424545 !important; /* RTL: border left instead of right */
+  border-radius: 0 5px 5px 0 !important; /* RTL: flip border radius */
+  transition: background-color 0.2s ease !important;
+  z-index: 5 !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 6px !important;
+  padding: 0 8px !important;
+
   &:hover {
-    background: #3d3d3d !important;
+    background-color: rgba(255, 255, 255, 0.05) !important;
   }
 }
 
 .phoneDropdown {
-  background: #2d2d2d !important;
-  border: 1px solid #404040 !important;
-  border-radius: 8px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  position: absolute !important;
+  right: 0 !important; /* RTL: dropdown on right side */
+  top: 100% !important;
   width: 300px !important;
+  background-color: #2a2b31 !important;
+  border: 1px solid #424545 !important;
+  border-radius: 6px !important;
+  margin-top: 2px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   max-height: 200px !important;
-  z-index: 10000 !important;
+  overflow-y: auto !important;
+  z-index: 1000 !important;
 }
 
 .phoneSearch {
-  background: #3d3d3d !important;
-  border: 1px solid #404040 !important;
+  background-color: #35373f !important;
+  border: 1px solid #424545 !important;
+  border-radius: 4px !important;
   color: #ffffff !important;
-  
+  padding: 8px 12px !important;
+  margin: 8px !important;
+
   &::placeholder {
-    color: #666 !important;
+    color: #848484 !important;
+  }
+
+  &:focus {
+    border-color: #fbe54d !important;
+    outline: none !important;
   }
 }
 
 .errorMessage {
-  color: #ff4444;
-  font-size: 14px;
-  font-weight: 400;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  color: #dc3545;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   text-align: right; /* Hebrew RTL alignment */
   direction: rtl;
+  
+  &::before {
+    content: "⚠";
+    font-size: 12px;
+  }
 }
 
 .agreementText {
-  color: #b3b3b3;
-  font-size: 14px;
-  line-height: 1.4;
+  font-family: 'Roboto', sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #d0d0d0;
+  opacity: 0.9;
+  margin: 8px 0 0 0;
   text-align: right; /* Hebrew RTL alignment */
   direction: rtl;
 }
 
 .link {
-  color: #0066cc;
+  color: #fbe54d;
   text-decoration: none;
   cursor: pointer;
-  
+  transition: opacity 0.2s ease;
+
   &:hover {
+    opacity: 0.8;
     text-decoration: underline;
   }
 }
 
 .continueButton {
-  background: #0066cc;
+  width: 100%;
+  height: 52px;
+  background-color: #35373f;
   border: none;
   border-radius: 8px;
-  color: #ffffff;
-  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
   font-size: 16px;
   font-weight: 600;
-  padding: 16px 24px;
-  transition: background-color 0.2s ease;
-  width: 100%;
-  
-  &:hover:not(:disabled) {
-    background: #0052a3;
-  }
-  
-  &.continueButtonDisabled {
-    background: #404040;
-    cursor: not-allowed;
-    opacity: 0.6;
+  color: #848484;
+  cursor: not-allowed;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+
+  &:not(.continueButtonDisabled) {
+    background-color: #fbe54d;
+    color: #161616;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(251, 229, 77, 0.3);
+
+    &:hover {
+      background-color: #f9dd00;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(251, 229, 77, 0.4);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
   }
 }
 
+.continueButtonDisabled {
+  cursor: not-allowed;
+  opacity: 1;
+}
+
 .loginPrompt {
-  color: #b3b3b3;
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
-  text-align: center;
+  line-height: 1.4;
+  color: #d0d0d0;
+  opacity: 0.9;
+  text-align: right; /* Hebrew RTL alignment */
+  margin: 16px 0 0 0;
   direction: rtl;
 }
 
 .loginLink {
+  color: #fbe54d;
   background: none;
   border: none;
-  color: #0066cc;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
   padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
   text-decoration: none;
-  
+  transition: opacity 0.2s ease;
+
   &:hover {
+    opacity: 0.8;
     text-decoration: underline;
   }
 }
 
-/* Mobile Responsive Styles */
-@media (max-width: 768px) {
-  .modalContainer {
-    padding: 16px;
-  }
-  
-  .modalContent {
-    padding: 24px 20px;
-    max-height: 95vh;
-  }
-  
-  .title {
-    font-size: 24px;
-    max-width: calc(100% - 50px);
-  }
-  
-  .subtitle {
-    font-size: 15px;
-  }
-  
-  .formContainer {
-    gap: 20px;
-  }
-  
-  .phoneContainer {
-    :global(.react-tel-input) {
-      .form-control {
-        font-size: 16px !important; /* Prevent zoom on iOS */
-      }
-    }
-  }
-} 
+// Additional RTL support would be added here if needed by original file structure
+// For this Hebrew version, the RTL modifications are integrated above 
