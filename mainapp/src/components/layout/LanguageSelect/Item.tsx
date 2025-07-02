@@ -167,6 +167,8 @@ const Item: FC<ItemProps> = ({ options, title }) => (
     <Sel
       options={options}
       values={[]}
+      labelField="label"
+      valueField="value"
       itemRenderer={({ item, methods }: any) => (
         <StyledItem>
           {item.disabled ? (
