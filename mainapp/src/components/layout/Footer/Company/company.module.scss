@@ -19,6 +19,16 @@
     line-height: 140%;
     color: theme("colors.textTheme.secondary");
     cursor: pointer;
+    a {
+      cursor: pointer;
+      color: theme("colors.textTheme.secondary");
+      text-decoration: none;
+      transition: color 0.2s ease;
+      &:hover {
+        text-decoration: underline;
+        color: theme("colors.textTheme.primary");
+      }
+    }
     &__text {
       &:hover {
         text-decoration: underline;
@@ -46,11 +56,23 @@
   }
   &-items {
     opacity: 0;
-    transition: all 0.1s ease;
+    transition: all 0.3s ease;
     height: 0;
     padding: 0 1.5rem;
     overflow: hidden;
     pointer-events: none;
+    a {
+      display: block;
+      padding: 0.5rem 0;
+      color: theme("colors.textTheme.secondary");
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s ease;
+      &:hover {
+        color: theme("colors.textTheme.primary");
+        text-decoration: underline;
+      }
+    }
   }
   &-company {
     width: 100%;
@@ -58,10 +80,11 @@
 }
 
 .opened {
-  opacity: 100;
-  transition: all 0.1s ease;
-  height: 100%;
+  opacity: 1;
+  transition: all 0.3s ease;
+  height: auto;
   padding: 1.5rem;
+  pointer-events: auto;
 }
 
 .caret-down-opened {
