@@ -51,9 +51,19 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
     if (!phone.trim()) {
       return t('phone_required')
     }
-    if (phone.length < 10) {
-      return t('phone_invalid')
+    
+    // Israeli phone number validation: must be +972 followed by 9 digits
+    // The react-phone-input-2 returns phone in format like "972544123456"
+    if (!phone.startsWith('972')) {
+      return t('phone_format_israel_error')
     }
+    
+    // Remove country code and check if we have exactly 9 more digits
+    const phoneWithoutCountryCode = phone.substring(3)
+    if (phoneWithoutCountryCode.length !== 9 || !/^\d{9}$/.test(phoneWithoutCountryCode)) {
+      return t('phone_format_israel_error')
+    }
+    
     return undefined
   }
 

@@ -257,6 +257,7 @@
   "sms_send_error": "שגיאה בשליחת SMS. נסה שנית",
   "name_placeholder": "שם פרטי שם משפחה",
   "phone_placeholder": "מספר טלפון",
+  "phone_format_israel_error": "מספר הטלפון אינו תקין. אנא הזינו מספר בפורמט: 050-123-4567",
   "agreement_text_start": "בלחיצה על \"המשך\" אני מקבל את תנאי",
   "user_agreement": "הסכם המשתמש",
   "and": "ו",
