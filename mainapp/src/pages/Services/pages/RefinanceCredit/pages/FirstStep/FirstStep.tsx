@@ -78,9 +78,9 @@ const FirstStep = () => {
     creditData: savedValue.creditData || [
       {
         id: 1,
-        bank: '',
+        bank: 'hapoalim',
         amount: null,
-        monthlyPayment: '',
+        monthlyPayment: null,
         startDate: '',
         endDate: tomorrowString,
         earlyRepayment: null,
