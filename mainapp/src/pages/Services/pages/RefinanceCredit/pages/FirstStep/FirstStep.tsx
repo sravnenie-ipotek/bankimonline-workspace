@@ -22,10 +22,17 @@ export const validationSchema = Yup.object().shape({
   period: Yup.number()
     .min(4, i18next.t('error_min_period'))
     .max(30, i18next.t('error_max_period'))
-    .required(i18next.t('error_required_to_fill_out')),
-  monthlyPayment: Yup.number().required(
-    i18next.t('error_required_to_fill_out')
-  ),
+    .when('refinancingCredit', {
+      is: 'option_2',
+      then: (schema) => schema.required(i18next.t('error_required_to_fill_out')),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+  monthlyPayment: Yup.number()
+    .when('refinancingCredit', {
+      is: 'option_1', 
+      then: (schema) => schema.required(i18next.t('error_required_to_fill_out')),
+      otherwise: (schema) => schema.notRequired(),
+    }),
   creditData: Yup.array().of(
     Yup.object().shape({
       bank: Yup.string().required(i18next.t('error_credit_bank_required')),
