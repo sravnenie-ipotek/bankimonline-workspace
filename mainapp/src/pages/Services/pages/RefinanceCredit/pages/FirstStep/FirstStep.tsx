@@ -36,7 +36,13 @@ export const validationSchema = Yup.object().shape({
         .positive(i18next.t('error_credit_payment_positive'))
         .required(i18next.t('error_credit_payment_required')),
       startDate: Yup.string().required(i18next.t('error_credit_start_date_required')),
-      endDate: Yup.string().required(i18next.t('error_credit_end_date_required')),
+      endDate: Yup.string()
+        .required(i18next.t('error_credit_end_date_required'))
+        .test('end-date-after-start', 'תאריך הסיום חייב להיות מאוחר יותר מתאריך ההתחלה', function(value) {
+          const { startDate } = this.parent;
+          if (!value || !startDate) return true;
+          return new Date(value) > new Date(startDate);
+        }),
       earlyRepayment: Yup.number().when(['../refinancingCredit'], {
         is: (refinancingCredit: string) => refinancingCredit && refinancingCredit !== 'option_3',
         then: (schema) => schema.positive(i18next.t('error_credit_early_payment_positive')).required(i18next.t('error_credit_early_payment_required')),
@@ -55,6 +61,11 @@ const FirstStep = () => {
 
   const isLogin = useAppSelector((state) => state.login.isLogin)
 
+  // Get tomorrow's date for default end date
+  const tomorrow = new Date()
+  tomorrow.setDate(tomorrow.getDate() + 1)
+  const tomorrowString = tomorrow.toISOString().split('T')[0]
+
   const initialValues = {
     refinancingCredit: savedValue.refinancingCredit || '',
     period: savedValue.period || 30,
@@ -66,7 +77,7 @@ const FirstStep = () => {
         amount: null,
         monthlyPayment: '',
         startDate: '',
-        endDate: '',
+        endDate: tomorrowString,
         earlyRepayment: '',
       },
     ],
@@ -92,7 +103,7 @@ const FirstStep = () => {
           <Container>
             <VideoPoster
               title={t('credit_refinance_title')}
-              text={t('calculate_mortgage_banner_subtext')}
+              text={t('credit_refinance_banner_subtext')}
               size="small"
             />
             <FirstStepForm />
