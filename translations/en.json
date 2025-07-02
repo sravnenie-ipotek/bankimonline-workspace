@@ -81,6 +81,7 @@
   "sms_send_error": "SMS sending error. Please try again",
   "name_placeholder": "Full name",
   "phone_placeholder": "Phone number",
+  "phone_format_israel_error": "Phone number is invalid. Please enter a number in format: +972 50-123-4567",
   "place_borrowers": "Enter number of borrowers",
   "agreement_text_start": "By clicking \"Continue\" I accept the terms of",
   "user_agreement": "User Agreement",
