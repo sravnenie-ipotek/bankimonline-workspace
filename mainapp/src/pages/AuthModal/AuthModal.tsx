@@ -15,6 +15,7 @@ import { Auth } from './pages/Auth'
 import { Code } from './pages/Code'
 import NewPassword from './pages/NewPassword/NewPassword'
 import PhoneVerificationModal from './pages/PhoneVerification/PhoneVerificationModal'
+import PhoneVerificationModalDark from './pages/PhoneVerification/PhoneVerificationModalDark'
 import { ResetPassword } from './pages/ResetPassword'
 import { SignUp } from './pages/SignUp'
 import { Success } from './pages/Success'
@@ -137,10 +138,15 @@ const AuthModal = () => {
       activeModalComponent = <Success />
       break
     case 'phoneVerification':
-      activeModalComponent = <PhoneVerificationModal />
+      activeModalComponent = <PhoneVerificationModalDark onClose={handleClose} />
       break
     default:
       break
+  }
+
+  // Special handling for phoneVerification modal which has its own backdrop
+  if (activeModal === 'phoneVerification' && isOpen) {
+    return activeModalComponent
   }
 
   return (
