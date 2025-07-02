@@ -16,6 +16,7 @@ import { Code } from './pages/Code'
 import NewPassword from './pages/NewPassword/NewPassword'
 import PhoneVerificationModal from './pages/PhoneVerification/PhoneVerificationModal'
 import PhoneVerificationModalDark from './pages/PhoneVerification/PhoneVerificationModalDark'
+import PhoneVerificationModalDarkHe from './pages/PhoneVerification/PhoneVerificationModalDarkHe'
 import { ResetPassword } from './pages/ResetPassword'
 import { SignUp } from './pages/SignUp'
 import { Success } from './pages/Success'
@@ -138,7 +139,9 @@ const AuthModal = () => {
       activeModalComponent = <Success />
       break
     case 'phoneVerification':
-      activeModalComponent = <PhoneVerificationModalDark onClose={handleClose} />
+      activeModalComponent = i18n.language === 'he' 
+        ? <PhoneVerificationModalDarkHe onClose={handleClose} />
+        : <PhoneVerificationModalDark onClose={handleClose} />
       break
     default:
       break
