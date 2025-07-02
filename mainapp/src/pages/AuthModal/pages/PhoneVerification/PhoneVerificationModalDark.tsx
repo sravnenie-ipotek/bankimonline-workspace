@@ -36,23 +36,23 @@ const PhoneVerificationModalDark: React.FC<PhoneVerificationModalDarkProps> = ({
 
   const validateName = (name: string): string | undefined => {
     if (!name.trim()) {
-      return t('name_required', 'Имя обязательно')
+      return t('name_required')
     }
     if (!/^[a-zA-Zа-яА-Я\u0590-\u05FF\s]+$/.test(name)) {
-      return t('name_letters_only', 'Используйте только буквы и пробелы')
+      return t('name_letters_only')
     }
     if (name.trim().length < 2) {
-      return t('name_min_length', 'Минимум 2 символа')
+      return t('name_min_length')
     }
     return undefined
   }
 
   const validatePhone = (phone: string): string | undefined => {
     if (!phone.trim()) {
-      return t('phone_required', 'Номер телефона обязателен')
+      return t('phone_required')
     }
     if (phone.length < 10) {
-      return t('phone_invalid', 'Введите корректный номер телефона')
+      return t('phone_invalid')
     }
     return undefined
   }
@@ -105,7 +105,7 @@ const PhoneVerificationModalDark: React.FC<PhoneVerificationModalDarkProps> = ({
       }
     } catch (error) {
       // Handle error silently or show user-friendly message
-      setErrors({ phone: t('sms_send_error', 'Ошибка отправки SMS. Попробуйте еще раз.') })
+      setErrors({ phone: t('sms_send_error') })
     }
   }
 
@@ -133,23 +133,23 @@ const PhoneVerificationModalDark: React.FC<PhoneVerificationModalDarkProps> = ({
   return (
     <div className={styles.modalContainer}>
       <div className={styles.modalContent}>
-        <button className={styles.closeButton} onClick={handleClose} aria-label={t('close', 'Закрыть')}>
+        <button className={styles.closeButton} onClick={handleClose} aria-label={t('close')}>
           <img src="/static/x.svg" width="24" height="24" alt="" />
         </button>
 
         <h2 className={styles.title}>
-          {t('enter_phone_for_offers', 'Введите свой номер телефона, чтобы получить предложения от банков')}
+          {t('enter_phone_number_login')}
         </h2>
         
         <p className={styles.subtitle}>
-          {t('confirm_phone_sms', 'Подтвердите свой номер телефона, чтобы мы смогли прислать SMS с решением от банков. Мы гарантируем безопасность и сохранность ваших данных.')}
+          {t('confirm_phone_number_login')}
         </p>
 
         <div className={styles.formContainer}>
           <div className={styles.inputGroup}>
             <input 
               type="text" 
-              placeholder={t('content', 'Контент')}
+              placeholder={t('name_placeholder')}
               value={formData.name}
               onChange={handleNameChange}
               className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
@@ -168,7 +168,7 @@ const PhoneVerificationModalDark: React.FC<PhoneVerificationModalDarkProps> = ({
               onChange={handlePhoneChange}
               onlyCountries={['il', 'us', 'ru']}
               preferredCountries={['il']}
-              placeholder={t('phone_placeholder', '+972-4-8536396')}
+              placeholder={t('phone_placeholder')}
               containerClass={styles.phoneContainer}
               inputClass={`${styles.phoneInput} ${errors.phone ? styles.phoneInputError : ''}`}
               buttonClass={styles.phoneButton}
@@ -183,21 +183,21 @@ const PhoneVerificationModalDark: React.FC<PhoneVerificationModalDarkProps> = ({
           </div>
 
           <div className={styles.agreementText}>
-            <span>{t('by_clicking_continue', 'Нажимая кнопку "Продолжить" я принимаю условия')} </span>
+            <span>{t('agreement_text_start')} </span>
             <a 
               href="#"
               onClick={(e) => { e.preventDefault(); handleUserAgreementClick(); }}
               className={styles.link}
             >
-              {t('user_agreement', 'Пользовательского соглашения')}
+              {t('user_agreement')}
             </a>
-            <span> {t('and_consent', 'и даю свое согласие на обработку моих персональных данных на условиях, определенных')} </span>
+            <span> {t('and')} </span>
             <a 
               href="#"
               onClick={(e) => { e.preventDefault(); handlePrivacyPolicyClick(); }}
               className={styles.link}
             >
-              {t('privacy_policy', 'Политикой конфиденциальности')}
+              {t('privacy_policy')}
             </a>
             <span>.</span>
           </div>
@@ -208,16 +208,16 @@ const PhoneVerificationModalDark: React.FC<PhoneVerificationModalDarkProps> = ({
             onClick={handleContinue}
             className={`${styles.continueButton} ${!isFormValid ? styles.continueButtonDisabled : ''}`}
           >
-            {t('continue', 'Продолжить')}
+            {t('continue')}
           </button>
 
           <div className={styles.loginPrompt}>
-            <span>{t('already_client_question', 'Уже являетесь нашим клиентом?')} </span>
+            <span>{t('already_client')} </span>
             <button 
               onClick={handleLoginClick}
               className={styles.loginLink}
             >
-              {t('login_here', 'Войдите здесь')}
+              {t('login_here')}
             </button>
           </div>
         </div>
