@@ -38,16 +38,14 @@ export const validationSchema = Yup.object().shape({
       startDate: Yup.string().required(i18next.t('error_credit_start_date_required')),
       endDate: Yup.string()
         .required(i18next.t('error_credit_end_date_required'))
-        .test('end-date-after-start', 'תאריך הסיום חייב להיות מאוחר יותר מתאריך ההתחלה', function(value) {
+        .test('end-date-after-start', i18next.t('error_credit_end_date_validation'), function(value) {
           const { startDate } = this.parent;
           if (!value || !startDate) return true;
           return new Date(value) > new Date(startDate);
         }),
-      earlyRepayment: Yup.number().when(['../refinancingCredit'], {
-        is: (refinancingCredit: string) => refinancingCredit && refinancingCredit !== 'option_3',
-        then: (schema) => schema.positive(i18next.t('error_credit_early_payment_positive')).required(i18next.t('error_credit_early_payment_required')),
-        otherwise: (schema) => schema.nullable()
-      })
+      earlyRepayment: Yup.number()
+        .positive(i18next.t('error_credit_early_payment_positive'))
+        .required(i18next.t('error_credit_early_payment_required')),
     })
   ).min(1, i18next.t('error_credit_data_required')),
 })
@@ -78,7 +76,6 @@ const FirstStep = () => {
         monthlyPayment: '',
         startDate: '',
         endDate: tomorrowString,
-        earlyRepayment: '',
       },
     ],
   }

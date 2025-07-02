@@ -176,22 +176,19 @@ const CreditData = () => {
                       />
                     </div>
                     <div className={cx('col', 'col-3')}>
-                      {values.refinancingCredit &&
-                        values.refinancingCredit !== 'option_3' && (
-                          <FormattedInput
-                            title={t('early_repayment')}
-                            placeholder="1,000,000"
-                            value={item.earlyRepayment}
-                            handleChange={(value) =>
-                              setFieldValue(
-                                `creditData.${item.id - 1}.earlyRepayment`,
-                                value
-                              )
-                            }
-                            onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
-                            error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
-                          />
-                        )}
+                      <FormattedInput
+                        title={t('early_repayment')}
+                        placeholder="1,000,000"
+                        value={item.earlyRepayment}
+                        handleChange={(value) =>
+                          setFieldValue(
+                            `creditData.${item.id - 1}.earlyRepayment`,
+                            value
+                          )
+                        }
+                        onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
+                        error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
+                      />
                     </div>
                     <div className={cx('col', 'col-4')}></div>
                   </div>
@@ -290,24 +287,21 @@ const CreditData = () => {
                       error={touched.creditData?.[item.id - 1]?.endDate && errors.creditData?.[item.id - 1]?.endDate}
                     />
                   </Column>
-                  {values.refinancingCredit &&
-                    values.refinancingCredit !== 'option_3' && (
-                      <Column>
-                        <FormattedInput
-                          title={t('early_repayment')}
-                          placeholder="1,000,000"
-                          value={item.earlyRepayment}
-                          handleChange={(value) =>
-                            setFieldValue(
-                              `creditData.${item.id - 1}.earlyRepayment`,
-                              value
-                            )
-                          }
-                          onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
-                          error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
-                        />
-                      </Column>
-                    )}
+                  <Column>
+                    <FormattedInput
+                      title={t('early_repayment')}
+                      placeholder="1,000,000"
+                      value={item.earlyRepayment}
+                      handleChange={(value) =>
+                        setFieldValue(
+                          `creditData.${item.id - 1}.earlyRepayment`,
+                          value
+                        )
+                      }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
+                      error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
+                    />
+                  </Column>
                   {item.id !== 1 && (
                     <Column>
                       <div className={cx('delete-icon')}>
@@ -406,24 +400,21 @@ const CreditData = () => {
                       error={touched.creditData?.[item.id - 1]?.endDate && errors.creditData?.[item.id - 1]?.endDate}
                     />
                   </Column>
-                  {values.refinancingCredit &&
-                    values.refinancingCredit !== 'option_3' && (
-                      <Column>
-                        <FormattedInput
-                          title={t('early_repayment')}
-                          placeholder="1,000,000"
-                          value={item.earlyRepayment}
-                          handleChange={(value) =>
-                            setFieldValue(
-                              `creditData.${item.id - 1}.earlyRepayment`,
-                              value
-                            )
-                          }
-                          onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
-                          error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
-                        />
-                      </Column>
-                    )}
+                  <Column>
+                    <FormattedInput
+                      title={t('early_repayment')}
+                      placeholder="1,000,000"
+                      value={item.earlyRepayment}
+                      handleChange={(value) =>
+                        setFieldValue(
+                          `creditData.${item.id - 1}.earlyRepayment`,
+                          value
+                        )
+                      }
+                      onBlur={() => setFieldTouched(`creditData.${item.id - 1}.earlyRepayment`)}
+                      error={touched.creditData?.[item.id - 1]?.earlyRepayment && errors.creditData?.[item.id - 1]?.earlyRepayment}
+                    />
+                  </Column>
                   {item.id !== 1 && (
                     <Column>
                       <div className={cx('delete-icon')}>
