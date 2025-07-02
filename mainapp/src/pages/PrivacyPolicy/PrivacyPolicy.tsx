@@ -15,7 +15,7 @@ const PrivacyPolicy = () => {
   const navigate = useNavigate()
 
   return (
-    <div className={cx('privacy-policy')}>
+    <div className={cx('privacy-policy', { 'rtl': i18n.language === 'he' })}>
       <Container>
         <div className={cx('privacy-policy-container')}>
           <div className={cx('privacy-policy-header')}>
