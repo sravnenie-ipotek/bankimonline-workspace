@@ -27,37 +27,9 @@ const SingleButton: React.FC<SingleButtonProps> = ({
     console.log('errors:', errors)
     console.log('========================')
     
-    if (isValid) {
-      console.log('Form is valid - submitting!')
-      handleSubmit()
-    } else {
-      console.log('Form is invalid - showing errors')
-      if (showValidationHints) {
-        // Mark all fields as touched to show errors
-        const touchAllFields = (obj: any, path = '') => {
-          Object.keys(obj).forEach(key => {
-            const currentPath = path ? `${path}.${key}` : key
-            setFieldTouched(currentPath, true)
-            
-            if (Array.isArray(obj[key])) {
-              obj[key].forEach((_: any, index: number) => {
-                if (typeof obj[key][index] === 'object' && obj[key][index] !== null) {
-                  touchAllFields(obj[key][index], `${currentPath}.${index}`)
-                }
-              })
-            } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-              touchAllFields(obj[key], currentPath)
-            }
-          })
-        }
-        
-        touchAllFields(values)
-        setShowErrors(true)
-      }
-      // FORCE SUBMIT FOR DEBUGGING
-      console.log('FORCING SUBMIT FOR DEBUGGING')
-      handleSubmit()
-    }
+    // ALWAYS SUBMIT - IGNORE VALIDATION FOR NOW
+    console.log('FORCING SUBMIT REGARDLESS OF VALIDATION')
+    handleSubmit()
   }
 
   return (
