@@ -166,13 +166,13 @@
   "error_credit_bank_required": "יש לבחור בנק מלווה",
   "error_credit_amount_required": "יש למלא סכום אשראי",
   "error_credit_amount_positive": "סכום האשראי חייב להיות חיובי",
-  "error_credit_payment_required": "יש למלא תשלום חודשי",
+  "error_credit_payment_required": "תשלום חודשי נדרש",
   "error_credit_payment_positive": "התשלום החודשי חייב להיות חיובי",
   "error_credit_start_date_required": "יש לבחור תאריך התחלה",
   "error_credit_end_date_required": "יש לבחור תאריך סיום",
   "error_credit_data_required": "יש להוסיף לפחות אשראי אחד",
   "error_credit_early_payment_required": "יש למלא סכום פירעון מוקדם",
-  "error_credit_early_payment_positive": "סכום הפירעון המוקדם חייב להיות חיובי",
+  "error_credit_early_payment_positive": "סכום פירעון מוקדם חייב להיות חיובי",
   "program_refinance_mortgage_option_2": "הפחתת התשלום החודשי",
   "program_refinance_mortgage_option_3": "שינוי תקופת ההחזר",
   "program_refinance_mortgage_option_4": "מחזור עם משיכת מזומן",
@@ -648,5 +648,6 @@
   "credit_refinance_step_2": "שלב 2 - פרטים אישיים", 
   "credit_refinance_step_3": "שלב 3 - פרטי הכנסה",
   "credit_refinance_step_4": "שלב 4 - סיכום הבקשה",
-  "upload_report_progress": "העלאת דוח"
+  "upload_report_progress": "העלאת דוח",
+  "credit_refinance_banner_subtext": "נבחר עבורכם את הצעות השוק הטובות ביותר"
 }
