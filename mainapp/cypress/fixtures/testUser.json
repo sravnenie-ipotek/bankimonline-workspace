@@ -1,0 +1,32 @@
+{
+  "validUser": {
+    "name": "משה ישראלי",
+    "phone": "972544123456",
+    "email": "test@example.com",
+    "id": "123456789"
+  },
+  "mortgageApplication": {
+    "propertyValue": "2000000",
+    "loanAmount": "1500000",
+    "monthlyIncome": "25000",
+    "purpose": "דירה ראשונה"
+  },
+  "creditApplication": {
+    "loanAmount": "50000",
+    "loanPeriod": "36",
+    "monthlyIncome": "15000",
+    "purpose": "רכב"
+  },
+  "documents": {
+    "idCard": "test-id.pdf",
+    "payslip": "test-payslip.pdf",
+    "bankStatement": "test-bank-statement.pdf"
+  },
+  "invalidInputs": {
+    "shortName": "א",
+    "invalidPhone": "123",
+    "invalidEmail": "notanemail",
+    "negativeAmount": "-1000",
+    "futureDate": "2050-01-01"
+  }
+}

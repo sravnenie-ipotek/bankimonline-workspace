@@ -2,3 +2,10 @@ dist
 node_modules
 /.idea/
 # /build/ - Allow build for production deployment
+
+# Cypress
+cypress/videos
+cypress/screenshots
+cypress/downloads
+cypress/fixtures/test-*.pdf
+cypress.env.json
