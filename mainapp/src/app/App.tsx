@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Dialog } from '@components/layout/Dialog/Dialog'
 import { ErrorBoundary } from '@src/app/Errors/ErrorBoundary'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store.ts'
+import { initializeUserData } from '@src/pages/Services/slices/loginSlice'
 import { updateWindowSize } from '@src/store/slices/windowSizeSlice.ts'
 
 import { RootState } from '../store'
@@ -28,6 +29,7 @@ const App = () => {
 
   const { i18n } = useTranslation()
   const [translationsLoaded, setTranslationsLoaded] = useState(false)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     /*
@@ -38,6 +40,25 @@ const App = () => {
     // if (!token) {
     //   window.location.href = 'https://dev2.bankimonline.com'
     // }
+
+    // Load user data from localStorage into Redux store
+    const storedUserData = localStorage.getItem('USER_DATA')
+    
+    if (storedUserData) {
+      try {
+        const userData = JSON.parse(storedUserData)
+        
+        const loginData = {
+          nameSurname: userData.name || userData.nameSurname,
+          phoneNumber: userData.mobile_number || userData.phoneNumber
+        }
+        
+        // Update login data in Redux with stored user data
+        dispatch(initializeUserData(loginData))
+      } catch (error) {
+        console.error('Error loading user data from localStorage:', error)
+      }
+    }
 
     // Initialize translations and wait for them to load
     const initializeTranslations = async () => {
@@ -74,9 +95,7 @@ const App = () => {
     }
 
     initializeTranslations()
-  }, [language, i18n, direction])
-
-  const dispatch = useAppDispatch()
+  }, [language, i18n, direction, dispatch])
 
   useEffect(() => {
     const handleResize = debounce(() => {

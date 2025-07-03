@@ -4,12 +4,12 @@
   "calculate_credit": "Рассчитать кредит",
   "refinance_credit": "Рефинансирование кредита",
   "credit_refinance_title": "Рефинансирование кредита",
-  "mortgage_credit_why": "Причина рефинансирования кредита",
-  "credit_refinance_why_ph": "Выберите причину рефинансирования",
+  "mortgage_credit_why": "Цель рефинансирования кредита",
+  "credit_refinance_why_ph": "Выберите цель",
   "calculate_credit_why_option_1": "Снижение процентной ставки",
   "calculate_credit_why_option_2": "Объединение кредитов",
   "calculate_credit_why_option_3": "Снижение ежемесячного платежа",
-  "calculate_credit_why_option_4": "Получение дополнительных средств",
+  "calculate_credit_why_option_4": "Увеличить Платеж, чтобы уменьшить срок",
   "early_repayment": "Сумма досрочного погашения",
   "remove_credit": "Удалить данные займа?",
   "remove_credit_subtitle": "Нажав подтвердить, все данные этого займа будут удалены",
@@ -384,10 +384,6 @@
   "add_credit": "Добавить кредит",
   "refinance_credit_start_date": "Дата оформления кредита",
   "refinance_credit_end_date": "Дата окончания кредита",
-  "credit_refinance_why": "Цель рефинансирования кредита",
-  "credit_refinance_why_ph": "Выберите цель",
-  "calculate_credit_why_option_1": "Снижение процентной ставки",
-  "calculate_credit_why_option_2": "Объединение кредитов", 
-  "calculate_credit_why_option_3": "Снижение ежемесячного платежа",
-  "calculate_credit_why_option_4": "Увеличить Платеж, чтобы уменьшить срок"
+  "accept_conditions_login": "Нажимая кнопку \"Продолжить\" я принимаю условия",
+  "third_persons": "Ваши персональные данные не будут переданы третьим лицам. Мы действуем в соответствии с положениями Закона о защите конфиденциальности 1981 года и правилами защиты данных"
 }
