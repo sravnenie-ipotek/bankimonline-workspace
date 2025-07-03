@@ -51,6 +51,12 @@ const loginSlice = createSlice({
       }
       state.activeModal = 'code'
     },
+    initializeUserData: (state, action) => {
+      state.loginData = {
+        ...state.loginData,
+        ...action.payload,
+      }
+    },
     updateRegistrationData: (state, action) => {
       state.registrationData = {
         ...state.registrationData,
@@ -66,6 +72,7 @@ const loginSlice = createSlice({
 export const {
   setActiveModal,
   updateLoginData,
+  initializeUserData,
   setIsLogin,
   setActiveTab,
   updateRegistrationData,
