@@ -57,7 +57,7 @@ const SignUp = () => {
   }
 
   const handleRegisterPhone = async (values: SignUpFormType) => {
-    console.log('Form values:', values)
+    console.log('🔵 SignUp - handleRegisterPhone called with values:', values)
     
     // Ensure phone number has + prefix
     let phoneNumber = values.phoneNumber
@@ -73,15 +73,21 @@ const SignUp = () => {
       password_confirmation: values.repeatPassword,
     }
     
-    console.log('Sending to API:', requestData)
+    console.log('🔵 SignUp - Sending to API:', requestData)
     
     try {
       const response = await signUp(requestData).unwrap()
       
-      console.log('Registration successful:', response)
+      console.log('🟢 SignUp - Registration successful:', response)
+      console.log('🟢 SignUp - Response data structure:', JSON.stringify(response, null, 2))
       
       // Store user data in localStorage for immediate login
+      console.log('🟢 SignUp - Saving to localStorage:', response.data)
       localStorage.setItem('USER_DATA', JSON.stringify(response.data))
+      
+      // Verify localStorage save
+      const savedData = localStorage.getItem('USER_DATA')
+      console.log('🟢 SignUp - Verified localStorage save:', savedData)
       
       // Update registration data in Redux
       dispatch(updateRegistrationData(response.data))
@@ -93,17 +99,17 @@ const SignUp = () => {
       dispatch(closeModal())
       
     } catch (error: any) {
-      console.log('Registration response:', error)
-      console.log('Error status:', error?.status)
-      console.log('Error data:', error?.data)
-      console.log('Full error object:', JSON.stringify(error, null, 2))
+      console.log('🔴 SignUp - Registration error occurred:', error)
+      console.log('🔴 SignUp - Error status:', error?.status)
+      console.log('🔴 SignUp - Error data:', error?.data)
+      console.log('🔴 SignUp - Full error object:', JSON.stringify(error, null, 2))
       
       // Handle 409 Conflict - User already exists, treat as success
       // Check multiple possible locations for the status code
       const statusCode = error?.status || error?.data?.status || error?.response?.status
       
       if (statusCode === 409 || error?.status === 409) {
-        console.log('User already exists, continuing with flow...')
+        console.log('🟡 SignUp - User already exists (409), continuing with flow...')
         
         // Create user data object from form values for consistency
         const userData = {
@@ -113,8 +119,14 @@ const SignUp = () => {
           // Add any additional fields that might be expected
         }
         
+        console.log('🟡 SignUp - Creating user data from form values:', userData)
+        
         // Store user data in localStorage 
         localStorage.setItem('USER_DATA', JSON.stringify(userData))
+        
+        // Verify localStorage save
+        const savedData = localStorage.getItem('USER_DATA')
+        console.log('🟡 SignUp - Verified localStorage save (409 case):', savedData)
         
         // Update registration data in Redux
         dispatch(updateRegistrationData(userData))
@@ -129,7 +141,7 @@ const SignUp = () => {
       }
       
       // Handle other errors normally
-      console.error('Registration error:', error)
+      console.error('🔴 SignUp - Registration error:', error)
       
       // Show more specific error messages
       if (statusCode === 400) {

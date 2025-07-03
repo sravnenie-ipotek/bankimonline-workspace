@@ -61,7 +61,13 @@
     "preview": "vite preview",
     "format": "prettier --write \"./src/**/*.{js,ts,jsx,tsx,css,md,json}\"",
     "sync-translations": "cd .. && node scripts/sync-translations.js",
-    "translations": "cd .. && node scripts/sync-translations.js"
+    "translations": "cd .. && node scripts/sync-translations.js",
+    "cypress": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:headless": "cypress run --headless",
+    "cypress:component": "cypress open --component",
+    "test:e2e": "cypress run --spec 'cypress/e2e/**/*.cy.{js,ts}'",
+    "test:e2e:headed": "cypress run --headed --spec 'cypress/e2e/**/*.cy.{js,ts}'"
   },
   "browserslist": {
     "production": [
@@ -89,6 +95,7 @@
     "@vitejs/plugin-react-swc": "^3.10.2",
     "autoprefixer": "^10.4.16",
     "csscomb": "^4.3.0",
+    "cypress": "^13.17.0",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.1",

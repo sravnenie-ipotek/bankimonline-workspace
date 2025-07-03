@@ -42,7 +42,8 @@
       "mcp__Figma__get_code",
       "Bash(true)",
       "Bash(npm run:*)",
-      "mcp__playwright__browser_press_key"
+      "mcp__playwright__browser_press_key",
+      "Bash(npm cache clean:*)"
     ],
     "deny": []
   },
