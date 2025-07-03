@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -19,10 +19,11 @@ const CalculateMortgage = () => {
 
   const isLogin = useAppSelector((state) => state.login.isLogin)
 
-  if (!isLogin && stepNumber !== '1') {
-    navigate('/services/calculate-mortgage/1')
-    return
-  }
+  useEffect(() => {
+    if (!isLogin && stepNumber !== '1') {
+      navigate('/services/calculate-mortgage/1')
+    }
+  }, [isLogin, stepNumber, navigate])
 
   const data = [
     t('calculate_mortgage_calculator'),
