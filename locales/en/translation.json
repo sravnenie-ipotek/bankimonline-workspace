@@ -455,5 +455,6 @@
   "calculate_credit_why_option_2": "Consolidate credits",
   "calculate_credit_why_option_3": "Reduce monthly payment",
   "calculate_credit_why_option_4": "Increase payment to reduce term",
-  "third_persons": "Your personal data will not be transferred to third parties. We operate in accordance with the provisions of the Privacy Protection Law 1981 and data protection regulations"
+  "third_persons": "Your personal data will not be transferred to third parties. We operate in accordance with the provisions of the Privacy Protection Law 1981 and data protection regulations",
+  "user_profile_placeholder": "User Profile"
 }

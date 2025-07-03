@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import Delete from '@assets/icons/Delete'
@@ -20,6 +20,17 @@ type TypeProps = {
   onEdit?: () => void
   onDelete?: () => void
 }
+
+// Helper function to get initials from name
+const getInitials = (name: string): string => {
+  return name
+    .split(' ')
+    .map(word => word.charAt(0))
+    .join('')
+    .toUpperCase()
+    .slice(0, 2)
+}
+
 const UserProfileCard: React.FC<TypeProps> = ({
   name,
   phone,
@@ -29,6 +40,8 @@ const UserProfileCard: React.FC<TypeProps> = ({
 }: TypeProps) => {
   const { t, i18n } = useTranslation()
   const [isMenuVisible, setMenuVisible] = useState(false)
+
+
 
   const toggleMenu = () => {
     setMenuVisible(true)
@@ -43,12 +56,33 @@ const UserProfileCard: React.FC<TypeProps> = ({
     <Column>
       <div className={cx('user-profile__card')} ref={menuRef}>
         <div className={cx('card')}>
-          <div className={cx('wrapper')}>
-            <span className={cx('card-name')}>{name && name}</span>
-            {phone && <hr className={cx('card-hr')} />}
-            <span className={cx('card-phone')}>
-              {phone && formatPhoneNumber(phone, i18n.language)}
-            </span>
+          <div className={cx('profile-section')}>
+            <div className={cx('avatar')}>
+              {name ? (
+                <span className={cx('avatar-initials')}>
+                  {getInitials(name)}
+                </span>
+              ) : (
+                <svg className={cx('avatar-icon')} viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M12 14C7.58172 14 4 17.5817 4 22H20C20 17.5817 16.4183 14 12 14Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              )}
+            </div>
+            <div className={cx('user-info')}>
+              <span className={cx('card-name')}>
+                {name || t('user_profile_placeholder')}
+              </span>
+              <span className={cx('card-phone')}>
+                {phone ? formatPhoneNumber(phone, i18n.language) : ''}
+              </span>
+            </div>
           </div>
           {enableEdit && (
             <div className={cx('card-edit')} onClick={toggleMenu}>

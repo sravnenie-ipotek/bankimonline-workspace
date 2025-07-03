@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Dialog } from '@components/layout/Dialog/Dialog'
 import { ErrorBoundary } from '@src/app/Errors/ErrorBoundary'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store.ts'
-import { initializeUserData } from '@src/pages/Services/slices/loginSlice'
+import { initializeUserData, setIsLogin } from '@src/pages/Services/slices/loginSlice'
 import { updateWindowSize } from '@src/store/slices/windowSizeSlice.ts'
 
 import { RootState } from '../store'
@@ -44,20 +44,28 @@ const App = () => {
     // Load user data from localStorage into Redux store
     const storedUserData = localStorage.getItem('USER_DATA')
     
+    console.log('App.tsx - Checking localStorage USER_DATA:', storedUserData)
+    
     if (storedUserData) {
       try {
         const userData = JSON.parse(storedUserData)
+        console.log('App.tsx - Parsed user data:', userData)
         
         const loginData = {
           nameSurname: userData.name || userData.nameSurname,
           phoneNumber: userData.mobile_number || userData.phoneNumber
         }
         
+        console.log('App.tsx - Mapped login data:', loginData)
+        
         // Update login data in Redux with stored user data
         dispatch(initializeUserData(loginData))
+        dispatch(setIsLogin()) // Set user as logged in
       } catch (error) {
-        console.error('Error loading user data from localStorage:', error)
+        console.error('App.tsx - Error loading user data from localStorage:', error)
       }
+    } else {
+      console.log('App.tsx - No USER_DATA found in localStorage')
     }
 
     // Initialize translations and wait for them to load
