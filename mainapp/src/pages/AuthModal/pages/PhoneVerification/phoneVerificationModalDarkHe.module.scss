@@ -232,6 +232,8 @@
       transition: background-color 0.2s ease !important;
       z-index: 5 !important;
       cursor: pointer !important;
+      display: flex !important;
+      align-items: center !important;
       
       &:hover {
         background-color: rgba(255, 255, 255, 0.05) !important;
@@ -240,16 +242,16 @@
       .selected-flag {
         width: 100% !important;
         height: 100% !important;
-        padding: 0 8px !important;
+        padding: 0 4px !important;
         background: transparent !important;
         display: flex !important;
         align-items: center !important;
-        justify-content: space-between !important;
-        gap: 6px !important;
+        justify-content: flex-start !important;
+        gap: 4px !important;
         
         .flag {
-          width: 20px !important;
-          height: 14px !important;
+          width: 18px !important;
+          height: 12px !important;
           margin: 0 !important;
           border-radius: 2px !important;
           object-fit: cover !important;
@@ -259,18 +261,20 @@
         
         .dial-code {
           color: #ffffff !important;
-          font-size: 14px !important;
+          font-size: 13px !important;
           font-weight: 500 !important;
           flex-shrink: 0 !important;
-          min-width: 32px !important;
+          min-width: 35px !important;
+          text-align: left !important;
         }
         
         .arrow {
-          border-top: 4px solid #d0d0d0 !important;
-          border-left: 3px solid transparent !important;
-          border-right: 3px solid transparent !important;
+          border-top: 3px solid #d0d0d0 !important;
+          border-left: 2px solid transparent !important;
+          border-right: 2px solid transparent !important;
           transition: transform 0.2s ease !important;
           flex-shrink: 0 !important;
+          margin-left: auto !important;
         }
         
         &.open .arrow {
@@ -410,9 +414,9 @@
   cursor: pointer !important;
   display: flex !important;
   align-items: center !important;
-  justify-content: space-between !important;
-  gap: 6px !important;
-  padding: 0 8px !important;
+  justify-content: flex-start !important;
+  gap: 4px !important;
+  padding: 0 4px !important;
 
   &:hover {
     background-color: rgba(255, 255, 255, 0.05) !important;
