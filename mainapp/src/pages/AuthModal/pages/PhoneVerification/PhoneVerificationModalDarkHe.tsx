@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { useAppDispatch } from '@src/hooks/store'
-import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
+import { setActiveModal, initializeUserData, setIsLogin } from '@src/pages/Services/slices/loginSlice'
 import styles from './phoneVerificationModalDarkHe.module.scss'
 
 interface FormData {
@@ -110,12 +110,41 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
     }
 
     try {
-      // Save data to localStorage for development
-      localStorage.setItem('phoneVerificationData', JSON.stringify({
+      console.log('🔵 Hebrew Modal - handleContinue called with:', { name: formData.name, phone: formData.phone })
+      
+      // Format phone number with + prefix if needed
+      let phoneNumber = formData.phone
+      if (!phoneNumber.startsWith('+')) {
+        phoneNumber = '+' + phoneNumber
+      }
+      
+      // Create user data object matching expected structure
+      const userData = {
         name: formData.name,
-        phone: formData.phone,
+        nameSurname: formData.name, // Also include nameSurname for compatibility
+        mobile_number: phoneNumber,
+        phoneNumber: phoneNumber, // Also include phoneNumber for compatibility
         timestamp: new Date().toISOString()
-      }))
+      }
+      
+      console.log('🟢 Hebrew Modal - Saving user data to USER_DATA:', userData)
+      
+      // Save data to localStorage with USER_DATA key (same as registration flow)
+      localStorage.setItem('USER_DATA', JSON.stringify(userData))
+      
+      // Verify localStorage save
+      const savedData = localStorage.getItem('USER_DATA')
+      console.log('🟢 Hebrew Modal - Verified localStorage save:', savedData)
+      
+      // Update Redux state with user data
+      const loginData = {
+        nameSurname: formData.name,
+        phoneNumber: phoneNumber
+      }
+      
+      console.log('🟢 Hebrew Modal - Updating Redux state with:', loginData)
+      dispatch(initializeUserData(loginData))
+      dispatch(setIsLogin()) // Mark user as logged in
 
       // Use onSuccess callback if provided (for mortgage flow), otherwise use default flow
       if (onSuccess) {
@@ -125,6 +154,7 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
         dispatch(setActiveModal('codeSignUp'))
       }
     } catch (error) {
+      console.error('🔴 Hebrew Modal - Error saving data:', error)
       // Handle error silently or show user-friendly message
       setErrors({ phone: t('sms_send_error') })
     }
