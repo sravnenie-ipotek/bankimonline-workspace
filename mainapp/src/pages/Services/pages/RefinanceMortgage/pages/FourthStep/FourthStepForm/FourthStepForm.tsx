@@ -17,7 +17,7 @@ const FourthStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={t('calculate_mortgage_final')} />
+      <FormCaption title={t('refinance_mortgage_final')} />
       <UserParams
         cost={mortgageParameters?.priceOfEstate}
         initialPayment={mortgageParameters?.mortgageBalance}
@@ -25,7 +25,7 @@ const FourthStepForm = () => {
         nameSurname={userData?.nameSurname}
         phoneNumber={userData?.phoneNumber}
       />
-      <AlertWarning text={t('calculate_mortgage_warning')} />
+      <AlertWarning text={t('refinance_mortgage_warning')} />
       <Row>
         <Filter />
       </Row>

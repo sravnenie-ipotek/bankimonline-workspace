@@ -13,17 +13,17 @@ const FourthStepForm = () => {
   const { t, i18n } = useTranslation()
 
   const userData = useAppSelector((state) => state.login.loginData)
-  // const creditParameters = useAppSelector((state) => state.refinanceCredit)
+  const creditParameters = useAppSelector((state) => state.refinanceCredit)
 
   return (
     <FormContainer>
-      <FormCaption title={t('calculate_mortgage_final')} />
+      <FormCaption title={t('refinance_credit_final')} />
       <UserParams
-        // credit={creditParameters?.}
+        credit={creditParameters?.period ? creditParameters.period * 1000 : undefined}
         nameSurname={userData?.nameSurname}
         phoneNumber={userData?.phoneNumber}
       />
-      <AlertWarning text={t('calculate_mortgage_warning')} />
+      <AlertWarning text={t('refinance_credit_warning')} />
       <Row>
         <Filter />
       </Row>
