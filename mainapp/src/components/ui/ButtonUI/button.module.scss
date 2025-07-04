@@ -1,15 +1,10 @@
+/* Touch-friendly button with minimum touch targets */
 .button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: normal;
-  padding: 1.2rem 1.6rem;
-  width: 100%;
-  border-radius: 0.5rem;
-  height: 100%;
+  @apply flex items-center justify-center border-0;
+  @apply text-base font-medium leading-normal;
+  @apply px-6 py-5 w-full rounded-lg h-full;
+  @apply min-h-[44px] min-w-[44px];
+  @apply transition-colors duration-200;
 }
 
 .primary {
