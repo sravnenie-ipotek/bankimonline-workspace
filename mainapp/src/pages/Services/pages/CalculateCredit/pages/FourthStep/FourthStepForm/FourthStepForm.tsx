@@ -17,13 +17,13 @@ const FourthStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={t('calculate_mortgage_final')} />
+      <FormCaption title={t('calculate_credit_final')} />
       <UserParams
         credit={creditParameters.loanAmount}
         nameSurname={userData?.nameSurname}
         phoneNumber={userData?.phoneNumber}
       />
-      <AlertWarning text={t('calculate_mortgage_warning')} />
+      <AlertWarning text={t('calculate_credit_warning')} />
       <Row>
         <Filter />
       </Row>
