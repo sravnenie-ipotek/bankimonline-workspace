@@ -31,11 +31,11 @@ const FirstStepForm = () => {
 
   // Use useMemo to ensure dropdown options update when translations change
   const TypeSelectOptions = useMemo(() => [
-    { value: 'option_1', label: t('mortgage_refinance_type_option_1') },
-    { value: 'option_2', label: t('mortgage_refinance_type_option_2') },
-    { value: 'option_3', label: t('mortgage_refinance_type_option_3') },
-    { value: 'option_4', label: t('mortgage_refinance_type_option_4') },
-    { value: 'option_5', label: t('mortgage_refinance_type_option_5') },
+    { value: 'option_1', label: t('calculate_mortgage_type_options_1') },
+    { value: 'option_2', label: t('calculate_mortgage_type_options_2') },
+    { value: 'option_3', label: t('calculate_mortgage_type_options_3') },
+    { value: 'option_4', label: t('calculate_mortgage_type_options_4') },
+    { value: 'option_5', label: t('calculate_mortgage_type_options_5') },
   ], [t])
 
   const WhyDoYouRefinanceOptions = useMemo(() => [
@@ -52,10 +52,10 @@ const FirstStepForm = () => {
   ], [t])
 
   const banks = [
-    { value: 'hapoalim', label: t('mortgage_refinance_bank_hapoalim') },
-    { value: 'leumi', label: t('mortgage_refinance_bank_leumi') },
-    { value: 'discount', label: t('mortgage_refinance_bank_discount') },
-    { value: 'massad', label: t('mortgage_refinance_bank_massad') },
+    { value: 'hapoalim', label: t('bank_hapoalim') },
+    { value: 'leumi', label: t('bank_leumi') },
+    { value: 'discount', label: t('bank_discount') },
+    { value: 'massad', label: t('bank_massad') },
   ]
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =

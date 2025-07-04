@@ -210,6 +210,7 @@
   "calculate_mortgage_main_source_option_6": "מובטל",
   "calculate_mortgage_main_source_option_7": "אחר",
   "calculate_mortgage_debt_types": " האם יש לכם חובות בנקאיים או התחייבויות פיננסיות קיימות?",
+  "error_select_field_of_activity":"חובה להזין תחום פעילות מקצועי",
   "calculate_mortgage_debt_types_ph": "בחר סוג התחייבות",
   "calculate_mortgage_debt_types_option_1": "אין התחייבות",
   "calculate_mortgage_debt_types_option_2": "הלוואה בנקאית",

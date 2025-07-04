@@ -44,7 +44,7 @@ const SecondStep = () => {
       validateOnMount={true}
       onSubmit={(values) => {
         dispatch(updateMortgageData(values))
-        navigate('/services/calculate-mortgage/3')
+        navigate('/services/refinance-mortgage/3')
       }}
     >
       <Form>

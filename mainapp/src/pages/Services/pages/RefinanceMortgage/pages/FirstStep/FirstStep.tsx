@@ -8,6 +8,7 @@ import { Container } from '@components/ui/Container'
 import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
+import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
 import { updateRefinanceMortgageData } from '@src/pages/Services/slices/refinanceMortgageSlice.ts'
 
 import { SingleButton } from '../../../../components/SingleButton'
@@ -132,11 +133,9 @@ const FirstStep = () => {
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateRefinanceMortgageData(values))
-          {
-            isLogin
-              ? navigate('/services/refinance-mortgage/2')
-              : dispatch(openLoginModal())
-          }
+          // Always trigger phone verification modal as per Confluence requirements
+          dispatch(openLoginModal())
+          dispatch(setActiveModal('phoneVerification'))
         }}
       >
         <Form>
