@@ -188,21 +188,21 @@
     width: 100%;
     position: relative;
     
-    .form-control {
-      width: 100% !important;
-      height: 48px !important;
-      background-color: #2a2b31 !important;
-      border: 1px solid #424545 !important;
-      border-radius: 6px !important;
-      padding: 0 16px 0 90px !important; /* RTL: padding right for flag on left */
-      font-family: 'Roboto', sans-serif !important;
-      font-size: 16px !important;
-      font-weight: 400 !important;
-      color: #ffffff !important;
-      outline: none !important;
-      text-align: left !important;
-      transition: border-color 0.2s ease !important;
-      direction: ltr !important;
+          .form-control {
+        width: 100% !important;
+        height: 48px !important;
+        background-color: #2a2b31 !important;
+        border: 1px solid #424545 !important;
+        border-radius: 6px !important;
+        padding: 0 16px 0 90px !important; /* Hebrew RTL: padding left for flag on left */
+        font-family: 'Roboto', sans-serif !important;
+        font-size: 16px !important;
+        font-weight: 400 !important;
+        color: #ffffff !important;
+        outline: none !important;
+        text-align: left !important;
+        transition: border-color 0.2s ease !important;
+        direction: ltr !important;
       
       &::placeholder {
         color: #848484 !important;
@@ -221,14 +221,14 @@
     
     .flag-dropdown {
       position: absolute !important;
-      right: 1px !important; /* RTL: flag on right side which appears left visually */
+      left: 1px !important; /* Hebrew RTL: flag on left side */
       top: 1px !important;
       width: 88px !important;
       height: 46px !important;
       background-color: transparent !important;
       border: none !important;
-      border-left: 1px solid #424545 !important; /* RTL: border left instead of right */
-      border-radius: 0 5px 5px 0 !important; /* RTL: flip border radius */
+      border-right: 1px solid #424545 !important; /* Hebrew RTL: border right instead of left */
+      border-radius: 5px 0 0 5px !important; /* Hebrew RTL: flip border radius */
       transition: background-color 0.2s ease !important;
       z-index: 5 !important;
       cursor: pointer !important;
@@ -366,7 +366,7 @@
   background-color: #2a2b31 !important;
   border: 1px solid #424545 !important;
   border-radius: 6px !important;
-  padding: 0 16px 0 90px !important;
+  padding: 0 16px 0 90px !important; /* Hebrew RTL: padding left for flag on left */
   font-family: 'Roboto', sans-serif !important;
   font-size: 16px !important;
   font-weight: 400 !important;
@@ -397,14 +397,14 @@
 
 .phoneButton {
   position: absolute !important;
-  right: 1px !important; /* RTL: button on right side */
+  left: 1px !important; /* Hebrew RTL: button on left side */
   top: 1px !important;
   width: 88px !important;
   height: 46px !important;
   background-color: transparent !important;
   border: none !important;
-  border-left: 1px solid #424545 !important; /* RTL: border left instead of right */
-  border-radius: 0 5px 5px 0 !important; /* RTL: flip border radius */
+  border-right: 1px solid #424545 !important; /* Hebrew RTL: border right instead of left */
+  border-radius: 5px 0 0 5px !important; /* Hebrew RTL: flip border radius */
   transition: background-color 0.2s ease !important;
   z-index: 5 !important;
   cursor: pointer !important;
