@@ -106,27 +106,6 @@ const SecondStepForm = () => {
           )}
         <Column />
       </Row>
-      <Row>
-        {mainSourceOfIncome && (
-          <Column>
-            {sourceOfIncomeValues.map((item) => (
-              <UserProfileCard
-                onEdit={() => handleEditSourceOfIncome(item.id)}
-                onDelete={() => handleDeleteSourceOfIncome(item.id)}
-                enableEdit
-                key={item.id}
-                name={`${t('source_of_income')}${item.id + 1}`}
-              />
-            ))}
-            <AddButton
-              onClick={openSourceOfIncome}
-              color="#FBE54D"
-              value={t('add_place_to_work')}
-              variant="none"
-            />
-          </Column>
-        )}
-      </Row>
 
       <Divider />
 
