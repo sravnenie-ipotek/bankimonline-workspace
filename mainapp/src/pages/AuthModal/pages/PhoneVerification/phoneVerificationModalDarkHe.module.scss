@@ -459,8 +459,9 @@
   margin-top: 6px;
   display: flex;
   align-items: center;
+  justify-content: center; /* Center align the error message */
   gap: 6px;
-  text-align: right; /* Hebrew RTL alignment */
+  text-align: center; /* Center align the text */
   direction: rtl;
   
   &::before {
