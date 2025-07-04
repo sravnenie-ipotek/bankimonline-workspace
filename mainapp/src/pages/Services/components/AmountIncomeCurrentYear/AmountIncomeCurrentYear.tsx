@@ -17,7 +17,7 @@ const AmountIncomeCurrentYear = () => {
   return (
     <Column>
       <FormattedInput
-        title={t('calculate_mortgage_montly_income_title')}
+        title={t('calculate_mortgage_monthly_income')}
         placeholder={t('calculate_mortgage_monthly_income_ph')}
         value={values.amountIncomeCurrentYear}
         handleChange={(value) =>

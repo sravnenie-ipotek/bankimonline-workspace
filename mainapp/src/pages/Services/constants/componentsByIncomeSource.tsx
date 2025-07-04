@@ -1,6 +1,5 @@
 import { Column } from '@src/components/ui/Column'
 
-import { AmountIncomeCurrentYear } from '../components/AmountIncomeCurrentYear'
 import { CompanyName } from '../components/CompanyName'
 import { FieldOfActivity } from '../components/FieldOfActivity'
 import { MonthlyIncome } from '../components/MonthlyIncome'
@@ -18,7 +17,6 @@ export const componentsByIncomeSource: ComponentsByIncomeSource = {
   ],
   option_2: [
     <MonthlyIncome key="MonthlyIncome2" />,
-    <AmountIncomeCurrentYear key="AmountIncomeCurrentYear2" />,
     <StartDate key="StartDate2" />,
     <FieldOfActivity key="FieldOfActivity2" />,
     <CompanyName key="CompanyName2" />,
@@ -26,7 +24,6 @@ export const componentsByIncomeSource: ComponentsByIncomeSource = {
   ],
   option_3: [
     <MonthlyIncome key="MonthlyIncome3" />,
-    <AmountIncomeCurrentYear key="AmountIncomeCurrentYear3" />,
     <StartDate key="StartDate3" />,
     <FieldOfActivity key="FieldOfActivity3" />,
     <CompanyName key="CompanyName3" />,
@@ -34,7 +31,6 @@ export const componentsByIncomeSource: ComponentsByIncomeSource = {
   ],
   option_4: [
     <MonthlyIncome key="MonthlyIncome4" />,
-    <AmountIncomeCurrentYear key="AmountIncomeCurrentYear4" />,
     <StartDate key="StartDate4" />,
     <FieldOfActivity key="FieldOfActivity4" />,
     <CompanyName key="CompanyName4" />,
