@@ -215,7 +215,7 @@ export const FirstStepForm: FC = () => {
           </Column>
         </Row>
 
-        {values.purposeOfLoan && values.purposeOfLoan === 'option_6' && (
+        {values.purposeOfLoan && values.purposeOfLoan === 'option_2' && (
           <>
             <Divider />
             <Row>
