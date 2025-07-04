@@ -8,6 +8,7 @@ import { UserProfileCard } from '@components/ui/UserProfileCard'
 import Divider from '@src/components/ui/Divider/Divider'
 import FormCaption from '@src/components/ui/FormCaption/FormCaption'
 import { RowTwo } from '@src/components/ui/RowTwo'
+import { useAppSelector } from '@src/hooks/store'
 import { AddPartner } from '@src/pages/Services/components/AddPartner'
 import { AdditionalCitizenship } from '@src/pages/Services/components/AdditionalCitizenships'
 import { Birthday } from '@src/pages/Services/components/Birthday'
@@ -32,13 +33,17 @@ const SecondStepForm = () => {
   const { t, i18n } = useTranslation()
 
   const { values } = useFormikContext<FormTypes>()
+  const userData = useAppSelector((state) => state.login.loginData)
 
   return (
     <FormContainer>
       <FormCaption title={t('calculate_mortgage_step2_title')} />
       <RowTwo>
         <Info />
-        <UserProfileCard name="Александр пушкин" phone="+935 234 3344" />
+        <UserProfileCard 
+          name={userData?.nameSurname} 
+          phone={userData?.phoneNumber} 
+        />
       </RowTwo>
       <Row>
         <NameSurname />
