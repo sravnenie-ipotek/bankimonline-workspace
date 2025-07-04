@@ -35,15 +35,21 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
   const [errors, setErrors] = useState<FormErrors>({})
 
   const validateName = (name: string): string | undefined => {
+    console.log('🔍 Hebrew validation - Input:', name, 'Length:', name.length) // Debug log
+    
     if (!name.trim()) {
+      console.log('❌ Name is empty') // Debug log
       return t('name_required')
     }
-    if (!/^[a-zA-Zא-ת\s]+$/.test(name)) {
+    if (!/^[א-ת\s]+$/.test(name)) {
+      console.log('❌ Name contains non-Hebrew characters:', name) // Debug log
       return t('name_letters_only')
     }
     if (name.trim().length < 2) {
+      console.log('❌ Name too short:', name.trim().length) // Debug log
       return t('name_min_length')
     }
+    console.log('✅ Name validation passed') // Debug log
     return undefined
   }
 
@@ -77,10 +83,9 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
     const name = e.target.value
     setFormData(prev => ({ ...prev, name }))
     
-    if (errors.name) {
-      const nameError = validateName(name)
-      setErrors(prev => ({ ...prev, name: nameError }))
-    }
+    // Always validate on every keystroke for real-time validation
+    const nameError = validateName(name)
+    setErrors(prev => ({ ...prev, name: nameError }))
   }
 
   const handlePhoneChange = (phone: string) => {
