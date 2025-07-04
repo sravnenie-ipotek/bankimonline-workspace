@@ -14,6 +14,18 @@
   margin-bottom: 24px;
 }
 
+/* Calculation Parameters Section */
+.calculation-parameters-section {
+  margin-bottom: 32px;
+  
+  // Add some padding if needed
+  .parameters {
+    background-color: #2a2b31;
+    border-radius: 8px;
+    border: 1px solid #3a3b41;
+  }
+}
+
 .return-button {
   display: flex;
   align-items: center;
