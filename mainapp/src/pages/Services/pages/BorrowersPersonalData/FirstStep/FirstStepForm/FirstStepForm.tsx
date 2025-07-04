@@ -2,10 +2,9 @@ import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
 
 import { FormContainer } from '@components/ui/FormContainer'
-import { Row } from '@components/ui/Row'
+import { Column } from '@components/ui/Column'
 import Divider from '@src/components/ui/Divider/Divider'
 import FormCaption from '@src/components/ui/FormCaption/FormCaption'
-import { RowTwo } from '@src/components/ui/RowTwo'
 import { AdditionalCitizenship } from '@src/pages/Services/components/AdditionalCitizenships'
 import { Birthday } from '@src/pages/Services/components/Birthday'
 import { Childrens } from '@src/pages/Services/components/Childrens'
@@ -28,31 +27,45 @@ const FirstStepForm = () => {
   return (
     <FormContainer>
       <FormCaption title={t('borrowers_personal_data_title')} />
-      <RowTwo>
-        <Info />
-      </RowTwo>
-      <Row>
+      
+      {/* Alert bar with green styling - matches Figma */}
+      <Info />
+      
+      {/* Single column layout - matches Figma */}
+      <Column>
+        {/* Name and Surname */}
         <NameSurname />
+        
+        {/* Birth date */}
         <Birthday />
+        
+        {/* Education dropdown */}
         <Education />
-      </Row>
-
-      <Row>
+        
+        {/* Additional citizenship question */}
         <AdditionalCitizenship />
-        <Taxes />
-        <Childrens />
         {values.additionalCitizenships === 'yes' && <CitizenshipsDropdown />}
+        
+        {/* Tax payment question with tooltip */}
+        <Taxes />
         {values.taxes === 'yes' && <CountriesPayTaxes />}
+        
+        {/* Children question */}
+        <Childrens />
         {values.childrens === 'yes' && <HowMuchChildrens />}
-      </Row>
-
-      <Divider />
-
-      <Row>
+        
+        {/* Divider line - matches Figma */}
+        <Divider />
+        
+        {/* Medical insurance question */}
         <MedicalInsurance />
+        
+        {/* Foreign resident question with tooltip */}
         <IsForeigner />
+        
+        {/* Public person question with tooltip */}
         <PublicPerson />
-      </Row>
+      </Column>
     </FormContainer>
   )
 }
