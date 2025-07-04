@@ -11,7 +11,7 @@ import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
 import { updateRefinanceMortgageData } from '@src/pages/Services/slices/refinanceMortgageSlice.ts'
 
 import { SingleButton } from '../../../../components/SingleButton'
-import { LoginModal } from '../../../Modals/LoginModal'
+import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal'
 import FirstStepForm from './FirstStepForm/FirstStepForm'
 
 export const validationSchema = Yup.object().shape({
@@ -65,12 +65,12 @@ export const validationSchema = Yup.object().shape({
     .positive(i18next.t('error_mortgage_payment_positive'))
     .required(i18next.t('error_required_to_fill_out')),
   decreaseMortgage: Yup.string().when('whyRefinancingMortgage', {
-    is: i18next.t('calculate_mortgage_type_options_2'),
+    is: 'option_2',
     then: (shema) => shema.required(i18next.t('error_required_to_fill_out')),
     otherwise: (shema) => shema.notRequired(),
   }),
   increaseMortgage: Yup.string().when('whyRefinancingMortgage', {
-    is: i18next.t('calculate_mortgage_type_options_3'),
+    is: 'option_5',
     then: (shema) => shema.required(i18next.t('error_required_to_fill_out')),
     otherwise: (shema) => shema.notRequired(),
   }),
@@ -151,7 +151,7 @@ const FirstStep = () => {
           <SingleButton />
         </Form>
       </Formik>
-      <LoginModal />
+      <MortgagePhoneVerificationModal />
     </>
   )
 }
