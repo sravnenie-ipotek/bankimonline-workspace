@@ -1,16 +1,19 @@
+/* Mobile-first responsive modal using Tailwind utilities */
 .overlayDialogWrapper {
   position: fixed;
   overflow: hidden;
   border-radius: 0.75rem;
   background: #2a2b31;
   min-height: 25rem;
-  padding: 2rem 1.5rem;
+  padding: 1rem;
   overflow: auto;
   overscroll-behavior: contain;
+  
   &::backdrop {
     background: rgba(0, 0, 0, 0.78);
     backdrop-filter: blur(2px);
   }
+  
   @media screen and (max-width: 389px) {
     padding: 1rem;
   }
@@ -31,4 +34,26 @@
   width: 100%;
   position: relative;
   z-index: 10;
+}
+
+/* Touch-friendly close button */
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 12px;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.close:hover {
+  background-color: rgba(75, 85, 99, 0.5);
 }
