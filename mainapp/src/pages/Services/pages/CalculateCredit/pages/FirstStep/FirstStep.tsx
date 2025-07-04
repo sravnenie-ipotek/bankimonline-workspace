@@ -9,6 +9,7 @@ import { Container } from '@components/ui/Container'
 import { VideoPoster } from '@src/components/ui/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { LoginModal } from '@src/pages/Services/pages/Modals/LoginModal'
+import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal'
 import { updateCreditData } from '@src/pages/Services/slices/calculateCreditSlice'
 import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
 
@@ -32,17 +33,17 @@ export const validationSchema = Yup.object().shape({
   whenDoYouNeedMoney: Yup.string().required(i18next.t('error_select_answer')),
   loanDeferral: Yup.string().required(i18next.t('error_select_answer')),
   priceOfEstate: Yup.number().when('purposeOfLoan', {
-    is: 'option_6',
+    is: 'option_2',
     then: (schema) => schema.required(i18next.t('error_required_to_fill_out')),
     otherwise: (schema) => schema.notRequired(),
   }),
   cityWhereYouBuy: Yup.string().when('purposeOfLoan', {
-    is: 'option_6',
+    is: 'option_2',
     then: (schema) => schema.required(i18next.t('error_select_answer')),
     otherwise: (schema) => schema.notRequired(),
   }),
   haveMortgage: Yup.string().when('purposeOfLoan', {
-    is: 'option_6',
+    is: 'option_2',
     then: (schema) => schema.required(i18next.t('error_select_answer')),
     otherwise: (schema) => schema.notRequired(),
   }),
@@ -84,10 +85,16 @@ const FirstStep: FC = () => {
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateCreditData(values))
-          {
-            isLogin
-              ? navigate('/services/calculate-credit/2')
-              : dispatch(openLoginModal())
+          if (isLogin) {
+            // Business logic: If house renovation and has mortgage, route to refinance mortgage
+            if (values.purposeOfLoan === 'option_2' && values.haveMortgage === 'yes') {
+              navigate('/services/refinance-mortgage/1')
+            } else {
+              // Continue with standard credit flow
+              navigate('/services/calculate-credit/2')
+            }
+          } else {
+            dispatch(openLoginModal())
           }
         }}
       >
@@ -103,7 +110,11 @@ const FirstStep: FC = () => {
           <SingleButton />
         </Form>
       </Formik>
-      <LoginModal />
+      {i18n.language === 'he' ? (
+        <MortgagePhoneVerificationModal />
+      ) : (
+        <LoginModal />
+      )}
     </>
   )
 }
