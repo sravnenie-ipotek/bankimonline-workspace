@@ -6,6 +6,7 @@ import classNames from 'classnames/bind'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
 import Control from '@components/ui/FormattedInput/Control/Control'
 import { CaretRightIcon } from '@assets/icons/CaretRightIcon'
+import MortgageParameters from '@src/pages/Services/components/MortgageParameters/MortgageParameters'
 import { useAppSelector } from '@src/hooks/store'
 import { 
   fetchMortgagePrograms,
@@ -98,8 +99,47 @@ export const ProgramSelectionCalculationPage: React.FC<ProgramSelectionCalculati
 
   // Get mortgage parameters from Redux store
   const mortgageParameters = useAppSelector((state) => state.mortgage)
+  const refinanceMortgageParameters = useAppSelector((state) => state.refinanceMortgage)
+  
+  // Determine service type based on URL or state
+  const [serviceType, setServiceType] = useState<'mortgage' | 'refinance-mortgage'>('mortgage')
 
   useEffect(() => {
+    console.log('🔍 [SERVICE-TYPE] Location state:', location.state)
+    console.log('🔍 [SERVICE-TYPE] Location pathname:', location.pathname)
+    
+    // Determine service type from location state or URL
+    if (location.state?.serviceType) {
+      console.log('✅ [SERVICE-TYPE] Using service type from state:', location.state.serviceType)
+      setServiceType(location.state.serviceType)
+    } else {
+      // Improved fallback: try to detect from referrer URL or check Redux data
+      const referrer = document.referrer
+      console.log('🔍 [SERVICE-TYPE] Referrer URL:', referrer)
+      
+      if (referrer.includes('refinance-mortgage')) {
+        console.log('✅ [SERVICE-TYPE] Detected refinance-mortgage from referrer')
+        setServiceType('refinance-mortgage')
+      } else if (referrer.includes('calculate-mortgage')) {
+        console.log('✅ [SERVICE-TYPE] Detected mortgage from referrer')
+        setServiceType('mortgage')
+      } else {
+        // Check which Redux store has data
+        const hasRefinanceData = Boolean(refinanceMortgageParameters?.priceOfEstate || refinanceMortgageParameters?.mortgageBalance)
+        const hasMortgageData = Boolean(mortgageParameters?.priceOfEstate || mortgageParameters?.initialFee)
+        
+        console.log('🔍 [SERVICE-TYPE] Redux data check - hasRefinanceData:', hasRefinanceData, 'hasMortgageData:', hasMortgageData)
+        
+        if (hasRefinanceData && !hasMortgageData) {
+          console.log('✅ [SERVICE-TYPE] Detected refinance-mortgage from Redux data')
+          setServiceType('refinance-mortgage')
+        } else {
+          console.log('✅ [SERVICE-TYPE] Defaulting to mortgage')
+          setServiceType('mortgage')
+        }
+      }
+    }
+    
     // Get selected bank from navigation state
     if (location.state?.selectedBankOffer) {
       setSelectedBank(location.state.selectedBankOffer)
@@ -113,9 +153,9 @@ export const ProgramSelectionCalculationPage: React.FC<ProgramSelectionCalculati
         total_payment: 1500000,
         interest_rate: 2.1,
         term_years: 20
-      } as BankOffer)
+      } as unknown as BankOffer)
     }
-  }, [location.state])
+  }, [location.state, refinanceMortgageParameters, mortgageParameters])
 
   useEffect(() => {
     const loadMortgagePrograms = async () => {
@@ -246,6 +286,70 @@ export const ProgramSelectionCalculationPage: React.FC<ProgramSelectionCalculati
 
   const totals = calculateTotals()
 
+  // Helper functions to get appropriate mortgage data
+  const getCurrentMortgageData = () => {
+    return serviceType === 'refinance-mortgage' ? refinanceMortgageParameters : mortgageParameters
+  }
+
+  const getMortgageParametersProps = () => {
+    const currentData = getCurrentMortgageData()
+    
+    // Debug: Log the current data to understand what's missing
+    console.log('🔍 [MORTGAGE-PARAMS] Current data from Redux:', currentData)
+    console.log('🔍 [MORTGAGE-PARAMS] Service type:', serviceType)
+    
+    // Calculate credit amount based on service type
+    let cost = currentData?.priceOfEstate || 0
+    let initialPayment = 0
+    let credit = 0
+    let period = currentData?.period || 0
+    
+    if (serviceType === 'refinance-mortgage') {
+      // For refinance, credit amount is the mortgage balance
+      credit = (currentData as any)?.mortgageBalance || 0
+      initialPayment = 0 // No new initial payment for refinance
+    } else {
+      // For regular mortgage, credit = property value - initial payment
+      initialPayment = (currentData as any)?.initialFee || 0
+      credit = cost - initialPayment
+    }
+    
+    // Add fallback data if Redux store is empty (for development/testing)
+    if (!cost && !credit && !period) {
+      console.log('⚠️ [MORTGAGE-PARAMS] No data in Redux store, using fallback values')
+      
+      // Use mock/fallback data based on service type
+      if (serviceType === 'refinance-mortgage') {
+        cost = 1500000 // Property value
+        credit = 1000000 // Remaining mortgage balance
+        initialPayment = 0
+        period = 20
+      } else {
+        cost = 2000000 // Property value
+        initialPayment = 500000 // Initial payment
+        credit = cost - initialPayment // Credit amount
+        period = 25
+      }
+      
+      console.log('✅ [MORTGAGE-PARAMS] Using fallback data:', { cost, initialPayment, credit, period })
+    }
+
+    return {
+      cost,
+      initialPayment,
+      period,
+      credit,
+      onEditClick: () => navigate(getEditNavigationPath())
+    }
+  }
+
+  // Get the correct navigation path for edit action
+  const getEditNavigationPath = () => {
+    return serviceType === 'refinance-mortgage' 
+      ? '/services/refinance-mortgage/1'
+      : '/services/calculate-mortgage/1'
+  }
+
   if (loading) {
     return (
       <div className={cx('container')}>
@@ -270,6 +374,11 @@ export const ProgramSelectionCalculationPage: React.FC<ProgramSelectionCalculati
           <CaretRightIcon size={20} color="#ffffff" style={{ transform: 'rotate(180deg)' }} />
           {t('return_to_cabinet', 'Вернуться в личный кабинет')}
         </button>
+      </div>
+
+      {/* Action #3: Calculation Parameters Section - as per Confluence documentation */}
+      <div className={cx('calculation-parameters-section')}>
+        <MortgageParameters {...getMortgageParametersProps()} />
       </div>
 
       {/* Action #3: Bank Name and Logo Display */}
@@ -339,7 +448,7 @@ export const ProgramSelectionCalculationPage: React.FC<ProgramSelectionCalculati
 
       {/* Programs Section - Actions #6-#11 */}
       <div className={cx('programs-section')}>
-        {programsData.map((program, index) => (
+        {programsData.map((program) => (
           <div key={program.id} className={cx('program-card')}>
             {/* Action #6: Program Number Display */}
             <div className={cx('program-header')}>

@@ -15,6 +15,7 @@ type TypeProps = {
   initialPayment?: number
   period?: number
   credit?: number
+  onEditClick?: () => void
 }
 
 const MortgageParameters: React.FC<TypeProps> = ({
@@ -22,6 +23,7 @@ const MortgageParameters: React.FC<TypeProps> = ({
   initialPayment,
   period,
   credit,
+  onEditClick,
 }: TypeProps) => {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
@@ -39,7 +41,7 @@ const MortgageParameters: React.FC<TypeProps> = ({
             {t('calculate_mortgage_parameters')}
           </p>
           <SliderHorizontalIcon
-            onClick={() => navigate('/services/calculate-mortgage/1')}
+            onClick={onEditClick || (() => navigate('/services/calculate-mortgage/1'))}
             className={cx('parameters-title__icon')}
           />
         </div>
