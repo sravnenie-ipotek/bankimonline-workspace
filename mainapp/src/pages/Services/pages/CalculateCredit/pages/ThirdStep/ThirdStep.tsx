@@ -27,7 +27,7 @@ const ThirdStep = () => {
     companyName: savedValue.companyName || '',
     additionalIncome: savedValue.additionalIncome || '',
     additionalIncomeAmount: savedValue.additionalIncomeAmount || null,
-    obligation: savedValue.obligation || '',
+    obligation: savedValue.obligation || 'option_1',
     bank: savedValue.bank || '',
     monthlyPaymentForAnotherBank:
       savedValue.monthlyPaymentForAnotherBank || null,
