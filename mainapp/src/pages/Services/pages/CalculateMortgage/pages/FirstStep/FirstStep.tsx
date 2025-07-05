@@ -9,6 +9,7 @@ import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice.ts'
 import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
+import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
 
 import { SingleButton } from '../../../../components/SingleButton'
 import MortgagePhoneVerificationModal from './MortgagePhoneVerificationModal'
@@ -83,9 +84,12 @@ const FirstStep = () => {
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateMortgageData(values))
-          isLogin
-            ? navigate('/services/calculate-mortgage/2')
-            : dispatch(setActiveModal('phoneVerification'))
+          if (isLogin) {
+            navigate('/services/calculate-mortgage/2')
+          } else {
+            dispatch(openLoginModal())
+            dispatch(setActiveModal('phoneVerification'))
+          }
         }}
       >
         <Form>

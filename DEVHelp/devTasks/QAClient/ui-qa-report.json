@@ -48,5 +48,45 @@
     "errorDetails": "Multiple untranslated strings in login modal",
     "untranslated": "enter_bankimonline (modal title), phone_auth_tab, email_auth_tab, no_account, register_here",
     "timestamp": "2025-07-05T13:00:00Z"
+  },
+  {
+    "page": "/services/refinance-credit/1",
+    "element": "Credit refinance purpose dropdown",
+    "action": "test",
+    "value": "All dropdown options",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:10:00Z"
+  },
+  {
+    "page": "/cookie",
+    "element": "Cookie policy page",
+    "action": "load",
+    "value": null,
+    "result": "error",
+    "errorDetails": "Entire page content untranslated",
+    "untranslated": "cookie_title (page title), cookie_text (page content)",
+    "timestamp": "2025-07-05T13:12:00Z"
+  },
+  {
+    "page": "/terms",
+    "element": "Terms of use page",
+    "action": "load",
+    "value": null,
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:11:00Z"
+  },
+  {
+    "page": "/about",
+    "element": "About page",
+    "action": "load",
+    "value": null,
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:13:00Z"
   }
 ]

@@ -9,6 +9,7 @@ import { Container } from '@components/ui/Container'
 import { VideoPoster } from '@src/components/ui/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
+import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
 import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal'
 import { updateCreditData } from '@src/pages/Services/slices/calculateCreditSlice'
 
@@ -93,6 +94,7 @@ const FirstStep: FC = () => {
               navigate('/services/calculate-credit/2')
             }
           } else {
+            dispatch(openLoginModal())
             dispatch(setActiveModal('phoneVerification'))
           }
         }}
