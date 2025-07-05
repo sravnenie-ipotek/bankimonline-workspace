@@ -25,10 +25,10 @@ const CalculateCredit = () => {
   }
 
   const data = [
-    t('calculate_credit_calculator'),
-    t('mortgage_refinance_step_2'),
-    t('calculate_mortgage_income'),
-    t('calculate_mortgage_programs'),
+    t('mobile_step_1'),
+    t('mobile_step_2'),
+    t('mobile_step_3'),
+    t('mobile_step_4'),
   ]
 
   let stepComponent

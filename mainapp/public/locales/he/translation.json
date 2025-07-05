@@ -736,5 +736,6 @@
   "credit_refinance_step_4": "שלב 4 - סיכום הבקשה",
   "upload_report_progress": "העלאת דוח",
   "credit_refinance_banner_subtext": "נאתר ונציג בפניכם את ההצעות המשתלמות ביותר הקיימות בשוק הפיננסי",
-  "error_credit_end_date_validation": "תאריך הסיום חייב להיות מאוחר יותר מתאריך ההתחלה"
+  "error_credit_end_date_validation": "תאריך הסיום חייב להיות מאוחר יותר מתאריך ההתחלה",
+  "accept_you_profile_for_registration": " מה הסיסמה שקיבלתם? "
 }

@@ -32,10 +32,10 @@ const RefinanceCredit = () => {
   }
 
   const data = [
-    t('credit_refinance_step_1'),
-    t('credit_refinance_step_2'),
-    t('credit_refinance_step_3'),
-    t('credit_refinance_step_4'),
+    t('mobile_step_1'),
+    t('mobile_step_2'),
+    t('mobile_step_3'),
+    t('mobile_step_4'),
   ]
 
   let stepComponent
