@@ -8,9 +8,10 @@ import { Container } from '@components/ui/Container'
 import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
-import { openAuthModal } from '@src/pages/Services/slices/modalSlice'
+import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
 import { updateRefinanceMortgageData } from '@src/pages/Services/slices/refinanceMortgageSlice.ts'
 import AuthModal from '@src/pages/AuthModal/AuthModal'
+import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal'
 
 import { SingleButton } from '../../../../components/SingleButton'
 import FirstStepForm from './FirstStepForm/FirstStepForm'
@@ -133,7 +134,7 @@ const FirstStep = () => {
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateRefinanceMortgageData(values))
-          dispatch(openAuthModal())
+          dispatch(openLoginModal())
           dispatch(setActiveModal('phoneVerification'))
         }}
       >
@@ -149,6 +150,7 @@ const FirstStep = () => {
           <SingleButton />
         </Form>
       </Formik>
+      <MortgagePhoneVerificationModal />
       <AuthModal />
     </>
   )

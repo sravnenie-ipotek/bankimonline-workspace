@@ -8,12 +8,13 @@ import { Container } from '@components/ui/Container'
 import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
-import { openAuthModal } from '@src/pages/Services/slices/modalSlice'
+import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
 import {
   fetchRefinanceCredit,
   updateRefinanceCreditData,
 } from '@src/pages/Services/slices/refinanceCredit'
 import AuthModal from '@src/pages/AuthModal/AuthModal'
+import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal'
 
 import { SingleButton } from '../../../../components/SingleButton'
 import FirstStepForm from './FirstStepForm/FirstStepForm'
@@ -121,7 +122,7 @@ const FirstStep = () => {
           if (isLogin) {
             navigate('/services/refinance-credit/2')
           } else {
-            dispatch(openAuthModal())
+            dispatch(openLoginModal())
             dispatch(setActiveModal('phoneVerification'))
           }
         }}
@@ -138,6 +139,7 @@ const FirstStep = () => {
           <SingleButton showValidationHints={true} />
         </Form>
       </Formik>
+      <MortgagePhoneVerificationModal />
       <AuthModal />
     </>
   )
