@@ -7,14 +7,14 @@ import * as Yup from 'yup'
 import { Container } from '@components/ui/Container'
 import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
-import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
+import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
 import {
   fetchRefinanceCredit,
   updateRefinanceCreditData,
 } from '@src/pages/Services/slices/refinanceCredit'
 
 import { SingleButton } from '../../../../components/SingleButton'
-import { LoginModal } from '../../../Modals/LoginModal'
+import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal'
 import FirstStepForm from './FirstStepForm/FirstStepForm'
 
 export const validationSchema = Yup.object().shape({
@@ -120,7 +120,7 @@ const FirstStep = () => {
           {
             isLogin
               ? navigate('/services/refinance-credit/2')
-              : dispatch(openLoginModal())
+              : dispatch(setActiveModal('phoneVerification'))
           }
         }}
       >
@@ -136,7 +136,7 @@ const FirstStep = () => {
           <SingleButton showValidationHints={true} />
         </Form>
       </Formik>
-      <LoginModal />
+      <MortgagePhoneVerificationModal />
     </>
   )
 }
