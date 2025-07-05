@@ -45,14 +45,40 @@ const AuthModal = () => {
 
   const handleSendCodeMobile = async (values: { code: string }) => {
     try {
+      // Get phone number from localStorage (phone verification flow) or Redux state (signup flow)
+      let phoneNumber = registrationData.mobile_number
+      
+      // Check if we have phone verification data in localStorage
+      const userData = localStorage.getItem('USER_DATA')
+      if (userData) {
+        const parsedUserData = JSON.parse(userData)
+        if (parsedUserData.mobile_number || parsedUserData.phoneNumber) {
+          phoneNumber = parsedUserData.mobile_number || parsedUserData.phoneNumber
+        }
+      }
+      
+      console.log('🔵 AuthModal - SMS verification attempt:', { 
+        code: values.code, 
+        phoneNumber,
+        registrationDataPhone: registrationData.mobile_number,
+        userData: userData ? JSON.parse(userData) : null
+      })
+      
+      if (!phoneNumber) {
+        console.error('🔴 AuthModal - No phone number found for SMS verification')
+        return
+      }
+      
       const response = await sendCodeMobile({
         code: values.code,
-        mobile_number: registrationData.mobile_number,
+        mobile_number: phoneNumber,
       }).unwrap()
+      
+      console.log('🟢 AuthModal - SMS verification successful:', response)
       localStorage.setItem(USER_DATA, JSON.stringify(response.data))
       handleClose()
     } catch (error) {
-      console.error(error)
+      console.error('🔴 AuthModal - SMS verification error:', error)
     }
   }
 
