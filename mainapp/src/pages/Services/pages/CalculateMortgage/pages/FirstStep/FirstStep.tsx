@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice.ts'
 import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
 import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
+import AuthModal from '@src/pages/AuthModal/AuthModal'
 
 import { SingleButton } from '../../../../components/SingleButton'
 import MortgagePhoneVerificationModal from './MortgagePhoneVerificationModal'
@@ -105,6 +106,7 @@ const FirstStep = () => {
         </Form>
       </Formik>
       <MortgagePhoneVerificationModal />
+      <AuthModal />
     </>
   )
 }
