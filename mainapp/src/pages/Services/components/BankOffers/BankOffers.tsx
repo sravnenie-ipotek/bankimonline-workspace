@@ -229,7 +229,7 @@ const BankOffers = () => {
                   mortgageAmount: bank.loan_amount
                 }}
               >
-                {mortgagePrograms.map((program, programIndex) => (
+                {(isCredit ? mortgagePrograms.slice(0, 1) : mortgagePrograms).map((program, programIndex) => (
                   <ProgrammCard
                     key={programIndex}
                     title={program.title}
