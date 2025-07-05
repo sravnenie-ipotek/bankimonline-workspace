@@ -51,50 +51,52 @@ const FirstStepForm = () => {
         <CreditData />
       </Row>
 
-      {values.refinancingCredit && values.refinancingCredit === 'option_1' && (
-        <Divider />
+      {/* option_1: Improve interest rate - no additional inputs */}
+      {/* option_2: Reduce credit amount - shows early repayment amount (handled in CreditData component) */}
+      
+      {/* option_3: Increase term to reduce payment - shows desired monthly payment */}
+      {values.refinancingCredit === 'option_3' && (
+        <>
+          <Divider />
+          <Row>
+            <Column>
+              <FormattedInput
+                name="desiredMonthlyPayment"
+                title={t('desired_monthly_payment')}
+                handleChange={(value) => setFieldValue('desiredMonthlyPayment', value)}
+                value={values.desiredMonthlyPayment}
+                onBlur={() => setFieldTouched('desiredMonthlyPayment')}
+                error={touched.desiredMonthlyPayment && errors.desiredMonthlyPayment}
+              />
+            </Column>
+          </Row>
+        </>
       )}
 
-      {values.refinancingCredit && values.refinancingCredit === 'option_2' && (
-        <Divider />
-      )}
-
-      {values.refinancingCredit && values.refinancingCredit == 'option_1' && (
-        <Column>
-          <FormattedInput
-            name="MonthlyPayment"
-            title={t('calculate_mortgage_initial_payment')}
-            handleChange={(value) => setFieldValue('monthlyPayment', value)}
-            value={values.monthlyPayment}
-            onBlur={() => setFieldTouched('monthlyPayment')}
-            error={touched.monthlyPayment && errors.monthlyPayment}
-          />
-        </Column>
-      )}
-
-      <Row>
-        {values.refinancingCredit &&
-          values.refinancingCredit === 'option_2' && (
+      {/* option_4: Increase payment to reduce term - shows desired term */}
+      {values.refinancingCredit === 'option_4' && (
+        <>
+          <Divider />
+          <Row>
             <Column>
               <SliderInput
                 disableCurrency={true}
                 unitsMax={t('calculate_mortgage_period_units_max')}
                 unitsMin={t('calculate_mortgage_period_units_min')}
-                value={values.period}
-                name="Period"
+                value={values.desiredTerm}
+                name="desiredTerm"
                 min={4}
                 max={30}
-                error={errors.period}
+                error={errors.desiredTerm}
                 title={t('credit_loan_period')}
-                handleChange={(value) => setFieldValue('period', value)}
-                onBlur={() => setFieldTouched('period')}
+                handleChange={(value) => setFieldValue('desiredTerm', value)}
+                onBlur={() => setFieldTouched('desiredTerm')}
               />
-              {errors.period && <Error error={errors.period} />}
+              {errors.desiredTerm && <Error error={errors.desiredTerm} />}
             </Column>
-          )}
-
-        <Column />
-      </Row>
+          </Row>
+        </>
+      )}
     </FormContainer>
   )
 }
