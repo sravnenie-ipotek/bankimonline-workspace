@@ -150,11 +150,12 @@
   "credit_refinance_title": "Credit Refinance",
   "mortgage_credit_why": "Credit refinancing reason",
   "credit_refinance_why_ph": "Select refinance reason",
-  "calculate_credit_why_option_1": "Reduce interest rate",
-  "calculate_credit_why_option_2": "Consolidate credits",
-  "calculate_credit_why_option_3": "Reduce monthly payment",
-  "calculate_credit_why_option_4": "Get additional cash",
+  "calculate_credit_why_option_1": "Improve interest rate",
+  "calculate_credit_why_option_2": "Reduce credit amount",
+  "calculate_credit_why_option_3": "Increase term to reduce payment",
+  "calculate_credit_why_option_4": "Increase payment to reduce term",
   "early_repayment": "Early repayment amount",
+  "desired_monthly_payment": "Desired monthly payment",
   "remove_credit": "Delete loan details?",
   "remove_credit_subtitle": "By clicking confirm, all details of this loan will be deleted",
   "error_credit_bank_required": "Please select lending bank",
@@ -457,10 +458,7 @@
   "refinance_credit_end_date": "Credit end date",
   "mortgage_credit_why": "Goal of credit refinancing",
   "credit_refinance_why_ph": "Select goal",
-  "calculate_credit_why_option_1": "Reduce interest rate",
-  "calculate_credit_why_option_2": "Consolidate credits",
-  "calculate_credit_why_option_3": "Reduce monthly payment",
-  "calculate_credit_why_option_4": "Increase payment to reduce term",
+
   "third_persons": "Your personal data will not be transferred to third parties. We operate in accordance with the provisions of the Privacy Protection Law 1981 and data protection regulations",
   "user_profile_placeholder": "User Profile"
 }

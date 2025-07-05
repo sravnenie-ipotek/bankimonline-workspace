@@ -41,7 +41,8 @@ const CreditData = () => {
   const { t, i18n } = useTranslation()
 
   // Check if early repayment should be shown based on refinancing goal
-  const shouldShowEarlyRepayment = values.refinancingCredit === 'option_2' || values.refinancingCredit === 'option_4'
+  // Only show for option_2 (Reduce credit amount) according to Confluence specification
+  const shouldShowEarlyRepayment = values.refinancingCredit === 'option_2'
 
   useEffect(() => {
     setCreditData(values.creditData)
