@@ -13,6 +13,7 @@ import {
   fetchRefinanceCredit,
   updateRefinanceCreditData,
 } from '@src/pages/Services/slices/refinanceCredit'
+import AuthModal from '@src/pages/AuthModal/AuthModal'
 
 import { SingleButton } from '../../../../components/SingleButton'
 import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal'
@@ -139,6 +140,7 @@ const FirstStep = () => {
         </Form>
       </Formik>
       <MortgagePhoneVerificationModal />
+      <AuthModal />
     </>
   )
 }
