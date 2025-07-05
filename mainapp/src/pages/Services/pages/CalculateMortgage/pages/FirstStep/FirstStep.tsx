@@ -83,11 +83,9 @@ const FirstStep = () => {
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateMortgageData(values))
-          {
-            isLogin
-              ? navigate('/services/calculate-mortgage/2')
-              : dispatch(setActiveModal('phoneVerification'))
-          }
+          isLogin
+            ? navigate('/services/calculate-mortgage/2')
+            : dispatch(setActiveModal('phoneVerification'))
         }}
       >
         <Form>
