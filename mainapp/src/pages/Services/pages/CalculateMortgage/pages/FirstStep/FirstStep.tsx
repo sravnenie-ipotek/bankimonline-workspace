@@ -9,11 +9,10 @@ import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice.ts'
 import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
-import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
+import { openAuthModal } from '@src/pages/Services/slices/modalSlice'
 import AuthModal from '@src/pages/AuthModal/AuthModal'
 
 import { SingleButton } from '../../../../components/SingleButton'
-import MortgagePhoneVerificationModal from './MortgagePhoneVerificationModal'
 import FirstStepForm from './FirstStepForm/FirstStepForm'
 
 export const validationSchema = Yup.object().shape({
@@ -88,7 +87,7 @@ const FirstStep = () => {
           if (isLogin) {
             navigate('/services/calculate-mortgage/2')
           } else {
-            dispatch(openLoginModal())
+            dispatch(openAuthModal())
             dispatch(setActiveModal('phoneVerification'))
           }
         }}
@@ -105,7 +104,6 @@ const FirstStep = () => {
           <SingleButton />
         </Form>
       </Formik>
-      <MortgagePhoneVerificationModal />
       <AuthModal />
     </>
   )

@@ -9,8 +9,7 @@ import { Container } from '@components/ui/Container'
 import { VideoPoster } from '@src/components/ui/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
-import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
-import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal'
+import { openAuthModal } from '@src/pages/Services/slices/modalSlice'
 import { updateCreditData } from '@src/pages/Services/slices/calculateCreditSlice'
 import AuthModal from '@src/pages/AuthModal/AuthModal'
 
@@ -95,7 +94,7 @@ const FirstStep: FC = () => {
               navigate('/services/calculate-credit/2')
             }
           } else {
-            dispatch(openLoginModal())
+            dispatch(openAuthModal())
             dispatch(setActiveModal('phoneVerification'))
           }
         }}
@@ -112,7 +111,6 @@ const FirstStep: FC = () => {
           <SingleButton />
         </Form>
       </Formik>
-      <MortgagePhoneVerificationModal />
       <AuthModal />
     </>
   )
