@@ -117,11 +117,9 @@ const FirstStep = () => {
         onSubmit={(values) => {
           dispatch(updateRefinanceCreditData(values))
           dispatch(fetchRefinanceCredit({ data: values }))
-          {
-            isLogin
-              ? navigate('/services/refinance-credit/2')
-              : dispatch(setActiveModal('phoneVerification'))
-          }
+          isLogin
+            ? navigate('/services/refinance-credit/2')
+            : dispatch(setActiveModal('phoneVerification'))
         }}
       >
         <Form>
