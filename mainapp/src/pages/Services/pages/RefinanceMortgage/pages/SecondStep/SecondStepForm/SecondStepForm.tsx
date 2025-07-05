@@ -1,4 +1,5 @@
 import { useFormikContext } from 'formik'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Column } from '@components/ui/Column'
@@ -34,6 +35,31 @@ const SecondStepForm = () => {
 
   const { values } = useFormikContext<FormTypes>()
   const userData = useAppSelector((state) => state.login.loginData)
+  const [fallbackUserData, setFallbackUserData] = useState<any>(null)
+  
+  // Fallback to localStorage if Redux doesn't have user data
+  useEffect(() => {
+    if (!userData?.nameSurname || !userData?.phoneNumber) {
+      const localStorageData = localStorage.getItem('USER_DATA')
+      if (localStorageData) {
+        try {
+          const parsedData = JSON.parse(localStorageData)
+          setFallbackUserData({
+            nameSurname: parsedData.nameSurname || parsedData.name_surname,
+            phoneNumber: parsedData.phoneNumber || parsedData.mobile_number
+          })
+        } catch (error) {
+          console.error('Error parsing localStorage USER_DATA:', error)
+        }
+      }
+    }
+  }, [userData])
+  
+  const displayUserData = userData?.nameSurname ? userData : fallbackUserData
+  
+  console.log('🔍 SecondStepForm - userData from Redux:', userData)
+  console.log('🔍 SecondStepForm - fallbackUserData from localStorage:', fallbackUserData)
+  console.log('🔍 SecondStepForm - displayUserData (final):', displayUserData)
 
   return (
     <FormContainer>
@@ -41,8 +67,8 @@ const SecondStepForm = () => {
       <RowTwo>
         <Info />
         <UserProfileCard 
-          name={userData?.nameSurname} 
-          phone={userData?.phoneNumber} 
+          name={displayUserData?.nameSurname} 
+          phone={displayUserData?.phoneNumber} 
         />
       </RowTwo>
       <Row>

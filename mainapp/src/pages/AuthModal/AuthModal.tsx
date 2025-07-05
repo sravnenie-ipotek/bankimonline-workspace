@@ -45,20 +45,27 @@ const AuthModal = () => {
   const location = useLocation()
 
   // Initialize user data from localStorage if it exists but Redux state is empty
+  const hasInitialized = React.useRef(false)
+  
   React.useEffect(() => {
+    if (hasInitialized.current) return
+    
     const userData = localStorage.getItem(USER_DATA)
-    if (userData && (!loginData?.nameSurname || !loginData?.phoneNumber)) {
+    if (userData) {
       try {
         const parsedUserData = JSON.parse(userData)
-        dispatch(initializeUserData({
-          nameSurname: parsedUserData.nameSurname || parsedUserData.name_surname,
-          phoneNumber: parsedUserData.phoneNumber || parsedUserData.mobile_number
-        }))
+        if (parsedUserData.nameSurname || parsedUserData.name_surname || parsedUserData.phoneNumber || parsedUserData.mobile_number) {
+          dispatch(initializeUserData({
+            nameSurname: parsedUserData.nameSurname || parsedUserData.name_surname,
+            phoneNumber: parsedUserData.phoneNumber || parsedUserData.mobile_number
+          }))
+          hasInitialized.current = true
+        }
       } catch (error) {
         console.error('Error parsing user data from localStorage:', error)
       }
     }
-  }, [dispatch, loginData])
+  }, [dispatch])
 
   const handleClose = () => {
     dispatch(closeModal())
@@ -108,10 +115,14 @@ const AuthModal = () => {
       localStorage.setItem(USER_DATA, JSON.stringify(response.data))
       // Update Redux login state
       dispatch(updateRegistrationData(response.data))
-      dispatch(initializeUserData({
-        nameSurname: response.data.nameSurname || response.data.name_surname,
-        phoneNumber: response.data.phoneNumber || response.data.mobile_number || phoneNumber
-      }))
+      
+      const userDataForRedux = {
+        nameSurname: response.data.user?.name || response.data.nameSurname || response.data.name_surname || 'Test User',
+        phoneNumber: response.data.user?.phone || response.data.phoneNumber || response.data.mobile_number || phoneNumber
+      }
+      
+      console.log('🟢 AuthModal - Initializing user data:', userDataForRedux)
+      dispatch(initializeUserData(userDataForRedux))
       dispatch(setIsLogin())
       handleClose()
       goToNextStepIfInServiceFlow()
@@ -128,10 +139,14 @@ const AuthModal = () => {
       }).unwrap()
       localStorage.setItem(USER_DATA, JSON.stringify(response.data))
       dispatch(updateRegistrationData(response.data))
-      dispatch(initializeUserData({
+      
+      const userDataForRedux = {
         nameSurname: response.data.nameSurname || response.data.name_surname,
         phoneNumber: response.data.phoneNumber || response.data.mobile_number || registrationData.mobile_number
-      }))
+      }
+      
+      console.log('🟢 AuthModal - Initializing user data (email):', userDataForRedux)
+      dispatch(initializeUserData(userDataForRedux))
       dispatch(setIsLogin())
       handleClose()
       goToNextStepIfInServiceFlow()
