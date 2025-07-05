@@ -124,14 +124,17 @@ export const calculateAge = (birthDate: string): number => {
 
 // Transform user data to API request format
 export const transformUserDataToRequest = (
-  mortgageParameters: any,
+  parameters: any,
   userPersonalData: any,
-  userIncomeData: any
+  userIncomeData: any,
+  serviceType?: string
 ): BankOfferRequest => {
+  const isCredit = serviceType === 'credit'
+  
   return {
-    loan_type: 'mortgage',
-    amount: mortgageParameters.priceOfEstate - mortgageParameters.initialFee || 496645,
-    property_value: mortgageParameters.priceOfEstate || 1000000,
+    loan_type: isCredit ? 'credit' : 'mortgage',
+    amount: isCredit ? parameters.loanAmount || 100000 : (parameters.priceOfEstate - parameters.initialFee || 496645),
+    property_value: isCredit ? 0 : (parameters.priceOfEstate || 1000000),
     monthly_income: userIncomeData?.monthlyIncome || userPersonalData.monthlyIncome || 25000,
     age: userPersonalData.birthDate ? calculateAge(userPersonalData.birthDate) : 35,
     credit_score: 750, // This would come from credit check API
@@ -142,9 +145,9 @@ export const transformUserDataToRequest = (
     citizenship: userPersonalData.citizenship,
     marital_status: userPersonalData.familyStatus,
     children_count: userPersonalData.childrens === 'yes' ? userPersonalData.childrenCount || 1 : 0,
-    property_city: mortgageParameters.city,
-    property_type: mortgageParameters.typeOfEstate,
-    is_first_apartment: mortgageParameters.firstApartment === 'yes',
+    property_city: isCredit ? parameters.city : parameters.city,
+    property_type: isCredit ? undefined : parameters.typeOfEstate,
+    is_first_apartment: isCredit ? false : (parameters.firstApartment === 'yes'),
     has_medical_insurance: userPersonalData.medicalInsurance === 'yes',
     is_foreigner: userPersonalData.isForeigner === 'yes',
     is_public_figure: userPersonalData.isPublic === 'yes'

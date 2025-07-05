@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router'
 
 import { SliderHorizontalIcon } from '@assets/icons/SlidersHorizontalIcon'
 import { Column } from '@components/ui/Column'
+import { useServiceContext } from '@src/hooks/useServiceContext'
 
 import styles from './mortgageParameters.module.scss'
 
@@ -27,7 +28,9 @@ const MortgageParameters: React.FC<TypeProps> = ({
 }: TypeProps) => {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
+  const serviceType = useServiceContext()
 
+  const isCredit = serviceType === 'credit'
   const formattedCost = cost?.toLocaleString('en-US')
   const formattedInitialPayment = initialPayment?.toLocaleString('en-US')
   const formattedCredit = credit?.toLocaleString('en-US')
@@ -62,7 +65,7 @@ const MortgageParameters: React.FC<TypeProps> = ({
                 {formattedCost} ₪
               </div>
               <div className={cx('parameters-data__desc')}>
-                {t('calculate_mortgage_parameters_cost')}
+                {t(isCredit ? 'calculate_credit_parameters_cost' : 'calculate_mortgage_parameters_cost')}
               </div>
             </div>
           )}
@@ -84,7 +87,7 @@ const MortgageParameters: React.FC<TypeProps> = ({
                 {formattedPeriod} {t('calculate_mortgage_parameters_months')}
               </div>
               <div className={cx('parameters-data__desc')}>
-                {t('calculate_mortgage_parameters_period')}
+                {t(isCredit ? 'calculate_credit_parameters_period' : 'calculate_mortgage_parameters_period')}
               </div>
             </div>
           </div>
