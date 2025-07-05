@@ -31,10 +31,15 @@ const MortgageParameters: React.FC<TypeProps> = ({
   const serviceType = useServiceContext()
 
   const isCredit = serviceType === 'credit'
-  const formattedCost = cost?.toLocaleString('en-US')
-  const formattedInitialPayment = initialPayment?.toLocaleString('en-US')
-  const formattedCredit = credit?.toLocaleString('en-US')
-  const formattedPeriod = period && period * 12
+  const numericCost = cost !== undefined && cost !== null ? Number(cost) : undefined
+  const numericInitialPayment = initialPayment !== undefined && initialPayment !== null ? Number(initialPayment) : undefined
+  const numericCredit = credit !== undefined && credit !== null ? Number(credit) : undefined
+  const numericPeriod = period !== undefined && period !== null ? Number(period) : undefined
+
+  const formattedCost = numericCost !== undefined ? numericCost.toLocaleString('en-US') : undefined
+  const formattedInitialPayment = numericInitialPayment !== undefined ? numericInitialPayment.toLocaleString('en-US') : undefined
+  const formattedCredit = numericCredit !== undefined ? numericCredit.toLocaleString('en-US') : undefined
+  const formattedPeriod = numericPeriod !== undefined ? numericPeriod * 12 : undefined
 
   return (
     <Column>

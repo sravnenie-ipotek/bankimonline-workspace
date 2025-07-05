@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation } from 'react-router-dom'
 
@@ -9,7 +10,7 @@ import {
   useSendSmsCodeMobileMutation,
 } from '@src/services/auth/auth'
 
-import { setActiveModal, setIsLogin, updateRegistrationData } from '../Services/slices/loginSlice'
+import { setActiveModal, setIsLogin, updateRegistrationData, initializeUserData } from '../Services/slices/loginSlice'
 import { closeModal } from '../Services/slices/modalSlice'
 import styles from './authModal.module.scss'
 import { Auth } from './pages/Auth'
@@ -37,10 +38,27 @@ const AuthModal = () => {
   const registrationData = useAppSelector(
     (state) => state.login.registrationData
   )
+  const loginData = useAppSelector((state) => state.login.loginData)
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const location = useLocation()
+
+  // Initialize user data from localStorage if it exists but Redux state is empty
+  React.useEffect(() => {
+    const userData = localStorage.getItem(USER_DATA)
+    if (userData && (!loginData?.nameSurname || !loginData?.phoneNumber)) {
+      try {
+        const parsedUserData = JSON.parse(userData)
+        dispatch(initializeUserData({
+          nameSurname: parsedUserData.nameSurname || parsedUserData.name_surname,
+          phoneNumber: parsedUserData.phoneNumber || parsedUserData.mobile_number
+        }))
+      } catch (error) {
+        console.error('Error parsing user data from localStorage:', error)
+      }
+    }
+  }, [dispatch, loginData])
 
   const handleClose = () => {
     dispatch(closeModal())
@@ -90,6 +108,10 @@ const AuthModal = () => {
       localStorage.setItem(USER_DATA, JSON.stringify(response.data))
       // Update Redux login state
       dispatch(updateRegistrationData(response.data))
+      dispatch(initializeUserData({
+        nameSurname: response.data.nameSurname || response.data.name_surname,
+        phoneNumber: response.data.phoneNumber || response.data.mobile_number || phoneNumber
+      }))
       dispatch(setIsLogin())
       handleClose()
       goToNextStepIfInServiceFlow()
@@ -106,6 +128,10 @@ const AuthModal = () => {
       }).unwrap()
       localStorage.setItem(USER_DATA, JSON.stringify(response.data))
       dispatch(updateRegistrationData(response.data))
+      dispatch(initializeUserData({
+        nameSurname: response.data.nameSurname || response.data.name_surname,
+        phoneNumber: response.data.phoneNumber || response.data.mobile_number || registrationData.mobile_number
+      }))
       dispatch(setIsLogin())
       handleClose()
       goToNextStepIfInServiceFlow()

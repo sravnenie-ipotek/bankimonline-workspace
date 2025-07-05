@@ -11,6 +11,7 @@
   "calculate_mortgage_when_options_3": "תוך 6-12 חודשים",
   "calculate_mortgage_when_options_4": "מעל 12 חודשים",
   "calculate_mortgage_when_options_ph": "בחר מסגרת זמן",
+  "calculate_mortgage_when_options_Time":"בחר תקופה",
   "calculate_mortgage_city": "עיר בא נמצא הנכס",
   "calculate_mortgage_price": "שווי הנכס",
   "calculate_mortgage_initial_fee": "הון עצמי",
@@ -748,5 +749,6 @@
   "mobile_step_1": "מחשבון",
   "mobile_step_2": "פרטים אישיים",
   "mobile_step_3": "הכנסות",
-  "mobile_step_4": "תוכניות"
+  "mobile_step_4": "תוכניות",
+  "error_select_one_of_the_options": "יש לבחור אחד מהאפשרויות המוצגות"
 }
