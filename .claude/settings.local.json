@@ -45,7 +45,8 @@
       "mcp__playwright__browser_press_key",
       "Bash(npm cache clean:*)",
       "WebFetch(domain:bankimonline.atlassian.net)",
-      "mcp__playwright__browser_console_messages"
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_tab_close"
     ],
     "deny": []
   },

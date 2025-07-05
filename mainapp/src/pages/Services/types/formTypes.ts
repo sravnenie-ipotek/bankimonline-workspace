@@ -66,6 +66,8 @@ export interface RefinanceCreditTypes {
   refinancingCredit: string
   period: number
   monthlyPayment: number
+  monthlyIncome: number
+  expenses: number
   desiredMonthlyPayment?: number | null
   desiredTerm?: number | null
   creditData: [
