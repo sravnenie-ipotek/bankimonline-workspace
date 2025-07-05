@@ -8,10 +8,9 @@ import * as Yup from 'yup'
 import { Container } from '@components/ui/Container'
 import { VideoPoster } from '@src/components/ui/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
-import { LoginModal } from '@src/pages/Services/pages/Modals/LoginModal'
+import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
 import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal'
 import { updateCreditData } from '@src/pages/Services/slices/calculateCreditSlice'
-import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
 
 import { SingleButton } from '../../../../components/SingleButton'
 import { FirstStepForm } from './FirstStepForm/FirstStepForm'
@@ -94,7 +93,7 @@ const FirstStep: FC = () => {
               navigate('/services/calculate-credit/2')
             }
           } else {
-            dispatch(openLoginModal())
+            dispatch(setActiveModal('phoneVerification'))
           }
         }}
       >
@@ -110,11 +109,7 @@ const FirstStep: FC = () => {
           <SingleButton />
         </Form>
       </Formik>
-      {i18n.language === 'he' ? (
-        <MortgagePhoneVerificationModal />
-      ) : (
-        <LoginModal />
-      )}
+      <MortgagePhoneVerificationModal />
     </>
   )
 }
