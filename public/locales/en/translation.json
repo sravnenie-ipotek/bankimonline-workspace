@@ -460,5 +460,10 @@
   "credit_refinance_why_ph": "Select goal",
 
   "third_persons": "Your personal data will not be transferred to third parties. We operate in accordance with the provisions of the Privacy Protection Law 1981 and data protection regulations",
-  "user_profile_placeholder": "User Profile"
+  "user_profile_placeholder": "User Profile",
+  "programs": "Programs",
+  "mobile_step_1": "Calculator",
+  "mobile_step_2": "Application",
+  "mobile_step_3": "Income",
+  "mobile_step_4": "Programs"
 }
