@@ -20,13 +20,6 @@ import FirstStepForm from './FirstStepForm/FirstStepForm'
 
 export const validationSchema = Yup.object().shape({
   refinancingCredit: Yup.string().required(i18next.t('error_select_answer')),
-  // Monthly income and expenses - required by API
-  monthlyIncome: Yup.number()
-    .positive(i18next.t('error_credit_payment_positive'))
-    .required(i18next.t('error_required_to_fill_out')),
-  expenses: Yup.number()
-    .positive(i18next.t('error_credit_payment_positive'))
-    .required(i18next.t('error_required_to_fill_out')),
   // option_3: Increase term to reduce payment - requires desired monthly payment
   desiredMonthlyPayment: Yup.number()
     .positive(i18next.t('error_credit_payment_positive'))
@@ -101,8 +94,6 @@ const FirstStep = () => {
     refinancingCredit: savedValue.refinancingCredit || '',
     period: savedValue.period || 30,
     monthlyPayment: savedValue.monthlyPayment || 1000000,
-    monthlyIncome: savedValue.monthlyIncome || 10000,
-    expenses: savedValue.expenses || 5000,
     desiredMonthlyPayment: savedValue.desiredMonthlyPayment || null,
     desiredTerm: savedValue.desiredTerm || null,
     creditData: savedValue.creditData || [
