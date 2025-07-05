@@ -229,20 +229,21 @@ const BankOffers = () => {
                   mortgageAmount: bank.loan_amount
                 }}
               >
-                {(isCredit ? mortgagePrograms.slice(0, 1) : mortgagePrograms).map((program, programIndex) => (
-                  <ProgrammCard
-                    key={programIndex}
-                    title={program.title}
-                    percent={bank.interest_rate || program.interestRate || 2.1}
-                    mortgageAmount={bank.loan_amount}
-                    monthlyPayment={bank.monthly_payment}
-                    period={bank.term_years || program.termYears || 20}
-                    description={program.description}
-                    conditionFinance={program.conditionFinance}
-                    conditionPeriod={program.conditionPeriod}
-                    conditionBid={program.conditionBid}
-                  />
-                ))}
+                {!isCredit &&
+                  mortgagePrograms.map((program, programIndex) => (
+                    <ProgrammCard
+                      key={programIndex}
+                      title={program.title}
+                      percent={bank.interest_rate || program.interestRate || 2.1}
+                      mortgageAmount={bank.loan_amount}
+                      monthlyPayment={bank.monthly_payment}
+                      period={bank.term_years || program.termYears || 20}
+                      description={program.description}
+                      conditionFinance={program.conditionFinance}
+                      conditionPeriod={program.conditionPeriod}
+                      conditionBid={program.conditionBid}
+                    />
+                  ))}
               </BankCard>
             </div>
           </Fragment>
