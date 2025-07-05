@@ -26,10 +26,10 @@ const CalculateMortgage = () => {
   }, [isLogin, stepNumber, navigate])
 
   const data = [
-    t('calculate_mortgage_calculator'),
-    t('calculate_mortgage_anketa'),
-    t('calculate_mortgage_income'),
-    t('calculate_mortgage_programs'),
+    t('mobile_step_1'),
+    t('mobile_step_2'),
+    t('mobile_step_3'),
+    t('mobile_step_4'),
   ]
 
   let stepComponent
