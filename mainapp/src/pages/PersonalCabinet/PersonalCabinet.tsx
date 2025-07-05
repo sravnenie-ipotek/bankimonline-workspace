@@ -11,10 +11,10 @@ import { TransactionHistoryPage } from './components/TransactionHistoryPage/Tran
 import { AppointmentSchedulingPage } from './components/AppointmentSchedulingPage/AppointmentSchedulingPage'
 import { EmailSettingsModal } from './components/modals/EmailSettingsModal/EmailSettingsModal'
 import { EmailVerificationModal } from './components/modals/EmailVerificationModal/EmailVerificationModal'
-import { PhoneVerificationModal } from './components/modals/PhoneVerificationModal/PhoneVerificationModal'
 import { ChangeEmailModal } from './components/modals/ChangeEmailModal/ChangeEmailModal'
 import { ChangePhoneModal } from './components/modals/ChangePhoneModal/ChangePhoneModal'
-import { PhoneVerificationModal } from './components/modals/PhoneVerificationModal/PhoneVerificationModal'
+import PhoneVerificationModalDark from '@src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModalDark'
+import PhoneVerificationModalDarkHe from '@src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModalDarkHe'
 import { ChangePasswordModal } from './components/modals/ChangePasswordModal/ChangePasswordModal'
 import { ChangeNameModal } from './components/modals/ChangeNameModal/ChangeNameModal'
 import UploadProfilePhotoModal from './components/modals/UploadProfilePhotoModal/UploadProfilePhotoModal'
@@ -59,7 +59,7 @@ export type ModalType =
   | null
 
 const PersonalCabinet: React.FC = () => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
   const [activeModal, setActiveModal] = useState<ModalType>(null)
@@ -233,20 +233,28 @@ const PersonalCabinet: React.FC = () => {
         }}
       />
 
-      {/* Phone Verification Modal - LK-239 */}
-      <PhoneVerificationModal 
-        isOpen={activeModal === 'phoneVerification'}
-        phone={phoneToVerify}
-        onClose={handleCloseModal}
-        onSuccess={() => {
-          console.log('Phone verification successful for:', phoneToVerify)
-          handleCloseModal()
-          // In real app: update user phone in backend, refresh settings
-        }}
-        onBack={() => {
-          setActiveModal('changePhone')
-        }}
-      />
+      {/* Phone Verification Modal - LK-239 with RTL support */}
+      {activeModal === 'phoneVerification' && (
+        i18n.language === 'he' ? (
+          <PhoneVerificationModalDarkHe 
+            onClose={handleCloseModal}
+            onSuccess={() => {
+              console.log('Phone verification successful for:', phoneToVerify)
+              handleCloseModal()
+              // In real app: update user phone in backend, refresh settings
+            }}
+          />
+        ) : (
+          <PhoneVerificationModalDark 
+            onClose={handleCloseModal}
+            onSuccess={() => {
+              console.log('Phone verification successful for:', phoneToVerify)
+              handleCloseModal()
+              // In real app: update user phone in backend, refresh settings
+            }}
+          />
+        )
+      )}
 
       {/* Change Password Modal - LK-237 */}
       <ChangePasswordModal 
