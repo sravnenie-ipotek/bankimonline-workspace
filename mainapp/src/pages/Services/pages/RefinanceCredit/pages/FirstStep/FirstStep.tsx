@@ -19,20 +19,29 @@ import FirstStepForm from './FirstStepForm/FirstStepForm'
 
 export const validationSchema = Yup.object().shape({
   refinancingCredit: Yup.string().required(i18next.t('error_select_answer')),
-  period: Yup.number()
+  // option_3: Increase term to reduce payment - requires desired monthly payment
+  desiredMonthlyPayment: Yup.number()
+    .positive(i18next.t('error_credit_payment_positive'))
+    .when('refinancingCredit', {
+      is: 'option_3',
+      then: (schema) => schema.required(i18next.t('error_required_to_fill_out')),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+  // option_4: Increase payment to reduce term - requires desired term
+  desiredTerm: Yup.number()
     .min(4, i18next.t('error_min_period'))
     .max(30, i18next.t('error_max_period'))
     .when('refinancingCredit', {
-      is: 'option_2',
+      is: 'option_4',
       then: (schema) => schema.required(i18next.t('error_required_to_fill_out')),
       otherwise: (schema) => schema.notRequired(),
     }),
+  period: Yup.number()
+    .min(4, i18next.t('error_min_period'))
+    .max(30, i18next.t('error_max_period'))
+    .notRequired(),
   monthlyPayment: Yup.number()
-    .when('refinancingCredit', {
-      is: 'option_1', 
-      then: (schema) => schema.required(i18next.t('error_required_to_fill_out')),
-      otherwise: (schema) => schema.notRequired(),
-    }),
+    .notRequired(),
   creditData: Yup.array().of(
     Yup.object().shape({
       bank: Yup.string().required(i18next.t('error_credit_bank_required')),
@@ -84,6 +93,8 @@ const FirstStep = () => {
     refinancingCredit: savedValue.refinancingCredit || '',
     period: savedValue.period || 30,
     monthlyPayment: savedValue.monthlyPayment || 1000000,
+    desiredMonthlyPayment: savedValue.desiredMonthlyPayment || null,
+    desiredTerm: savedValue.desiredTerm || null,
     creditData: savedValue.creditData || [
       {
         id: 1,
