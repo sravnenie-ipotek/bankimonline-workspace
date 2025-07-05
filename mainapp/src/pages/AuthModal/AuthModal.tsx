@@ -111,14 +111,41 @@ const AuthModal = () => {
       }).unwrap()
       
       console.log('🟢 AuthModal - SMS verification successful:', response)
-      // Save user data
-      localStorage.setItem(USER_DATA, JSON.stringify(response.data))
+      
+      // Check if we have existing user data from phone verification modal
+      const existingUserData = localStorage.getItem(USER_DATA)
+      let preservedUserData = null
+      if (existingUserData) {
+        try {
+          preservedUserData = JSON.parse(existingUserData)
+          console.log('🔍 AuthModal - Found existing user data:', preservedUserData)
+        } catch (error) {
+          console.error('Error parsing existing user data:', error)
+        }
+      }
+      
+      // Merge API response with preserved user data, prioritizing the user's input name
+      const mergedUserData = {
+        ...response.data,
+        user: {
+          ...response.data.user,
+          name: preservedUserData?.name || preservedUserData?.nameSurname || response.data.user?.name || 'Test User',
+          phone: phoneNumber
+        },
+        name: preservedUserData?.name || preservedUserData?.nameSurname || response.data.user?.name || 'Test User',
+        nameSurname: preservedUserData?.name || preservedUserData?.nameSurname || response.data.user?.name || 'Test User',
+        mobile_number: phoneNumber,
+        phoneNumber: phoneNumber
+      }
+      
+      // Save merged user data
+      localStorage.setItem(USER_DATA, JSON.stringify(mergedUserData))
       // Update Redux login state
-      dispatch(updateRegistrationData(response.data))
+      dispatch(updateRegistrationData(mergedUserData))
       
       const userDataForRedux = {
-        nameSurname: response.data.user?.name || response.data.nameSurname || response.data.name_surname || 'Test User',
-        phoneNumber: response.data.user?.phone || response.data.phoneNumber || response.data.mobile_number || phoneNumber
+        nameSurname: preservedUserData?.name || preservedUserData?.nameSurname || response.data.user?.name || 'Test User',
+        phoneNumber: phoneNumber
       }
       
       console.log('🟢 AuthModal - Initializing user data:', userDataForRedux)
@@ -137,12 +164,33 @@ const AuthModal = () => {
         code: values.code,
         email: registrationData.email,
       }).unwrap()
-      localStorage.setItem(USER_DATA, JSON.stringify(response.data))
-      dispatch(updateRegistrationData(response.data))
+      // Check if we have existing user data from phone verification modal
+      const existingUserData = localStorage.getItem(USER_DATA)
+      let preservedUserData = null
+      if (existingUserData) {
+        try {
+          preservedUserData = JSON.parse(existingUserData)
+          console.log('🔍 AuthModal - Found existing user data (email):', preservedUserData)
+        } catch (error) {
+          console.error('Error parsing existing user data:', error)
+        }
+      }
+      
+      // Merge API response with preserved user data, prioritizing the user's input name
+      const mergedUserData = {
+        ...response.data,
+        name: preservedUserData?.name || preservedUserData?.nameSurname || response.data.nameSurname || response.data.name_surname || 'Test User',
+        nameSurname: preservedUserData?.name || preservedUserData?.nameSurname || response.data.nameSurname || response.data.name_surname || 'Test User',
+        mobile_number: registrationData.mobile_number,
+        phoneNumber: registrationData.mobile_number
+      }
+      
+      localStorage.setItem(USER_DATA, JSON.stringify(mergedUserData))
+      dispatch(updateRegistrationData(mergedUserData))
       
       const userDataForRedux = {
-        nameSurname: response.data.nameSurname || response.data.name_surname,
-        phoneNumber: response.data.phoneNumber || response.data.mobile_number || registrationData.mobile_number
+        nameSurname: preservedUserData?.name || preservedUserData?.nameSurname || response.data.nameSurname || response.data.name_surname || 'Test User',
+        phoneNumber: registrationData.mobile_number
       }
       
       console.log('🟢 AuthModal - Initializing user data (email):', userDataForRedux)
