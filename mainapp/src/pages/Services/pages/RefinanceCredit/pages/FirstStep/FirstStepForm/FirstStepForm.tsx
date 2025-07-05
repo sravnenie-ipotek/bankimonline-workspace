@@ -51,34 +51,6 @@ const FirstStepForm = () => {
         <CreditData />
       </Row>
 
-      <Divider />
-
-      {/* Monthly Income and Expenses - Required by API */}
-      <Row>
-        <Column>
-          <FormattedInput
-            name="monthlyIncome"
-            title={t('monthly_income')}
-            placeholder="10,000"
-            handleChange={(value) => setFieldValue('monthlyIncome', value)}
-            value={values.monthlyIncome}
-            onBlur={() => setFieldTouched('monthlyIncome')}
-            error={touched.monthlyIncome && errors.monthlyIncome}
-          />
-        </Column>
-        <Column>
-          <FormattedInput
-            name="expenses"
-            title={t('monthly_expenses')}
-            placeholder="5,000"
-            handleChange={(value) => setFieldValue('expenses', value)}
-            value={values.expenses}
-            onBlur={() => setFieldTouched('expenses')}
-            error={touched.expenses && errors.expenses}
-          />
-        </Column>
-      </Row>
-
       {/* option_1: Improve interest rate - no additional inputs */}
       {/* option_2: Reduce credit amount - shows early repayment amount (handled in CreditData component) */}
       

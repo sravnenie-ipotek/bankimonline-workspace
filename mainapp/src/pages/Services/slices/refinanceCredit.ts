@@ -9,6 +9,7 @@ export const fetchRefinanceCredit = createAsyncThunk(
   'refinanceCredit/fetchRefinanceCredit',
   async (params: { data: RefinanceCreditTypes }) => {
     // Transform the data to match the backend API expectations
+    // Only send loans_data as that's what the backend actually uses in calculations
     const transformedData = {
       loans_data: params.data.creditData.map(credit => ({
         id: credit.id,
@@ -19,8 +20,6 @@ export const fetchRefinanceCredit = createAsyncThunk(
         end_date: credit.endDate,
         early_repayment: credit.earlyRepayment,
       })),
-      monthly_income: params.data.monthlyIncome,
-      expenses: params.data.expenses,
       // Include original form data for reference
       refinancing_goal: params.data.refinancingCredit,
       desired_monthly_payment: params.data.desiredMonthlyPayment,
