@@ -8,7 +8,7 @@ import {
   useSendSmsCodeMobileMutation,
 } from '@src/services/auth/auth'
 
-import { setActiveModal } from '../Services/slices/loginSlice'
+import { setActiveModal, setIsLogin, updateRegistrationData } from '../Services/slices/loginSlice'
 import { closeModal } from '../Services/slices/modalSlice'
 import styles from './authModal.module.scss'
 import { Auth } from './pages/Auth'
@@ -75,7 +75,11 @@ const AuthModal = () => {
       }).unwrap()
       
       console.log('🟢 AuthModal - SMS verification successful:', response)
+      // Save user data
       localStorage.setItem(USER_DATA, JSON.stringify(response.data))
+      // Update Redux login state
+      dispatch(updateRegistrationData(response.data))
+      dispatch(setIsLogin())
       handleClose()
     } catch (error) {
       console.error('🔴 AuthModal - SMS verification error:', error)
@@ -89,6 +93,8 @@ const AuthModal = () => {
         email: registrationData.email,
       }).unwrap()
       localStorage.setItem(USER_DATA, JSON.stringify(response.data))
+      dispatch(updateRegistrationData(response.data))
+      dispatch(setIsLogin())
       handleClose()
     } catch (error) {
       console.error(error)
