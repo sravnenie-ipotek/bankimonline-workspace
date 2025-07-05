@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind'
 import { useTranslation } from 'react-i18next'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 import { Modal } from '@src/components/ui/Modal'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
@@ -38,9 +39,19 @@ const AuthModal = () => {
   )
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const handleClose = () => {
     dispatch(closeModal())
     dispatch(setActiveModal('auth'))
+  }
+
+  const goToNextStepIfInServiceFlow = () => {
+    const currentPath = location.pathname
+    if (currentPath.endsWith('/1')) {
+      navigate(currentPath.replace(/\/1$/, '/2'))
+    }
   }
 
   const handleSendCodeMobile = async (values: { code: string }) => {
@@ -81,6 +92,7 @@ const AuthModal = () => {
       dispatch(updateRegistrationData(response.data))
       dispatch(setIsLogin())
       handleClose()
+      goToNextStepIfInServiceFlow()
     } catch (error) {
       console.error('🔴 AuthModal - SMS verification error:', error)
     }
@@ -96,6 +108,7 @@ const AuthModal = () => {
       dispatch(updateRegistrationData(response.data))
       dispatch(setIsLogin())
       handleClose()
+      goToNextStepIfInServiceFlow()
     } catch (error) {
       console.error(error)
     }
