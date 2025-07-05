@@ -12,6 +12,7 @@ import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
 import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
 import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal'
 import { updateCreditData } from '@src/pages/Services/slices/calculateCreditSlice'
+import AuthModal from '@src/pages/AuthModal/AuthModal'
 
 import { SingleButton } from '../../../../components/SingleButton'
 import { FirstStepForm } from './FirstStepForm/FirstStepForm'
@@ -112,6 +113,7 @@ const FirstStep: FC = () => {
         </Form>
       </Formik>
       <MortgagePhoneVerificationModal />
+      <AuthModal />
     </>
   )
 }
