@@ -88,5 +88,75 @@
     "errorDetails": null,
     "untranslated": null,
     "timestamp": "2025-07-05T13:13:00Z"
+  },
+  {
+    "page": "/services/refinance-mortgage/1",
+    "element": "Date picker for mortgage start date",
+    "action": "select",
+    "value": "15/01/2025",
+    "result": "error",
+    "errorDetails": "Date picker month names displayed in English instead of Hebrew",
+    "untranslated": "Month names: january, february, march, april, may, june, july, august, september, october, november, december",
+    "timestamp": "2025-07-05T13:35:00Z"
+  },
+  {
+    "page": "/services/refinance-mortgage/1",
+    "element": "Video player modal",
+    "action": "click",
+    "value": null,
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:38:00Z"
+  },
+  {
+    "page": "Homepage (tablet view)",
+    "element": "Country/Language selector in header",
+    "action": "observe",
+    "value": null,
+    "result": "error",
+    "errorDetails": "Multiple untranslated strings in header country/language selector",
+    "untranslated": "sel_cntr, country_russia, language_russian, country_us, language_english, language_hebrew (displayed on Israel option)",
+    "timestamp": "2025-07-05T13:40:00Z"
+  },
+  {
+    "page": "Homepage (tablet view)",
+    "element": "Currency selector in header",
+    "action": "observe",
+    "value": null,
+    "result": "error",
+    "errorDetails": "Currency selector shows English text instead of Hebrew",
+    "untranslated": "Currency, Select Currency text labels, plus ILS (₪), USD ($), EUR (€) currency formatting",
+    "timestamp": "2025-07-05T13:41:00Z"
+  },
+  {
+    "page": "Homepage (tablet view)",
+    "element": "Responsive layout test",
+    "action": "resize",
+    "value": "768x1024",
+    "result": "success",
+    "errorDetails": null,
+    "responsiveIssue": null,
+    "timestamp": "2025-07-05T13:42:00Z"
+  },
+  {
+    "page": "Homepage (tablet view)",
+    "element": "Instagram social media link",
+    "action": "click",
+    "value": "https://instagram.com/erik_eitan2018",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:43:00Z"
+  },
+  {
+    "page": "/banks/apoalim",
+    "element": "Bank Hapoalim partner page",
+    "action": "navigate",
+    "value": null,
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:45:00Z"
   }
 ]
