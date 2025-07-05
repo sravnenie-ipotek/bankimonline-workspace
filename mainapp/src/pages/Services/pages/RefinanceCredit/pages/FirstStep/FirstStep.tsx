@@ -8,6 +8,7 @@ import { Container } from '@components/ui/Container'
 import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
+import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
 import {
   fetchRefinanceCredit,
   updateRefinanceCreditData,
@@ -117,9 +118,12 @@ const FirstStep = () => {
         onSubmit={(values) => {
           dispatch(updateRefinanceCreditData(values))
           dispatch(fetchRefinanceCredit({ data: values }))
-          isLogin
-            ? navigate('/services/refinance-credit/2')
-            : dispatch(setActiveModal('phoneVerification'))
+          if (isLogin) {
+            navigate('/services/refinance-credit/2')
+          } else {
+            dispatch(openLoginModal())
+            dispatch(setActiveModal('phoneVerification'))
+          }
         }}
       >
         <Form>
