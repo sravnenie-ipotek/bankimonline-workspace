@@ -1,0 +1,185 @@
+[
+  {
+    "page": "/",
+    "element": "Country selector text",
+    "action": "visual inspection",
+    "value": "N/A",
+    "result": "untranslated",
+    "errorDetails": "Multiple untranslated values found in language/country selector",
+    "untranslated": "sel_cntr, country_russia, language_russian, country_us, language_english, Currency, Select Currency, ILS, USD, EUR",
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/",
+    "element": "Mortgage calculator link",
+    "action": "click",
+    "value": "N/A",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "Mortgage calculator page",
+    "action": "page load",
+    "value": "N/A",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "Property value input",
+    "action": "type",
+    "value": "1500000",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "City dropdown",
+    "action": "select",
+    "value": "ירושלים",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "Property type dropdown",
+    "action": "select",
+    "value": "בית פרטי",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "Next button",
+    "action": "click",
+    "value": "N/A",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "Personal details modal",
+    "action": "modal opened",
+    "value": "N/A",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "Full name input in modal",
+    "action": "type",
+    "value": "אברהם כהן",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "Phone number input in modal",
+    "action": "type",
+    "value": "050-123-4567",
+    "result": "validation error",
+    "errorDetails": "Phone number validation error shown in Hebrew: 'מספר הטלפון אינו תקין. אנא הזינו מספר בפורמט: 050-123-4567'",
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "Close modal button",
+    "action": "click",
+    "value": "N/A",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/",
+    "element": "Homepage navigation error",
+    "action": "page load",
+    "value": "N/A",
+    "result": "error",
+    "errorDetails": "Error message displayed: 'אירעה שגיאה במערכת' with 'חזור לעמוד הבית' button",
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/",
+    "element": "Homepage reload",
+    "action": "page load",
+    "value": "N/A",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-credit/1",
+    "element": "Credit calculator page",
+    "action": "page load",
+    "value": "N/A",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-credit/1",
+    "element": "Responsive design - Mobile (375x667)",
+    "action": "responsive test",
+    "value": "N/A",
+    "result": "success",
+    "errorDetails": null,
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-credit/1",
+    "element": "Responsive design - Tablet (768x1024)",
+    "action": "responsive test",
+    "value": "N/A",
+    "result": "success",
+    "errorDetails": null,
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/services/calculate-credit/1",
+    "element": "Responsive design - Desktop (1920x1080)",
+    "action": "responsive test",
+    "value": "N/A",
+    "result": "success",
+    "errorDetails": null,
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  },
+  {
+    "page": "/about",
+    "element": "About page",
+    "action": "page load",
+    "value": "N/A",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:06:11Z"
+  }
+]

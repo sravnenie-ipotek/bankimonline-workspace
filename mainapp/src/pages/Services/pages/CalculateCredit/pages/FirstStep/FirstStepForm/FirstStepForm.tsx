@@ -193,7 +193,7 @@ export const FirstStepForm: FC = () => {
             <DropdownMenu
               title={t('calculate_when')}
               data={WhenDoYouNeedMoneyOptions}
-              placeholder={t('calculate_mortgage_when_options_ph')}
+              placeholder={t('calculate_mortgage_when_options_Time')}
               value={values.whenDoYouNeedMoney}
               onChange={(value) => setFieldValue('whenDoYouNeedMoney', value)}
               onBlur={() => setFieldTouched('whenDoYouNeedMoney', true)}
@@ -206,7 +206,7 @@ export const FirstStepForm: FC = () => {
             <DropdownMenu
               title={t('calculate_prolong')}
               data={loanDeferralOptions}
-              placeholder={t('calculate_mortgage_first_ph')}
+              placeholder={t('calculate_credit_prolong_ph')}
               value={values.loanDeferral}
               onChange={(value) => setFieldValue('loanDeferral', value)}
               onBlur={() => setFieldTouched('loanDeferral', true)}
