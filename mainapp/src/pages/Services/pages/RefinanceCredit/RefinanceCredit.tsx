@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 
@@ -19,9 +19,16 @@ const RefinanceCredit = () => {
   const navigate = useNavigate()
   const isLogin = useAppSelector((state) => state.login.isLogin)
 
+  // Handle navigation in useEffect to avoid setState during render
+  useEffect(() => {
+    if (!isLogin && stepNumber !== '1') {
+      navigate('/services/refinance-credit/1')
+    }
+  }, [isLogin, stepNumber, navigate])
+
+  // Don't render anything while redirecting
   if (!isLogin && stepNumber !== '1') {
-    navigate('/services/refinance-credit/1')
-    return
+    return <Loader />
   }
 
   const data = [
