@@ -24,6 +24,9 @@ interface Vacancy {
   benefits_he?: string
   benefits_en?: string
   benefits_ru?: string
+  nice_to_have_he?: string
+  nice_to_have_en?: string
+  nice_to_have_ru?: string
   employment_type: string
   salary_min: number
   salary_max: number
@@ -179,7 +182,7 @@ const VacancyDetail = () => {
   }
 
   // Get localized content
-  const getLocalizedContent = (field: 'description' | 'requirements' | 'responsibilities' | 'benefits') => {
+  const getLocalizedContent = (field: 'description' | 'requirements' | 'responsibilities' | 'benefits' | 'nice_to_have') => {
     if (!vacancy) return ''
     
     const key = `${field}_${i18n.language}` as keyof Vacancy
@@ -310,7 +313,9 @@ const VacancyDetail = () => {
               <div className={styles.section}>
                 <h2>{t('vacancy_general_info', 'General Information:')}</h2>
                 <div className={styles.sectionContent}>
-                  {getLocalizedContent('description')}
+                  {getLocalizedContent('description').split('\n').map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))}
                 </div>
               </div>
 
@@ -319,7 +324,9 @@ const VacancyDetail = () => {
                 <div className={styles.section}>
                   <h2>{t('vacancy_responsibilities', 'Responsibilities:')}</h2>
                   <div className={styles.sectionContent}>
-                    {getLocalizedContent('responsibilities')}
+                    {getLocalizedContent('responsibilities').split('\n').map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
                   </div>
                 </div>
               )}
@@ -329,7 +336,21 @@ const VacancyDetail = () => {
                 <div className={styles.section}>
                   <h2>{t('vacancy_requirements', 'Requirements:')}</h2>
                   <div className={styles.sectionContent}>
-                    {getLocalizedContent('requirements')}
+                    {getLocalizedContent('requirements').split('\n').map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Nice to Have */}
+              {getLocalizedContent('nice_to_have') && (
+                <div className={styles.section}>
+                  <h2>{t('vacancy_nice_to_have', 'Nice to Have:')}</h2>
+                  <div className={styles.sectionContent}>
+                    {getLocalizedContent('nice_to_have').split('\n').map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
                   </div>
                 </div>
               )}
@@ -339,7 +360,9 @@ const VacancyDetail = () => {
                 <div className={styles.section}>
                   <h2>{t('vacancy_benefits', 'Benefits:')}</h2>
                   <div className={styles.sectionContent}>
-                    {getLocalizedContent('benefits')}
+                    {getLocalizedContent('benefits').split('\n').map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
                   </div>
                 </div>
               )}
