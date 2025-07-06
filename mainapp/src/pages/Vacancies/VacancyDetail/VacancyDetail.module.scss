@@ -152,7 +152,27 @@
       .sectionContent {
         color: #CCCCCC;
         line-height: 1.6;
-        white-space: pre-wrap;
+        
+        p {
+          margin-bottom: 0.5rem;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+          
+          // Style for bullet points that start with -
+          &:first-child:not(:last-child) {
+            margin-bottom: 0.75rem;
+          }
+        }
+        
+        // Style individual lines that contain bullet points
+        p:not(:empty) {
+          &:has-text("- ") {
+            margin-left: 0.5rem;
+            position: relative;
+          }
+        }
       }
     }
   }
