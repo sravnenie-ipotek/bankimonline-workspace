@@ -930,5 +930,55 @@
         "fileType": "סוג קובץ לא נתמך. אנא העלה PDF, DOC או DOCX"
       }
     }
-  }
+  },
+  
+  "cooperation_title": "תכנית הפניות - הצטרפו אלינו",
+  "cooperation_subtitle": "הפכו לשותפים שלנו והתחילו להרוויח מכל לקוח שתפנו אלינו. תכנית הפניות מתגמלת עם עמלות אטרקטיביות ותמיכה מלאה.",
+  "cooperation_partner_login": "כניסה כשותף",
+  "cooperation_register": "הרשמה לתכנית השותפים",
+  
+  "cooperation_about_title": "אודותינו",
+  "cooperation_about_description_1": "Bankimonline הוא הפלטפורמה המובילה להשוואת משכנתאות ומוצרים פיננסיים בישראל.",
+  "cooperation_about_description_2": "אנחנו עוזרים ללקוחות למצוא את המשכנתא הטובה ביותר עבורם, תוך חיסכון בזמן ובכסף.",
+  "cooperation_about_description_3": "הצטרפו לרשת השותפים שלנו ותהיו חלק מהמהפכה הפיננסית בישראל.",
+  
+  "cooperation_earning_title": "איך תרוויחו?",
+  "cooperation_earning_commission_title": "עמלות אטרקטיביות",
+  "cooperation_earning_commission_desc": "קבלו עמלה עבור כל לקוח שמבצע עסקה דרככם. העמלות משתנות לפי סוג העסקה והיקפה.",
+  "cooperation_earning_bonus_title": "בונוסים מיוחדים",
+  "cooperation_earning_bonus_desc": "זכו לבונוסים נוספים על השגת יעדים חודשיים ורבעוניים.",
+  "cooperation_earning_targets_title": "יעדים ברי השגה",
+  "cooperation_earning_targets_desc": "קבעו יעדים אישיים וקבלו תמיכה מלאה להשגתם מהצוות המקצועי שלנו.",
+  
+  "cooperation_steps_title": "5 שלבים פשוטים לשותפות",
+  "cooperation_step1_title": "מלאו את הטופס",
+  "cooperation_step1_desc": "הגישו בקשה לתכנית השותפים דרך האתר שלנו",
+  "cooperation_step2_title": "נציג יצור קשר",
+  "cooperation_step2_desc": "נציג מהצוות שלנו יצור איתכם קשר לתיאום פגישה",
+  "cooperation_step3_title": "חתימה על הסכם",
+  "cooperation_step3_desc": "נחתום על הסכם שותפות המגדיר את התנאים והעמלות",
+  "cooperation_step4_title": "תתחילו להפנות לקוחות",
+  "cooperation_step4_desc": "תקבלו כלים ותמיכה להפניית לקוחות בצורה יעילה",
+  "cooperation_step5_title": "קבלת תשלומים",
+  "cooperation_step5_desc": "תקבלו תשלומים חודשיים עבור הלקוחות שהפניתם",
+  
+  "cooperation_partners_title": "השותפים הבנקאיים שלנו",
+  "cooperation_cta_title": "מוכנים להתחיל?",
+  "cooperation_cta_description": "הצטרפו לתכנית השותפים שלנו עוד היום והתחילו להרוויח",
+  
+  "cooperation_email": "cooperation@bankimonline.com",
+  "cooperation_phone": "03-5371622",
+  
+  "footer_social_follow": "עקבו אחרינו",
+  "footer_navigation": "ניווט",
+  "footer_contact_info": "פרטי התקשרות",
+  "footer_about": "אודות",
+  "footer_contacts": "צור קשר",
+  "footer_vacancies": "משרות פנויות",
+  "footer_cooperation": "שיתופי פעולה",
+  "footer_support": "תמיכה טכנית",
+  "footer_terms": "תנאי שימוש",
+  "footer_privacy": "מדיניות פרטיות",
+  "footer_cookies": "מדיניות עוגיות",
+  "footer_refund": "מדיניות החזרות"
 }
