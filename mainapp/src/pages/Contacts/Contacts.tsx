@@ -59,13 +59,13 @@ const Contacts: React.FC = () => {
                       className={cx('contact-link')}
                       onClick={() => handlePhoneClick(t('contacts_phone'))}
                     >
-                      {t('contacts_phone')}
+                      {t('contacts_phone_label')}: {t('contacts_phone')}
                     </button>
                     <button 
                       className={cx('contact-link')}
                       onClick={() => handleEmailClick(t('contacts_email'))}
                     >
-                      {t('contacts_email')}
+                      {t('contacts_email_label')}: {t('contacts_email')}
                     </button>
                   </div>
                 </div>
@@ -375,28 +375,28 @@ const Contacts: React.FC = () => {
             <h3 className={cx('section-title')}>{t('contacts_social_follow')}</h3>
             <div className={cx('social-links')}>
               <button 
-                className={cx('social-link')} 
+                className={cx('social-link', 'facebook')} 
                 onClick={() => handleSocialClick('facebook')}
                 aria-label="Facebook"
               >
-                <span className={cx('social-icon')}>📘</span>
+                <span className={cx('social-icon')}>f</span>
               </button>
               <button 
-                className={cx('social-link')} 
+                className={cx('social-link', 'instagram')} 
                 onClick={() => handleSocialClick('instagram')}
                 aria-label="Instagram"
               >
                 <span className={cx('social-icon')}>📷</span>
               </button>
               <button 
-                className={cx('social-link')} 
+                className={cx('social-link', 'twitter')} 
                 onClick={() => handleSocialClick('twitter')}
                 aria-label="Twitter"
               >
-                <span className={cx('social-icon')}>🐦</span>
+                <span className={cx('social-icon')}>𝕏</span>
               </button>
               <button 
-                className={cx('social-link')} 
+                className={cx('social-link', 'whatsapp')} 
                 onClick={() => handleSocialClick('whatsapp')}
                 aria-label="WhatsApp"
               >
