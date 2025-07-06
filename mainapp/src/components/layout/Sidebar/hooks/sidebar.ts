@@ -9,13 +9,13 @@ const useMenuItems = (): IMenuItem[] => {
 
   return [
     {
+      title: t('sidebar_company_2'),
+      path: '/about',
+    },
+    {
       title: t('sidebar_company_1'),
       path: '/',
       icon: CaretRightIcon,
-    },
-    {
-      title: t('sidebar_company_2'),
-      path: '/about',
     },
     {
       title: t('sidebar_company_3'),
