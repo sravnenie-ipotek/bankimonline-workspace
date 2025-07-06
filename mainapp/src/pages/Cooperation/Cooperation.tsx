@@ -26,12 +26,12 @@ const Cooperation = () => {
 
   const handlePartnerLoginClick = () => {
     // Navigate to partner admin panel login
-    window.open('/admin/partner-login', '_blank')
+    window.open('/admin/login', '_blank')
   }
 
   const handleRegisterClick = () => {
-    // Navigate to partner registration
-    window.open('/admin/partner-register', '_blank')
+    // Navigate to partner admin panel login for registration
+    window.open('/admin/login', '_blank')
   }
 
   const handleSocialClick = (platform: string) => {
