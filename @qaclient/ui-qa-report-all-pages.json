@@ -1,0 +1,21 @@
+{
+  "reportDate": "2025-07-06",
+  "applicationUrl": "http://localhost:5173/",
+  "discoveredPages": {},
+  "testResults": {
+    "totalPagesFound": 0,
+    "totalPagesTested": 0,
+    "pagesWithIssues": 0,
+    "criticalIssues": [],
+    "warnings": [],
+    "passedTests": []
+  },
+  "testingScope": {
+    "hebrewTranslation": true,
+    "responsiveDesign": true,
+    "interactiveElements": true,
+    "navigationFlow": true,
+    "formFunctionality": true,
+    "errorHandling": true
+  }
+}
