@@ -71,15 +71,6 @@ const Contacts: React.FC = () => {
                 </div>
               </div>
             </div>
-            
-            <div className={cx('login-section')}>
-              <button 
-                className={cx('login-button')}
-                onClick={() => handleLinkClick('/auth')}
-              >
-                {t('contacts_login_cabinet')} →
-              </button>
-            </div>
           </div>
         </Container>
       </div>
