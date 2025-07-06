@@ -6,6 +6,9 @@ const cors = require('cors');
 const morgan = require('morgan');
 const { Pool } = require('pg');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 8003;
@@ -74,8 +77,44 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
+// Create uploads directory if it doesn't exist
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadsDir);
+    },
+    filename: function (req, file, cb) {
+        // Create unique filename with timestamp
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, 'resume-' + uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+const uploadFile = multer({
+    storage: storage,
+    limits: {
+        fileSize: 5 * 1024 * 1024 // 5MB limit
+    },
+    fileFilter: function (req, file, cb) {
+        // Allow only specific file types
+        const allowedTypes = /pdf|doc|docx/;
+        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = allowedTypes.test(file.mimetype);
+
+        if (mimetype && extname) {
+            return cb(null, true);
+        } else {
+            cb(new Error('Only PDF, DOC, DOCX files are allowed'));
+        }
+    }
+});
+
 // Serve static files from React build
-const path = require('path');
 
 // Serve React build files (for Railway deployment)
 app.use(express.static(path.join(__dirname, 'mainapp/build')));
@@ -86,7 +125,6 @@ app.use(express.static(__dirname));
 // Root endpoint - serve React app
 app.get('/', (req, res) => {
     const reactIndexPath = path.join(__dirname, 'mainapp/build/index.html');
-    const fs = require('fs');
     
     // Check if React build exists, otherwise serve API info
     if (fs.existsSync(reactIndexPath)) {
@@ -543,6 +581,247 @@ app.post('/api/admin/migrate-vacancy-details', async (req, res) => {
     }
 });
 
+// Run requirements and benefits data migration
+app.post('/api/admin/migrate-requirements-benefits', async (req, res) => {
+    console.log('[MIGRATION] Running requirements and benefits data migration...');
+    
+    try {
+        // Read and execute the migration SQL
+        const migrationSQL = `
+            -- Update requirements and benefits for all vacancies
+            UPDATE vacancies 
+            SET 
+                requirements_he = CASE 
+                    WHEN id = 1 THEN '- תואר ראשון במדעי המחשב או תחום דומה
+- 3+ שנות ניסיון בפיתוח Backend
+- ניסיון מוכח עם Node.js, Python או Java
+- הכרות עמוקה עם בסיסי נתונים (PostgreSQL, MongoDB)
+- ניסיון עם REST APIs ו-GraphQL
+- הבנה של אדריכלות מערכות וטכנולוגיות ענן
+- יכולת עבודה בצוות ותקשורת מעולה
+- אנגלית ברמה גבוהה'
+                    WHEN id = 2 THEN '- תואר ראשון בעיצוב, HCI או תחום דומה
+- 2+ שנות ניסיון בעיצוב מוצר דיגיטלי
+- שליטה מעולה ב-Figma, Sketch או Adobe XD
+- ניסיון בעיצוב אפליקציות מובייל ווב
+- הבנה עמוקה של UX/UI principles
+- ניסיון במחקר משתמשים ובדיקות שימושיות
+- יכולת עבודה עם צוותי פיתוח ומוצר
+- תיק עבודות מרשים'
+                    WHEN id = 3 THEN '- תואר ראשון במדעי המחשב או תחום דומה
+- 2+ שנות ניסיון בפיתוח Frontend
+- שליטה מעולה ב-React, TypeScript ו-JavaScript ES6+
+- ניסיון עם HTML5, CSS3 ו-SASS/SCSS
+- הכרות עם כלי build מודרניים (Webpack, Vite)
+- ניסיון עם ניהול state (Redux, Context API)
+- הבנה של responsive design ו-mobile-first approach
+- יכולת עבודה בצוות agile'
+                    ELSE requirements_he
+                END,
+                requirements_en = CASE 
+                    WHEN id = 1 THEN '- Bachelor''s degree in Computer Science or related field
+- 3+ years of Backend development experience
+- Proven experience with Node.js, Python, or Java
+- Deep knowledge of databases (PostgreSQL, MongoDB)
+- Experience with REST APIs and GraphQL
+- Understanding of system architecture and cloud technologies
+- Strong teamwork and communication skills
+- High level of English proficiency'
+                    WHEN id = 2 THEN '- Bachelor''s degree in Design, HCI, or related field
+- 2+ years of digital product design experience
+- Excellent proficiency in Figma, Sketch, or Adobe XD
+- Experience designing mobile and web applications
+- Deep understanding of UX/UI principles
+- Experience in user research and usability testing
+- Ability to work with development and product teams
+- Impressive portfolio'
+                    WHEN id = 3 THEN '- Bachelor''s degree in Computer Science or related field
+- 2+ years of Frontend development experience
+- Excellent proficiency in React, TypeScript, and JavaScript ES6+
+- Experience with HTML5, CSS3, and SASS/SCSS
+- Familiarity with modern build tools (Webpack, Vite)
+- Experience with state management (Redux, Context API)
+- Understanding of responsive design and mobile-first approach
+- Ability to work in agile teams'
+                    ELSE requirements_en
+                END,
+                requirements_ru = CASE 
+                    WHEN id = 1 THEN '- Степень бакалавра в области компьютерных наук или смежной области
+- 3+ года опыта Backend разработки
+- Доказанный опыт работы с Node.js, Python или Java
+- Глубокое знание баз данных (PostgreSQL, MongoDB)
+- Опыт работы с REST APIs и GraphQL
+- Понимание архитектуры систем и облачных технологий
+- Отличные навыки командной работы и коммуникации
+- Высокий уровень владения английским языком'
+                    WHEN id = 2 THEN '- Степень бакалавра в области дизайна, HCI или смежной области
+- 2+ года опыта в дизайне цифровых продуктов
+- Отличное владение Figma, Sketch или Adobe XD
+- Опыт дизайна мобильных и веб приложений
+- Глубокое понимание UX/UI принципов
+- Опыт в исследовании пользователей и юзабилити тестировании
+- Способность работать с командами разработки и продукта
+- Впечатляющее портфолио'
+                    WHEN id = 3 THEN '- Степень бакалавра в области компьютерных наук или смежной области
+- 2+ года опыта Frontend разработки
+- Отличное владение React, TypeScript и JavaScript ES6+
+- Опыт работы с HTML5, CSS3 и SASS/SCSS
+- Знакомство с современными build инструментами (Webpack, Vite)
+- Опыт работы с state management (Redux, Context API)
+- Понимание responsive design и mobile-first подхода
+- Способность работать в agile командах'
+                    ELSE requirements_ru
+                END,
+                benefits_he = CASE 
+                    WHEN id = 1 THEN '- שכר תחרותי ותנאים מעולים
+- ביטוח בריאות פרטי מלא
+- אפשרויות השקעה במניות החברה
+- 25 ימי חופשה בשנה + ימי מחלה
+- תקציב להשתלמויות וכנסים מקצועיים
+- ציוד עבודה מתקדם (MacBook Pro, מסכים כפולים)
+- משרדים מודרניים במרכז תל אביב
+- ארוחות צהריים ונשנושים חינם
+- אירועי צוות וימי כיף חברתיים
+- גמישות בשעות עבודה ואפשרות עבודה מהבית'
+                    WHEN id = 2 THEN '- שכר תחרותי ואופציות מניות
+- ביטוח בריאות ושיניים מקיף
+- תקציב שנתי למכשירי עיצוב וכלים מקצועיים
+- 22 ימי חופשה + ימי מחלה ללא הגבלה
+- השתתפות בכנסי עיצוב וסדנאות בינלאומיות
+- Studio עיצוב מאובזר במלואו
+- סביבת עבודה יצירתית ומעוררת השראה
+- ארוחות וקפה premium
+- מנוי חדר כושר ופעילויות בריאות
+- אפשרות לעבודה מהבית 2 ימים בשבוע'
+                    WHEN id = 3 THEN '- שכר אטרקטיבי ובונוסים רבעוניים
+- ביטוח בריאות מקיף למשפחה
+- אופציות מניות בחברה צומחת
+- 23 ימי חופשה + ימי מחלה גמישים
+- תקציב למכשירים ולהכשרות טכנולוגיות
+- עמדת עבודה מתקדמת וכלי פיתוח מקצועיים
+- משרדים מעוצבים עם אזורי נוחות
+- ארוחות חינם ומטבח מאובזר
+- אירועי חברה ופעילויות גיבוש
+- המחלקה גמישות בזמנים ועבודה היברידית'
+                    ELSE benefits_he
+                END,
+                benefits_en = CASE 
+                    WHEN id = 1 THEN '- Competitive salary and excellent conditions
+- Full private health insurance
+- Company stock investment options
+- 25 vacation days per year + sick days
+- Budget for training and professional conferences
+- Advanced work equipment (MacBook Pro, dual monitors)
+- Modern offices in central Tel Aviv
+- Free lunches and snacks
+- Team events and social activities
+- Flexible working hours and work from home options'
+                    WHEN id = 2 THEN '- Competitive salary and stock options
+- Comprehensive health and dental insurance
+- Annual budget for design devices and professional tools
+- 22 vacation days + unlimited sick days
+- Participation in international design conferences and workshops
+- Fully equipped design studio
+- Creative and inspiring work environment
+- Premium meals and coffee
+- Gym membership and wellness activities
+- Work from home option 2 days per week'
+                    WHEN id = 3 THEN '- Attractive salary with quarterly bonuses
+- Comprehensive family health insurance
+- Stock options in a growing company
+- 23 vacation days + flexible sick days
+- Budget for devices and technology training
+- Advanced workstation and professional development tools
+- Designed offices with comfort zones
+- Free meals and fully equipped kitchen
+- Company events and team building activities
+- Flexible schedule and hybrid work arrangements'
+                    ELSE benefits_en
+                END,
+                benefits_ru = CASE 
+                    WHEN id = 1 THEN '- Конкурентная зарплата и отличные условия
+- Полное частное медицинское страхование
+- Возможности инвестирования в акции компании
+- 25 дней отпуска в год + больничные дни
+- Бюджет на обучение и профессиональные конференции
+- Передовое рабочее оборудование (MacBook Pro, два монитора)
+- Современные офисы в центре Тель-Авива
+- Бесплатные обеды и закуски
+- Командные мероприятия и социальная активность
+- Гибкий рабочий график и возможность работы из дома'
+                    WHEN id = 2 THEN '- Конкурентная зарплата и опционы на акции
+- Полное медицинское и стоматологическое страхование
+- Годовой бюджет на дизайнерские устройства и профессиональные инструменты
+- 22 дня отпуска + неограниченные больничные
+- Участие в международных дизайнерских конференциях и семинарах
+- Полностью оборудованная дизайн-студия
+- Творческая и вдохновляющая рабочая среда
+- Премиальное питание и кофе
+- Абонемент в спортзал и wellness активности
+- Возможность работы из дома 2 дня в неделю'
+                    WHEN id = 3 THEN '- Привлекательная зарплата с квартальными бонусами
+- Полное семейное медицинское страхование
+- Опционы на акции в растущей компании
+- 23 дня отпуска + гибкие больничные дни
+- Бюджет на устройства и технологическое обучение
+- Передовое рабочее место и профессиональные инструменты разработки
+- Дизайнерские офисы с зонами комфорта
+- Бесплатное питание и полностью оборудованная кухня
+- Корпоративные мероприятия и team building активности
+- Гибкий график и гибридная работа'
+                    ELSE benefits_ru
+                END
+            WHERE id IN (1, 2, 3);
+        `;
+        
+        // Execute the migration
+        await pool.query(migrationSQL);
+        
+        console.log('[MIGRATION] Requirements and benefits migration completed successfully');
+        
+        res.json({
+            status: 'success',
+            message: 'Requirements and benefits data added successfully'
+        });
+        
+    } catch (err) {
+        console.error('[MIGRATION] Error:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Migration failed',
+            error: err.message
+        });
+    }
+});
+
+// Update vacancy applications table structure
+app.post('/api/admin/migrate-vacancy-applications', async (req, res) => {
+    try {
+        console.log('[MIGRATION] Starting vacancy applications table update...');
+        
+        const migrationSQL = fs.readFileSync(
+            path.join(__dirname, 'migrations/010-update-vacancy-applications-table.sql'),
+            'utf8'
+        );
+        
+        await pool.query(migrationSQL);
+        
+        console.log('[MIGRATION] Vacancy applications table updated successfully');
+        
+        res.json({
+            status: 'success',
+            message: 'Vacancy applications table updated successfully'
+        });
+    } catch (error) {
+        console.error('[MIGRATION] Error updating vacancy applications table:', error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to update vacancy applications table',
+            details: error.message
+        });
+    }
+});
+
 // ============================================================================
 // VACANCIES ENDPOINTS
 // ============================================================================
@@ -694,28 +973,77 @@ app.get('/api/vacancies/:id', async (req, res) => {
     }
 });
 
-// Submit job application
-app.post('/api/vacancies/:id/apply', async (req, res) => {
+/**
+ * Submit Job Application API Endpoint
+ * 
+ * POST /api/vacancies/:id/apply
+ * 
+ * Handles job application submissions with the following features:
+ * - File upload for resume (PDF, DOC, DOCX only, max 5MB)
+ * - Comprehensive input validation (email, phone, required fields)
+ * - Duplicate application prevention
+ * - Vacancy availability checking
+ * - Secure file storage with unique filenames
+ * 
+ * Request body:
+ * - applicant_name (required): Full name
+ * - applicant_email (required): Email address
+ * - applicant_phone (required): Israeli phone number
+ * - applicant_city (required): City of residence
+ * - expected_salary (optional): Expected salary in ILS
+ * - portfolio_url (optional): Link to portfolio
+ * - cover_letter (optional): Cover letter text
+ * - resume (file): Resume file (handled by multer middleware)
+ * 
+ * Response format:
+ * {
+ *   status: 'success' | 'error',
+ *   message: string,
+ *   data?: { application_id, applied_at, vacancy_title }
+ * }
+ */
+app.post('/api/vacancies/:id/apply', uploadFile.single('resume'), async (req, res) => {
     const { id } = req.params;
     const {
         applicant_name,
         applicant_email,
         applicant_phone,
-        cover_letter,
-        linkedin_profile,
+        applicant_city,
+        expected_salary,
         portfolio_url,
-        years_experience
+        cover_letter
     } = req.body;
     
     console.log(`[VACANCY APPLICATION] Vacancy ID: ${id}, Applicant: ${applicant_email}`);
     
-    // Validate required fields
-    if (!applicant_name || !applicant_email) {
+    // Server-side validation for required fields
+    if (!applicant_name || !applicant_email || !applicant_phone || !applicant_city) {
         return res.status(400).json({
             status: 'error',
-            message: 'Name and email are required'
+            message: 'Name, email, phone, and city are required'
         });
     }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(applicant_email)) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Invalid email format'
+        });
+    }
+    
+    // Validate phone format (Israeli phone numbers)
+    const phoneRegex = /^(\+?972|0)?[5-9]\d{8}$/;
+    if (!phoneRegex.test(applicant_phone.replace(/[-\s]/g, ''))) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Invalid phone number format'
+        });
+    }
+    
+    // Get file information if uploaded
+    const resumeFilePath = req.file ? req.file.filename : null;
     
     try {
         // Check if vacancy exists and is active
@@ -752,21 +1080,23 @@ app.post('/api/vacancies/:id/apply', async (req, res) => {
                 applicant_name,
                 applicant_email,
                 applicant_phone,
-                cover_letter,
-                linkedin_profile,
+                applicant_city,
+                expected_salary,
                 portfolio_url,
-                years_experience
-            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+                cover_letter,
+                resume_file_path
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
             RETURNING id, applied_at
         `, [
             id,
             applicant_name,
             applicant_email,
             applicant_phone,
-            cover_letter,
-            linkedin_profile,
+            applicant_city,
+            expected_salary,
             portfolio_url,
-            years_experience
+            cover_letter,
+            resumeFilePath
         ]);
         
         res.json({

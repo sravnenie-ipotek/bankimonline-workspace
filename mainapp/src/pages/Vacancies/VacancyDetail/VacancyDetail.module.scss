@@ -39,16 +39,24 @@
     }
   }
 
-  // Main layout
+  // Main layout - Responsive grid for vacancy details and application form
   .vacancyLayout {
     display: grid;
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1fr 400px; // Desktop: content + sidebar
     gap: 3rem;
     align-items: start;
+    max-width: 100%;
+    width: 100%;
 
+    // Tablet layout - Stack vertically
     @media (max-width: 1024px) {
       grid-template-columns: 1fr;
       gap: 2rem;
+    }
+
+    // Mobile layout - Smaller gaps and padding
+    @media (max-width: 768px) {
+      gap: 1.5rem;
     }
   }
 
@@ -177,16 +185,37 @@
     }
   }
 
-  // Right column - Application Form
+  // Right column - Application Form with responsive design
   .applicationForm {
     position: sticky;
     top: 2rem;
+    max-width: 400px;
+    width: 100%;
+
+    // Mobile: Remove sticky positioning for better UX
+    @media (max-width: 1024px) {
+      position: static;
+      max-width: 100%;
+    }
 
     .formContainer {
       background-color: #242529;
       border-radius: 12px;
       padding: 2rem;
       border: 1px solid #3F444D;
+      max-width: 100%;
+      box-sizing: border-box;
+
+      // Mobile responsive design
+      @media (max-width: 768px) {
+        padding: 1.5rem;
+        border-radius: 8px;
+      }
+
+      @media (max-width: 480px) {
+        padding: 1rem;
+        margin: 0 -0.5rem; // Extend slightly beyond container on very small screens
+      }
 
       h3 {
         font-size: 1.5rem;
@@ -196,35 +225,76 @@
         text-align: center;
       }
 
+      /* Success Window - Application Submitted Successfully */
       .successMessage {
         text-align: center;
-        padding: 2rem 0;
+        padding: 3rem 2rem;
+        background-color: rgba(105, 219, 124, 0.1);
+        border-radius: 12px;
+        border: 1px solid rgba(105, 219, 124, 0.3);
+
+        .successIcon {
+          width: 60px;
+          height: 60px;
+          background-color: #69DB7C;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 1.5rem;
+          font-size: 2rem;
+          color: #000000;
+          font-weight: bold;
+        }
 
         h4 {
           color: #69DB7C;
-          font-size: 1.25rem;
+          font-size: 1.5rem;
           margin-bottom: 1rem;
+          font-weight: 600;
         }
 
         p {
           color: #CCCCCC;
-          margin-bottom: 1.5rem;
-          line-height: 1.5;
+          margin-bottom: 2rem;
+          line-height: 1.6;
+          font-size: 1rem;
         }
 
-        .submitAnother {
-          background: transparent;
-          border: 1px solid #FBE54D;
-          color: #FBE54D;
-          padding: 0.75rem 1.5rem;
+        .goHomeButton {
+          background-color: #FBE54D;
+          color: #000000;
+          border: none;
+          padding: 1rem 2rem;
           border-radius: 8px;
           cursor: pointer;
-          font-size: 0.875rem;
+          font-size: 1rem;
+          font-weight: 600;
           transition: all 0.2s ease;
+          min-width: 150px;
 
           &:hover {
-            background-color: #FBE54D;
-            color: #000000;
+            background-color: #F9E03D;
+            transform: translateY(-1px);
+          }
+        }
+
+        @media (max-width: 768px) {
+          padding: 2rem 1rem;
+
+          .successIcon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+          }
+
+          h4 {
+            font-size: 1.25rem;
+          }
+
+          .goHomeButton {
+            padding: 0.875rem 1.5rem;
+            font-size: 0.9rem;
           }
         }
       }
@@ -250,6 +320,7 @@
             color: #FFFFFF;
             font-size: 0.875rem;
             transition: border-color 0.2s ease;
+            box-sizing: border-box;
 
             &:focus {
               outline: none;
@@ -259,6 +330,17 @@
             &::placeholder {
               color: #666666;
             }
+
+            &.error {
+              border-color: #FF4757;
+            }
+          }
+
+          .errorText {
+            color: #FF4757;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+            display: block;
           }
 
           textarea {
@@ -266,40 +348,198 @@
             min-height: 100px;
           }
 
-          .fileUpload {
+          // Phone input with country flag
+          .phoneInputContainer {
             position: relative;
+            display: flex;
+            align-items: center;
+            background-color: #161616;
+            border: 1px solid #3F444D;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
 
-            .fileInput {
-              opacity: 0;
-              position: absolute;
-              width: 100%;
-              height: 100%;
-              cursor: pointer;
+            &:focus-within {
+              border-color: #FBE54D;
             }
 
-            .fileLabel {
+            &.error {
+              border-color: #FF4757;
+            }
+
+            .countryFlag {
               display: flex;
               align-items: center;
-              gap: 0.75rem;
-              background-color: #161616;
-              border: 1px solid #3F444D;
-              border-radius: 8px;
+              gap: 0.5rem;
               padding: 0.75rem;
+              border-right: 1px solid #3F444D;
+              background-color: #242529;
               cursor: pointer;
-              transition: border-color 0.2s ease;
-              color: #CCCCCC;
-              font-size: 0.875rem;
+              user-select: none;
 
-              &:hover {
-                border-color: #FBE54D;
+              .flagIcon {
+                width: 20px;
+                height: 15px;
+                object-fit: cover;
+                border-radius: 2px;
               }
 
-              .uploadIcon {
-                font-size: 1.2rem;
+              .dropdownArrow {
+                color: #666666;
+                font-size: 0.75rem;
+                margin-left: 0.25rem;
+              }
+
+              &:hover {
+                background-color: #2A2B2F;
+              }
+            }
+
+            input {
+              border: none;
+              background: transparent;
+              padding: 0.75rem;
+              flex: 1;
+
+              &:focus {
+                outline: none;
+                border: none;
               }
             }
           }
-        }
+
+          // Salary input with currency - Fixed layout to prevent destruction on error
+          .salaryInputContainer {
+            position: relative;
+            display: flex;
+            align-items: stretch;
+            background-color: #161616;
+            border: 1px solid #3F444D;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: border-color 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 48px; // Fixed height to prevent layout shift
+
+            &:focus-within {
+              border-color: #FBE54D;
+            }
+
+            &.error {
+              border-color: #FF4757;
+              // Don't change layout properties on error
+            }
+
+            input {
+              border: none;
+              background: transparent;
+              padding: 0.75rem;
+              flex: 1;
+              color: #FFFFFF;
+              font-size: 0.875rem;
+              min-width: 0; // Prevent flex item from overflowing
+
+              &:focus {
+                outline: none;
+                border: none;
+              }
+
+              &::placeholder {
+                color: #666666;
+              }
+            }
+
+            .currencySymbol {
+              color: #FBE54D;
+              font-weight: 600;
+              padding: 0 0.75rem;
+              border-left: 1px solid #3F444D;
+              background-color: #242529;
+              font-size: 0.875rem;
+              user-select: none;
+              display: flex;
+              align-items: center;
+              white-space: nowrap;
+            }
+          }
+
+          .fileUpload {
+            position: relative;
+            background-color: #161616;
+            border: 2px dashed #3F444D;
+            border-radius: 12px;
+            padding: 2rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            &:hover {
+              border-color: #FBE54D;
+              background-color: rgba(251, 229, 77, 0.05);
+            }
+
+            &.dragActive {
+              border-color: #FBE54D;
+              background-color: rgba(251, 229, 77, 0.1);
+            }
+
+            &.error {
+              border-color: #FF4757;
+            }
+
+            .fileUploadLabel {
+              cursor: pointer;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .uploadContent {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+
+                .uploadIcon {
+                  font-size: 2rem;
+                  color: #FBE54D;
+                  opacity: 0.8;
+                }
+
+                p {
+                  color: #CCCCCC;
+                  font-size: 0.875rem;
+                  margin: 0;
+                  line-height: 1.4;
+                }
+              }
+
+              .fileName {
+                color: #FBE54D;
+                font-size: 0.875rem;
+                font-weight: 500;
+                word-break: break-all;
+              }
+                          }
+            }
+          }
+
+          .fileHelp {
+            display: block;
+            margin-top: 0.5rem;
+            color: #666666;
+            font-size: 0.75rem;
+            line-height: 1.3;
+          }
 
         .submitButton {
           width: 100%;
@@ -449,6 +689,142 @@
         h3 {
           font-size: 1.25rem;
         }
+      }
+    }
+  }
+
+  // Centered message containers for success and already applied states
+  .centeredMessageContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 2rem;
+
+    .successMessageCentered,
+    .alreadyAppliedMessageCentered {
+      background-color: #242529;
+      border-radius: 16px;
+      padding: 4rem 3rem;
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+      .successIcon,
+      .infoIcon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem;
+        font-size: 2.5rem;
+        font-weight: bold;
+      }
+
+      .successIcon {
+        background-color: #69DB7C;
+        color: #000000;
+      }
+
+      .infoIcon {
+        background-color: #4DABF7;
+        color: #FFFFFF;
+      }
+
+      h2 {
+        color: #FFFFFF;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+      }
+
+      p {
+        color: #CCCCCC;
+        font-size: 1.125rem;
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+      }
+
+      .buttonGroup {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .goHomeButton,
+      .viewOtherPositionsButton {
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.2s ease;
+        min-width: 150px;
+        border: none;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+
+      .goHomeButton {
+        background-color: #FBE54D;
+        color: #000000;
+
+        &:hover {
+          background-color: #F9E03D;
+        }
+      }
+
+      .viewOtherPositionsButton {
+        background-color: transparent;
+        color: #4DABF7;
+        border: 2px solid #4DABF7;
+
+        &:hover {
+          background-color: #4DABF7;
+          color: #FFFFFF;
+        }
+      }
+
+      // Mobile responsive design
+      @media (max-width: 768px) {
+        padding: 3rem 2rem;
+
+        .successIcon,
+        .infoIcon {
+          width: 60px;
+          height: 60px;
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        p {
+          font-size: 1rem;
+        }
+
+        .buttonGroup {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .goHomeButton,
+        .viewOtherPositionsButton {
+          width: 100%;
+          max-width: 200px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        padding: 2rem 1rem;
+        margin: 0 1rem;
       }
     }
   }
