@@ -1,0 +1,435 @@
+.vacancyDetailPage {
+  background-color: #161616;
+  min-height: 100vh;
+  padding: 2rem 0;
+  color: #FFFFFF;
+
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  // Breadcrumbs
+  .breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+    color: #AAAAAA;
+
+    .breadcrumbLink {
+      color: #AAAAAA;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #FFFFFF;
+      }
+    }
+
+    .breadcrumbSeparator {
+      color: #666666;
+    }
+
+    .breadcrumbCurrent {
+      color: #FFFFFF;
+      font-weight: 500;
+    }
+  }
+
+  // Main layout
+  .vacancyLayout {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 3rem;
+    align-items: start;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+
+  // Left column - Vacancy Details
+  .vacancyDetails {
+    .backButtonTop {
+      background: none;
+      border: none;
+      color: #AAAAAA;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      margin-bottom: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #FFFFFF;
+      }
+    }
+
+    .vacancyHeader {
+      margin-bottom: 2rem;
+
+      .title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #FFFFFF;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+
+        @media (max-width: 768px) {
+          font-size: 2rem;
+        }
+      }
+
+      .vacancyMeta {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        .categoryChip {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background-color: #FBE54D;
+          color: #000000;
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.875rem;
+          font-weight: 500;
+          width: fit-content;
+
+          .categoryDot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #000000;
+          }
+        }
+
+        .metaInfo {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1.5rem;
+
+          .metaItem {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #AAAAAA;
+            font-size: 0.875rem;
+
+            svg {
+              width: 16px;
+              height: 16px;
+              fill: #AAAAAA;
+            }
+
+            .currency {
+              font-weight: 600;
+              color: #FBE54D;
+            }
+          }
+        }
+      }
+    }
+
+    .section {
+      margin-bottom: 2rem;
+
+      h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #FFFFFF;
+        margin-bottom: 1rem;
+      }
+
+      .sectionContent {
+        color: #CCCCCC;
+        line-height: 1.6;
+        white-space: pre-wrap;
+      }
+    }
+  }
+
+  // Right column - Application Form
+  .applicationForm {
+    position: sticky;
+    top: 2rem;
+
+    .formContainer {
+      background-color: #242529;
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid #3F444D;
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #FFFFFF;
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      .successMessage {
+        text-align: center;
+        padding: 2rem 0;
+
+        h4 {
+          color: #69DB7C;
+          font-size: 1.25rem;
+          margin-bottom: 1rem;
+        }
+
+        p {
+          color: #CCCCCC;
+          margin-bottom: 1.5rem;
+          line-height: 1.5;
+        }
+
+        .submitAnother {
+          background: transparent;
+          border: 1px solid #FBE54D;
+          color: #FBE54D;
+          padding: 0.75rem 1.5rem;
+          border-radius: 8px;
+          cursor: pointer;
+          font-size: 0.875rem;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background-color: #FBE54D;
+            color: #000000;
+          }
+        }
+      }
+
+      form {
+        .formGroup {
+          margin-bottom: 1.5rem;
+
+          label {
+            display: block;
+            color: #FFFFFF;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+          }
+
+          input, textarea {
+            width: 100%;
+            background-color: #161616;
+            border: 1px solid #3F444D;
+            border-radius: 8px;
+            padding: 0.75rem;
+            color: #FFFFFF;
+            font-size: 0.875rem;
+            transition: border-color 0.2s ease;
+
+            &:focus {
+              outline: none;
+              border-color: #FBE54D;
+            }
+
+            &::placeholder {
+              color: #666666;
+            }
+          }
+
+          textarea {
+            resize: vertical;
+            min-height: 100px;
+          }
+
+          .fileUpload {
+            position: relative;
+
+            .fileInput {
+              opacity: 0;
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              cursor: pointer;
+            }
+
+            .fileLabel {
+              display: flex;
+              align-items: center;
+              gap: 0.75rem;
+              background-color: #161616;
+              border: 1px solid #3F444D;
+              border-radius: 8px;
+              padding: 0.75rem;
+              cursor: pointer;
+              transition: border-color 0.2s ease;
+              color: #CCCCCC;
+              font-size: 0.875rem;
+
+              &:hover {
+                border-color: #FBE54D;
+              }
+
+              .uploadIcon {
+                font-size: 1.2rem;
+              }
+            }
+          }
+        }
+
+        .submitButton {
+          width: 100%;
+          background-color: #FBE54D;
+          color: #000000;
+          border: none;
+          border-radius: 8px;
+          padding: 1rem;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover:not(:disabled) {
+            background-color: #F9E03D;
+            transform: translateY(-1px);
+          }
+
+          &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+          }
+        }
+      }
+    }
+  }
+
+  // Loading and Error States
+  .loading, .error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    text-align: center;
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #3F444D;
+      border-top: 3px solid #FBE54D;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    h1 {
+      color: #FFFFFF;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #AAAAAA;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+      line-height: 1.5;
+    }
+
+    .backButton {
+      background-color: #FBE54D;
+      color: #000000;
+      text-decoration: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: #F9E03D;
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  // Mobile Responsiveness
+  @media (max-width: 768px) {
+    padding: 1rem 0;
+
+    .content {
+      padding: 0 0.5rem;
+    }
+
+    .vacancyLayout {
+      gap: 1.5rem;
+    }
+
+    .vacancyDetails {
+      .vacancyHeader {
+        .vacancyMeta {
+          .metaInfo {
+            flex-direction: column;
+            gap: 0.75rem;
+            align-items: flex-start;
+          }
+        }
+      }
+    }
+
+    .applicationForm {
+      position: relative;
+      top: 0;
+
+      .formContainer {
+        padding: 1.5rem;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .breadcrumbs {
+      font-size: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .vacancyDetails {
+      .vacancyHeader {
+        .title {
+          font-size: 1.75rem;
+        }
+
+        .vacancyMeta {
+          .categoryChip {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.75rem;
+          }
+
+          .metaInfo {
+            .metaItem {
+              font-size: 0.75rem;
+            }
+          }
+        }
+      }
+    }
+
+    .applicationForm {
+      .formContainer {
+        padding: 1rem;
+
+        h3 {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+} 

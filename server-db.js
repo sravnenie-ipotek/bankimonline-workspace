@@ -184,6 +184,436 @@ app.get('/api/get-cities', async (req, res) => {
     }
 });
 
+// ============================================================================
+// MIGRATION ENDPOINTS
+// ============================================================================
+
+// Run vacancies table migration
+app.post('/api/admin/migrate-vacancies', async (req, res) => {
+    console.log('[MIGRATION] Running vacancies table migration...');
+    
+    try {
+        // Read and execute the migration SQL
+        const migrationSQL = `
+            -- Migration: Add Vacancies Table for Job Listings
+            -- Date: 2025-07-06
+            -- Purpose: Add vacancies table to manage job postings
+
+            -- Create vacancies table
+            CREATE TABLE IF NOT EXISTS vacancies (
+                id SERIAL PRIMARY KEY,
+                title VARCHAR(255) NOT NULL,
+                category VARCHAR(50) NOT NULL CHECK (category IN ('development', 'design', 'management', 'marketing', 'finance', 'customer_service')),
+                subcategory VARCHAR(50),
+                location VARCHAR(100) NOT NULL,
+                employment_type VARCHAR(30) NOT NULL CHECK (employment_type IN ('full_time', 'part_time', 'contract', 'temporary')),
+                salary_min DECIMAL(10,2),
+                salary_max DECIMAL(10,2),
+                salary_currency VARCHAR(3) DEFAULT 'ILS',
+                description_he TEXT,
+                description_en TEXT,
+                description_ru TEXT,
+                requirements_he TEXT,
+                requirements_en TEXT,
+                requirements_ru TEXT,
+                benefits_he TEXT,
+                benefits_en TEXT,
+                benefits_ru TEXT,
+                is_active BOOLEAN DEFAULT TRUE,
+                is_featured BOOLEAN DEFAULT FALSE,
+                posted_date DATE DEFAULT CURRENT_DATE,
+                closing_date DATE,
+                created_by INTEGER REFERENCES clients(id) ON DELETE SET NULL,
+                created_at TIMESTAMP DEFAULT NOW(),
+                updated_at TIMESTAMP DEFAULT NOW(),
+                -- Constraints
+                CHECK (salary_max IS NULL OR salary_min IS NULL OR salary_max >= salary_min),
+                CHECK (closing_date IS NULL OR closing_date >= posted_date)
+            );
+
+            -- Create vacancy applications table
+            CREATE TABLE IF NOT EXISTS vacancy_applications (
+                id SERIAL PRIMARY KEY,
+                vacancy_id INTEGER REFERENCES vacancies(id) ON DELETE CASCADE,
+                applicant_name VARCHAR(255) NOT NULL,
+                applicant_email VARCHAR(255) NOT NULL,
+                applicant_phone VARCHAR(20),
+                cover_letter TEXT,
+                resume_file_path VARCHAR(500),
+                linkedin_profile VARCHAR(255),
+                portfolio_url VARCHAR(255),
+                years_experience INTEGER CHECK (years_experience >= 0),
+                application_status VARCHAR(20) CHECK (application_status IN ('pending', 'reviewing', 'shortlisted', 'interviewed', 'rejected', 'hired')) DEFAULT 'pending',
+                applied_at TIMESTAMP DEFAULT NOW(),
+                reviewed_at TIMESTAMP,
+                reviewed_by INTEGER REFERENCES clients(id) ON DELETE SET NULL,
+                notes TEXT,
+                created_at TIMESTAMP DEFAULT NOW(),
+                updated_at TIMESTAMP DEFAULT NOW()
+            );
+
+            -- Create indexes for performance
+            CREATE INDEX IF NOT EXISTS idx_vacancies_category ON vacancies(category);
+            CREATE INDEX IF NOT EXISTS idx_vacancies_active ON vacancies(is_active);
+            CREATE INDEX IF NOT EXISTS idx_vacancies_featured ON vacancies(is_featured);
+            CREATE INDEX IF NOT EXISTS idx_vacancies_posted_date ON vacancies(posted_date);
+            CREATE INDEX IF NOT EXISTS idx_vacancy_applications_vacancy_id ON vacancy_applications(vacancy_id);
+            CREATE INDEX IF NOT EXISTS idx_vacancy_applications_status ON vacancy_applications(application_status);
+            CREATE INDEX IF NOT EXISTS idx_vacancy_applications_email ON vacancy_applications(applicant_email);
+
+            -- Add triggers for updated_at timestamp (only if function exists)
+            DO $$
+            BEGIN
+                IF EXISTS (SELECT 1 FROM pg_proc WHERE proname = 'update_updated_at_column') THEN
+                    EXECUTE 'CREATE TRIGGER trigger_update_vacancies_updated_at
+                        BEFORE UPDATE ON vacancies
+                        FOR EACH ROW
+                        EXECUTE FUNCTION update_updated_at_column()';
+                    
+                    EXECUTE 'CREATE TRIGGER trigger_update_vacancy_applications_updated_at
+                        BEFORE UPDATE ON vacancy_applications
+                        FOR EACH ROW
+                        EXECUTE FUNCTION update_updated_at_column()';
+                END IF;
+            END $$;
+        `;
+        
+        // Execute the migration
+        await pool.query(migrationSQL);
+        
+        // Insert sample data
+        const sampleDataSQL = `
+            INSERT INTO vacancies (
+                title, 
+                category, 
+                subcategory, 
+                location, 
+                employment_type, 
+                salary_min, 
+                salary_max,
+                description_he,
+                description_en, 
+                description_ru
+            ) VALUES 
+            (
+                'Back-end Developer',
+                'development',
+                'backend',
+                'Tel Aviv',
+                'full_time',
+                6000,
+                12000,
+                'אנחנו מחפשים מפתח Back-end מנוסה להצטרף לצוות הסטארט-אפ שלנו בתחום הפינטק. תעבוד עם טכנולוגיות מתקדמות ותשתתף ביצירת פתרונות בנקאיים חדשניים.',
+                'We are looking for an experienced Back-end developer to join our fintech startup team. You will work with modern technologies and participate in creating innovative banking solutions.',
+                'Мы ищем опытного Back-end разработчика для присоединения к нашей команде финтех-стартапа. Вы будете работать с современными технологиями и участвовать в создании инновационных банковских решений.'
+            ),
+            (
+                'Product Designer',
+                'design',
+                'product_design',
+                'Tel Aviv',
+                'full_time',
+                5000,
+                10000,
+                'הצטרף לצוות העיצוב שלנו ועזור ליצור ממשקי משתמש אינטואיטיביים עבור אפליקציות בנקאיות. אנחנו מחפשים מעצב יצירתי עם ניסיון בפינטק.',
+                'Join our design team and help create intuitive user interfaces for banking applications. We are looking for a creative designer with fintech experience.',
+                'Присоединяйтесь к нашей дизайн-команде и помогите создавать интуитивные пользовательские интерфейсы для банковских приложений. Мы ищем креативного дизайнера с опытом в финтех.'
+            ),
+            (
+                'Frontend Developer',
+                'development',
+                'frontend',
+                'Tel Aviv',
+                'full_time',
+                5500,
+                11000,
+                'מחפשים מפתח Frontend מיומן ליצירת חוויות משתמש מרהיבות באפליקציות בנקאיות. ניסיון ב-React ו-TypeScript יתרון.',
+                'Looking for a skilled Frontend developer to create amazing user experiences in banking applications. Experience with React and TypeScript is an advantage.',
+                'Ищем опытного Frontend разработчика для создания потрясающих пользовательских интерфейсов в банковских приложениях. Опыт работы с React и TypeScript будет преимуществом.'
+            )
+            ON CONFLICT DO NOTHING;
+        `;
+        
+        // Check if data already exists
+        const existingData = await pool.query('SELECT COUNT(*) FROM vacancies');
+        if (existingData.rows[0].count === '0') {
+            await pool.query(sampleDataSQL);
+            console.log('[MIGRATION] Sample data inserted');
+        } else {
+            console.log('[MIGRATION] Sample data already exists, skipping insert');
+        }
+        
+        // Verify tables were created
+        const tablesCheck = await pool.query(`
+            SELECT table_name 
+            FROM information_schema.tables 
+            WHERE table_schema = 'public' 
+            AND table_name IN ('vacancies', 'vacancy_applications')
+        `);
+        
+        console.log('[MIGRATION] Vacancies migration completed successfully');
+        console.log('[MIGRATION] Tables created:', tablesCheck.rows.map(r => r.table_name));
+        
+        res.json({
+            status: 'success',
+            message: 'Vacancies tables created successfully',
+            tables_created: tablesCheck.rows.map(r => r.table_name),
+            sample_data_inserted: existingData.rows[0].count === '0'
+        });
+        
+    } catch (err) {
+        console.error('[MIGRATION] Error:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Migration failed',
+            error: err.message
+        });
+    }
+});
+
+// ============================================================================
+// VACANCIES ENDPOINTS
+// ============================================================================
+
+// Get all vacancies (public endpoint)
+app.get('/api/vacancies', async (req, res) => {
+    const { category, lang = 'en', active_only = 'true' } = req.query;
+    
+    console.log(`[VACANCIES] Request - Category: ${category}, Language: ${lang}`);
+    
+    try {
+        let query = `
+            SELECT 
+                id,
+                title,
+                category,
+                subcategory,
+                location,
+                employment_type,
+                salary_min,
+                salary_max,
+                salary_currency,
+                description_${lang} as description,
+                requirements_${lang} as requirements,
+                benefits_${lang} as benefits,
+                is_featured,
+                posted_date,
+                closing_date
+            FROM vacancies
+        `;
+        
+        const conditions = [];
+        const values = [];
+        
+        if (active_only === 'true') {
+            conditions.push('is_active = true');
+        }
+        
+        if (category && category !== 'all') {
+            conditions.push('category = $' + (values.length + 1));
+            values.push(category);
+        }
+        
+        // Only show vacancies that haven't closed
+        conditions.push('(closing_date IS NULL OR closing_date >= CURRENT_DATE)');
+        
+        if (conditions.length > 0) {
+            query += ' WHERE ' + conditions.join(' AND ');
+        }
+        
+        query += ' ORDER BY is_featured DESC, posted_date DESC';
+        
+        const result = await pool.query(query, values);
+        
+        res.json({
+            status: 'success',
+            data: result.rows,
+            total: result.rowCount,
+            language: lang,
+            category: category || 'all'
+        });
+        
+    } catch (err) {
+        console.error('Error fetching vacancies:', err);
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Internal server error while fetching vacancies'
+        });
+    }
+});
+
+// Get vacancy categories
+app.get('/api/vacancies/categories', async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT 
+                category,
+                COUNT(*) as count
+            FROM vacancies 
+            WHERE is_active = true 
+            AND (closing_date IS NULL OR closing_date >= CURRENT_DATE)
+            GROUP BY category
+            ORDER BY count DESC
+        `);
+        
+        res.json({
+            status: 'success',
+            data: result.rows
+        });
+        
+    } catch (err) {
+        console.error('Error fetching vacancy categories:', err);
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Internal server error while fetching categories'
+        });
+    }
+});
+
+// Get single vacancy
+app.get('/api/vacancies/:id', async (req, res) => {
+    const { id } = req.params;
+    const { lang = 'en' } = req.query;
+    
+    try {
+        const result = await pool.query(`
+            SELECT 
+                id,
+                title,
+                category,
+                subcategory,
+                location,
+                employment_type,
+                salary_min,
+                salary_max,
+                salary_currency,
+                description_${lang} as description,
+                requirements_${lang} as requirements,
+                benefits_${lang} as benefits,
+                is_featured,
+                posted_date,
+                closing_date,
+                created_at
+            FROM vacancies
+            WHERE id = $1 AND is_active = true
+        `, [id]);
+        
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Vacancy not found'
+            });
+        }
+        
+        res.json({
+            status: 'success',
+            data: result.rows[0],
+            language: lang
+        });
+        
+    } catch (err) {
+        console.error('Error fetching vacancy:', err);
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Internal server error while fetching vacancy'
+        });
+    }
+});
+
+// Submit job application
+app.post('/api/vacancies/:id/apply', async (req, res) => {
+    const { id } = req.params;
+    const {
+        applicant_name,
+        applicant_email,
+        applicant_phone,
+        cover_letter,
+        linkedin_profile,
+        portfolio_url,
+        years_experience
+    } = req.body;
+    
+    console.log(`[VACANCY APPLICATION] Vacancy ID: ${id}, Applicant: ${applicant_email}`);
+    
+    // Validate required fields
+    if (!applicant_name || !applicant_email) {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Name and email are required'
+        });
+    }
+    
+    try {
+        // Check if vacancy exists and is active
+        const vacancyCheck = await pool.query(`
+            SELECT id, title FROM vacancies 
+            WHERE id = $1 AND is_active = true 
+            AND (closing_date IS NULL OR closing_date >= CURRENT_DATE)
+        `, [id]);
+        
+        if (vacancyCheck.rows.length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Vacancy not found or not accepting applications'
+            });
+        }
+        
+        // Check for duplicate application
+        const duplicateCheck = await pool.query(`
+            SELECT id FROM vacancy_applications 
+            WHERE vacancy_id = $1 AND applicant_email = $2
+        `, [id, applicant_email]);
+        
+        if (duplicateCheck.rows.length > 0) {
+            return res.status(409).json({
+                status: 'error',
+                message: 'You have already applied for this position'
+            });
+        }
+        
+        // Insert application
+        const result = await pool.query(`
+            INSERT INTO vacancy_applications (
+                vacancy_id,
+                applicant_name,
+                applicant_email,
+                applicant_phone,
+                cover_letter,
+                linkedin_profile,
+                portfolio_url,
+                years_experience
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            RETURNING id, applied_at
+        `, [
+            id,
+            applicant_name,
+            applicant_email,
+            applicant_phone,
+            cover_letter,
+            linkedin_profile,
+            portfolio_url,
+            years_experience
+        ]);
+        
+        res.json({
+            status: 'success',
+            message: 'Application submitted successfully',
+            data: {
+                application_id: result.rows[0].id,
+                applied_at: result.rows[0].applied_at,
+                vacancy_title: vacancyCheck.rows[0].title
+            }
+        });
+        
+    } catch (err) {
+        console.error('Error submitting application:', err);
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Internal server error while submitting application'
+        });
+    }
+});
+
 // EMAIL LOGIN ENDPOINT
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
