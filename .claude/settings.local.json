@@ -47,7 +47,8 @@
       "WebFetch(domain:bankimonline.atlassian.net)",
       "mcp__playwright__browser_console_messages",
       "mcp__playwright__browser_tab_close",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": []
   },
