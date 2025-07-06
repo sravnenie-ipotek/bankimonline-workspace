@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import classNames from 'classnames/bind'
+import { useNavigate } from 'react-router-dom'
 import Container from '../../components/ui/Container/Container.tsx'
 import styles from './contacts.module.scss'
 
@@ -8,6 +9,8 @@ const cx = classNames.bind(styles)
 
 const Contacts: React.FC = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const [activeTab, setActiveTab] = useState('general')
 
   const handlePhoneClick = (phone: string) => {
     window.open(`tel:${phone}`, '_self')
@@ -18,7 +21,24 @@ const Contacts: React.FC = () => {
   }
 
   const handleLinkClick = (url: string) => {
-    window.open(url, '_blank')
+    if (url.startsWith('/')) {
+      navigate(url)
+    } else {
+      window.open(url, '_blank')
+    }
+  }
+
+  const handleSocialClick = (platform: string) => {
+    const socialLinks = {
+      facebook: 'https://www.facebook.com/profile.php?id=100082843615194',
+      instagram: 'https://instagram.com/erik_eitan2018',
+      twitter: 'https://twitter.com/bankimonline',
+      whatsapp: 'https://wa.me/972537162235'
+    }
+    
+    if (socialLinks[platform as keyof typeof socialLinks]) {
+      window.open(socialLinks[platform as keyof typeof socialLinks], '_blank')
+    }
   }
 
   return (
@@ -70,316 +90,322 @@ const Contacts: React.FC = () => {
           {/* Contact Categories */}
           <div className={cx('categories')}>
             <div className={cx('category-tabs')}>
-              <div className={cx('tab', 'active')}>{t('contacts_general_questions')}</div>
-              <div className={cx('tab')}>{t('contacts_service_questions')}</div>
-              <div className={cx('tab')}>{t('contacts_real_estate_questions')}</div>
-              <div className={cx('tab')}>{t('contacts_cooperation')}</div>
+              <button 
+                className={cx('tab', { active: activeTab === 'general' })}
+                onClick={() => setActiveTab('general')}
+              >
+                {t('contacts_general_questions')}
+              </button>
+              <button 
+                className={cx('tab', { active: activeTab === 'service' })}
+                onClick={() => setActiveTab('service')}
+              >
+                {t('contacts_service_questions')}
+              </button>
+              <button 
+                className={cx('tab', { active: activeTab === 'realestate' })}
+                onClick={() => setActiveTab('realestate')}
+              >
+                {t('contacts_real_estate_questions')}
+              </button>
+              <button 
+                className={cx('tab', { active: activeTab === 'cooperation' })}
+                onClick={() => setActiveTab('cooperation')}
+              >
+                {t('contacts_cooperation')}
+              </button>
             </div>
           </div>
 
           {/* General Questions Section */}
-          <section className={cx('section')}>
-            <h3 className={cx('section-title')}>{t('contacts_general_questions')}</h3>
-            <div className={cx('contact-grid')}>
-              {/* Technical Support */}
-              <div className={cx('contact-card')}>
-                <h4 className={cx('card-title')}>{t('contacts_tech_support')}</h4>
-                <div className={cx('contact-info')}>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handlePhoneClick(t('contacts_tech_support_phone'))}
-                  >
-                    {t('contacts_tech_support_phone')}
-                  </button>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handleEmailClick(t('contacts_tech_support_email'))}
-                  >
-                    {t('contacts_tech_support_email')}
-                  </button>
-                  <button className={cx('action-link')}>
-                    {t('contacts_tech_support_link')}
-                  </button>
+          {activeTab === 'general' && (
+            <section className={cx('section')}>
+              <h3 className={cx('section-title')}>{t('contacts_general_questions')}</h3>
+              <div className={cx('contact-grid')}>
+                {/* Technical Support */}
+                <div className={cx('contact-card')}>
+                  <h4 className={cx('card-title')}>{t('contacts_tech_support')}</h4>
+                  <div className={cx('contact-info')}>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handlePhoneClick(t('contacts_tech_support_phone'))}
+                    >
+                      {t('contacts_tech_support_phone')}
+                    </button>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handleEmailClick(t('contacts_tech_support_email'))}
+                    >
+                      {t('contacts_tech_support_email')}
+                    </button>
+                    <button 
+                      className={cx('action-link')}
+                      onClick={() => handleEmailClick(t('contacts_tech_support_email'))}
+                    >
+                      {t('contacts_tech_support_link')}
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {/* Secretary */}
-              <div className={cx('contact-card')}>
-                <h4 className={cx('card-title')}>{t('contacts_secretary')}</h4>
-                <div className={cx('contact-info')}>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handlePhoneClick(t('contacts_secretary_phone'))}
-                  >
-                    {t('contacts_secretary_phone')}
-                  </button>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handleEmailClick(t('contacts_secretary_email'))}
-                  >
-                    {t('contacts_secretary_email')}
-                  </button>
-                  <button className={cx('action-link')}>
-                    {t('contacts_secretary_link')}
-                  </button>
+                {/* Secretary */}
+                <div className={cx('contact-card')}>
+                  <h4 className={cx('card-title')}>{t('contacts_secretary')}</h4>
+                  <div className={cx('contact-info')}>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handlePhoneClick(t('contacts_secretary_phone'))}
+                    >
+                      {t('contacts_secretary_phone')}
+                    </button>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handleEmailClick(t('contacts_secretary_email'))}
+                    >
+                      {t('contacts_secretary_email')}
+                    </button>
+                    <button 
+                      className={cx('action-link')}
+                      onClick={() => handleEmailClick(t('contacts_secretary_email'))}
+                    >
+                      {t('contacts_secretary_link')}
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {/* Customer Service */}
-              <div className={cx('contact-card')}>
-                <h4 className={cx('card-title')}>{t('contacts_customer_service')}</h4>
-                <div className={cx('contact-info')}>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handlePhoneClick(t('contacts_customer_service_phone'))}
-                  >
-                    {t('contacts_customer_service_phone')}
-                  </button>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handleEmailClick(t('contacts_customer_service_email'))}
-                  >
-                    {t('contacts_customer_service_email')}
-                  </button>
-                  <button className={cx('action-link')}>
-                    {t('contacts_customer_service_link')}
-                  </button>
+                {/* Customer Service */}
+                <div className={cx('contact-card')}>
+                  <h4 className={cx('card-title')}>{t('contacts_customer_service')}</h4>
+                  <div className={cx('contact-info')}>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handlePhoneClick(t('contacts_customer_service_phone'))}
+                    >
+                      {t('contacts_customer_service_phone')}
+                    </button>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handleEmailClick(t('contacts_customer_service_email'))}
+                    >
+                      {t('contacts_customer_service_email')}
+                    </button>
+                    <button 
+                      className={cx('action-link')}
+                      onClick={() => handleEmailClick(t('contacts_customer_service_email'))}
+                    >
+                      {t('contacts_customer_service_link')}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
 
-          {/* Mortgage and Credit Questions */}
-          <section className={cx('section')}>
-            <h3 className={cx('section-title')}>{t('contacts_service_questions')}</h3>
-            <div className={cx('contact-grid', 'two-column')}>
-              {/* Mortgage Calculator */}
-              <div className={cx('contact-card')}>
-                <h4 className={cx('card-title')}>{t('contacts_mortgage_calc')}</h4>
-                <div className={cx('contact-info')}>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handlePhoneClick(t('contacts_mortgage_calc_phone'))}
-                  >
-                    {t('contacts_mortgage_calc_phone')}
-                  </button>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handleEmailClick(t('contacts_mortgage_calc_email'))}
-                  >
-                    {t('contacts_mortgage_calc_email')}
-                  </button>
+          {/* Service Questions Section */}
+          {activeTab === 'service' && (
+            <section className={cx('section')}>
+              <h3 className={cx('section-title')}>{t('contacts_service_questions')}</h3>
+              <div className={cx('contact-grid', 'two-column')}>
+                {/* Mortgage Calculator */}
+                <div className={cx('contact-card')}>
+                  <h4 className={cx('card-title')}>{t('contacts_mortgage_calc')}</h4>
+                  <div className={cx('contact-info')}>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handlePhoneClick(t('contacts_mortgage_calc_phone'))}
+                    >
+                      {t('contacts_mortgage_calc_phone')}
+                    </button>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handleEmailClick(t('contacts_mortgage_calc_email'))}
+                    >
+                      {t('contacts_mortgage_calc_email')}
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {/* Credit Calculator */}
-              <div className={cx('contact-card')}>
-                <h4 className={cx('card-title')}>{t('contacts_credit_calc')}</h4>
-                <div className={cx('contact-info')}>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handlePhoneClick(t('contacts_credit_calc_phone'))}
-                  >
-                    {t('contacts_credit_calc_phone')}
-                  </button>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handleEmailClick(t('contacts_credit_calc_email'))}
-                  >
-                    {t('contacts_credit_calc_email')}
-                  </button>
+                {/* Credit Calculator */}
+                <div className={cx('contact-card')}>
+                  <h4 className={cx('card-title')}>{t('contacts_credit_calc')}</h4>
+                  <div className={cx('contact-info')}>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handlePhoneClick(t('contacts_credit_calc_phone'))}
+                    >
+                      {t('contacts_credit_calc_phone')}
+                    </button>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handleEmailClick(t('contacts_credit_calc_email'))}
+                    >
+                      {t('contacts_credit_calc_email')}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
 
-          {/* Real Estate Questions */}
-          <section className={cx('section')}>
-            <h3 className={cx('section-title')}>{t('contacts_real_estate_questions')}</h3>
-            <div className={cx('contact-grid', 'two-column')}>
-              {/* Buy/Sell Real Estate */}
-              <div className={cx('contact-card')}>
-                <h4 className={cx('card-title')}>{t('contacts_real_estate_buy_sell')}</h4>
-                <div className={cx('contact-info')}>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handlePhoneClick(t('contacts_real_estate_buy_sell_phone'))}
-                  >
-                    {t('contacts_real_estate_buy_sell_phone')}
-                  </button>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handleEmailClick(t('contacts_real_estate_buy_sell_email'))}
-                  >
-                    {t('contacts_real_estate_buy_sell_email')}
-                  </button>
+          {/* Real Estate Questions Section */}
+          {activeTab === 'realestate' && (
+            <section className={cx('section')}>
+              <h3 className={cx('section-title')}>{t('contacts_real_estate_questions')}</h3>
+              <div className={cx('contact-grid', 'two-column')}>
+                {/* Buy/Sell Real Estate */}
+                <div className={cx('contact-card')}>
+                  <h4 className={cx('card-title')}>{t('contacts_real_estate_buy_sell')}</h4>
+                  <div className={cx('contact-info')}>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handlePhoneClick(t('contacts_real_estate_buy_sell_phone'))}
+                    >
+                      {t('contacts_real_estate_buy_sell_phone')}
+                    </button>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handleEmailClick(t('contacts_real_estate_buy_sell_email'))}
+                    >
+                      {t('contacts_real_estate_buy_sell_email')}
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {/* Rent Real Estate */}
-              <div className={cx('contact-card')}>
-                <h4 className={cx('card-title')}>{t('contacts_real_estate_rent')}</h4>
-                <div className={cx('contact-info')}>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handlePhoneClick(t('contacts_real_estate_rent_phone'))}
-                  >
-                    {t('contacts_real_estate_rent_phone')}
-                  </button>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handleEmailClick(t('contacts_real_estate_rent_email'))}
-                  >
-                    {t('contacts_real_estate_rent_email')}
-                  </button>
+                {/* Rent Real Estate */}
+                <div className={cx('contact-card')}>
+                  <h4 className={cx('card-title')}>{t('contacts_real_estate_rent')}</h4>
+                  <div className={cx('contact-info')}>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handlePhoneClick(t('contacts_real_estate_rent_phone'))}
+                    >
+                      {t('contacts_real_estate_rent_phone')}
+                    </button>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handleEmailClick(t('contacts_real_estate_rent_email'))}
+                    >
+                      {t('contacts_real_estate_rent_email')}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
 
           {/* Cooperation Section */}
-          <section className={cx('section')}>
-            <h3 className={cx('section-title')}>{t('contacts_cooperation')}</h3>
-            <div className={cx('contact-grid')}>
-              {/* Cooperation and Management */}
-              <div className={cx('contact-card')}>
-                <h4 className={cx('card-title')}>{t('contacts_cooperation_management')}</h4>
-                <div className={cx('contact-info')}>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handlePhoneClick(t('contacts_cooperation_management_phone'))}
-                  >
-                    {t('contacts_cooperation_management_phone')}
-                  </button>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handleEmailClick(t('contacts_cooperation_management_email'))}
-                  >
-                    {t('contacts_cooperation_management_email')}
-                  </button>
+          {activeTab === 'cooperation' && (
+            <section className={cx('section')}>
+              <h3 className={cx('section-title')}>{t('contacts_cooperation')}</h3>
+              <div className={cx('contact-grid')}>
+                {/* Cooperation and Management */}
+                <div className={cx('contact-card')}>
+                  <h4 className={cx('card-title')}>{t('contacts_cooperation_management')}</h4>
+                  <div className={cx('contact-info')}>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handlePhoneClick(t('contacts_cooperation_management_phone'))}
+                    >
+                      {t('contacts_cooperation_management_phone')}
+                    </button>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handleEmailClick(t('contacts_cooperation_management_email'))}
+                    >
+                      {t('contacts_cooperation_management_email')}
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {/* Management Contacts */}
-              <div className={cx('contact-card')}>
-                <h4 className={cx('card-title')}>{t('contacts_management_contacts')}</h4>
-                <div className={cx('contact-info')}>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handlePhoneClick(t('contacts_management_contacts_phone'))}
-                  >
-                    {t('contacts_management_contacts_phone')}
-                  </button>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handleEmailClick(t('contacts_management_contacts_email'))}
-                  >
-                    {t('contacts_management_contacts_email')}
-                  </button>
+                {/* Management Contacts */}
+                <div className={cx('contact-card')}>
+                  <h4 className={cx('card-title')}>{t('contacts_management_contacts')}</h4>
+                  <div className={cx('contact-info')}>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handlePhoneClick(t('contacts_management_contacts_phone'))}
+                    >
+                      {t('contacts_management_contacts_phone')}
+                    </button>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handleEmailClick(t('contacts_management_contacts_email'))}
+                    >
+                      {t('contacts_management_contacts_email')}
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {/* Accounting */}
-              <div className={cx('contact-card')}>
-                <h4 className={cx('card-title')}>{t('contacts_accounting')}</h4>
-                <div className={cx('contact-info')}>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handlePhoneClick(t('contacts_accounting_phone'))}
-                  >
-                    {t('contacts_accounting_phone')}
-                  </button>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handleEmailClick(t('contacts_accounting_email'))}
-                  >
-                    {t('contacts_accounting_email')}
-                  </button>
+                {/* Accounting */}
+                <div className={cx('contact-card')}>
+                  <h4 className={cx('card-title')}>{t('contacts_accounting')}</h4>
+                  <div className={cx('contact-info')}>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handlePhoneClick(t('contacts_accounting_phone'))}
+                    >
+                      {t('contacts_accounting_phone')}
+                    </button>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handleEmailClick(t('contacts_accounting_email'))}
+                    >
+                      {t('contacts_accounting_email')}
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {/* Fax */}
-              <div className={cx('contact-card')}>
-                <h4 className={cx('card-title')}>{t('contacts_fax')}</h4>
-                <div className={cx('contact-info')}>
-                  <button 
-                    className={cx('contact-link')}
-                    onClick={() => handlePhoneClick(t('contacts_fax_phone'))}
-                  >
-                    {t('contacts_fax_phone')}
-                  </button>
+                {/* Fax */}
+                <div className={cx('contact-card')}>
+                  <h4 className={cx('card-title')}>{t('contacts_fax')}</h4>
+                  <div className={cx('contact-info')}>
+                    <button 
+                      className={cx('contact-link')}
+                      onClick={() => handlePhoneClick(t('contacts_fax_phone'))}
+                    >
+                      {t('contacts_fax_phone')}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          )}
 
           {/* Social Media Section */}
           <section className={cx('section', 'social-section')}>
             <h3 className={cx('section-title')}>{t('contacts_social_follow')}</h3>
             <div className={cx('social-links')}>
-              <button className={cx('social-link')} onClick={() => handleLinkClick('#')}>
+              <button 
+                className={cx('social-link')} 
+                onClick={() => handleSocialClick('facebook')}
+                aria-label="Facebook"
+              >
                 <span className={cx('social-icon')}>📘</span>
               </button>
-              <button className={cx('social-link')} onClick={() => handleLinkClick('#')}>
+              <button 
+                className={cx('social-link')} 
+                onClick={() => handleSocialClick('instagram')}
+                aria-label="Instagram"
+              >
                 <span className={cx('social-icon')}>📷</span>
               </button>
-              <button className={cx('social-link')} onClick={() => handleLinkClick('#')}>
+              <button 
+                className={cx('social-link')} 
+                onClick={() => handleSocialClick('twitter')}
+                aria-label="Twitter"
+              >
                 <span className={cx('social-icon')}>🐦</span>
               </button>
-              <button className={cx('social-link')} onClick={() => handleLinkClick('#')}>
+              <button 
+                className={cx('social-link')} 
+                onClick={() => handleSocialClick('whatsapp')}
+                aria-label="WhatsApp"
+              >
                 <span className={cx('social-icon')}>💬</span>
               </button>
             </div>
           </section>
         </div>
       </Container>
-
-      {/* Footer Section */}
-      <footer className={cx('footer')}>
-        <Container>
-          <div className={cx('footer-content')}>
-            <div className={cx('footer-column')}>
-              <h4 className={cx('footer-title')}>{t('contacts_footer_company')}</h4>
-              <ul className={cx('footer-links')}>
-                <li><button className={cx('footer-link')}>{t('contacts_footer_about')}</button></li>
-                <li><button className={cx('footer-link')}>{t('contacts_footer_team')}</button></li>
-                <li><button className={cx('footer-link')}>{t('contacts_footer_vacancies')}</button></li>
-                <li><button className={cx('footer-link')}>{t('contacts_footer_cooperation')}</button></li>
-              </ul>
-            </div>
-
-            <div className={cx('footer-column')}>
-              <h4 className={cx('footer-title')}>{t('contacts_footer_contacts')}</h4>
-              <ul className={cx('footer-links')}>
-                <li>
-                  <button 
-                    className={cx('footer-link')}
-                    onClick={() => handlePhoneClick(t('contacts_footer_phone'))}
-                  >
-                    {t('contacts_footer_phone')}
-                  </button>
-                </li>
-                <li><button className={cx('footer-link')}>{t('contacts_footer_admin_contact')}</button></li>
-              </ul>
-            </div>
-
-            <div className={cx('footer-column')}>
-              <h4 className={cx('footer-title')}>{t('contacts_footer_legal_docs')}</h4>
-              <ul className={cx('footer-links')}>
-                <li><button className={cx('footer-link')}>{t('contacts_footer_privacy')}</button></li>
-                <li><button className={cx('footer-link')}>{t('contacts_footer_confidentiality')}</button></li>
-                <li><button className={cx('footer-link')}>{t('contacts_footer_cookie_usage')}</button></li>
-                <li><button className={cx('footer-link')}>{t('contacts_footer_refund')}</button></li>
-                <li><button className={cx('footer-link')}>{t('contacts_footer_cookie_settings')}</button></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className={cx('footer-bottom')}>
-            <p className={cx('copyright')}>© 2023 Все права защищены Bankimonline Ltd</p>
-          </div>
-        </Container>
-      </footer>
     </div>
   )
 }
