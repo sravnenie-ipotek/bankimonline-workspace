@@ -58,6 +58,11 @@ const Vacancies = lazy(() =>
     default: module.Vacancies,
   }))
 )
+const VacancyDetail = lazy(() =>
+  import('../../pages/Vacancies/VacancyDetail').then((module) => ({
+    default: module.VacancyDetail,
+  }))
+)
 const Contacts = lazy(() =>
   import('../../pages/Contacts').then((module) => ({
     default: module.Contacts,
@@ -278,6 +283,7 @@ const MainRoutes: React.FC = () => {
               <Route path="/terms" element={<Terms />} />
               <Route path="/about" element={<About />} />
               <Route path="/vacancies" element={<Vacancies />} />
+              <Route path="/vacancies/:id" element={<VacancyDetail />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/cooperation" element={<Cooperation />} />
               <Route
