@@ -83,6 +83,28 @@ This document lists all files that are critical to the system's operation and sh
 
 ---
 
+## 🟠 CONTACTS SYSTEM - PROTECTED COMPONENTS
+
+### Core Contacts Files
+- `mainapp/src/pages/Contacts/Contacts.tsx` - Main contacts page component
+- `mainapp/src/components/layout/Footer/Contacts/Contacts.tsx` - Footer contacts component
+
+### Contacts Styling
+- `mainapp/src/pages/Contacts/contacts.module.scss` - Main contacts page styles
+- `mainapp/src/components/layout/Footer/Contacts/contacts.module.scss` - Footer contacts styles
+
+### Contacts Translation Keys
+**In all translation files (en.json, he.json, ru.json):**
+- `contacts_title`, `contacts_main_office`, `contacts_address`
+- `contacts_phone`, `contacts_email`, `contacts_phone_label`, `contacts_email_label`
+- `contacts_*_questions` keys (general, service, real_estate)
+- `contacts_cooperation`, `contacts_tech_support`, `contacts_secretary`, `contacts_customer_service`
+- `contacts_*_phone`, `contacts_*_email`, `contacts_*_link` keys for all departments
+- `contacts_social_follow`, `contacts_login_cabinet`
+- All `contacts_footer_*` keys for footer information
+
+---
+
 ## 🔵 DEPLOYMENT & BUILD FILES
 
 ### Production Deployment
@@ -123,24 +145,35 @@ This document lists all files that are critical to the system's operation and sh
 
 ## 📋 MODIFICATION GUIDELINES
 
-### ✅ SAFE TO MODIFY
+### 🚫 PROTECTED FILES MODIFICATION POLICY
+**ALL PROTECTED FILES LISTED IN THIS DOCUMENT CAN ONLY BE MODIFIED WHEN EXPLICITLY REQUESTED BY THE PROJECT OWNER.**
+
+- **No unauthorized modifications** to any protected file
+- **No proactive changes** without explicit permission
+- **All modifications must be requested** before implementation
+- **Changes require approval** from the project owner
+
+### ✅ SAFE TO MODIFY (Only when requested)
 - Static assets in `mainapp/public/static/`
 - CSS files for styling adjustments (with testing)
 - New component files (non-core functionality)
 - Test files (`*.test.js`, `*.spec.js`)
 
-### ⚠️ MODIFY WITH EXTREME CAUTION
-- Any file listed above
+### ⚠️ MODIFY WITH EXTREME CAUTION (Only when explicitly requested)
+- Any file listed in the protected sections above
 - Database-related files
 - Authentication system files
 - Translation files (coordinate changes across all languages)
 - Core business logic components
+- Contacts system files
+- Vacancies system files
 
-### ❌ NEVER MODIFY WITHOUT BACKUP
+### ❌ NEVER MODIFY WITHOUT EXPLICIT REQUEST AND BACKUP
 - `server-db.js` - Contains all API endpoints and business logic
 - Migration files - Database schema changes
 - `admin.html` - Standalone admin interface
 - `role-manager.js` - Security and access control
+- All protected component files and their translations
 
 ---
 
@@ -168,6 +201,8 @@ This document lists all files that are critical to the system's operation and sh
 |------|---------------|--------|-------------|
 | 2025-01-13 | translations/he.json | Added missing vacancies translations | System |
 | 2025-01-13 | PROTECTED_FILES.md | Initial creation | System |
+| 2025-01-13 | mainapp/src/pages/Contacts/Contacts.tsx | Removed login button per owner request | System |
+| 2025-01-13 | PROTECTED_FILES.md | Added Contacts system protection + owner-only modification policy | System |
 
 ---
 
