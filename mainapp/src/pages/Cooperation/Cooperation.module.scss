@@ -570,30 +570,52 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     
-    // Geometric decorative elements
+    /* Large black wedge on the right side (matches Figma diagonal cut) */
     &::before {
       content: '';
       position: absolute;
       top: 0;
       right: 0;
-      width: 200px;
-      height: 100%;
-      background: linear-gradient(135deg, transparent 50%, #161616 50%);
-      opacity: 0.1;
+      width: 55%;
+      height: 110%;
+      background: #161616; // same as page background
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+      pointer-events: none;
       z-index: 1;
     }
     
+    /* Small white wedge that slightly overlaps the black background (bottom-right) */
     &::after {
       content: '';
       position: absolute;
-      bottom: 0;
-      right: 80px;
-      width: 120px;
-      height: 60px;
-      background: #161616;
-      opacity: 0.05;
-      clip-path: polygon(0 100%, 100% 100%, 100% 0);
-      z-index: 1;
+      bottom: -1px;
+      right: -1px;
+      width: 140px;
+      height: 140px;
+      background: #FFFFFF;
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Decorative horizontal lines (top & middle) */
+    .lineTop,
+    .lineMiddle {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      height: 1px;
+      background: #E5E5E5;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .lineTop {
+      top: 36px; // distance from top of banner
+    }
+
+    .lineMiddle {
+      top: 120px; // approx position below heading – adjust as needed
     }
     
     @media (max-width: 768px) {
@@ -601,13 +623,24 @@
       margin: 3rem 0 4rem;
       
       &::before {
-        width: 120px;
+        width: 75%;
       }
-      
+
       &::after {
-        width: 80px;
-        height: 40px;
-        right: 40px;
+        width: 90px;
+        height: 90px;
+      }
+
+      .lineTop,
+      .lineMiddle {
+        left: 16px;
+        right: 16px;
+      }
+      .lineTop {
+        top: 28px;
+      }
+      .lineMiddle {
+        top: 100px;
       }
     }
 
