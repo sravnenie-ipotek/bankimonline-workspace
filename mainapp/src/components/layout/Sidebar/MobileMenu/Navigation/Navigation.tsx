@@ -17,7 +17,11 @@ import styles from './Navigation.module.scss'
 
 const cx = classNames.bind(styles)
 
-const Navigation = () => {
+interface NavigationProps {
+  onClose?: () => void
+}
+
+const Navigation: React.FC<NavigationProps> = ({ onClose }) => {
   const menuItems = useMenuItems()
   const menuBusinessItems = useBusinessMenuItems()
   const subMenuItems = useSubMenuItems()
@@ -32,18 +36,21 @@ const Navigation = () => {
           items={menuItems}
           title="sidebar_company"
           toggle={toggle}
+          onClose={onClose}
         />
         <NavigationList
           items={menuBusinessItems}
           title="sidebar_business"
           toggle={toggleBusiness}
+          onClose={onClose}
         />
       </nav>
-      <NavigationSubMenu isOpen={isOn} onClose={toggle} items={subMenuItems} />
+      <NavigationSubMenu isOpen={isOn} onClose={toggle} items={subMenuItems} onCloseMenu={onClose} />
       <NavigationSubMenu
         isOpen={isOpenBusiness}
         onClose={toggleBusiness}
         items={businessSubMenuItems}
+        onCloseMenu={onClose}
       />
     </>
   )
