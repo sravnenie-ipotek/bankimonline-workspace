@@ -150,6 +150,13 @@ const TendersForBrokers = () => {
           </div>
         </section>
 
+        {/* Yellow consultation button */}
+        <section className={styles.consultSection}>
+          <button className={styles.consultBtn} onClick={handleCtaClick}>
+            {t('tenders_consult_button')}
+          </button>
+        </section>
+
         {/* About */}
         <section className={styles.about}>
           <h2>{t('tenders_about_title')}</h2>
