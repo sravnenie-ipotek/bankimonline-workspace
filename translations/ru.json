@@ -1043,9 +1043,14 @@
   "tenders_hero_b2": "Доход до 300 000 ₪ в год",
   "tenders_hero_b3": "Окупаемость 12 месяцев",
   "tenders_marketplace_title": "Bankimonline – маркетплейс ипотеки и кредитов",
+  "tenders_marketplace_subtitle": "Bankimonline предоставляет своим клиентам и партнерам единый цифровой сервис для всех видов кредитования",
   "tenders_market_b1": "Калькулятор ипотеки",
   "tenders_market_b2": "Рефинансирование кредита",
+  "tenders_clients_title": "Мы приводим клиентов – вы получаете комиссию с ипотечных сделок",
+  "tenders_clients_subtitle": "Мы приводим клиентов, а вы получаете комиссию с успешных ипотечных сделок.",
   "tenders_clients_text": "Мы приводим клиентов – вы получаете комиссию с ипотечных сделок",
+  "tenders_tooltip_earnings": "Потенциальные месячные доходы",
+  "tenders_illustration_label": "Наша опытная команда в действии",
   "tenders_earn_title": "Как вы будете зарабатывать?",
   "tenders_license_title": "Что включает франшиза?",
   "tenders_license_feature1_title": "Технологии и CRM платформа",
@@ -1072,5 +1077,6 @@
   "tenders_metrics_income_value": "До 300 000 ₪",
   "tenders_metrics_payback_title": "Окупаемость",
   "tenders_metrics_payback_value": "12 месяцев",
-  "online_label": "ONLINE"
+  "online_label": "ONLINE",
+  "tenders_consult_button": "Получить звонок"
 }
