@@ -669,4 +669,23 @@
       flex-direction: column;
     }
   }
+
+  /* Consultation Button Section */
+  .consultSection {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+
+    .consultBtn {
+      background-color: #FBE54D;
+      color: #161616;
+      border: none;
+      border-radius: 8px;
+      padding: 1.25rem 3rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+  }
 } 

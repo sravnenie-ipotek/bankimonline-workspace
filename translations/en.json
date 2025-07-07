@@ -991,9 +991,14 @@
   "tenders_hero_b2": "Earnings up to ₪ 300,000 per year",
   "tenders_hero_b3": "Payback in 12 months",
   "tenders_marketplace_title": "Bankimonline – mortgage & loans marketplace",
+  "tenders_marketplace_subtitle": "Bankimonline provides its clients and partners with a single digital service for all types of lending",
   "tenders_market_b1": "Mortgage calculation",
   "tenders_market_b2": "Loan refinancing",
+  "tenders_clients_title": "We bring clients – you earn commissions on mortgage deals",
+  "tenders_clients_subtitle": "We bring clients and you earn commissions on successful mortgage deals.",
   "tenders_clients_text": "We bring clients – you get commissions on mortgage deals",
+  "tenders_tooltip_earnings": "Potential monthly earnings",
+  "tenders_illustration_label": "Our experienced team in action",
   "tenders_earn_title": "How will you earn?",
   "tenders_license_title": "What does the franchise include?",
   "tenders_license_feature1_title": "Technology & CRM platform",
@@ -1020,5 +1025,6 @@
   "tenders_metrics_income_value": "Up to ₪ 300,000",
   "tenders_metrics_payback_title": "Payback",
   "tenders_metrics_payback_value": "12 months",
-  "online_label": "ONLINE"
+  "online_label": "ONLINE",
+  "tenders_consult_button": "Get a call"
 }
