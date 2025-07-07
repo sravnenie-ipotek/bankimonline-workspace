@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import Container from '../../components/ui/Container/Container'
-import PartnersSwiper from '../../components/ui/Swiper/PartnersSwiper'
+import { PartnersSwiper } from '@src/components/ui/Swiper'
 import styles from './TendersForBrokers.module.scss'
 
 const TendersForBrokers = () => {
