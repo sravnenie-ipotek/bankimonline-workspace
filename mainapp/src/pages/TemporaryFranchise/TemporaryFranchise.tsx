@@ -44,7 +44,10 @@ const TemporaryFranchise: React.FC = () => {
                   <span className={cx('main-benefit-text')}>החזר השקעה תוך 12 חודשים</span>
                 </div>
               </div>
-              <button className={cx('main-hero-cta-button')}>
+              <button 
+                className={cx('main-hero-cta-button')}
+                onClick={() => navigate('/lawyers')}
+              >
                 מלאו טופס
               </button>
             </div>

@@ -1,0 +1,111 @@
+📝 Developer Task: Implement “שאלון לברוקרים” Form
+
+1. General Layout
+Theme:
+Dark mode (background: #18181C or similar, text: white or near-white).
+Max width: 900px (centered, responsive).
+Font: Use a modern sans-serif (e.g., Inter, Open Sans, or system default).
+2. Header
+Text: שאלון לברוקרים
+Font size: 2rem (32px)
+Font weight: 600–700
+Spacing: 40px below header before form starts
+3. Form Structure
+Form sections:
+Contact Info (שם משפחה, טלפון, Email)
+Area/Lending City (אזור פתיחת תיק רצוי, עיר ליבה רצויה)
+Work (עבודה)
+Additional Info (מידע נוסף)
+Section headers:
+Font size: 1.4rem (22px), bold, 24px top margin above
+Underline/Divider: Optional, subtle 1px line in #292932 or 12px spacing below header.
+4. Form Inputs
+a) General
+
+Input fields:
+Height: 48px
+Border-radius: 8px
+Border: 1.5px solid #34343A
+Background: #232328
+Padding-left/right: 16px
+Text color: #F6F6F9
+Font-size: 1rem (16px)
+Spacing:
+24px between rows
+20px between fields in same row (except mobile)
+Responsive: stack vertically on <700px width
+Labels:
+Above input
+Font-size: 0.9rem (15px)
+Color: #B8B8C5
+4px spacing below label
+b) Dropdowns
+
+Trigger:
+Height: 48px (same as input)
+Border, background, padding as above
+Chevron/down arrow on left (RTL)
+Dropdown list:
+Min width: matches trigger
+Max height: 200px (scroll if overflow)
+Option height: 44px
+Hover: background #2D2D33
+Selected: #3A3A44
+c) Radio Buttons (כן / לא)
+
+Style:
+Use custom button style (not browser default)
+Size: 40px width, 40px height
+Border-radius: 8px
+Font-size: 1rem
+Selected: background #34343A, text #FFF
+d) Text Area
+
+Height: 64px
+Min rows: 3
+Max rows: 6
+Same style as input
+e) Checkbox
+
+Custom design:
+20px square, border-radius: 4px, border: 1.5px solid #34343A
+When checked: background #34343A, checkmark white
+f) Buttons (שליחה, חזור)
+
+Width: 150px
+Height: 48px
+Font-size: 1.1rem (17px)
+Border-radius: 8px
+Primary: Background #34343A, text #FFF
+Secondary: Transparent bg, border: 1.5px solid #34343A, text #FFF
+Spacing: 20px between buttons
+5. Special Elements
+Phone input:
+Prefix for country flag (+972)
+Use input mask for phone numbers
+Email:
+Placeholder: "הזן אימייל"
+Select search:
+All dropdowns must have an internal search box (14px font)
+6. Responsiveness
+On mobile (<700px):
+All elements stack vertically
+Reduce paddings to 10–12px
+Buttons and inputs full width
+7. Accessibility
+Labels linked to inputs
+Tab order logical
+Error states: Border color #FF5252, show error text below in #FF5252, 13px font.
+8. Examples / Visual Guidance
+Pixel-perfect:
+Input height: exactly 48px
+Label to input: 4px
+Section margin: 32px between sections
+Buttons: 48px tall, 8px radius
+9. Nice-to-haves
+Transitions:
+Focus: border color animates to #F9D23B (or brand color) in 0.15s
+Dropdown: smooth expand/collapse
+Summary Example (for Developer)
+
+“All input fields are 48px tall, with 16px horizontal padding and 8px rounded corners. Font size for inputs is 16px, labels are 15px. Section headers are 22px bold. There is 24px vertical space between each field, and on mobile all elements stack vertically with full width. Use #232328 as input background, #34343A for borders, and #F6F6F9 for text. Dropdowns have search inside, with options 44px tall. Buttons are 150x48px, primary #34343A, secondary transparent with a border. Ensure all form controls are accessible, focus has an animated border color transition. See attached screenshot for spacing reference.”

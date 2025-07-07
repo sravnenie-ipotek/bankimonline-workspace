@@ -24,7 +24,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ isOpen, onClick }) => {
     >
       <Header onClose={onClick} />
       <div className={cx('body')}>
-        <Navigation />
+        <Navigation onClose={onClick} />
         <MobileCurrencySelector />
       </div>
       <SocialList />
