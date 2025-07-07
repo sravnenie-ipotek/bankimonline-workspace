@@ -296,6 +296,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
+    flex-direction: row-reverse;
 
     .clientsCard {
       background-color: #3A3A3E;
@@ -525,20 +526,17 @@
               .accordionIcon {
                 order: 1;
               }
-
               .accordionTitle {
                 order: 2;
               }
             }
           }
-
           .accordionBody li {
-            direction: ltr;
-            text-align: left;
-
+            direction: rtl;
+            text-align: right;
             .bulletIcon {
-              margin-left: 0;
-              margin-right: 0.5rem;
+              margin-left: 0.5rem;
+              margin-right: 0;
             }
           }
         }
