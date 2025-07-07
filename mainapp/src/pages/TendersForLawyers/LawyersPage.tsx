@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { Container } from '@src/components/ui/Container'
-import { ButtonUI } from '@src/components/ui/ButtonUI'
+import { Button } from '@src/components/ui/ButtonUI'
 
 import styles from './lawyersPage.module.scss'
 
@@ -385,21 +385,21 @@ const LawyersPage: React.FC = () => {
                 </div>
 
                 <div className={cx('form-actions')}>
-                  <ButtonUI
+                  <Button
                     variant="secondary"
                     size="full"
                     onClick={handleBack}
                     type="button"
                   >
                     חזרה
-                  </ButtonUI>
-                  <ButtonUI
+                  </Button>
+                  <Button
                     variant="primary"
                     size="full"
                     type="submit"
                   >
                     שליחת הטופס
-                  </ButtonUI>
+                  </Button>
                 </div>
               </div>
             </form>
