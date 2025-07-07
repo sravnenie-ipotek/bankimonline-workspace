@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { Container } from '@src/components/ui/Container'
-import { CaretRightIcon } from '@assets/icons/CaretRightIcon'
 
 import styles from './lawyersPage.module.scss'
 
@@ -13,420 +12,278 @@ const cx = classNames.bind(styles)
 const LawyersPage: React.FC = () => {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
-  const [openFeature, setOpenFeature] = useState<number | null>(null)
+  
+  const [formData, setFormData] = useState({
+    contactName: '',
+    phone: '',
+    email: '',
+    city: '',
+    desiredRegion: '',
+    employmentType: '',
+    monthlyIncome: '',
+    workExperience: '',
+    clientLitigation: '',
+    debtLitigation: '',
+    comments: '',
+    termsAccepted: false
+  })
 
-  const toggleFeature = (index: number) => {
-    setOpenFeature(openFeature === index ? null : index)
+  const handleInputChange = (field: string, value: string | boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }))
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle form submission
+    console.log('Form submitted:', formData)
+  }
+
+  const handleBack = () => {
+    navigate(-1)
   }
 
   return (
-    <div className={cx('lawyers-page', { rtl: i18n.language === 'he' })}>
-
-      {/* Main Hero Section */}
-      <section className={cx('main-hero-section')}>
-        <Container>
-          <div className={cx('main-hero-content')}>
-            <div className={cx('main-hero-left')}>
-              <h1 className={cx('main-hero-title')}>
-                עורכי דין ויועצים משפטיים: הצטרפו לרשת המובילה של TechRealt
-              </h1>
-              <div className={cx('main-hero-benefits')}>
-                <div className={cx('main-benefit-item')}>
-                  <div className={cx('benefit-dot')}></div>
-                  <span className={cx('main-benefit-text')}>הכנסה עד ₪400,000 בשנה</span>
-                </div>
-                <div className={cx('main-benefit-item')}>
-                  <div className={cx('benefit-dot')}></div>
-                  <span className={cx('main-benefit-text')}>מעל 500 לקוחות פוטנציאליים חודשיים</span>
-                </div>
-                <div className={cx('main-benefit-item')}>
-                  <div className={cx('benefit-dot')}></div>
-                  <span className={cx('main-benefit-text')}>תמיכה טכנולוגית מתקדמת</span>
-                </div>
-              </div>
-              <button className={cx('main-hero-cta-button')}>
-                הגשת מועמדות
-              </button>
-            </div>
-            <div className={cx('main-hero-right')}>
-              <div className={cx('main-hero-image')}>
-                <img 
-                  src="/static/menu/franche_1.png" 
-                  alt="עורכי דין מקצועיים" 
-                  className={cx('main-hero-img')}
-                />
-              </div>
+    <div className={cx('lawyers-form', { rtl: i18n.language === 'he' })}>
+      <Container>
+        <div className={cx('form-container')}>
+          <div className={cx('form-header')}>
+            <div className={cx('logo')}>
+              <span className={cx('logo-text')}>TechRealt</span>
             </div>
           </div>
-        </Container>
-      </section>
 
-      {/* Services Section */}
-      <section className={cx('services-section')}>
-        <Container>
-          <div className={cx('services-content')}>
-            <div className={cx('services-left')}>
-              <h2 className={cx('services-title')}>
-                השירותים המשפטיים שאנו מחפשים
-              </h2>
-              <p className={cx('services-description')}>
-                אנו מחפשים עורכי דין מומחים בתחומי הנדל"ן, הפיננסים והבנקאות. הצטרפו אלינו ותהיו חלק מהפלטפורמה המשפטית המובילה בישראל.
-              </p>
-              <div className={cx('services-list')}>
-                <div className={cx('service-item')}>
-                  <div className={cx('service-bullet')}></div>
-                  <span className={cx('service-name')}>ייעוץ משפטי בעסקאות נדל"ן</span>
-                </div>
-                <div className={cx('service-item')}>
-                  <div className={cx('service-bullet')}></div>
-                  <span className={cx('service-name')}>ליווי משפטי במשכנתאות</span>
-                </div>
-                <div className={cx('service-item')}>
-                  <div className={cx('service-bullet')}></div>
-                  <span className={cx('service-name')}>ביקורת חוזים ומסמכים</span>
-                </div>
-                <div className={cx('service-item')}>
-                  <div className={cx('service-bullet')}></div>
-                  <span className={cx('service-name')}>ייצוג בבנקים ומוסדות פיננסיים</span>
-                </div>
-              </div>
-            </div>
-            <div className={cx('services-right')}>
-              <div className={cx('services-image')}>
-                <img 
-                  src="/static/primary-logo05-1.svg" 
-                  alt="שירותים משפטיים דיגיטליים" 
-                  className={cx('services-img')}
-                />
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
+          <div className={cx('form-content')}>
+            <h1 className={cx('form-title')}>מלאו טופס מועמדות</h1>
 
-      {/* Benefits Section */}
-      <section className={cx('benefits-section')}>
-        <Container>
-          <div className={cx('benefits-content')}>
-            <div className={cx('benefits-left')}>
-              <h2 className={cx('benefits-title')}>
-                למה לבחור בשותפות עם TechRealt?
-              </h2>
-              <p className={cx('benefits-description')}>
-                הצטרפו לפלטפורמה דיגיטלית מתקדמת שמביאה אליכם לקוחות איכותיים ומאפשרת לכם להתמחות במה שאתם הכי טובים בו.
-              </p>
-              <div className={cx('benefits-services')}>
-                <div className={cx('benefits-service-item')}>
-                  <div className={cx('benefits-bullet')}></div>
-                  <span className={cx('benefits-service-name')}>זרם לקוחות קבוע</span>
-                </div>
-                <div className={cx('benefits-service-item')}>
-                  <div className={cx('benefits-bullet')}></div>
-                  <span className={cx('benefits-service-name')}>מערכת ניהול לקוחות CRM</span>
-                </div>
-                <div className={cx('benefits-service-item')}>
-                  <div className={cx('benefits-bullet')}></div>
-                  <span className={cx('benefits-service-name')}>תמיכה שיווקית ופרסומית</span>
-                </div>
-                <div className={cx('benefits-service-item')}>
-                  <div className={cx('benefits-bullet')}></div>
-                  <span className={cx('benefits-service-name')}>חשבוניות ותשלומים דיגיטליים</span>
-                </div>
-              </div>
-              <button className={cx('benefits-cta-button')}>
-                קבלת פרטים נוספים
-              </button>
-            </div>
-            <div className={cx('benefits-right')}>
-              <div className={cx('benefits-image')}>
-                <img 
-                  src="/static/menu/keys.png" 
-                  alt="יתרונות השותפות" 
-                  className={cx('benefits-img')}
-                />
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Requirements Section */}
-      <section className={cx('requirements-section')}>
-        <Container>
-          <h2 className={cx('requirements-title')}>
-            דרישות להצטרפות
-          </h2>
-          <div className={cx('requirements-content')}>
-            <div className={cx('requirements-left')}>
-              <div className={cx('requirements-accordion')}>
-                <div className={cx('accordion-item')}>
-                  <button
-                    className={cx('accordion-header', { active: openFeature === 0 })}
-                    onClick={() => toggleFeature(0)}
-                  >
-                    <h3 className={cx('accordion-title')}>
-                      רישיון עורך דין תקף וניסיון מוכח
-                    </h3>
-                    <div className={cx('accordion-arrow', { rotated: openFeature === 0 })}>
-                      <CaretRightIcon />
+            <form onSubmit={handleSubmit} className={cx('application-form')}>
+              {/* Personal Information Section */}
+              <div className={cx('form-section')}>
+                <div className={cx('form-row')}>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')}>שם איש הקשר המוסמך</label>
+                    <input
+                      type="text"
+                      className={cx('form-input')}
+                      placeholder="עו״ד אברהם כהן"
+                      value={formData.contactName}
+                      onChange={(e) => handleInputChange('contactName', e.target.value)}
+                    />
+                  </div>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')}>טלפון</label>
+                    <div className={cx('phone-input')}>
+                      <select className={cx('country-code')}>
+                        <option value="+972">🇮🇱</option>
+                      </select>
+                      <input
+                        type="tel"
+                        className={cx('form-input')}
+                        placeholder="+972-4-8536396"
+                        value={formData.phone}
+                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                      />
                     </div>
-                  </button>
-                  {openFeature === 0 && (
-                    <div className={cx('accordion-content')}>
-                      <div className={cx('accordion-benefits')}>
-                        <div className={cx('benefit-item')}>
-                          <div className={cx('benefit-icon')}>⚖️</div>
-                          <span>רישיון עורך דין תקף מלשכת עורכי הדין</span>
-                        </div>
-                        <div className={cx('benefit-item')}>
-                          <div className={cx('benefit-icon')}>📈</div>
-                          <span>ניסיון של לפחות 3 שנים בתחום הנדל"ן</span>
-                        </div>
-                        <div className={cx('benefit-item')}>
-                          <div className={cx('benefit-icon')}>🏆</div>
-                          <span>מוניטין מקצועי וממליצים</span>
-                        </div>
-                        <div className={cx('benefit-item')}>
-                          <div className={cx('benefit-icon')}>🎯</div>
-                          <span>התמחות בעסקאות נדל"ן ומשכנתאות</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  </div>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')}>דואר אלקטרוני</label>
+                    <input
+                      type="email"
+                      className={cx('form-input')}
+                      placeholder="הזינו כתובת מייל"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                    />
+                  </div>
                 </div>
 
-                <div className={cx('accordion-item')}>
-                  <button
-                    className={cx('accordion-header', { active: openFeature === 1 })}
-                    onClick={() => toggleFeature(1)}
-                  >
-                    <h3 className={cx('accordion-title')}>
-                      יכולות טכנולוגיות ודיגיטליות
-                    </h3>
-                    <div className={cx('accordion-arrow', { rotated: openFeature === 1 })}>
-                      <CaretRightIcon />
-                    </div>
-                  </button>
-                  {openFeature === 1 && (
-                    <div className={cx('accordion-content')}>
-                      <div className={cx('accordion-benefits')}>
-                        <div className={cx('benefit-item')}>
-                          <div className={cx('benefit-icon')}>💻</div>
-                          <span>שליטה במערכות CRM ותוכנות ניהול</span>
-                        </div>
-                        <div className={cx('benefit-item')}>
-                          <div className={cx('benefit-icon')}>📱</div>
-                          <span>נוחות עם טכנולוגיות דיגיטליות</span>
-                        </div>
-                        <div className={cx('benefit-item')}>
-                          <div className={cx('benefit-icon')}>🔒</div>
-                          <span>הבנה בנושאי אבטחת מידע ופרטיות</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className={cx('accordion-item')}>
-                  <button
-                    className={cx('accordion-header', { active: openFeature === 2 })}
-                    onClick={() => toggleFeature(2)}
-                  >
-                    <h3 className={cx('accordion-title')}>
-                      זמינות ומחויבות מקצועית
-                    </h3>
-                    <div className={cx('accordion-arrow', { rotated: openFeature === 2 })}>
-                      <CaretRightIcon />
-                    </div>
-                  </button>
-                  {openFeature === 2 && (
-                    <div className={cx('accordion-content')}>
-                      <div className={cx('accordion-benefits')}>
-                        <div className={cx('benefit-item')}>
-                          <div className={cx('benefit-icon')}>⏰</div>
-                          <span>זמינות למענה מהיר לפניות לקוחות</span>
-                        </div>
-                        <div className={cx('benefit-item')}>
-                          <div className={cx('benefit-icon')}>🤝</div>
-                          <span>מחויבות לשירות מעולה ומקצועי</span>
-                        </div>
-                        <div className={cx('benefit-item')}>
-                          <div className={cx('benefit-icon')}>📋</div>
-                          <span>יכולת לעמוד ביעדים ולוחות זמנים</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                <div className={cx('form-row')}>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')}>עיר מגורים</label>
+                    <select 
+                      className={cx('form-select')}
+                      value={formData.city}
+                      onChange={(e) => handleInputChange('city', e.target.value)}
+                    >
+                      <option value="">בחרו עיר</option>
+                      <option value="tel-aviv">תל אביב</option>
+                      <option value="jerusalem">ירושלים</option>
+                      <option value="haifa">חיפה</option>
+                      <option value="beer-sheva">באר שבע</option>
+                      <option value="other">אחר</option>
+                    </select>
+                  </div>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')}>אזור פעילות מועדף לשירותים משפטיים</label>
+                    <select 
+                      className={cx('form-select')}
+                      value={formData.desiredRegion}
+                      onChange={(e) => handleInputChange('desiredRegion', e.target.value)}
+                    >
+                      <option value="">בחרו אזור</option>
+                      <option value="center">מרכז הארץ</option>
+                      <option value="north">צפון הארץ</option>
+                      <option value="south">דרום הארץ</option>
+                      <option value="jerusalem-area">אזור ירושלים</option>
+                      <option value="nationwide">כלל הארץ</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
-              <div className={cx('requirements-cta-container')}>
-                <button className={cx('requirements-cta-button')}>
-                  בדיקת התאמה
-                </button>
+              {/* Professional Information Section */}
+              <div className={cx('form-section')}>
+                <h2 className={cx('section-title')}>פרטים מקצועיים</h2>
+                
+                <div className={cx('form-row')}>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')}>סטטוס מקצועי</label>
+                    <select 
+                      className={cx('form-select')}
+                      value={formData.employmentType}
+                      onChange={(e) => handleInputChange('employmentType', e.target.value)}
+                    >
+                      <option value="">בחרו סטטוס</option>
+                      <option value="partner">שותף במשרד עורכי דין</option>
+                      <option value="senior-associate">עורך דין בכיר</option>
+                      <option value="independent">עורך דין עצמאי</option>
+                      <option value="in-house">יועץ משפטי בחברה</option>
+                      <option value="other">אחר</option>
+                    </select>
+                  </div>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')}>הכנסה חודשית ממוצעת</label>
+                    <input
+                      type="text"
+                      className={cx('form-input')}
+                      placeholder="25,000 ₪"
+                      value={formData.monthlyIncome}
+                      onChange={(e) => handleInputChange('monthlyIncome', e.target.value)}
+                    />
+                  </div>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')}>וותק מקצועי</label>
+                    <select 
+                      className={cx('form-select')}
+                      value={formData.workExperience}
+                      onChange={(e) => handleInputChange('workExperience', e.target.value)}
+                    >
+                      <option value="">בחרו וותק</option>
+                      <option value="1-3">1-3 שנים</option>
+                      <option value="3-5">3-5 שנים</option>
+                      <option value="5-10">5-10 שנים</option>
+                      <option value="10+">מעל 10 שנים</option>
+                    </select>
+                  </div>
+                </div>
               </div>
-            </div>
 
-            <div className={cx('requirements-right')}>
-              <div className={cx('professional-image-container')}>
-                <div className={cx('professional-image')}>
-                  <img 
-                    src="/static/menu/franche_1.png" 
-                    alt="עורך דין מקצועי" 
-                    className={cx('professional-img')}
+              {/* Additional Information Section */}
+              <div className={cx('form-section')}>
+                <h2 className={cx('section-title')}>מידע נוסף</h2>
+                
+                <div className={cx('form-row')}>
+                  <div className={cx('form-group', 'radio-group')}>
+                    <label className={cx('form-label')}>האם היו תביעות משפטיות מצד לקוחות?</label>
+                    <div className={cx('radio-options')}>
+                      <label className={cx('radio-option')}>
+                        <input 
+                          type="radio" 
+                          name="clientLitigation" 
+                          value="yes"
+                          checked={formData.clientLitigation === 'yes'}
+                          onChange={(e) => handleInputChange('clientLitigation', e.target.value)}
+                        />
+                        <span>כן</span>
+                      </label>
+                      <label className={cx('radio-option')}>
+                        <input 
+                          type="radio" 
+                          name="clientLitigation" 
+                          value="no"
+                          checked={formData.clientLitigation === 'no'}
+                          onChange={(e) => handleInputChange('clientLitigation', e.target.value)}
+                        />
+                        <span>לא</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div className={cx('form-group', 'radio-group')}>
+                    <label className={cx('form-label')}>האם היו הליכים משפטיים בנושא חובות?</label>
+                    <div className={cx('radio-options')}>
+                      <label className={cx('radio-option')}>
+                        <input 
+                          type="radio" 
+                          name="debtLitigation" 
+                          value="yes"
+                          checked={formData.debtLitigation === 'yes'}
+                          onChange={(e) => handleInputChange('debtLitigation', e.target.value)}
+                        />
+                        <span>כן</span>
+                      </label>
+                      <label className={cx('radio-option')}>
+                        <input 
+                          type="radio" 
+                          name="debtLitigation" 
+                          value="no"
+                          checked={formData.debtLitigation === 'no'}
+                          onChange={(e) => handleInputChange('debtLitigation', e.target.value)}
+                        />
+                        <span>לא</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={cx('form-group', 'full-width')}>
+                  <label className={cx('form-label')}>הערות לבקשה</label>
+                  <textarea
+                    className={cx('form-textarea')}
+                    placeholder="אנא פרטו על הניסיון המקצועי שלכם, התמחויות, וציפיות מהשותפות איתנו"
+                    rows={5}
+                    value={formData.comments}
+                    onChange={(e) => handleInputChange('comments', e.target.value)}
                   />
                 </div>
-                <div className={cx('floating-info-cards')}>
-                  <div className={cx('info-card', 'info-card-1')}>
-                    <div className={cx('info-card-icon')}>⚖️</div>
-                    <span className={cx('info-card-text')}>רישיון עורך דין תקף</span>
-                  </div>
-                  <div className={cx('info-card', 'info-card-2')}>
-                    <div className={cx('info-card-icon')}>🏢</div>
-                    <span className={cx('info-card-text')}>
-                      התמחות בעסקאות נדל"ן<br/>
-                      <small>ומשכנתאות</small>
-                    </span>
-                  </div>
-                </div>
               </div>
-            </div>
-          </div>
-        </Container>
-      </section>
 
-      {/* Process Steps Section */}
-      <section className={cx('process-steps-section')}>
-        <Container>
-          <h2 className={cx('process-steps-title')}>
-            תהליך ההצטרפות
-          </h2>
-          <div className={cx('process-steps-grid')}>
-            <div className={cx('process-step-card')}>
-              <div className={cx('process-step-number')}>1</div>
-              <div className={cx('process-step-content')}>
-                <h3 className={cx('process-step-title')}>
-                  הגשת מועמדות וקורות חיים
-                </h3>
-                <p className={cx('process-step-description')}>
-                  מלאו טופס מקוון והעלו קורות חיים מקצועיים הכוללים את הניסיון שלכם בתחום הנדל"ן והמשכנתאות.
-                </p>
-              </div>
-            </div>
-
-            <div className={cx('process-step-card')}>
-              <div className={cx('process-step-number')}>2</div>
-              <div className={cx('process-step-content')}>
-                <h3 className={cx('process-step-title')}>
-                  ראיון מקצועי וערכת התאמה
-                </h3>
-                <p className={cx('process-step-description')}>
-                  נקיים ראיון מקצועי לבדיקת ההתאמה שלכם לפלטפורמה ולבירור הציפיות ההדדיות מהשותפות.
-                </p>
-              </div>
-            </div>
-
-            <div className={cx('process-step-card')}>
-              <div className={cx('process-step-number')}>3</div>
-              <div className={cx('process-step-content')}>
-                <h3 className={cx('process-step-title')}>
-                  חתימה על הסכם שותפות
-                </h3>
-                <p className={cx('process-step-description')}>
-                  לאחר הוכחת ההתאמה, נחתום על הסכם שותפות שיגדיר את התנאים, התמורה ואופן העבודה המשותפת.
-                </p>
-              </div>
-            </div>
-
-            <div className={cx('process-step-card')}>
-              <div className={cx('process-step-number')}>4</div>
-              <div className={cx('process-step-content')}>
-                <h3 className={cx('process-step-title')}>
-                  הדרכה והטמעה במערכת
-                </h3>
-                <p className={cx('process-step-description')}>
-                  נספק הדרכה מקיפה על המערכת הדיגיטלית, תהליכי העבודה ואופן קבלת הלקוחות וניהולם בפלטפורמה.
-                </p>
-              </div>
-            </div>
-
-            <div className={cx('process-step-card')}>
-              <div className={cx('process-step-number')}>5</div>
-              <div className={cx('process-step-content')}>
-                <h3 className={cx('process-step-title')}>
-                  תחילת פעילות וקבלת לקוחות
-                </h3>
-                <p className={cx('process-step-description')}>
-                  תתחילו לקבל הפניות לקוחות דרך הפלטפורמה ותוכלו להתחיל לבנות את התיק שלכם ולהגדיל את ההכנסות.
-                </p>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Compensation Section */}
-      <section className={cx('compensation-section')}>
-        <Container>
-          <div className={cx('compensation-content')}>
-            <div className={cx('compensation-left')}>
-              <h2 className={cx('compensation-main-title')}>
-                מבנה התמורה והעמלות
-              </h2>
-            </div>
-            <div className={cx('compensation-right')}>
-              <div className={cx('compensation-metrics-card')}>
-                <div className={cx('compensation-metric-item')}>
-                  <h3 className={cx('metric-label')}>עמלה ממוצעת לעסקה</h3>
-                  <div className={cx('metric-value')}>₪8,000-15,000</div>
-                </div>
-                
-                <div className={cx('compensation-metric-item')}>
-                  <h3 className={cx('metric-label')}>הכנסה חודשית פוטנציאלית</h3>
-                  <div className={cx('metric-value')}>₪25,000-40,000</div>
-                </div>
-                
-                <div className={cx('compensation-metric-item')}>
-                  <h3 className={cx('metric-label')}>מספר עסקאות חודשיות</h3>
-                  <div className={cx('metric-value')}>3-5 עסקאות</div>
-                </div>
-                
-                <div className={cx('compensation-note')}>
-                  <div className={cx('compensation-bullet')}></div>
-                  <span className={cx('compensation-note-text')}>
-                    התמורה משתנה בהתאם למורכבות העסקה ולהיקף השירותים הנדרשים
+              {/* Terms and Submit */}
+              <div className={cx('form-section')}>
+                <label className={cx('checkbox-label')}>
+                  <input
+                    type="checkbox"
+                    checked={formData.termsAccepted}
+                    onChange={(e) => handleInputChange('termsAccepted', e.target.checked)}
+                  />
+                  <span className={cx('checkbox-text')}>
+                    אני מאשר את <a href="/terms" className={cx('terms-link')}>התנאים וההגבלות</a> ונותן הסכמתי לעיבוד המידע האישי שלי בהתאם לתנאים שנקבעו ב<a href="/privacy-policy" className={cx('terms-link')}>מדיניות הפרטיות</a>.
                   </span>
-                </div>
-                
-                <button className={cx('compensation-cta-button')}>
-                  פרטים על התמורה
+                </label>
+              </div>
+
+              {/* Form Actions */}
+              <div className={cx('form-actions')}>
+                <button 
+                  type="button" 
+                  className={cx('btn-secondary')}
+                  onClick={handleBack}
+                >
+                  חזרה
+                </button>
+                <button 
+                  type="submit" 
+                  className={cx('btn-primary')}
+                  disabled={!formData.termsAccepted}
+                >
+                  שליחת בקשה
                 </button>
               </div>
-            </div>
+            </form>
           </div>
-        </Container>
-      </section>
-
-      {/* Final CTA Section */}
-      <section className={cx('final-cta-section')}>
-        <Container>
-          <div className={cx('final-cta-content')}>
-            <div className={cx('final-cta-card')}>
-              <div className={cx('final-cta-main')}>
-                <h2 className={cx('final-cta-title')}>
-                  מוכנים להגדיל את התיק שלכם?<br/>
-                  הצטרפו ל-TechRealt עוד היום.
-                </h2>
-                <button className={cx('final-cta-button')}>
-                  הגשת מועמדות
-                  <span className={cx('final-cta-arrow')}>←</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
+        </div>
+      </Container>
     </div>
   )
 }
