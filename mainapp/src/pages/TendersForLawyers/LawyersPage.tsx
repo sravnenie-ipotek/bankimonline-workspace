@@ -1,17 +1,29 @@
 import classNames from 'classnames/bind'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { Container } from '@src/components/ui/Container'
+import { ButtonUI } from '@src/components/ui/ButtonUI'
 
 import styles from './lawyersPage.module.scss'
 
 const cx = classNames.bind(styles)
 
+interface DropdownOption {
+  value: string
+  label: string
+}
+
 const LawyersPage: React.FC = () => {
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
+  
+  // State for dropdown options
+  const [cities, setCities] = useState<DropdownOption[]>([])
+  const [regions, setRegions] = useState<DropdownOption[]>([])
+  const [professions, setProfessions] = useState<DropdownOption[]>([])
+  const [loading, setLoading] = useState(true)
   
   const [formData, setFormData] = useState({
     contactName: '',
@@ -28,6 +40,77 @@ const LawyersPage: React.FC = () => {
     termsAccepted: false
   })
 
+  // Fetch dropdown data from APIs
+  useEffect(() => {
+    const fetchDropdownData = async () => {
+      try {
+        setLoading(true)
+        
+        // Fetch cities
+        const citiesResponse = await fetch(`/api/get-cities?lang=${i18n.language}`)
+        if (citiesResponse.ok) {
+          const citiesData = await citiesResponse.json()
+          if (citiesData.status === 'success') {
+            const formattedCities = citiesData.data.map((city: any) => ({
+              value: city.value || city.key,
+              label: city.name
+            }))
+            setCities(formattedCities)
+          }
+        }
+
+        // Fetch regions
+        const regionsResponse = await fetch(`/api/get-regions?lang=${i18n.language}`)
+        if (regionsResponse.ok) {
+          const regionsData = await regionsResponse.json()
+          if (regionsData.status === 'success') {
+            const formattedRegions = regionsData.data.map((region: any) => ({
+              value: region.key,
+              label: region.name
+            }))
+            setRegions(formattedRegions)
+          }
+        }
+
+        // Fetch professions
+        const professionsResponse = await fetch(`/api/get-professions?lang=${i18n.language}`)
+        if (professionsResponse.ok) {
+          const professionsData = await professionsResponse.json()
+          if (professionsData.status === 'success') {
+            const formattedProfessions = professionsData.data.map((profession: any) => ({
+              value: profession.key,
+              label: profession.name
+            }))
+            setProfessions(formattedProfessions)
+          }
+        }
+        
+      } catch (error) {
+        console.error('Error fetching dropdown data:', error)
+        // Fallback data if API fails
+        setCities([
+          { value: 'tel_aviv', label: 'תל אביב' },
+          { value: 'jerusalem', label: 'ירושלים' },
+          { value: 'haifa', label: 'חיפה' }
+        ])
+        setRegions([
+          { value: 'center', label: 'מחוז המרכז' },
+          { value: 'tel_aviv', label: 'מחוז תל אביב' },
+          { value: 'jerusalem', label: 'מחוז ירושלים' }
+        ])
+        setProfessions([
+          { value: 'lawyer', label: 'עורך דין' },
+          { value: 'legal_advisor', label: 'יועץ משפטי' },
+          { value: 'notary', label: 'נוטריון' }
+        ])
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchDropdownData()
+  }, [i18n.language])
+
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
@@ -35,14 +118,67 @@ const LawyersPage: React.FC = () => {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log('Form submitted:', formData)
+    
+    // Basic validation
+    if (!formData.contactName || !formData.phone || !formData.email) {
+      alert('אנא מלאו את כל השדות הנדרשים')
+      return
+    }
+
+    if (!formData.termsAccepted) {
+      alert('יש לאשר את תנאי השימוש')
+      return
+    }
+
+    try {
+      // Submit form logic here
+      console.log('Form submitted:', formData)
+      alert('הטופס נשלח בהצלחה! נחזור אליכם בקרוב.')
+      
+      // Reset form
+      setFormData({
+        contactName: '',
+        phone: '',
+        email: '',
+        city: '',
+        desiredRegion: '',
+        employmentType: '',
+        monthlyIncome: '',
+        workExperience: '',
+        clientLitigation: '',
+        debtLitigation: '',
+        comments: '',
+        termsAccepted: false
+      })
+    } catch (error) {
+      console.error('Error submitting form:', error)
+      alert('שגיאה בשליחת הטופס. אנא נסו שוב.')
+    }
   }
 
   const handleBack = () => {
     navigate(-1)
+  }
+
+  if (loading) {
+    return (
+      <div className={cx('lawyers-form', { rtl: i18n.language === 'he' })}>
+        <Container>
+          <div className={cx('form-container')}>
+            <div className={cx('form-header')}>
+              <div className={cx('logo')}>
+                <span className={cx('logo-text')}>TechRealt</span>
+              </div>
+            </div>
+            <div className={cx('form-content')}>
+              <div className={cx('loading-state')}>טוען נתונים...</div>
+            </div>
+          </div>
+        </Container>
+      </div>
+    )
   }
 
   return (
@@ -54,52 +190,54 @@ const LawyersPage: React.FC = () => {
               <span className={cx('logo-text')}>TechRealt</span>
             </div>
           </div>
-
+          
           <div className={cx('form-content')}>
-            <h1 className={cx('form-title')}>מלאו טופס מועמדות</h1>
+            <div className={cx('form-title')}>
+              <h1>טופס הרשמה לעורכי דין ויועצים משפטיים</h1>
+              <p className={cx('form-subtitle')}>הצטרפו לרשת המובילה של מתווכי נדל"ן ומשפטנים מקצועיים</p>
+            </div>
 
-            <form onSubmit={handleSubmit} className={cx('application-form')}>
-              {/* Personal Information Section */}
+            <form onSubmit={handleSubmit} className={cx('lawyer-form')}>
               <div className={cx('form-section')}>
+                <h2 className={cx('section-title')}>פרטים אישיים</h2>
+                
                 <div className={cx('form-row')}>
                   <div className={cx('form-group')}>
                     <label className={cx('form-label')}>שם איש הקשר המוסמך</label>
                     <input
                       type="text"
                       className={cx('form-input')}
-                      placeholder="עו״ד אברהם כהן"
+                      placeholder="הזינו שם מלא"
                       value={formData.contactName}
                       onChange={(e) => handleInputChange('contactName', e.target.value)}
+                      required
                     />
                   </div>
                   <div className={cx('form-group')}>
                     <label className={cx('form-label')}>טלפון</label>
-                    <div className={cx('phone-input')}>
-                      <select className={cx('country-code')}>
-                        <option value="+972">🇮🇱</option>
-                      </select>
-                      <input
-                        type="tel"
-                        className={cx('form-input')}
-                        placeholder="+972-4-8536396"
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange('phone', e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className={cx('form-group')}>
-                    <label className={cx('form-label')}>דואר אלקטרוני</label>
                     <input
-                      type="email"
+                      type="tel"
                       className={cx('form-input')}
-                      placeholder="הזינו כתובת מייל"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      placeholder="050-123-4567"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange('phone', e.target.value)}
+                      required
                     />
                   </div>
                 </div>
 
                 <div className={cx('form-row')}>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')}>דוא"ל</label>
+                    <input
+                      type="email"
+                      className={cx('form-input')}
+                      placeholder="example@email.com"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange('email', e.target.value)}
+                      required
+                    />
+                  </div>
                   <div className={cx('form-group')}>
                     <label className={cx('form-label')}>עיר מגורים</label>
                     <select 
@@ -108,13 +246,16 @@ const LawyersPage: React.FC = () => {
                       onChange={(e) => handleInputChange('city', e.target.value)}
                     >
                       <option value="">בחרו עיר</option>
-                      <option value="tel-aviv">תל אביב</option>
-                      <option value="jerusalem">ירושלים</option>
-                      <option value="haifa">חיפה</option>
-                      <option value="beer-sheva">באר שבע</option>
-                      <option value="other">אחר</option>
+                      {cities.map(city => (
+                        <option key={city.value} value={city.value}>
+                          {city.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
+                </div>
+
+                <div className={cx('form-row')}>
                   <div className={cx('form-group')}>
                     <label className={cx('form-label')}>אזור פעילות מועדף לשירותים משפטיים</label>
                     <select 
@@ -123,17 +264,16 @@ const LawyersPage: React.FC = () => {
                       onChange={(e) => handleInputChange('desiredRegion', e.target.value)}
                     >
                       <option value="">בחרו אזור</option>
-                      <option value="center">מרכז הארץ</option>
-                      <option value="north">צפון הארץ</option>
-                      <option value="south">דרום הארץ</option>
-                      <option value="jerusalem-area">אזור ירושלים</option>
-                      <option value="nationwide">כלל הארץ</option>
+                      {regions.map(region => (
+                        <option key={region.value} value={region.value}>
+                          {region.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
               </div>
 
-              {/* Professional Information Section */}
               <div className={cx('form-section')}>
                 <h2 className={cx('section-title')}>פרטים מקצועיים</h2>
                 
@@ -146,11 +286,11 @@ const LawyersPage: React.FC = () => {
                       onChange={(e) => handleInputChange('employmentType', e.target.value)}
                     >
                       <option value="">בחרו סטטוס</option>
-                      <option value="partner">שותף במשרד עורכי דין</option>
-                      <option value="senior-associate">עורך דין בכיר</option>
-                      <option value="independent">עורך דין עצמאי</option>
-                      <option value="in-house">יועץ משפטי בחברה</option>
-                      <option value="other">אחר</option>
+                      {professions.map(profession => (
+                        <option key={profession.value} value={profession.value}>
+                          {profession.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div className={cx('form-group')}>
@@ -163,122 +303,104 @@ const LawyersPage: React.FC = () => {
                       onChange={(e) => handleInputChange('monthlyIncome', e.target.value)}
                     />
                   </div>
+                </div>
+
+                <div className={cx('form-row')}>
                   <div className={cx('form-group')}>
-                    <label className={cx('form-label')}>וותק מקצועי</label>
+                    <label className={cx('form-label')}>שנות ניסיון בתחום המשפטי</label>
                     <select 
                       className={cx('form-select')}
                       value={formData.workExperience}
                       onChange={(e) => handleInputChange('workExperience', e.target.value)}
                     >
-                      <option value="">בחרו וותק</option>
-                      <option value="1-3">1-3 שנים</option>
+                      <option value="">בחרו מספר שנים</option>
+                      <option value="0-2">0-2 שנים</option>
                       <option value="3-5">3-5 שנים</option>
-                      <option value="5-10">5-10 שנים</option>
-                      <option value="10+">מעל 10 שנים</option>
+                      <option value="6-10">6-10 שנים</option>
+                      <option value="11-15">11-15 שנים</option>
+                      <option value="16+">16+ שנים</option>
                     </select>
                   </div>
                 </div>
               </div>
 
-              {/* Additional Information Section */}
               <div className={cx('form-section')}>
                 <h2 className={cx('section-title')}>מידע נוסף</h2>
                 
                 <div className={cx('form-row')}>
-                  <div className={cx('form-group', 'radio-group')}>
-                    <label className={cx('form-label')}>האם היו תביעות משפטיות מצד לקוחות?</label>
-                    <div className={cx('radio-options')}>
-                      <label className={cx('radio-option')}>
-                        <input 
-                          type="radio" 
-                          name="clientLitigation" 
-                          value="yes"
-                          checked={formData.clientLitigation === 'yes'}
-                          onChange={(e) => handleInputChange('clientLitigation', e.target.value)}
-                        />
-                        <span>כן</span>
-                      </label>
-                      <label className={cx('radio-option')}>
-                        <input 
-                          type="radio" 
-                          name="clientLitigation" 
-                          value="no"
-                          checked={formData.clientLitigation === 'no'}
-                          onChange={(e) => handleInputChange('clientLitigation', e.target.value)}
-                        />
-                        <span>לא</span>
-                      </label>
-                    </div>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')}>האם יש לכם ניסיון בייצוג לקוחות בהליכים משפטיים?</label>
+                    <select 
+                      className={cx('form-select')}
+                      value={formData.clientLitigation}
+                      onChange={(e) => handleInputChange('clientLitigation', e.target.value)}
+                    >
+                      <option value="">בחרו תשובה</option>
+                      <option value="yes">כן, ניסיון רב</option>
+                      <option value="some">כן, ניסיון מוגבל</option>
+                      <option value="no">לא</option>
+                    </select>
                   </div>
-                  <div className={cx('form-group', 'radio-group')}>
-                    <label className={cx('form-label')}>האם היו הליכים משפטיים בנושא חובות?</label>
-                    <div className={cx('radio-options')}>
-                      <label className={cx('radio-option')}>
-                        <input 
-                          type="radio" 
-                          name="debtLitigation" 
-                          value="yes"
-                          checked={formData.debtLitigation === 'yes'}
-                          onChange={(e) => handleInputChange('debtLitigation', e.target.value)}
-                        />
-                        <span>כן</span>
-                      </label>
-                      <label className={cx('radio-option')}>
-                        <input 
-                          type="radio" 
-                          name="debtLitigation" 
-                          value="no"
-                          checked={formData.debtLitigation === 'no'}
-                          onChange={(e) => handleInputChange('debtLitigation', e.target.value)}
-                        />
-                        <span>לא</span>
-                      </label>
-                    </div>
+                  <div className={cx('form-group')}>
+                    <label className={cx('form-label')}>האם יש לכם ניסיון בהליכי גביית חובות?</label>
+                    <select 
+                      className={cx('form-select')}
+                      value={formData.debtLitigation}
+                      onChange={(e) => handleInputChange('debtLitigation', e.target.value)}
+                    >
+                      <option value="">בחרו תשובה</option>
+                      <option value="yes">כן, ניסיון רב</option>
+                      <option value="some">כן, ניסיון מוגבל</option>
+                      <option value="no">לא</option>
+                    </select>
                   </div>
                 </div>
 
-                <div className={cx('form-group', 'full-width')}>
-                  <label className={cx('form-label')}>הערות לבקשה</label>
+                <div className={cx('form-group')}>
+                  <label className={cx('form-label')}>הערות נוספות</label>
                   <textarea
                     className={cx('form-textarea')}
-                    placeholder="אנא פרטו על הניסיון המקצועי שלכם, התמחויות, וציפיות מהשותפות איתנו"
-                    rows={5}
+                    placeholder="ספרו לנו עוד על הרקע המקצועי שלכם ועל התחומים המעניינים אתכם..."
+                    rows={4}
                     value={formData.comments}
                     onChange={(e) => handleInputChange('comments', e.target.value)}
                   />
                 </div>
               </div>
 
-              {/* Terms and Submit */}
               <div className={cx('form-section')}>
-                <label className={cx('checkbox-label')}>
-                  <input
-                    type="checkbox"
-                    checked={formData.termsAccepted}
-                    onChange={(e) => handleInputChange('termsAccepted', e.target.checked)}
-                  />
-                  <span className={cx('checkbox-text')}>
-                    אני מאשר את <a href="/terms" className={cx('terms-link')}>התנאים וההגבלות</a> ונותן הסכמתי לעיבוד המידע האישי שלי בהתאם לתנאים שנקבעו ב<a href="/privacy-policy" className={cx('terms-link')}>מדיניות הפרטיות</a>.
-                  </span>
-                </label>
-              </div>
+                <div className={cx('terms-section')}>
+                  <label className={cx('checkbox-label')}>
+                    <input
+                      type="checkbox"
+                      className={cx('checkbox')}
+                      checked={formData.termsAccepted}
+                      onChange={(e) => handleInputChange('termsAccepted', e.target.checked)}
+                      required
+                    />
+                    <span className={cx('checkbox-text')}>
+                      אני מסכים/ה לתנאי השימוש ולמדיניות הפרטיות ומאשר/ת קבלת עדכונים מטעם TechRealt
+                    </span>
+                  </label>
+                </div>
 
-              {/* Form Actions */}
-              <div className={cx('form-actions')}>
-                <button 
-                  type="button" 
-                  className={cx('btn-secondary')}
-                  onClick={handleBack}
-                >
-                  חזרה
-                </button>
-                <button 
-                  type="submit" 
-                  className={cx('btn-primary')}
-                  disabled={!formData.termsAccepted}
-                >
-                  שליחת בקשה
-                </button>
+                <div className={cx('form-actions')}>
+                  <ButtonUI
+                    variant="secondary"
+                    size="full"
+                    onClick={handleBack}
+                    type="button"
+                  >
+                    חזרה
+                  </ButtonUI>
+                  <ButtonUI
+                    variant="primary"
+                    size="full"
+                    type="submit"
+                  >
+                    שליחת הטופס
+                  </ButtonUI>
+                </div>
               </div>
             </form>
           </div>
