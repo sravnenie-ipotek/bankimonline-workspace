@@ -395,4 +395,29 @@
   .section-title {
     font-size: 16px;
   }
+}
+
+.loading-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  font-size: 1.125rem;
+  color: #667eea;
+  font-weight: 500;
+}
+
+// RTL Support
+.rtl {
+  .form-select {
+    background-position: left 12px center;
+    padding-right: 16px;
+    padding-left: 40px;
+  }
+
+  .checkbox-label {
+    flex-direction: row-reverse;
+  }
+
+  .form-actions {
+    direction: rtl;
+  }
 } 
