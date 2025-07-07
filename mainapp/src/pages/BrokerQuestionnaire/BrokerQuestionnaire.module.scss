@@ -1,0 +1,404 @@
+.broker-questionnaire {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: #ffffff;
+  padding: 2rem 0;
+
+  .questionnaire-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    .questionnaire-title {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #fbe54d;
+      margin-bottom: 1rem;
+      
+      @media (max-width: 768px) {
+        font-size: 2.5rem;
+      }
+    }
+
+    .questionnaire-subtitle {
+      font-size: 1.25rem;
+      color: #cccccc;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+      
+      @media (max-width: 768px) {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  .progress-bar {
+    position: relative;
+    margin-bottom: 3rem;
+    background-color: #333333;
+    border-radius: 10px;
+    padding: 1rem;
+
+    .progress-steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+
+      .progress-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+
+        .step-number {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background-color: #555555;
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 600;
+          font-size: 1.2rem;
+          margin-bottom: 0.5rem;
+          transition: all 0.3s ease;
+        }
+
+        .step-label {
+          font-size: 0.9rem;
+          color: #999999;
+          text-align: center;
+          transition: all 0.3s ease;
+        }
+
+        &.active {
+          .step-number {
+            background-color: #fbe54d;
+            color: #000000;
+          }
+
+          .step-label {
+            color: #fbe54d;
+            font-weight: 600;
+          }
+        }
+
+        &.completed {
+          .step-number {
+            background-color: #28a745;
+            color: #ffffff;
+          }
+
+          .step-label {
+            color: #28a745;
+          }
+        }
+      }
+    }
+
+    .progress-fill {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 4px;
+      background-color: #fbe54d;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+      z-index: 1;
+    }
+  }
+
+  .questionnaire-form {
+    background-color: #242529;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+
+    @media (max-width: 768px) {
+      padding: 2rem;
+    }
+
+    .step-content {
+      margin-bottom: 3rem;
+
+      .step-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #fbe54d;
+        margin-bottom: 2rem;
+        text-align: center;
+        
+        @media (max-width: 768px) {
+          font-size: 1.75rem;
+        }
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 2rem;
+
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+      }
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2rem;
+
+        label {
+          font-size: 1rem;
+          font-weight: 500;
+          color: #ffffff;
+          margin-bottom: 0.5rem;
+          
+          &:after {
+            content: ' *';
+            color: #ff6b6b;
+            font-weight: bold;
+          }
+        }
+
+        .form-input,
+        .form-select {
+          padding: 1rem;
+          border: 2px solid #444444;
+          border-radius: 8px;
+          background-color: #1a1a1a;
+          color: #ffffff;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: #fbe54d;
+            box-shadow: 0 0 0 3px rgba(251, 229, 77, 0.1);
+          }
+
+          &::placeholder {
+            color: #888888;
+          }
+        }
+
+        .form-textarea {
+          padding: 1rem;
+          border: 2px solid #444444;
+          border-radius: 8px;
+          background-color: #1a1a1a;
+          color: #ffffff;
+          font-size: 1rem;
+          resize: vertical;
+          min-height: 120px;
+          font-family: inherit;
+          transition: all 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: #fbe54d;
+            box-shadow: 0 0 0 3px rgba(251, 229, 77, 0.1);
+          }
+
+          &::placeholder {
+            color: #888888;
+          }
+        }
+
+        .form-select {
+          cursor: pointer;
+          
+          option {
+            background-color: #1a1a1a;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid #444444;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .action-button {
+        padding: 1rem 2rem !important;
+        font-size: 1.1rem !important;
+        font-weight: 600 !important;
+        border-radius: 8px !important;
+        transition: all 0.3s ease !important;
+        min-width: 150px;
+
+        &[data-variant="primary"] {
+          background-color: #fbe54d !important;
+          color: #000000 !important;
+          border: none !important;
+
+          &:hover:not(:disabled) {
+            background-color: #f0d843 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(251, 229, 77, 0.3) !important;
+          }
+
+          &:disabled {
+            background-color: #666666 !important;
+            color: #999999 !important;
+            cursor: not-allowed;
+          }
+        }
+
+        &[data-variant="secondary"] {
+          background-color: transparent !important;
+          color: #ffffff !important;
+          border: 2px solid #666666 !important;
+
+          &:hover {
+            border-color: #fbe54d !important;
+            color: #fbe54d !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          width: 100%;
+          min-width: auto;
+        }
+      }
+    }
+  }
+
+  // RTL Support
+  html[dir='rtl'] & {
+    .progress-bar {
+      .progress-steps {
+        flex-direction: row-reverse;
+      }
+
+      .progress-fill {
+        right: 0;
+        left: auto;
+      }
+    }
+
+    .questionnaire-form {
+      .form-actions {
+        flex-direction: row-reverse;
+      }
+    }
+  }
+
+  // Loading state
+  .loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  // Error states
+  .form-field {
+    &.error {
+      .form-input,
+      .form-select,
+      .form-textarea {
+        border-color: #ff6b6b;
+      }
+    }
+
+    .error-message {
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+  }
+
+  // Success message
+  .success-message {
+    background-color: #28a745;
+    color: #ffffff;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  // Responsive design
+  @media (max-width: 1200px) {
+    .questionnaire-form {
+      padding: 2.5rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem 0;
+
+    .questionnaire-header {
+      margin-bottom: 2rem;
+    }
+
+    .progress-bar {
+      margin-bottom: 2rem;
+      padding: 0.75rem;
+
+      .progress-steps {
+        .progress-step {
+          .step-number {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+          }
+
+          .step-label {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+
+    .questionnaire-form {
+      .step-content {
+        margin-bottom: 2rem;
+
+        .step-title {
+          margin-bottom: 1.5rem;
+        }
+
+        .form-field {
+          margin-bottom: 1.5rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .questionnaire-header {
+      .questionnaire-title {
+        font-size: 2rem;
+      }
+
+      .questionnaire-subtitle {
+        font-size: 1rem;
+      }
+    }
+
+    .progress-bar {
+      .progress-steps {
+        .progress-step {
+          .step-label {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+} 

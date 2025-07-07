@@ -84,6 +84,12 @@ const TendersForLawyers = lazy(() =>
   }))
 )
 
+const BrokerQuestionnaire = lazy(() =>
+  import('../../pages/BrokerQuestionnaire').then((module) => ({
+    default: module.BrokerQuestionnaire,
+  }))
+)
+
 const Cookie = lazy(() =>
   import('../../pages/Cookie').then((module) => ({ default: module.Cookie }))
 )
@@ -293,6 +299,10 @@ const MainRoutes: React.FC = () => {
               <Route
                 path="/tenders-for-lawyers"
                 element={<TendersForLawyers />}
+              />
+              <Route
+                path="/broker-questionnaire"
+                element={<BrokerQuestionnaire />}
               />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/cookie" element={<Cookie />} />
