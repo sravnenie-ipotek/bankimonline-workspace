@@ -148,59 +148,53 @@
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     background-color: #FBE54D;
     color: #161616;
-    border-radius: 12px;
+    border-radius: 20px;
     margin: 4rem 0;
-    padding: 3rem 2rem;
+    padding: 3rem 4rem;
+    gap: 3rem;
     overflow: hidden;
-
-    .onlineLabel {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.5rem;
-      font-size: 0.875rem;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
-    .marketIcon {
-      flex-shrink: 0;
-      width: 260px;
-      margin-inline-end: 2rem;
-    }
 
     .marketContent {
       flex: 1 1 auto;
       max-width: 600px;
 
       h3 {
-        font-size: 2rem;
+        font-size: 2.5rem;
         font-weight: 700;
-        margin-bottom: 1.25rem;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+      }
+
+      .marketSubtitle {
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
+        color: #333;
       }
 
       .marketList {
         display: grid;
-        grid-template-columns: repeat(2, max-content);
-        gap: 0.75rem 2.5rem;
-
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem 3rem;
         list-style: none;
         padding: 0;
         margin: 0;
 
         li {
           position: relative;
-          padding-inline-start: 1.5rem;
-          font-size: 1rem;
+          padding-inline-start: 2rem;
+          font-size: 1.125rem;
+          font-weight: 500;
 
           &:before {
             content: '';
             position: absolute;
             left: 0;
-            top: 0.45rem;
-            width: 0.5rem;
-            height: 0.5rem;
+            top: 0.35rem;
+            width: 0.75rem;
+            height: 0.75rem;
             border-radius: 50%;
             background: #161616;
           }
@@ -208,13 +202,52 @@
       }
     }
 
+    .logoCard {
+      flex-shrink: 0;
+      width: 320px;
+      height: 320px;
+      background: #161616;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+
+      // Create circular image placeholder effect
+      &::after {
+        content: '';
+        position: absolute;
+        top: -20px;
+        right: -20px;
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: url('/static/real-estate-image.jpg') center/cover;
+        border: 4px solid #FBE54D;
+      }
+
+      .logoImage {
+        width: 200px;
+        height: auto;
+        filter: brightness(0) saturate(100%) invert(91%) sepia(65%) saturate(587%) hue-rotate(7deg) brightness(107%) contrast(98%);
+      }
+    }
+
     // RTL adjustments
     html[dir='rtl'] & {
       flex-direction: row-reverse;
 
-      .marketIcon {
-        margin-inline-start: 2rem;
-        margin-inline-end: 0;
+      .marketList li {
+        &:before {
+          left: auto;
+          right: 0;
+        }
+      }
+
+      .logoCard::after {
+        right: auto;
+        left: -20px;
       }
     }
 
@@ -222,57 +255,111 @@
       flex-direction: column;
       text-align: center;
       padding: 2rem 1.25rem;
-
-      .onlineLabel {
-        right: 1rem;
-      }
-
-      .marketIcon {
-        width: 200px;
-        margin: 0 0 1.5rem 0;
-      }
+      gap: 2rem;
 
       .marketContent {
         h3 {
-          font-size: 1.5rem;
+          font-size: 1.75rem;
+        }
+
+        .marketSubtitle {
+          font-size: 1rem;
         }
 
         .marketList {
           grid-template-columns: 1fr;
+          text-align: left;
+        }
+      }
+
+      .logoCard {
+        width: 240px;
+        height: 240px;
+
+        .logoImage {
+          width: 150px;
+        }
+
+        &::after {
+          width: 100px;
+          height: 100px;
+          top: -10px;
+          right: -10px;
         }
       }
     }
   }
 
   .clientsBanner {
-    background-color: #242529;
-    border-radius: 8px;
-    padding: 2rem;
-    text-align: center;
     margin-bottom: 4rem;
-
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
+    justify-content: space-between;
+    gap: 2rem;
 
-    svg {
-      flex-shrink: 0;
+    .clientsCard {
+      background-color: #3A3A3E;
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      max-width: 600px;
+      width: 100%;
+
+      .clientsIconWrapper {
+        width: 48px;
+        height: 48px;
+        background-color: #FFFFFF;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .clientsContent {
+        flex: 1;
+
+        h3 {
+          font-size: 1.25rem;
+          font-weight: 600;
+          margin: 0 0 0.5rem 0;
+          color: #FFFFFF;
+          line-height: 1.3;
+        }
+
+        p {
+          font-size: 1rem;
+          margin: 0;
+          color: #D1D1D1;
+          line-height: 1.4;
+        }
+      }
     }
 
-    p {
-      font-size: 1.125rem;
-      margin: 0;
-    }
-  }
-
-  .earnHeader {
-    padding: 2rem 0;
-    text-align: right;
-
-    h2 {
+    .clientsHeading {
       font-size: 2rem;
-      font-weight: 600;
+      font-weight: 700;
+      color: #FFFFFF;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+      .clientsCard {
+        flex-direction: column;
+        padding: 1.5rem;
+        
+        .clientsIconWrapper {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      .clientsHeading {
+        font-size: 1.75rem;
+      }
     }
   }
 
@@ -280,7 +367,7 @@
   .licenseSection {
     display: flex;
     align-items: flex-start;
-    gap: 3rem;
+    gap: 4rem;
     margin: 2rem 0 4rem;
 
     .licenseContent {
@@ -289,12 +376,15 @@
       h2 {
         font-size: 2rem;
         font-weight: 600;
-        margin-bottom: 1.5rem;
+        margin-bottom: 2rem;
+        text-align: right;
       }
 
       .accordionItem {
-        border-bottom: 1px solid #2d2d2d;
-        padding: 1rem 0;
+        background-color: #242529;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        overflow: hidden;
 
         .accordionHeader {
           display: flex;
@@ -303,37 +393,209 @@
           width: 100%;
           background: transparent;
           border: none;
-          padding: 0;
+          padding: 1.5rem 2rem;
           font-size: 1.125rem;
           color: #ffffff;
           cursor: pointer;
+          text-align: right;
+
+          .accordionHeaderContent {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+
+            .accordionIcon {
+              width: 40px;
+              height: 40px;
+              background-color: #3A3A3E;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 1.2rem;
+              order: 2;
+
+              .iconBuilding,
+              .iconMarketing,
+              .iconSupport {
+                font-size: 1.2rem;
+              }
+            }
+
+            .accordionTitle {
+              font-weight: 500;
+              order: 1;
+              text-align: right;
+              flex: 1;
+            }
+          }
+
+          svg {
+            color: #FBE54D;
+          }
         }
 
         .accordionBody {
-          margin-top: 0.75rem;
-          padding-left: 1.25rem;
-          list-style: disc;
+          padding: 0 2rem 1.5rem 2rem;
+          margin: 0;
+          list-style: none;
 
           li {
-            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
             color: #d1d1d1;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            direction: rtl;
+            text-align: right;
+
+            .bulletIcon {
+              color: #FBE54D;
+              margin-left: 0.5rem;
+              margin-right: 0;
+              font-weight: bold;
+            }
           }
         }
       }
     }
 
-    .licenseIllustration {
+    .licenseIllustrationWrapper {
       flex-shrink: 0;
       width: 360px;
-      border-radius: 8px;
+      position: relative;
+
+      .tooltipContainer {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 2;
+
+        .tooltip {
+          background-color: #2A2A2E;
+          border-radius: 8px;
+          padding: 0.75rem 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: #FFFFFF;
+          font-size: 0.875rem;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+          .tooltipIcon {
+            font-size: 1rem;
+          }
+        }
+      }
+
+      .licenseIllustration {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      }
+
+      .illustrationLabel {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        background-color: #1A1A1E;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #FFFFFF;
+        font-size: 0.875rem;
+
+        .labelIcon {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    // RTL adjustments
+    html[dir='rtl'] & {
+      .licenseContent {
+        .accordionItem {
+          .accordionHeader {
+            .accordionHeaderContent {
+              .accordionIcon {
+                order: 1;
+              }
+
+              .accordionTitle {
+                order: 2;
+              }
+            }
+          }
+
+          .accordionBody li {
+            direction: ltr;
+            text-align: left;
+
+            .bulletIcon {
+              margin-left: 0;
+              margin-right: 0.5rem;
+            }
+          }
+        }
+      }
     }
 
     @media (max-width: 768px) {
       flex-direction: column;
-      .licenseIllustration {
-        width: 260px;
+      gap: 2rem;
+
+      .licenseContent {
+        h2 {
+          text-align: center;
+        }
+
+        .accordionItem {
+          .accordionHeader {
+            padding: 1.25rem 1.5rem;
+
+            .accordionHeaderContent {
+              .accordionTitle {
+                font-size: 1rem;
+              }
+            }
+          }
+
+          .accordionBody {
+            padding: 0 1.5rem 1.25rem 1.5rem;
+
+            li {
+              font-size: 0.9rem;
+            }
+          }
+        }
+      }
+
+      .licenseIllustrationWrapper {
+        width: 100%;
+        max-width: 320px;
         margin: 0 auto;
+
+        .tooltipContainer {
+          left: 15px;
+          top: 15px;
+
+          .tooltip {
+            font-size: 0.8rem;
+            padding: 0.5rem 0.75rem;
+          }
+        }
+
+        .illustrationLabel {
+          left: 15px;
+          bottom: 15px;
+          font-size: 0.8rem;
+          padding: 0.5rem 0.75rem;
+        }
       }
     }
   }
