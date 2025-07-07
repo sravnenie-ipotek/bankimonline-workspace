@@ -33,14 +33,28 @@ npm run dev
 ```
 Frontend will run on http://localhost:5173 with hot reload
 
-## Cities API Configuration
+## Database API Configuration
 
-The cities dropdown now uses the database instead of hardcoded values:
+The application now uses database-driven dropdowns for:
 
+### Cities API
 - **API Endpoint**: `/api/get-cities?lang=en|he|ru`
 - **Database Table**: `cities` (created by migration `006-cities-table.sql`)
 - **Languages**: English, Hebrew, Russian
 - **Fallback**: Translation keys if API fails
+
+### Regions API
+- **API Endpoint**: `/api/get-regions?lang=en|he|ru`
+- **Database Table**: `regions` (created by migration `009-regions-and-professions-tables.sql`)
+- **Languages**: English, Hebrew, Russian
+- **Purpose**: Legal service areas for lawyers form
+
+### Professions API
+- **API Endpoint**: `/api/get-professions?lang=en|he|ru&category=legal`
+- **Database Table**: `professions` (created by migration `009-regions-and-professions-tables.sql`)
+- **Languages**: English, Hebrew, Russian
+- **Categories**: legal, finance, business, technical, medical, education, management, general
+- **Purpose**: Professional status options for forms
 
 ### Vite Proxy
 The Vite dev server automatically proxies `/api/*` requests to `http://localhost:8003`
@@ -52,9 +66,20 @@ The API server accepts requests from:
 - http://localhost:3000 (Create React App)
 - http://localhost:8003 (API server)
 
-## Testing Cities API
+## Testing Database APIs
 ```bash
+# Cities API
 curl "http://localhost:8003/api/get-cities?lang=en"
 curl "http://localhost:8003/api/get-cities?lang=he" 
 curl "http://localhost:8003/api/get-cities?lang=ru"
+
+# Regions API
+curl "http://localhost:8003/api/get-regions?lang=en"
+curl "http://localhost:8003/api/get-regions?lang=he"
+curl "http://localhost:8003/api/get-regions?lang=ru"
+
+# Professions API
+curl "http://localhost:8003/api/get-professions?lang=en"
+curl "http://localhost:8003/api/get-professions?lang=he&category=legal"
+curl "http://localhost:8003/api/get-professions?lang=ru&category=finance"
 ```
