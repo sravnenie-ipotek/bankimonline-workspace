@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router-dom'
 import Container from '../../components/ui/Container/Container'
 import { PartnersSwiper } from '@src/components/ui/Swiper'
 import PercentIcon from '../../assets/icons/PercentIcon/PercentIcon'
@@ -9,6 +10,7 @@ import { useState } from 'react'
 
 const TendersForBrokers = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
 
   // accordion state for license features
   const [openFeature, setOpenFeature] = useState<number | null>(0)
@@ -41,7 +43,7 @@ const TendersForBrokers = () => {
   ]
 
   const handleCtaClick = () => {
-    window.open('/broker-questionnaire', '_blank')
+    navigate('/broker-questionnaire')
   }
 
   return (
