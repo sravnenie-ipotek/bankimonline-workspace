@@ -186,7 +186,7 @@ const TendersForBrokers = () => {
         <section className={styles.metricsSection}>
           <div className={styles.metricsContainer}>
             <h2 className={styles.metricsTitle}>{t('tenders_metrics_title')}</h2>
-            
+
             <div className={styles.metricsGrid}>
               <div className={styles.metricItem}>
                 <div className={styles.metricHeader}>
@@ -216,7 +216,7 @@ const TendersForBrokers = () => {
                 <span>{t('tenders_metrics_disclaimer')}</span>
               </div>
               <button className={styles.metricsCtaBtn} onClick={handleCtaClick}>
-                {t('tenders_consult_button')}
+                {t('tenders_metrics_button')}
               </button>
             </div>
           </div>
