@@ -130,6 +130,12 @@ const TendersForBrokers = () => {
                 )}
               </div>
             ))}
+            {/* Yellow consultation button inside license content */}
+            <div className={styles.consultSection}>
+              <button className={styles.consultBtn} onClick={handleCtaClick}>
+                {t('tenders_consult_button')}
+              </button>
+            </div>
           </div>
           <div className={styles.licenseIllustrationWrapper}>
             <div className={styles.tooltipContainer}>
@@ -150,19 +156,6 @@ const TendersForBrokers = () => {
           </div>
         </section>
 
-        {/* Yellow consultation button */}
-        <section className={styles.consultSection}>
-          <button className={styles.consultBtn} onClick={handleCtaClick}>
-            {t('tenders_consult_button')}
-          </button>
-        </section>
-
-        {/* About */}
-        <section className={styles.about}>
-          <h2>{t('tenders_about_title')}</h2>
-          <p>{t('tenders_about_desc')}</p>
-        </section>
-
         {/* Partners */}
         <section>
           <PartnersSwiper />
@@ -174,26 +167,58 @@ const TendersForBrokers = () => {
           <div className={styles.stepsGrid}>
             {[1, 2, 3, 4, 5].map(num => (
               <div key={num} className={styles.stepCard}>
-                <span className={styles.stepNumber}>{num}</span>
-                <p>{t(`tenders_step${num}` as any)}</p>
+                <div className={styles.stepHeader}>
+                  <h3>{t(`tenders_step${num}_title`)}</h3>
+                  <p className={styles.stepDesc}>{t(`tenders_step${num}_desc`)}</p>
+                </div>
               </div>
             ))}
           </div>
         </section>
 
+        {/* About */}
+        <section className={styles.about}>
+          <h2>{t('tenders_about_title')}</h2>
+          <p>{t('tenders_about_desc')}</p>
+        </section>
+
         {/* Metrics Section */}
         <section className={styles.metricsSection}>
-          <div className={styles.metricCard}>
-            <h3>{t('tenders_metrics_investment_title')}</h3>
-            <p className={styles.metricValue}>{t('tenders_metrics_investment_value')}</p>
-          </div>
-          <div className={styles.metricCard}>
-            <h3>{t('tenders_metrics_income_title')}</h3>
-            <p className={styles.metricValue}>{t('tenders_metrics_income_value')}</p>
-          </div>
-          <div className={styles.metricCard}>
-            <h3>{t('tenders_metrics_payback_title')}</h3>
-            <p className={styles.metricValue}>{t('tenders_metrics_payback_value')}</p>
+          <div className={styles.metricsContainer}>
+            <h2 className={styles.metricsTitle}>{t('tenders_metrics_title')}</h2>
+            
+            <div className={styles.metricsGrid}>
+              <div className={styles.metricItem}>
+                <div className={styles.metricHeader}>
+                  <span className={styles.metricLabel}>{t('tenders_metrics_prospects_label')}</span>
+                </div>
+                <div className={styles.metricValue}>{t('tenders_metrics_prospects_value')}</div>
+              </div>
+
+              <div className={styles.metricItem}>
+                <div className={styles.metricHeader}>
+                  <span className={styles.metricLabel}>{t('tenders_metrics_investment_label')}</span>
+                </div>
+                <div className={styles.metricValue}>{t('tenders_metrics_investment_display')}</div>
+              </div>
+
+              <div className={styles.metricItem}>
+                <div className={styles.metricHeader}>
+                  <span className={styles.metricLabel}>{t('tenders_metrics_payback_label')}</span>
+                </div>
+                <div className={styles.metricValue}>{t('tenders_metrics_payback_display')}</div>
+              </div>
+            </div>
+
+            <div className={styles.metricsFooter}>
+              <div className={styles.footerText}>
+                <span className={styles.yellowDot}>•</span>
+                <span>{t('tenders_metrics_disclaimer')}</span>
+              </div>
+              <button className={styles.metricsCtaBtn} onClick={handleCtaClick}>
+                {t('tenders_consult_button')}
+              </button>
+            </div>
           </div>
         </section>
 
