@@ -13,13 +13,38 @@ const TendersForBrokers = () => {
   return (
     <div className={styles.tenders}>
       <Container>
-        {/* Hero */}
-        <section className={styles.hero}>
-          <h1 className={styles.title}>{t('tenders_hero_title')}</h1>
-          <p className={styles.subtitle}>{t('tenders_hero_subtitle')}</p>
-          <button className={styles.ctaBtn} onClick={handleCtaClick}>
-            {t('tenders_hero_cta')}
-          </button>
+        {/* Hero Banner */}
+        <section className={styles.heroBanner}>
+          <div className={styles.heroContent}>
+            <h2>{t('tenders_hero_headline')}</h2>
+            <ul className={styles.benefitsList}>
+              <li>{t('tenders_hero_b1')}</li>
+              <li>{t('tenders_hero_b2')}</li>
+              <li>{t('tenders_hero_b3')}</li>
+            </ul>
+            <button className={styles.primaryBtn} onClick={handleCtaClick}>
+              {t('tenders_hero_cta')}
+            </button>
+          </div>
+          <img className={styles.heroImage} src="/static/tenders/hero-illustration.svg" alt="office" />
+        </section>
+
+        {/* Marketplace Promo */}
+        <section className={styles.marketplace}>
+          <div className={styles.marketLeft}>
+            <img src="/static/primary-logo05-1.svg" alt="Logo" className={styles.marketLogo}/>
+            <h3>{t('tenders_marketplace_title')}</h3>
+            <ul>
+              <li>{t('tenders_market_b1')}</li>
+              <li>{t('tenders_market_b2')}</li>
+            </ul>
+          </div>
+          <img src="/static/tenders/market-photo.svg" className={styles.marketPhoto} />
+        </section>
+
+        {/* We bring clients banner */}
+        <section className={styles.clientsBanner}>
+          <p>{t('tenders_clients_text')}</p>
         </section>
 
         {/* About */}
