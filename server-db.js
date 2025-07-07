@@ -222,6 +222,74 @@ app.get('/api/get-cities', async (req, res) => {
     }
 });
 
+// Regions endpoint with localization
+app.get('/api/get-regions', async (req, res) => {
+    const lang = req.query.lang || 'en';
+    const validLangs = ['en', 'he', 'ru'];
+    const selectedLang = validLangs.includes(lang) ? lang : 'en';
+    const nameColumn = `name_${selectedLang}`;
+
+    console.log(`[REGIONS] Request for language: ${selectedLang}`);
+
+    try {
+        const query = `SELECT id, key, ${nameColumn} as name FROM regions WHERE is_active = true ORDER BY ${nameColumn}`;
+        const result = await pool.query(query);
+        
+        res.json({
+            status: 'success',
+            data: result.rows,
+            language: selectedLang,
+            total: result.rowCount
+        });
+    } catch (err) {
+        console.error('Error fetching regions from database:', err);
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Internal server error while fetching regions',
+            language: selectedLang
+        });
+    }
+});
+
+// Professions endpoint with localization
+app.get('/api/get-professions', async (req, res) => {
+    const lang = req.query.lang || 'en';
+    const category = req.query.category || null;
+    const validLangs = ['en', 'he', 'ru'];
+    const selectedLang = validLangs.includes(lang) ? lang : 'en';
+    const nameColumn = `name_${selectedLang}`;
+
+    console.log(`[PROFESSIONS] Request for language: ${selectedLang}, category: ${category}`);
+
+    try {
+        let query = `SELECT id, key, ${nameColumn} as name, category FROM professions WHERE is_active = true`;
+        const params = [];
+        
+        if (category) {
+            query += ` AND category = $1`;
+            params.push(category);
+        }
+        
+        query += ` ORDER BY ${nameColumn}`;
+        const result = await pool.query(query, params);
+        
+        res.json({
+            status: 'success',
+            data: result.rows,
+            language: selectedLang,
+            category: category,
+            total: result.rowCount
+        });
+    } catch (err) {
+        console.error('Error fetching professions from database:', err);
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Internal server error while fetching professions',
+            language: selectedLang
+        });
+    }
+});
+
 // ============================================================================
 // MIGRATION ENDPOINTS
 // ============================================================================
