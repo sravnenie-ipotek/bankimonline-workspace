@@ -1,0 +1,79 @@
+.tenders {
+  min-height: 100vh;
+  background-color: #161616;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+
+  .hero {
+    text-align: center;
+    padding: 4rem 1rem;
+
+    .title {
+      font-size: 3rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .subtitle {
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      color: #cccccc;
+    }
+
+    .ctaBtn {
+      background-color: #FBE54D;
+      color: #161616;
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  }
+
+  .about {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+    text-align: center;
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.125rem;
+      color: #cccccc;
+      line-height: 1.6;
+    }
+  }
+
+  .ctaBanner {
+    background: #FFFFFF;
+    color: #161616;
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    margin: 4rem 0;
+    text-align: center;
+
+    .ctaTitle {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    .ctaButton {
+      background: transparent;
+      color: #161616;
+      border: 2px solid #161616;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-size: 1.125rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+} 
