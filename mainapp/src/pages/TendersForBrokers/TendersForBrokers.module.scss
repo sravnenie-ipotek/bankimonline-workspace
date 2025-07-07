@@ -606,86 +606,334 @@
       font-size: 2rem;
       font-weight: 600;
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
     }
 
     .stepsGrid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+
+      .stepCard:nth-child(4) {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      .stepCard:nth-child(5) {
+        grid-column: 2;
+        grid-row: 2;
+      }
     }
 
     .stepCard {
       background-color: #242529;
-      border-radius: 8px;
-      padding: 2rem 1rem;
-      text-align: center;
+      border-radius: 12px;
+      padding: 2rem;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      text-align: right;
 
-      .stepNumber {
-        display: inline-block;
-        width: 40px;
-        height: 40px;
-        line-height: 40px;
-        border-radius: 50%;
-        background: #FBE54D;
-        color: #161616;
-        font-weight: 600;
-        margin-bottom: 1rem;
+      .stepHeader {
+        flex: 1;
+
+        h3 {
+          font-size: 1.125rem;
+          font-weight: 600;
+          margin: 0 0 1rem 0;
+          color: #FFFFFF;
+          line-height: 1.4;
+          text-align: right;
+        }
+
+        .stepDesc {
+          font-size: 1rem;
+          color: #D1D1D1;
+          line-height: 1.5;
+          margin: 0;
+          text-align: right;
+        }
       }
-      p {
-        font-size: 1rem;
-        margin: 0;
+
+      .stepFooter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+
+        .stepNumber {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          background: #FBE54D;
+          color: #161616;
+          font-weight: 700;
+          font-size: 1.5rem;
+        }
+
+        .whatsappIcon {
+          width: 40px;
+          height: 40px;
+          background: #25D366;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #FFFFFF;
+          font-weight: 600;
+          font-size: 1.25rem;
+        }
+      }
+    }
+
+    // RTL adjustments
+    html[dir='rtl'] & {
+      .stepCard {
+        text-align: right;
+
+        .stepHeader {
+          h3,
+          .stepDesc {
+            text-align: right;
+          }
+        }
+
+        .stepFooter {
+          flex-direction: row-reverse;
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      .stepsGrid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 1rem;
+
+        .stepCard:nth-child(4),
+        .stepCard:nth-child(5) {
+          grid-column: 1;
+          grid-row: auto;
+        }
+      }
+
+      .stepCard {
+        min-height: auto;
+        padding: 1.5rem;
+        text-align: center;
+
+        .stepHeader {
+          h3 {
+            font-size: 1.125rem;
+            text-align: center;
+          }
+
+          .stepDesc {
+            font-size: 0.9rem;
+            text-align: center;
+          }
+        }
+
+        .stepFooter {
+          justify-content: center;
+          gap: 1rem;
+          margin-top: 1.5rem;
+
+          .stepNumber {
+            width: 40px;
+            height: 40px;
+            font-size: 1.25rem;
+          }
+
+          .whatsappIcon {
+            width: 32px;
+            height: 32px;
+            font-size: 1rem;
+          }
+        }
       }
     }
   }
 
   /* Metrics Section */
   .metricsSection {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
     margin: 4rem 0;
+    background-color: #242529;
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    position: relative;
 
-    .metricCard {
-      background-color: #242529;
-      border-radius: 8px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      flex: 1 1 200px;
+    .metricsContainer {
+      max-width: 800px;
+      margin: 0 auto;
 
-      h3 {
-        font-size: 1.125rem;
-        margin-bottom: 0.5rem;
+      .metricsTitle {
+        font-size: 2rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 3rem;
+        color: #FFFFFF;
       }
 
-      .metricValue {
-        font-size: 1.5rem;
-        font-weight: 600;
-        color: #FBE54D;
+      .metricsGrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: 3rem;
+
+        .metricItem {
+          text-align: center;
+
+          .metricHeader {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+
+            .metricLabel {
+              font-size: 1rem;
+              color: #FBE54D;
+              font-weight: 500;
+            }
+
+            .whatsappIconMetric {
+              width: 32px;
+              height: 32px;
+              background: #25D366;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: #FFFFFF;
+              font-weight: 600;
+              font-size: 1rem;
+            }
+          }
+
+          .metricValue {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 1.2;
+          }
+        }
+      }
+
+      .metricsFooter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #3A3A3E;
+
+        .footerText {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          color: #D1D1D1;
+          font-size: 0.9rem;
+          flex: 1;
+
+          .yellowDot {
+            color: #FBE54D;
+            font-size: 1.2rem;
+          }
+        }
+
+        .metricsCtaBtn {
+          background-color: #FBE54D;
+          color: #161616;
+          border: none;
+          border-radius: 8px;
+          padding: 1rem 2rem;
+          font-size: 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          white-space: nowrap;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
       }
     }
 
     @media (max-width: 768px) {
-      flex-direction: column;
+      padding: 2rem 1.5rem;
+
+      .metricsContainer {
+        .metricsTitle {
+          font-size: 1.5rem;
+          margin-bottom: 2rem;
+        }
+
+        .metricsGrid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+          margin-bottom: 2rem;
+
+          .metricItem {
+            .metricHeader {
+              flex-direction: column;
+              gap: 0.5rem;
+
+              .whatsappIconMetric {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+              }
+            }
+
+            .metricValue {
+              font-size: 1.5rem;
+            }
+          }
+        }
+
+        .metricsFooter {
+          flex-direction: column;
+          gap: 1.5rem;
+          text-align: center;
+
+          .footerText {
+            justify-content: center;
+            font-size: 0.85rem;
+          }
+
+          .metricsCtaBtn {
+            width: 100%;
+            padding: 1.25rem;
+          }
+        }
+      }
     }
   }
 
   /* Consultation Button Section */
   .consultSection {
+    margin: 3rem 0;
+    width: 100%;
     display: flex;
     justify-content: center;
-    margin: 3rem 0;
 
     .consultBtn {
       background-color: #FBE54D;
       color: #161616;
       border: none;
       border-radius: 8px;
-      padding: 1.25rem 3rem;
+      padding: 1.25rem 0;
       font-size: 1.125rem;
       font-weight: 600;
       cursor: pointer;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      width: 100%;
     }
   }
 } 
