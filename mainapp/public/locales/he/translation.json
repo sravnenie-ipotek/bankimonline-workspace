@@ -932,8 +932,10 @@
     }
   },
   
-  "cooperation_title": "תכנית הפניות - הצטרפו אלינו",
-  "cooperation_subtitle": "הפכו לשותפים שלנו והתחילו להרוויח מכל לקוח שתפנו אלינו. תכנית הפניות מתגמלת עם עמלות אטרקטיביות ותמיכה מלאה.",
+  "cooperation_title": "תוכנית הפניות לשותפים",
+  "cooperation_subtitle": "הרוויחו ‎₪500 עבור כל לקוח שאתם מפנים אלינו ומשלם על השירותים. הירשמו עכשיו!",
+  "our_partners": "הבנקים שעמם אנחנו עובדים",
+  "partnership_benefits": "איך זה עובד",
   "cooperation_partner_login": "כניסה כשותף",
   "cooperation_register": "הרשמה לתכנית השותפים",
   
@@ -963,7 +965,7 @@
   "cooperation_step5_desc": "תקבלו תשלומים חודשיים עבור הלקוחות שהפניתם",
   
   "cooperation_partners_title": "השותפים הבנקאיים שלנו",
-  "cooperation_cta_title": "מוכנים להתחיל?",
+  "cooperation_cta_title": "הפכו לשותפים שלנו והרוויחו יחד איתנו",
   "cooperation_cta_description": "הצטרפו לתכנית השותפים שלנו עוד היום והתחילו להרוויח",
   
   "cooperation_email": "cooperation@bankimonline.com",
@@ -980,5 +982,28 @@
   "footer_terms": "תנאי שימוש",
   "footer_privacy": "מדיניות פרטיות",
   "footer_cookies": "מדיניות עוגיות",
-  "footer_refund": "מדיניות החזרות"
+  "footer_refund": "מדיניות החזרות",
+  "partner_login": "כניסה כשותף",
+  "register_partner_program": "הרשמה לתכנית השותפים",
+  "our_partners": "השותפים שלנו",
+  "partnership_benefits": "יתרונות השותפות",
+  "benefit_partnership": "שותפות אסטרטגית",
+  "benefit_partnership_desc": "הצטרפו לרשת השותפים המובילה בתחום הפיננסי בישראל",
+  "benefit_revenue": "הכנסות אטרקטיביות",
+  "benefit_revenue_desc": "קבלו עמלות תחרותיות עבור כל לקוח שמבצע עסקה דרככם",
+  "benefit_growth": "צמיחה מתמשכת",
+  "benefit_growth_desc": "בנו עסק יציב עם הכנסות חוזרות ותמיכה מקצועית מלאה",
+  "ready_to_partner": "מוכנים להתחיל?",
+  "partnership_cta_desc": "הצטרפו לתכנית השותפים שלנו עוד היום והתחילו להרוויח",
+  "contact_us": "צור קשר",
+  "follow_us": "עקבו אחרינו",
+  "marketplace_title": "Bankimonline - שוק משכנתאות והלוואות",
+  "marketplace_description": "Bankimonline מספקת ללקוחותיה ולשותפיה שירות דיגיטלי אחד לכל סוגי המימון",
+  "feature_mortgage_calc": "מחשבון משכנתא",
+  "feature_mortgage_refinance": "מיחזור משכנתא",
+  "feature_credit_calc": "מחשבון הלוואה",
+  "feature_credit_refinance": "מיחזור הלוואה",
+  "one_click_mortgage": "בחרו משכנתא בלחיצה אחת",
+  "referral_title": "הביאו לקוח וקבלו תגמול 500 ₪",
+  "referral_description": "קבלו עמלה על כל לקוח שרוכש את השירותים שלנו"
 }

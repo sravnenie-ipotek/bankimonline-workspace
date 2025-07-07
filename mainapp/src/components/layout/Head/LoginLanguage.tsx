@@ -24,11 +24,36 @@ export default function LoginLanguage() {
   const location = useLocation()
   const pathMap = location.pathname.split('/')
   const isService = pathMap.includes('services')
+  const isCooperation = pathMap.includes('cooperation')
 
   const { isDesktop } = useWindowResize()
+
   const handleLogin = () => {
     dispatch(openAuthModal())
     dispatch(setActiveModal('auth'))
+  }
+
+  const handlePartnerLogin = () => {
+    window.open('/admin/login', '_blank')
+  }
+
+  /* --------------------------------------------------
+     Special minimal header for Cooperation page (#19)
+  -------------------------------------------------- */
+  if (isCooperation && isDesktop) {
+    return (
+      <div className={cx('login-language')}>
+        <Button
+          variant="transparent"
+          size="smallLong"
+          style={{ minWidth: 'auto', width: 'auto', padding: '0', color: '#FFFFFF' }}
+          onClick={handlePartnerLogin}
+          icon={<SignOut color={'currentColor'} size={24} />}
+        >
+          {t('partner_login')}
+        </Button>
+      </div>
+    )
   }
 
   return (
