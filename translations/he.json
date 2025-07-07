@@ -1046,5 +1046,6 @@
   "tenders_metrics_income_title": "הכנסה שנתית",
   "tenders_metrics_income_value": "עד ₪ 300,000",
   "tenders_metrics_payback_title": "החזר השקעה",
-  "tenders_metrics_payback_value": "12 חודשים"
+  "tenders_metrics_payback_value": "12 חודשים",
+  "online_label": "ONLINE"
 }
