@@ -65,26 +65,33 @@ const TendersForBrokers = () => {
 
         {/* Marketplace Promo */}
         <section className={styles.marketplace}>
-          <span className={styles.onlineLabel}>{t('online_label')}</span>
-          <img src="/static/group-71@2x.png" alt="icon" className={styles.marketIcon} />
           <div className={styles.marketContent}>
             <h3>{t('tenders_marketplace_title')}</h3>
+            <p className={styles.marketSubtitle}>{t('tenders_marketplace_subtitle')}</p>
             <ul className={styles.marketList}>
-              <li>{t('tenders_market_b1')}</li>
-              <li>{t('tenders_market_b2')}</li>
+              <li>{t('calculate_mortgage')}</li>
+              <li>{t('calculate_credit')}</li>
+              <li>{t('refinance_mortgage')}</li>
+              <li>{t('refinance_credit')}</li>
             </ul>
+          </div>
+          <div className={styles.logoCard}>
+            <img src="/static/logo.svg" alt="Bankimonline" className={styles.logoImage} />
           </div>
         </section>
 
-        {/* We bring clients banner */}
+        {/* Clients & Earnings banner */}
         <section className={styles.clientsBanner}>
-          <PercentIcon color="#FBE54D" width={28} height={28} />
-          <p>{t('tenders_clients_text')}</p>
-        </section>
-
-        {/* Earnings section header */}
-        <section className={styles.earnHeader}>
-          <h2>{t('tenders_earn_title')}</h2>
+          <div className={styles.clientsCard}>
+            <div className={styles.clientsIconWrapper}>
+              <PercentIcon color="#161616" width={24} height={24} />
+            </div>
+            <div className={styles.clientsContent}>
+              <h3>{t('tenders_clients_title')}</h3>
+              <p>{t('tenders_clients_subtitle')}</p>
+            </div>
+          </div>
+          <h2 className={styles.clientsHeading}>{t('tenders_earn_title')}</h2>
         </section>
 
         {/* License Accordion Section */}
@@ -97,7 +104,14 @@ const TendersForBrokers = () => {
                   className={styles.accordionHeader}
                   onClick={() => setOpenFeature(openFeature === idx ? null : idx)}
                 >
-                  <span>{feature.title}</span>
+                  <div className={styles.accordionHeaderContent}>
+                    <div className={styles.accordionIcon}>
+                      {idx === 0 && <div className={styles.iconBuilding}>🏢</div>}
+                      {idx === 1 && <div className={styles.iconMarketing}>📢</div>}
+                      {idx === 2 && <div className={styles.iconSupport}>🎓</div>}
+                    </div>
+                    <span className={styles.accordionTitle}>{feature.title}</span>
+                  </div>
                   {openFeature === idx ? (
                     <CaretUpIcon width={20} height={20} />
                   ) : (
@@ -107,18 +121,33 @@ const TendersForBrokers = () => {
                 {openFeature === idx && (
                   <ul className={styles.accordionBody}>
                     {feature.points.map((p, i) => (
-                      <li key={i}>{p}</li>
+                      <li key={i}>
+                        <span className={styles.bulletIcon}>•</span>
+                        {p}
+                      </li>
                     ))}
                   </ul>
                 )}
               </div>
             ))}
           </div>
-          <img
-            src="/static/illustration2@2x.png"
-            alt="illustration"
-            className={styles.licenseIllustration}
-          />
+          <div className={styles.licenseIllustrationWrapper}>
+            <div className={styles.tooltipContainer}>
+              <div className={styles.tooltip}>
+                <span className={styles.tooltipIcon}>💰</span>
+                <span>{t('tenders_tooltip_earnings')}</span>
+              </div>
+            </div>
+            <img
+              src="/static/illustration2@2x.png"
+              alt="illustration"
+              className={styles.licenseIllustration}
+            />
+            <div className={styles.illustrationLabel}>
+              <span className={styles.labelIcon}>🏢</span>
+              <span>{t('tenders_illustration_label')}</span>
+            </div>
+          </div>
         </section>
 
         {/* About */}
