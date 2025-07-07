@@ -225,4 +225,138 @@
       font-weight: 600;
     }
   }
+
+  /* License Section */
+  .licenseSection {
+    display: flex;
+    align-items: flex-start;
+    gap: 3rem;
+    margin: 2rem 0 4rem;
+
+    .licenseContent {
+      flex: 1 1 480px;
+
+      h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+
+      .accordionItem {
+        border-bottom: 1px solid #2d2d2d;
+        padding: 1rem 0;
+
+        .accordionHeader {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          background: transparent;
+          border: none;
+          padding: 0;
+          font-size: 1.125rem;
+          color: #ffffff;
+          cursor: pointer;
+        }
+
+        .accordionBody {
+          margin-top: 0.75rem;
+          padding-left: 1.25rem;
+          list-style: disc;
+
+          li {
+            margin-bottom: 0.5rem;
+            color: #d1d1d1;
+            font-size: 0.95rem;
+          }
+        }
+      }
+    }
+
+    .licenseIllustration {
+      flex-shrink: 0;
+      width: 360px;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      .licenseIllustration {
+        width: 260px;
+        margin: 0 auto;
+      }
+    }
+  }
+
+  /* Steps Section */
+  .stepsSection {
+    margin: 4rem 0;
+
+    .stepsTitle {
+      font-size: 2rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .stepsGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .stepCard {
+      background-color: #242529;
+      border-radius: 8px;
+      padding: 2rem 1rem;
+      text-align: center;
+
+      .stepNumber {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 50%;
+        background: #FBE54D;
+        color: #161616;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+      p {
+        font-size: 1rem;
+        margin: 0;
+      }
+    }
+  }
+
+  /* Metrics Section */
+  .metricsSection {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 4rem 0;
+
+    .metricCard {
+      background-color: #242529;
+      border-radius: 8px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      flex: 1 1 200px;
+
+      h3 {
+        font-size: 1.125rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .metricValue {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #FBE54D;
+      }
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
 } 
