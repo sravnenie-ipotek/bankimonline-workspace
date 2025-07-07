@@ -65,15 +65,15 @@ const TendersForBrokers = () => {
 
         {/* Marketplace Promo */}
         <section className={styles.marketplace}>
-          <div className={styles.marketLeft}>
-            <img src="/static/primary-logo05-1.svg" alt="Logo" className={styles.marketLogo}/>
+          <span className={styles.onlineLabel}>{t('online_label')}</span>
+          <img src="/static/group-71@2x.png" alt="icon" className={styles.marketIcon} />
+          <div className={styles.marketContent}>
             <h3>{t('tenders_marketplace_title')}</h3>
-            <ul>
+            <ul className={styles.marketList}>
               <li>{t('tenders_market_b1')}</li>
               <li>{t('tenders_market_b2')}</li>
             </ul>
           </div>
-          <img src="/static/illustration1@2x.png" className={styles.marketPhoto} alt="market" />
         </section>
 
         {/* We bring clients banner */}
