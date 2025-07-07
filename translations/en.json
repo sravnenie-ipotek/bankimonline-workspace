@@ -1019,5 +1019,6 @@
   "tenders_metrics_income_title": "Annual income",
   "tenders_metrics_income_value": "Up to ₪ 300,000",
   "tenders_metrics_payback_title": "Payback",
-  "tenders_metrics_payback_value": "12 months"
+  "tenders_metrics_payback_value": "12 months",
+  "online_label": "ONLINE"
 }
