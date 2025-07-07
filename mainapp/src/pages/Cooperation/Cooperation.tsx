@@ -132,6 +132,10 @@ const Cooperation = () => {
 
         {/* CTA Banner Section */}
         <section className={styles.ctaBanner}>
+          {/* Decorative horizontal lines */}
+          <span className={styles.lineTop} aria-hidden="true" />
+          <span className={styles.lineMiddle} aria-hidden="true" />
+
           <div className={styles.ctaBannerContent}>
             <h2 className={styles.ctaBannerTitle}>
               {t('cooperation_cta_title')}
