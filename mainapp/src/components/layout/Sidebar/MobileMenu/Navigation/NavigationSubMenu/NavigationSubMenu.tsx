@@ -13,13 +13,22 @@ interface NavigationSubMenuProps {
   items: IMenuItem[]
   isOpen: boolean
   onClose: () => void
+  onCloseMenu?: () => void
 }
 
 const NavigationSubMenu: FC<NavigationSubMenuProps> = ({
   items,
   isOpen,
   onClose,
+  onCloseMenu
 }) => {
+  const handleClick = () => {
+    onClose() // Close submenu
+    if (onCloseMenu) {
+      onCloseMenu() // Close mobile menu
+    }
+  }
+  
   return (
     <>
       <nav
@@ -31,7 +40,7 @@ const NavigationSubMenu: FC<NavigationSubMenuProps> = ({
         <ul className={cx('list')}>
           {items.map((item) => (
             <li key={item.title} className={cx('item')}>
-              <Link to={item.path!}>{item.title}</Link>
+              <Link to={item.path!} onClick={handleClick}>{item.title}</Link>
             </li>
           ))}
         </ul>

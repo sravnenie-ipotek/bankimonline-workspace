@@ -1,468 +1,605 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
+import { Formik, Form } from 'formik'
+import * as Yup from 'yup'
 import classNames from 'classnames/bind'
-import Container from '../../components/ui/Container/Container'
-import { Button } from '../../components/ui/ButtonUI'
+
+import { CustomPhoneInput } from '@src/components/ui/CustomPhoneInput'
+import { DropdownMenu } from '@src/components/ui/DropdownMenu'
+import { Error } from '@src/components/ui/Error'
+import { TitleElement } from '@src/components/ui/TitleElement'
+import { Button } from '@src/components/ui/ButtonUI'
+import { FormattedInput } from '@src/components/ui/FormattedInput'
+import { useGetCitiesQuery } from '@src/pages/Services/api/api'
+
 import styles from './BrokerQuestionnaire.module.scss'
 
 const cx = classNames.bind(styles)
 
 interface FormData {
-  // Personal Information
-  firstName: string
-  lastName: string
-  email: string
+  fullName: string
   phone: string
+  email: string
   city: string
-  
-  // Professional Information
-  experience: string
-  licenseNumber: string
-  currentClients: string
-  monthlyDeals: string
-  
-  // Business Information
-  officeType: string
-  teamSize: string
-  marketingBudget: string
-  preferredCommission: string
-  
-  // Additional Information
-  motivation: string
-  expectations: string
-  additionalInfo: string
+  desiredRegion: string
+  employmentType: string
+  monthlyIncome: string
+  workExperience: string
+  // Conditional fields for business types
+  organizationNumber: string
+  organizationName: string
+  averageClientsPerMonth: string
+  mortgageClientsLastYear: string
+  refinanceClientsLastYear: string
+  // Yes/No questions
+  hasClientCases: string
+  hasDebtCases: string
+  comments: string
+  agreement: boolean
 }
 
 const BrokerQuestionnaire: React.FC = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const { data: citiesData, isLoading: citiesLoading } = useGetCitiesQuery()
+  const formRef = useRef<HTMLFormElement>(null)
   
-  const [formData, setFormData] = useState<FormData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    city: '',
-    experience: '',
-    licenseNumber: '',
-    currentClients: '',
-    monthlyDeals: '',
-    officeType: '',
-    teamSize: '',
-    marketingBudget: '',
-    preferredCommission: '',
-    motivation: '',
-    expectations: '',
-    additionalInfo: ''
-  })
-  
-  const [currentStep, setCurrentStep] = useState(1)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const totalSteps = 4
+  const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [showValidationErrors, setShowValidationErrors] = useState(false)
 
-  const handleInputChange = (field: keyof FormData, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }))
+  // Transform cities data for dropdown (no fallback to hard-coded list)
+  const cityOptions = (citiesData?.data ?? []).map((city: any) => ({
+    value: city.value || city.name?.toLowerCase().replace(/\s+/g, '-'),
+    label: city.name,
+  }))
+
+  const employmentOptions = [
+    { value: 'employment', label: t('broker_questionnaire_employment_type_employment') },
+    { value: 'business', label: t('broker_questionnaire_employment_type_business') },
+    { value: 'investments', label: t('broker_questionnaire_employment_type_investments') },
+    { value: 'property', label: t('broker_questionnaire_employment_type_property') },
+    { value: 'no_income', label: t('broker_questionnaire_employment_type_no_income') }
+  ]
+
+  const incomeOptions = [
+    { value: '0-5000', label: t('broker_questionnaire_income_0_5000') },
+    { value: '5000-10000', label: t('broker_questionnaire_income_5000_10000') },
+    { value: '10000-20000', label: t('broker_questionnaire_income_10000_20000') },
+    { value: '20000-50000', label: t('broker_questionnaire_income_20000_50000') },
+    { value: '50000+', label: t('broker_questionnaire_income_50000_plus') }
+  ]
+
+  const experienceOptions = [
+    { value: '0-1', label: t('broker_questionnaire_experience_0_1') },
+    { value: '1-3', label: t('broker_questionnaire_experience_1_3') },
+    { value: '3-5', label: t('broker_questionnaire_experience_3_5') },
+    { value: '5-10', label: t('broker_questionnaire_experience_5_10') },
+    { value: '10+', label: t('broker_questionnaire_experience_10_plus') }
+  ]
+
+  const yesNoOptions = [
+    { value: 'yes', label: t('yes') },
+    { value: 'no', label: t('no') }
+  ]
+
+  const requiresBusinessFields = (employmentType: string) => {
+    return employmentType === 'business' || employmentType === 'investments' || employmentType === 'property'
   }
 
-  const handleNext = () => {
-    if (currentStep < totalSteps) {
-      setCurrentStep(prev => prev + 1)
+  const getValidationSchema = (employmentType: string) => {
+    const baseSchema = {
+      fullName: Yup.string()
+        .required(t('broker_questionnaire_error_required'))
+        .min(2, t('broker_questionnaire_error_name_min')),
+      phone: Yup.string()
+        .required(t('broker_questionnaire_error_required'))
+        .matches(/^\+?[1-9]\d{1,14}$/, t('broker_questionnaire_error_phone_format')),
+      email: Yup.string()
+        .required(t('broker_questionnaire_error_required'))
+        .email(t('broker_questionnaire_error_email_format')),
+      city: Yup.string()
+        .required(t('broker_questionnaire_error_required')),
+      desiredRegion: Yup.string()
+        .required(t('broker_questionnaire_error_required')),
+      employmentType: Yup.string()
+        .required(t('broker_questionnaire_error_required')),
+      monthlyIncome: Yup.string()
+        .required(t('broker_questionnaire_error_required')),
+      workExperience: Yup.string()
+        .required(t('broker_questionnaire_error_required')),
+      hasClientCases: Yup.string()
+        .required(t('broker_questionnaire_error_required')),
+      hasDebtCases: Yup.string()
+        .required(t('broker_questionnaire_error_required')),
+      comments: Yup.string()
+        .max(1000, t('broker_questionnaire_error_comments_max')),
+      agreement: Yup.boolean()
+        .oneOf([true], t('broker_questionnaire_error_agreement'))
     }
-  }
 
-  const handlePrevious = () => {
-    if (currentStep > 1) {
-      setCurrentStep(prev => prev - 1)
-    }
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    try {
-      // Here you would typically send the data to your API
-      console.log('Submitting broker questionnaire:', formData)
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      
-      // Navigate to success page or show success message
-      navigate('/tenders-for-brokers', { 
-        state: { 
-          message: t('broker_questionnaire_success', 'Thank you for your application! We will contact you soon.') 
-        } 
+    // Add conditional fields for business types
+    if (requiresBusinessFields(employmentType)) {
+      return Yup.object().shape({
+        ...baseSchema,
+        organizationNumber: Yup.string()
+          .required(t('broker_questionnaire_error_required'))
+          .matches(/^\d+$/, t('broker_questionnaire_error_number_format')),
+        organizationName: Yup.string()
+          .required(t('broker_questionnaire_error_required'))
+          .min(2, t('broker_questionnaire_error_name_min')),
+        averageClientsPerMonth: Yup.string()
+          .required(t('broker_questionnaire_error_required'))
+          .matches(/^\d+$/, t('broker_questionnaire_error_number_format')),
+        mortgageClientsLastYear: Yup.string()
+          .matches(/^\d*$/, t('broker_questionnaire_error_number_format')),
+        refinanceClientsLastYear: Yup.string()
+          .matches(/^\d*$/, t('broker_questionnaire_error_number_format'))
       })
+    }
+
+    return Yup.object().shape(baseSchema)
+  }
+
+  const initialValues: FormData = {
+    fullName: '',
+    phone: '',
+    email: '',
+    city: '',
+    desiredRegion: '',
+    employmentType: '',
+    monthlyIncome: '',
+    workExperience: '',
+    organizationNumber: '',
+    organizationName: '',
+    averageClientsPerMonth: '',
+    mortgageClientsLastYear: '',
+    refinanceClientsLastYear: '',
+    hasClientCases: '',
+    hasDebtCases: '',
+    comments: '',
+    agreement: false
+  }
+
+  const scrollToFirstError = (errors: any) => {
+    const firstErrorField = Object.keys(errors)[0]
+    const element = document.querySelector(`[name="${firstErrorField}"]`) as HTMLElement
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      element.focus()
+    }
+  }
+
+  const handleSubmit = async (values: FormData) => {
+    setIsSubmitting(true)
+    setShowValidationErrors(true)
+
+    try {
+      const response = await fetch('/api/broker-questionnaire', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values)
+      })
+
+      if (response.ok) {
+        setSubmitSuccess(true)
+      } else {
+        const errorData = await response.json()
+        console.error('Submission error:', errorData)
+        throw new Error(errorData.message || 'Failed to submit questionnaire')
+      }
     } catch (error) {
       console.error('Error submitting questionnaire:', error)
+      alert(t('broker_questionnaire_error_submit'))
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  const renderStep1 = () => (
-    <div className={cx('step-content')}>
-      <h2 className={cx('step-title')}>{t('broker_questionnaire_step1_title', 'Personal Information')}</h2>
-      
-      <div className={cx('form-row')}>
-        <div className={cx('form-field')}>
-          <label htmlFor="firstName">{t('broker_questionnaire_first_name', 'First Name')} *</label>
-          <input
-            type="text"
-            id="firstName"
-            value={formData.firstName}
-            onChange={(e) => handleInputChange('firstName', e.target.value)}
-            required
-            className={cx('form-input')}
-          />
-        </div>
-        
-        <div className={cx('form-field')}>
-          <label htmlFor="lastName">{t('broker_questionnaire_last_name', 'Last Name')} *</label>
-          <input
-            type="text"
-            id="lastName"
-            value={formData.lastName}
-            onChange={(e) => handleInputChange('lastName', e.target.value)}
-            required
-            className={cx('form-input')}
-          />
+  // Show success message if submission was successful
+  if (submitSuccess) {
+    return (
+      <div className={cx('broker-questionnaire')}>
+        <div className={cx('content')}>
+          <div className={cx('form-container')}>
+            <div className={cx('success-message')}>
+              <h2>{t('broker_questionnaire_success_title')}</h2>
+              <p>{t('broker_questionnaire_success_message')}</p>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <div className={cx('form-row')}>
-        <div className={cx('form-field')}>
-          <label htmlFor="email">{t('broker_questionnaire_email', 'Email Address')} *</label>
-          <input
-            type="email"
-            id="email"
-            value={formData.email}
-            onChange={(e) => handleInputChange('email', e.target.value)}
-            required
-            className={cx('form-input')}
-          />
-        </div>
-        
-        <div className={cx('form-field')}>
-          <label htmlFor="phone">{t('broker_questionnaire_phone', 'Phone Number')} *</label>
-          <input
-            type="tel"
-            id="phone"
-            value={formData.phone}
-            onChange={(e) => handleInputChange('phone', e.target.value)}
-            required
-            className={cx('form-input')}
-          />
-        </div>
-      </div>
-      
-      <div className={cx('form-field')}>
-        <label htmlFor="city">{t('broker_questionnaire_city', 'City')} *</label>
-        <input
-          type="text"
-          id="city"
-          value={formData.city}
-          onChange={(e) => handleInputChange('city', e.target.value)}
-          required
-          className={cx('form-input')}
-        />
-      </div>
-    </div>
-  )
-
-  const renderStep2 = () => (
-    <div className={cx('step-content')}>
-      <h2 className={cx('step-title')}>{t('broker_questionnaire_step2_title', 'Professional Experience')}</h2>
-      
-      <div className={cx('form-field')}>
-        <label htmlFor="experience">{t('broker_questionnaire_experience', 'Years of Experience')} *</label>
-        <select
-          id="experience"
-          value={formData.experience}
-          onChange={(e) => handleInputChange('experience', e.target.value)}
-          required
-          className={cx('form-select')}
-        >
-          <option value="">{t('broker_questionnaire_select_experience', 'Select experience level')}</option>
-          <option value="0-1">{t('broker_questionnaire_experience_0_1', '0-1 years')}</option>
-          <option value="2-5">{t('broker_questionnaire_experience_2_5', '2-5 years')}</option>
-          <option value="6-10">{t('broker_questionnaire_experience_6_10', '6-10 years')}</option>
-          <option value="10+">{t('broker_questionnaire_experience_10_plus', '10+ years')}</option>
-        </select>
-      </div>
-      
-      <div className={cx('form-field')}>
-        <label htmlFor="licenseNumber">{t('broker_questionnaire_license', 'License Number')} *</label>
-        <input
-          type="text"
-          id="licenseNumber"
-          value={formData.licenseNumber}
-          onChange={(e) => handleInputChange('licenseNumber', e.target.value)}
-          required
-          className={cx('form-input')}
-        />
-      </div>
-      
-      <div className={cx('form-row')}>
-        <div className={cx('form-field')}>
-          <label htmlFor="currentClients">{t('broker_questionnaire_current_clients', 'Current Number of Clients')} *</label>
-          <select
-            id="currentClients"
-            value={formData.currentClients}
-            onChange={(e) => handleInputChange('currentClients', e.target.value)}
-            required
-            className={cx('form-select')}
-          >
-            <option value="">{t('broker_questionnaire_select_clients', 'Select client range')}</option>
-            <option value="0-10">{t('broker_questionnaire_clients_0_10', '0-10 clients')}</option>
-            <option value="11-50">{t('broker_questionnaire_clients_11_50', '11-50 clients')}</option>
-            <option value="51-100">{t('broker_questionnaire_clients_51_100', '51-100 clients')}</option>
-            <option value="100+">{t('broker_questionnaire_clients_100_plus', '100+ clients')}</option>
-          </select>
-        </div>
-        
-        <div className={cx('form-field')}>
-          <label htmlFor="monthlyDeals">{t('broker_questionnaire_monthly_deals', 'Monthly Deals')} *</label>
-          <select
-            id="monthlyDeals"
-            value={formData.monthlyDeals}
-            onChange={(e) => handleInputChange('monthlyDeals', e.target.value)}
-            required
-            className={cx('form-select')}
-          >
-            <option value="">{t('broker_questionnaire_select_deals', 'Select deal range')}</option>
-            <option value="0-5">{t('broker_questionnaire_deals_0_5', '0-5 deals')}</option>
-            <option value="6-15">{t('broker_questionnaire_deals_6_15', '6-15 deals')}</option>
-            <option value="16-30">{t('broker_questionnaire_deals_16_30', '16-30 deals')}</option>
-            <option value="30+">{t('broker_questionnaire_deals_30_plus', '30+ deals')}</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  )
-
-  const renderStep3 = () => (
-    <div className={cx('step-content')}>
-      <h2 className={cx('step-title')}>{t('broker_questionnaire_step3_title', 'Business Information')}</h2>
-      
-      <div className={cx('form-row')}>
-        <div className={cx('form-field')}>
-          <label htmlFor="officeType">{t('broker_questionnaire_office_type', 'Office Type')} *</label>
-          <select
-            id="officeType"
-            value={formData.officeType}
-            onChange={(e) => handleInputChange('officeType', e.target.value)}
-            required
-            className={cx('form-select')}
-          >
-            <option value="">{t('broker_questionnaire_select_office', 'Select office type')}</option>
-            <option value="home">{t('broker_questionnaire_office_home', 'Home Office')}</option>
-            <option value="shared">{t('broker_questionnaire_office_shared', 'Shared Office')}</option>
-            <option value="private">{t('broker_questionnaire_office_private', 'Private Office')}</option>
-            <option value="agency">{t('broker_questionnaire_office_agency', 'Real Estate Agency')}</option>
-          </select>
-        </div>
-        
-        <div className={cx('form-field')}>
-          <label htmlFor="teamSize">{t('broker_questionnaire_team_size', 'Team Size')} *</label>
-          <select
-            id="teamSize"
-            value={formData.teamSize}
-            onChange={(e) => handleInputChange('teamSize', e.target.value)}
-            required
-            className={cx('form-select')}
-          >
-            <option value="">{t('broker_questionnaire_select_team', 'Select team size')}</option>
-            <option value="solo">{t('broker_questionnaire_team_solo', 'Solo Broker')}</option>
-            <option value="2-5">{t('broker_questionnaire_team_2_5', '2-5 people')}</option>
-            <option value="6-10">{t('broker_questionnaire_team_6_10', '6-10 people')}</option>
-            <option value="10+">{t('broker_questionnaire_team_10_plus', '10+ people')}</option>
-          </select>
-        </div>
-      </div>
-      
-      <div className={cx('form-row')}>
-        <div className={cx('form-field')}>
-          <label htmlFor="marketingBudget">{t('broker_questionnaire_marketing_budget', 'Monthly Marketing Budget')} *</label>
-          <select
-            id="marketingBudget"
-            value={formData.marketingBudget}
-            onChange={(e) => handleInputChange('marketingBudget', e.target.value)}
-            required
-            className={cx('form-select')}
-          >
-            <option value="">{t('broker_questionnaire_select_budget', 'Select budget range')}</option>
-            <option value="0-1000">{t('broker_questionnaire_budget_0_1000', '₪0 - ₪1,000')}</option>
-            <option value="1000-5000">{t('broker_questionnaire_budget_1000_5000', '₪1,000 - ₪5,000')}</option>
-            <option value="5000-10000">{t('broker_questionnaire_budget_5000_10000', '₪5,000 - ₪10,000')}</option>
-            <option value="10000+">{t('broker_questionnaire_budget_10000_plus', '₪10,000+')}</option>
-          </select>
-        </div>
-        
-        <div className={cx('form-field')}>
-          <label htmlFor="preferredCommission">{t('broker_questionnaire_preferred_commission', 'Preferred Commission Structure')} *</label>
-          <select
-            id="preferredCommission"
-            value={formData.preferredCommission}
-            onChange={(e) => handleInputChange('preferredCommission', e.target.value)}
-            required
-            className={cx('form-select')}
-          >
-            <option value="">{t('broker_questionnaire_select_commission', 'Select commission structure')}</option>
-            <option value="per-deal">{t('broker_questionnaire_commission_per_deal', 'Per Deal')}</option>
-            <option value="percentage">{t('broker_questionnaire_commission_percentage', 'Percentage Based')}</option>
-            <option value="monthly">{t('broker_questionnaire_commission_monthly', 'Monthly Retainer')}</option>
-            <option value="hybrid">{t('broker_questionnaire_commission_hybrid', 'Hybrid Model')}</option>
-          </select>
-        </div>
-      </div>
-    </div>
-  )
-
-  const renderStep4 = () => (
-    <div className={cx('step-content')}>
-      <h2 className={cx('step-title')}>{t('broker_questionnaire_step4_title', 'Additional Information')}</h2>
-      
-      <div className={cx('form-field')}>
-        <label htmlFor="motivation">{t('broker_questionnaire_motivation', 'What motivates you to join our platform?')} *</label>
-        <textarea
-          id="motivation"
-          value={formData.motivation}
-          onChange={(e) => handleInputChange('motivation', e.target.value)}
-          required
-          rows={4}
-          className={cx('form-textarea')}
-          placeholder={t('broker_questionnaire_motivation_placeholder', 'Please share your motivation...')}
-        />
-      </div>
-      
-      <div className={cx('form-field')}>
-        <label htmlFor="expectations">{t('broker_questionnaire_expectations', 'What are your expectations from our partnership?')} *</label>
-        <textarea
-          id="expectations"
-          value={formData.expectations}
-          onChange={(e) => handleInputChange('expectations', e.target.value)}
-          required
-          rows={4}
-          className={cx('form-textarea')}
-          placeholder={t('broker_questionnaire_expectations_placeholder', 'Please share your expectations...')}
-        />
-      </div>
-      
-      <div className={cx('form-field')}>
-        <label htmlFor="additionalInfo">{t('broker_questionnaire_additional_info', 'Additional Information (Optional)')}</label>
-        <textarea
-          id="additionalInfo"
-          value={formData.additionalInfo}
-          onChange={(e) => handleInputChange('additionalInfo', e.target.value)}
-          rows={4}
-          className={cx('form-textarea')}
-          placeholder={t('broker_questionnaire_additional_info_placeholder', 'Any additional information you would like to share...')}
-        />
-      </div>
-    </div>
-  )
-
-  const isStepValid = () => {
-    switch (currentStep) {
-      case 1:
-        return formData.firstName && formData.lastName && formData.email && formData.phone && formData.city
-      case 2:
-        return formData.experience && formData.licenseNumber && formData.currentClients && formData.monthlyDeals
-      case 3:
-        return formData.officeType && formData.teamSize && formData.marketingBudget && formData.preferredCommission
-      case 4:
-        return formData.motivation && formData.expectations
-      default:
-        return false
-    }
+    )
   }
 
   return (
     <div className={cx('broker-questionnaire')}>
-      <Container>
-        <div className={cx('questionnaire-header')}>
-          <h1 className={cx('questionnaire-title')}>
-            {t('broker_questionnaire_title', 'Broker Partnership Application')}
-          </h1>
-          <p className={cx('questionnaire-subtitle')}>
-            {t('broker_questionnaire_subtitle', 'Join our network of successful brokers and grow your business with us')}
-          </p>
+      <div className={cx('header')}>
+        <button 
+          className={cx('back-button')}
+          onClick={() => navigate('/tenders-for-brokers')}
+          type="button"
+        >
+          ← {t('broker_questionnaire_back')}
+        </button>
+        <div className={cx('logo')}>
+          <img src="/static/logo.svg" alt="Bankimonline" />
         </div>
+      </div>
 
-        <div className={cx('progress-bar')}>
-          <div className={cx('progress-steps')}>
-            {Array.from({ length: totalSteps }, (_, index) => (
-              <div
-                key={index}
-                className={cx('progress-step', {
-                  active: index + 1 === currentStep,
-                  completed: index + 1 < currentStep
-                })}
-              >
-                <div className={cx('step-number')}>{index + 1}</div>
-                <div className={cx('step-label')}>
-                  {t(`broker_questionnaire_step${index + 1}_label`, `Step ${index + 1}`)}
+      <div className={cx('content')}>
+        <div className={cx('form-container')}>
+          <h1 className={cx('title')}>{t('broker_questionnaire_title')}</h1>
+          <p className={cx('subtitle')}>Анкета для сотрудничества брокеров страница №20.1</p>
+          <a href="#" className={cx('form-link')}>[–] הרכב טופס לחשבון האישי שלך</a>
+          
+          <Formik
+            initialValues={initialValues}
+            validationSchema={getValidationSchema(initialValues.employmentType)}
+            onSubmit={handleSubmit}
+            enableReinitialize
+          >
+            {({ values, setFieldValue, errors, touched, setFieldTouched, isValid }) => (
+              <Form className={cx('form')} ref={formRef}>
+                {/* Contact Information Section */}
+                <div className={cx('section')}>
+                  <div className={cx('form-row', 'three-columns')}>
+                    {/* Full Name */}
+                    <div className={cx('form-field')}>
+                      <TitleElement title={t('broker_questionnaire_full_name')} />
+                      <input
+                        type="text"
+                        name="fullName"
+                        value={values.fullName}
+                        onChange={(e) => setFieldValue('fullName', e.target.value)}
+                        onBlur={() => setFieldTouched('fullName', true)}
+                        placeholder={t('broker_questionnaire_full_name_placeholder')}
+                        className={cx('input', { error: touched.fullName && errors.fullName })}
+                      />
+                      {touched.fullName && errors.fullName && <Error error={errors.fullName} />}
+                    </div>
+
+                    {/* Phone */}
+                    <div className={cx('form-field')}>
+                      <CustomPhoneInput
+                        title={t('broker_questionnaire_phone')}
+                        value={values.phone}
+                        handleChange={(phone) => setFieldValue('phone', phone)}
+                        onBlur={() => setFieldTouched('phone', true)}
+                        error={touched.phone && errors.phone}
+                        onlyCountries={['il', 'us', 'ru']}
+                      />
+                    </div>
+                    
+                    {/* Email */}
+                    <div className={cx('form-field')}>
+                      <TitleElement title={t('broker_questionnaire_email')} />
+                      <input
+                        type="email"
+                        name="email"
+                        value={values.email}
+                        onChange={(e) => setFieldValue('email', e.target.value)}
+                        onBlur={() => setFieldTouched('email', true)}
+                        placeholder={t('broker_questionnaire_email_placeholder')}
+                        className={cx('input', { error: touched.email && errors.email })}
+                      />
+                      {touched.email && errors.email && <Error error={errors.email} />}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-          <div 
-            className={cx('progress-fill')} 
-            style={{ width: `${(currentStep / totalSteps) * 100}%` }}
-          />
+
+                {/* Location Section - Same row as contact info in screenshot */}
+                <div className={cx('section')}>
+                  <div className={cx('form-row', 'two-columns')}>
+                    {/* City */}
+                    <div className={cx('form-field')}>
+                      <DropdownMenu
+                        title={t('broker_questionnaire_city')}
+                        data={cityOptions}
+                        placeholder={t('broker_questionnaire_city_placeholder')}
+                        value={values.city}
+                        onChange={(value) => setFieldValue('city', value)}
+                        onBlur={() => setFieldTouched('city', true)}
+                        searchable
+                        searchPlaceholder={t('search')}
+                        nothingFoundText={t('nothing_found')}
+                        error={touched.city && errors.city}
+                      />
+                    </div>
+                    
+                    {/* Desired Region */}
+                    <div className={cx('form-field')}>
+                      <DropdownMenu
+                        title={t('broker_questionnaire_desired_region')}
+                        data={cityOptions}
+                        placeholder={t('broker_questionnaire_desired_region_placeholder')}
+                        value={values.desiredRegion}
+                        onChange={(value) => setFieldValue('desiredRegion', value)}
+                        onBlur={() => setFieldTouched('desiredRegion', true)}
+                        searchable
+                        searchPlaceholder={t('search')}
+                        nothingFoundText={t('nothing_found')}
+                        error={touched.desiredRegion && errors.desiredRegion}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Professional Information Section */}
+                <div className={cx('section')}>
+                  <div className={cx('form-row', 'three-columns')}>
+                    {/* Employment Type */}
+                    <div className={cx('form-field')}>
+                      <DropdownMenu
+                        title={t('broker_questionnaire_employment_type')}
+                        data={employmentOptions}
+                        placeholder={t('broker_questionnaire_employment_type_placeholder')}
+                        value={values.employmentType}
+                        onChange={(value) => {
+                          setFieldValue('employmentType', value)
+                          // Reset conditional fields when employment type changes
+                          if (!requiresBusinessFields(value)) {
+                            setFieldValue('organizationNumber', '')
+                            setFieldValue('organizationName', '')
+                            setFieldValue('averageClientsPerMonth', '')
+                            setFieldValue('mortgageClientsLastYear', '')
+                            setFieldValue('refinanceClientsLastYear', '')
+                          }
+                        }}
+                        onBlur={() => setFieldTouched('employmentType', true)}
+                        error={touched.employmentType && errors.employmentType}
+                      />
+                    </div>
+
+                    {/* Monthly Income */}
+                    {values.employmentType !== 'no_income' && (
+                      <div className={cx('form-field')}>
+                        <DropdownMenu
+                          title={t('broker_questionnaire_monthly_income')}
+                          data={incomeOptions}
+                          placeholder={t('broker_questionnaire_monthly_income_placeholder')}
+                          value={values.monthlyIncome}
+                          onChange={(value) => setFieldValue('monthlyIncome', value)}
+                          onBlur={() => setFieldTouched('monthlyIncome', true)}
+                          error={touched.monthlyIncome && errors.monthlyIncome}
+                        />
+                      </div>
+                    )}
+
+                    {/* No Income Date Field */}
+                    {values.employmentType === 'no_income' && (
+                      <div className={cx('form-field')}>
+                        <TitleElement title={t('broker_questionnaire_no_income_since')} />
+                        <input
+                          type="date"
+                          name="monthlyIncome"
+                          value={values.monthlyIncome}
+                          onChange={(e) => setFieldValue('monthlyIncome', e.target.value)}
+                          onBlur={() => setFieldTouched('monthlyIncome', true)}
+                          placeholder={t('broker_questionnaire_no_income_since_placeholder')}
+                          className={cx('input', { error: touched.monthlyIncome && errors.monthlyIncome })}
+                        />
+                        {touched.monthlyIncome && errors.monthlyIncome && <Error error={errors.monthlyIncome} />}
+                      </div>
+                    )}
+
+                    {/* Work Experience */}
+                    <div className={cx('form-field')}>
+                      <DropdownMenu
+                        title={t('broker_questionnaire_work_experience')}
+                        data={experienceOptions}
+                        placeholder={t('broker_questionnaire_work_experience_placeholder')}
+                        value={values.workExperience}
+                        onChange={(value) => setFieldValue('workExperience', value)}
+                        onBlur={() => setFieldTouched('workExperience', true)}
+                        error={touched.workExperience && errors.workExperience}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Conditional Business Fields */}
+                  {requiresBusinessFields(values.employmentType) && (
+                    <div className={cx('business-fields')}>
+                      <div className={cx('form-row', 'three-columns')}>
+                        {/* Organization Number */}
+                        <div className={cx('form-field')}>
+                          <FormattedInput
+                            title={t('broker_questionnaire_organization_number')}
+                            value={values.organizationNumber ? parseInt(values.organizationNumber) : null}
+                            handleChange={(value) => setFieldValue('organizationNumber', value?.toString() || '')}
+                            onBlur={() => setFieldTouched('organizationNumber', true)}
+                            placeholder={t('broker_questionnaire_organization_number_placeholder')}
+                            error={touched.organizationNumber && errors.organizationNumber}
+                            disableCurrency={true}
+                          />
+                        </div>
+
+                        {/* Organization Name */}
+                        <div className={cx('form-field')}>
+                          <TitleElement title={t('broker_questionnaire_organization_name')} />
+                          <input
+                            type="text"
+                            name="organizationName"
+                            value={values.organizationName}
+                            onChange={(e) => setFieldValue('organizationName', e.target.value)}
+                            onBlur={() => setFieldTouched('organizationName', true)}
+                            placeholder={t('broker_questionnaire_organization_name_placeholder')}
+                            className={cx('input', { error: touched.organizationName && errors.organizationName })}
+                          />
+                          {touched.organizationName && errors.organizationName && <Error error={errors.organizationName} />}
+                        </div>
+
+                        {/* Average Clients Per Month */}
+                        <div className={cx('form-field')}>
+                          <FormattedInput
+                            title={t('broker_questionnaire_average_clients_month')}
+                            value={values.averageClientsPerMonth ? parseInt(values.averageClientsPerMonth) : null}
+                            handleChange={(value) => setFieldValue('averageClientsPerMonth', value?.toString() || '')}
+                            onBlur={() => setFieldTouched('averageClientsPerMonth', true)}
+                            placeholder={t('broker_questionnaire_average_clients_month_placeholder')}
+                            error={touched.averageClientsPerMonth && errors.averageClientsPerMonth}
+                            disableCurrency={true}
+                          />
+                        </div>
+                      </div>
+
+                      <div className={cx('form-row')}>
+                        {/* Mortgage Clients Last Year */}
+                        <div className={cx('form-field')}>
+                          <FormattedInput
+                            title={t('broker_questionnaire_mortgage_clients_year')}
+                            value={values.mortgageClientsLastYear ? parseInt(values.mortgageClientsLastYear) : null}
+                            handleChange={(value) => setFieldValue('mortgageClientsLastYear', value?.toString() || '')}
+                            onBlur={() => setFieldTouched('mortgageClientsLastYear', true)}
+                            placeholder={t('broker_questionnaire_mortgage_clients_year_placeholder')}
+                            error={touched.mortgageClientsLastYear && errors.mortgageClientsLastYear}
+                            disableCurrency={true}
+                          />
+                        </div>
+
+                        {/* Refinance Clients Last Year */}
+                        <div className={cx('form-field')}>
+                          <FormattedInput
+                            title={t('broker_questionnaire_refinance_clients_year')}
+                            value={values.refinanceClientsLastYear ? parseInt(values.refinanceClientsLastYear) : null}
+                            handleChange={(value) => setFieldValue('refinanceClientsLastYear', value?.toString() || '')}
+                            onBlur={() => setFieldTouched('refinanceClientsLastYear', true)}
+                            placeholder={t('broker_questionnaire_refinance_clients_year_placeholder')}
+                            error={touched.refinanceClientsLastYear && errors.refinanceClientsLastYear}
+                            disableCurrency={true}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Additional Questions Section */}
+                <div className={cx('section')}>
+                  <div className={cx('form-row', 'two-columns')}>
+                    {/* Client Cases */}
+                    <div className={cx('form-field')}>
+                      <TitleElement title={t('broker_questionnaire_has_client_cases')} />
+                      <div className={cx('yes-no-buttons')}>
+                        {yesNoOptions.map((option) => (
+                          <button
+                            key={option.value}
+                            type="button"
+                            className={cx('yes-no-button', { 
+                              active: values.hasClientCases === option.value,
+                              error: touched.hasClientCases && errors.hasClientCases
+                            })}
+                            onClick={() => {
+                              setFieldValue('hasClientCases', option.value)
+                              setFieldTouched('hasClientCases', true)
+                            }}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                      {touched.hasClientCases && errors.hasClientCases && <Error error={errors.hasClientCases} />}
+                    </div>
+                    
+                    {/* Debt Cases */}
+                    <div className={cx('form-field')}>
+                      <TitleElement title={t('broker_questionnaire_has_debt_cases')} />
+                      <div className={cx('yes-no-buttons')}>
+                        {yesNoOptions.map((option) => (
+                          <button
+                            key={option.value}
+                            type="button"
+                            className={cx('yes-no-button', { 
+                              active: values.hasDebtCases === option.value,
+                              error: touched.hasDebtCases && errors.hasDebtCases
+                            })}
+                            onClick={() => {
+                              setFieldValue('hasDebtCases', option.value)
+                              setFieldTouched('hasDebtCases', true)
+                            }}
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                      {touched.hasDebtCases && errors.hasDebtCases && <Error error={errors.hasDebtCases} />}
+                    </div>
+                  </div>
+
+                  {/* Comments */}
+                  <div className={cx('form-field', 'full-width')}>
+                    <TitleElement title={t('broker_questionnaire_comments')} />
+                    <textarea
+                      name="comments"
+                      value={values.comments}
+                      onChange={(e) => setFieldValue('comments', e.target.value)}
+                      onBlur={() => setFieldTouched('comments', true)}
+                      placeholder={t('broker_questionnaire_comments_placeholder')}
+                      className={cx('textarea', { error: touched.comments && errors.comments })}
+                      rows={4}
+                      maxLength={1000}
+                    />
+                    <div className={cx('character-count')}>
+                      {values.comments.length}/1000
+                    </div>
+                    {touched.comments && errors.comments && <Error error={errors.comments} />}
+                  </div>
+                </div>
+
+                {/* Agreement Section */}
+                <div className={cx('section')}>
+                  <div className={cx('agreement-section', 'full-width')}>
+                    <label className={cx('checkbox-label')}>
+                      <input
+                        type="checkbox"
+                        name="agreement"
+                        checked={values.agreement}
+                        onChange={(e) => setFieldValue('agreement', e.target.checked)}
+                        onBlur={() => setFieldTouched('agreement', true)}
+                        className={cx('checkbox')}
+                      />
+                      <span className={cx('checkbox-text')}>
+                        {t('broker_questionnaire_agreement')}
+                      </span>
+                    </label>
+                    {touched.agreement && errors.agreement && <Error error={errors.agreement} />}
+                  </div>
+                </div>
+
+                {/* Submit Section */}
+                <div className={cx('submit-section')}>
+                  {/* Back Button */}
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="full"
+                    onClick={() => navigate('/tenders-for-brokers')}
+                    isDisabled={false}
+                  >
+                    {t('broker_questionnaire_back')}
+                  </Button>
+
+                  {/* Submit Button */}
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="full"
+                    disabled={!isValid || isSubmitting}
+                    isDisabled={!isValid || isSubmitting}
+                  >
+                    {isSubmitting ? t('broker_questionnaire_submitting') : t('broker_questionnaire_submit')}
+                  </Button>
+                </div>
+              </Form>
+            )}
+          </Formik>
         </div>
-
-        <form onSubmit={handleSubmit} className={cx('questionnaire-form')}>
-          {currentStep === 1 && renderStep1()}
-          {currentStep === 2 && renderStep2()}
-          {currentStep === 3 && renderStep3()}
-          {currentStep === 4 && renderStep4()}
-
-          <div className={cx('form-actions')}>
-            {currentStep > 1 && (
-              <Button
-                type="button"
-                variant="secondary"
-                onClick={handlePrevious}
-                className={cx('action-button')}
-              >
-                {t('broker_questionnaire_previous', 'Previous')}
-              </Button>
-            )}
-            
-            {currentStep < totalSteps ? (
-              <Button
-                type="button"
-                variant="primary"
-                onClick={handleNext}
-                disabled={!isStepValid()}
-                className={cx('action-button')}
-              >
-                {t('broker_questionnaire_next', 'Next')}
-              </Button>
-            ) : (
-              <Button
-                type="submit"
-                variant="primary"
-                disabled={!isStepValid() || isSubmitting}
-                className={cx('action-button')}
-              >
-                {isSubmitting 
-                  ? t('broker_questionnaire_submitting', 'Submitting...') 
-                  : t('broker_questionnaire_submit', 'Submit Application')
-                }
-              </Button>
-            )}
-          </div>
-        </form>
-      </Container>
+      </div>
     </div>
   )
 }
 
-export default BrokerQuestionnaire 
+export default BrokerQuestionnaire

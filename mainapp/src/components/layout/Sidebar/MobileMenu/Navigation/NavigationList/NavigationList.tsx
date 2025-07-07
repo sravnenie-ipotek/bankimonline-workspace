@@ -13,10 +13,18 @@ interface NavigationListProps {
   items: IMenuItem[]
   title: string
   toggle: () => void
+  onClose?: () => void
 }
 
-const NavigationList: FC<NavigationListProps> = ({ items, title, toggle }) => {
+const NavigationList: FC<NavigationListProps> = ({ items, title, toggle, onClose }) => {
   const { t } = useTranslation()
+  
+  const handleClick = () => {
+    if (onClose) {
+      onClose()
+    }
+  }
+  
   return (
     <ul className={cx('list')}>
       <h3 className={cx('title')}>{t(`${title}`)}</h3>
@@ -27,7 +35,18 @@ const NavigationList: FC<NavigationListProps> = ({ items, title, toggle }) => {
       ))}
       {items.slice(1).map((item) => (
         <li key={item.title} className={cx('item')}>
-          <Link to={item.path!}>{item.title}</Link>
+          {item.isExternal ? (
+            <a 
+              href={item.path!} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={handleClick}
+            >
+              {item.title}
+            </a>
+          ) : (
+            <Link to={item.path!} onClick={handleClick}>{item.title}</Link>
+          )}
         </li>
       ))}
     </ul>

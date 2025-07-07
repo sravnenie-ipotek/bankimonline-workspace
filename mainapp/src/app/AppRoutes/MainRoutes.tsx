@@ -53,6 +53,7 @@ const Terms = lazy(() => import('../../pages/Terms/Terms.tsx'))
 const About = lazy(() =>
   import('../../pages/About').then((module) => ({ default: module.About }))
 )
+const ServicesOverview = lazy(() => import('../../pages/Services/ServicesOverview'))
 const Vacancies = lazy(() =>
   import('../../pages/Vacancies').then((module) => ({
     default: module.Vacancies,
@@ -81,6 +82,18 @@ const TendersForBrokers = lazy(() =>
 const TendersForLawyers = lazy(() =>
   import('../../pages/TendersForLawyers').then((module) => ({
     default: module.TendersForLawyers,
+  }))
+)
+
+const LawyersPage = lazy(() =>
+  import('../../pages/TendersForLawyers/LawyersPage').then((module) => ({
+    default: module.default,
+  }))
+)
+
+const TemporaryFranchise = lazy(() =>
+  import('../../pages/TemporaryFranchise').then((module) => ({
+    default: module.TemporaryFranchise,
   }))
 )
 
@@ -223,6 +236,7 @@ const MainRoutes: React.FC = () => {
 
               {/*Рассчитать ипотеку*/}
               <Route path={'/services'}>
+                <Route index element={<ServicesOverview />} />
                 <Route
                   path="calculate-mortgage/:stepNumber"
                   element={<CalculateMortgage />}
@@ -288,6 +302,7 @@ const MainRoutes: React.FC = () => {
 
               <Route path="/terms" element={<Terms />} />
               <Route path="/about" element={<About />} />
+              <Route path="/temporary-franchise" element={<TemporaryFranchise />} />
               <Route path="/vacancies" element={<Vacancies />} />
               <Route path="/vacancies/:id" element={<VacancyDetail />} />
               <Route path="/contacts" element={<Contacts />} />
@@ -299,6 +314,10 @@ const MainRoutes: React.FC = () => {
               <Route
                 path="/tenders-for-lawyers"
                 element={<TendersForLawyers />}
+              />
+              <Route
+                path="/lawyers"
+                element={<LawyersPage />}
               />
               <Route
                 path="/broker-questionnaire"
