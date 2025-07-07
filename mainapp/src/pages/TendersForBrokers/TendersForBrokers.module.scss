@@ -769,7 +769,6 @@
     background-color: #242529;
     border-radius: 20px;
     padding: 3rem 2rem;
-    position: relative;
 
     .metricsContainer {
       max-width: 800px;
@@ -793,29 +792,13 @@
           text-align: center;
 
           .metricHeader {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
             margin-bottom: 1rem;
 
             .metricLabel {
               font-size: 1rem;
               color: #FBE54D;
               font-weight: 500;
-            }
-
-            .whatsappIconMetric {
-              width: 32px;
-              height: 32px;
-              background: #25D366;
-              border-radius: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              color: #FFFFFF;
-              font-weight: 600;
-              font-size: 1rem;
+              display: block;
             }
           }
 
