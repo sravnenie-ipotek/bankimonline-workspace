@@ -560,6 +560,7 @@
 
   // CTA Banner Section
   .ctaBanner {
+    position: relative;
     background: #FFFFFF;
     color: #161616;
     border-radius: 16px;
@@ -567,13 +568,52 @@
     margin: 4rem 0 6rem;
     border: 1px solid #E5E5E5;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    
+    // Geometric decorative elements
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 50%, #161616 50%);
+      opacity: 0.1;
+      z-index: 1;
+    }
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 80px;
+      width: 120px;
+      height: 60px;
+      background: #161616;
+      opacity: 0.05;
+      clip-path: polygon(0 100%, 100% 100%, 100% 0);
+      z-index: 1;
+    }
     
     @media (max-width: 768px) {
       padding: 2rem 1.5rem;
       margin: 3rem 0 4rem;
+      
+      &::before {
+        width: 120px;
+      }
+      
+      &::after {
+        width: 80px;
+        height: 40px;
+        right: 40px;
+      }
     }
 
     .ctaBannerContent {
+      position: relative;
+      z-index: 2;
       text-align: center;
       max-width: 500px;
       margin: 0 auto;
