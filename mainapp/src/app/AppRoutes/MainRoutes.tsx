@@ -308,7 +308,7 @@ const MainRoutes: React.FC = () => {
 
               <Route path="/terms" element={<Terms />} />
               <Route path="/about" element={<About />} />
-              <Route path="/temporary-franchise" element={<TemporaryFranchise />} />
+              <Route path="/Real-Estate-Brokerage" element={<TemporaryFranchise />} />
               <Route path="/vacancies" element={<Vacancies />} />
               <Route path="/vacancies/:id" element={<VacancyDetail />} />
               <Route path="/contacts" element={<Contacts />} />

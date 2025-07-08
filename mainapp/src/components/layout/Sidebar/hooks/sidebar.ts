@@ -19,7 +19,7 @@ const useMenuItems = (): IMenuItem[] => {
     },
     {
       title: t('sidebar_company_5'),
-      path: '/temporary-franchise',
+      path: '/Real-Estate-Brokerage',
     },
     {
       title: t('sidebar_company_3'),
@@ -51,7 +51,7 @@ const useBusinessMenuItems = (): IMenuItem[] => {
     },
     {
       title: t('sidebar_company_6'),
-      path: '/temporary-franchise',
+      path: '/Real-Estate-Brokerage',
     },
     {
       title: t('sidebar_business_4'),
