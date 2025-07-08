@@ -1,13 +1,14 @@
 import classNames from 'classnames/bind'
 import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Formik, Form, useFormikContext } from 'formik'
 import * as Yup from 'yup'
 import i18next from 'i18next'
 
 import { Container } from '@src/components/ui/Container'
 import { Error } from '@src/components/ui/Error'
+import { submitLawyerForm } from '@src/services/lawyerFormApi'
 
 import styles from './lawyersPage.module.scss'
 
@@ -31,6 +32,7 @@ interface FormValues {
   debtLitigation: string
   comments: string
   termsAccepted: boolean
+  source: string
 }
 
 // Validation schema using Yup (same pattern as mortgage pages)
@@ -61,7 +63,8 @@ const initialValues: FormValues = {
     clientLitigation: '',
     debtLitigation: '',
     comments: '',
-    termsAccepted: false
+    termsAccepted: false,
+    source: ''
 }
 
 // Form content component that uses Formik context
@@ -340,12 +343,71 @@ const LawyersFormContent: React.FC<{
 const LawyersPage: React.FC = () => {
   const { i18n } = useTranslation()
   const navigate = useNavigate()
+  const location = useLocation()
   
   // State for dropdown options
   const [cities, setCities] = useState<DropdownOption[]>([])
   const [regions, setRegions] = useState<DropdownOption[]>([])
   const [professions, setProfessions] = useState<DropdownOption[]>([])
   const [loading, setLoading] = useState(true)
+  const [formSource, setFormSource] = useState<string>('')
+
+  // Detect source on component mount
+  useEffect(() => {
+    const detectSource = () => {
+      // Priority 1: URL query parameter
+      const urlParams = new URLSearchParams(location.search)
+      const urlSource = urlParams.get('source')
+      if (urlSource) {
+        setFormSource(urlSource)
+        return
+      }
+
+      // Priority 2: Navigation state
+      const navigationState = location.state as any
+      if (navigationState?.source) {
+        setFormSource(navigationState.source)
+        return
+      }
+
+      // Priority 3: Referrer detection
+      const referrer = document.referrer
+      if (referrer) {
+        try {
+          const referrerUrl = new URL(referrer)
+          if (referrerUrl.pathname.includes('/tenders-for-lawyers')) {
+            setFormSource('tenders-for-lawyers-page')
+          } else if (referrerUrl.pathname.includes('/temporary-franchise')) {
+            setFormSource('temporary-franchise-page')
+          } else {
+            setFormSource('external-referrer')
+          }
+          return
+        } catch (e) {
+          // Invalid referrer URL
+        }
+      }
+
+      // Priority 4: Session storage (for tracking across page refreshes)
+      const sessionSource = sessionStorage.getItem('lawyerFormSource')
+      if (sessionSource) {
+        setFormSource(sessionSource)
+        return
+      }
+
+      // Default: direct navigation
+      setFormSource('direct-navigation')
+    }
+
+    detectSource()
+  }, [location])
+
+  // Store source in session storage for persistence
+  useEffect(() => {
+    if (formSource) {
+      sessionStorage.setItem('lawyerFormSource', formSource)
+    }
+  }, [formSource])
 
   // Fetch dropdown data from APIs
   useEffect(() => {
@@ -419,18 +481,25 @@ const LawyersPage: React.FC = () => {
   }, [i18n.language])
 
   const handleSubmit = async (values: FormValues, { setSubmitting }: any) => {
-    console.log('🚀 FORM SUBMIT CALLED!', values)
+    const submissionData = {
+      ...values,
+      source: formSource,
+      submittedAt: new Date().toISOString(),
+      referrer: document.referrer || 'none'
+    }
+    
+    console.log('🚀 FORM SUBMIT WITH SOURCE!', submissionData)
     console.log('🚀 Attempting navigation to /lawyer-success')
     
     try {
       // Here you can add actual API call to submit form data
-      // await submitLawyerForm(values)
+      await submitLawyerForm(submissionData)
       
       // Navigate to success page
       navigate('/lawyer-success')
       console.log('🚀 Navigation completed successfully')
     } catch (error) {
-      console.error('❌ Navigation error:', error)
+      console.error('❌ Form submission error:', error)
     } finally {
       setSubmitting(false)
     }
@@ -463,6 +532,12 @@ const LawyersPage: React.FC = () => {
     )
   }
 
+  // Create initial values with detected source
+  const initialValuesWithSource: FormValues = {
+    ...initialValues,
+    source: formSource
+  }
+
   return (
     <div className={cx('lawyers-form', { rtl: i18n.language === 'he' })} lang={i18n.language}>
       <Container>
@@ -478,7 +553,7 @@ const LawyersPage: React.FC = () => {
           </div>
           
           <Formik
-            initialValues={initialValues}
+            initialValues={initialValuesWithSource}
             validationSchema={getValidationSchema()}
             validateOnMount={false}
             onSubmit={handleSubmit}

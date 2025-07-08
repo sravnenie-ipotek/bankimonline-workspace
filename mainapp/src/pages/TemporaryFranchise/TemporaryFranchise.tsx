@@ -465,7 +465,9 @@ const TemporaryFranchise: React.FC = () => {
                 </h2>
                 <button 
                   className={cx('final-cta-button')}
-                  onClick={() => navigate('/lawyers')}
+                  onClick={() => navigate('/lawyers', { 
+                    state: { source: 'temporary-franchise-page' } 
+                  })}
                 >
                   מלאו שאלון
                   <span className={cx('final-cta-arrow')}>←</span>
