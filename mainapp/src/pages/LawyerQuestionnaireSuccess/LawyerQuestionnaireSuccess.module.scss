@@ -99,7 +99,7 @@
 }
 
 // RTL Support
-[dir="rtl"] & {
+[dir="rtl"] {
   .success-card {
     direction: rtl;
     text-align: center;
