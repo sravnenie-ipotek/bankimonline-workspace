@@ -4718,7 +4718,7 @@ app.get('/api/admin/applications', async (req, res) => {
         query += ` LIMIT $${paramCount + 1} OFFSET $${paramCount + 2}`;
         params.push(limit, offset);
         
-        const result = await db.query(query, params);
+        const result = await pool.query(query, params);
         
         // Get counts by status
         const statusCountQuery = `
@@ -4726,7 +4726,7 @@ app.get('/api/admin/applications', async (req, res) => {
             FROM loan_applications
             GROUP BY status
         `;
-        const statusCounts = await db.query(statusCountQuery);
+        const statusCounts = await pool.query(statusCountQuery);
         
         const counts = {};
         statusCounts.rows.forEach(row => {
@@ -4785,7 +4785,7 @@ app.put('/api/admin/applications/:id/status', async (req, res) => {
             RETURNING *
         `;
         
-        const result = await db.query(updateQuery, [status, review_notes || null, id]);
+        const result = await pool.query(updateQuery, [status, review_notes || null, id]);
         
         if (result.rows.length === 0) {
             return res.status(404).json({
@@ -4837,7 +4837,7 @@ app.get('/api/admin/applications/:id', async (req, res) => {
             WHERE la.id = $1
         `;
         
-        const result = await db.query(query, [id]);
+        const result = await pool.query(query, [id]);
         
         if (result.rows.length === 0) {
             return res.status(404).json({
@@ -4903,7 +4903,7 @@ app.post('/api/customer/submit-application', async (req, res) => {
         }
         
         // Start transaction
-        await db.query('BEGIN');
+        await pool.query('BEGIN');
         
         try {
             // Check if client exists
@@ -4912,7 +4912,7 @@ app.post('/api/customer/submit-application', async (req, res) => {
                 WHERE email = $1 OR phone = $2
                 LIMIT 1
             `;
-            let clientResult = await db.query(clientQuery, [email, phone]);
+            let clientResult = await pool.query(clientQuery, [email, phone]);
             
             let clientId;
             
@@ -4926,7 +4926,7 @@ app.post('/api/customer/submit-application', async (req, res) => {
                         updated_at = CURRENT_TIMESTAMP
                     WHERE id = $4
                 `;
-                await db.query(updateClientQuery, [name, age, monthly_income, clientId]);
+                await pool.query(updateClientQuery, [name, age, monthly_income, clientId]);
                 
             } else {
                 // Create new client
@@ -4935,7 +4935,7 @@ app.post('/api/customer/submit-application', async (req, res) => {
                     VALUES ($1, $2, $3, $4, 'individual', true, CURRENT_TIMESTAMP)
                     RETURNING id
                 `;
-                const newClientResult = await db.query(insertClientQuery, [name, email, phone, age]);
+                const newClientResult = await pool.query(insertClientQuery, [name, email, phone, age]);
                 clientId = newClientResult.rows[0].id;
                 
                 // Insert additional client details
@@ -4955,7 +4955,7 @@ app.post('/api/customer/submit-application', async (req, res) => {
                 ];
                 
                 for (const detail of detailQueries) {
-                    await db.query(detail.query, detail.params);
+                    await pool.query(detail.query, detail.params);
                 }
             }
             
@@ -4987,7 +4987,7 @@ app.post('/api/customer/submit-application', async (req, res) => {
                 submission_timestamp: new Date().toISOString()
             };
             
-            const applicationResult = await db.query(applicationQuery, [
+            const applicationResult = await pool.query(applicationQuery, [
                 clientId,
                 bank_id,
                 loan_type,
@@ -5008,7 +5008,7 @@ app.post('/api/customer/submit-application', async (req, res) => {
             const bankName = bankResult.rows[0]?.name || 'Unknown Bank';
             
             // Commit transaction
-            await db.query('COMMIT');
+            await pool.query('COMMIT');
             
             console.log(`[SUBMIT-APPLICATION] Application ${applicationId} created successfully`);
             
@@ -5032,7 +5032,7 @@ app.post('/api/customer/submit-application', async (req, res) => {
             
         } catch (innerErr) {
             // Rollback transaction on error
-            await db.query('ROLLBACK');
+            await pool.query('ROLLBACK');
             throw innerErr;
         }
         
@@ -5075,7 +5075,7 @@ app.get('/api/applications/:id/status', async (req, res) => {
             WHERE la.id = $1
         `;
         
-        const result = await db.query(query, [id]);
+        const result = await pool.query(query, [id]);
         
         if (result.rows.length === 0) {
             return res.status(404).json({
@@ -5200,6 +5200,97 @@ app.get('/api/applications/:id/status', async (req, res) => {
             error: process.env.NODE_ENV === 'development' ? err.message : undefined
         });
     }
+});
+
+// === Lawyer Application Submission ===
+app.post('/api/lawyers/apply', async (req, res) => {
+  try {
+    const {
+      contactName,
+      phone,
+      email,
+      city,
+      desiredRegion,
+      employmentType,
+      monthlyIncome,
+      workExperience,
+      clientLitigation,
+      debtLitigation,
+      comments,
+      source,
+      submittedAt,
+      referrer
+    } = req.body;
+
+    // Basic validation
+    if (!contactName || !phone || !email) {
+      return res.status(400).json({ status: 'error', message: 'Name, phone and email are required' });
+    }
+
+    // Ensure table exists (idempotent)
+    await pool.query(`
+      CREATE TABLE IF NOT EXISTS lawyer_applications (
+        id SERIAL PRIMARY KEY,
+        contact_name VARCHAR(150) NOT NULL,
+        phone VARCHAR(50) NOT NULL,
+        email VARCHAR(150) NOT NULL,
+        city VARCHAR(100),
+        desired_region VARCHAR(100),
+        employment_type VARCHAR(100),
+        monthly_income VARCHAR(100),
+        work_experience VARCHAR(50),
+        client_litigation VARCHAR(50),
+        debt_litigation VARCHAR(50),
+        comments TEXT,
+        source VARCHAR(100),
+        referrer TEXT,
+        submission_data JSONB,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `);
+
+    const insertQuery = `
+      INSERT INTO lawyer_applications (
+        contact_name, phone, email, city, desired_region, employment_type, monthly_income,
+        work_experience, client_litigation, debt_litigation, comments, source, referrer, submission_data
+      ) VALUES (
+        $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14
+      ) RETURNING id, created_at;
+    `;
+
+    const submissionData = req.body;
+
+    const values = [
+      contactName,
+      phone,
+      email,
+      city,
+      desiredRegion,
+      employmentType,
+      monthlyIncome,
+      workExperience,
+      clientLitigation,
+      debtLitigation,
+      comments,
+      source,
+      referrer,
+      JSON.stringify(submissionData)
+    ];
+
+    const result = await pool.query(insertQuery, values);
+
+    return res.json({
+      status: 'success',
+      message: 'Lawyer application saved',
+      data: {
+        application_id: result.rows[0].id,
+        created_at: result.rows[0].created_at
+      }
+    });
+  } catch (err) {
+    console.error('[LAWYER-APPLICATION] Error:', err);
+    res.status(500).json({ status: 'error', message: 'Internal server error' });
+  }
 });
 
 // Handle React Router (catch-all for non-API routes)
