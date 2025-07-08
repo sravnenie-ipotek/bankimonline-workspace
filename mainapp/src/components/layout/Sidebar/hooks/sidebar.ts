@@ -50,6 +50,10 @@ const useBusinessMenuItems = (): IMenuItem[] => {
       path: '/tenders-for-brokers',
     },
     {
+      title: t('sidebar_company_6'),
+      path: '/temporary-franchise',
+    },
+    {
       title: t('sidebar_business_4'),
       path: '/tenders-for-lawyers',
     },

@@ -1,6 +1,6 @@
 .dropdown {
   position: relative;
-  height: 32px;
+  height: 3rem;
   border: 1px solid #333535;
   background: #2a2b31;
   width: 100%;
@@ -39,7 +39,7 @@
   &-select {
     position: absolute;
     left: 0;
-    top: 34px;
+    top: calc(3rem + 2px);
     z-index: 10;
     max-height: 10.5rem;
     width: 100%;
