@@ -404,7 +404,7 @@
 }
 
 // RTL Support
-[dir="rtl"] & {
+[dir="rtl"] {
   .form-row {
     direction: rtl;
   }

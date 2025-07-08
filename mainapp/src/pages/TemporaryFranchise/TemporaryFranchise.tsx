@@ -75,7 +75,10 @@ const TemporaryFranchise: React.FC = () => {
               <p className={cx('hero-description')}>
                 חברת Techrealt מספקת ללקוחותיה ולשותפיה פלטפורמה דיגיטלית אחידה לרכישה, מכירה, השכרה והשכרת נכסי נדל"ן. נכון לעת הזו, השירות מצוי בשלבי פיתוח.
               </p>
-              <button className={cx('hero-cta-button')}>
+              <button 
+                className={cx('hero-cta-button')}
+                onClick={() => navigate('/lawyers')}
+              >
                 מלאו טופס
               </button>
             </div>
@@ -167,7 +170,10 @@ const TemporaryFranchise: React.FC = () => {
                 <div className={cx('partnership-bullet')}></div>
                 <span className={cx('partnership-service-name')}>מכירת נדל"ן</span>
               </div>
-              <button className={cx('partnership-cta-button')}>
+              <button 
+                className={cx('partnership-cta-button')}
+                onClick={() => navigate('/lawyers')}
+              >
                 הגשת בקשה
               </button>
             </div>
@@ -295,7 +301,10 @@ const TemporaryFranchise: React.FC = () => {
               </div>
 
               <div className={cx('franchise-cta-container')}>
-                <button className={cx('franchise-cta-button')}>
+                <button 
+                  className={cx('franchise-cta-button')}
+                  onClick={() => navigate('/lawyers')}
+                >
                   קבלת ייעוץ
                 </button>
               </div>
@@ -432,7 +441,10 @@ const TemporaryFranchise: React.FC = () => {
                   </span>
                 </div>
                 
-                <button className={cx('pricing-cta-button')}>
+                <button 
+                  className={cx('pricing-cta-button')}
+                  onClick={() => navigate('/lawyers')}
+                >
                   מלאו שאלון
                 </button>
               </div>
@@ -451,7 +463,10 @@ const TemporaryFranchise: React.FC = () => {
                   רוצים לקבל הכנסה יציבה?<br/>
                   TechRealt יעזור לכם בכך.
                 </h2>
-                <button className={cx('final-cta-button')}>
+                <button 
+                  className={cx('final-cta-button')}
+                  onClick={() => navigate('/lawyers')}
+                >
                   מלאו שאלון
                   <span className={cx('final-cta-arrow')}>←</span>
                 </button>
