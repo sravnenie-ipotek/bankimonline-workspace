@@ -1142,5 +1142,8 @@
   "broker_questionnaire_error_email_invalid": "כתובת הדואר האלקטרוני אינה תקפה או אינה בפורמט נכון",
   "broker_questionnaire_error_comments_max": "הטקסט ארוך מהמותר (מקסימום 2000 תווים)",
   "broker_questionnaire_error_agreement": "חובה לאשר את תנאי השימוש ומדיניות הפרטיות כדי להמשיך",
-  "broker_questionnaire_error_submission": "אירעה שגיאה טכנית בעת שליחת הטופס. אנא נסו שנית או פנו לתמיכה"
+  "broker_questionnaire_error_submission": "אירעה שגיאה טכנית בעת שליחת הטופס. אנא נסו שנית או פנו לתמיכה",
+  "lawyer_success_title": "הבקשה התקבלה בהצלחה",
+  "lawyer_success_message": "תודה על פנייתך. קיבלנו את הפרטים שלך ונציג מטעמנו ייצור איתך קשר בהקדם האפשרי",
+  "lawyer_success_button": "חזרה לעמוד הראשי"
 }

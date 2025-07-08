@@ -1096,5 +1096,8 @@
   "tenders_metrics_payback_display": "10-12 месяцев",
   "tenders_metrics_disclaimer": "Зависит от местоположения и ваших возможностей, мы покажем персональные результаты",
   "online_label": "ONLINE",
-  "tenders_consult_button": "Получить звонок"
+  "tenders_consult_button": "Получить звонок",
+  "lawyer_success_title": "Заявка принята в обработку",
+  "lawyer_success_message": "Спасибо за Ваш отклик. Ожидайте, наши сотрудники свяжутся с Вами в ближайшее время",
+  "lawyer_success_button": "На главную страницу"
 }

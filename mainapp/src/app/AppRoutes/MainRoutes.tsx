@@ -91,6 +91,12 @@ const LawyersPage = lazy(() =>
   }))
 )
 
+const LawyerQuestionnaireSuccess = lazy(() =>
+  import('../../pages/LawyerQuestionnaireSuccess/LawyerQuestionnaireSuccess').then((module) => ({
+    default: module.default,
+  }))
+)
+
 const TemporaryFranchise = lazy(() =>
   import('../../pages/TemporaryFranchise').then((module) => ({
     default: module.TemporaryFranchise,
@@ -318,6 +324,10 @@ const MainRoutes: React.FC = () => {
               <Route
                 path="/lawyers"
                 element={<LawyersPage />}
+              />
+              <Route
+                path="/lawyer-success"
+                element={<LawyerQuestionnaireSuccess />}
               />
               <Route
                 path="/broker-questionnaire"
