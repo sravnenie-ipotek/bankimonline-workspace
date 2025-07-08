@@ -1,0 +1,202 @@
+/**
+ * Bank Employee Registration Styles
+ * Responsive design with mobile-first approach
+ */
+
+.registration-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.1) 0%, transparent 25%),
+      radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.1) 0%, transparent 25%);
+    pointer-events: none;
+  }
+}
+
+.form-card {
+  backdrop-filter: blur(10px);
+  background: rgba(31, 41, 55, 0.8);
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.input-field {
+  transition: all 0.2s ease-in-out;
+  
+  &:focus {
+    transform: translateY(-1px);
+    box-shadow: 
+      0 10px 25px -5px rgba(0, 0, 0, 0.25),
+      0 0 0 3px rgba(251, 191, 36, 0.1);
+  }
+
+  &.error {
+    animation: shake 0.3s ease-in-out;
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.dropdown-menu {
+  backdrop-filter: blur(10px);
+  background: rgba(55, 65, 81, 0.95);
+  border: 1px solid rgba(75, 85, 99, 0.5);
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.step-indicator {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    width: 2rem;
+    height: 2px;
+    background: linear-gradient(90deg, #6b7280 0%, transparent 100%);
+  }
+
+  &:last-child::after {
+    display: none;
+  }
+
+  .step-circle {
+    transition: all 0.3s ease-in-out;
+    
+    &.active {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.2);
+    }
+
+    &.completed {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    }
+  }
+}
+
+.support-widget {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.language-selector {
+  .dropdown-item {
+    transition: all 0.2s ease-in-out;
+    
+    &:hover {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.terms-agreement {
+  .checkbox {
+    transition: all 0.2s ease-in-out;
+    
+    &:checked {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// Mobile optimizations
+@media (max-width: 768px) {
+  .form-card {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .input-field {
+    font-size: 16px; // Prevent zoom on iOS
+  }
+
+  .step-indicator {
+    .step-title {
+      font-size: 0.75rem;
+    }
+  }
+}
+
+// RTL Support for Hebrew
+[dir="rtl"] {
+  .dropdown-menu {
+    left: auto;
+    right: 0;
+  }
+
+  .language-selector .dropdown-item {
+    &:hover {
+      transform: translateX(-4px);
+    }
+  }
+
+  .step-indicator {
+    &::after {
+      left: auto;
+      right: 100%;
+      background: linear-gradient(270deg, #6b7280 0%, transparent 100%);
+    }
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .form-card {
+    border-color: #ffffff;
+  }
+
+  .input-field {
+    border-width: 2px;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// Print styles
+@media print {
+  .support-widget,
+  .language-selector {
+    display: none;
+  }
+
+  .form-card {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+} 
