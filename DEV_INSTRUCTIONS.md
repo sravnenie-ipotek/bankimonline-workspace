@@ -83,3 +83,23 @@ curl "http://localhost:8003/api/get-professions?lang=en"
 curl "http://localhost:8003/api/get-professions?lang=he&category=legal"
 curl "http://localhost:8003/api/get-professions?lang=ru&category=finance"
 ```
+
+## Static File Synchronization
+
+Some components reference static files that need to be available at the root public directory. If you encounter missing file errors like `src="/static/menu/keys.png"`, run the sync script:
+
+```bash
+./sync-static-files.sh
+```
+
+This script copies files from `mainapp/public/static/` to `public/static/` to ensure they're available at the expected paths.
+
+### Files that need syncing:
+- `/static/menu/keys.png` - Used in TemporaryFranchise component
+- `/static/menu/franche_1.png` - Used in TemporaryFranchise component  
+- `/static/menu/techRealt.png` - Used in TemporaryFranchise component
+
+Run the sync script after:
+- Adding new static files to `mainapp/public/static/`
+- Encountering "file not found" errors for static assets
+- Setting up the project for the first time

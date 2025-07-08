@@ -1044,5 +1044,8 @@
   "tenders_metrics_payback_display": "10 to 12 months",
   "tenders_metrics_disclaimer": "Depends on location and your capabilities, we will show you personal results",
   "online_label": "ONLINE",
-  "tenders_consult_button": "Get a call"
+  "tenders_consult_button": "Get a call",
+  "lawyer_success_title": "Application Received Successfully",
+  "lawyer_success_message": "Thank you for your submission. We have received your details and our representative will contact you shortly",
+  "lawyer_success_button": "Back to Home Page"
 }

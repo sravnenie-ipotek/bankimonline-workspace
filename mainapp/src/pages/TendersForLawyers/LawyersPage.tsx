@@ -25,6 +25,9 @@ const LawyersPage: React.FC = () => {
   const [professions, setProfessions] = useState<DropdownOption[]>([])
   const [loading, setLoading] = useState(true)
   
+  // State for form errors
+  const [errors, setErrors] = useState<{[key: string]: string}>({})
+  
   const [formData, setFormData] = useState({
     contactName: '',
     phone: '',
@@ -116,26 +119,79 @@ const LawyersPage: React.FC = () => {
       ...prev,
       [field]: value
     }))
+    
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({
+        ...prev,
+        [field]: ''
+      }))
+    }
+  }
+
+  // Validation functions
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  const validatePhone = (phone: string): boolean => {
+    // Israeli phone number pattern
+    const phoneRegex = /^0[5-9][0-9]{8}$|^[+]?972[5-9][0-9]{8}$/
+    return phoneRegex.test(phone.replace(/[-\s]/g, ''))
+  }
+
+  // Check if all mandatory fields are properly filled
+  const isMandatoryFieldsFilled = (): boolean => {
+    return formData.contactName.trim().length >= 2 && 
+           validatePhone(formData.phone) && 
+           validateEmail(formData.email) && 
+           formData.termsAccepted
+  }
+
+  const validateForm = (): boolean => {
+    const newErrors: {[key: string]: string} = {}
+
+    // Required field validations
+    if (!formData.contactName.trim()) {
+      newErrors.contactName = t('name_required')
+    } else if (formData.contactName.trim().length < 2) {
+      newErrors.contactName = t('name_min_length')
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = t('phone_required')
+    } else if (!validatePhone(formData.phone)) {
+      newErrors.phone = t('phone_invalid')
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = t('required_field')
+    } else if (!validateEmail(formData.email)) {
+      newErrors.email = t('invalid_email')
+    }
+
+    if (!formData.termsAccepted) {
+      newErrors.termsAccepted = t('agreement_text_start') + ' ' + t('terms_title')
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Basic validation
-    if (!formData.contactName || !formData.phone || !formData.email) {
-      alert('אנא מלאו את כל השדות הנדרשים')
-      return
-    }
-
-    if (!formData.termsAccepted) {
-      alert('יש לאשר את תנאי השימוש')
+    if (!validateForm()) {
       return
     }
 
     try {
       // Submit form logic here
       console.log('Form submitted:', formData)
-      alert('הטופס נשלח בהצלחה! נחזור אליכם בקרוב.')
+      
+      // Navigate to success page
+      navigate('/lawyer-success')
       
       // Reset form
       setFormData({
@@ -152,9 +208,12 @@ const LawyersPage: React.FC = () => {
         comments: '',
         termsAccepted: false
       })
+      
+      // Clear errors
+      setErrors({})
     } catch (error) {
       console.error('Error submitting form:', error)
-      alert('שגיאה בשליחת הטופס. אנא נסו שוב.')
+      alert(t('error'))
     }
   }
 
@@ -164,14 +223,18 @@ const LawyersPage: React.FC = () => {
 
   if (loading) {
     return (
-      <div className={cx('lawyers-form', { rtl: i18n.language === 'he' })}>
+      <div className={cx('lawyers-form', { rtl: i18n.language === 'he' })} lang={i18n.language}>
         <Container>
           <div className={cx('form-container')}>
-            <div className={cx('form-header')}>
-              <div className={cx('logo')}>
-                <span className={cx('logo-text')}>TechRealt</span>
-              </div>
+                      <div className={cx('form-header')}>
+            <div className={cx('logo')}>
+              <img 
+                src="/static/menu/header.png" 
+                alt="Header" 
+                className={cx('header-img')}
+              />
             </div>
+          </div>
             <div className={cx('form-content')}>
               <div className={cx('loading-state')}>טוען נתונים...</div>
             </div>
@@ -182,12 +245,16 @@ const LawyersPage: React.FC = () => {
   }
 
   return (
-    <div className={cx('lawyers-form', { rtl: i18n.language === 'he' })}>
+    <div className={cx('lawyers-form', { rtl: i18n.language === 'he' })} lang={i18n.language}>
       <Container>
         <div className={cx('form-container')}>
           <div className={cx('form-header')}>
             <div className={cx('logo')}>
-              <span className={cx('logo-text')}>TechRealt</span>
+              <img 
+                src="/static/menu/header.png" 
+                alt="Header" 
+                className={cx('header-img')}
+              />
             </div>
           </div>
           
@@ -206,23 +273,29 @@ const LawyersPage: React.FC = () => {
                     <label className={cx('form-label')}>שם איש הקשר המוסמך</label>
                     <input
                       type="text"
-                      className={cx('form-input')}
+                      className={cx('form-input', { error: !!errors.contactName })}
                       placeholder="הזינו שם מלא"
                       value={formData.contactName}
                       onChange={(e) => handleInputChange('contactName', e.target.value)}
                       required
                     />
+                    {errors.contactName && (
+                      <span className={cx('error-message')}>{errors.contactName}</span>
+                    )}
                   </div>
                   <div className={cx('form-group')}>
                     <label className={cx('form-label')}>טלפון</label>
                     <input
                       type="tel"
-                      className={cx('form-input')}
+                      className={cx('form-input', { error: !!errors.phone })}
                       placeholder="050-123-4567"
                       value={formData.phone}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
                       required
                     />
+                    {errors.phone && (
+                      <span className={cx('error-message')}>{errors.phone}</span>
+                    )}
                   </div>
                 </div>
 
@@ -231,12 +304,15 @@ const LawyersPage: React.FC = () => {
                     <label className={cx('form-label')}>דוא"ל</label>
                     <input
                       type="email"
-                      className={cx('form-input')}
+                      className={cx('form-input', { error: !!errors.email })}
                       placeholder="example@email.com"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
                       required
                     />
+                    {errors.email && (
+                      <span className={cx('error-message')}>{errors.email}</span>
+                    )}
                   </div>
                   <div className={cx('form-group')}>
                     <label className={cx('form-label')}>עיר מגורים</label>
@@ -373,7 +449,7 @@ const LawyersPage: React.FC = () => {
                   <label className={cx('checkbox-label')}>
                     <input
                       type="checkbox"
-                      className={cx('checkbox')}
+                      className={cx('checkbox', { error: !!errors.termsAccepted })}
                       checked={formData.termsAccepted}
                       onChange={(e) => handleInputChange('termsAccepted', e.target.checked)}
                       required
@@ -382,6 +458,9 @@ const LawyersPage: React.FC = () => {
                       אני מסכים/ה לתנאי השימוש ולמדיניות הפרטיות ומאשר/ת קבלת עדכונים מטעם TechRealt
                     </span>
                   </label>
+                  {errors.termsAccepted && (
+                    <span className={cx('error-message')}>{errors.termsAccepted}</span>
+                  )}
                 </div>
 
                 <div className={cx('form-actions')}>
@@ -397,6 +476,7 @@ const LawyersPage: React.FC = () => {
                     variant="primary"
                     size="full"
                     type="submit"
+                    isDisabled={!isMandatoryFieldsFilled()}
                   >
                     שליחת הטופס
                   </Button>
