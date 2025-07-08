@@ -161,6 +161,209 @@ app.get('/api/cors-test', (req, res) => {
     });
 });
 
+// ================================
+// BANK EMPLOYEE REGISTRATION APIs
+// ================================
+
+// Get list of banks for registration
+app.get('/api/banks/list', async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT id, name_en, name_he, name_ru, code 
+            FROM banks 
+            WHERE is_active = true 
+            ORDER BY priority ASC, name_en ASC
+        `);
+        res.json({ 
+            data: result.rows, 
+            status: 'success' 
+        });
+    } catch (err) {
+        console.error('Error fetching banks for registration:', err);
+        res.status(500).json({ 
+            error: 'Failed to load banks',
+            message: 'Internal server error' 
+        });
+    }
+});
+
+// Get branches for a specific bank
+app.get('/api/banks/:bankId/branches', async (req, res) => {
+    try {
+        const { bankId } = req.params;
+        
+        const result = await pool.query(`
+            SELECT id, name_en, name_he, name_ru, branch_code, city, address 
+            FROM bank_branches 
+            WHERE bank_id = $1 
+            ORDER BY name_en ASC
+        `, [bankId]);
+        
+        res.json({ 
+            data: result.rows, 
+            status: 'success' 
+        });
+    } catch (err) {
+        console.error('Error fetching bank branches:', err);
+        res.status(500).json({ 
+            error: 'Failed to load branches',
+            message: 'Internal server error' 
+        });
+    }
+});
+
+// Get Israeli bank numbers
+app.get('/api/bank-numbers/israel', async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT bank_number, bank_name_en, bank_name_he 
+            FROM israeli_bank_numbers 
+            WHERE is_active = true 
+            ORDER BY bank_number ASC
+        `);
+        
+        res.json({ 
+            data: result.rows, 
+            status: 'success' 
+        });
+    } catch (err) {
+        console.error('Error fetching Israeli bank numbers:', err);
+        res.status(500).json({ 
+            error: 'Failed to load bank numbers',
+            message: 'Internal server error' 
+        });
+    }
+});
+
+// Register new bank employee
+app.post('/api/bank-employee/register', async (req, res) => {
+    try {
+        const {
+            fullName,
+            position,
+            corporateEmail,
+            bankId,
+            branchId,
+            bankNumber,
+            termsAccepted,
+            selectedServices
+        } = req.body;
+
+        // Validation
+        if (!fullName || !position || !corporateEmail || !bankId || !branchId || !bankNumber || !termsAccepted) {
+            return res.status(400).json({
+                error: 'Validation failed',
+                message: 'All required fields must be filled'
+            });
+        }
+
+        // Check if email already exists
+        const existingEmployee = await pool.query(
+            'SELECT id FROM bank_employees WHERE corporate_email = $1',
+            [corporateEmail]
+        );
+
+        if (existingEmployee.rows.length > 0) {
+            return res.status(409).json({
+                error: 'Email already registered',
+                message: 'This corporate email is already registered'
+            });
+        }
+
+        // Generate registration token
+        const registrationToken = jwt.sign(
+            { email: corporateEmail, timestamp: Date.now() },
+            process.env.JWT_SECRET || 'bank-employee-secret',
+            { expiresIn: '24h' }
+        );
+
+        // Insert new bank employee
+        const result = await pool.query(`
+            INSERT INTO bank_employees 
+            (name, position, corporate_email, bank_id, branch_id, bank_number, 
+             terms_accepted, terms_accepted_at, registration_token, registration_expires)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            RETURNING id, name, corporate_email, status, created_at
+        `, [
+            fullName,
+            position,
+            corporateEmail,
+            bankId,
+            branchId,
+            bankNumber,
+            termsAccepted,
+            new Date(),
+            registrationToken,
+            new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours from now
+        ]);
+
+        // Log selected services if provided
+        if (selectedServices && selectedServices.length > 0) {
+            for (const serviceId of selectedServices) {
+                await pool.query(`
+                    INSERT INTO bank_employee_services (employee_id, service_id, created_at)
+                    VALUES ($1, $2, $3)
+                `, [result.rows[0].id, serviceId, new Date()]);
+            }
+        }
+
+        res.status(201).json({
+            data: {
+                id: result.rows[0].id,
+                name: result.rows[0].name,
+                email: result.rows[0].corporate_email,
+                status: result.rows[0].status,
+                registrationToken: registrationToken
+            },
+            status: 'success',
+            message: 'Registration successful. Please check your email for verification.'
+        });
+
+    } catch (err) {
+        console.error('Error registering bank employee:', err);
+        res.status(500).json({
+            error: 'Registration failed',
+            message: 'Internal server error'
+        });
+    }
+});
+
+// Get registration form configuration (multilingual)
+app.get('/api/registration-config/:language', async (req, res) => {
+    try {
+        const { language } = req.params;
+        const validLanguages = ['en', 'he', 'ru'];
+        const selectedLang = validLanguages.includes(language) ? language : 'en';
+
+        const result = await pool.query(`
+            SELECT field_name, field_value 
+            FROM registration_form_config 
+            WHERE language = $1 AND is_active = true
+        `, [selectedLang]);
+
+        const config = {};
+        result.rows.forEach(row => {
+            config[row.field_name] = row.field_value;
+        });
+
+        res.json({ 
+            data: config, 
+            status: 'success',
+            language: selectedLang
+        });
+    } catch (err) {
+        console.error('Error fetching registration config:', err);
+        res.status(500).json({ 
+            error: 'Failed to load configuration',
+            message: 'Internal server error' 
+        });
+    }
+});
+
+// ================================
+// END BANK EMPLOYEE REGISTRATION APIs
+// ================================
+
 // OPTIONS handler for preflight requests
 app.options('*', (req, res) => {
     console.log(`[CORS] Preflight request from origin: ${req.headers.origin}`);

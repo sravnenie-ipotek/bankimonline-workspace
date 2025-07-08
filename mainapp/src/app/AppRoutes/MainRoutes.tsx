@@ -229,6 +229,14 @@ const MobileDocumentUploadPage = lazy(() =>
 // Admin Pages
 const AdminLogin = lazy(() => import('../../pages/Admin/AdminLogin'))
 const AdminDashboard = lazy(() => import('../../pages/Admin/AdminDashboard'))
+
+// Bank Employee Registration
+const BankEmployeeRegistration = lazy(() =>
+  import('../../pages/BankEmployeeRegistration/BankEmployeeRegistration').then((module) => ({
+    default: module.default,
+  }))
+)
+
 const MainRoutes: React.FC = () => {
   return (
     <>
@@ -371,6 +379,26 @@ const MainRoutes: React.FC = () => {
                 <Route path="login" element={<AdminLogin />} />
                 <Route path="dashboard" element={<AdminDashboard />} />
                 <Route index element={<Navigate replace to="/admin/login" />} />
+              </Route>
+              
+              {/* Bank Employee Registration Routes */}
+              <Route path="/bank-employee">
+                <Route path="register" element={<BankEmployeeRegistration />} />
+                <Route path="registration" element={<BankEmployeeRegistration />} />
+                <Route path="login" element={<Navigate replace to="/admin/login" />} />
+                <Route path="registration-success" element={<div className="min-h-screen bg-gray-900 flex items-center justify-center">
+                  <div className="bg-gray-800 p-8 rounded-lg text-center">
+                    <h1 className="text-2xl font-bold text-green-400 mb-4">Registration Successful!</h1>
+                    <p className="text-gray-300 mb-6">Your bank employee registration has been submitted successfully.</p>
+                    <button 
+                      onClick={() => window.location.href = '/bank-employee/login'} 
+                      className="bg-yellow-400 text-gray-900 px-6 py-2 rounded-lg hover:bg-yellow-500 transition-colors"
+                    >
+                      Continue to Login
+                    </button>
+                  </div>
+                </div>} />
+                <Route index element={<Navigate replace to="/bank-employee/register" />} />
               </Route>
               
               <Route path="*" element={<Navigate replace to="/404" />} />
