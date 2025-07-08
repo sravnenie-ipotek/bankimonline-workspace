@@ -7,7 +7,6 @@ import * as Yup from 'yup'
 import i18next from 'i18next'
 
 import { Container } from '@src/components/ui/Container'
-import { Button } from '@src/components/ui/ButtonUI'
 import { Error } from '@src/components/ui/Error'
 
 import styles from './lawyersPage.module.scss'
@@ -51,18 +50,18 @@ const getValidationSchema = () => Yup.object().shape({
 })
 
 const initialValues: FormValues = {
-  contactName: '',
-  phone: '',
-  email: '',
-  city: '',
-  desiredRegion: '',
-  employmentType: '',
-  monthlyIncome: '',
-  workExperience: '',
-  clientLitigation: '',
-  debtLitigation: '',
-  comments: '',
-  termsAccepted: false
+    contactName: '',
+    phone: '',
+    email: '',
+    city: '',
+    desiredRegion: '',
+    employmentType: '',
+    monthlyIncome: '',
+    workExperience: '',
+    clientLitigation: '',
+    debtLitigation: '',
+    comments: '',
+    termsAccepted: false
 }
 
 // Form content component that uses Formik context
@@ -317,22 +316,20 @@ const LawyersFormContent: React.FC<{
           </div>
 
           <div className={cx('form-actions')}>
-            <Button
-              variant="secondary"
-              size="full"
-              onClick={onBack}
+            <button
               type="button"
+              className={cx('form-button', 'form-button--secondary')}
+              onClick={onBack}
             >
               חזרה
-            </Button>
-            <Button
-              variant="primary"
-              size="full"
+            </button>
+            <button
               type="submit"
-              isDisabled={!isMandatoryFieldsFilled()}
+              className={cx('form-button', 'form-button--primary')}
+              disabled={!isMandatoryFieldsFilled()}
             >
               שליחת הטופס
-            </Button>
+            </button>
           </div>
         </div>
       </div>
@@ -341,7 +338,7 @@ const LawyersFormContent: React.FC<{
 }
 
 const LawyersPage: React.FC = () => {
-  const { t, i18n } = useTranslation()
+  const { i18n } = useTranslation()
   const navigate = useNavigate()
   
   // State for dropdown options
