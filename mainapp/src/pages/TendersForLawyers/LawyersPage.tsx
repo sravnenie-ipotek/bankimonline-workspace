@@ -71,8 +71,7 @@ const LawyersFormContent: React.FC<{
   regions: DropdownOption[]
   professions: DropdownOption[]
   onBack: () => void
-  onTestNavigation: () => void
-}> = ({ cities, regions, professions, onBack, onTestNavigation }) => {
+}> = ({ cities, regions, professions, onBack }) => {
   const { t, i18n } = useTranslation()
   const { values, setFieldValue, errors, setFieldTouched, touched } = useFormikContext<FormValues>()
   
@@ -84,7 +83,7 @@ const LawyersFormContent: React.FC<{
     setFieldTouched(field, true)
   }
 
-  // Check if all mandatory fields are properly filled
+  // Check if all mandatory fields are properly filled using Formik validation
   const isMandatoryFieldsFilled = (): boolean => {
     // Validate name
     const isNameValid = values.contactName.trim().length >= 2
@@ -330,16 +329,9 @@ const LawyersFormContent: React.FC<{
               variant="primary"
               size="full"
               type="submit"
+              isDisabled={!isMandatoryFieldsFilled()}
             >
               שליחת הטופס
-            </Button>
-            <Button
-              variant="secondary"
-              size="full"
-              onClick={onTestNavigation}
-              type="button"
-            >
-              TEST NAVIGATION
             </Button>
           </div>
         </div>
@@ -434,18 +426,17 @@ const LawyersPage: React.FC = () => {
     console.log('🚀 Attempting navigation to /lawyer-success')
     
     try {
-      // Direct navigation test
+      // Here you can add actual API call to submit form data
+      // await submitLawyerForm(values)
+      
+      // Navigate to success page
       navigate('/lawyer-success')
-      console.log('🚀 Navigation completed')
+      console.log('🚀 Navigation completed successfully')
     } catch (error) {
       console.error('❌ Navigation error:', error)
+    } finally {
+      setSubmitting(false)
     }
-  }
-
-  // Test function for direct navigation
-  const testNavigation = () => {
-    console.log('🧪 TEST: Direct navigation to /lawyer-success')
-    navigate('/lawyer-success')
   }
 
   const handleBack = () => {
@@ -491,7 +482,7 @@ const LawyersPage: React.FC = () => {
           
           <Formik
             initialValues={initialValues}
-            validationSchema={undefined}
+            validationSchema={getValidationSchema()}
             validateOnMount={false}
             onSubmit={handleSubmit}
           >
@@ -501,7 +492,6 @@ const LawyersPage: React.FC = () => {
                 regions={regions}
                 professions={professions}
                 onBack={handleBack}
-                onTestNavigation={testNavigation}
               />
             </Form>
           </Formik>
