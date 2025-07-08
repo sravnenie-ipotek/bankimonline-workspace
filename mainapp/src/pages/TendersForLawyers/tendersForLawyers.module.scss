@@ -52,21 +52,50 @@
   }
 }
 
-.hero-button {
+// Base button style (standardized across all buttons)
+%base-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  width: 249px;
+  height: 56px;
   background: #FF4B49;
-  border: 1px solid #FFFFFF;
-  color: #FFFFFF;
-  padding: 12px 16px;
   border-radius: 8px;
-  font-weight: 500;
-  font-size: 16px;
+  border: none;
+  cursor: pointer;
   transition: all 0.3s ease;
+  
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: #FFFFFF;
 
   &:hover {
-    background: #FFFFFF;
-    color: #FF4B49;
-    transform: translateY(-1px);
+    background: #e63e36;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 75, 73, 0.3);
   }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 300px;
+    padding: 14px 24px;
+    height: 50px;
+    font-size: 14px;
+  }
+}
+
+.hero-button {
+  @extend %base-button;
 }
 
 // New Hero Section (matching the design image)
@@ -105,6 +134,23 @@
 
   @media (max-width: 768px) {
     max-width: 100%;
+  }
+
+  button {
+    @extend %base-button;
+    background: #FF4B49;
+    color: #FFFFFF;
+    border: none;
+
+    &:hover {
+      background: #e63e36;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 75, 73, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
   }
 }
 
@@ -183,17 +229,7 @@
 }
 
 .cta-button {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 12px 16px;
-  width: 182px;
-  height: 43px;
-  background: #FF4B49;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  position: relative;
+  @extend %base-button;
   
   /* Text container */
   span, & {
@@ -486,11 +522,22 @@
   order: 1;
   flex-grow: 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   
   @media (max-width: 768px) {
     width: 300px;
     height: 260px;
     margin: 0 auto;
+  }
+  
+  > span {
+    order: 2;
+    margin-top: 16px;
+    position: relative;
+    left: auto;
+    top: auto;
   }
 }
 
@@ -501,13 +548,14 @@
   align-items: center;
   padding: 0px;
   gap: 24px;
-  position: absolute;
+  position: relative;
   width: 269px;
   height: 269px;
-  left: 83px;
-  top: 41px;
+  left: auto;
+  top: auto;
   background: #FFFFFF;
   border-radius: 8px;
+  order: 1;
   
   @media (max-width: 768px) {
     width: 200px;
@@ -530,9 +578,11 @@
   position: absolute;
   width: 121px;
   height: 121px;
-  left: 277px;
-  top: 0px;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(austin-distel-wD1LRb9OeEo-unsplash.jpg);
+  right: 0;
+  top: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('/static/menu/presentation.png');
+  background-size: cover;
+  background-position: center;
   border-radius: 50%;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.12);
   overflow: hidden;
@@ -553,39 +603,30 @@
 }
 
 .about-button {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding: 12px 16px;
-  position: absolute;
-  width: 269px;
-  height: 70px;
-  left: 0px;
-  top: 280px;
+  @extend %base-button;
   background: #FAE762;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
+  color: #2E2E2E;
+  order: 3;
+  margin-top: 16px;
+  position: relative;
+  left: auto;
+  top: auto;
+  box-sizing: border-box;
   
   /* Text container */
-  span, & {
+  .button-inner {
+    padding: 0 16px;
+    width: 100%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0px;
-    gap: 12px;
-    width: 330px;
-    height: 24px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
-    
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    text-align: center;
+    justify-content: center;
+  }
+  
+  .button-inner-title {
+    width: auto;
+  }
+  
+  &:hover {
+    background: #f3d54c;
     color: #2E2E2E;
   }
   
@@ -871,16 +912,17 @@
 }
 
 .cta-button {
+  @extend %base-button;
   background: transparent;
   border: 1px solid #161616;
   color: #161616;
-  padding: 12px 16px;
-  border-radius: 8px;
   align-self: center;
   
   &:hover {
     background: #161616;
     color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(22, 22, 22, 0.3);
   }
 }
 
@@ -992,19 +1034,7 @@
 }
 
 .apply-button {
-  background: #FF4B49;
-  color: #FFFFFF;
-  padding: 12px 16px;
-  border-radius: 8px;
-  min-width: 249px;
-  min-height: 56px;
-  font-weight: 600;
-  font-size: 16px;
-  
-  &:hover {
-    background: #E63946;
-    transform: translateY(-1px);
-  }
+  @extend %base-button;
 }
 
 // Advantages Section
@@ -1203,14 +1233,7 @@
 }
 
 .advantages-button {
-  background: #FF4B49;
-  color: #FFFFFF;
-  padding: 12px 16px;
-  border-radius: 8px;
-  
-  &:hover {
-    background: #E63946;
-  }
+  @extend %base-button;
 }
 
 // Final CTA Section
@@ -1225,14 +1248,7 @@
 }
 
 .final-cta-button {
-  background: #FF4B49;
-  color: #FFFFFF;
-  padding: 12px 16px;
-  border-radius: 8px;
-  
-  &:hover {
-    background: #E63946;
-  }
+  @extend %base-button;
 }
 
 /* How It Works Process Section */
@@ -1618,28 +1634,37 @@
 
     .collaboration-advantages-cta {
       text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      > span {
+        @extend %base-button;
+        background: linear-gradient(135deg, #ff4b49 0%, #ff6b69 100%);
+        text-decoration: none;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+
+        &:hover {
+          background: linear-gradient(135deg, #e63e36 0%, #e65a58 100%);
+          transform: translateY(-2px);
+          box-shadow: 0 10px 20px rgba(255, 75, 73, 0.3);
+        }
+      }
 
       .collaboration-advantages-button {
+        @extend %base-button;
         background: linear-gradient(135deg, #ff4b49 0%, #ff6b69 100%);
-        color: white;
-        padding: 16px 32px;
-        border: none;
-        border-radius: 12px;
-        font-size: 1.125rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
         text-decoration: none;
         display: inline-block;
 
         &:hover {
+          background: linear-gradient(135deg, #e63e36 0%, #e65a58 100%);
           transform: translateY(-2px);
           box-shadow: 0 10px 20px rgba(255, 75, 73, 0.3);
-        }
-
-        @media (max-width: 768px) {
-          font-size: 1rem;
-          padding: 14px 28px;
         }
       }
     }
@@ -1768,18 +1793,13 @@
 
     .partnership-button-container {
       .partnership-button {
+        @extend %base-button;
         box-sizing: border-box;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        padding: 12px 16px;
         width: 206px;
         height: 48px;
         border: 1px solid #161616;
-        border-radius: 8px;
         background: transparent;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        color: #161616;
         flex: none;
         order: 1;
         flex-grow: 0;
