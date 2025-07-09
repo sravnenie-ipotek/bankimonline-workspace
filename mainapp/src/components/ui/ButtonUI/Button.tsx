@@ -52,22 +52,31 @@ const Button: React.FC<ButtonProps> = ({
     [size]: true, // Добавление css-класса, соответствующего выбранному размеру
   }
 
-  return (
-    <Link to={to as string} className={styles.link}>
-      <button
-        className={cx(buttonClasses, className, { isDisabled: isDisabled })} // Генерация классов с использованием classNames и добавление
-        // дополнительных классов из пропсов
-        disabled={disabled} // Заблокирована ли кнопка
-        type={type} // Тип кнопки
-        {...(rest as ButtonProps)} // Распространение остальных пропсов на кнопку
-      >
-        <p className={cx(buttonInternalClasses, styles.internalButton)}>
-          {children}
-        </p>
-        <div className={direction === 'rtl' ? 'rotate-180' : ''}>{icon}</div>
-      </button>
-    </Link>
+  const buttonContent = (
+    <button
+      className={cx(buttonClasses, className, { isDisabled: isDisabled })} // Генерация классов с использованием classNames и добавление
+      // дополнительных классов из пропсов
+      disabled={disabled} // Заблокирована ли кнопка
+      type={type} // Тип кнопки
+      {...(rest as ButtonProps)} // Распространение остальных пропсов на кнопку
+    >
+      <p className={cx(buttonInternalClasses, styles.internalButton)}>
+        {children}
+      </p>
+      <div className={direction === 'rtl' ? 'rotate-180' : ''}>{icon}</div>
+    </button>
   )
+
+  // Only wrap in Link if 'to' prop is provided
+  if (to) {
+    return (
+      <Link to={to as string} className={styles.link}>
+        {buttonContent}
+      </Link>
+    )
+  }
+
+  return buttonContent
 }
 
 export default Button

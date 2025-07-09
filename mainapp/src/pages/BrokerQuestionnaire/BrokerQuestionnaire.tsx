@@ -175,23 +175,26 @@ const BrokerQuestionnaire: React.FC = () => {
   }
 
   const handleSubmit = async (values: FormData) => {
+    console.log('🚀 handleSubmit called with values:', values)
     setIsSubmitting(true)
     setShowValidationErrors(true)
 
     try {
       // Log the form data for debugging
-      console.log('Broker questionnaire submitted:', values)
+      console.log('✅ Broker questionnaire submitted:', values)
       
-      // Simulate API call - in real implementation, this would be an actual API call
-      // For now, we'll just proceed to success like other forms in the app
+      // Simulate API call delay - in real implementation, this would be an actual API call
+      console.log('⏳ Waiting 500ms before navigation...')
+      await new Promise(resolve => setTimeout(resolve, 500))
       
       // Navigate to application submitted page (like other forms do)
+      console.log('🧭 Navigating to /services/application-submitted')
       navigate('/services/application-submitted')
+      console.log('✅ Navigation completed')
       
     } catch (error) {
-      console.error('Error submitting questionnaire:', error)
+      console.error('❌ Error submitting questionnaire:', error)
       alert(t('broker_questionnaire_error_submit'))
-    } finally {
       setIsSubmitting(false)
     }
   }
@@ -233,6 +236,12 @@ const BrokerQuestionnaire: React.FC = () => {
                 const errors: any = {}
                 err.inner?.forEach((error: any) => {
                   if (error.path) {
+                    // Special handling for yes/no fields - only show error if field is truly empty
+                    if ((error.path === 'hasClientCases' || error.path === 'hasDebtCases') && 
+                        (values[error.path] === 'yes' || values[error.path] === 'no')) {
+                      // Don't show error if a valid value is selected
+                      return
+                    }
                     errors[error.path] = error.message
                   }
                 })
@@ -240,7 +249,11 @@ const BrokerQuestionnaire: React.FC = () => {
               }
             }}
           >
-            {({ values, setFieldValue, errors, touched, setFieldTouched, setFieldError, isValid }) => (
+            {({ values, setFieldValue, errors, touched, setFieldTouched, isValid }) => {
+              // Debug logging
+              console.log('Form state:', { isValid, errors, values });
+              
+              return (
               <Form className={cx('form')} ref={formRef}>
                 {/* Contact Information Section */}
                 <div className={cx('section')}>
@@ -493,7 +506,6 @@ const BrokerQuestionnaire: React.FC = () => {
                             onClick={() => {
                               setFieldValue('hasClientCases', option.value)
                               setFieldTouched('hasClientCases', true)
-                              setFieldError('hasClientCases', '')
                             }}
                           >
                             {option.label}
@@ -518,7 +530,6 @@ const BrokerQuestionnaire: React.FC = () => {
                             onClick={() => {
                               setFieldValue('hasDebtCases', option.value)
                               setFieldTouched('hasDebtCases', true)
-                              setFieldError('hasDebtCases', '')
                             }}
                           >
                             {option.label}
@@ -594,7 +605,8 @@ const BrokerQuestionnaire: React.FC = () => {
                   </Button>
                 </div>
               </Form>
-            )}
+              )
+            }}
           </Formik>
         </div>
       </div>
