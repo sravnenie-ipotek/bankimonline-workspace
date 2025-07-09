@@ -57,10 +57,8 @@ const server = http.createServer((req, res) => {
   
   let filePath = '';
   
-  // Handle admin routes FIRST - serve standalone admin page
-  if (pathname.startsWith('/admin-panel')) {
-    filePath = './admin.html';
-  } else if (pathname.startsWith('/customer-approval-check')) {
+  // Handle customer approval check
+  if (pathname.startsWith('/customer-approval-check')) {
     filePath = './customer-approval-check.html';
   } else if (pathname === '/debug.html') {
     filePath = './debug.html';
@@ -114,7 +112,6 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`File server running at http://localhost:${PORT}/`);
-  console.log(`Admin panel available at http://localhost:${PORT}/admin-panel`);
   console.log(`Customer approval check at http://localhost:${PORT}/customer-approval-check`);
   console.log(`Main app at http://localhost:${PORT}/`);
 });

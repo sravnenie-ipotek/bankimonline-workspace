@@ -169,10 +169,10 @@ app.get('/api/cors-test', (req, res) => {
 app.get('/api/banks/list', async (req, res) => {
     try {
         const result = await pool.query(`
-            SELECT id, name_en, name_he, name_ru, code 
+            SELECT id, name_en, name_he, name_ru 
             FROM banks 
             WHERE is_active = true 
-            ORDER BY priority ASC, name_en ASC
+            ORDER BY display_order ASC, name_en ASC
         `);
         res.json({ 
             data: result.rows, 
@@ -182,7 +182,7 @@ app.get('/api/banks/list', async (req, res) => {
         console.error('Error fetching banks for registration:', err);
         res.status(500).json({ 
             error: 'Failed to load banks',
-            message: 'Internal server error' 
+            message: 'Database error: ' + err.message 
         });
     }
 });
@@ -195,7 +195,7 @@ app.get('/api/banks/:bankId/branches', async (req, res) => {
         const result = await pool.query(`
             SELECT id, name_en, name_he, name_ru, branch_code, city, address 
             FROM bank_branches 
-            WHERE bank_id = $1 
+            WHERE bank_id = $1 AND is_active = true
             ORDER BY name_en ASC
         `, [bankId]);
         
@@ -207,7 +207,7 @@ app.get('/api/banks/:bankId/branches', async (req, res) => {
         console.error('Error fetching bank branches:', err);
         res.status(500).json({ 
             error: 'Failed to load branches',
-            message: 'Internal server error' 
+            message: 'Database error: ' + err.message 
         });
     }
 });
@@ -231,6 +231,119 @@ app.get('/api/bank-numbers/israel', async (req, res) => {
         res.status(500).json({ 
             error: 'Failed to load bank numbers',
             message: 'Internal server error' 
+        });
+    }
+});
+
+// Populate sample branch data (for development/demo purposes)
+app.post('/api/admin/populate-sample-branches', async (req, res) => {
+    try {
+        // First, ensure the bank_branches table exists
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS bank_branches (
+                id SERIAL PRIMARY KEY,
+                bank_id INTEGER REFERENCES banks(id) ON DELETE CASCADE,
+                name_en VARCHAR(255) NOT NULL,
+                name_he VARCHAR(255),
+                name_ru VARCHAR(255),
+                branch_code VARCHAR(20) NOT NULL,
+                city VARCHAR(100),
+                address TEXT,
+                is_active BOOLEAN DEFAULT TRUE,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                UNIQUE(bank_id, branch_code)
+            )
+        `);
+
+        // Get first 3 banks
+        const banksResult = await pool.query(`
+            SELECT id FROM banks WHERE is_active = true ORDER BY display_order ASC, name_en ASC LIMIT 3
+        `);
+        
+        if (banksResult.rows.length === 0) {
+            return res.status(400).json({ 
+                error: 'No banks found',
+                message: 'Please ensure banks exist in the database first' 
+            });
+        }
+
+        const banks = banksResult.rows;
+        const sampleBranches = [];
+
+        // Create sample branches for each bank
+        for (let i = 0; i < banks.length; i++) {
+            const bankId = banks[i].id;
+            const branchData = [
+                {
+                    name_en: `${i === 0 ? 'Tel Aviv Central' : i === 1 ? 'Tel Aviv Dizengoff' : 'Tel Aviv Allenby'} Branch`,
+                    name_he: `סניף תל אביב ${i === 0 ? 'מרכז' : i === 1 ? 'דיזנגוף' : 'אלנבי'}`,
+                    name_ru: `Филиал Тель-Авив ${i === 0 ? 'Центральный' : i === 1 ? 'Дизенгоф' : 'Алленби'}`,
+                    branch_code: `TA00${i + 1}`,
+                    city: 'Tel Aviv',
+                    address: `${i === 0 ? 'Rothschild Blvd 22' : i === 1 ? 'Dizengoff St 50' : 'Allenby St 30'}, Tel Aviv`
+                },
+                {
+                    name_en: `Jerusalem ${i === 0 ? 'Main' : i === 1 ? 'Malcha' : 'City Center'} Branch`,
+                    name_he: `סניף ירושלים ${i === 0 ? 'ראשי' : i === 1 ? 'מלחה' : 'מרכז העיר'}`,
+                    name_ru: `Филиал Иерусалим ${i === 0 ? 'Главный' : i === 1 ? 'Малха' : 'Центр'}`,
+                    branch_code: `JR00${i + 1}`,
+                    city: 'Jerusalem',
+                    address: `${i === 0 ? 'King George St 15' : i === 1 ? 'Malcha Technology Park' : 'Jaffa St 45'}, Jerusalem`
+                }
+            ];
+
+            for (const branch of branchData) {
+                sampleBranches.push([
+                    bankId,
+                    branch.name_en,
+                    branch.name_he,
+                    branch.name_ru,
+                    branch.branch_code,
+                    branch.city,
+                    branch.address,
+                    true
+                ]);
+            }
+        }
+
+        // Insert sample branches
+        const insertQuery = `
+            INSERT INTO bank_branches (bank_id, name_en, name_he, name_ru, branch_code, city, address, is_active)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            ON CONFLICT (bank_id, branch_code) DO NOTHING
+            RETURNING id
+        `;
+
+        let insertedCount = 0;
+        const errors = [];
+        for (const branchData of sampleBranches) {
+            try {
+                console.log('Inserting branch:', branchData[4], 'for bank:', branchData[0]);
+                const result = await pool.query(insertQuery, branchData);
+                if (result.rowCount > 0) {
+                    insertedCount++;
+                    console.log('Successfully inserted branch:', branchData[4]);
+                } else {
+                    console.log('Branch already exists:', branchData[4]);
+                }
+            } catch (err) {
+                console.error(`Error inserting branch ${branchData[4]}:`, err.message);
+                errors.push(`${branchData[4]}: ${err.message}`);
+            }
+        }
+
+        res.json({ 
+            message: `Successfully populated ${insertedCount} sample branches`,
+            status: 'success',
+            banks_processed: banks.length,
+            branches_inserted: insertedCount
+        });
+    } catch (err) {
+        console.error('Error populating sample branches:', err);
+        res.status(500).json({ 
+            error: 'Failed to populate sample branches',
+            message: 'Database error: ' + err.message 
         });
     }
 });
@@ -363,6 +476,8 @@ app.get('/api/registration-config/:language', async (req, res) => {
 // ================================
 // END BANK EMPLOYEE REGISTRATION APIs
 // ================================
+
+
 
 // OPTIONS handler for preflight requests
 app.options('*', (req, res) => {
@@ -3078,6 +3193,726 @@ app.get('/api/admin/banking-standards-changes', requireAdmin, async (req, res) =
     }
 });
 
+// ================================
+// PHASE 2: ENHANCED BANK WORKER REGISTRATION APIs
+// ================================
+
+/**
+ * PHASE 2 - INVITATION-BASED REGISTRATION SYSTEM
+ * 
+ * This section implements the complete invitation-based bank worker registration
+ * system as specified in the Confluence documentation and Phase 2 requirements.
+ * 
+ * Features:
+ * - Admin invitation management
+ * - Multi-language validation
+ * - Approval workflow
+ * - Status tracking
+ * - Automated cleanup
+ */
+
+// ================================
+// INVITATION MANAGEMENT ENDPOINTS
+// ================================
+
+/**
+ * Send invitation to bank worker
+ * POST /api/bank-worker/invite
+ * 
+ * Admin-only endpoint to send registration invitations
+ * Generates secure invitation tokens and stores them in database
+ */
+app.post('/api/bank-worker/invite', requireAdmin, async (req, res) => {
+    try {
+        const { email, bankId, branchId } = req.body;
+        const adminId = req.admin.id; // From requireAdmin middleware
+
+        // Validation
+        if (!email || !bankId) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Email and bank ID are required'
+            });
+        }
+
+        // Check if invitation already exists and is active
+        const existingInvitation = await pool.query(`
+            SELECT id, status FROM registration_invitations 
+            WHERE email = $1 AND status = 'pending' AND expires_at > NOW()
+        `, [email]);
+
+        if (existingInvitation.rows.length > 0) {
+            return res.status(409).json({
+                status: 'error',
+                message: 'Active invitation already exists for this email'
+            });
+        }
+
+        // Check if email is already registered
+        const existingEmployee = await pool.query(
+            'SELECT id FROM bank_employees WHERE corporate_email = $1',
+            [email]
+        );
+
+        if (existingEmployee.rows.length > 0) {
+            return res.status(409).json({
+                status: 'error',
+                message: 'Email is already registered'
+            });
+        }
+
+        // Generate invitation token
+        const invitationToken = jwt.sign(
+            { email, bankId, branchId, invitedBy: adminId, type: 'invitation' },
+            process.env.JWT_SECRET || 'bank-worker-invitation-secret',
+            { expiresIn: '7d' } // 7 days to complete registration
+        );
+
+        // Store invitation in database
+        const result = await pool.query(`
+            INSERT INTO registration_invitations 
+            (email, bank_id, branch_id, invited_by, invitation_token, expires_at)
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING id, email, invitation_token, expires_at
+        `, [
+            email,
+            bankId,
+            branchId || null,
+            adminId,
+            invitationToken,
+            new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
+        ]);
+
+        console.log(`[INVITATION] Sent invitation to ${email} for bank ${bankId}`);
+
+        res.status(201).json({
+            status: 'success',
+            message: 'Invitation sent successfully',
+            data: {
+                invitationId: result.rows[0].id,
+                email: result.rows[0].email,
+                expiresAt: result.rows[0].expires_at,
+                invitationUrl: `${req.protocol}://${req.get('host')}/bank-worker/register/${invitationToken}`
+            }
+        });
+
+    } catch (err) {
+        console.error('Error sending invitation:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to send invitation'
+        });
+    }
+});
+
+/**
+ * Get registration form with invitation token
+ * GET /api/bank-worker/register/:token
+ * 
+ * Validates invitation token and returns registration form data
+ */
+app.get('/api/bank-worker/register/:token', async (req, res) => {
+    try {
+        const { token } = req.params;
+
+        // Verify and decode invitation token
+        let decodedToken;
+        try {
+            decodedToken = jwt.verify(token, process.env.JWT_SECRET || 'bank-worker-invitation-secret');
+        } catch (err) {
+            return res.status(401).json({
+                status: 'error',
+                message: 'Invalid or expired invitation token'
+            });
+        }
+
+        // Get invitation details from database
+        const invitation = await pool.query(`
+            SELECT ri.*, b.name_en as bank_name, bb.name_en as branch_name
+            FROM registration_invitations ri
+            JOIN banks b ON ri.bank_id = b.id
+            LEFT JOIN bank_branches bb ON ri.branch_id = bb.id
+            WHERE ri.invitation_token = $1 AND ri.status = 'pending' AND ri.expires_at > NOW()
+        `, [token]);
+
+        if (invitation.rows.length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Invitation not found or expired'
+            });
+        }
+
+        const invitationData = invitation.rows[0];
+
+        // Get bank branches for dropdown
+        const branches = await pool.query(`
+            SELECT id, name_en, name_he, name_ru, branch_code, city
+            FROM bank_branches 
+            WHERE bank_id = $1 
+            ORDER BY name_en ASC
+        `, [invitationData.bank_id]);
+
+        res.json({
+            status: 'success',
+            data: {
+                invitation: {
+                    id: invitationData.id,
+                    email: invitationData.email,
+                    bankId: invitationData.bank_id,
+                    bankName: invitationData.bank_name,
+                    branchId: invitationData.branch_id,
+                    branchName: invitationData.branch_name,
+                    expiresAt: invitationData.expires_at
+                },
+                branches: branches.rows,
+                token: token
+            }
+        });
+
+    } catch (err) {
+        console.error('Error fetching registration form:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to load registration form'
+        });
+    }
+});
+
+/**
+ * Complete bank worker registration
+ * POST /api/bank-worker/register
+ * 
+ * Processes registration form submission with invitation token
+ */
+app.post('/api/bank-worker/register', async (req, res) => {
+    try {
+        const {
+            invitationToken,
+            fullName,
+            position,
+            branchId,
+            bankNumber,
+            termsAccepted,
+            language = 'en'
+        } = req.body;
+
+        // Validate required fields
+        if (!invitationToken || !fullName || !position || !branchId || !bankNumber || !termsAccepted) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'All required fields must be filled'
+            });
+        }
+
+        // Verify invitation token
+        let decodedToken;
+        try {
+            decodedToken = jwt.verify(invitationToken, process.env.JWT_SECRET || 'bank-worker-invitation-secret');
+        } catch (err) {
+            return res.status(401).json({
+                status: 'error',
+                message: 'Invalid or expired invitation token'
+            });
+        }
+
+        // Get invitation details
+        const invitation = await pool.query(`
+            SELECT * FROM registration_invitations 
+            WHERE invitation_token = $1 AND status = 'pending' AND expires_at > NOW()
+        `, [invitationToken]);
+
+        if (invitation.rows.length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Invitation not found or expired'
+            });
+        }
+
+        const invitationData = invitation.rows[0];
+
+        // Multi-language validation
+        const validationResult = await validateRegistrationData({
+            fullName,
+            position,
+            language,
+            country: 'IL' // Default to Israel, could be dynamic
+        });
+
+        if (!validationResult.isValid) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Validation failed',
+                errors: validationResult.errors
+            });
+        }
+
+        // Begin transaction
+        const client = await pool.connect();
+        try {
+            await client.query('BEGIN');
+
+            // Create bank employee record
+            const employeeResult = await client.query(`
+                INSERT INTO bank_employees 
+                (name, position, corporate_email, bank_id, branch_id, bank_number, 
+                 terms_accepted, terms_accepted_at, invitation_token, approval_status,
+                 registration_ip, registration_user_agent, last_activity_at)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+                RETURNING id, name, corporate_email, status, created_at
+            `, [
+                fullName,
+                position,
+                invitationData.email,
+                invitationData.bank_id,
+                branchId,
+                bankNumber,
+                termsAccepted,
+                new Date(),
+                invitationToken,
+                'pending', // Requires admin approval
+                req.ip,
+                req.get('User-Agent'),
+                new Date()
+            ]);
+
+            const newEmployee = employeeResult.rows[0];
+
+            // Mark invitation as used
+            await client.query(`
+                UPDATE registration_invitations 
+                SET status = 'used', registration_completed_at = NOW(), employee_id = $1
+                WHERE id = $2
+            `, [newEmployee.id, invitationData.id]);
+
+            // Add to approval queue
+            await client.query(`
+                INSERT INTO worker_approval_queue 
+                (employee_id, submitted_at, approval_status)
+                VALUES ($1, $2, $3)
+            `, [newEmployee.id, new Date(), 'pending']);
+
+            await client.query('COMMIT');
+
+            console.log(`[REGISTRATION] New bank worker registered: ${fullName} (${invitationData.email})`);
+
+            res.status(201).json({
+                status: 'success',
+                message: 'Registration completed successfully. Your account is pending admin approval.',
+                data: {
+                    id: newEmployee.id,
+                    name: newEmployee.name,
+                    email: newEmployee.corporate_email,
+                    status: 'pending_approval'
+                }
+            });
+
+        } catch (err) {
+            await client.query('ROLLBACK');
+            throw err;
+        } finally {
+            client.release();
+        }
+
+    } catch (err) {
+        console.error('Error completing registration:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Registration failed'
+        });
+    }
+});
+
+/**
+ * Check registration status
+ * GET /api/bank-worker/status/:id
+ * 
+ * Returns current registration and approval status
+ */
+app.get('/api/bank-worker/status/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const result = await pool.query(`
+            SELECT 
+                be.id,
+                be.name,
+                be.corporate_email,
+                be.status,
+                be.approval_status,
+                be.approved_at,
+                be.created_at,
+                waq.approval_status as queue_status,
+                waq.reviewed_at,
+                waq.admin_notes,
+                au.name as approved_by_name
+            FROM bank_employees be
+            LEFT JOIN worker_approval_queue waq ON be.id = waq.employee_id
+            LEFT JOIN admin_users au ON be.approved_by = au.id
+            WHERE be.id = $1
+        `, [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Registration not found'
+            });
+        }
+
+        const employee = result.rows[0];
+
+        res.json({
+            status: 'success',
+            data: {
+                id: employee.id,
+                name: employee.name,
+                email: employee.corporate_email,
+                registrationStatus: employee.status,
+                approvalStatus: employee.approval_status,
+                approvedAt: employee.approved_at,
+                approvedBy: employee.approved_by_name,
+                registeredAt: employee.created_at,
+                queueStatus: employee.queue_status,
+                reviewedAt: employee.reviewed_at,
+                adminComments: employee.admin_notes
+            }
+        });
+
+    } catch (err) {
+        console.error('Error fetching registration status:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to fetch status'
+        });
+    }
+});
+
+// ================================
+// ADMIN MANAGEMENT ENDPOINTS
+// ================================
+
+/**
+ * Get all invitations (admin only)
+ * GET /api/admin/invitations
+ */
+app.get('/api/admin/invitations', requireAdmin, async (req, res) => {
+    try {
+        const { status, page = 1, limit = 20 } = req.query;
+        const offset = (page - 1) * limit;
+
+        let whereClause = '';
+        const queryParams = [];
+
+        if (status && ['pending', 'used', 'expired', 'cancelled'].includes(status)) {
+            whereClause = 'WHERE ri.status = $1';
+            queryParams.push(status);
+        }
+
+        const result = await pool.query(`
+            SELECT 
+                ri.*,
+                b.name_en as bank_name,
+                bb.name_en as branch_name,
+                au.name as invited_by_name,
+                be.name as employee_name
+            FROM registration_invitations ri
+            JOIN banks b ON ri.bank_id = b.id
+            LEFT JOIN bank_branches bb ON ri.branch_id = bb.id
+            JOIN admin_users au ON ri.invited_by = au.id
+            LEFT JOIN bank_employees be ON ri.employee_id = be.id
+            ${whereClause}
+            ORDER BY ri.created_at DESC
+            LIMIT $${queryParams.length + 1} OFFSET $${queryParams.length + 2}
+        `, [...queryParams, limit, offset]);
+
+        // Get total count
+        const countResult = await pool.query(`
+            SELECT COUNT(*) as total FROM registration_invitations ri ${whereClause}
+        `, queryParams);
+
+        res.json({
+            status: 'success',
+            data: result.rows,
+            pagination: {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                total: parseInt(countResult.rows[0].total),
+                totalPages: Math.ceil(countResult.rows[0].total / limit)
+            }
+        });
+
+    } catch (err) {
+        console.error('Error fetching invitations:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to fetch invitations'
+        });
+    }
+});
+
+/**
+ * Get approval queue (admin only)
+ * GET /api/admin/approval-queue
+ */
+app.get('/api/admin/approval-queue', requireAdmin, async (req, res) => {
+    try {
+        const { status = 'pending', page = 1, limit = 20 } = req.query;
+        const offset = (page - 1) * limit;
+
+        const result = await pool.query(`
+            SELECT 
+                waq.*,
+                be.name,
+                be.corporate_email,
+                be.position,
+                be.bank_number,
+                be.created_at as registered_at,
+                b.name_en as bank_name,
+                bb.name_en as branch_name
+            FROM worker_approval_queue waq
+            JOIN bank_employees be ON waq.employee_id = be.id
+            JOIN banks b ON be.bank_id = b.id
+            LEFT JOIN bank_branches bb ON be.branch_id = bb.id
+            WHERE waq.approval_status = $1
+            ORDER BY waq.submitted_at ASC
+            LIMIT $2 OFFSET $3
+        `, [status, limit, offset]);
+
+        res.json({
+            status: 'success',
+            data: result.rows,
+            pagination: {
+                page: parseInt(page),
+                limit: parseInt(limit)
+            }
+        });
+
+    } catch (err) {
+        console.error('Error fetching approval queue:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to fetch approval queue'
+        });
+    }
+});
+
+/**
+ * Approve bank worker registration (admin only)
+ * POST /api/admin/approve/:id
+ */
+app.post('/api/admin/approve/:id', requireAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { comments } = req.body;
+        const adminId = req.admin.id;
+
+        const client = await pool.connect();
+        try {
+            await client.query('BEGIN');
+
+            // Update bank employee status
+            await client.query(`
+                UPDATE bank_employees 
+                SET approval_status = 'approved', 
+                    status = 'active',
+                    approved_by = $1, 
+                    approved_at = NOW(),
+                    last_activity_at = NOW()
+                WHERE id = $2
+            `, [adminId, id]);
+
+            // Update approval queue
+            await client.query(`
+                UPDATE worker_approval_queue 
+                SET approval_status = 'approved',
+                    reviewed_by = $1,
+                    reviewed_at = NOW(),
+                    admin_notes = $2
+                WHERE employee_id = $3
+            `, [adminId, comments || 'Approved', id]);
+
+            await client.query('COMMIT');
+
+            console.log(`[ADMIN] Bank worker ${id} approved by admin ${adminId}`);
+
+            res.json({
+                status: 'success',
+                message: 'Bank worker approved successfully'
+            });
+
+        } catch (err) {
+            await client.query('ROLLBACK');
+            throw err;
+        } finally {
+            client.release();
+        }
+
+    } catch (err) {
+        console.error('Error approving bank worker:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to approve bank worker'
+        });
+    }
+});
+
+/**
+ * Reject bank worker registration (admin only)
+ * POST /api/admin/reject/:id
+ */
+app.post('/api/admin/reject/:id', requireAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { reason } = req.body;
+        const adminId = req.admin.id;
+
+        if (!reason) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Rejection reason is required'
+            });
+        }
+
+        const client = await pool.connect();
+        try {
+            await client.query('BEGIN');
+
+            // Update bank employee status
+            await client.query(`
+                UPDATE bank_employees 
+                SET approval_status = 'rejected',
+                    status = 'inactive'
+                WHERE id = $1
+            `, [id]);
+
+            // Update approval queue
+            await client.query(`
+                UPDATE worker_approval_queue 
+                SET approval_status = 'rejected',
+                    reviewed_by = $1,
+                    reviewed_at = NOW(),
+                    admin_notes = $2
+                WHERE employee_id = $3
+            `, [adminId, reason, id]);
+
+            await client.query('COMMIT');
+
+            console.log(`[ADMIN] Bank worker ${id} rejected by admin ${adminId}: ${reason}`);
+
+            res.json({
+                status: 'success',
+                message: 'Bank worker registration rejected'
+            });
+
+        } catch (err) {
+            await client.query('ROLLBACK');
+            throw err;
+        } finally {
+            client.release();
+        }
+
+    } catch (err) {
+        console.error('Error rejecting bank worker:', err);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to reject bank worker'
+        });
+    }
+});
+
+// ================================
+// VALIDATION HELPER FUNCTIONS
+// ================================
+
+/**
+ * Multi-language validation function
+ * Validates registration data based on country and language rules
+ */
+async function validateRegistrationData({ fullName, position, language, country }) {
+    const errors = [];
+    let isValid = true;
+
+    try {
+        // Get validation rules from database
+        const rules = await pool.query(`
+            SELECT field_name, validation_type, validation_pattern, error_message_key
+            FROM registration_validation_rules 
+            WHERE country_code = $1 AND language_code = $2 AND is_active = true
+            ORDER BY priority ASC
+        `, [country, language]);
+
+        const validationRules = rules.rows;
+
+        // Validate full name
+        const nameRules = validationRules.filter(rule => rule.field_name === 'full_name');
+        for (const rule of nameRules) {
+            if (rule.validation_type === 'regex' && rule.validation_pattern) {
+                const regex = new RegExp(rule.validation_pattern);
+                if (!regex.test(fullName)) {
+                    errors.push({
+                        field: 'fullName',
+                        message: rule.error_message_key,
+                        type: 'format'
+                    });
+                    isValid = false;
+                }
+            }
+        }
+
+        // Validate position
+        const positionRules = validationRules.filter(rule => rule.field_name === 'position');
+        for (const rule of positionRules) {
+            if (rule.validation_type === 'regex' && rule.validation_pattern) {
+                const regex = new RegExp(rule.validation_pattern);
+                if (!regex.test(position)) {
+                    errors.push({
+                        field: 'position',
+                        message: rule.error_message_key,
+                        type: 'format'
+                    });
+                    isValid = false;
+                }
+            }
+        }
+
+        // Basic required field validation
+        if (!fullName || fullName.trim().length < 2) {
+            errors.push({
+                field: 'fullName',
+                message: 'Full name is required and must be at least 2 characters',
+                type: 'required'
+            });
+            isValid = false;
+        }
+
+        if (!position || position.trim().length < 2) {
+            errors.push({
+                field: 'position',
+                message: 'Position is required and must be at least 2 characters',
+                type: 'required'
+            });
+            isValid = false;
+        }
+
+    } catch (err) {
+        console.error('Error in validation:', err);
+        // Fallback to basic validation if database validation fails
+        if (!fullName || fullName.trim().length < 2) {
+            errors.push({
+                field: 'fullName',
+                message: 'Full name is required',
+                type: 'required'
+            });
+            isValid = false;
+        }
+    }
+
+    return { isValid, errors };
+}
+
+// ================================
+// END PHASE 2: ENHANCED BANK WORKER REGISTRATION APIs
+// ================================
+
 // ENHANCED CALCULATION ENGINE WITH DATABASE STANDARDS
 // Real banking approval logic using admin-configurable standards
 
@@ -5496,6 +6331,12 @@ app.post('/api/lawyers/apply', async (req, res) => {
   }
 });
 
+// Redirect old admin routes to new admin interface
+app.get('/admin*', (req, res) => {
+    // Redirect all admin routes to the new admin panel
+    res.redirect(301, 'http://localhost:3001/admin-panel');
+});
+
 // Handle React Router (catch-all for non-API routes)
 app.get('*', (req, res) => {
     // Only serve React app for non-API routes
@@ -5552,6 +6393,16 @@ app.listen(PORT, () => {
     console.log('🔧 Admin applications: GET /api/admin/applications');
     console.log('📊 Admin app details: GET /api/admin/applications/:id');
     console.log('✏️ Update app status: PUT /api/admin/applications/:id/status');
+    console.log('');
+    console.log('🏢 PHASE 2: Bank Worker Registration System');
+    console.log('📨 Send invitation: POST /api/bank-worker/invite');
+    console.log('📝 Get registration form: GET /api/bank-worker/register/:token');
+    console.log('✅ Complete registration: POST /api/bank-worker/register');
+    console.log('📊 Check status: GET /api/bank-worker/status/:id');
+    console.log('📋 Admin invitations: GET /api/admin/invitations');
+    console.log('⏳ Admin approval queue: GET /api/admin/approval-queue');
+    console.log('✅ Approve worker: POST /api/admin/approve/:id');
+    console.log('❌ Reject worker: POST /api/admin/reject/:id');
     console.log('');
 });
 
