@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Container } from '@src/components/ui/Container'
 import { CaretRightIcon } from '@assets/icons/CaretRightIcon'
+import LawyersFooter from './components/LawyersFooter'
 
 import styles from './temporaryFranchise.module.scss'
 
@@ -109,9 +110,6 @@ const TemporaryFranchise: React.FC = () => {
               </div>
             </div>
             <div className={cx('client-sources-right')}>
-              <div className={cx('client-sources-badge')}>
-                {t('franchise_client_sources_badge')}
-              </div>
               <h2 className={cx('client-sources-title')}>
                 {t('franchise_client_sources_title')}
               </h2>
@@ -163,12 +161,12 @@ const TemporaryFranchise: React.FC = () => {
                 </div>
                 <div className={cx('partnership-service-item')}>
                   <div className={cx('partnership-bullet')}></div>
+                  <span className={cx('partnership-service-name')}>{t('franchise_partnership_service_sell')}</span>
+                </div>
+                <div className={cx('partnership-service-item')}>
+                  <div className={cx('partnership-bullet')}></div>
                   <span className={cx('partnership-service-name')}>{t('franchise_partnership_service_lease')}</span>
                 </div>
-              </div>
-              <div className={cx('partnership-additional-service')}>
-                <div className={cx('partnership-bullet')}></div>
-                <span className={cx('partnership-service-name')}>{t('franchise_partnership_service_sell')}</span>
               </div>
               <button 
                 className={cx('partnership-cta-button')}
@@ -476,6 +474,7 @@ const TemporaryFranchise: React.FC = () => {
         </Container>
       </section>
 
+      <LawyersFooter />
 
     </div>
   )

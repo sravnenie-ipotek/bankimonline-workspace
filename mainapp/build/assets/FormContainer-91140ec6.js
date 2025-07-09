@@ -1,0 +1,1 @@
+import{c as n,j as o}from"./index-97a28d0d.js";const s={"form-container":"_form-container_bfdd0_1"},a=n.bind(s),m=({children:e})=>o.jsxDEV("div",{className:a("form-container"),children:e},void 0,!1,{fileName:"/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/src/components/ui/FormContainer/FormContainer.tsx",lineNumber:8,columnNumber:10},globalThis);export{m as F};
