@@ -229,8 +229,25 @@ const MobileDocumentUploadPage = lazy(() =>
 // Admin Pages
 const AdminLogin = lazy(() => import('../../pages/Admin/AdminLogin'))
 const AdminDashboard = lazy(() => import('../../pages/Admin/AdminDashboard'))
+const BankWorkerManagement = lazy(() => import('../../pages/Admin/BankWorkerManagement'))
 
-// Bank Employee Registration
+// Bank Worker Registration (Phase 3)
+const BankWorkerRegistration = lazy(() =>
+  import('../../pages/BankWorker/BankWorkerRegistration').then((module) => ({
+    default: module.default,
+  }))
+)
+
+const BankWorkerStatus = lazy(() =>
+  import('../../pages/BankWorker/BankWorkerStatus').then((module) => ({
+    default: module.default,
+  }))
+)
+
+// Demo component for viewing the registration design
+const BankWorkerRegistrationDemo = lazy(() => import('../../pages/BankWorker/BankWorkerRegistrationDemo'));
+
+// Bank Employee Registration (Legacy)
 const BankEmployeeRegistration = lazy(() =>
   import('../../pages/BankEmployeeRegistration/BankEmployeeRegistration').then((module) => ({
     default: module.default,
@@ -378,10 +395,21 @@ const MainRoutes: React.FC = () => {
               <Route path="/admin">
                 <Route path="login" element={<AdminLogin />} />
                 <Route path="dashboard" element={<AdminDashboard />} />
+                <Route path="bank-workers" element={<BankWorkerManagement />} />
                 <Route index element={<Navigate replace to="/admin/login" />} />
               </Route>
               
-              {/* Bank Employee Registration Routes */}
+              {/* Bank Worker Registration Routes (Phase 3) */}
+              <Route path="/bank-worker">
+                <Route path="register/:token" element={<BankWorkerRegistration />} />
+                <Route path="status/:id" element={<BankWorkerStatus />} />
+                <Route index element={<Navigate replace to="/" />} />
+              </Route>
+
+              {/* Demo route for viewing the design without token */}
+              <Route path="/bank-worker/demo" element={<BankWorkerRegistrationDemo />} />
+              
+              {/* Bank Employee Registration Routes (Legacy) */}
               <Route path="/bank-employee">
                 <Route path="register" element={<BankEmployeeRegistration />} />
                 <Route path="registration" element={<BankEmployeeRegistration />} />
