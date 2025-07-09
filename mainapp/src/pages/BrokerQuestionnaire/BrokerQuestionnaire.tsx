@@ -240,7 +240,7 @@ const BrokerQuestionnaire: React.FC = () => {
               }
             }}
           >
-            {({ values, setFieldValue, errors, touched, setFieldTouched, isValid }) => (
+            {({ values, setFieldValue, errors, touched, setFieldTouched, setFieldError, isValid }) => (
               <Form className={cx('form')} ref={formRef}>
                 {/* Contact Information Section */}
                 <div className={cx('section')}>
@@ -493,6 +493,7 @@ const BrokerQuestionnaire: React.FC = () => {
                             onClick={() => {
                               setFieldValue('hasClientCases', option.value)
                               setFieldTouched('hasClientCases', true)
+                              setFieldError('hasClientCases', '')
                             }}
                           >
                             {option.label}
@@ -517,6 +518,7 @@ const BrokerQuestionnaire: React.FC = () => {
                             onClick={() => {
                               setFieldValue('hasDebtCases', option.value)
                               setFieldTouched('hasDebtCases', true)
+                              setFieldError('hasDebtCases', '')
                             }}
                           >
                             {option.label}
