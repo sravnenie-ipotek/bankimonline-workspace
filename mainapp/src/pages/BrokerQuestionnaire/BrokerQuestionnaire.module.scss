@@ -398,9 +398,18 @@
 // Error message styling
 :global(.error-message),
 :global([class*="error"]) {
-  color: #ff4444 !important;
+  color: #ffffff !important;
   font-size: 12px !important;
   margin-top: 4px !important;
+}
+
+// Specific error component styling for broker questionnaire
+.form-field :global([class*="error-module__error"]) {
+  margin-top: 8px !important;
+  
+  p {
+    color: #ffffff !important;
+  }
 }
 
 // RTL Support
