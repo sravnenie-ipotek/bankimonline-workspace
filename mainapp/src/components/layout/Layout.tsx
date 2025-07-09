@@ -20,7 +20,7 @@ const cx = classNames.bind(styles)
 const Layout: React.FC = () => {
   const location = useLocation()
   const pathMap = location.pathname.split('/')
-  const isService = pathMap.includes('services') || pathMap.includes('tenders-for-lawyers')
+  const isService = pathMap.includes('services') || pathMap.includes('tenders-for-lawyers') || pathMap.includes('Real-Estate-Brokerage')
   const { i18n } = useTranslation()
   const { isOn: isOpen, toggle: toggleOpen } = usePersistentToggle('sidebar-open', false)
   const { isDesktop } = useWindowResize()
