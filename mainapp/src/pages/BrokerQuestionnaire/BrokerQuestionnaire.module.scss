@@ -353,6 +353,40 @@
   }
 }
 
+// Override DropdownMenu to match design
+.form-field :global(div[class*="dropdown-menu"]) {
+  :global(button[class*="trigger"]) {
+    height: 48px !important;
+    padding: 0 16px !important;
+    font-size: 14px !important;
+    background: #2a2a2a !important;
+    border: 1px solid #555 !important;
+    border-radius: 4px !important;
+    color: #ffffff !important;
+    text-align: left !important;
+    
+    &:focus {
+      border-color: #888 !important;
+    }
+  }
+  
+  :global(div[class*="content"]) {
+    background: #2a2a2a !important;
+    border: 1px solid #555 !important;
+    border-radius: 4px !important;
+    
+    :global(div[class*="item"]) {
+      font-size: 14px !important;
+      color: #ffffff !important;
+      padding: 8px 16px !important;
+      
+      &:hover {
+        background: #333 !important;
+      }
+    }
+  }
+}
+
 // Override Button components to match design
 :global(button[class*="button"]) {
   &[data-variant="primary"] {
@@ -392,6 +426,28 @@
       background: #444 !important;
       border-color: #666 !important;
     }
+  }
+}
+
+// Global input text size override for all input types
+.form-field {
+  :global(input),
+  :global(textarea),
+  :global(select),
+  :global(button[role="combobox"]),
+  :global([class*="trigger"]),
+  :global([class*="input"]),
+  :global([class*="dropdown"]) {
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+  }
+  
+  // Specific override for any text content in form components
+  :global(span),
+  :global(div[class*="text"]),
+  :global(div[class*="label"]),
+  :global(div[class*="value"]) {
+    font-size: 14px !important;
   }
 }
 

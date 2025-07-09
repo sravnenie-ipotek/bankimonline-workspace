@@ -1141,6 +1141,7 @@
   "broker_questionnaire_error_number_format": "יש להזין מספרים בלבד",
   "broker_questionnaire_error_name_format": "השם יכול להכיל אך ורק אותיות בעברית או באנגלית",
   "broker_questionnaire_error_email_invalid": "כתובת הדואר האלקטרוני אינה תקפה או אינה בפורמט נכון",
+  "broker_questionnaire_error_email_format": "כתובת דואר אלקטרוני לא תקפה",
   "broker_questionnaire_error_comments_max": "הטקסט ארוך מהמותר (מקסימום 2000 תווים)",
   "broker_questionnaire_error_agreement": "חובה לאשר את תנאי השימוש ומדיניות הפרטיות כדי להמשיך",
   "broker_questionnaire_error_submission": "אירעה שגיאה טכנית בעת שליחת הטופס. אנא נסו שנית או פנו לתמיכה",
