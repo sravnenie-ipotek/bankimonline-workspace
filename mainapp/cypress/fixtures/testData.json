@@ -1,0 +1,82 @@
+{
+  "bankEmployee": {
+    "valid": {
+      "fullName": "John Doe",
+      "position": "Senior Manager",
+      "email": "john.doe@bank.com",
+      "bankNumber": "12345"
+    },
+    "invalid": {
+      "shortName": "J",
+      "invalidEmail": "notanemail",
+      "shortBankNumber": "12",
+      "longName": "This is a very long name that exceeds the maximum allowed length for the full name field and should trigger validation error"
+    },
+    "specialCharacters": {
+      "nameWithNumbers": "John123",
+      "emailWithSpecialChars": "test.email+tag@bank-name.co.il",
+      "positionWithSpecialChars": "VP & Senior Director"
+    }
+  },
+  "api": {
+    "banks": [
+      {
+        "id": 1,
+        "name_en": "Bank Hapoalim",
+        "name_he": "בנק הפועלים",
+        "name_ru": "Банк Апоалим"
+      },
+      {
+        "id": 2,
+        "name_en": "Bank Leumi",
+        "name_he": "בנק לאומי",
+        "name_ru": "Банк Леуми"
+      }
+    ],
+    "cities": [
+      {
+        "id": 1,
+        "name_en": "Tel Aviv",
+        "name_he": "תל אביב",
+        "name_ru": "Тель-Авив"
+      },
+      {
+        "id": 2,
+        "name_en": "Jerusalem",
+        "name_he": "ירושלים",
+        "name_ru": "Иерусалим"
+      }
+    ]
+  },
+  "languages": {
+    "hebrew": {
+      "code": "he",
+      "name": "עברית",
+      "direction": "rtl"
+    },
+    "russian": {
+      "code": "ru",
+      "name": "Русский",
+      "direction": "ltr"
+    },
+    "english": {
+      "code": "en",
+      "name": "English",
+      "direction": "ltr"
+    }
+  },
+  "performance": {
+    "maxPageLoadTime": 3000,
+    "maxApiResponseTime": 5000,
+    "maxImageLoadTime": 2000
+  },
+  "browsers": {
+    "desktop": ["chrome", "firefox", "edge"],
+    "mobile": ["chrome", "safari"]
+  },
+  "viewports": {
+    "desktop": { "width": 1280, "height": 720 },
+    "tablet": { "width": 768, "height": 1024 },
+    "mobile": { "width": 375, "height": 667 }
+  }
+}

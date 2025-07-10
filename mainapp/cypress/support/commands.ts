@@ -126,5 +126,65 @@ Cypress.Commands.add('verifyValidationError', (fieldName: string, errorMessage: 
     .and('contain', errorMessage)
 })
 
+// Additional QA-focused commands
+
+// Command to check accessibility
+Cypress.Commands.add('checkA11y', () => {
+  cy.injectAxe();
+  cy.checkA11y();
+});
+
+// Command to fill bank employee registration form
+Cypress.Commands.add('fillBankEmployeeForm', (data: {
+  fullName?: string
+  position?: string
+  email?: string
+  bankNumber?: string
+}) => {
+  if (data.fullName) cy.get('input[name="fullName"]').type(data.fullName);
+  if (data.position) cy.get('input[name="position"]').type(data.position);
+  if (data.email) cy.get('input[name="email"]').type(data.email);
+  if (data.bankNumber) cy.get('input[name="bankNumber"]').type(data.bankNumber);
+});
+
+// Command to check form validation
+Cypress.Commands.add('checkFormValidation', (fieldName: string, errorText: string) => {
+  cy.get(`input[name="${fieldName}"]`).parent().parent()
+    .find('.errorMessage').should('contain', errorText);
+});
+
+// Command to check performance metrics
+Cypress.Commands.add('checkPageLoadTime', (maxTime: number = 3000) => {
+  cy.window().then((win) => {
+    const performance = win.performance;
+    const navigationTiming = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+    const loadTime = navigationTiming.loadEventEnd - navigationTiming.fetchStart;
+    
+    expect(loadTime).to.be.lessThan(maxTime);
+  });
+});
+
+// Command to wait for API with better error handling
+Cypress.Commands.add('waitForApiResponse', (alias: string, timeout: number = 10000) => {
+  cy.wait(alias, { timeout }).then((interception) => {
+    expect(interception.response?.statusCode).to.be.oneOf([200, 201, 204]);
+  });
+});
+
+// Command to test responsive design
+Cypress.Commands.add('testResponsive', (element: string) => {
+  // Test desktop
+  cy.viewport(1280, 720);
+  cy.get(element).should('be.visible');
+  
+  // Test tablet
+  cy.viewport('ipad-2');
+  cy.get(element).should('be.visible');
+  
+  // Test mobile
+  cy.viewport('iphone-x');
+  cy.get(element).should('be.visible');
+});
+
 // Export empty object to make this a module
 export {}

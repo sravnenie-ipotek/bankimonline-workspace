@@ -202,13 +202,6 @@ export const BankEmployeeRegistration: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {/* Header */}
-      <div className={styles.header}>
-        <div className={styles.logo}>
-          <span>BankIM</span>
-        </div>
-      </div>
-
       {/* Page Background */}
       <div className={styles.pageBackground}>
         {/* Sign up form */}
