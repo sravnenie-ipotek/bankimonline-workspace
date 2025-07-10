@@ -6,129 +6,80 @@ This project contains multiple independent applications that run on different po
 
 ## 📂 Application Directories & Paths
 
-### 1. Main Banking Application (Primary)
+### 1. Main Banking Application (Production)
 - **Path**: `/mainapp/`
 - **Technology**: React 18 + TypeScript + Vite
-- **Development URL**: `http://localhost:5173` (Vite dev server)
+- **Development URL**: `http://localhost:5173`
 - **Production URL**: `http://localhost:3001` (served by backend)
 - **Purpose**: Main customer-facing banking application with mortgage/credit calculators
 - **Entry Point**: `mainapp/src/App.tsx`
-- **Build Output**: `mainapp/dist/`
+- **Status**: ✅ **PRODUCTION - DO NOT MODIFY**
 
-### 2. Account Dashboard Application
-- **Path**: `/account/`
+### 2. BankIM Management Portal (Standalone)
+- **Path**: `/Users/michaelmishayev/Projects/bankIM_management_portal/`
 - **Technology**: React 18 + TypeScript + Vite
-- **Development URL**: `http://localhost:5174` (typically next available port)
-- **Production URL**: Deployed separately on Vercel
-- **Purpose**: Personal account dashboard for logged-in users
-- **Entry Point**: `account/src/App.tsx`
-- **Build Output**: `account/dist/`
+- **Development URL**: `http://localhost:3002`
+- **Purpose**: Role-based management system (8.1 Компоненты)
+- **Roles**: Bank Employee, Sales Manager, Administration, Brokers, Content Manager, Director
+- **Entry Point**: `src/App.tsx`
+- **Status**: ✅ **COMPLETELY SEPARATED** from main app
 
-### 3. Backend API Server (Node.js)
-- **Path**: Root directory (`/server-db.js`)
+### 3. Backend API Server
+- **Path**: `/server-db.js`
 - **Technology**: Node.js + Express + PostgreSQL
 - **Development URL**: `http://localhost:8003`
-- **Production URL**: Railway deployment
 - **Purpose**: Main API server, database connections, authentication
 - **Database**: Railway PostgreSQL
-- **Static Serving**: Also serves built React apps
 
-### 4. Legacy HTML Applications
-- **Path**: Root directory and `/public/`
-- **Files**:
-  - `admin.html` - Legacy admin panel
-  - `customer-approval-check.html` - Customer approval interface
-- **Served by**: Backend server on port 8003
-- **URLs**: 
-  - `http://localhost:8003/admin.html`
-  - `http://localhost:8003/customer-approval-check.html`
-
-## 🌐 Production Deployment Paths
-
-### Vercel Deployments
-- **Main App**: `bankimstandaloneprod.vercel.app`
-- **Account App**: `bank-dev2-standalone-txwi.vercel.app`
-
-### Railway Deployments
-- **Laravel API**: `bankimonlineapi-production.up.railway.app/api/v1`
-- **Node.js API**: `bankim-nodejs-api-production.up.railway.app/api`
-- **Main Service**: `bankim-standalone-production.up.railway.app`
+### 4. Customer Approval Interface
+- **Path**: `/customer-approval-check.html`
+- **URL**: `http://localhost:8003/customer-approval-check.html`
+- **Purpose**: Customer approval interface
 
 ## 🚪 Port Configuration
 
-| Application | Development Port | Production Port | Purpose |
-|-------------|------------------|-----------------|---------|
-| Main React App (Vite) | 5173 | - | React development server |
-| Account React App (Vite) | 5174 | - | Account development server |
-| Backend API Server | 8003 | Railway Auto | API endpoints & static serving |
-| File Server (alternative) | 3001 | - | Alternative static file server |
+| Application | Port | Purpose | Status |
+|-------------|------|---------|--------|
+| Main Banking App | 5173 | Production consumer app | 🔒 **PROTECTED** |
+| Management Portal | 3002 | Admin/role management | ✅ **SEPARATED** |
+| Backend API | 8003 | API endpoints & static serving | ✅ **ACTIVE** |
 
-## 🔄 Development vs Production Separation
+## 🔄 Application Separation
 
-### Development Environment
-- **Frontend Apps**: Run independently on Vite dev servers (5173, 5174)
-- **Backend**: Runs on port 8003 with hot reload
-- **API Calls**: Proxied from frontend to backend via Vite proxy configuration
+### Main App (localhost:5173)
+- **Consumer-facing banking application**
+- **MUST remain completely untouched**
+- **All production features and services**
 
-### Production Environment
-- **Frontend Apps**: Built and deployed separately to Vercel
-- **Backend**: Deployed to Railway with static file serving capability
-- **API Calls**: Direct HTTPS calls to production API endpoints
+### Management Portal (localhost:3002) 
+- **Completely independent React application**
+- **Zero shared code with main app**
+- **Role-based management system**
+- **Can be developed/deployed independently**
 
-## 📁 Key Configuration Files
-
-### Main App (`/mainapp/`)
-- `vite.config.ts` - Vite configuration with proxy setup
-- `package.json` - Dependencies and scripts
-- `.env.development` - Development environment variables
-- `.env.production` - Production environment variables
-
-### Account App (`/account/`)
-- `vite.config.ts` - Vite configuration
-- `package.json` - Dependencies and scripts
-- `vercel.json` - Vercel deployment configuration
-
-### Backend
-- `server-db.js` - Main server file
-- `package.json` - Server dependencies
-- `railway.json` - Railway deployment configuration
-- `nixpacks.toml` - Build configuration for Railway
-
-## ⚠️ Important Separation Rules
-
-1. **No Cross-Application Dependencies**: Each app should be deployable independently
-2. **No localhost:5173 in Production Code**: Only use environment variables for API endpoints
-3. **Proper Environment Variables**: Use VITE_* prefixed variables for frontend
-4. **API Endpoint Configuration**: Always use configurable base URLs, never hardcoded
+### Backend (localhost:8003)
+- **Serves both applications via API**
+- **Handles database connections**
+- **Authentication and authorization**
 
 ## 🔧 Development Commands
 
-### Start All Applications
 ```bash
-# Terminal 1: Backend API
-node server-db.js
+# Main Production App (DO NOT MODIFY)
+cd mainapp && npm run dev  # http://localhost:5173
 
-# Terminal 2: Main App
-cd mainapp && npm run dev
+# Management Portal (Independent Development)
+cd /Users/michaelmishayev/Projects/bankIM_management_portal
+npm run dev  # http://localhost:3002
 
-# Terminal 3: Account App (if needed)
-cd account && npm run dev
+# Backend API Server
+node server-db.js  # http://localhost:8003
 ```
 
-### Production Build
-```bash
-# Build main app
-cd mainapp && npm run build
+## ⚠️ Important Rules
 
-# Build account app  
-cd account && npm run build
-
-# Start production server
-node server-db.js
-```
-
-## 📝 Notes
-- Each application maintains its own dependencies and configuration
-- Cross-application communication happens via API calls only
-- Static assets are served independently per application
-- Database access is centralized through the backend API server 
+1. **Main app (localhost:5173) is PRODUCTION - DO NOT MODIFY**
+2. **Management portal (localhost:3002) is completely independent** 
+3. **No cross-application dependencies**
+4. **API communication only through backend server**
+5. **Each app can be deployed independently** 
