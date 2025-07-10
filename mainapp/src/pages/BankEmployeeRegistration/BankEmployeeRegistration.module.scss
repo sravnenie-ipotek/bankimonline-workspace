@@ -42,9 +42,9 @@
 
 // Page background
 .pageBackground {
-  background: #111928;
-  min-height: calc(100vh - 98px);
-  margin-top: 98px; /* Account for fixed header height */
+  background: transparent;
+  min-height: calc(100vh - 94px);
+  margin-top: 0;
   padding: 32px 0;
   display: flex;
   justify-content: center;
