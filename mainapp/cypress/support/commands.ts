@@ -126,64 +126,75 @@ Cypress.Commands.add('verifyValidationError', (fieldName: string, errorMessage: 
     .and('contain', errorMessage)
 })
 
-// Additional QA-focused commands
-
-// Command to check accessibility
-Cypress.Commands.add('checkA11y', () => {
-  cy.injectAxe();
-  cy.checkA11y();
-});
-
-// Command to fill bank employee registration form
-Cypress.Commands.add('fillBankEmployeeForm', (data: {
-  fullName?: string
-  position?: string
-  email?: string
-  bankNumber?: string
-}) => {
-  if (data.fullName) cy.get('input[name="fullName"]').type(data.fullName);
-  if (data.position) cy.get('input[name="position"]').type(data.position);
-  if (data.email) cy.get('input[name="email"]').type(data.email);
-  if (data.bankNumber) cy.get('input[name="bankNumber"]').type(data.bankNumber);
-});
-
-// Command to check form validation
-Cypress.Commands.add('checkFormValidation', (fieldName: string, errorText: string) => {
-  cy.get(`input[name="${fieldName}"]`).parent().parent()
-    .find('.errorMessage').should('contain', errorText);
-});
-
-// Command to check performance metrics
-Cypress.Commands.add('checkPageLoadTime', (maxTime: number = 3000) => {
-  cy.window().then((win) => {
-    const performance = win.performance;
-    const navigationTiming = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-    const loadTime = navigationTiming.loadEventEnd - navigationTiming.fetchStart;
+// Custom command to fill all form fields automatically
+Cypress.Commands.add('fillAllFormFields', () => {
+  // Fill text inputs
+  cy.get('input[type="text"]:visible').each(($input) => {
+    const inputName = $input.attr('name') || $input.attr('placeholder') || '';
     
-    expect(loadTime).to.be.lessThan(maxTime);
+    if (inputName.toLowerCase().includes('price') || inputName.toLowerCase().includes('amount')) {
+      cy.wrap($input).clear().type('500000');
+    } else if (inputName.toLowerCase().includes('income')) {
+      cy.wrap($input).clear().type('15000');
+    } else if (inputName.toLowerCase().includes('name')) {
+      cy.wrap($input).clear().type('John Doe');
+    } else if (inputName.toLowerCase().includes('phone')) {
+      cy.wrap($input).clear().type('0501234567');
+    } else if (inputName.toLowerCase().includes('email')) {
+      cy.wrap($input).clear().type('test@example.com');
+    } else {
+      cy.wrap($input).clear().type('Test Value');
+    }
+  });
+  
+  // Fill number inputs
+  cy.get('input[type="number"]:visible').each(($input) => {
+    const inputName = $input.attr('name') || $input.attr('placeholder') || '';
+    
+    if (inputName.toLowerCase().includes('price') || inputName.toLowerCase().includes('amount')) {
+      cy.wrap($input).clear().type('500000');
+    } else if (inputName.toLowerCase().includes('income')) {
+      cy.wrap($input).clear().type('15000');
+    } else if (inputName.toLowerCase().includes('percent') || inputName.toLowerCase().includes('rate')) {
+      cy.wrap($input).clear().type('3.5');
+    } else if (inputName.toLowerCase().includes('year')) {
+      cy.wrap($input).clear().type('25');
+    } else {
+      cy.wrap($input).clear().type('100');
+    }
+  });
+  
+  // Handle select dropdowns
+  cy.get('select:visible').each(($select) => {
+    cy.wrap($select).find('option').then($options => {
+      if ($options.length > 1) {
+        cy.wrap($select).select($options.eq(1).val());
+      }
+    });
   });
 });
 
-// Command to wait for API with better error handling
-Cypress.Commands.add('waitForApiResponse', (alias: string, timeout: number = 10000) => {
-  cy.wait(alias, { timeout }).then((interception) => {
-    expect(interception.response?.statusCode).to.be.oneOf([200, 201, 204]);
+// Command to click continue/next button
+Cypress.Commands.add('clickContinueButton', () => {
+  const continueButtons = [
+    'button:contains("המשך")',
+    'button:contains("Continue")',
+    'button:contains("Next")',
+    'button:contains("Submit")',
+    'button:contains("Calculate")',
+    'button:contains("חשב")',
+    'button[type="submit"]'
+  ];
+  
+  continueButtons.forEach(selector => {
+    cy.get('body').then($body => {
+      const button = $body.find(selector);
+      if (button.length > 0 && button.is(':visible') && !button.is(':disabled')) {
+        cy.get(selector).first().click();
+        return false; // Exit loop
+      }
+    });
   });
-});
-
-// Command to test responsive design
-Cypress.Commands.add('testResponsive', (element: string) => {
-  // Test desktop
-  cy.viewport(1280, 720);
-  cy.get(element).should('be.visible');
-  
-  // Test tablet
-  cy.viewport('ipad-2');
-  cy.get(element).should('be.visible');
-  
-  // Test mobile
-  cy.viewport('iphone-x');
-  cy.get(element).should('be.visible');
 });
 
 // Export empty object to make this a module
