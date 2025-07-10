@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styles from './BankEmployeeRegistration.module.scss';
-import { Topnavigation } from './components/Topnavigation';
+import { SharedHeader } from '@components/layout/SharedHeader';
 
 // Custom error component that always reserves space
 const CustomErrorMessage = ({ name, errors, touched }: { name: string; errors: any; touched: any }) => {
@@ -203,8 +203,11 @@ export const BankEmployeeRegistration: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {/* Header - Using new Topnavigation component */}
-      <Topnavigation />
+      {/* Header - Using SharedHeader component with navigation confirmation */}
+      <SharedHeader 
+        confirmNavigation={true}
+        confirmationMessage="Are you sure you want to leave the registration process? Your progress will be lost."
+      />
 
       {/* Page Background */}
       <div className={styles.pageBackground}>
