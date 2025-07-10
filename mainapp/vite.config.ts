@@ -16,6 +16,7 @@ export default defineConfig({
       '@context': resolve(__dirname, './src/context'),
       '@hooks': resolve(__dirname, './src/hooks'),
       '@types': resolve(__dirname, './src/types'),
+      '@bankEmployeeShared': resolve(__dirname, '../bankEmployeeShared'),
     },
   },
   build: {
