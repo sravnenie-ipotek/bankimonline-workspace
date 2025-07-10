@@ -1,4 +1,4 @@
-const BankIcon = (props: React.SVGProps<SVGSVGElement>) => {
+export const BankIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="33"
