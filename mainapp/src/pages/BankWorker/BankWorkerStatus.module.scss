@@ -569,4 +569,41 @@
       }
     }
   }
-} 
+}
+
+// Demo Notice
+.demoNotice {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #1f2a37;
+  color: #fbe54d;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #fbe54d;
+  max-width: 300px;
+  z-index: 1000;
+  font-size: 12px;
+  line-height: 1.4;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0 0 8px 0;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    position: static;
+    margin: 1rem 0;
+    max-width: 100%;
+  }
+}

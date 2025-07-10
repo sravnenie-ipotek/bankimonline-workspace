@@ -92,6 +92,7 @@ export const BankWorkerStatus: React.FC = () => {
         setLoading(true)
       }
       
+      // Call the real API for all registrations
       const response = await bankWorkerApi.getWorkerStatus(id)
       
       if (response.status === 'success' && response.data) {
@@ -193,10 +194,12 @@ export const BankWorkerStatus: React.FC = () => {
             >
               {t('common.retry')}
             </Button>
-          </div>
-        </div>
-      </Container>
-    )
+                  </div>
+
+
+      </div>
+    </Container>
+  )
   }
 
   if (!status) {
