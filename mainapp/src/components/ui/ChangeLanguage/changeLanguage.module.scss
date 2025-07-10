@@ -1,7 +1,10 @@
 .language {
   width: 14.375rem;
   min-width: 230px;
+  max-width: 230px;
   min-height: 54px;
+  flex-shrink: 0;
+  position: relative;
   &-wrapper {
     border-radius: 6px;
     display: flex;
@@ -11,23 +14,33 @@
     border: 1px solid theme("colors.base.secondaryDefaultButton");
     background: theme("colors.base.primary");
     cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
   }
   &-input {
     background: transparent;
     display: flex;
     gap: 0.3rem;
     align-items: center;
+    flex: 1;
+    min-width: 0;
     &__text {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 0.2rem;
+      flex: 1;
+      min-width: 0;
       &-country {
         font-size: 0.75rem;
         font-style: normal;
         font-weight: 600;
         line-height: normal;
         color: #d0d0d0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
       }
       &-name {
         color: #fff;
@@ -35,6 +48,10 @@
         font-style: normal;
         font-weight: 400;
         line-height: normal;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 120px;
       }
     }
   }

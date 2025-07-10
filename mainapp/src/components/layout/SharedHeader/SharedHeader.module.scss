@@ -2,12 +2,13 @@
  * SharedHeader Component Styles
  * Matches the main app header structure and styling
  * Responsive design with proper spacing and layout
+ * Fixed positioning to prevent layout shifts during language changes
  */
 
 .header-wrapper {
   width: 100%;
-  border-bottom: 1px solid #333535;
   background-color: #161616;
+  position: relative;
 }
 
 .header-content {
@@ -17,6 +18,7 @@
   width: 70.63rem;
   margin: 0 auto;
   padding: 0;
+  min-height: 94px;
   
   @media screen and (max-width: 1240px) {
     width: 100%;
@@ -27,6 +29,9 @@
 .logo-section {
   display: flex;
   align-items: center;
+  position: relative;
+  flex-shrink: 0;
+  min-width: 180px; /* Reserve space for logo */
 }
 
 .logo-button {
@@ -37,6 +42,7 @@
   display: flex;
   align-items: center;
   transition: opacity 0.2s ease;
+  position: relative;
 
   &:hover {
     opacity: 0.8;
@@ -51,6 +57,10 @@
 
 .logo-image {
   cursor: pointer;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: none;
   
   @media screen and (max-width: 1240px) {
     width: 66px;
@@ -61,9 +71,30 @@
   display: flex;
   align-items: center;
   gap: 24px;
+  flex-shrink: 0;
+  position: relative;
+  min-width: 250px; /* Reserve fixed space for language selector */
+  justify-content: flex-end;
   
   @media screen and (max-width: 1240px) {
     flex-wrap: nowrap;
     flex-direction: row;
+    min-width: 230px;
+  }
+  
+  /* Ensure language selector maintains fixed position */
+  :global(.language) {
+    width: 14.375rem !important;
+    min-width: 230px !important;
+    max-width: 230px !important;
+    flex-shrink: 0 !important;
+  }
+  
+  /* Prevent text overflow causing layout shifts */
+  :global(.language-input__text-name) {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 } 
