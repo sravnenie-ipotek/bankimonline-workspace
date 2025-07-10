@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 
 import Layout from '@components/layout/Layout.tsx'
+import RegistrationLayout from '@components/layout/RegistrationLayout'
 import { Loader } from '@components/layout/Loader'
 
 const Home = lazy(() => import('../../pages/Home/Home.tsx'))
@@ -399,24 +400,42 @@ const MainRoutes: React.FC = () => {
             {/* Mobile Upload - Standalone page without main layout */}
             <Route path="/mobile-upload/:uploadId" element={<MobileDocumentUploadPage />} />
             
-            {/* Bank Employee Registration Routes - Standalone pages with custom Figma header */}
-            <Route path="/bank-employee">
-              <Route path="register" element={<BankEmployeeRegistration />} />
-              <Route path="registration" element={<BankEmployeeRegistration />} />
-              <Route path="login" element={<Navigate replace to="/admin/login" />} />
-              <Route path="registration-success" element={<div className="min-h-screen bg-gray-900 flex items-center justify-center">
-                <div className="bg-gray-800 p-8 rounded-lg text-center">
-                  <h1 className="text-2xl font-bold text-green-400 mb-4">Registration Successful!</h1>
-                  <p className="text-gray-300 mb-6">Your bank employee registration has been submitted successfully.</p>
-                  <button 
-                    onClick={() => window.location.href = '/bank-employee/login'} 
-                    className="bg-yellow-400 text-gray-900 px-6 py-2 rounded-lg hover:bg-yellow-500 transition-colors"
-                  >
-                    Continue to Login
-                  </button>
-                </div>
-              </div>} />
-              <Route index element={<Navigate replace to="/bank-employee/register" />} />
+            {/* Bank Employee Registration Routes - Standalone pages with custom header */}
+            <Route element={<RegistrationLayout />}>
+              <Route path="/bank-employee">
+                <Route path="register" element={<BankEmployeeRegistration />} />
+                <Route path="registration" element={<BankEmployeeRegistration />} />
+                <Route path="login" element={<Navigate replace to="/admin/login" />} />
+                <Route path="registration-success" element={<div className="min-h-screen bg-gray-900 flex items-center justify-center">
+                  <div className="bg-gray-800 p-8 rounded-lg text-center">
+                    <h1 className="text-2xl font-bold text-green-400 mb-4">Registration Successful!</h1>
+                    <p className="text-gray-300 mb-6">Your bank employee registration has been submitted successfully.</p>
+                    <button 
+                      onClick={() => window.location.href = '/bank-employee/login'} 
+                      className="bg-yellow-400 text-gray-900 px-6 py-2 rounded-lg hover:bg-yellow-500 transition-colors"
+                    >
+                      Continue to Login
+                    </button>
+                  </div>
+                </div>} />
+                <Route index element={<Navigate replace to="/bank-employee/register" />} />
+              </Route>
+              
+              {/* Bank Partner Registration Routes - Standalone pages without main navigation */}
+              <Route path="/bank-partner">
+                <Route path="register" element={<BankWorkerPasswordStep />} />
+                <Route path="status/:id" element={<BankWorkerStatus />} />
+                <Route path="login" element={<Navigate replace to="/admin/login" />} />
+                <Route index element={<Navigate replace to="/" />} />
+              </Route>
+              
+              {/* Bank Worker Registration Routes - Standalone pages without main navigation */}
+              <Route path="/bank-worker">
+                <Route path="register/:token" element={<BankWorkerRegistration />} />
+                <Route path="status/:id" element={<BankWorkerStatus />} />
+                <Route path="demo" element={<BankWorkerRegistrationDemo />} />
+                <Route index element={<Navigate replace to="/" />} />
+              </Route>
             </Route>
             
             <Route element={<Layout />}>
@@ -428,26 +447,10 @@ const MainRoutes: React.FC = () => {
                 <Route index element={<Navigate replace to="/admin/login" />} />
               </Route>
               
-              {/* Bank Worker Registration Routes (Phase 3) */}
-              <Route path="/bank-worker">
-                <Route path="register/:token" element={<BankWorkerRegistration />} />
-                <Route path="status/:id" element={<BankWorkerStatus />} />
-                <Route index element={<Navigate replace to="/" />} />
-              </Route>
 
-              {/* Demo route for viewing the design without token */}
-              <Route path="/bank-worker/demo" element={<BankWorkerRegistrationDemo />} />
               
               {/* Side Navigation Demo route */}
               <Route path="/side-navigation-demo" element={<SideNavigationDemo />} />
-              
-              {/* Bank Partner Registration Routes - For bank employees who receive invitation links */}
-              <Route path="/bank-partner">
-                <Route path="register" element={<BankWorkerPasswordStep />} />
-                <Route path="status/:id" element={<BankWorkerStatus />} />
-                <Route path="login" element={<Navigate replace to="/admin/login" />} />
-                <Route index element={<Navigate replace to="/" />} />
-              </Route>
               
               <Route path="*" element={<Navigate replace to="/404" />} />
             </Route>

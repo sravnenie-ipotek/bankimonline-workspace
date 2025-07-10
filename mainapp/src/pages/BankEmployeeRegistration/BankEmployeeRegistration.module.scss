@@ -14,59 +14,19 @@
   font-family: 'Arimo', Arial, sans-serif;
   display: flex;
   flex-direction: column;
-  
-  /* Ensure our header takes priority */
-  position: relative;
-  z-index: 1;
-}
-
-/* Global override - Hide main layout header on bank employee registration page */
-:global {
-  /* Hide the specific conflicting header element */
-  #root > section > div > nav,
-  #root > section > div > div > nav {
-    display: none !important;
-  }
-  
-  /* Hide any header with the main layout logo */
-  nav:has(div[class*="logo"]) {
-    display: none !important;
-  }
-  
-  /* Ensure main layout header is hidden */
-  div[style*="border-bottom: 1px solid #333535"] {
-    display: none !important;
-  }
-}
-
-// Header
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 28px 189px;
-  background: #111928;
-  width: 100%;
-
-  .logo {
-    span {
-      color: #fbe54d;
-      font-size: 24px;
-      font-weight: 600;
-      font-family: 'Arimo';
-    }
-  }
+  flex: 1;
 }
 
 // Page background
 .pageBackground {
   background: transparent;
-  min-height: calc(100vh - 94px);
+  min-height: 100vh;
   margin-top: 0;
   padding: 32px 0;
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  flex: 1;
 }
 
 // Sign up form - exact Figma dimensions
