@@ -11,7 +11,6 @@
  */
 
 import React from 'react';
-import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,8 +18,6 @@ import { Container } from '@components/ui/Container';
 import { ChangeLanguage } from '@components/ui/ChangeLanguage';
 
 import styles from './SharedHeader.module.scss';
-
-const cx = classNames.bind(styles);
 
 interface SharedHeaderProps {
   /** Show confirmation dialog when clicking logo */
@@ -72,7 +69,7 @@ const SharedHeader: React.FC<SharedHeaderProps> = ({
   };
 
   return (
-    <div className={cx('header-wrapper')}>
+    <div className={styles['header-wrapper']}>
       <Container
         style={{
           display: 'flex',
@@ -81,26 +78,26 @@ const SharedHeader: React.FC<SharedHeaderProps> = ({
           maxWidth: 'auto',
         }}
       >
-        <div className={cx('header-content')}>
+        <div className={styles['header-content']}>
           {/* Logo Section */}
-          <div className={cx('logo-section')}>
+          <div className={styles['logo-section']}>
             <button
               type="button"
-              className={cx('logo-button')}
+              className={styles['logo-button']}
               onClick={handleLogoClick}
               aria-label={t('go_to_home', 'Go to home page')}
             >
               <img 
                 alt="BankIM Online" 
                 src="/static/primary-logo05-1.svg" 
-                className={cx('logo-image')}
+                className={styles['logo-image']}
               />
             </button>
           </div>
 
           {/* Right Section - Language Selector */}
           {!hideLanguageSelector && (
-            <div className={cx('right-section')}>
+            <div className={styles['right-section']}>
               <ChangeLanguage />
             </div>
           )}
