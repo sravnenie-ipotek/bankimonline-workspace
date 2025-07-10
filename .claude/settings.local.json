@@ -48,7 +48,11 @@
       "mcp__playwright__browser_console_messages",
       "mcp__playwright__browser_tab_close",
       "Bash(mv:*)",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "Bash(pgrep:*)",
+      "Bash(open:*)",
+      "mcp__playwright__browser_tab_new",
+      "Bash(export:*)"
     ],
     "deny": []
   },

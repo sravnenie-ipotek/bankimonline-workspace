@@ -4,6 +4,15 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styles from './BankWorkerRegistration.module.scss';
 
+// Custom error component that always reserves space
+const CustomErrorMessage = ({ name, errors, touched }: { name: string; errors: any; touched: any }) => {
+  return (
+    <div className={styles.errorMessage}>
+      {touched[name] && errors[name] ? errors[name] : ''}
+    </div>
+  );
+};
+
 const BankWorkerRegistrationDemo: React.FC = () => {
   const { t, i18n } = useTranslation();
   const [currentStep, setCurrentStep] = useState(1);
@@ -216,7 +225,7 @@ const BankWorkerRegistrationDemo: React.FC = () => {
                           />
                         </div>
                       </div>
-                      <ErrorMessage name="fullName" component="div" className={styles.errorMessage} />
+                      <CustomErrorMessage name="fullName" errors={errors} touched={touched} />
                     </div>
 
                     {/* Position Input */}
@@ -232,7 +241,7 @@ const BankWorkerRegistrationDemo: React.FC = () => {
                           />
                         </div>
                       </div>
-                      <ErrorMessage name="position" component="div" className={styles.errorMessage} />
+                      <CustomErrorMessage name="position" errors={errors} touched={touched} />
                     </div>
                   </div>
 
@@ -261,7 +270,7 @@ const BankWorkerRegistrationDemo: React.FC = () => {
                           />
                         </div>
                       </div>
-                      <ErrorMessage name="email" component="div" className={styles.errorMessage} />
+                      <CustomErrorMessage name="email" errors={errors} touched={touched} />
                     </div>
 
                     {/* Bank Dropdown */}
@@ -349,7 +358,7 @@ const BankWorkerRegistrationDemo: React.FC = () => {
                           </div>
                         )}
                       </div>
-                      <ErrorMessage name="bankId" component="div" className={styles.errorMessage} />
+                      <CustomErrorMessage name="bankId" errors={errors} touched={touched} />
                     </div>
                   </div>
 
@@ -441,7 +450,7 @@ const BankWorkerRegistrationDemo: React.FC = () => {
                           </div>
                         )}
                       </div>
-                      <ErrorMessage name="branchId" component="div" className={styles.errorMessage} />
+                      <CustomErrorMessage name="branchId" errors={errors} touched={touched} />
                     </div>
 
                     {/* Bank Number Input */}
@@ -457,24 +466,26 @@ const BankWorkerRegistrationDemo: React.FC = () => {
                           />
                         </div>
                       </div>
-                      <ErrorMessage name="bankNumber" component="div" className={styles.errorMessage} />
+                      <CustomErrorMessage name="bankNumber" errors={errors} touched={touched} />
                     </div>
                   </div>
 
                   {/* Checkbox */}
                   <div className={styles.checkboxContainer}>
-                    <Field
-                      type="checkbox"
-                      id="acceptTerms"
-                      name="acceptTerms"
-                      className={styles.checkbox}
-                    />
-                    <div className={styles.labelAndHelperText}>
-                      <label htmlFor="acceptTerms" className={styles.checkboxLabel}>
-                        {t('bank_worker_accept_terms')}
-                      </label>
+                    <div className={styles.checkboxRow}>
+                      <Field
+                        type="checkbox"
+                        id="acceptTerms"
+                        name="acceptTerms"
+                        className={styles.checkbox}
+                      />
+                      <div className={styles.labelAndHelperText}>
+                        <label htmlFor="acceptTerms" className={styles.checkboxLabel}>
+                          {t('bank_worker_accept_terms')}
+                        </label>
+                      </div>
                     </div>
-                    <ErrorMessage name="acceptTerms" component="div" className={styles.errorMessage} />
+                    <CustomErrorMessage name="acceptTerms" errors={errors} touched={touched} />
                   </div>
 
                   {/* Submit Button */}

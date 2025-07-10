@@ -51,7 +51,7 @@
   padding: 40px 24px;
   gap: 32px;
   width: 624px;
-  height: 1099px;
+  min-height: 1099px; // Use min-height to allow for dynamic content
   background: #1F2A37;
   border: 1px solid #4B5563;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
@@ -234,7 +234,7 @@
   padding: 0px;
   gap: 24px;
   width: 576px;
-  height: 918px;
+  min-height: 918px; // Use min-height to allow for dynamic content
   flex: none;
   order: 2;
   flex-grow: 0;
@@ -253,17 +253,17 @@
 }
 
 .firstRow {
-  height: 71px;
+  min-height: 92px; // Updated to match inputField min-height
   order: 0;
 }
 
 .secondRow {
-  height: 281px;
+  min-height: 92px; // Updated to match inputField min-height
   order: 2;
 }
 
 .thirdRow {
-  height: 281px;
+  min-height: 92px; // Updated to match inputField min-height
   order: 3;
 }
 
@@ -285,6 +285,7 @@
   padding: 0px;
   gap: 8px;
   width: 278px;
+  min-height: 92px; // Reserve space for label (21px) + input (42px) + gap (8px) + error (21px)
   flex: none;
   order: 0;
   flex-grow: 0;
@@ -375,6 +376,9 @@
 .dropdown {
   position: relative;
   width: 278px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 
   .input {
     cursor: pointer;
@@ -604,16 +608,25 @@
 // Checkbox container
 .checkboxContainer {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   padding: 0px;
   gap: 8px;
   width: 230px;
-  height: 18px;
+  min-height: 47px; // Reserve space for checkbox (18px) + gap (8px) + error (21px)
   border-radius: 4px;
   flex: none;
   order: 5;
   flex-grow: 0;
+  
+  .checkboxRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    width: 230px;
+    height: 18px;
+  }
 
   .checkbox {
     display: flex;
@@ -730,8 +743,16 @@
 .errorMessage {
   color: #ef4444;
   font-size: 12px;
-  margin-top: 4px;
   font-family: 'Arimo';
+  min-height: 21px; // Fixed height to prevent layout shift
+  line-height: 1.4;
+  margin-top: 4px;
+  width: 278px;
+  display: flex;
+  align-items: flex-start;
+  flex: none;
+  order: 2;
+  flex-grow: 0;
 }
 
 // Demo Notice
