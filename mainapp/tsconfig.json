@@ -32,9 +32,10 @@
       "@lib/*": ["./src/lib/*"],
       "@shared/*": ["./src/shared/*"],
       "@context/*": ["./src/context/*"],
-      "@types/*": ["./src/types/*"]
+      "@types/*": ["./src/types/*"],
+      "@bankEmployeeShared/*": ["../bankEmployeeShared/*"]
     }
   },
-  "include": ["src/**/*", "types/**/*"],
+  "include": ["src/**/*", "types/**/*", "../bankEmployeeShared/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

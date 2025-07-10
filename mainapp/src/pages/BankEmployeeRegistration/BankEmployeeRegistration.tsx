@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styles from './BankEmployeeRegistration.module.scss';
-import { SharedHeader } from '@components/layout/SharedHeader';
+import { SharedHeader } from '@bankEmployeeShared/components/SharedHeader';
 
 // Custom error component that always reserves space
 const CustomErrorMessage = ({ name, errors, touched }: { name: string; errors: any; touched: any }) => {
