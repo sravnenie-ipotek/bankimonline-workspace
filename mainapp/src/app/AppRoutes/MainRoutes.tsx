@@ -250,6 +250,12 @@ const BankWorkerRegistrationDemo = lazy(() => import('../../pages/BankWorker/Ban
 // Bank Employee Registration (Legacy)
 const BankEmployeeRegistration = lazy(() =>
   import('../../pages/BankEmployeeRegistration/BankEmployeeRegistration').then((module) => ({
+    default: module.BankEmployeeRegistration,
+  }))
+)
+
+const BankWorkerPasswordStep = lazy(() =>
+  import('../../pages/BankWorker/BankWorkerPasswordStep').then((module) => ({
     default: module.default,
   }))
 )
@@ -409,7 +415,15 @@ const MainRoutes: React.FC = () => {
               {/* Demo route for viewing the design without token */}
               <Route path="/bank-worker/demo" element={<BankWorkerRegistrationDemo />} />
               
-              {/* Bank Employee Registration Routes (Legacy) */}
+              {/* Bank Partner Registration Routes - For bank employees who receive invitation links */}
+              <Route path="/bank-partner">
+                <Route path="register" element={<BankWorkerPasswordStep />} />
+                <Route path="status/:id" element={<BankWorkerStatus />} />
+                <Route path="login" element={<Navigate replace to="/admin/login" />} />
+                <Route index element={<Navigate replace to="/" />} />
+              </Route>
+
+              {/* Bank Employee Registration Routes (Legacy - Individual employees) */}
               <Route path="/bank-employee">
                 <Route path="register" element={<BankEmployeeRegistration />} />
                 <Route path="registration" element={<BankEmployeeRegistration />} />

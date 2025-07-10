@@ -187,6 +187,127 @@ app.get('/api/banks/list', async (req, res) => {
     }
 });
 
+// Get list of services for registration
+app.get('/api/services/list', async (req, res) => {
+    try {
+        // Try to get from services table first
+        let result;
+        try {
+            result = await pool.query(`
+                SELECT id, service_key, name_en, name_he, name_ru, description_en, description_he, description_ru
+                FROM services 
+                WHERE is_active = true 
+                ORDER BY display_order ASC, name_en ASC
+            `);
+        } catch (tableError) {
+            // If services table doesn't exist, create it and populate with default data
+            console.log('Services table not found, creating with default data...');
+            
+            // Create the services table
+            await pool.query(`
+                CREATE TABLE IF NOT EXISTS services (
+                    id SERIAL PRIMARY KEY,
+                    service_key VARCHAR(100) NOT NULL UNIQUE,
+                    name_en VARCHAR(255) NOT NULL,
+                    name_ru VARCHAR(255) NOT NULL,
+                    name_he VARCHAR(255) NOT NULL,
+                    description_en TEXT,
+                    description_ru TEXT,
+                    description_he TEXT,
+                    is_active BOOLEAN DEFAULT true,
+                    display_order INTEGER DEFAULT 0,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
+            `);
+            
+            // Insert default service options
+            await pool.query(`
+                INSERT INTO services (service_key, name_en, name_ru, name_he, description_en, description_ru, description_he, display_order) VALUES
+                (
+                    'mortgage_refinancing',
+                    'Mortgage & Mortgage Refinancing',
+                    'Ипотека & Рефинансирование Ипотека',
+                    'משכנתא ומחזור משכנתא',
+                    'Complete mortgage services including new mortgages and refinancing options',
+                    'Полный спектр ипотечных услуг, включая новые ипотеки и рефинансирование',
+                    'שירותי משכנתא מלאים כולל משכנתאות חדשות ואפשרויות מחזור',
+                    1
+                ),
+                (
+                    'credit_refinancing',
+                    'Credit & Credit Refinancing',
+                    'Кредит & Рефинансирование Кредита',
+                    'אשראי ומחזור אשראי',
+                    'Personal and business credit services including loan refinancing',
+                    'Персональные и бизнес кредитные услуги, включая рефинансирование займов',
+                    'שירותי אשראי אישיים ועסקיים כולל מחזור הלואות',
+                    2
+                ),
+                (
+                    'business_banking',
+                    'Business Banking Services',
+                    'Банковские услуги для бизнеса',
+                    'שירותי בנקאות עסקית',
+                    'Comprehensive banking solutions for businesses and corporations',
+                    'Комплексные банковские решения для бизнеса и корпораций',
+                    'פתרונות בנקאיים מקיפים לעסקים ותאגידים',
+                    3
+                ),
+                (
+                    'investment_services',
+                    'Investment & Wealth Management',
+                    'Инвестиции и управление капиталом',
+                    'השקעות וניהול הון',
+                    'Professional investment advisory and wealth management services',
+                    'Профессиональные инвестиционные консультации и услуги управления капиталом',
+                    'ייעוץ השקעות מקצועי ושירותי ניהול הון',
+                    4
+                ),
+                (
+                    'insurance_services',
+                    'Insurance & Protection',
+                    'Страхование и защита',
+                    'ביטוח והגנה',
+                    'Comprehensive insurance products and financial protection services',
+                    'Комплексные страховые продукты и услуги финансовой защиты',
+                    'מוצרי ביטוח מקיפים ושירותי הגנה פיננסית',
+                    5
+                )
+                ON CONFLICT (service_key) DO NOTHING;
+            `);
+            
+            // Create indexes
+            await pool.query(`
+                CREATE INDEX IF NOT EXISTS idx_services_active ON services(is_active);
+                CREATE INDEX IF NOT EXISTS idx_services_display_order ON services(display_order);
+                CREATE INDEX IF NOT EXISTS idx_services_key ON services(service_key);
+            `);
+            
+            console.log('Services table created successfully with default data');
+            
+            // Now fetch the data
+            result = await pool.query(`
+                SELECT id, service_key, name_en, name_he, name_ru, description_en, description_he, description_ru
+                FROM services 
+                WHERE is_active = true 
+                ORDER BY display_order ASC, name_en ASC
+            `);
+        }
+        
+        res.json({ 
+            data: result.rows, 
+            status: 'success' 
+        });
+    } catch (err) {
+        console.error('Error fetching services for registration:', err);
+        res.status(500).json({ 
+            error: 'Failed to load services',
+            message: 'Database error: ' + err.message 
+        });
+    }
+});
+
 // Get branches for a specific bank
 app.get('/api/banks/:bankId/branches', async (req, res) => {
     try {
