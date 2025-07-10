@@ -1,0 +1,229 @@
+// SideNavigationDemo Page Styles
+
+.side-navigation-demo {
+  display: flex;
+  min-height: 100vh;
+  background-color: #F9FAFB;
+  font-family: 'Arimo', 'Arial', sans-serif;
+}
+
+.demo-sidebar {
+  flex-shrink: 0;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 265px;
+  padding: 32px;
+  transition: margin-left 0.3s ease;
+  overflow-y: auto;
+  min-height: 100vh;
+
+  &--collapsed {
+    margin-left: 80px;
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 0;
+    padding: 16px;
+
+    &--collapsed {
+      margin-left: 0;
+    }
+  }
+}
+
+.demo-header {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+  border-left: 4px solid #FBE54D;
+
+  h1 {
+    margin: 0 0 8px 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1F2A37;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+    color: #6B7280;
+    line-height: 1.5;
+  }
+}
+
+.page-content {
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.page-title {
+  margin: 0 0 16px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #1F2A37;
+}
+
+.page-description {
+  margin: 0 0 32px 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #4B5563;
+}
+
+.demo-info {
+  background: #F3F4F6;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+
+  h3 {
+    margin: 0 0 12px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1F2A37;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #4B5563;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      color: #1F2A37;
+      font-weight: 600;
+    }
+  }
+}
+
+.demo-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.demo-button {
+  all: unset;
+  background: #1F2A37;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #1F2A37;
+
+  &:hover {
+    background: #374151;
+    border-color: #374151;
+  }
+
+  &:focus {
+    outline: 2px solid #FBE54D;
+    outline-offset: 2px;
+  }
+
+  &:active {
+    background: #111827;
+    border-color: #111827;
+  }
+}
+
+.demo-footer {
+  background: #F9FAFB;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #E5E7EB;
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #6B7280;
+    line-height: 1.5;
+    text-align: center;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .demo-header {
+    padding: 20px;
+    
+    h1 {
+      font-size: 24px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .page-content {
+    padding: 24px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .page-description {
+    font-size: 14px;
+  }
+
+  .demo-info {
+    padding: 16px;
+    
+    h3 {
+      font-size: 16px;
+    }
+  }
+
+  .demo-footer {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 12px;
+  }
+
+  .demo-header {
+    padding: 16px;
+    
+    h1 {
+      font-size: 20px;
+    }
+  }
+
+  .page-content {
+    padding: 20px;
+  }
+
+  .demo-info {
+    padding: 12px;
+  }
+
+  .demo-button {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+} 

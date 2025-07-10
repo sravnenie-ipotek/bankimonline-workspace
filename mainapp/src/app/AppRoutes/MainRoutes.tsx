@@ -247,6 +247,9 @@ const BankWorkerStatus = lazy(() =>
 // Demo component for viewing the registration design
 const BankWorkerRegistrationDemo = lazy(() => import('../../pages/BankWorker/BankWorkerRegistrationDemo'));
 
+// Side Navigation Demo
+const SideNavigationDemo = lazy(() => import('../../pages/SideNavigationDemo'));
+
 // Bank Employee Registration (Legacy)
 const BankEmployeeRegistration = lazy(() =>
   import('../../pages/BankEmployeeRegistration/BankEmployeeRegistration').then((module) => ({
@@ -434,6 +437,9 @@ const MainRoutes: React.FC = () => {
 
               {/* Demo route for viewing the design without token */}
               <Route path="/bank-worker/demo" element={<BankWorkerRegistrationDemo />} />
+              
+              {/* Side Navigation Demo route */}
+              <Route path="/side-navigation-demo" element={<SideNavigationDemo />} />
               
               {/* Bank Partner Registration Routes - For bank employees who receive invitation links */}
               <Route path="/bank-partner">
