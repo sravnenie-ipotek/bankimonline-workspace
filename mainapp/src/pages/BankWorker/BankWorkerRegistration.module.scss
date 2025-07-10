@@ -334,13 +334,13 @@
       flex: none;
       order: 0;
       flex-grow: 1;
+      overflow: hidden;
     }
   }
 }
 
 // Input text styling
 .inputText {
-  width: 246px;
   height: 18px;
   font-family: 'Arimo';
   font-style: normal;
@@ -350,15 +350,15 @@
   display: flex;
   align-items: center;
   color: #FFFFFF;
-  flex: none;
+  flex: 1;
   order: 1;
-  flex-grow: 1;
   background: transparent;
   border: none;
   outline: none;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
 
   &::placeholder {
     color: #FFFFFF;
@@ -618,7 +618,7 @@
   align-items: flex-start;
   padding: 0px;
   gap: 8px;
-  width: 230px;
+  width: 576px;
   min-height: 47px; // Reserve space for checkbox (18px) + gap (8px) + error (21px)
   border-radius: 4px;
   flex: none;
@@ -630,7 +630,7 @@
     flex-direction: row;
     align-items: center;
     gap: 8px;
-    width: 230px;
+    width: 576px;
     height: 18px;
   }
 
@@ -656,14 +656,14 @@
     align-items: flex-start;
     padding: 0px;
     gap: 2px;
-    width: 206px;
+    width: 552px;
     height: 18px;
     flex: none;
     order: 1;
     flex-grow: 0;
 
     .checkboxLabel {
-      width: 206px;
+      width: 552px;
       height: 18px;
       font-family: 'Arimo';
       font-style: normal;
