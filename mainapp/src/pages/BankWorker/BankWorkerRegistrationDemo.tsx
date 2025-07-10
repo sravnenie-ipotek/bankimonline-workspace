@@ -24,10 +24,15 @@ const BankWorkerRegistrationDemo: React.FC = () => {
   // State for API data
   const [banks, setBanks] = useState<Array<{id: number, name_en: string, name_he: string, name_ru: string}>>([]);
   const [branches, setBranches] = useState<Array<{id: number, name_en: string, name_he: string, name_ru: string, bank_id: number}>>([]);
+  const [cities, setCities] = useState<Array<{id: number, name_en: string, name_he: string, name_ru: string}>>([]);
   const [isLoadingBanks, setIsLoadingBanks] = useState(true);
   const [isLoadingBranches, setIsLoadingBranches] = useState(false);
+  const [isLoadingCities, setIsLoadingCities] = useState(true);
   const [selectedBankId, setSelectedBankId] = useState<number | null>(null);
   const [selectedBranchId, setSelectedBranchId] = useState<number | null>(null);
+  const [selectedCityId, setSelectedCityId] = useState<number | null>(null);
+  const [showCityDropdown, setShowCityDropdown] = useState(false);
+  const [citySearchTerm, setCitySearchTerm] = useState('');
 
   // Create validation schema with translations
   const validationSchema = Yup.object({
@@ -75,6 +80,31 @@ const BankWorkerRegistrationDemo: React.FC = () => {
     fetchBanks();
   }, []);
 
+  // Fetch cities from API
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        setIsLoadingCities(true);
+        const response = await fetch(`/api/get-cities?lang=${i18n.language}`);
+        const data = await response.json();
+        
+        if (data.status === 'success' && data.data) {
+          setCities(data.data);
+        } else {
+          console.error('Failed to fetch cities:', data.message || 'Unknown error');
+          setCities([]);
+        }
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+        setCities([]);
+      } finally {
+        setIsLoadingCities(false);
+      }
+    };
+
+    fetchCities();
+  }, []);
+
   // Fetch branches when bank is selected
   useEffect(() => {
     const fetchBranches = async (bankId: number) => {
@@ -113,7 +143,12 @@ const BankWorkerRegistrationDemo: React.FC = () => {
     return branch[`name_${lang}`] || branch.name_en || branch.name || `Branch ${branch.id}`;
   };
 
-  // Filter banks and branches based on search
+  const getCityName = (city: any) => {
+    const lang = i18n.language;
+    return city[`name_${lang}`] || city.name_en || city.name || `City ${city.id}`;
+  };
+
+  // Filter banks, branches, and cities based on search
   const filteredBanks = banks.filter(bank => 
     getBankName(bank).toLowerCase().includes(bankSearchTerm.toLowerCase())
   );
@@ -122,23 +157,28 @@ const BankWorkerRegistrationDemo: React.FC = () => {
     getBranchName(branch).toLowerCase().includes(branchSearchTerm.toLowerCase())
   );
 
+  const filteredCities = cities.filter(city => 
+    getCityName(city).toLowerCase().includes(citySearchTerm.toLowerCase())
+  );
+
   const initialValues = {
     fullName: '',
     position: '',
     email: '',
-    bankId: selectedBankId || '',
-    branchId: selectedBranchId || '',
+    bankId: '',
+    branchId: '',
     bankNumber: '',
     acceptTerms: false
   };
 
   const handleSubmit = (values: any) => {
     console.log('Demo form submitted:', values);
-    alert(t('bank_worker_demo_description'));
+    alert(`${t('bank_worker_demo_description')}\n\nIn the real system, after successful registration, you would be redirected to:\n/bank-worker/status/[registration-id]\n\nThis page would show your registration status and next steps.`);
   };
 
   const selectedBank = banks.find(bank => bank.id === selectedBankId);
   const selectedBranch = branches.find(branch => branch.id === selectedBranchId);
+  const selectedCity = cities.find(city => city.id === selectedCityId);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -146,6 +186,7 @@ const BankWorkerRegistrationDemo: React.FC = () => {
       if (!(event.target as Element).closest(`.${styles.dropdown}`)) {
         setShowBankDropdown(false);
         setShowBranchDropdown(false);
+        setShowCityDropdown(false);
       }
     };
 
@@ -206,7 +247,6 @@ const BankWorkerRegistrationDemo: React.FC = () => {
               initialValues={initialValues}
               validationSchema={validationSchema}
               onSubmit={handleSubmit}
-              enableReinitialize
             >
               {({ values, setFieldValue, errors, touched }) => (
                 <Form>
@@ -364,26 +404,17 @@ const BankWorkerRegistrationDemo: React.FC = () => {
 
                   {/* 3rd row */}
                   <div className={styles.thirdRow}>
-                    {/* Branch Dropdown */}
+                    {/* City Dropdown */}
                     <div className={styles.inputField}>
-                      <label className={styles.label}>{t('bank_worker_bank_branch')}</label>
+                      <label className={styles.label}>{t('bank_worker_city')}</label>
                       <div className={styles.dropdown}>
                         <div 
                           className={styles.input}
-                          onClick={() => selectedBankId && !isLoadingBranches && setShowBranchDropdown(!showBranchDropdown)}
+                          onClick={() => setShowCityDropdown(!showCityDropdown)}
                         >
                           <div className={styles.content}>
                             <span className={styles.selectedText}>
-                              {!selectedBankId 
-                                ? t('bank_worker_select_bank_first')
-                                : isLoadingBranches 
-                                  ? t('bank_worker_loading_branches')
-                                  : branches.length === 0
-                                    ? t('bank_worker_no_branches')
-                                    : selectedBranch 
-                                      ? getBranchName(selectedBranch)
-                                      : t('bank_worker_select_branch')
-                              }
+                              {selectedCity ? getCityName(selectedCity) : t('bank_worker_select_city')}
                             </span>
                             <div className={styles.chevronUp}>
                               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -393,8 +424,8 @@ const BankWorkerRegistrationDemo: React.FC = () => {
                           </div>
                         </div>
 
-                        {/* Branch Dropdown Menu */}
-                        {showBranchDropdown && selectedBankId && !isLoadingBranches && branches.length > 0 && (
+                        {/* City Dropdown Menu */}
+                        {showCityDropdown && (
                           <div className={styles.dropdownMenu}>
                             <div className={styles.dropdownMenuContainer}>
                               <div className={styles.dropdownMenuContent}>
@@ -411,9 +442,9 @@ const BankWorkerRegistrationDemo: React.FC = () => {
                                         </div>
                                         <input
                                           type="text"
-                                          placeholder={t('bank_worker_search_branches')}
-                                          value={branchSearchTerm}
-                                          onChange={(e) => setBranchSearchTerm(e.target.value)}
+                                          placeholder={t('bank_worker_search_cities')}
+                                          value={citySearchTerm}
+                                          onChange={(e) => setCitySearchTerm(e.target.value)}
                                           className={styles.searchInputText}
                                         />
                                       </div>
@@ -421,22 +452,22 @@ const BankWorkerRegistrationDemo: React.FC = () => {
                                   </div>
                                 </div>
 
-                                {/* Branch Options */}
-                                {filteredBranches.map((branch) => (
+                                {/* City Options */}
+                                {filteredCities.map((city) => (
                                   <div
-                                    key={branch.id}
+                                    key={city.id}
                                     className={styles.navLink}
                                     onClick={() => {
-                                      setSelectedBranchId(branch.id);
-                                      setFieldValue('branchId', branch.id);
-                                      setShowBranchDropdown(false);
-                                      setBranchSearchTerm('');
+                                      setSelectedCityId(city.id);
+                                      setFieldValue('cityId', city.id);
+                                      setShowCityDropdown(false);
+                                      setCitySearchTerm('');
                                     }}
                                   >
                                     <div className={styles.title}>
-                                      <span className={styles.text}>{getBranchName(branch)}</span>
+                                      <span className={styles.text}>{getCityName(city)}</span>
                                     </div>
-                                    {selectedBranchId === branch.id && (
+                                    {selectedCityId === city.id && (
                                       <div className={styles.check}>
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                                           <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" strokeWidth="2"/>
@@ -450,7 +481,7 @@ const BankWorkerRegistrationDemo: React.FC = () => {
                           </div>
                         )}
                       </div>
-                      <CustomErrorMessage name="branchId" errors={errors} touched={touched} />
+                      <CustomErrorMessage name="cityId" errors={errors} touched={touched} />
                     </div>
 
                     {/* Bank Number Input */}
@@ -481,7 +512,13 @@ const BankWorkerRegistrationDemo: React.FC = () => {
                       />
                       <div className={styles.labelAndHelperText}>
                         <label htmlFor="acceptTerms" className={styles.checkboxLabel}>
-                          {t('bank_worker_accept_terms')}
+                          {i18n.language === 'he' ? (
+                            <>
+                              אני מסכים <span className={styles.termsLink}>לכללי הפלטפורמה</span>
+                            </>
+                          ) : (
+                            t('bank_worker_accept_terms')
+                          )}
                         </label>
                       </div>
                     </div>
