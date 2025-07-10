@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styles from './BankEmployeeRegistration.module.scss';
+import { Topnavigation } from './components/Topnavigation';
 
 // Custom error component that always reserves space
 const CustomErrorMessage = ({ name, errors, touched }: { name: string; errors: any; touched: any }) => {
@@ -202,12 +203,8 @@ export const BankEmployeeRegistration: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      {/* Header */}
-      <div className={styles.header}>
-        <div className={styles.logo}>
-          <span>BankIM</span>
-        </div>
-      </div>
+      {/* Header - Using new Topnavigation component */}
+      <Topnavigation />
 
       {/* Page Background */}
       <div className={styles.pageBackground}>
