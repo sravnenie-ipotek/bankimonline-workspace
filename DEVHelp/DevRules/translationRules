@@ -1,0 +1,31 @@
+1. Understand the Context and Purpose
+Before translating, analyze the surrounding UI, code comments, business logic, and user flow.
+Identify the target audience (e.g., end-users, admin, legal, compliance, etc.).
+If the text is part of a legal document, notice, policy, or agreement, recognize the legal intent and implications.
+2. Produce Lawyer-Level Translation
+Translate using formal, unambiguous legal language. Avoid colloquialisms, contractions, or vague terms.
+Replicate the structure and tone of legal documents—prefer clarity, completeness, and precision.
+Use jurisdiction-appropriate legal terms (e.g., Israeli law, EU law) if relevant.
+3. Stay True to the Source and Avoid Over-Localization
+Do not add, omit, or reinterpret information. Translate the meaning as-is, preserving all nuances and obligations.
+Maintain any references to laws, articles, or clauses exactly.
+4. Check for Contextual Fit
+Ensure the translation fits the specific place in the UI or flow (e.g., form field, tooltip, dialog).
+Adapt for gender, number, and formality where appropriate (as per the project's language style guide).
+5. Preserve Variable Interpolation and Markup
+Maintain all code variables/placeholders (e.g., {username}, %date%, {{amount}}) exactly as in the source.
+Never break string formatting, HTML tags, or placeholders.
+If the source uses ICU message format or similar, preserve it exactly.
+6. Legal Consistency and Compliance
+Use consistent terminology across all legal texts in the project.
+Reference existing project translations for recurring legal terms or phrases to ensure consistency.
+Always check if there are approved legal glossaries or translation memory—reuse those terms.
+7. Clarity, Brevity, and No Machine-Literal Translation
+Avoid word-for-word, machine-like translation. Ensure the output is natural, but legally precise.
+If a phrase cannot be translated directly, rewrite it to preserve the legal intent.
+8. Testing and QA
+Ensure the translation renders correctly in the frontend (no broken formatting, cutoff text, or misaligned placeholders).
+Test the translation in all relevant UI components (responsive, different user roles, etc.).
+9. Confidentiality and Compliance
+Never leak, store, or transmit translation content outside approved systems.
+Handle all legal content as confidential.

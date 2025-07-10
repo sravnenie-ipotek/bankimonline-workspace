@@ -1428,44 +1428,160 @@
   "franchise_final_cta_title": "מוכנים להצליח יחד? <br/>הצטרפו לזכיינות טכריאלט עוד היום!",
   "franchise_final_cta_button": "התחלת תהליך הצטרפות",
   "franchise_final_cta_arrow": "←",
+  "bank_worker_search_branches": "חיפוש סניפים...",
   
-  "bank_worker_registration": "רישום עובד בנק",
+  "bank_worker_registration": "רישום",
   "bank_worker_register_subtitle": "הירשמו וקבלו לקוחות",
-  "bank_worker_demo_notice": "גרסת הדגמה לעיצוב",
-  "bank_worker_demo_description": "זהו דמו של טופס רישום עובד בנק התואם לעיצוב Figma.",
   "bank_worker_basic_info": "מידע בסיסי",
   "bank_worker_service_selection": "בחירת שירות",
   "bank_worker_full_name": "שם מלא",
-  "bank_worker_full_name_placeholder": "הכנס שם פרטי ושם משפחה",
+  "bank_worker_full_name_placeholder": "הכניסו שם מלא",
   "bank_worker_position": "תפקיד",
-  "bank_worker_position_placeholder": "הכנס כותרת תפקיד",
-  "bank_worker_bank_email": "אימייל בנק",
-  "bank_worker_bank_email_placeholder": "הכנס את האימייל הבנקאי שלך",
+  "bank_worker_position_placeholder": "הכניסו כותרת תפקיד",
+  "bank_worker_bank_email": "דואר אלקטרוני בנקאי",
+  "bank_worker_bank_email_placeholder": "הכניסו את כתובת הדואר הבנקאית שלכם",
   "bank_worker_bank": "בנק",
-  "bank_worker_select_bank": "בחר בנק",
-  "bank_worker_bank_branch": "סניף בנק",
-  "bank_worker_select_branch": "בחר סניף",
-  "bank_worker_select_bank_first": "תחילה בחר בנק",
-  "bank_worker_no_branches": "אין סניפים זמינים",
+  "bank_worker_bank_branch": "סניף הבנק",
   "bank_worker_bank_number": "מספר בנק",
-  "bank_worker_bank_number_placeholder": "ציין מספר בנק",
+  "bank_worker_bank_number_placeholder": "ציינו מספר בנק",
+  "bank_worker_select_bank": "בחרו בנק",
+  "bank_worker_select_bank_first": "בחרו תחילה בנק",
+  "bank_worker_select_branch": "בחרו סניף",
   "bank_worker_loading_banks": "טוען בנקים...",
   "bank_worker_loading_branches": "טוען סניפים...",
+  "bank_worker_no_branches": "אין סניפים זמינים",
   "bank_worker_accept_terms": "אני מסכים לתקנות הפלטפורמה",
   "bank_worker_continue": "המשך",
-  "bank_worker_already_account": "כבר יש לך חשבון? התחבר",
-  
-  "bank_worker_validation_name_min": "השם חייב להכיל לפחות 2 תווים",
-  "bank_worker_validation_name_required": "שם פרטי ושם משפחה הם חובה",
-  "bank_worker_validation_position_min": "התפקיד חייב להכיל לפחות 2 תווים",
-  "bank_worker_validation_position_required": "התפקיד הוא חובה",
-  "bank_worker_validation_email_invalid": "פורמט אימייל לא תקין",
-  "bank_worker_validation_email_required": "אימייל הוא חובה",
-  "bank_worker_validation_bank_required": "בחר בנק",
-  "bank_worker_validation_branch_required": "בחר סניף",
-  "bank_worker_validation_bank_number_min": "מספר הבנק חייב להכיל לפחות 3 תווים",
-  "bank_worker_validation_bank_number_required": "מספר בנק הוא חובה",
-  "bank_worker_validation_terms_required": "חובה להסכים לתקנות הפלטפורמה",
-  "bank_worker_search_banks": "חיפוש בנקים...",
-  "bank_worker_search_branches": "חיפוש סניפים..."
+  "bank_worker_already_account": "כבר יש לכם חשבון? התחברו",
+  "bank_worker_demo_notice": "מצב הדגמה",
+  "bank_worker_demo_description": "זוהי גרסת הדגמה של טופס רישום עובד בנק. במערכת האמיתית, הנתונים היו נשלחים ל-API של השרת.",
+
+  "registration": {
+    "title": "רישום עובד בנק",
+    "tooltip": "השלימו את הרישום כדי לקבל גישה לפלטפורמה הבנקאית",
+    "error": {
+      "title": "שגיאת רישום"
+    },
+    "fields": {
+      "fullName": {
+        "label": "שם מלא",
+        "placeholder": "הכניסו את שמכם המלא",
+        "tooltip": "הכניסו שם פרטי ומשפחה כפי שמופיעים בתעודת הזהות"
+      },
+      "position": {
+        "label": "תפקיד",
+        "placeholder": "הכניסו את תפקידכם",
+        "tooltip": "כותרת התפקיד הנוכחית שלכם בבנק"
+      },
+      "branch": {
+        "label": "סניף הבנק",
+        "placeholder": "בחרו את הסניף שלכם",
+        "tooltip": "הסניף בו אתם עובדים"
+      },
+      "bankNumber": {
+        "label": "מספר בנק",
+        "placeholder": "הכניסו מספר בנק",
+        "tooltip": "מספר העובד הבנקאי שלכם"
+      },
+      "terms": {
+        "text": "אני מסכים ל",
+        "link": "תקנות הפלטפורמה"
+      }
+    },
+    "submit": "השלמת רישום",
+    "success": {
+      "title": "רישום הושלם בהצלחה",
+      "description": "הרישום שלכם נשלח בהצלחה. תקבלו אישור בדואר האלקטרוני בקרוב.",
+      "id": "מזהה רישום",
+      "status": "סטטוס",
+      "pendingApproval": "ממתין לאישור",
+      "continue": "המשך",
+      "message": "הרישום הושלם בהצלחה!"
+    }
+  },
+
+  "validation": {
+    "fullName": {
+      "min": "השם המלא חייב להכיל לפחות 2 תווים",
+      "max": "השם המלא לא יכול לחרוג מ-100 תווים",
+      "format": "השתמשו רק באותיות ורווחים",
+      "required": "שם מלא הוא שדה חובה"
+    },
+    "position": {
+      "min": "התפקיד חייב להכיל לפחות 2 תווים",
+      "max": "התפקיד לא יכול לחרוג מ-100 תווים",
+      "required": "תפקיד הוא שדה חובה"
+    },
+    "branchId": {
+      "required": "אנא בחרו סניף"
+    },
+    "bankNumber": {
+      "format": "מספר הבנק חייב להכיל רק ספרות",
+      "min": "מספר הבנק חייב להכיל לפחות 3 ספרות",
+      "max": "מספר הבנק לא יכול לחרוג מ-10 ספרות",
+      "required": "מספר בנק הוא שדה חובה"
+    },
+    "termsAccepted": {
+      "required": "חובה להסכים לתקנות הפלטפורמה"
+    }
+  },
+
+  "status": {
+    "title": "סטטוס רישום",
+    "tooltip": "צפו בסטטוס הרישום הנוכחי שלכם",
+    "pending": "ממתין",
+    "approved": "מאושר",
+    "rejected": "נדחה",
+    "active": "פעיל",
+    "inactive": "לא פעיל",
+    "error": {
+      "title": "שגיאת סטטוס"
+    },
+    "fields": {
+      "position": "תפקיד",
+      "bank": "בנק",
+      "branch": "סניף",
+      "registrationDate": "תאריך רישום"
+    },
+    "timeline": {
+      "systemAccess": "גישה למערכת",
+      "accessGranted": "גישה לפלטפורמה הבנקאית ניתנה",
+      "accessPending": "גישה ממתינה לאישור"
+    }
+  },
+
+  "nextSteps": {
+    "pending": {
+      "title": "צעדים הבאים - ממתין לאישור",
+      "description": "הרישום שלכם נמצא בבדיקה. אנא המתינו לאישור.",
+      "contactAdmin": "יצירת קשר עם מנהל המערכת"
+    },
+    "approved": {
+      "title": "ברוכים הבאים לפלטפורמה",
+      "description": "הרישום שלכם אושר. כעת תוכלו לגשת למערכת.",
+      "accessSystem": "גישה למערכת"
+    },
+    "rejected": {
+      "title": "נדרשת בדיקה נוספת של הרישום",
+      "description": "הרישום שלכם מצריך בדיקה נוספת. אנא פנו לשירות הלקוחות.",
+      "contactSupport": "יצירת קשר עם התמיכה"
+    }
+  },
+
+  "errors": {
+    "invalidToken": "אסימון הזמנה לא תקף או שפג תוקפו",
+    "failedToLoadForm": "נכשל בטעינת טופס הרישום",
+    "networkError": "שגיאת רשת. אנא נסו שוב.",
+    "registrationFailed": "הרישום נכשל. אנא נסו שוב.",
+    "invalidWorkerId": "מזהה עובד לא תקף",
+    "failedToLoadStatus": "נכשל בטעינת מידע הסטטוס"
+  },
+
+  "common": {
+    "backToHome": "חזרה לעמוד הבית",
+    "retry": "נסו שוב",
+    "refresh": "רענן",
+    "refreshing": "מרענן...",
+    "submitting": "שולח..."
+  }
 }
