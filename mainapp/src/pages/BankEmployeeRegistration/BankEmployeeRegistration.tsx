@@ -67,7 +67,7 @@ export const BankEmployeeRegistration: React.FC = () => {
     const fetchBanks = async () => {
       try {
         setIsLoadingBanks(true);
-        const response = await fetch('/api/banks/list');
+        const response = await fetch(`/api/banks/list?lang=${i18n.language}`);
         const data = await response.json();
         
         if (data.status === 'success' && data.data) {
@@ -85,7 +85,7 @@ export const BankEmployeeRegistration: React.FC = () => {
     };
 
     fetchBanks();
-  }, []);
+  }, [i18n.language]);
 
   // Fetch cities from API
   useEffect(() => {
@@ -110,7 +110,7 @@ export const BankEmployeeRegistration: React.FC = () => {
     };
 
     fetchCities();
-  }, []);
+  }, [i18n.language]);
 
   // Fetch branches when bank is selected
   useEffect(() => {
