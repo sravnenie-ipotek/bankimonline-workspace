@@ -118,20 +118,20 @@ export const BankEmployeeRegistration: React.FC = () => {
         setIsLoadingBranches(true);
         const response = await fetch(`/api/banks/${bankId}/branches`);
         const data = await response.json();
-        
+
         if (data.status === 'success' && data.data) {
           setBranches(data.data);
-        } else {
+      } else {
           console.error('Failed to fetch branches:', data.message || 'Unknown error');
           setBranches([]);
-        }
+      }
       } catch (error) {
         console.error('Error fetching branches:', error);
         setBranches([]);
-      } finally {
+    } finally {
         setIsLoadingBranches(false);
-      }
-    };
+    }
+  };
 
     if (selectedBankId) {
       fetchBranches(selectedBankId);
@@ -317,7 +317,7 @@ export const BankEmployeeRegistration: React.FC = () => {
                         </div>
                       </div>
                       <CustomErrorMessage name="email" errors={errors} touched={touched} />
-                    </div>
+        </div>
 
                     {/* Bank Dropdown */}
                     <div className={styles.inputField}>
@@ -342,7 +342,7 @@ export const BankEmployeeRegistration: React.FC = () => {
                               </svg>
                             </div>
                           </div>
-                        </div>
+            </div>
 
                         {/* Dropdown Menu */}
                         {showBankDropdown && !isLoadingBanks && (
@@ -401,8 +401,8 @@ export const BankEmployeeRegistration: React.FC = () => {
                                 ))}
                               </div>
                             </div>
-                          </div>
-                        )}
+              </div>
+            )}
                       </div>
                       <CustomErrorMessage name="bankId" errors={errors} touched={touched} />
                     </div>
@@ -529,12 +529,12 @@ export const BankEmployeeRegistration: React.FC = () => {
                       </div>
                     </div>
                     <CustomErrorMessage name="acceptTerms" errors={errors} touched={touched} />
-                  </div>
+          </div>
 
                   {/* Submit Button */}
                   <button type="submit" className={styles.submitButton}>
                     <span className={styles.buttonText}>{t('bank_worker_continue')}</span>
-                  </button>
+            </button>
 
                   {/* Line separator */}
                   <div className={styles.line}></div>
@@ -552,4 +552,4 @@ export const BankEmployeeRegistration: React.FC = () => {
 
     </div>
   );
-}; 
+};
