@@ -51,6 +51,11 @@ npm run cypress:run
 
 # Run with browser visible but no Cypress UI
 npm run test:e2e:headed
+
+# Run specific QA test suites
+npm run cypress:run -- --spec "cypress/e2e/qa-test-suites/smoke-tests.cy.ts"
+npm run cypress:run -- --spec "cypress/e2e/bank-employee/registration-flow.cy.ts"
+npm run cypress:run -- --spec "cypress/e2e/qa-test-suites/regression-tests.cy.ts"
 ```
 
 ## ⚡ Example Test Location
