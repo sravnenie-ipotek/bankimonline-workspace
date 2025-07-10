@@ -356,9 +356,15 @@
   background: transparent;
   border: none;
   outline: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   &::placeholder {
     color: #FFFFFF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 
@@ -671,6 +677,11 @@
       order: 0;
       flex-grow: 0;
       cursor: pointer;
+
+      .termsLink {
+        color: #FBE54D;
+        text-decoration: underline;
+      }
     }
   }
 }
@@ -730,9 +741,10 @@
   align-items: center;
   color: #F9FAFB;
   flex: none;
-  order: 8;
+  order: 7;
   flex-grow: 0;
   cursor: pointer;
+  margin-top: 16px;
 
   &:hover {
     text-decoration: underline;
@@ -753,6 +765,8 @@
   flex: none;
   order: 2;
   flex-grow: 0;
+  max-width: 576px;
+  word-wrap: break-word;
 }
 
 // Demo Notice

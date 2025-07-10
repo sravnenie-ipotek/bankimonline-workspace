@@ -1,3 +1,4 @@
+must add translation to proper language file to @/translations  folder
 1. Understand the Context and Purpose
 Before translating, analyze the surrounding UI, code comments, business logic, and user flow.
 Identify the target audience (e.g., end-users, admin, legal, compliance, etc.).

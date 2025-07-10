@@ -1326,5 +1326,176 @@
   "franchise_pricing_cta": "Get Price Quote",
   "franchise_final_cta_title": "Ready to succeed together? <br/>Join TechRealt franchise today!",
   "franchise_final_cta_button": "Start Joining Process",
-  "franchise_final_cta_arrow": "→"
+  "franchise_final_cta_arrow": "→",
+  
+  "bank_worker_search_banks": "Search banks...",
+  "bank_worker_search_branches": "Search branches...",
+  "bank_worker_registration": "Registration",
+  "bank_worker_register_subtitle": "Register and get clients",
+  "bank_worker_basic_info": "Basic Information",
+  "bank_worker_service_selection": "Service Selection",
+  "bank_worker_full_name": "Full Name",
+  "bank_worker_full_name_placeholder": "Enter Full Name",
+  "bank_worker_position": "Position",
+  "bank_worker_position_placeholder": "Enter position title",
+  "bank_worker_bank_email": "Bank Email",
+  "bank_worker_bank_email_placeholder": "Enter your bank email",
+  "bank_worker_bank": "Bank",
+  "bank_worker_bank_branch": "Bank Branch",
+  "bank_worker_bank_number": "Bank Number",
+  "bank_worker_bank_number_placeholder": "Enter bank number",
+  "bank_worker_select_bank": "Select Bank",
+  "bank_worker_select_bank_first": "Select a bank first",
+  "bank_worker_select_branch": "Select Branch",
+  "bank_worker_loading_banks": "Loading banks...",
+  "bank_worker_loading_branches": "Loading branches...",
+  "bank_worker_no_branches": "No branches available",
+  "bank_worker_accept_terms": "I agree to the platform rules",
+  "bank_worker_continue": "Continue",
+  "bank_worker_already_account": "Already have an account? Sign in",
+  "bank_worker_demo_notice": "Demo Mode",
+  "bank_worker_demo_description": "This is a demonstration version of the bank worker registration form. In the real system, this would submit to the backend API.",
+  "bank_worker_validation_name_min": "Full name must be at least 2 characters",
+  "bank_worker_validation_name_required": "Full name is required",
+  "bank_worker_validation_position_min": "Position must be at least 2 characters", 
+  "bank_worker_validation_position_required": "Position is required",
+  "bank_worker_validation_email_invalid": "Invalid email address",
+  "bank_worker_validation_email_required": "Email is required",
+  "bank_worker_validation_bank_required": "Please select a bank",
+  "bank_worker_validation_branch_required": "Please select a branch",
+  "bank_worker_validation_bank_number_min": "Bank number must contain at least 3 characters",
+  "bank_worker_validation_bank_number_required": "Bank number is required",
+  "bank_worker_validation_terms_required": "You must agree to the platform rules",
+  "bank_worker_city": "City",
+  "bank_worker_select_city": "Select City",
+  "bank_worker_search_cities": "Search cities...",
+
+  "registration": {
+    "title": "Bank Worker Registration",
+    "tooltip": "Complete your registration to access the banking platform",
+    "error": {
+      "title": "Registration Error"
+    },
+    "fields": {
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "Enter your full name",
+        "tooltip": "Enter your first and last name as they appear on your ID"
+      },
+      "position": {
+        "label": "Position",
+        "placeholder": "Enter your position",
+        "tooltip": "Your current job title at the bank"
+      },
+      "branch": {
+        "label": "Bank Branch",
+        "placeholder": "Select your branch",
+        "tooltip": "The branch where you work"
+      },
+      "bankNumber": {
+        "label": "Bank Number",
+        "placeholder": "Enter bank number",
+        "tooltip": "Your employee bank number"
+      },
+      "terms": {
+        "text": "I agree to the ",
+        "link": "platform rules"
+      }
+    },
+    "submit": "Complete Registration",
+    "success": {
+      "title": "Registration Successful",
+      "description": "Your registration has been submitted successfully. You will receive a confirmation email shortly.",
+      "id": "Registration ID",
+      "status": "Status",
+      "pendingApproval": "Pending Approval",
+      "continue": "Continue",
+      "message": "Registration completed successfully!"
+    }
+  },
+
+  "validation": {
+    "fullName": {
+      "min": "Full name must be at least 2 characters",
+      "max": "Full name cannot exceed 100 characters",
+      "format": "Please use only letters and spaces",
+      "required": "Full name is required"
+    },
+    "position": {
+      "min": "Position must be at least 2 characters",
+      "max": "Position cannot exceed 100 characters",
+      "required": "Position is required"
+    },
+    "branchId": {
+      "required": "Please select a branch"
+    },
+    "bankNumber": {
+      "format": "Bank number must contain only digits",
+      "min": "Bank number must be at least 3 digits",
+      "max": "Bank number cannot exceed 10 digits",
+      "required": "Bank number is required"
+    },
+    "termsAccepted": {
+      "required": "You must agree to the platform rules"
+    }
+  },
+
+  "status": {
+    "title": "Registration Status",
+    "tooltip": "View your current registration status",
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "active": "Active",
+    "inactive": "Inactive",
+    "error": {
+      "title": "Status Error"
+    },
+    "fields": {
+      "position": "Position",
+      "bank": "Bank",
+      "branch": "Branch",
+      "registrationDate": "Registration Date"
+    },
+    "timeline": {
+      "systemAccess": "System Access",
+      "accessGranted": "Access granted to banking platform",
+      "accessPending": "Access pending approval"
+    }
+  },
+
+  "nextSteps": {
+    "pending": {
+      "title": "Next Steps - Pending Approval",
+      "description": "Your registration is being reviewed. Please wait for approval.",
+      "contactAdmin": "Contact Administrator"
+    },
+    "approved": {
+      "title": "Welcome to the Platform",
+      "description": "Your registration has been approved. You can now access the system.",
+      "accessSystem": "Access System"
+    },
+    "rejected": {
+      "title": "Registration Review Required",
+      "description": "Your registration requires additional review. Please contact support.",
+      "contactSupport": "Contact Support"
+    }
+  },
+
+  "errors": {
+    "invalidToken": "Invalid or expired invitation token",
+    "failedToLoadForm": "Failed to load registration form",
+    "networkError": "Network error. Please try again.",
+    "registrationFailed": "Registration failed. Please try again.",
+    "invalidWorkerId": "Invalid worker ID",
+    "failedToLoadStatus": "Failed to load status information"
+  },
+
+  "common": {
+    "backToHome": "Back to Home",
+    "retry": "Retry",
+    "refresh": "Refresh",
+    "refreshing": "Refreshing...",
+    "submitting": "Submitting..."
+  }
 }
