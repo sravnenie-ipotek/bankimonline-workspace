@@ -27,6 +27,11 @@ const FirstStepForm = () => {
   const dispatch = useAppDispatch()
 
   const [cityOptions, setCityOptions] = useState<CityOption[]>([])
+  const [ltvRatios, setLtvRatios] = useState<{[key: string]: number}>({
+    no_property: 0.75,
+    has_property: 0.50,
+    selling_property: 0.70
+  })
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -47,7 +52,25 @@ const FirstStepForm = () => {
       }
     }
 
+    // Fetch property ownership LTV ratios from database (fixes hardcoded values)
+    const fetchLtvRatios = async () => {
+      try {
+        const response = await fetch('/api/property-ownership-ltv')
+        const data = await response.json()
+        if (data.status === 'success') {
+          setLtvRatios(data.data)
+          console.log('✅ LTV ratios loaded from database:', data.data)
+        } else {
+          console.warn('⚠️ Using fallback LTV ratios:', data.data)
+          setLtvRatios(data.data) // Use fallback values from API error response
+        }
+      } catch (error) {
+        console.error('❌ Error fetching LTV ratios, using defaults:', error)
+      }
+    }
+
     fetchCities()
+    fetchLtvRatios()
   }, [i18n.language])
 
   // Use useMemo to ensure dropdown options update when translations change
@@ -71,8 +94,52 @@ const FirstStepForm = () => {
     { value: '3', label: t('calculate_mortgage_first_options_3') },
   ], [t])
 
+  // Property Ownership Options (Confluence Action #12 - affects LTV ratios 75%/50%/70%)
+  const PropertyOwnershipOptions = useMemo(() => [
+    { value: 'no_property', label: t('calculate_mortgage_property_ownership_option_1') },      // 75% financing
+    { value: 'has_property', label: t('calculate_mortgage_property_ownership_option_2') },     // 50% financing  
+    { value: 'selling_property', label: t('calculate_mortgage_property_ownership_option_3') }, // 70% financing
+  ], [t])
+
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<CalculateMortgageTypes>()
+
+  // Calculate maximum loan amount based on property ownership (Confluence Action #12)
+  // Now uses database configuration instead of hardcoded values
+  const getMaxLoanAmount = (propertyValue: number, propertyOwnership: string): number => {
+    if (!propertyValue || propertyValue === 0) return 1
+    
+    // Use LTV ratios from database configuration
+    const ltvRatio = ltvRatios[propertyOwnership] || ltvRatios.no_property || 0.75
+    return propertyValue * ltvRatio
+  }
+
+  // Calculate minimum initial payment based on property ownership
+  const getMinInitialPayment = (propertyValue: number, propertyOwnership: string): number => {
+    if (!propertyValue || propertyValue === 0) return 0
+    
+    const maxLoanAmount = getMaxLoanAmount(propertyValue, propertyOwnership)
+    return propertyValue - maxLoanAmount // Minimum down payment = property value - max loan
+  }
+
+  // Auto-adjust initial payment when property ownership changes (real-time financing update)
+  useEffect(() => {
+    if (values.propertyOwnership && values.priceOfEstate) {
+      const minPayment = getMinInitialPayment(values.priceOfEstate, values.propertyOwnership)
+      const maxPayment = values.priceOfEstate
+      
+      // If current initial payment is below the new minimum, set it to minimum
+      if (values.initialFee < minPayment) {
+        console.log(`[PROPERTY-OWNERSHIP] Adjusting initial payment from ${values.initialFee} to ${minPayment} (min for ${values.propertyOwnership})`)
+        setFieldValue('initialFee', minPayment)
+      }
+      // If current initial payment is above maximum, set it to maximum
+      else if (values.initialFee > maxPayment) {
+        console.log(`[PROPERTY-OWNERSHIP] Adjusting initial payment from ${values.initialFee} to ${maxPayment} (max)`)
+        setFieldValue('initialFee', maxPayment)
+      }
+    }
+  }, [values.propertyOwnership, values.priceOfEstate, values.initialFee, setFieldValue])
 
   return (
     <>
@@ -125,13 +192,8 @@ const FirstStepForm = () => {
             <SliderInput
               name="InitialFee"
               value={values.initialFee}
-              min={0}
-              max={
-                String(values.priceOfEstate) === '' ||
-                values.priceOfEstate === 0
-                  ? 1
-                  : values.priceOfEstate
-              }
+              min={getMinInitialPayment(values.priceOfEstate, values.propertyOwnership)}
+              max={values.priceOfEstate || 1}
               title={t('calculate_mortgage_initial_fee')}
               handleChange={(value) => {
                 dispatch(setActiveField('period'))
@@ -166,6 +228,22 @@ const FirstStepForm = () => {
               error={touched.willBeYourFirst && errors.willBeYourFirst}
             />
           </Column>
+        </Row>
+
+        <Row>
+          <Column>
+            <DropdownMenu
+              title={t('calculate_mortgage_property_ownership')}
+              data={PropertyOwnershipOptions}
+              placeholder={t('calculate_mortgage_property_ownership_ph')}
+              value={values.propertyOwnership}
+              onChange={(value) => setFieldValue('propertyOwnership', value)}
+              onBlur={() => setFieldTouched('propertyOwnership', true)}
+              error={touched.propertyOwnership && errors.propertyOwnership}
+            />
+          </Column>
+          <Column />
+          <Column />
         </Row>
 
         <Divider />
