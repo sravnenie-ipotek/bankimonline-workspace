@@ -22,6 +22,9 @@
     "translations": "node scripts/sync-translations.js"
   },
   "devDependencies": {
-    "@playwright/mcp": "^0.0.29"
+    "@playwright/mcp": "^0.0.29",
+    "@typescript-eslint/eslint-plugin": "^8.36.0",
+    "@typescript-eslint/parser": "^8.36.0",
+    "eslint-plugin-react": "^7.37.5"
   }
 }
