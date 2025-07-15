@@ -2,3 +2,13 @@ dist
 node_modules
 /.idea/
 # /build/ - Allow build for production deployment
+
+# Database backups (contain sensitive data)
+backups/db/*.backup
+backups/db/*.sql
+backups/db/*.dump
+
+# Keep backup documentation and scripts
+!backups/BACKUP_INFO.md
+!backups/restore_db.sh
+!backups/README.md
