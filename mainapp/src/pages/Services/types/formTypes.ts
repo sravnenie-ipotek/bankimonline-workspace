@@ -46,6 +46,7 @@ export interface CalculateMortgageTypes {
   initialFee: number
   typeSelect: string
   willBeYourFirst: string
+  propertyOwnership: string  // Confluence Action #12: Property ownership affecting LTV (75%/50%/70%)
   period: number
   monthlyPayment: number
 }
