@@ -4265,6 +4265,9 @@ app.post('/api/admin/calculate-enhanced-mortgage', requireAdmin, async (req, res
         const min_credit_score = standards.credit_score_minimum_credit_score || 620;
         const good_credit_score = standards.credit_score_good_credit_score || 670;
         const excellent_credit_score = standards.credit_score_excellent_credit_score || 740;
+        const warning_credit_score = standards.credit_score_warning_credit_score || 700;
+        const poor_credit_score = standards.credit_score_poor_credit_score || 680;
+        const premium_credit_score = standards.credit_score_premium_credit_score || 750;
         
         let credit_risk_level = 'excellent';
         let credit_approved = true;
@@ -4293,19 +4296,25 @@ app.post('/api/admin/calculate-enhanced-mortgage', requireAdmin, async (req, res
         if (!credit_approved) rejection_reasons.push(`Credit score ${credit_score} below minimum requirement`);
         if (!employment_approved) rejection_reasons.push(`Employment history ${employment_years} years below minimum 2 years`);
 
-        // Approval Conditions
-        const approval_conditions = [];
-        if (ltv_ratio > 75) approval_conditions.push('Mortgage insurance required');
-        if (credit_score < 700) approval_conditions.push('Higher interest rate due to credit score');
-        if (dti_ratio > 35) approval_conditions.push('Additional income verification required');
+        // Load additional threshold standards
+        const pmi_ltv_threshold = standards.ltv_pmi_ltv_max || 75;
+        const warning_dti_max = standards.dti_warning_dti_max || 35;
+        const premium_ltv_max = standards.ltv_premium_ltv_max || 70;
+        const premium_dti_max = standards.dti_premium_dti_max || 30;
 
-        // Bank Recommendations (simplified for now)
+        // Approval Conditions (using database standards)
+        const approval_conditions = [];
+        if (ltv_ratio > pmi_ltv_threshold) approval_conditions.push('Mortgage insurance required');
+        if (credit_score < warning_credit_score) approval_conditions.push('Higher interest rate due to credit score');
+        if (dti_ratio > warning_dti_max) approval_conditions.push('Additional income verification required');
+
+        // Bank Recommendations (using database standards)
         const recommended_banks = [];
         if (all_criteria_met) {
-            if (credit_score >= 740 && ltv_ratio <= 70) {
+            if (credit_score >= excellent_credit_score && ltv_ratio <= premium_ltv_max) {
                 recommended_banks.push({ name: 'Bank Hapoalim', rate: rate - 0.2, reason: 'Excellent credit profile' });
                 recommended_banks.push({ name: 'Bank Leumi', rate: rate - 0.1, reason: 'Low LTV ratio' });
-            } else if (credit_score >= 670) {
+            } else if (credit_score >= good_credit_score) {
                 recommended_banks.push({ name: 'Discount Bank', rate: rate, reason: 'Standard terms' });
                 recommended_banks.push({ name: 'Mizrahi Bank', rate: rate + 0.1, reason: 'Competitive rates' });
             }
@@ -4379,6 +4388,18 @@ app.post('/api/admin/calculate-enhanced-credit', requireAdmin, async (req, res) 
             });
         }
 
+        // Load banking standards for credit
+        const standardsQuery = `
+            SELECT standard_name, standard_value
+            FROM banking_standards 
+            WHERE business_path = 'credit' AND is_active = true
+        `;
+        const standardsResult = await pool.query(standardsQuery);
+        const standards = {};
+        standardsResult.rows.forEach(row => {
+            standards[row.standard_name] = parseFloat(row.standard_value);
+        });
+
         // Basic credit calculations
         const principal = amount;
         const monthlyRate = rate / 100 / 12;
@@ -4420,17 +4441,20 @@ app.post('/api/admin/calculate-enhanced-credit', requireAdmin, async (req, res) 
         const max_age_at_maturity = 70; // Lower than mortgage
         const age_approved = age_at_maturity <= max_age_at_maturity;
 
-        // 4. Credit Score Assessment (stricter for unsecured credit)
+        // 4. Credit Score Assessment using database standards
+        const min_credit_score = standards.credit_score_minimum_credit_score || 620;
+        const poor_credit_score = standards.credit_score_poor_credit_score || 680;
+        const premium_credit_score = standards.credit_score_premium_credit_score || 750;
+        
         let credit_risk_level = 'excellent';
         let credit_approved = true;
-        let min_credit_score = 620; // Higher minimum for credit
         
         if (credit_score < min_credit_score) {
             credit_risk_level = 'poor';
             credit_approved = false;
-        } else if (credit_score < 680) {
+        } else if (credit_score < poor_credit_score) {
             credit_risk_level = 'fair';
-        } else if (credit_score < 750) {
+        } else if (credit_score < premium_credit_score) {
             credit_risk_level = 'good';
         }
 
@@ -4462,19 +4486,24 @@ app.post('/api/admin/calculate-enhanced-credit', requireAdmin, async (req, res) 
         if (!credit_approved) rejection_reasons.push(`Credit score ${credit_score} below minimum requirement ${min_credit_score}`);
         if (!employment_approved) rejection_reasons.push(`Employment history ${employment_years} years below minimum 2 years`);
 
-        // Approval Conditions
+        // Load additional threshold standards for conditions
+        const warning_credit_score = standards.credit_score_warning_credit_score || 700;
+        const warning_dti_max = standards.dti_warning_dti_max || 35;
+        const premium_dti_max = standards.dti_premium_dti_max || 30;
+        
+        // Approval Conditions (using database standards)
         const approval_conditions = [];
-        if (credit_score < 700) approval_conditions.push('Higher interest rate due to credit score');
-        if (dti_ratio > 35) approval_conditions.push('Co-signer may be required');
+        if (credit_score < warning_credit_score) approval_conditions.push('Higher interest rate due to credit score');
+        if (dti_ratio > warning_dti_max) approval_conditions.push('Co-signer may be required');
         if (credit_to_income_ratio > 200) approval_conditions.push('Additional collateral required');
 
-        // Bank Recommendations for Credit
+        // Bank Recommendations for Credit (using database standards)
         const recommended_banks = [];
         if (all_criteria_met) {
-            if (credit_score >= 750 && dti_ratio <= 30) {
+            if (credit_score >= premium_credit_score && dti_ratio <= premium_dti_max) {
                 recommended_banks.push({ name: 'Bank Hapoalim', rate: rate - 0.5, reason: 'Excellent credit profile' });
                 recommended_banks.push({ name: 'Bank Leumi', rate: rate - 0.3, reason: 'Low DTI ratio' });
-            } else if (credit_score >= 680) {
+            } else if (credit_score >= poor_credit_score) {
                 recommended_banks.push({ name: 'Discount Bank', rate: rate, reason: 'Standard terms' });
                 recommended_banks.push({ name: 'Mizrahi Bank', rate: rate + 0.2, reason: 'Competitive rates' });
             }
@@ -4752,6 +4781,28 @@ app.post('/api/admin/calculate-approval-check', requireAdmin, async (req, res) =
                 });
             }
 
+            // Load quick assessment rate standards for mortgage
+            const mortgageRatesQuery = `
+                SELECT standard_name, standard_value FROM banking_standards 
+                WHERE business_path = 'mortgage' AND standard_category = 'rates' AND is_active = true
+            `;
+            const mortgageRatesResult = await pool.query(mortgageRatesQuery);
+            const mortgageRates = {};
+            mortgageRatesResult.rows.forEach(row => {
+                mortgageRates[row.standard_name] = parseFloat(row.standard_value);
+            });
+
+            // Load credit score standards for mortgage
+            const mortgageCreditQuery = `
+                SELECT standard_name, standard_value FROM banking_standards 
+                WHERE business_path = 'mortgage' AND standard_category = 'credit_score' AND is_active = true
+            `;
+            const mortgageCreditResult = await pool.query(mortgageCreditQuery);
+            const mortgageCredit = {};
+            mortgageCreditResult.rows.forEach(row => {
+                mortgageCredit[row.standard_name] = parseFloat(row.standard_value);
+            });
+
             // Quick mortgage check
             const ltv_ratio = (amount / property_value) * 100;
             const estimated_payment = amount * 0.006; // Rough estimate at ~5% rate
@@ -4767,14 +4818,44 @@ app.post('/api/admin/calculate-approval-check', requireAdmin, async (req, res) =
         
         quick_result.likely_approved = ltv_ratio <= 80 && dti_ratio <= quick_max_dti && 
                                          credit_score >= 580 && (age + 25) <= 75;
-            quick_result.estimated_rate = credit_score >= 740 ? 3.5 : 
-                                        credit_score >= 670 ? 4.0 : 4.5;
+            
+            // Use database standards for rate estimation
+            const excellent_credit = mortgageCredit.excellent_credit_score || 740;
+            const good_credit = mortgageCredit.good_credit_score || 670;
+            const quick_excellent_rate = mortgageRates.quick_excellent_rate || 3.5;
+            const quick_good_rate = mortgageRates.quick_good_rate || 4.0;
+            const quick_fair_rate = mortgageRates.quick_fair_rate || 4.5;
+            
+            quick_result.estimated_rate = credit_score >= excellent_credit ? quick_excellent_rate : 
+                                        credit_score >= good_credit ? quick_good_rate : quick_fair_rate;
             
             if (ltv_ratio > 80) quick_result.main_concerns.push('High loan-to-value ratio');
             if (dti_ratio > quick_max_dti) quick_result.main_concerns.push('High debt-to-income ratio');
-            if (credit_score < 670) quick_result.main_concerns.push('Credit score needs improvement');
+            if (credit_score < good_credit) quick_result.main_concerns.push('Credit score needs improvement');
             
         } else if (loan_type === 'credit') {
+            // Load quick assessment rate standards for credit
+            const creditRatesQuery = `
+                SELECT standard_name, standard_value FROM banking_standards 
+                WHERE business_path = 'credit' AND standard_category = 'rates' AND is_active = true
+            `;
+            const creditRatesResult = await pool.query(creditRatesQuery);
+            const creditRates = {};
+            creditRatesResult.rows.forEach(row => {
+                creditRates[row.standard_name] = parseFloat(row.standard_value);
+            });
+
+            // Load credit score standards for credit
+            const creditCreditQuery = `
+                SELECT standard_name, standard_value FROM banking_standards 
+                WHERE business_path = 'credit' AND standard_category = 'credit_score' AND is_active = true
+            `;
+            const creditCreditResult = await pool.query(creditCreditQuery);
+            const creditCredit = {};
+            creditCreditResult.rows.forEach(row => {
+                creditCredit[row.standard_name] = parseFloat(row.standard_value);
+            });
+
             // Quick credit check
             const estimated_payment = amount * 0.015; // Rough estimate at ~8% rate
             const dti_ratio = ((estimated_payment + monthly_expenses + existing_debts) / monthly_income) * 100;
@@ -4790,12 +4871,20 @@ app.post('/api/admin/calculate-approval-check', requireAdmin, async (req, res) =
             
             quick_result.likely_approved = dti_ratio <= credit_quick_max_dti && credit_to_income <= 300 && 
                                          credit_score >= 620 && (age + 10) <= 70;
-            quick_result.estimated_rate = credit_score >= 750 ? 7.5 : 
-                                        credit_score >= 680 ? 8.5 : 10.0;
+            
+            // Use database standards for credit rate estimation
+            const credit_premium_score = creditCredit.premium_credit_score || 750;
+            const credit_poor_score = creditCredit.poor_credit_score || 680;
+            const credit_quick_excellent_rate = creditRates.quick_excellent_rate || 7.5;
+            const credit_quick_good_rate = creditRates.quick_good_rate || 8.5;
+            const credit_quick_fair_rate = creditRates.quick_fair_rate || 10.0;
+            
+            quick_result.estimated_rate = credit_score >= credit_premium_score ? credit_quick_excellent_rate : 
+                                        credit_score >= credit_poor_score ? credit_quick_good_rate : credit_quick_fair_rate;
             
             if (dti_ratio > credit_quick_max_dti) quick_result.main_concerns.push('High debt-to-income ratio');
             if (credit_to_income > 300) quick_result.main_concerns.push('Credit amount too high relative to income');
-            if (credit_score < 680) quick_result.main_concerns.push('Credit score needs improvement');
+            if (credit_score < credit_poor_score) quick_result.main_concerns.push('Credit score needs improvement');
         }
 
         // Next steps recommendations
@@ -5058,6 +5147,18 @@ app.post('/api/admin/calculate-enhanced-credit-refinance', requireAdmin, async (
             });
         }
 
+        // Load banking standards for credit refinance
+        const standardsQuery = `
+            SELECT standard_name, standard_value
+            FROM banking_standards 
+            WHERE business_path = 'credit_refinance' AND is_active = true
+        `;
+        const standardsResult = await pool.query(standardsQuery);
+        const standards = {};
+        standardsResult.rows.forEach(row => {
+            standards[row.standard_name] = parseFloat(row.standard_value);
+        });
+
         // Calculate current total payments from existing loans
         let current_total_monthly_payment = 0;
         if (existing_loans && Array.isArray(existing_loans)) {
@@ -5162,19 +5263,26 @@ app.post('/api/admin/calculate-enhanced-credit-refinance', requireAdmin, async (
         if (!savings_approved) rejection_reasons.push(`Refinance does not provide monthly payment savings`);
         if (!dti_improvement_approved) rejection_reasons.push(`Refinance worsens debt-to-income ratio`);
 
-        // Approval Conditions
+        // Load threshold standards for conditions
+        const warning_credit_score = standards.credit_score_warning_credit_score || 700;
+        const poor_credit_score = standards.credit_score_poor_credit_score || 680;
+        const premium_credit_score = standards.credit_score_premium_credit_score || 750;
+        const warning_dti_max = standards.dti_warning_dti_max || 35;
+        const premium_dti_max = standards.dti_premium_dti_max || 30;
+
+        // Approval Conditions (using database standards)
         const approval_conditions = [];
-        if (credit_score < 700) approval_conditions.push('Higher interest rate due to credit score');
-        if (dti_ratio > 35) approval_conditions.push('Co-signer may be required');
+        if (credit_score < warning_credit_score) approval_conditions.push('Higher interest rate due to credit score');
+        if (dti_ratio > warning_dti_max) approval_conditions.push('Co-signer may be required');
         if (monthly_savings < 100) approval_conditions.push('Minimal savings - ensure long-term benefit');
 
-        // Bank Recommendations for Credit Refinance
+        // Bank Recommendations for Credit Refinance (using database standards)
         const recommended_banks = [];
         if (all_criteria_met) {
-            if (credit_score >= 750 && dti_ratio <= 30) {
+            if (credit_score >= premium_credit_score && dti_ratio <= premium_dti_max) {
                 recommended_banks.push({ name: 'Bank Hapoalim', rate: new_rate - 0.5, reason: 'Excellent credit refinance profile' });
                 recommended_banks.push({ name: 'Bank Leumi', rate: new_rate - 0.3, reason: 'Low DTI ratio' });
-            } else if (credit_score >= 680) {
+            } else if (credit_score >= poor_credit_score) {
                 recommended_banks.push({ name: 'Discount Bank', rate: new_rate, reason: 'Standard refinance terms' });
                 recommended_banks.push({ name: 'Mizrahi Bank', rate: new_rate + 0.2, reason: 'Competitive refinance rates' });
             }
