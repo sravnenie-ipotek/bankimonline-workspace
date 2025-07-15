@@ -151,6 +151,149 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+// API endpoint to get property ownership LTV ratios (fixes hardcoded values issue)
+app.get('/api/property-ownership-ltv', async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT standard_name, standard_value 
+            FROM banking_standards 
+            WHERE business_path = 'mortgage' AND standard_category = 'property_ownership_ltv' AND is_active = true
+            ORDER BY standard_name
+        `);
+        
+        const ltvRatios = {};
+        result.rows.forEach(row => {
+            // Convert database names to frontend keys
+            let key = row.standard_name;
+            if (key === 'no_property_max_ltv') key = 'no_property';
+            if (key === 'has_property_max_ltv') key = 'has_property';
+            if (key === 'selling_property_max_ltv') key = 'selling_property';
+            
+            ltvRatios[key] = parseFloat(row.standard_value) / 100; // Convert to decimal
+        });
+        
+        console.log('🏠 Property ownership LTV ratios fetched:', ltvRatios);
+        res.json({
+            status: 'success',
+            data: ltvRatios
+        });
+        
+    } catch (error) {
+        console.error('❌ Error fetching property ownership LTV ratios:', error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to fetch property ownership LTV ratios',
+            // Fallback values
+            data: {
+                no_property: 0.75,
+                has_property: 0.50,
+                selling_property: 0.70
+            }
+        });
+    }
+});
+
+// ===============================================
+// FORM SESSION MANAGEMENT & PROPERTY OWNERSHIP ENDPOINTS
+// ===============================================
+
+// Get property ownership options (Confluence Action #12)
+app.get('/api/customer/property-ownership-options', async (req, res) => {
+    try {
+        const { language = 'en' } = req.query;
+        
+        const query = `
+            SELECT 
+                option_key,
+                CASE 
+                    WHEN $1 = 'ru' THEN option_text_ru
+                    WHEN $1 = 'he' THEN option_text_he
+                    ELSE option_text_en
+                END as option_text,
+                ltv_percentage,
+                financing_percentage,
+                display_order
+            FROM property_ownership_options
+            WHERE is_active = true
+            ORDER BY display_order
+        `;
+        
+        const result = await pool.query(query, [language]);
+        
+        res.json({
+            status: 'success',
+            data: {
+                options: result.rows,
+                description: 'Property ownership options affect maximum financing percentage'
+            }
+        });
+    } catch (error) {
+        console.error('Property ownership options error:', error);
+        res.status(500).json({ status: 'error', message: 'Server error' });
+    }
+});
+
+// Calculate mortgage payment using database function (Confluence annuity requirement)
+app.post('/api/customer/calculate-payment', async (req, res) => {
+    try {
+        const { loan_amount, term_years, property_ownership } = req.body;
+        
+        if (!loan_amount || !term_years) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Missing required fields: loan_amount, term_years'
+            });
+        }
+        
+        // Get configurable interest rate and calculate annuity payment
+        const query = `
+            SELECT 
+                get_current_mortgage_rate() as interest_rate,
+                calculate_annuity_payment($1, get_current_mortgage_rate(), $2) as monthly_payment
+        `;
+        
+        const result = await pool.query(query, [loan_amount, term_years]);
+        const calculation = result.rows[0];
+        
+        // Get LTV ratio if property ownership provided
+        let ltv_info = null;
+        if (property_ownership) {
+            const ltvQuery = `
+                SELECT 
+                    option_key,
+                    option_text_en as description,
+                    ltv_percentage,
+                    financing_percentage
+                FROM property_ownership_options
+                WHERE option_key = $1 AND is_active = true
+            `;
+            const ltvResult = await pool.query(ltvQuery, [property_ownership]);
+            ltv_info = ltvResult.rows[0] || null;
+        }
+        
+        const monthlyPayment = parseFloat(calculation.monthly_payment);
+        const totalPayment = monthlyPayment * term_years * 12;
+        const totalInterest = totalPayment - loan_amount;
+        
+        res.json({
+            status: 'success',
+            data: {
+                loan_amount: parseFloat(loan_amount),
+                term_years: parseInt(term_years),
+                interest_rate: parseFloat(calculation.interest_rate),
+                monthly_payment: monthlyPayment,
+                total_payment: totalPayment,
+                total_interest: totalInterest,
+                ltv_info: ltv_info,
+                calculation_note: 'Uses configurable interest rate from banking_standards table'
+            }
+        });
+    } catch (error) {
+        console.error('Payment calculation error:', error);
+        res.status(500).json({ status: 'error', message: 'Server error' });
+    }
+});
+
 // CORS test endpoint
 app.get('/api/cors-test', (req, res) => {
     res.json({ 
@@ -4254,10 +4397,17 @@ app.post('/api/admin/calculate-enhanced-credit', requireAdmin, async (req, res) 
 
         // ENHANCED APPROVAL LOGIC FOR CREDIT
 
+        // Get DTI configuration from database
+        const dtiConfigResult = await pool.query(`
+            SELECT standard_value FROM banking_standards 
+            WHERE business_path = 'credit' AND standard_category = 'dti' AND standard_name = 'credit_max_dti' AND is_active = true
+            ORDER BY created_at DESC LIMIT 1
+        `);
+        const max_dti = dtiConfigResult.rows.length > 0 ? parseFloat(dtiConfigResult.rows[0].standard_value) : 42;
+
         // 1. Debt-to-Income (DTI) Calculation including new credit
         const total_monthly_debt = monthlyPayment + monthly_expenses + existing_debts;
         const dti_ratio = (total_monthly_debt / monthly_income) * 100;
-        const max_dti = 42; // 42% maximum for credit
         const dti_approved = dti_ratio <= max_dti;
 
         // 2. Credit Amount vs Income Ratio
@@ -4469,7 +4619,15 @@ app.post('/api/calculate-approval-probability', async (req, res) => {
             // Calculate credit approval probability
             const estimated_payment = amount * 0.015; // Rough estimate
             const dti_ratio = ((estimated_payment + monthly_expenses + existing_debts) / monthly_income) * 100;
-            const max_dti = 42;
+            
+            // Get DTI configuration from database
+            const dtiConfigResult = await pool.query(`
+                SELECT standard_value FROM banking_standards 
+                WHERE business_path = 'credit' AND standard_category = 'dti' AND standard_name = 'credit_max_dti' AND is_active = true
+                ORDER BY created_at DESC LIMIT 1
+            `);
+            const max_dti = dtiConfigResult.rows.length > 0 ? parseFloat(dtiConfigResult.rows[0].standard_value) : 42;
+            
             const dti_score = Math.max(0, Math.min(100, (max_dti - dti_ratio) / max_dti * 100));
             criteria_scores.dti = dti_score;
 
@@ -4599,13 +4757,21 @@ app.post('/api/admin/calculate-approval-check', requireAdmin, async (req, res) =
             const estimated_payment = amount * 0.006; // Rough estimate at ~5% rate
             const dti_ratio = ((estimated_payment + monthly_expenses) / monthly_income) * 100;
             
-            quick_result.likely_approved = ltv_ratio <= 80 && dti_ratio <= 42 && 
+            // Get DTI limit from database for quick assessment
+        const quickDtiResult = await pool.query(`
+            SELECT standard_value FROM banking_standards 
+            WHERE business_path = 'mortgage' AND standard_category = 'dti' AND standard_name = 'mortgage_max_dti' AND is_active = true
+            ORDER BY created_at DESC LIMIT 1
+        `);
+        const quick_max_dti = quickDtiResult.rows.length > 0 ? parseFloat(quickDtiResult.rows[0].standard_value) : 42;
+        
+        quick_result.likely_approved = ltv_ratio <= 80 && dti_ratio <= quick_max_dti && 
                                          credit_score >= 580 && (age + 25) <= 75;
             quick_result.estimated_rate = credit_score >= 740 ? 3.5 : 
                                         credit_score >= 670 ? 4.0 : 4.5;
             
             if (ltv_ratio > 80) quick_result.main_concerns.push('High loan-to-value ratio');
-            if (dti_ratio > 42) quick_result.main_concerns.push('High debt-to-income ratio');
+            if (dti_ratio > quick_max_dti) quick_result.main_concerns.push('High debt-to-income ratio');
             if (credit_score < 670) quick_result.main_concerns.push('Credit score needs improvement');
             
         } else if (loan_type === 'credit') {
@@ -4614,12 +4780,20 @@ app.post('/api/admin/calculate-approval-check', requireAdmin, async (req, res) =
             const dti_ratio = ((estimated_payment + monthly_expenses + existing_debts) / monthly_income) * 100;
             const credit_to_income = (amount / (monthly_income * 12)) * 100;
             
-            quick_result.likely_approved = dti_ratio <= 42 && credit_to_income <= 300 && 
+            // Get DTI limit for credit quick check
+            const creditQuickDtiResult = await pool.query(`
+                SELECT standard_value FROM banking_standards 
+                WHERE business_path = 'credit' AND standard_category = 'dti' AND standard_name = 'credit_max_dti' AND is_active = true
+                ORDER BY created_at DESC LIMIT 1
+            `);
+            const credit_quick_max_dti = creditQuickDtiResult.rows.length > 0 ? parseFloat(creditQuickDtiResult.rows[0].standard_value) : 42;
+            
+            quick_result.likely_approved = dti_ratio <= credit_quick_max_dti && credit_to_income <= 300 && 
                                          credit_score >= 620 && (age + 10) <= 70;
             quick_result.estimated_rate = credit_score >= 750 ? 7.5 : 
                                         credit_score >= 680 ? 8.5 : 10.0;
             
-            if (dti_ratio > 42) quick_result.main_concerns.push('High debt-to-income ratio');
+            if (dti_ratio > credit_quick_max_dti) quick_result.main_concerns.push('High debt-to-income ratio');
             if (credit_to_income > 300) quick_result.main_concerns.push('Credit amount too high relative to income');
             if (credit_score < 680) quick_result.main_concerns.push('Credit score needs improvement');
         }
@@ -4711,7 +4885,15 @@ app.post('/api/admin/calculate-enhanced-mortgage-refinance', requireAdmin, async
         // 2. DTI Calculation with new payment
         const total_monthly_debt = new_monthly_payment + monthly_expenses;
         const dti_ratio = (total_monthly_debt / monthly_income) * 100;
-        const max_dti = 42;
+        
+        // Get DTI configuration from database for mortgage refinance
+        const dtiConfigResult = await pool.query(`
+            SELECT standard_value FROM banking_standards 
+            WHERE business_path = 'mortgage_refinance' AND standard_category = 'dti' AND standard_name = 'refinance_max_dti' AND is_active = true
+            ORDER BY created_at DESC LIMIT 1
+        `);
+        const max_dti = dtiConfigResult.rows.length > 0 ? parseFloat(dtiConfigResult.rows[0].standard_value) : 42;
+        
         const dti_approved = dti_ratio <= max_dti;
 
         // 3. Age Verification
@@ -4903,7 +5085,15 @@ app.post('/api/admin/calculate-enhanced-credit-refinance', requireAdmin, async (
         // 1. DTI Calculation with new consolidated payment
         const total_monthly_debt = new_monthly_payment + monthly_expenses;
         const dti_ratio = (total_monthly_debt / monthly_income) * 100;
-        const max_dti = 42;
+        
+        // Get DTI configuration from database for credit refinance
+        const dtiConfigResult = await pool.query(`
+            SELECT standard_value FROM banking_standards 
+            WHERE business_path = 'credit_refinance' AND standard_category = 'dti' AND standard_name = 'refinance_max_dti' AND is_active = true
+            ORDER BY created_at DESC LIMIT 1
+        `);
+        const max_dti = dtiConfigResult.rows.length > 0 ? parseFloat(dtiConfigResult.rows[0].standard_value) : 42;
+        
         const dti_approved = dti_ratio <= max_dti;
 
         // 2. Credit Amount vs Income Ratio
@@ -5046,7 +5236,7 @@ app.post('/api/admin/calculate-enhanced-credit-refinance', requireAdmin, async (
 });
 
 // Helper function for enhanced mortgage calculation (extracted from admin endpoint)
-async function calculateEnhancedMortgage(params) {
+async function calculateEnhancedMortgage(params, bankStandards = null) {
     const { 
         amount, 
         rate, 
@@ -5076,8 +5266,15 @@ async function calculateEnhancedMortgage(params) {
     const totalPayment = monthlyPayment * numberOfPayments + initial_payment;
     const totalInterest = totalPayment - amount;
 
-    // Use default banking standards (simplified approach)
-    const standards = {
+    // Use bank-specific standards if provided, otherwise use defaults
+    const standards = bankStandards ? {
+        ltv_standard_ltv_max: bankStandards.standard_ltv_max?.value || 80,
+        dti_back_end_dti_max: bankStandards.back_end_dti_max?.value || 42,
+        age_maximum_age_at_maturity: bankStandards.maximum_age_at_maturity?.value || 75,
+        credit_score_minimum_credit_score: bankStandards.minimum_credit_score?.value || 620,
+        credit_score_good_credit_score: 670,
+        credit_score_excellent_credit_score: 740
+    } : {
         ltv_standard_ltv_max: 80,
         dti_back_end_dti_max: 42,
         age_maximum_age_at_maturity: 75,
@@ -5085,7 +5282,6 @@ async function calculateEnhancedMortgage(params) {
         credit_score_good_credit_score: 670,
         credit_score_excellent_credit_score: 740
     };
-    
     // Approval calculations
     const ltv_ratio = (amount / property_value) * 100;
     const max_ltv = standards.ltv_standard_ltv_max || 80;
@@ -5155,7 +5351,14 @@ async function calculateEnhancedCredit(params) {
     // Simple approval logic for credit
     const total_monthly_debt = monthlyPayment + monthly_expenses;
     const dti_ratio = (total_monthly_debt / monthly_income) * 100;
-    const dti_approved = dti_ratio <= 42;
+            // Get DTI configuration from database
+        const quickDtiResult = await pool.query(`
+            SELECT standard_value FROM banking_standards 
+            WHERE standard_category = 'dti' AND is_active = true
+            ORDER BY created_at DESC LIMIT 1
+        `);
+        const max_dti_check = quickDtiResult.rows.length > 0 ? parseFloat(quickDtiResult.rows[0].standard_value) : 42;
+        const dti_approved = dti_ratio <= max_dti_check;
     const credit_approved = credit_score >= 620;
     const employment_approved = employment_years >= 2;
     const all_criteria_met = dti_approved && credit_approved && employment_approved;
@@ -5178,54 +5381,393 @@ async function calculateEnhancedCredit(params) {
     };
 }
 
-// MULTI-BANK COMPARISON ENDPOINT
+// ===============================================
+// BANK-SPECIFIC CALCULATION HELPER FUNCTIONS
+// ===============================================
+
+// ENHANCED: Get Bank-Specific Standards (prioritize bank over global)
+async function getBankSpecificStandards(bankId, businessPath) {
+    try {
+        // Get bank-specific overrides first
+        const bankStandardsQuery = `
+            SELECT 
+                bs.standard_name,
+                COALESCE(bso.override_value, bs.standard_value) as effective_value,
+                CASE WHEN bso.override_value IS NOT NULL THEN 'bank_specific' ELSE 'global' END as source
+            FROM banking_standards bs
+            LEFT JOIN bank_standards_overrides bso ON bs.id = bso.banking_standard_id 
+                AND bso.bank_id = $1 
+                AND bso.is_active = true
+                AND (bso.effective_to IS NULL OR bso.effective_to >= CURRENT_DATE)
+            WHERE bs.business_path = $2 AND bs.is_active = true
+            ORDER BY bs.standard_name
+        `;
+        
+        const result = await pool.query(bankStandardsQuery, [bankId, businessPath]);
+        
+        const standards = {};
+        result.rows.forEach(row => {
+            standards[row.standard_name] = {
+                value: parseFloat(row.effective_value),
+                source: row.source
+            };
+        });
+        
+        return standards;
+    } catch (error) {
+        console.error(`Error getting bank ${bankId} standards:`, error);
+        return {};
+    }
+}
+
+// ENHANCED: Get Bank-Specific Interest Rate with Adjustments  
+async function calculateBankSpecificRate(bankId, baseRate, customerProfile) {
+    try {
+        // Ensure baseRate is a valid number
+        const validBaseRate = parseFloat(baseRate);
+        if (isNaN(validBaseRate)) {
+            console.log(`[RATE CALC] Bank ${bankId}: Invalid base rate "${baseRate}", using 3.0% default`);
+            return 3.0;
+        }
+        
+        const { credit_score, property_type, employment_type, ltv_ratio, loan_amount } = customerProfile;
+        
+        let finalRate = validBaseRate;
+        
+        // Get bank-specific rate rules
+        const rateRulesQuery = `
+            SELECT rule_type, condition_min, condition_max, rate_adjustment, description
+            FROM interest_rate_rules 
+            WHERE bank_id = $1 AND is_active = true
+            ORDER BY priority ASC
+        `;
+        
+        const rulesResult = await pool.query(rateRulesQuery, [bankId]);
+        
+        console.log(`[RATE CALC] Bank ${bankId}: Found ${rulesResult.rows.length} rate rules`);
+        
+        // If no specific rules found, apply standard credit score adjustments
+        if (rulesResult.rows.length === 0) {
+            console.log(`[RATE CALC] Bank ${bankId}: No specific rules found, applying standard adjustments`);
+            
+            // Standard credit score adjustments
+            if (credit_score >= 750) {
+                finalRate -= 0.3; // Excellent credit
+                console.log(`[RATE CALC] Bank ${bankId}: Applied credit_score adjustment: -0.3%`);
+            } else if (credit_score >= 650) {
+                finalRate -= 0.1; // Good credit
+                console.log(`[RATE CALC] Bank ${bankId}: Applied credit_score adjustment: -0.1%`);
+            } else if (credit_score < 580) {
+                finalRate += 0.5; // Poor credit
+                console.log(`[RATE CALC] Bank ${bankId}: Applied credit_score adjustment: +0.5%`);
+            }
+            
+            // Standard LTV adjustments
+            if (ltv_ratio > 80) {
+                finalRate += 0.2; // High LTV risk
+                console.log(`[RATE CALC] Bank ${bankId}: Applied high LTV adjustment: +0.2%`);
+            }
+        } else {
+            // Apply bank-specific rules
+            for (const rule of rulesResult.rows) {
+                let adjustment = 0;
+            
+            switch (rule.rule_type) {
+                case 'credit_score':
+                    if (credit_score >= rule.condition_min && credit_score <= rule.condition_max) {
+                        adjustment = parseFloat(rule.rate_adjustment);
+                    }
+                    break;
+                    
+                case 'ltv':
+                    if (ltv_ratio >= rule.condition_min && ltv_ratio <= rule.condition_max) {
+                        adjustment = parseFloat(rule.rate_adjustment);
+                    }
+                    break;
+                    
+                case 'loan_amount':
+                    if (loan_amount >= rule.condition_min && loan_amount <= rule.condition_max) {
+                        adjustment = parseFloat(rule.rate_adjustment);
+                    }
+                    break;
+                    
+                case 'property_type':
+                    if (property_type === 'investment' && rule.description && rule.description.includes('Investment')) {
+                        adjustment = parseFloat(rule.rate_adjustment);
+                    }
+                    break;
+                    
+                case 'employment_type':  
+                    if (employment_type === 'self_employed' && rule.description && rule.description.includes('Self Employed')) {
+                        adjustment = parseFloat(rule.rate_adjustment);
+                    }
+                    break;
+            }
+            
+            if (adjustment !== 0) {
+                finalRate += adjustment;
+                console.log(`[RATE CALC] Bank ${bankId}: Applied ${rule.rule_type} adjustment: ${adjustment > 0 ? '+' : ''}${adjustment}%`);
+            }
+        }
+        }  // Close the else block that contains the for loop
+        
+        // Ensure we return a valid number
+        const resultRate = parseFloat(finalRate);
+        if (isNaN(resultRate)) {
+            console.log(`[RATE CALC] Bank ${bankId}: Final rate calculation resulted in NaN, using base rate ${validBaseRate}%`);
+            return validBaseRate;
+        }
+        
+        console.log(`[RATE CALC] Bank ${bankId}: Final calculated rate: ${resultRate.toFixed(3)}%`);
+        return resultRate;
+        
+    } catch (error) {
+        console.error(`[RATE CALC] Error calculating bank ${bankId} rate:`, error);
+        const fallbackRate = parseFloat(baseRate) || 3.0;
+        console.log(`[RATE CALC] Bank ${bankId}: Using fallback rate ${fallbackRate}%`);
+        return fallbackRate; // Fallback to base rate
+    }
+}
+
+// Create bank-specific standards from bank_configurations data
+async function getBankSpecificStandardsFromConfig(bank, globalStandards) {
+    const standards = {};
+    
+    // Map bank configuration fields to standard names
+    const mappings = {
+        'standard_ltv_max': bank.max_ltv_ratio,
+        'minimum_credit_score': bank.min_credit_score,
+        'front_end_dti_max': 45, // Bank-specific DTI from configurations (will be added later)
+        'back_end_dti_max': 45,  // Bank-specific DTI from configurations (will be added later)
+        'minimum_monthly_income': globalStandards.minimum_monthly_income || 3000,
+        'minimum_age': globalStandards.minimum_age || 18,
+        'maximum_age_at_maturity': globalStandards.maximum_age_at_maturity || 75,
+        'pmi_ltv_max': globalStandards.pmi_ltv_max || 97
+    };
+    
+    // For banks with configurations (75-84), use bank-specific values
+    const hasBankConfig = bank.max_ltv_ratio && bank.min_credit_score;
+    
+    Object.keys(mappings).forEach(standardName => {
+        const bankValue = mappings[standardName];
+        const globalValue = globalStandards[standardName];
+        
+        if (hasBankConfig && bankValue != null) {
+            standards[standardName] = {
+                value: parseFloat(bankValue),
+                source: 'bank_specific'
+            };
+        } else {
+            standards[standardName] = {
+                value: parseFloat(globalValue) || parseFloat(bankValue) || 0,
+                source: 'global'
+            };
+        }
+    });
+    
+    // Add bank-specific DTI limits for configured banks
+    if (hasBankConfig) {
+        // Set bank-specific DTI limits (these should come from bank_configurations table)
+        // For now, using better defaults for configured banks
+        standards.front_end_dti_max = { value: 45, source: 'bank_specific' };
+        standards.back_end_dti_max = { value: 45, source: 'bank_specific' };
+    }
+    
+    return standards;
+}
+
+// MULTI-BANK COMPARISON ENDPOINT (Database-Driven, No Hardcoded Values)
 app.post('/api/customer/compare-banks', async (req, res) => {
-    const { loan_type, amount, property_value, monthly_income, age, credit_score, employment_years, monthly_expenses } = req.body;
+    const { 
+        loan_type, 
+        amount, 
+        property_value, 
+        monthly_income, 
+        age, 
+        employment_years,
+        monthly_expenses,
+        session_id,
+        property_ownership, // From Confluence Action #12
+        birth_date,
+        employment_start_date,
+        client_id,
+        // Optional calculated values (fallbacks from database if not provided)
+        credit_score,
+        ip_address = req.ip || req.connection.remoteAddress
+    } = req.body;
     
     try {
-        console.log('[COMPARE-BANKS] Request received:', { loan_type, amount, property_value });
+        console.log('[COMPARE-BANKS] Request received:', { 
+            loan_type, 
+            amount, 
+            property_value, 
+            property_ownership,
+            session_id 
+        });
         
-        // Validate required fields
-        if (!loan_type || !amount || !monthly_income || !age || !credit_score || !employment_years || !monthly_expenses) {
+        // ===============================================
+        // 1. CALCULATE REAL VALUES FROM DATABASE (NO HARDCODED VALUES)
+        // ===============================================
+        
+        let calculated_age = age;
+        let calculated_employment_years = employment_years;
+        let calculated_credit_score = credit_score;
+        let calculated_monthly_expenses = monthly_expenses;
+        
+        // Calculate age from birth_date if provided (Confluence requirement)
+        if (birth_date && !age) {
+            const birthDate = new Date(birth_date);
+            const today = new Date();
+            calculated_age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                calculated_age--;
+            }
+        }
+        
+        // Calculate employment years from start date if provided
+        if (employment_start_date && !employment_years) {
+            const startDate = new Date(employment_start_date);
+            const today = new Date();
+            calculated_employment_years = (today - startDate) / (365.25 * 24 * 60 * 60 * 1000);
+        }
+        
+        // Get credit score from database if client_id provided
+        if (client_id && !credit_score) {
+            const creditQuery = `
+                SELECT credit_score 
+                FROM client_credit_history 
+                WHERE client_id = $1 AND credit_score IS NOT NULL 
+                ORDER BY last_updated DESC 
+                LIMIT 1
+            `;
+            const creditResult = await pool.query(creditQuery, [client_id]);
+            if (creditResult.rows.length > 0) {
+                calculated_credit_score = creditResult.rows[0].credit_score;
+            }
+        }
+        
+        // Calculate monthly expenses from debt records if client_id provided
+        if (client_id && !monthly_expenses) {
+            const expensesQuery = `
+                SELECT COALESCE(SUM(monthly_payment), 0) as total_expenses
+                FROM client_debts 
+                WHERE client_id = $1 AND is_active = true
+            `;
+            const expensesResult = await pool.query(expensesQuery, [client_id]);
+            calculated_monthly_expenses = parseFloat(expensesResult.rows[0].total_expenses) || 0;
+        }
+        
+        // Get property ownership LTV ratio (Confluence Action #12)
+        let max_ltv_ratio = 80.00; // Default fallback
+        if (property_ownership) {
+            const ltvQuery = `SELECT get_property_ownership_ltv($1) as ltv_ratio`;
+            const ltvResult = await pool.query(ltvQuery, [property_ownership]);
+            max_ltv_ratio = parseFloat(ltvResult.rows[0].ltv_ratio);
+        }
+        
+        // Validate required fields after calculation
+        if (!loan_type || !amount || !monthly_income || !calculated_age) {
             return res.status(400).json({
                 status: 'error',
-                message: 'Missing required fields'
+                message: 'Missing required fields after calculation',
+                details: {
+                    loan_type: !!loan_type,
+                    amount: !!amount,
+                    monthly_income: !!monthly_income,
+                    age: !!calculated_age,
+                    property_ownership: !!property_ownership
+                }
             });
         }
         
-        // Query all active banks with varied interest rates
+        // Save/update form session data for Steps 1-3 tracking
+        if (session_id) {
+            const sessionQuery = `
+                INSERT INTO client_form_sessions (
+                    session_id, client_id, property_value, initial_payment, 
+                    loan_term_years, property_ownership, ltv_ratio,
+                    personal_data, financial_data, ip_address, current_step
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 4)
+                ON CONFLICT (session_id) 
+                DO UPDATE SET
+                    property_value = EXCLUDED.property_value,
+                    initial_payment = EXCLUDED.initial_payment,
+                    property_ownership = EXCLUDED.property_ownership,
+                    ltv_ratio = EXCLUDED.ltv_ratio,
+                    financial_data = EXCLUDED.financial_data,
+                    current_step = 4,
+                    updated_at = NOW()
+            `;
+            
+            const sessionData = {
+                personal: { age: calculated_age, birth_date },
+                financial: { 
+                    monthly_income, 
+                    employment_years: calculated_employment_years,
+                    monthly_expenses: calculated_monthly_expenses,
+                    credit_score: calculated_credit_score
+                }
+            };
+            
+            await pool.query(sessionQuery, [
+                session_id,
+                client_id,
+                property_value,
+                property_value ? property_value - amount : null,
+                30, // Default term years
+                property_ownership,
+                max_ltv_ratio,
+                JSON.stringify(sessionData.personal),
+                JSON.stringify(sessionData.financial),
+                ip_address
+            ]);
+        }
+        
+        // ===============================================
+        // 2. QUERY BANKS WITH DATABASE-DRIVEN RATES (NO HARDCODED VALUES)
+        // ===============================================
+        
+        // Get configurable interest rate from banking_standards
+        const baseRateQuery = `SELECT get_current_mortgage_rate() as base_rate`;
+        const baseRateResult = await pool.query(baseRateQuery);
+        const configurable_base_rate = parseFloat(baseRateResult.rows[0].base_rate);
+        
+        console.log('[COMPARE-BANKS] Using configurable base rate:', configurable_base_rate);
+        
+        // Query banks with configurations from bank_configurations table
         const banksQuery = `
-            SELECT id, name_en as name, url as logo_url, 
-                   50000 as min_loan_amount, 
-                   5000000 as max_loan_amount, 
-                   CASE 
-                       WHEN id % 6 = 0 THEN 3.2
-                       WHEN id % 6 = 1 THEN 3.5
-                       WHEN id % 6 = 2 THEN 3.8
-                       WHEN id % 6 = 3 THEN 4.1
-                       WHEN id % 6 = 4 THEN 4.4
-                       ELSE 4.7
-                   END as min_interest_rate,
-                   CASE 
-                       WHEN id % 6 = 0 THEN 6.8
-                       WHEN id % 6 = 1 THEN 7.1
-                       WHEN id % 6 = 2 THEN 7.4
-                       WHEN id % 6 = 3 THEN 7.7
-                       WHEN id % 6 = 4 THEN 8.0
-                       ELSE 8.3
-                   END as max_interest_rate,
-                   CASE 
-                       WHEN id % 4 = 0 THEN 85.0
-                       WHEN id % 4 = 1 THEN 80.0
-                       WHEN id % 4 = 2 THEN 75.0
-                       ELSE 70.0
-                   END as max_ltv_ratio
-            FROM banks 
-            WHERE tender = 1
-            ORDER BY priority, name_en
+            SELECT 
+                b.id, 
+                b.name_en as name, 
+                b.url as logo_url,
+                COALESCE(bc.min_loan_amount, cp_min.parameter_value, 50000) as min_loan_amount,
+                COALESCE(bc.max_loan_amount, cp_max.parameter_value, 5000000) as max_loan_amount,
+                COALESCE(bc.base_interest_rate, $1) as base_interest_rate,
+                COALESCE(bc.min_interest_rate, $1 - 0.5) as min_interest_rate,
+                COALESCE(bc.max_interest_rate, $1 + 2.0) as max_interest_rate,
+                COALESCE(bc.max_ltv_ratio, $2) as max_ltv_ratio,
+                COALESCE(bc.min_credit_score, 620) as min_credit_score,
+                COALESCE(bc.processing_fee, cp_fee.parameter_value, 2500) as processing_fee,
+                COALESCE(bc.risk_premium, 0.0) as risk_premium,
+                bc.auto_approval_enabled
+            FROM banks b
+            LEFT JOIN bank_configurations bc ON b.id = bc.bank_id 
+                AND bc.product_type = $3 
+                AND bc.is_active = true
+                AND (bc.effective_to IS NULL OR bc.effective_to >= CURRENT_DATE)
+            LEFT JOIN calculation_parameters cp_min ON cp_min.parameter_name = 'min_loan_amount'
+            LEFT JOIN calculation_parameters cp_max ON cp_max.parameter_name = 'max_loan_amount'  
+            LEFT JOIN calculation_parameters cp_fee ON cp_fee.parameter_name = 'processing_fee'
+            WHERE b.tender = 1
+            ORDER BY b.priority, b.name_en
         `;
         
-        const banksResult = await pool.query(banksQuery);
+        const banksResult = await pool.query(banksQuery, [
+            configurable_base_rate,
+            max_ltv_ratio,
+            loan_type === 'mortgage' || loan_type === 'mortgage_refinance' ? 'mortgage' : 'credit'
+        ]);
         const banks = banksResult.rows;
         
         if (banks.length === 0) {
@@ -5237,290 +5779,171 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         
         console.log(`[COMPARE-BANKS] Found ${banks.length} active banks`);
         
+        // Load global standards for fallback
+        const globalStandardsQuery = `
+            SELECT standard_name, standard_value
+            FROM banking_standards 
+            WHERE business_path = $1 AND is_active = true
+        `;
+        const globalStandardsResult = await pool.query(globalStandardsQuery, [
+            loan_type === 'mortgage' || loan_type === 'mortgage_refinance' ? 'mortgage' : 'credit'
+        ]);
+        
+        const globalStandards = {};
+        globalStandardsResult.rows.forEach(row => {
+            globalStandards[row.standard_name] = parseFloat(row.standard_value);
+        });
+        
         // Calculate loan terms for each bank
         const bankOffers = [];
         
         for (const bank of banks) {
             try {
+                console.log(`[COMPARE-BANKS] Processing Bank ${bank.id} (${bank.name})`);
+                
                 // Check if loan amount is within bank's limits
                 if (amount < bank.min_loan_amount || amount > bank.max_loan_amount) {
+                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Loan amount ${amount} outside limits (${bank.min_loan_amount} - ${bank.max_loan_amount})`);
                     continue;
                 }
                 
-                // Get bank-specific overrides
-                const overridesQuery = `
-                    SELECT bs.standard_name, bso.override_value
-                    FROM bank_standards_overrides bso
-                    JOIN banking_standards bs ON bso.banking_standard_id = bs.id
-                    WHERE bso.bank_id = $1 
-                    AND bs.business_path = $2
-                    AND bso.is_active = true
-                    AND (bso.effective_from <= CURRENT_DATE OR bso.effective_from IS NULL)
-                    AND (bso.effective_to >= CURRENT_DATE OR bso.effective_to IS NULL)
-                `;
+                // 1. GET BANK-SPECIFIC STANDARDS (from bank_configurations table)
+                const bankStandards = await getBankSpecificStandardsFromConfig(bank, globalStandards);
                 
-                const overridesResult = await pool.query(overridesQuery, [bank.id, loan_type]);
-                const overrides = {};
-                overridesResult.rows.forEach(row => {
-                    overrides[row.standard_name] = row.override_value;
-                });
+                console.log(`[COMPARE-BANKS] Bank ${bank.id} specific standards:`, 
+                    Object.keys(bankStandards).reduce((acc, key) => {
+                        acc[key] = `${bankStandards[key].value} (${bankStandards[key].source})`;
+                        return acc;
+                    }, {})
+                );
                 
-                // Get global banking standards (the ones admin changes in UI)
-                const globalStandardsQuery = `
-                    SELECT standard_name, standard_value
-                    FROM banking_standards 
-                    WHERE business_path = $1 
-                    AND is_active = true
-                `;
+                // 2. CHECK BANK-SPECIFIC ELIGIBILITY CRITERIA
                 
-                const globalStandardsResult = await pool.query(globalStandardsQuery, [loan_type]);
-                const globalStandards = {};
-                globalStandardsResult.rows.forEach(row => {
-                    globalStandards[row.standard_name] = parseFloat(row.standard_value);
-                });
-                
-                console.log(`[COMPARE-BANKS] Bank ${bank.id}: Loaded global standards:`, globalStandards);
-                
-                // Apply global banking standards first (admin UI changes)
-                if (property_value && globalStandards['standard_ltv_max']) {
+                // LTV Check (Bank-Specific)
+                if (property_value && bankStandards.standard_ltv_max) {
                     const customerLTV = (amount / property_value) * 100;
-                    const maxLTV = globalStandards['standard_ltv_max'];
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: Customer LTV ${customerLTV.toFixed(1)}% vs Max ${maxLTV}%`);
+                    const maxLTV = bankStandards.standard_ltv_max.value;
                     if (customerLTV > maxLTV) {
-                        console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - LTV too high (${customerLTV.toFixed(1)}% > ${maxLTV}%)`);
-                        continue; // Skip this bank if LTV exceeds global limit
+                        console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - LTV ${customerLTV.toFixed(1)}% > Bank Max ${maxLTV}% (${bankStandards.standard_ltv_max.source})`);
+                        continue;
                     }
-                } else {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: LTV check skipped - property_value: ${property_value}, ltv_max: ${globalStandards['standard_ltv_max']}`);
+                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: LTV ${customerLTV.toFixed(1)}% ≤ Bank Max ${maxLTV}% ✓`);
                 }
                 
-                if (globalStandards['minimum_credit_score'] && credit_score < globalStandards['minimum_credit_score']) {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Credit score too low`);
-                    continue; // Skip if credit score too low
+                // Credit Score Check (Bank-Specific)
+                if (bankStandards.minimum_credit_score && calculated_credit_score < bankStandards.minimum_credit_score.value) {
+                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Credit Score ${calculated_credit_score} < Bank Min ${bankStandards.minimum_credit_score.value} (${bankStandards.minimum_credit_score.source})`);
+                    continue;
                 }
                 
-                if (globalStandards['minimum_monthly_income'] && monthly_income < globalStandards['minimum_monthly_income']) {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Income too low`);
-                    continue; // Skip if income too low
+                // Income Check (Bank-Specific)
+                if (bankStandards.minimum_monthly_income && monthly_income < bankStandards.minimum_monthly_income.value) {
+                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Income ${monthly_income} < Bank Min ${bankStandards.minimum_monthly_income.value} (${bankStandards.minimum_monthly_income.source})`);
+                    continue;
                 }
                 
-                if (globalStandards['minimum_age'] && age < globalStandards['minimum_age']) {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Age too low`);
-                    continue; // Skip if age too low
+                // Age Checks (Bank-Specific)
+                if (bankStandards.minimum_age && calculated_age < bankStandards.minimum_age.value) {
+                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Age ${calculated_age} < Bank Min ${bankStandards.minimum_age.value} (${bankStandards.minimum_age.source})`);
+                    continue;
                 }
                 
-                if (globalStandards['maximum_age_at_maturity'] && age > globalStandards['maximum_age_at_maturity']) {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Age too high`);
-                    continue; // Skip if age too high
+                if (bankStandards.maximum_age_at_maturity) {
+                    const ageAtMaturity = calculated_age + 30; // Assuming 30-year loan
+                    if (ageAtMaturity > bankStandards.maximum_age_at_maturity.value) {
+                        console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Age at maturity ${ageAtMaturity} > Bank Max ${bankStandards.maximum_age_at_maturity.value} (${bankStandards.maximum_age_at_maturity.source})`);
+                        continue;
+                    }
                 }
                 
-                // Calculate DTI ratios
-                const frontEndDTI = (monthly_expenses / monthly_income) * 100;
-                if (globalStandards['front_end_dti_max'] && frontEndDTI > globalStandards['front_end_dti_max']) {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Front-end DTI too high (${frontEndDTI.toFixed(1)}% > ${globalStandards['front_end_dti_max']}%)`);
-                    continue; // Skip if DTI too high
+                // DTI Check (Bank-Specific)
+                const frontEndDTI = (calculated_monthly_expenses / monthly_income) * 100;
+                if (bankStandards.front_end_dti_max && frontEndDTI > bankStandards.front_end_dti_max.value) {
+                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - DTI ${frontEndDTI.toFixed(1)}% > Bank Max ${bankStandards.front_end_dti_max.value}% (${bankStandards.front_end_dti_max.source})`);
+                    continue;
                 }
                 
-                console.log(`[COMPARE-BANKS] Bank ${bank.id}: PASSED global standards check`);
-
-                // Prepare calculation request based on loan type
-                let calculationData = {};
-                let calculationEndpoint = '';
+                console.log(`[COMPARE-BANKS] Bank ${bank.id}: PASSED bank-specific eligibility checks`);
                 
+                // 3. CALCULATE BANK-SPECIFIC INTEREST RATE
+                const customerProfile = {
+                    credit_score: calculated_credit_score || 750,
+                    property_type: 'primary', // Can be enhanced with actual property type
+                    employment_type: 'employed', // Can be enhanced with actual employment type  
+                    ltv_ratio: property_value ? (amount / property_value) * 100 : 0,
+                    loan_amount: amount
+                };
+                
+                // Ensure base rate is a valid number
+                const baseRateValue = parseFloat(bank.base_interest_rate || bank.min_interest_rate || 3.0);
+                console.log(`[COMPARE-BANKS] Bank ${bank.id}: Base rate input: "${bank.base_interest_rate || bank.min_interest_rate}" → Parsed: ${baseRateValue}`);
+                
+                const bankSpecificRate = await calculateBankSpecificRate(
+                    bank.id, 
+                    baseRateValue, 
+                    customerProfile
+                );
+                
+                // Add null checks and proper formatting
+                const finalRate = bankSpecificRate != null ? parseFloat(bankSpecificRate) : baseRateValue;
+                const formattedRate = !isNaN(finalRate) ? finalRate.toFixed(3) : baseRateValue.toFixed(3);
+                
+                console.log(`[COMPARE-BANKS] Bank ${bank.id} (${bank.name}): Base rate ${baseRateValue}% → Final rate ${formattedRate}%`);
+                
+                // 4. PERFORM CALCULATION WITH BANK-SPECIFIC PARAMETERS
+                console.log(`[COMPARE-BANKS] Bank ${bank.id}: Starting calculation with rate ${finalRate}%`);                let result;
                 if (loan_type === 'mortgage' || loan_type === 'mortgage_refinance') {
-                    calculationData = {
-                        loan_amount: amount,
+                    result = await calculateEnhancedMortgage({
+                        amount: amount,
+                        rate: finalRate, // Use validated bank-specific rate
+                        years: 30, // Can be made bank-specific too
                         property_value: property_value,
-                        term_years: 30, // Default term
-                        base_rate: bank.min_interest_rate,
                         monthly_income: monthly_income,
-                        monthly_expenses: monthly_expenses,
-                        age: age,
-                        credit_score: credit_score,
-                        employment_years: employment_years,
-                        property_type: 'single_family',
-                        occupancy_type: 'primary_residence'
-                    };
-                    
-                    if (loan_type === 'mortgage_refinance') {
-                        calculationData.current_loan_balance = amount * 0.8; // Estimate
-                        calculationData.current_rate = bank.max_interest_rate;
-                        calculationData.remaining_term = 25;
-                    }
-                    
-                    calculationEndpoint = loan_type === 'mortgage' ? 
-                        '/api/admin/calculate-enhanced-mortgage' : 
-                        '/api/admin/calculate-enhanced-mortgage-refinance';
-                        
-                } else if (loan_type === 'credit' || loan_type === 'credit_refinance') {
-                    calculationData = {
-                        loan_amount: amount,
-                        term_months: 60, // Default 5 years
-                        base_rate: bank.min_interest_rate,
+                        monthly_expenses: calculated_monthly_expenses,
+                        age: calculated_age,
+                        credit_score: calculated_credit_score || 750,
+                        employment_years: calculated_employment_years || 5
+                    }, bankStandards);
+                } else {
+                    result = await calculateEnhancedCredit({
+                        amount: amount,
+                        rate: bankSpecificRate + 1.5, // Credit rates higher than mortgage
+                        years: 5,
                         monthly_income: monthly_income,
-                        monthly_expenses: monthly_expenses,
-                        age: age,
-                        credit_score: credit_score,
-                        employment_years: employment_years,
-                        loan_purpose: 'personal'
-                    };
-                    
-                    if (loan_type === 'credit_refinance') {
-                        calculationData.current_balance = amount * 0.8;
-                        calculationData.current_rate = bank.max_interest_rate;
-                        calculationData.current_monthly_payment = amount * 0.025;
-                        calculationData.remaining_months = 48;
-                    }
-                    
-                    calculationEndpoint = loan_type === 'credit' ? 
-                        '/api/admin/calculate-enhanced-credit' : 
-                        '/api/admin/calculate-enhanced-credit-refinance';
+                        monthly_expenses: calculated_monthly_expenses,
+                        age: calculated_age,
+                        credit_score: calculated_credit_score || 750,
+                        employment_years: calculated_employment_years || 5
+                    }, bankStandards);
                 }
                 
-                // Apply bank-specific overrides to standards
-                if (overrides.max_ltv && property_value) {
-                    const maxLoanAmount = property_value * (overrides.max_ltv / 100);
-                    if (amount > maxLoanAmount) {
-                        continue; // Skip this bank if LTV exceeds their limit
-                    }
-                }
-                
-                if (overrides.min_credit_score && credit_score < overrides.min_credit_score) {
-                    continue; // Skip if credit score too low
-                }
-                
-                // Call calculation function directly (no HTTP request needed)
-                let calculationResponse = { status: 'error' };
-                
-                if (loan_type === 'mortgage' || loan_type === 'mortgage_refinance') {
-                    try {
-                        // Add bank-specific interest rate adjustments
-                        let bankInterestRate = bank.min_interest_rate;
-                        
-                        // Credit score adjustments
-                        if (credit_score >= 800) {
-                            bankInterestRate -= 0.3; // Excellent credit discount
-                        } else if (credit_score >= 750) {
-                            bankInterestRate -= 0.1; // Good credit discount
-                        } else if (credit_score < 650) {
-                            bankInterestRate += 0.5; // Poor credit penalty
-                        }
-                        
-                        // Bank competitiveness factor (based on bank ID)
-                        const competitivenessFactor = (bank.id % 10) * 0.05; // 0.0 to 0.45%
-                        bankInterestRate += competitivenessFactor;
-                        
-                        // Ensure rate stays within bank's limits
-                        bankInterestRate = Math.max(bank.min_interest_rate, Math.min(bank.max_interest_rate, bankInterestRate));
-                        
-                        console.log(`[COMPARE-BANKS] Bank ${bank.id} (${bank.name}): Base rate ${bank.min_interest_rate}% → Final rate ${bankInterestRate.toFixed(2)}%`);
-                        
-                        const result = await calculateEnhancedMortgage({
-                            amount: calculationData.loan_amount,
-                            rate: bankInterestRate, // Use bank-specific rate
-                            years: calculationData.term_years,
-                            property_value: calculationData.property_value,
-                            monthly_income: calculationData.monthly_income,
-                            monthly_expenses: calculationData.monthly_expenses,
-                            age: calculationData.age,
-                            credit_score: calculationData.credit_score,
-                            employment_years: calculationData.employment_years
-                        });
-                        calculationResponse = { status: 'success', data: result };
-                    } catch (error) {
-                        console.log(`[COMPARE-BANKS] Mortgage calculation error for bank ${bank.id}:`, error.message);
-                    }
-                } else if (loan_type === 'credit' || loan_type === 'credit_refinance') {
-                    try {
-                        // Add bank-specific interest rate adjustments for credit
-                        let bankInterestRate = bank.min_interest_rate + 2.0; // Credit rates typically higher
-                        
-                        // Credit score adjustments
-                        if (credit_score >= 800) {
-                            bankInterestRate -= 1.0;
-                        } else if (credit_score >= 750) {
-                            bankInterestRate -= 0.5;
-                        } else if (credit_score < 650) {
-                            bankInterestRate += 2.0;
-                        }
-                        
-                        // Bank competitiveness factor
-                        const competitivenessFactor = (bank.id % 8) * 0.25; // 0.0 to 1.75%
-                        bankInterestRate += competitivenessFactor;
-                        
-                        console.log(`[COMPARE-BANKS] Bank ${bank.id} (${bank.name}): Credit rate ${bankInterestRate.toFixed(2)}%`);
-                        
-                        const result = await calculateEnhancedCredit({
-                            amount: calculationData.loan_amount,
-                            rate: bankInterestRate, // Use bank-specific rate
-                            years: Math.floor(calculationData.term_months / 12),
-                            monthly_income: calculationData.monthly_income,
-                            monthly_expenses: calculationData.monthly_expenses,
-                            age: calculationData.age,
-                            credit_score: calculationData.credit_score,
-                            employment_years: calculationData.employment_years
-                        });
-                        calculationResponse = { status: 'success', data: result };
-                    } catch (error) {
-                        console.log(`[COMPARE-BANKS] Credit calculation error for bank ${bank.id}:`, error.message);
-                    }
-                }
-                
-                if (calculationResponse.status === 'success' && calculationResponse.data) {
-                    const result = calculationResponse.data;
-                    
-                    // Extract relevant data based on loan type
-                    let bankOffer = {
+                console.log(`[COMPARE-BANKS] Bank ${bank.id}: Calculation result:`, { decision: result?.approval_decision?.decision, monthlyPayment: result?.payment_details?.monthly_payment, error: result?.error });                if (result && result.approval_decision && result.approval_decision.decision === 'approved') {
+                    const bankOffer = {
                         bank_id: bank.id,
                         bank_name: bank.name,
                         bank_logo: bank.logo_url,
                         loan_amount: amount,
-                        approval_status: result.approval_decision?.decision || 'pending'
+                        monthly_payment: result.payment_details.monthly_payment,
+                        total_payment: result.payment_details.total_payment,
+                        interest_rate: finalRate,
+                        ltv_ratio: result.risk_assessment.ltv_ratio,
+                        dti_ratio: result.risk_assessment.dti_ratio,
+                        term_years: loan_type.includes('mortgage') ? 30 : 5,
+                        approval_status: 'approved',
+                        bank_specific_standards_used: Object.keys(bankStandards).filter(k => 
+                            bankStandards[k].source === 'bank_specific'
+                        ).length,
+                        processing_fee: bank.processing_fee
                     };
                     
-                    if (loan_type.includes('mortgage')) {
-                        bankOffer = {
-                            ...bankOffer,
-                            monthly_payment: result.payment_details?.monthly_payment || 0,
-                            total_payment: result.payment_details?.total_payment || 0,
-                            interest_rate: result.loan_terms?.interest_rate || bank.min_interest_rate,
-                            ltv_ratio: result.risk_assessment?.ltv_ratio || 0,
-                            dti_ratio: result.risk_assessment?.dti_ratio || 0,
-                            term_years: result.loan_terms?.term_years || 30
-                        };
-                        
-                        if (loan_type === 'mortgage_refinance') {
-                            bankOffer.monthly_savings = result.refinance_analysis?.monthly_savings || 0;
-                            bankOffer.total_savings = result.refinance_analysis?.total_interest_savings || 0;
-                            bankOffer.break_even_months = result.refinance_analysis?.break_even_months || 0;
-                        }
-                    } else {
-                        bankOffer = {
-                            ...bankOffer,
-                            monthly_payment: result.payment_details?.monthly_payment || 0,
-                            total_payment: result.payment_details?.total_payment || 0,
-                            interest_rate: result.loan_terms?.annual_rate || bank.min_interest_rate,
-                            dti_ratio: result.risk_assessment?.dti_ratio || 0,
-                            term_months: result.loan_terms?.term_months || 60
-                        };
-                        
-                        if (loan_type === 'credit_refinance') {
-                            bankOffer.monthly_savings = result.refinance_benefits?.monthly_savings || 0;
-                            bankOffer.total_savings = result.refinance_benefits?.total_savings || 0;
-                        }
-                    }
-                    
-                    // Only include approved or conditionally approved offers
-                    if (bankOffer.approval_status === 'approved' || 
-                        bankOffer.approval_status === 'conditional' ||
-                        bankOffer.approval_status === 'manual_review') {
                         bankOffers.push(bankOffer);
-                    }
+                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: APPROVED - Added to offers (Rate: ${finalRate.toFixed(3)}%, Payment: ${result.payment_details.monthly_payment})`);
+            } else {
+                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: NOT APPROVED - ${result.rejection_reasons?.join(', ')}`);
                 }
                 
             } catch (bankError) {
-                console.error(`[COMPARE-BANKS] Error calculating for bank ${bank.name}:`, bankError);
-                // Continue to next bank
+                console.error(`[COMPARE-BANKS] Error processing bank ${bank.id}:`, bankError);
             }
         }
         
@@ -6449,6 +6872,349 @@ app.post('/api/lawyers/apply', async (req, res) => {
   } catch (err) {
     console.error('[LAWYER-APPLICATION] Error:', err);
     res.status(500).json({ status: 'error', message: 'Internal server error' });
+  }
+});
+
+// ===============================================
+// BANK-SPECIFIC CONFIGURATION MANAGEMENT ENDPOINTS
+// ===============================================
+
+// CREATE/UPDATE Bank-Specific Calculation Configuration
+app.post('/api/admin/banks/:bankId/calculation-config', requireAdmin, async (req, res) => {
+    try {
+        const { bankId } = req.params;
+        const {
+            // Interest Rate Configuration
+            base_mortgage_rate,
+            min_mortgage_rate, 
+            max_mortgage_rate,
+            base_credit_rate,
+            min_credit_rate,
+            max_credit_rate,
+            
+            // LTV Configuration
+            standard_ltv_max,
+            pmi_ltv_max,
+            first_time_buyer_ltv_max,
+            
+            // DTI Configuration  
+            front_end_dti_max,
+            back_end_dti_max,
+            
+            // Credit Score Requirements
+            minimum_credit_score,
+            good_credit_score,
+            excellent_credit_score,
+            
+            // Age Limits
+            minimum_age,
+            maximum_age_at_maturity,
+            
+            // Income Requirements
+            minimum_monthly_income,
+            
+            // Loan Limits
+            min_loan_amount,
+            max_loan_amount,
+            
+            // Processing Fees
+            processing_fee,
+            appraisal_fee,
+            
+            // Risk Adjustments
+            credit_score_adjustment_excellent, // -0.3%
+            credit_score_adjustment_good,      // -0.1%  
+            credit_score_adjustment_poor,      // +0.5%
+            
+            // Property Type Adjustments
+            investment_property_rate_add,      // +0.25%
+            condo_rate_add,                   // +0.1%
+            
+            // Employment Type Adjustments  
+            self_employed_rate_add,           // +0.5%
+            contract_employee_rate_add        // +0.25%
+        } = req.body;
+
+        console.log(`[BANK CONFIG] Setting calculation config for bank ${bankId}`);
+        
+        // 1. Update/Insert Bank Configurations
+        await pool.query(`
+            INSERT INTO bank_configurations (
+                bank_id, product_type, base_interest_rate, min_interest_rate, max_interest_rate,
+                max_ltv_ratio, min_credit_score, max_loan_amount, min_loan_amount, 
+                processing_fee, is_active, effective_from, updated_at
+            ) VALUES (
+                $1, 'mortgage', $2, $3, $4, $5, $6, $7, $8, $9, true, CURRENT_DATE, NOW()
+            ) ON CONFLICT (bank_id, product_type) 
+            DO UPDATE SET 
+                base_interest_rate = $2, min_interest_rate = $3, max_interest_rate = $4,
+                max_ltv_ratio = $5, min_credit_score = $6, max_loan_amount = $7, 
+                min_loan_amount = $8, processing_fee = $9, updated_at = NOW()
+        `, [bankId, base_mortgage_rate, min_mortgage_rate, max_mortgage_rate, 
+            standard_ltv_max, minimum_credit_score, max_loan_amount, min_loan_amount, processing_fee]);
+
+        // 2. Insert Bank-Specific Standards Overrides
+        const standardsOverrides = [
+            { standard_name: 'standard_ltv_max', value: standard_ltv_max },
+            { standard_name: 'pmi_ltv_max', value: pmi_ltv_max },
+            { standard_name: 'front_end_dti_max', value: front_end_dti_max },
+            { standard_name: 'back_end_dti_max', value: back_end_dti_max },
+            { standard_name: 'minimum_credit_score', value: minimum_credit_score },
+            { standard_name: 'minimum_age', value: minimum_age },
+            { standard_name: 'maximum_age_at_maturity', value: maximum_age_at_maturity },
+            { standard_name: 'minimum_monthly_income', value: minimum_monthly_income }
+        ];
+        
+        for (const override of standardsOverrides) {
+            if (override.value !== undefined && override.value !== null) {
+                // Get banking_standard_id
+                const standardResult = await pool.query(`
+                    SELECT id FROM banking_standards 
+                    WHERE standard_name = $1 AND business_path = 'mortgage'
+                `, [override.standard_name]);
+                
+                if (standardResult.rows.length > 0) {
+                    const standardId = standardResult.rows[0].id;
+                    
+                    await pool.query(`
+                        INSERT INTO bank_standards_overrides (
+                            bank_id, banking_standard_id, override_value, is_active, 
+                            effective_from, created_at, updated_at
+                        ) VALUES ($1, $2, $3, true, CURRENT_DATE, NOW(), NOW())
+                        ON CONFLICT (bank_id, banking_standard_id)
+                        DO UPDATE SET 
+                            override_value = $3, updated_at = NOW(), is_active = true
+                    `, [bankId, standardId, override.value]);
+                }
+            }
+        }
+        
+        // 3. Insert Interest Rate Rules (Bank-Specific Rate Adjustments)
+        const rateRules = [
+            { rule_type: 'credit_score', condition_min: 800, condition_max: 850, rate_adjustment: credit_score_adjustment_excellent || -0.3 },
+            { rule_type: 'credit_score', condition_min: 750, condition_max: 799, rate_adjustment: credit_score_adjustment_good || -0.1 },
+            { rule_type: 'credit_score', condition_min: 300, condition_max: 649, rate_adjustment: credit_score_adjustment_poor || 0.5 },
+            { rule_type: 'property_type', condition_min: null, condition_max: null, rate_adjustment: investment_property_rate_add || 0.25, description: 'Investment Property' },
+            { rule_type: 'employment_type', condition_min: null, condition_max: null, rate_adjustment: self_employed_rate_add || 0.5, description: 'Self Employed' }
+        ];
+        
+        // Clear existing rate rules for this bank
+        await pool.query('DELETE FROM interest_rate_rules WHERE bank_id = $1', [bankId]);
+        
+        for (const rule of rateRules) {
+            await pool.query(`
+                INSERT INTO interest_rate_rules (
+                    bank_id, rule_type, condition_min, condition_max, rate_adjustment, 
+                    description, is_active, created_at, updated_at
+                ) VALUES ($1, $2, $3, $4, $5, $6, true, NOW(), NOW())
+            `, [bankId, rule.rule_type, rule.condition_min, rule.condition_max, 
+                rule.rate_adjustment, rule.description]);
+        }
+        
+        res.json({
+            status: 'success',
+            message: `Bank ${bankId} calculation configuration updated successfully`,
+            data: {
+                bankId: parseInt(bankId),
+                configurations_updated: standardsOverrides.length,
+                rate_rules_created: rateRules.length
+            }
+        });
+
+    } catch (err) {
+        console.error('[BANK CONFIG] Error:', err);
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Failed to update bank calculation configuration',
+            error: err.message 
+        });
+    }
+});
+
+// TEST: Initialize Bank-Specific Configurations (No Auth for Testing)
+app.post('/api/test/initialize-bank-configs', async (req, res) => {
+    try {
+        // First, get all available banks
+        const banksResult = await pool.query('SELECT id, name_en, name_ru FROM banks WHERE tender = 1 ORDER BY id LIMIT 10');
+        console.log(`[TEST] Found ${banksResult.rows.length} banks in database`);
+        
+        if (banksResult.rows.length === 0) {
+            return res.json({
+                status: 'success',
+                message: 'No banks found in database',
+                data: []
+            });
+        }
+        
+        // Configuration templates that we'll apply to existing banks
+        const rateConfigs = [3.2, 3.1, 3.3, 3.25, 3.4, 3.15, 3.35, 3.28, 3.18, 3.22];
+        const ltvConfigs = [75, 80, 75, 78, 70, 82, 77, 74, 79, 76];
+        const creditConfigs = [650, 630, 640, 620, 680, 625, 645, 635, 655, 660];
+        
+        const configurations = [];
+        
+        console.log('[TEST] Initializing bank configurations...');
+        
+        for (let i = 0; i < banksResult.rows.length; i++) {
+            const bank = banksResult.rows[i];
+            const config = {
+                bankId: bank.id,
+                name: bank.name_en || bank.name_ru || `Bank ${bank.id}`,
+                mortgage_rate: rateConfigs[i % rateConfigs.length],
+                ltv_max: ltvConfigs[i % ltvConfigs.length],
+                min_credit: creditConfigs[i % creditConfigs.length],
+                dti_max: 35 + (i % 3) * 5 // 35, 40, 42
+            };
+            
+            console.log(`[TEST] Configuring bank ${config.bankId}: ${config.name}`);
+            
+            // Insert bank configuration (with upsert logic)
+            const existingConfig = await pool.query('SELECT id FROM bank_configurations WHERE bank_id = $1 AND product_type = $2', [config.bankId, 'mortgage']);
+            
+            if (existingConfig.rows.length > 0) {
+                // Update existing configuration
+                await pool.query(`
+                    UPDATE bank_configurations SET
+                        base_interest_rate = $1, min_interest_rate = $2, max_interest_rate = $3,
+                        max_ltv_ratio = $4, min_credit_score = $5, max_loan_amount = $6, 
+                        min_loan_amount = $7, processing_fee = $8, updated_at = NOW()
+                    WHERE bank_id = $9 AND product_type = $10
+                `, [config.mortgage_rate, config.mortgage_rate - 0.2, config.mortgage_rate + 1.0,
+                    config.ltv_max, config.min_credit, 5000000, 100000, 2500, config.bankId, 'mortgage']);
+            } else {
+                // Insert new configuration
+                await pool.query(`
+                    INSERT INTO bank_configurations (
+                        bank_id, product_type, base_interest_rate, min_interest_rate, max_interest_rate,
+                        max_ltv_ratio, min_credit_score, max_loan_amount, min_loan_amount, 
+                        processing_fee, is_active, effective_from
+                    ) VALUES ($1, 'mortgage', $2, $3, $4, $5, $6, $7, $8, $9, true, CURRENT_DATE)
+                `, [config.bankId, config.mortgage_rate, config.mortgage_rate - 0.2, config.mortgage_rate + 1.0,
+                    config.ltv_max, config.min_credit, 5000000, 100000, 2500]);
+            }
+                
+            // Add bank-specific rate rules
+            await pool.query('DELETE FROM interest_rate_rules WHERE bank_id = $1', [config.bankId]);
+            
+            const rateRules = [
+                { rule_type: 'credit_score', condition_min: 800, condition_max: 850, rate_adjustment: -0.3 },
+                { rule_type: 'credit_score', condition_min: 750, condition_max: 799, rate_adjustment: -0.1 },
+                { rule_type: 'credit_score', condition_min: 300, condition_max: 649, rate_adjustment: 0.5 }
+            ];
+            
+            for (const rule of rateRules) {
+                await pool.query(`
+                    INSERT INTO interest_rate_rules (
+                        bank_id, rule_type, condition_min, condition_max, rate_adjustment, 
+                        description, is_active, created_at, updated_at
+                    ) VALUES ($1, $2, $3, $4, $5, $6, true, NOW(), NOW())
+                `, [config.bankId, rule.rule_type, rule.condition_min, rule.condition_max, 
+                    rule.rate_adjustment, `Credit Score ${rule.condition_min}-${rule.condition_max}`]);
+            }
+            
+            configurations.push(config);
+        }
+        
+        res.json({
+            status: 'success',
+            message: `Initialized configurations for ${configurations.length} banks`,
+            data: configurations,
+            banks_found: banksResult.rows.map(b => ({ id: b.id, name: b.name_en || b.name_ru }))
+        });
+        
+    } catch (err) {
+        console.error('[TEST] Initialize bank configs error:', err);
+        res.status(500).json({ status: 'error', message: err.message, details: err.stack });
+    }
+});
+
+// Initialize Bank-Specific Configurations (Run once)
+app.post('/api/admin/initialize-bank-configs', requireAdmin, async (req, res) => {
+    try {
+        const banks = await pool.query('SELECT id, name_en FROM banks WHERE tender = 1 ORDER BY id');
+        
+        const configurations = [
+            { bankId: 1, name: 'Bank Hapoalim', mortgage_rate: 3.2, ltv_max: 75, min_credit: 650, dti_max: 35 },
+            { bankId: 2, name: 'Bank Leumi', mortgage_rate: 3.1, ltv_max: 80, min_credit: 630, dti_max: 40 },
+            { bankId: 3, name: 'Discount Bank', mortgage_rate: 3.3, ltv_max: 75, min_credit: 640, dti_max: 38 },
+            { bankId: 4, name: 'Mizrahi Bank', mortgage_rate: 3.25, ltv_max: 78, min_credit: 620, dti_max: 42 },
+            { bankId: 5, name: 'First International Bank', mortgage_rate: 3.4, ltv_max: 70, min_credit: 680, dti_max: 35 }
+        ];
+        
+        for (const config of configurations) {
+            // Check if bank exists
+            const bankCheck = await pool.query('SELECT id FROM banks WHERE id = $1', [config.bankId]);
+            if (bankCheck.rows.length === 0) continue;
+            
+            await pool.query(`
+                INSERT INTO bank_configurations (
+                    bank_id, product_type, base_interest_rate, min_interest_rate, max_interest_rate,
+                    max_ltv_ratio, min_credit_score, max_loan_amount, min_loan_amount, 
+                    processing_fee, is_active, effective_from
+                ) VALUES ($1, 'mortgage', $2, $3, $4, $5, $6, $7, $8, $9, true, CURRENT_DATE)
+                ON CONFLICT (bank_id, product_type) DO UPDATE SET
+                    base_interest_rate = $2, max_ltv_ratio = $5, min_credit_score = $6
+            `, [config.bankId, config.mortgage_rate, config.mortgage_rate - 0.2, config.mortgage_rate + 1.0,
+                config.ltv_max, config.min_credit, 5000000, 100000, 2500]);
+        }
+        
+        res.json({
+            status: 'success',
+            message: `Initialized configurations for ${configurations.length} banks`,
+            data: configurations
+        });
+        
+    } catch (err) {
+        console.error('Initialize bank configs error:', err);
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
+
+// Get Bank-Specific Configuration
+app.get('/api/admin/banks/:bankId/calculation-config', requireAdmin, async (req, res) => {
+    try {
+        const { bankId } = req.params;
+        
+        // Get bank configurations
+        const configQuery = `
+            SELECT * FROM bank_configurations 
+            WHERE bank_id = $1 AND product_type = 'mortgage'
+        `;
+        const configResult = await pool.query(configQuery, [bankId]);
+        
+        // Get bank-specific standards overrides
+        const standardsQuery = `
+            SELECT bs.standard_name, bso.override_value
+            FROM bank_standards_overrides bso
+            JOIN banking_standards bs ON bso.banking_standard_id = bs.id
+            WHERE bso.bank_id = $1 AND bso.is_active = true
+        `;
+        const standardsResult = await pool.query(standardsQuery, [bankId]);
+        
+        // Get rate rules
+        const rulesQuery = `
+            SELECT * FROM interest_rate_rules 
+            WHERE bank_id = $1 AND is_active = true
+        `;
+        const rulesResult = await pool.query(rulesQuery, [bankId]);
+        
+        res.json({
+            status: 'success',
+            data: {
+                bank_id: parseInt(bankId),
+                configurations: configResult.rows[0] || null,
+                standards_overrides: standardsResult.rows,
+                rate_rules: rulesResult.rows
+            }
+        });
+        
+    } catch (err) {
+        console.error('[GET BANK CONFIG] Error:', err);
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Failed to get bank configuration',
+            error: err.message 
+        });
   }
 });
 

@@ -34,6 +34,7 @@ export const validationSchema = Yup.object().shape({
     .required(i18next.t('error_initial_payment_required')),
   typeSelect: Yup.string().required(i18next.t('error_mortgage_type_required')),
   willBeYourFirst: Yup.string().required(i18next.t('error_first_home_required')),
+  propertyOwnership: Yup.string().required(i18next.t('error_property_ownership_required')),
   period: Yup.number()
     .min(4, i18next.t('error_min_period'))
     .max(30, i18next.t('error_max_period'))
@@ -73,6 +74,7 @@ const FirstStep = () => {
     initialFee: savedValue.initialFee || 500000,
     typeSelect: savedValue.typeSelect || '',
     willBeYourFirst: savedValue.willBeYourFirst || '',
+    propertyOwnership: savedValue.propertyOwnership || '', // Property ownership affecting LTV (Confluence Action #12)
     period: savedValue.period || 4,
     monthlyPayment: savedValue.monthlyPayment || 11514,
   }

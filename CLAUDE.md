@@ -221,11 +221,113 @@ The application is deployed on Railway using Docker:
 5. **Component Structure**: Feature-based organization with shared UI components
 6. **Error Handling**: Error boundaries and toast notifications
 
+### Critical Backend Architecture
+
+#### Server Structure
+- **Main Server**: `server-db.js` - Unified Express server handling all API endpoints
+- **Database**: Direct PostgreSQL integration using `pg` library (no ORM)
+- **Port Configuration**: Default 8003, configurable via PORT env var
+- **Authentication**: Dual-mode (SMS for customers, email for staff)
+
+#### Key API Endpoints
+- **Customer APIs**: `/api/customer/compare-banks`, `/api/customer/mortgage-programs`
+- **Authentication**: `/api/sms-login`, `/api/sms-code-login`, `/api/login`
+- **Admin**: `/api/admin/*` - Full admin panel functionality
+- **Bank Worker**: `/api/bank-worker/*` - Registration and management system
+
+#### Database Schema Patterns
+- **Users vs Clients**: Separate tables for staff (`users`) vs customers (`clients`)
+- **Banking Standards**: Dynamic bank configuration in `banking_standards` table
+- **Calculation Tables**: `loan_calculations`, `client_credit_history`, `client_debts`
+- **Localization**: `locales` table for multi-language content
+
+### Frontend Architecture Deep Dive
+
+#### State Management Structure
+Redux Toolkit with extensive persistence using redux-persist:
+- **Service-Specific Slices**: `calculateMortgageSlice`, `calculateCreditSlice`, `refinanceMortgageSlice`
+- **User Data Slices**: `borrowersSlice`, `borrowersPersonalDataSlice`, `otherBorrowersSlice`
+- **UI State**: `modalSlice`, `activeField`, `languageSlice`
+- **Authentication**: Separate `authSlice` and `loginSlice` for different auth flows
+
+#### Multi-Step Form Architecture
+Complex step-based forms with inter-dependent data flow:
+1. **Step 1**: Calculation parameters (property value, loan details)
+2. **Step 2**: Personal information (name, birthday, citizenship)
+3. **Step 3**: Income and employment data
+4. **Step 4**: Bank offers and program selection
+
+Each step persists data to Redux and validates before progression.
+
+#### Critical Data Flow Issues
+The mortgage calculator has a complex data transformation in `bankOffersApi.ts`:
+- `transformUserDataToRequest()` function maps Redux state to API format
+- Potential data loss between steps due to state structure mismatches
+- Bank offers API requires specific field mapping for property ownership logic
+
+#### Form Validation Patterns
+- **Formik + Yup**: All multi-step forms use Formik with step-specific Yup schemas
+- **Dynamic Validation**: Property ownership affects down payment validation rules
+- **Cross-Field Dependencies**: Initial payment validation depends on property ownership selection
+
+### Special Implementation Notes
+
+#### Property Ownership Logic (Confluence Specification)
+Critical business rule implementation:
+- "No property": 75% financing (25% min down payment)
+- "Has property": 50% financing (50% min down payment)  
+- "Selling property": 70% financing (30% min down payment)
+
+This logic affects slider ranges, validation rules, and API calculations.
+
+#### Calculation Engine
+- **Frontend**: JavaScript calculation functions in `utils/helpers/`
+- **Backend**: PostgreSQL stored functions for bank-specific calculations
+- **Synchronization**: Both systems must use identical 5% default interest rate
+
+#### Language & RTL Support
+- **i18next Integration**: Dynamic language switching with persistence
+- **RTL Support**: Hebrew language with right-to-left layout handling
+- **Font Loading**: Dynamic Hebrew font loading for proper RTL display
+
+### Development Debugging
+
+#### Server Startup Issues
+If APIs fail with connection refused:
+```bash
+# Check if backend server is running
+ps aux | grep "node.*server-db.js"
+
+# Start backend server in background
+nohup node server-db.js > server.log 2>&1 &
+
+# Check server logs
+tail -f server.log
+```
+
+#### Common Data Flow Issues
+- **Redux State**: Check browser dev tools Redux DevTools for state structure
+- **API Payload**: Console logs show request/response in `bankOffersApi.ts`
+- **Missing Data**: Look for `undefined` values in server logs at `[COMPARE-BANKS] Request received`
+
+#### Translation Synchronization
+```bash
+# Sync translation files between frontend and backend
+npm run sync-translations
+# OR from frontend directory
+cd mainapp && npm run sync-translations
+```
+
 ### Environment Variables
 
-Key environment variables:
+Backend environment variables:
 - `DATABASE_URL` - PostgreSQL connection string
 - `JWT_SECRET` - JWT token signing secret
 - `PORT` - Server port (default: 8003)
 - `CORS_ALLOWED_ORIGINS` - Allowed CORS origins
 - `NODE_ENV` - Environment (development/production)
+
+Frontend environment variables:
+- `VITE_NODE_API_BASE_URL` - API base URL override
+- `VITE_APP_NAME` - Application name
+- `VITE_APP_ENV` - Environment designation
