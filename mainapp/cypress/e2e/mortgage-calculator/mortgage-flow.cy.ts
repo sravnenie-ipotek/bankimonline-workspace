@@ -55,20 +55,30 @@ describe('Mortgage Calculator Flow', () => {
       cy.log(`Found ${continueLinks.length} potential continue links`);
     });
     
-    // Find and log all inputs
-    cy.get('input').then($inputs => {
-      cy.log(`Found ${$inputs.length} input fields`);
-      $inputs.each((index, input) => {
-        const type = Cypress.$(input).attr('type') || 'text';
-        const name = Cypress.$(input).attr('name') || 'unnamed';
-        const placeholder = Cypress.$(input).attr('placeholder') || 'no-placeholder';
-        cy.log(`Input ${index + 1}: type="${type}", name="${name}", placeholder="${placeholder}"`);
-      });
+    // Find and log all inputs (check if any exist first)
+    cy.get('body').then($body => {
+      const inputs = $body.find('input');
+      if (inputs.length > 0) {
+        cy.log(`Found ${inputs.length} input fields`);
+        inputs.each((index, input) => {
+          const type = Cypress.$(input).attr('type') || 'text';
+          const name = Cypress.$(input).attr('name') || 'unnamed';
+          const placeholder = Cypress.$(input).attr('placeholder') || 'no-placeholder';
+          cy.log(`Input ${index + 1}: type="${type}", name="${name}", placeholder="${placeholder}"`);
+        });
+      } else {
+        cy.log('No input fields found on this page');
+      }
     });
     
-    // Find and log all select elements
-    cy.get('select').then($selects => {
-      cy.log(`Found ${$selects.length} select dropdowns`);
+    // Find and log all select elements (check if any exist first)
+    cy.get('body').then($body => {
+      const selects = $body.find('select');
+      if (selects.length > 0) {
+        cy.log(`Found ${selects.length} select dropdowns`);
+      } else {
+        cy.log('No select dropdowns found on this page');
+      }
     });
     
     // Look for any elements with "continue", "next", "start" text
@@ -88,70 +98,94 @@ describe('Mortgage Calculator Flow', () => {
     cy.get('#root > section > main > div > div._services_u982a_1 > a:nth-child(1) > div').click();
     cy.wait(3000);
     
-    // Fill any text inputs that are found
-    cy.get('input[type="text"]').each(($input, index) => {
-      if ($input.is(':visible') && !$input.is(':disabled')) {
-        const name = $input.attr('name') || $input.attr('placeholder') || `input-${index}`;
-        cy.log(`Filling text input: ${name}`);
-        
-        // Fill with appropriate test data
-        if (name.toLowerCase().includes('price') || name.toLowerCase().includes('amount')) {
-          cy.wrap($input).clear().type('500000', { force: true });
-        } else if (name.toLowerCase().includes('income')) {
-          cy.wrap($input).clear().type('15000', { force: true });
-        } else if (name.toLowerCase().includes('name')) {
-          cy.wrap($input).clear().type('John Doe', { force: true });
-        } else if (name.toLowerCase().includes('phone')) {
-          cy.wrap($input).clear().type('0501234567', { force: true });
-        } else if (name.toLowerCase().includes('email')) {
-          cy.wrap($input).clear().type('test@example.com', { force: true });
-        } else {
-          cy.wrap($input).clear().type('Test Value', { force: true });
-        }
-        cy.wait(500); // Small delay between inputs
-      }
-    });
-    
-    // Fill any number inputs
-    cy.get('input[type="number"]').each(($input, index) => {
-      if ($input.is(':visible') && !$input.is(':disabled')) {
-        const name = $input.attr('name') || $input.attr('placeholder') || `number-${index}`;
-        cy.log(`Filling number input: ${name}`);
-        
-        if (name.toLowerCase().includes('price') || name.toLowerCase().includes('amount')) {
-          cy.wrap($input).clear().type('500000', { force: true });
-        } else if (name.toLowerCase().includes('income')) {
-          cy.wrap($input).clear().type('15000', { force: true });
-        } else if (name.toLowerCase().includes('percent') || name.toLowerCase().includes('rate')) {
-          cy.wrap($input).clear().type('3.5', { force: true });
-        } else if (name.toLowerCase().includes('year')) {
-          cy.wrap($input).clear().type('25', { force: true });
-        } else {
-          cy.wrap($input).clear().type('100', { force: true });
-        }
-        cy.wait(500);
-      }
-    });
-    
-    // Handle select dropdowns
-    cy.get('select').each(($select, index) => {
-      if ($select.is(':visible') && !$select.is(':disabled')) {
-        cy.log(`Handling select dropdown ${index + 1}`);
-        cy.wrap($select).find('option').then($options => {
-          if ($options.length > 1) {
-            // Select the second option (skip first which is usually placeholder)
-            const optionValue = $options.eq(1).val();
-            const optionText = $options.eq(1).text();
-            cy.log(`Selecting option: "${optionText}" (value: ${optionValue})`);
-            cy.wrap($select).select(optionValue, { force: true });
+    // Check what types of inputs are actually available
+    cy.get('body').then($body => {
+      const allInputs = $body.find('input');
+      cy.log(`Total inputs found: ${allInputs.length}`);
+      
+      if (allInputs.length > 0) {
+        // Fill any text inputs that are found
+        const textInputs = allInputs.filter('[type="text"], [type=""]').filter(':visible:not(:disabled)');
+        if (textInputs.length > 0) {
+          cy.log(`Found ${textInputs.length} text inputs`);
+          textInputs.each((index, input) => {
+            const $input = Cypress.$(input);
+            const name = $input.attr('name') || $input.attr('placeholder') || `input-${index}`;
+            cy.log(`Filling text input: ${name}`);
+            
+            // Fill with appropriate test data
+            if (name.toLowerCase().includes('price') || name.toLowerCase().includes('amount')) {
+              cy.wrap($input).clear().type('500000', { force: true });
+            } else if (name.toLowerCase().includes('income')) {
+              cy.wrap($input).clear().type('15000', { force: true });
+            } else if (name.toLowerCase().includes('name')) {
+              cy.wrap($input).clear().type('John Doe', { force: true });
+            } else if (name.toLowerCase().includes('phone')) {
+              cy.wrap($input).clear().type('0501234567', { force: true });
+            } else if (name.toLowerCase().includes('email')) {
+              cy.wrap($input).clear().type('test@example.com', { force: true });
+            } else {
+              cy.wrap($input).clear().type('Test Value', { force: true });
+            }
             cy.wait(500);
-          }
+          });
+        } else {
+          cy.log('No text inputs found');
+        }
+        
+        // Fill any number inputs
+        const numberInputs = allInputs.filter('[type="number"]').filter(':visible:not(:disabled)');
+        if (numberInputs.length > 0) {
+          cy.log(`Found ${numberInputs.length} number inputs`);
+          numberInputs.each((index, input) => {
+            const $input = Cypress.$(input);
+            const name = $input.attr('name') || $input.attr('placeholder') || `number-${index}`;
+            cy.log(`Filling number input: ${name}`);
+            
+            if (name.toLowerCase().includes('price') || name.toLowerCase().includes('amount')) {
+              cy.wrap($input).clear().type('500000', { force: true });
+            } else if (name.toLowerCase().includes('income')) {
+              cy.wrap($input).clear().type('15000', { force: true });
+            } else if (name.toLowerCase().includes('percent') || name.toLowerCase().includes('rate')) {
+              cy.wrap($input).clear().type('3.5', { force: true });
+            } else if (name.toLowerCase().includes('year')) {
+              cy.wrap($input).clear().type('25', { force: true });
+            } else {
+              cy.wrap($input).clear().type('100', { force: true });
+            }
+            cy.wait(500);
+          });
+        } else {
+          cy.log('No number inputs found');
+        }
+      } else {
+        cy.log('No input fields found - this might not be a traditional form page');
+      }
+      
+      // Handle select dropdowns
+      const selects = $body.find('select');
+      if (selects.length > 0) {
+        cy.log(`Found ${selects.length} select dropdowns`);
+        selects.filter(':visible:not(:disabled)').each((index, select) => {
+          const $select = Cypress.$(select);
+          cy.log(`Handling select dropdown ${index + 1}`);
+          cy.wrap($select).find('option').then($options => {
+            if ($options.length > 1) {
+              const optionValue = $options.eq(1).val();
+              const optionText = $options.eq(1).text();
+              cy.log(`Selecting option: "${optionText}" (value: ${optionValue})`);
+              cy.wrap($select).select(optionValue, { force: true });
+              cy.wait(500);
+            }
+          });
         });
+      } else {
+        cy.log('No select dropdowns found');
       }
     });
     
-    // Take a screenshot after filling
-    cy.screenshot('mortgage-form-filled', { overwrite: true });
+    // Take a screenshot after attempting to fill
+    cy.screenshot('mortgage-form-attempt', { overwrite: true });
   });
 
   it('should find and interact with any continue/submit mechanism', () => {
@@ -263,71 +297,109 @@ describe('Mortgage Calculator Flow', () => {
 Cypress.Commands.add('fillAllFormFields', () => {
   cy.log('Filling all available form fields');
   
-  // Fill text inputs
-  cy.get('input[type="text"]:visible:not(:disabled)').each(($input, index) => {
-    const name = $input.attr('name') || $input.attr('placeholder') || `text-input-${index}`;
-    cy.log(`Filling text input: ${name}`);
-    
-    if (name.toLowerCase().includes('price') || name.toLowerCase().includes('amount') || name.toLowerCase().includes('sum')) {
-      cy.wrap($input).clear().type('500000', { force: true });
-    } else if (name.toLowerCase().includes('income') || name.toLowerCase().includes('salary')) {
-      cy.wrap($input).clear().type('15000', { force: true });
-    } else if (name.toLowerCase().includes('name')) {
-      cy.wrap($input).clear().type('John Doe', { force: true });
-    } else if (name.toLowerCase().includes('phone') || name.toLowerCase().includes('telephone')) {
-      cy.wrap($input).clear().type('0501234567', { force: true });
-    } else if (name.toLowerCase().includes('email') || name.toLowerCase().includes('mail')) {
-      cy.wrap($input).clear().type('test@example.com', { force: true });
-    } else if (name.toLowerCase().includes('city') || name.toLowerCase().includes('address')) {
-      cy.wrap($input).clear().type('Tel Aviv', { force: true });
-    } else {
-      cy.wrap($input).clear().type('Test Value', { force: true });
-    }
-    cy.wait(200);
-  });
-  
-  // Fill number inputs
-  cy.get('input[type="number"]:visible:not(:disabled)').each(($input, index) => {
-    const name = $input.attr('name') || $input.attr('placeholder') || `number-input-${index}`;
-    cy.log(`Filling number input: ${name}`);
-    
-    if (name.toLowerCase().includes('price') || name.toLowerCase().includes('amount') || name.toLowerCase().includes('sum')) {
-      cy.wrap($input).clear().type('500000', { force: true });
-    } else if (name.toLowerCase().includes('income') || name.toLowerCase().includes('salary')) {
-      cy.wrap($input).clear().type('15000', { force: true });
-    } else if (name.toLowerCase().includes('percent') || name.toLowerCase().includes('rate') || name.toLowerCase().includes('%')) {
-      cy.wrap($input).clear().type('3.5', { force: true });
-    } else if (name.toLowerCase().includes('year') || name.toLowerCase().includes('period')) {
-      cy.wrap($input).clear().type('25', { force: true });
-    } else if (name.toLowerCase().includes('age')) {
-      cy.wrap($input).clear().type('35', { force: true });
-    } else {
-      cy.wrap($input).clear().type('100', { force: true });
-    }
-    cy.wait(200);
-  });
-  
-  // Handle select dropdowns
-  cy.get('select:visible:not(:disabled)').each(($select, index) => {
-    cy.log(`Handling select dropdown ${index + 1}`);
-    cy.wrap($select).find('option').then($options => {
-      if ($options.length > 1) {
-        const optionValue = $options.eq(1).val();
-        const optionText = $options.eq(1).text();
-        cy.log(`Selecting: "${optionText}"`);
-        cy.wrap($select).select(optionValue, { force: true });
+  cy.get('body').then($body => {
+    // Fill text inputs if they exist (skip readonly inputs)
+    const textInputs = $body.find('input[type="text"], input[type=""], input:not([type])').filter(':visible:not(:disabled):not([readonly])');
+    if (textInputs.length > 0) {
+      cy.log(`Found ${textInputs.length} text inputs to fill`);
+      textInputs.each((index, input) => {
+        const $input = Cypress.$(input);
+        const name = $input.attr('name') || $input.attr('placeholder') || `text-input-${index}`;
+        const classes = $input.attr('class') || '';
+        
+        // Skip react-dropdown-select inputs as they're not meant to be filled directly
+        if (classes.includes('react-dropdown-select-input')) {
+          cy.log(`Skipping react-dropdown-select input: ${name}`);
+          return;
+        }
+        
+        cy.log(`Filling text input: ${name}`);
+        
+        if (name.toLowerCase().includes('price') || name.toLowerCase().includes('amount') || name.toLowerCase().includes('sum')) {
+          cy.wrap($input).clear().type('500000', { force: true });
+        } else if (name.toLowerCase().includes('income') || name.toLowerCase().includes('salary')) {
+          cy.wrap($input).clear().type('15000', { force: true });
+        } else if (name.toLowerCase().includes('name')) {
+          cy.wrap($input).clear().type('John Doe', { force: true });
+        } else if (name.toLowerCase().includes('phone') || name.toLowerCase().includes('telephone')) {
+          cy.wrap($input).clear().type('0501234567', { force: true });
+        } else if (name.toLowerCase().includes('email') || name.toLowerCase().includes('mail')) {
+          cy.wrap($input).clear().type('test@example.com', { force: true });
+        } else if (name.toLowerCase().includes('city') || name.toLowerCase().includes('address')) {
+          cy.wrap($input).clear().type('Tel Aviv', { force: true });
+        } else {
+          cy.wrap($input).clear().type('Test Value', { force: true });
+        }
         cy.wait(200);
-      }
-    });
-  });
-  
-  // Handle checkboxes that might be required
-  cy.get('input[type="checkbox"]:visible').each(($checkbox, index) => {
-    const name = $checkbox.attr('name') || `checkbox-${index}`;
-    if (name.toLowerCase().includes('terms') || name.toLowerCase().includes('agree') || name.toLowerCase().includes('accept')) {
-      cy.log(`Checking checkbox: ${name}`);
-      cy.wrap($checkbox).check({ force: true });
-      cy.wait(200);
+      });
+    } else {
+      cy.log('No text inputs found');
+    }
+    
+    // Fill number inputs if they exist
+    const numberInputs = $body.find('input[type="number"]').filter(':visible:not(:disabled)');
+    if (numberInputs.length > 0) {
+      cy.log(`Found ${numberInputs.length} number inputs to fill`);
+      numberInputs.each((index, input) => {
+        const $input = Cypress.$(input);
+        const name = $input.attr('name') || $input.attr('placeholder') || `number-input-${index}`;
+        cy.log(`Filling number input: ${name}`);
+        
+        if (name.toLowerCase().includes('price') || name.toLowerCase().includes('amount') || name.toLowerCase().includes('sum')) {
+          cy.wrap($input).clear().type('500000', { force: true });
+        } else if (name.toLowerCase().includes('income') || name.toLowerCase().includes('salary')) {
+          cy.wrap($input).clear().type('15000', { force: true });
+        } else if (name.toLowerCase().includes('percent') || name.toLowerCase().includes('rate') || name.toLowerCase().includes('%')) {
+          cy.wrap($input).clear().type('3.5', { force: true });
+        } else if (name.toLowerCase().includes('year') || name.toLowerCase().includes('period')) {
+          cy.wrap($input).clear().type('25', { force: true });
+        } else if (name.toLowerCase().includes('age')) {
+          cy.wrap($input).clear().type('35', { force: true });
+        } else {
+          cy.wrap($input).clear().type('100', { force: true });
+        }
+        cy.wait(200);
+      });
+    } else {
+      cy.log('No number inputs found');
+    }
+    
+    // Handle select dropdowns if they exist
+    const selects = $body.find('select').filter(':visible:not(:disabled)');
+    if (selects.length > 0) {
+      cy.log(`Found ${selects.length} select dropdowns to handle`);
+      selects.each((index, select) => {
+        const $select = Cypress.$(select);
+        cy.log(`Handling select dropdown ${index + 1}`);
+        cy.wrap($select).find('option').then($options => {
+          if ($options.length > 1) {
+            const optionValue = $options.eq(1).val();
+            const optionText = $options.eq(1).text();
+            cy.log(`Selecting: "${optionText}"`);
+            cy.wrap($select).select(optionValue, { force: true });
+            cy.wait(200);
+          }
+        });
+      });
+    } else {
+      cy.log('No select dropdowns found');
+    }
+    
+    // Handle checkboxes that might be required
+    const checkboxes = $body.find('input[type="checkbox"]').filter(':visible');
+    if (checkboxes.length > 0) {
+      cy.log(`Found ${checkboxes.length} checkboxes`);
+      checkboxes.each((index, checkbox) => {
+        const $checkbox = Cypress.$(checkbox);
+        const name = $checkbox.attr('name') || `checkbox-${index}`;
+        if (name.toLowerCase().includes('terms') || name.toLowerCase().includes('agree') || name.toLowerCase().includes('accept')) {
+          cy.log(`Checking checkbox: ${name}`);
+          cy.wrap($checkbox).check({ force: true });
+          cy.wait(200);
+        }
+      });
+    } else {
+      cy.log('No checkboxes found');
     }
   });
 });

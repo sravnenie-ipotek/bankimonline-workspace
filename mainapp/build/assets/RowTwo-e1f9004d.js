@@ -1,0 +1,1 @@
+import{c as o,j as e}from"./index-9626c5fb.js";const a="_row_o77wy_1",n={row:a},r=o.bind(n),c=({children:s})=>e.jsxDEV("div",{className:r("row"),children:s},void 0,!1,{fileName:"/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/src/components/ui/RowTwo/RowTwo.tsx",lineNumber:7,columnNumber:10},globalThis);export{c as R};
