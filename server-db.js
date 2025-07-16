@@ -13,19 +13,57 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 8003;
 
-// Database connection
+// Main database connection
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway'
 });
 
-// Test database connection
+// Content database connection (SECOND database for content)
+const contentPool = new Pool({
+    connectionString: process.env.CONTENT_DATABASE_URL || process.env.DATABASE_PUBLIC_URL || process.env.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway'
+});
+
+// Test main database connection
 pool.query('SELECT NOW()', (err, res) => {
     if (err) {
-        console.error('❌ Database connection failed:', err.message);
+        console.error('❌ Main Database connection failed:', err.message);
     } else {
-        console.log('✅ Database connected:', res.rows[0].now);
+        console.log('✅ Main Database connected:', res.rows[0].now);
     }
 });
+
+// Test content database connection
+contentPool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        console.error('❌ Content Database connection failed:', err.message);
+    } else {
+        console.log('✅ Content Database connected:', res.rows[0].now);
+        
+        // Delete test-content table if it exists
+        contentPool.query('DROP TABLE IF EXISTS "test-content" CASCADE', (dropErr, dropRes) => {
+            if (dropErr) {
+                console.error('❌ Failed to delete test-content table:', dropErr.message);
+            } else {
+                console.log('✅ test-content table deleted successfully (if it existed)');
+            }
+        });
+    }
+});
+
+// Helper function for content database queries
+async function queryContentDB(query, params = []) {
+    try {
+        const result = await contentPool.query(query, params);
+        return result;
+    } catch (error) {
+        console.error('❌ Content DB Query Error:', error.message);
+        throw error;
+    }
+}
+
+// Export contentPool for direct access when needed
+global.contentPool = contentPool;
+global.queryContentDB = queryContentDB;
 
 // Get CORS origins - Railway deployment should allow all origins
 const getCorsOrigins = () => {
@@ -149,6 +187,147 @@ app.get('/api/health', (req, res) => {
         environment: process.env.NODE_ENV || 'development',
         corsEnabled: true
     });
+});
+
+// Content database health check
+app.get('/api/content-db/health', async (req, res) => {
+    try {
+        const result = await contentPool.query('SELECT NOW() as current_time, version() as db_version');
+        res.json({
+            status: 'ok',
+            message: 'Content database connected successfully',
+            database: 'content_db_connected',
+            timestamp: result.rows[0].current_time,
+            version: result.rows[0].db_version.split(' ')[0] + ' ' + result.rows[0].db_version.split(' ')[1],
+            environment: process.env.NODE_ENV || 'development'
+        });
+    } catch (error) {
+        console.error('❌ Content DB health check failed:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Content database connection failed',
+            error: error.message,
+            timestamp: new Date().toISOString()
+        });
+    }
+});
+
+// Content database test endpoint
+app.get('/api/content-db/test', async (req, res) => {
+    try {
+        // Create a test table for content
+        await contentPool.query(`
+            CREATE TABLE IF NOT EXISTS content_test (
+                id SERIAL PRIMARY KEY,
+                title VARCHAR(255) NOT NULL,
+                content TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+
+        // Insert test data
+        const insertResult = await contentPool.query(`
+            INSERT INTO content_test (title, content) 
+            VALUES ($1, $2) 
+            RETURNING *
+        `, ['Test Content', 'This is a test content entry for the content database']);
+
+        // Retrieve all content
+        const selectResult = await contentPool.query('SELECT * FROM content_test ORDER BY created_at DESC LIMIT 5');
+
+        res.json({
+            status: 'success',
+            message: 'Content database test completed successfully',
+            inserted_record: insertResult.rows[0],
+            recent_records: selectResult.rows,
+            total_records: selectResult.rowCount
+        });
+    } catch (error) {
+        console.error('❌ Content DB test failed:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Content database test failed',
+            error: error.message
+        });
+    }
+});
+
+// Content database cleanup endpoint
+app.delete('/api/content-db/cleanup', async (req, res) => {
+    try {
+        await contentPool.query('DROP TABLE IF EXISTS content_test CASCADE');
+        res.json({
+            status: 'success',
+            message: 'Content database test table cleaned up successfully'
+        });
+    } catch (error) {
+        console.error('❌ Content DB cleanup failed:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Content database cleanup failed',
+            error: error.message
+        });
+    }
+});
+
+// Delete specific test-content table from bankim_content database
+app.delete('/api/content-db/delete-test-content', async (req, res) => {
+    try {
+        // Delete test-content table (with quotes for exact name matching)
+        const result = await contentPool.query('DROP TABLE IF EXISTS "test-content" CASCADE');
+        
+        // Also check for variations without quotes
+        await contentPool.query('DROP TABLE IF EXISTS test_content CASCADE');
+        
+        // Verify table is deleted by checking if it exists
+        const tableCheck = await contentPool.query(`
+            SELECT table_name 
+            FROM information_schema.tables 
+            WHERE table_schema = 'public' 
+            AND (table_name = 'test-content' OR table_name = 'test_content')
+        `);
+        
+        res.json({
+            status: 'success',
+            message: 'test-content table deleted successfully from bankim_content database',
+            tables_found: tableCheck.rowCount,
+            deleted_tables: ['test-content', 'test_content'],
+            timestamp: new Date().toISOString()
+        });
+    } catch (error) {
+        console.error('❌ Failed to delete test-content table:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to delete test-content table',
+            error: error.message
+        });
+    }
+});
+
+// List all tables in content database
+app.get('/api/content-db/tables', async (req, res) => {
+    try {
+        const result = await contentPool.query(`
+            SELECT table_name, table_type 
+            FROM information_schema.tables 
+            WHERE table_schema = 'public' 
+            ORDER BY table_name
+        `);
+        
+        res.json({
+            status: 'success',
+            database: 'bankim_content',
+            total_tables: result.rowCount,
+            tables: result.rows
+        });
+    } catch (error) {
+        console.error('❌ Failed to list content database tables:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to list content database tables',
+            error: error.message
+        });
+    }
 });
 
 // API endpoint to get property ownership LTV ratios (fixes hardcoded values issue)
