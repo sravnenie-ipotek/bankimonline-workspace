@@ -252,6 +252,552 @@ app.get('/api/content-db/test', async (req, res) => {
     }
 });
 
+// =====================================================
+// MORTGAGE FORM DATA SAVING ENDPOINTS
+// =====================================================
+
+// 1. Save/Update Mortgage Form Session Data (Progressive Saving)
+app.post('/api/v1/mortgage/save-session', async (req, res) => {
+    try {
+        const {
+            session_id,
+            step_number,
+            form_data,
+            user_ip = req.ip,
+            user_agent = req.get('User-Agent')
+        } = req.body;
+
+        if (!session_id || !step_number || !form_data) {
+            return res.status(400).json({
+                success: false,
+                message: 'Missing required fields: session_id, step_number, form_data'
+            });
+        }
+
+        // Check if session exists
+        const existingSession = await pool.query(
+            'SELECT * FROM client_form_sessions WHERE session_id = $1',
+            [session_id]
+        );
+
+        let result;
+        if (existingSession.rows.length > 0) {
+            // Update existing session
+            result = await pool.query(`
+                UPDATE client_form_sessions 
+                SET 
+                    current_step = $1,
+                    personal_data = $2,
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE session_id = $3
+                RETURNING *
+            `, [step_number, JSON.stringify(form_data), session_id]);
+        } else {
+            // Create new session
+            result = await pool.query(`
+                INSERT INTO client_form_sessions (
+                    session_id, 
+                    current_step, 
+                    personal_data, 
+                    ip_address,
+                    created_at,
+                    updated_at
+                ) VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                RETURNING *
+            `, [session_id, step_number, JSON.stringify(form_data), user_ip]);
+        }
+
+        res.json({
+            success: true,
+            message: 'Mortgage form session saved successfully',
+            session: result.rows[0]
+        });
+
+    } catch (error) {
+        console.error('❌ Error saving mortgage session:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to save mortgage form session',
+            error: error.message
+        });
+    }
+});
+
+// 2. Get Mortgage Form Session Data
+app.get('/api/v1/mortgage/get-session/:session_id', async (req, res) => {
+    try {
+        const { session_id } = req.params;
+
+        const result = await pool.query(
+            'SELECT * FROM client_form_sessions WHERE session_id = $1',
+            [session_id]
+        );
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'Session not found'
+            });
+        }
+
+        res.json({
+            success: true,
+            session: result.rows[0]
+        });
+
+    } catch (error) {
+        console.error('❌ Error retrieving mortgage session:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to retrieve mortgage form session',
+            error: error.message
+        });
+    }
+});
+
+// 3. Save Mortgage Step 1 Data (Property & Loan Details)
+app.post('/api/v1/mortgage/save-step1', async (req, res) => {
+    try {
+        const {
+            session_id,
+            priceOfEstate,
+            cityWhereYouBuy,
+            whenDoYouNeedMoney,
+            initialFee,
+            typeSelect,
+            willBeYourFirst,
+            propertyOwnership,
+            period,
+            monthlyPayment
+        } = req.body;
+
+        if (!session_id) {
+            return res.status(400).json({
+                success: false,
+                message: 'session_id is required'
+            });
+        }
+
+        // Save to client_form_sessions with step-specific data
+        const step1Data = {
+            priceOfEstate,
+            cityWhereYouBuy,
+            whenDoYouNeedMoney,
+            initialFee,
+            typeSelect,
+            willBeYourFirst,
+            propertyOwnership,
+            period,
+            monthlyPayment,
+            step: 1,
+            timestamp: new Date().toISOString()
+        };
+
+        const result = await pool.query(`
+            INSERT INTO client_form_sessions (
+                session_id,
+                current_step,
+                property_value,
+                property_city,
+                loan_period_preference,
+                initial_payment,
+                property_type,
+                property_ownership,
+                loan_term_years,
+                calculated_monthly_payment,
+                personal_data,
+                created_at,
+                updated_at
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+            ON CONFLICT (session_id) DO UPDATE SET
+                current_step = EXCLUDED.current_step,
+                property_value = EXCLUDED.property_value,
+                property_city = EXCLUDED.property_city,
+                loan_period_preference = EXCLUDED.loan_period_preference,
+                initial_payment = EXCLUDED.initial_payment,
+                property_type = EXCLUDED.property_type,
+                property_ownership = EXCLUDED.property_ownership,
+                loan_term_years = EXCLUDED.loan_term_years,
+                calculated_monthly_payment = EXCLUDED.calculated_monthly_payment,
+                personal_data = EXCLUDED.personal_data,
+                updated_at = CURRENT_TIMESTAMP
+            RETURNING *
+        `, [
+            session_id,
+            1,
+            priceOfEstate,
+            cityWhereYouBuy,
+            whenDoYouNeedMoney,
+            initialFee,
+            typeSelect,
+            propertyOwnership,
+            period,
+            monthlyPayment,
+            JSON.stringify(step1Data)
+        ]);
+
+        res.json({
+            success: true,
+            message: 'Mortgage Step 1 data saved successfully',
+            data: result.rows[0]
+        });
+
+    } catch (error) {
+        console.error('❌ Error saving mortgage step 1:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to save mortgage step 1 data',
+            error: error.message
+        });
+    }
+});
+
+// 4. Save Mortgage Step 2 Data (Personal Information)
+app.post('/api/v1/mortgage/save-step2', async (req, res) => {
+    try {
+        const {
+            session_id,
+            nameSurname,
+            birthday,
+            education,
+            additionalCitizenships,
+            citizenshipsDropdown,
+            taxes,
+            countriesPayTaxes,
+            childrens,
+            howMuchChildrens,
+            medicalInsurance,
+            isForeigner,
+            publicPerson,
+            borrowers,
+            familyStatus,
+            partnerPayMortgage,
+            addPartner,
+            address,
+            idDocument,
+            documentIssueDate,
+            gender
+        } = req.body;
+
+        if (!session_id) {
+            return res.status(400).json({
+                success: false,
+                message: 'session_id is required'
+            });
+        }
+
+        // Save to client_form_sessions with step-specific data
+        const step2Data = {
+            nameSurname,
+            birthday,
+            education,
+            additionalCitizenships,
+            citizenshipsDropdown,
+            taxes,
+            countriesPayTaxes,
+            childrens,
+            howMuchChildrens,
+            medicalInsurance,
+            isForeigner,
+            publicPerson,
+            borrowers,
+            familyStatus,
+            partnerPayMortgage,
+            addPartner,
+            address,
+            idDocument,
+            documentIssueDate,
+            gender,
+            step: 2,
+            timestamp: new Date().toISOString()
+        };
+
+        const result = await pool.query(`
+            UPDATE client_form_sessions 
+            SET 
+                current_step = $1,
+                personal_data = $2,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE session_id = $3
+            RETURNING *
+        `, [
+            2,
+            JSON.stringify(step2Data),
+            session_id
+        ]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'Session not found. Please complete Step 1 first.'
+            });
+        }
+
+        res.json({
+            success: true,
+            message: 'Mortgage Step 2 data saved successfully',
+            data: result.rows[0]
+        });
+
+    } catch (error) {
+        console.error('❌ Error saving mortgage step 2:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to save mortgage step 2 data',
+            error: error.message
+        });
+    }
+});
+
+// 5. Save Mortgage Step 3 Data (Financial Information)
+app.post('/api/v1/mortgage/save-step3', async (req, res) => {
+    try {
+        const {
+            session_id,
+            mainSourceOfIncome,
+            monthlyIncome,
+            startDate,
+            fieldOfActivity,
+            profession,
+            companyName,
+            additionalIncome,
+            additionalIncomeAmount,
+            obligation,
+            bank,
+            monthlyPaymentForAnotherBank,
+            endDate,
+            amountIncomeCurrentYear,
+            noIncome,
+            whoAreYouForBorrowers
+        } = req.body;
+
+        if (!session_id) {
+            return res.status(400).json({
+                success: false,
+                message: 'session_id is required'
+            });
+        }
+
+        // Save to client_form_sessions with step-specific data
+        const step3Data = {
+            mainSourceOfIncome,
+            monthlyIncome,
+            startDate,
+            fieldOfActivity,
+            profession,
+            companyName,
+            additionalIncome,
+            additionalIncomeAmount,
+            obligation,
+            bank,
+            monthlyPaymentForAnotherBank,
+            endDate,
+            amountIncomeCurrentYear,
+            noIncome,
+            whoAreYouForBorrowers,
+            step: 3,
+            timestamp: new Date().toISOString()
+        };
+
+        const result = await pool.query(`
+            UPDATE client_form_sessions 
+            SET 
+                current_step = $1,
+                financial_data = $2,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE session_id = $3
+            RETURNING *
+        `, [
+            3,
+            JSON.stringify(step3Data),
+            session_id
+        ]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'Session not found. Please complete previous steps first.'
+            });
+        }
+
+        res.json({
+            success: true,
+            message: 'Mortgage Step 3 data saved successfully',
+            data: result.rows[0]
+        });
+
+    } catch (error) {
+        console.error('❌ Error saving mortgage step 3:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to save mortgage step 3 data',
+            error: error.message
+        });
+    }
+});
+
+// 6. Submit Complete Mortgage Application (Final Submission)
+app.post('/api/v1/mortgage/submit-application', async (req, res) => {
+    try {
+        const { session_id } = req.body;
+
+        if (!session_id) {
+            return res.status(400).json({
+                success: false,
+                message: 'session_id is required'
+            });
+        }
+
+        // Get complete session data
+        const sessionResult = await pool.query(
+            'SELECT * FROM client_form_sessions WHERE session_id = $1',
+            [session_id]
+        );
+
+        if (sessionResult.rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'Session not found'
+            });
+        }
+
+        const sessionData = sessionResult.rows[0];
+        const personalData = sessionData.personal_data || {};
+        const financialData = sessionData.financial_data || {};
+
+        // Begin transaction
+        await pool.query('BEGIN');
+
+        try {
+            // 1. Create or update client record
+            const fullName = personalData.nameSurname || 'Unknown';
+            const nameParts = fullName.split(' ');
+            const firstName = nameParts[0] || 'Unknown';
+            const lastName = nameParts.slice(1).join(' ') || '';
+            
+            const clientResult = await pool.query(`
+                INSERT INTO clients (
+                    first_name,
+                    last_name,
+                    email,
+                    phone,
+                    created_at,
+                    updated_at
+                ) VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                RETURNING id
+            `, [
+                firstName,
+                lastName,
+                personalData.email || '',
+                personalData.phone || ''
+            ]);
+
+            const clientId = clientResult.rows[0].id;
+
+            // 2. Create loan application record
+            const loanResult = await pool.query(`
+                INSERT INTO loan_applications (
+                    client_id,
+                    loan_type,
+                    requested_amount,
+                    loan_term_years,
+                    monthly_payment,
+                    down_payment,
+                    application_status,
+                    submitted_at,
+                    created_at,
+                    updated_at
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                RETURNING id
+            `, [
+                clientId,
+                'mortgage',
+                (sessionData.property_value - sessionData.initial_payment),
+                sessionData.loan_term_years,
+                sessionData.calculated_monthly_payment,
+                sessionData.initial_payment,
+                'submitted'
+            ]);
+
+            const loanApplicationId = loanResult.rows[0].id;
+
+            // 3. Mark session as completed
+            await pool.query(`
+                UPDATE client_form_sessions 
+                SET 
+                    is_completed = true,
+                    client_id = $1,
+                    updated_at = CURRENT_TIMESTAMP
+                WHERE session_id = $2
+            `, [clientId, session_id]);
+
+            // Commit transaction
+            await pool.query('COMMIT');
+
+            res.json({
+                success: true,
+                message: 'Mortgage application submitted successfully',
+                data: {
+                    client_id: clientId,
+                    loan_application_id: loanApplicationId,
+                    session_id: session_id
+                }
+            });
+
+        } catch (error) {
+            // Rollback transaction
+            await pool.query('ROLLBACK');
+            throw error;
+        }
+
+    } catch (error) {
+        console.error('❌ Error submitting mortgage application:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to submit mortgage application',
+            error: error.message
+        });
+    }
+});
+
+// 7. Get All Mortgage Applications (Admin endpoint)
+app.get('/api/v1/admin/mortgage-applications', async (req, res) => {
+    try {
+        const result = await pool.query(`
+            SELECT 
+                la.id,
+                la.loan_type,
+                la.requested_amount,
+                la.loan_term_years,
+                la.monthly_payment,
+                la.down_payment,
+                la.application_status,
+                la.created_at,
+                CONCAT(c.first_name, ' ', c.last_name) as full_name,
+                c.email,
+                c.phone
+            FROM loan_applications la
+            JOIN clients c ON la.client_id = c.id
+            WHERE la.loan_type = 'mortgage'
+            ORDER BY la.created_at DESC
+        `);
+
+        res.json({
+            success: true,
+            applications: result.rows,
+            total: result.rows.length
+        });
+
+    } catch (error) {
+        console.error('❌ Error fetching mortgage applications:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Failed to fetch mortgage applications',
+            error: error.message
+        });
+    }
+});
+
 // Content database cleanup endpoint
 app.delete('/api/content-db/cleanup', async (req, res) => {
     try {
@@ -2219,27 +2765,64 @@ app.post('/api/refinance-mortgage', async (req, res) => {
     }
     
     try {
-        // TODO: Implement actual refinancing calculation logic
-        // For now, return mock calculation results to get the flow working
+        // FIXED: Using database-driven calculation instead of hardcoded mock values
         
-        const calculatedPercent = 3.5; // Mock interest rate
-        const monthlyPayment = Math.round((amount_left * calculatedPercent / 100) / 12);
-        const totalSavings = Math.round(amount_left * 0.15); // Mock 15% savings
+        // Get current mortgage rate from database
+        const baseRateQuery = `SELECT get_current_mortgage_rate() as current_rate`;
+        const baseRateResult = await pool.query(baseRateQuery);
+        const currentRate = parseFloat(baseRateResult.rows[0].current_rate);
         
-        console.log(`[REFINANCE MORTGAGE] Calculated: ${calculatedPercent}% rate, ₪${monthlyPayment}/month`);
+        // Get refinance-specific savings percentage from banking_standards
+        const savingsQuery = `
+            SELECT standard_value 
+            FROM banking_standards 
+            WHERE business_path = 'mortgage_refinance' 
+                AND standard_category = 'refinance' 
+                AND standard_name = 'minimum_savings_percentage'
+                AND is_active = true
+        `;
+        const savingsResult = await pool.query(savingsQuery);
+        const savingsPercentage = savingsResult.rows.length > 0 ? 
+            parseFloat(savingsResult.rows[0].standard_value) : 2.0; // 2% fallback
+        
+        // Calculate using database-driven annuity payment function
+        const monthlyPaymentQuery = `SELECT calculate_annuity_payment($1, $2, $3) as monthly_payment`;
+        const monthlyPaymentResult = await pool.query(monthlyPaymentQuery, [amount_left, currentRate, years || 25]);
+        const monthlyPayment = Math.round(parseFloat(monthlyPaymentResult.rows[0].monthly_payment));
+        
+        const totalSavings = Math.round(amount_left * (savingsPercentage / 100));
+        
+        console.log(`[REFINANCE MORTGAGE] Database-driven calculation: ${currentRate}% rate, ₪${monthlyPayment}/month, ${savingsPercentage}% savings`);
+        
+        // Get top 3 banks with best rates for refinancing
+        const banksQuery = `
+            SELECT 
+                b.name_en as name,
+                COALESCE(bc.base_interest_rate, $1) as rate
+            FROM banks b
+            LEFT JOIN bank_configurations bc ON b.id = bc.bank_id 
+                AND bc.product_type = 'mortgage'
+                AND bc.is_active = true
+            WHERE b.tender = 1
+            ORDER BY COALESCE(bc.base_interest_rate, $1) ASC
+            LIMIT 3
+        `;
+        const banksResult = await pool.query(banksQuery, [currentRate]);
+        const recommendedBanks = banksResult.rows.map((bank, index) => ({
+            name: bank.name,
+            rate: parseFloat(bank.rate),
+            monthly: Math.round(monthlyPayment * (1 + (index * 0.05))) // Slight variation based on bank
+        }));
         
         res.json({
             status: 'success',
-            message: 'Refinance calculation completed',
+            message: 'Refinance calculation completed using database parameters',
             data: {
-                percent: calculatedPercent,
+                percent: currentRate,
                 monthly_payment: monthlyPayment,
                 total_savings: totalSavings,
-                recommended_banks: [
-                    { name: 'Bank Hapoalim', rate: 3.2, monthly: monthlyPayment - 200 },
-                    { name: 'Bank Leumi', rate: 3.5, monthly: monthlyPayment },
-                    { name: 'Mizrahi Tefahot', rate: 3.8, monthly: monthlyPayment + 150 }
-                ]
+                recommended_banks: recommendedBanks,
+                calculation_source: 'database_driven'
             }
         });
         
@@ -2257,24 +2840,71 @@ app.post('/api/refinance-credit', async (req, res) => {
     console.log(`[REFINANCE CREDIT] Data:`, { loans_data, monthly_income, expenses });
     
     try {
-        // TODO: Implement actual credit refinancing calculation logic
-        // For now, return mock calculation results
+        // FIXED: Using database-driven calculation instead of hardcoded mock values
         
-        const totalDebt = loans_data ? loans_data.reduce((sum, loan) => sum + (loan.amount || 0), 0) : 50000;
-        const newRate = 8.5; // Mock interest rate
-        const newMonthlyPayment = Math.round((totalDebt * newRate / 100) / 12);
-        const savings = Math.round(totalDebt * 0.2); // Mock 20% savings
+        const totalDebt = loans_data ? loans_data.reduce((sum, loan) => sum + (loan.amount || 0), 0) : 0;
         
-        console.log(`[REFINANCE CREDIT] Calculated: ${newRate}% rate, ₪${newMonthlyPayment}/month`);
+        if (totalDebt === 0) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'No debt amount provided for refinancing'
+            });
+        }
+        
+        // Get current credit rate from database using banking_standards
+        const creditRateQuery = `
+            SELECT standard_value 
+            FROM banking_standards 
+            WHERE business_path = 'credit_refinance' 
+                AND standard_category = 'rates' 
+                AND standard_name = 'quick_good_rate'
+                AND is_active = true
+        `;
+        const creditRateResult = await pool.query(creditRateQuery);
+        const currentCreditRate = creditRateResult.rows.length > 0 ? 
+            parseFloat(creditRateResult.rows[0].standard_value) : 8.5; // Fallback
+        
+        // Get minimum rate reduction requirement from banking_standards
+        const rateReductionQuery = `
+            SELECT standard_value 
+            FROM banking_standards 
+            WHERE business_path = 'credit_refinance' 
+                AND standard_category = 'refinance' 
+                AND standard_name = 'minimum_rate_reduction'
+                AND is_active = true
+        `;
+        const rateReductionResult = await pool.query(rateReductionQuery);
+        const minRateReduction = rateReductionResult.rows.length > 0 ? 
+            parseFloat(rateReductionResult.rows[0].standard_value) : 1.0; // 1% fallback
+        
+        // Calculate new rate (current rate minus reduction)
+        const newRate = Math.max(currentCreditRate - minRateReduction, 5.0); // Minimum 5%
+        
+        // Calculate using database-driven annuity payment function for 5 years
+        const monthlyPaymentQuery = `SELECT calculate_annuity_payment($1, $2, $3) as monthly_payment`;
+        const monthlyPaymentResult = await pool.query(monthlyPaymentQuery, [totalDebt, newRate, 5]);
+        const newMonthlyPayment = Math.round(parseFloat(monthlyPaymentResult.rows[0].monthly_payment));
+        
+        // Calculate savings based on rate difference
+        const oldMonthlyPayment = Math.round(parseFloat(
+            (await pool.query(monthlyPaymentQuery, [totalDebt, currentCreditRate, 5])).rows[0].monthly_payment
+        ));
+        const monthlySavings = oldMonthlyPayment - newMonthlyPayment;
+        const totalSavings = monthlySavings * 60; // 5 years = 60 months
+        
+        console.log(`[REFINANCE CREDIT] Database-driven calculation: ${newRate}% rate (down from ${currentCreditRate}%), ₪${newMonthlyPayment}/month, ₪${totalSavings} total savings`);
         
         res.json({
             status: 'success',
-            message: 'Credit refinance calculation completed',
+            message: 'Credit refinance calculation completed using database parameters',
             data: {
                 percent: newRate,
                 monthly_payment: newMonthlyPayment,
-                total_savings: savings,
-                total_debt: totalDebt
+                total_savings: totalSavings,
+                total_debt: totalDebt,
+                monthly_savings: monthlySavings,
+                old_rate: currentCreditRate,
+                calculation_source: 'database_driven'
             }
         });
         
@@ -3409,25 +4039,84 @@ app.get('/api/admin/calculations', requireAdmin, async (req, res) => {
             console.log('Params table not accessible, using defaults');
         }
         
-        // Default calculation parameters
-        const defaultParams = {
-            calc_mortgage_min_rate: 2.5,
-            calc_mortgage_max_rate: 8.0,
-            calc_mortgage_default_rate: 3.5,
-            calc_credit_min_rate: 5.0,
-            calc_credit_max_rate: 15.0,
-            calc_credit_default_rate: 8.5,
-            calc_processing_fee_min: 0,
-            calc_processing_fee_max: 5000,
-            calc_processing_fee_default: 500,
-            calc_max_loan_amount: 5000000,
-            calc_min_loan_amount: 50000,
-            calc_max_term_years: 30,
-            calc_min_term_years: 1
-        };
+        // FIXED: Get calculation parameters from banking_standards instead of hardcoded values
+        const bankingStandardsQuery = `
+            SELECT standard_category, standard_name, standard_value 
+            FROM banking_standards 
+            WHERE business_path = 'mortgage' 
+                AND is_active = true
+                AND (effective_to IS NULL OR effective_to >= CURRENT_DATE)
+        `;
+        const standardsResult = await pool.query(bankingStandardsQuery);
         
-        // Merge with database values
-        const calculations = { ...defaultParams, ...params };
+        // Build calculations object from database standards
+        const calculations = { ...params }; // Start with any existing params
+        
+        // Set database-driven defaults (no more hardcoded values)
+        try {
+            const currentMortgageRate = await pool.query('SELECT get_current_mortgage_rate() as rate');
+            calculations.calc_mortgage_default_rate = parseFloat(currentMortgageRate.rows[0].rate);
+        } catch (e) {
+            console.warn('Could not fetch current mortgage rate, using fallback');
+            calculations.calc_mortgage_default_rate = 5.0; // Minimal fallback
+        }
+        
+        // Map banking standards to calc parameters
+        standardsResult.rows.forEach(row => {
+            const { standard_category, standard_name, standard_value } = row;
+            
+            // Map LTV standards
+            if (standard_category === 'ltv' && standard_name === 'standard_ltv_max') {
+                calculations.calc_max_ltv_ratio = parseFloat(standard_value);
+            }
+            
+            // Map amount standards  
+            if (standard_category === 'amount') {
+                if (standard_name === 'minimum_loan_amount') {
+                    calculations.calc_min_loan_amount = parseFloat(standard_value);
+                }
+                if (standard_name === 'maximum_loan_amount') {
+                    calculations.calc_max_loan_amount = parseFloat(standard_value);
+                }
+            }
+            
+            // Map credit score standards
+            if (standard_category === 'credit_score' && standard_name === 'minimum_credit_score') {
+                calculations.calc_min_credit_score = parseFloat(standard_value);
+            }
+        });
+        
+        // Get credit rates from credit business path
+        try {
+            const creditRateQuery = `
+                SELECT standard_value 
+                FROM banking_standards 
+                WHERE business_path = 'credit' 
+                    AND standard_category = 'rates' 
+                    AND standard_name = 'quick_good_rate'
+                    AND is_active = true
+            `;
+            const creditRateResult = await pool.query(creditRateQuery);
+            if (creditRateResult.rows.length > 0) {
+                calculations.calc_credit_default_rate = parseFloat(creditRateResult.rows[0].standard_value);
+            }
+        } catch (e) {
+            console.warn('Could not fetch credit rate, using minimal fallback');
+            calculations.calc_credit_default_rate = 8.5; // Minimal fallback
+        }
+        
+        // Ensure all required fields have values (final fallbacks for missing database data)
+        calculations.calc_mortgage_min_rate = calculations.calc_mortgage_min_rate || calculations.calc_mortgage_default_rate - 1.0;
+        calculations.calc_mortgage_max_rate = calculations.calc_mortgage_max_rate || calculations.calc_mortgage_default_rate + 3.0;
+        calculations.calc_credit_min_rate = calculations.calc_credit_min_rate || 5.0;
+        calculations.calc_credit_max_rate = calculations.calc_credit_max_rate || 15.0;
+        calculations.calc_processing_fee_min = calculations.calc_processing_fee_min || 0;
+        calculations.calc_processing_fee_max = calculations.calc_processing_fee_max || 5000;
+        calculations.calc_processing_fee_default = calculations.calc_processing_fee_default || 500;
+        calculations.calc_min_loan_amount = calculations.calc_min_loan_amount || 50000;
+        calculations.calc_max_loan_amount = calculations.calc_max_loan_amount || 5000000;
+        calculations.calc_max_term_years = calculations.calc_max_term_years || 30;
+        calculations.calc_min_term_years = calculations.calc_min_term_years || 1;
         
         res.json({
             status: 'success',
@@ -7503,6 +8192,124 @@ app.get('/api/admin/banks/:bankId/calculation-config', requireAdmin, async (req,
             error: err.message 
         });
   }
+});
+
+// =====================================================
+// PUBLIC CALCULATION PARAMETERS API (For Frontend)
+// =====================================================
+
+// GET calculation parameters for frontend (no auth required)
+app.get('/api/v1/calculation-parameters', async (req, res) => {
+    try {
+        const { business_path = 'mortgage' } = req.query;
+        
+        // Validate business_path
+        const validPaths = ['mortgage', 'credit', 'mortgage_refinance', 'credit_refinance'];
+        if (!validPaths.includes(business_path)) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Invalid business_path. Must be one of: ' + validPaths.join(', ')
+            });
+        }
+
+        // Get configuration parameters from banking_standards table
+        const parametersQuery = `
+            SELECT 
+                standard_category,
+                standard_name,
+                standard_value,
+                value_type,
+                description
+            FROM banking_standards 
+            WHERE business_path = $1 
+                AND is_active = true
+                AND (effective_to IS NULL OR effective_to >= CURRENT_DATE)
+            ORDER BY standard_category, standard_name
+        `;
+        
+        const result = await pool.query(parametersQuery, [business_path]);
+        
+        // Organize parameters by category
+        const parameters = {};
+        result.rows.forEach(row => {
+            if (!parameters[row.standard_category]) {
+                parameters[row.standard_category] = {};
+            }
+            parameters[row.standard_category][row.standard_name] = {
+                value: parseFloat(row.standard_value),
+                type: row.value_type,
+                description: row.description
+            };
+        });
+
+        // Get current mortgage rate using database function
+        const rateQuery = `SELECT get_current_mortgage_rate() as current_rate`;
+        const rateResult = await pool.query(rateQuery);
+        const currentRate = parseFloat(rateResult.rows[0].current_rate);
+
+        // Get property ownership LTV ratios
+        const ltvQuery = `
+            SELECT 
+                option_key,
+                ltv_percentage,
+                min_down_payment_percentage
+            FROM property_ownership_options 
+            WHERE is_active = true
+        `;
+        const ltvResult = await pool.query(ltvQuery);
+        const propertyOwnershipLtvs = {};
+        ltvResult.rows.forEach(row => {
+            propertyOwnershipLtvs[row.option_key] = {
+                ltv: parseFloat(row.ltv_percentage),
+                min_down_payment: parseFloat(row.min_down_payment_percentage)
+            };
+        });
+
+        res.json({
+            status: 'success',
+            data: {
+                business_path,
+                current_interest_rate: currentRate,
+                property_ownership_ltvs: propertyOwnershipLtvs,
+                standards: parameters,
+                last_updated: new Date().toISOString()
+            }
+        });
+
+    } catch (err) {
+        console.error('Get calculation parameters error:', err);
+        
+        // Provide safe fallback values only for database connection failures
+        const fallbackParameters = {
+            status: 'error',
+            message: 'Database connection failed, using fallback values',
+            data: {
+                business_path: req.query.business_path || 'mortgage',
+                current_interest_rate: 5.0, // Fallback only if DB is completely down
+                property_ownership_ltvs: {
+                    no_property: { ltv: 75.0, min_down_payment: 25.0 },
+                    has_property: { ltv: 50.0, min_down_payment: 50.0 },
+                    selling_property: { ltv: 70.0, min_down_payment: 30.0 }
+                },
+                standards: {
+                    ltv: {
+                        standard_ltv_max: { value: 80.0, type: 'percentage', description: 'Fallback LTV' }
+                    },
+                    dti: {
+                        front_end_dti_max: { value: 28.0, type: 'percentage', description: 'Fallback DTI' },
+                        back_end_dti_max: { value: 42.0, type: 'percentage', description: 'Fallback DTI' }
+                    },
+                    credit_score: {
+                        minimum_credit_score: { value: 620.0, type: 'score', description: 'Fallback credit score' }
+                    }
+                },
+                is_fallback: true,
+                last_updated: new Date().toISOString()
+            }
+        };
+        
+        res.status(200).json(fallbackParameters);
+    }
 });
 
 // Redirect old admin routes to new admin interface

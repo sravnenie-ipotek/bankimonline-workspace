@@ -166,7 +166,7 @@ export const transformUserDataToRequest = (
   const monthlyIncome = userIncomeData?.monthlyIncome || 
                        userPersonalData?.monthlyIncome || 
                        parameters?.monthlyIncome ||
-                       50000 // Fallback for testing - will be removed when real data available
+                       0 // No fallback - should be provided by user
   
   return {
     loan_type: isCredit ? 'credit' : 'mortgage',
@@ -174,8 +174,8 @@ export const transformUserDataToRequest = (
       ? parameters.loanAmount 
       : (parameters.priceOfEstate && parameters.initialFee 
           ? parameters.priceOfEstate - parameters.initialFee 
-          : parameters.priceOfEstate * 0.5), // Default 50% loan if no initial fee
-    property_value: isCredit ? 0 : (parameters.priceOfEstate || 1000000), // Default for testing
+          : parameters.priceOfEstate * 0.5), // Default 50% loan if no initial fee - should be calculated based on property ownership LTV
+    property_value: isCredit ? 0 : (parameters.priceOfEstate || 0), // No default - should be provided by user
     monthly_income: monthlyIncome,
     
     // Use real birth date and employment start date for calculation
@@ -183,8 +183,8 @@ export const transformUserDataToRequest = (
     employment_start_date: userIncomeData?.startDate,
     
     // Provide fallback age if birth_date not available
-    age: calculatedAge || 35, // Fallback age for testing
-    employment_years: userIncomeData?.employmentYears || 5, // Fallback for testing
+    age: calculatedAge || 0, // No fallback - should be calculated from birth_date
+    employment_years: userIncomeData?.employmentYears || 0, // No fallback - should be provided by user
     
     // Property ownership for LTV calculation (Confluence Action #12)
     property_ownership: parameters.propertyOwnership || 'no_property', // Default to 75% financing

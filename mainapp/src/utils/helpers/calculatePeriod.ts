@@ -1,16 +1,23 @@
 /**
  * Функция для расчета срока ипотеки в годах на основе ежемесячного платежа.
+ * 
+ * ВАЖНО: Эта функция больше НЕ использует hardcoded значения процентной ставки.
+ * Все параметры теперь должны быть получены из базы данных через API.
  *
  * @param {number} totalAmount - общая сумма ипотеки.
  * @param {number} initialPayment - первоначальный взнос.
  * @param {number} monthlyPayment - ежемесячный платеж.
- * @param {number} [annualRate=5] - годовая процентная ставка (по умолчанию 5%).
+ * @param {number} annualRate - годовая процентная ставка (ОБЯЗАТЕЛЬНЫЙ параметр, больше нет дефолта).
  * @returns {number} - срок ипотеки в годах, округленный в меньшую сторону до целого числа.
  *
  * @example
  *
- * const period = calculatePeriod(1000000, 200000, 8544, 5); // Возвращает, например, 10
- * const periodWithDefaultRate = calculatePeriod(1000000, 200000, 8544); // Использует ставку 5% по умолчанию
+ * // СТАРЫЙ способ (БОЛЬШЕ НЕ ПОДДЕРЖИВАЕТСЯ):
+ * // const period = calculatePeriod(1000000, 200000, 8544); // Использовал hardcoded 5%
+ * 
+ * // НОВЫЙ способ (используйте calculationService):
+ * // const rate = await calculationService.getCurrentRate('mortgage');
+ * // const period = calculatePeriod(1000000, 200000, 8544, rate);
  *
  * @throws
  * Возвращает 0, если любой из входных параметров нулевой, отрицательный или если расчетный срок оказывается нулевым или отрицательным.
@@ -20,7 +27,7 @@ const calculatePeriod = (
   totalAmount: number | null,
   initialPayment: number,
   monthlyPayment: number,
-  annualRate = 5
+  annualRate: number
 ) => {
   if (totalAmount === null) {
     return 1

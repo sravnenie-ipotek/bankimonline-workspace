@@ -17,8 +17,7 @@ import { YesNo } from '@src/components/ui/YesNo'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { setActiveField } from '@src/pages/Services/slices/activeField'
 import { CalculateCreditTypes } from '@src/pages/Services/types/formTypes'
-import calculateMonthlyPayment from '@src/utils/helpers/calculateMonthlyPayment'
-import calculatePeriod from '@src/utils/helpers/calculatePeriod'
+import { calculationService } from '@src/services/calculationService'
 
 interface CityOption {
   value: string
@@ -100,27 +99,32 @@ export const FirstStepForm: FC = () => {
   // Рассчитывает и меняет значения ежемесячного платежа или срока
   // в зависимости от активного инпута
   useEffect(() => {
-    if (activeField === 'period') {
-      const monthlyPayment = calculateMonthlyPayment(
-        values.loanAmount,
-        0,
-        values.period,
-        5
-      )
-      if (!Number.isNaN(monthlyPayment)) {
-        setFieldValue('monthlyPayment', monthlyPayment)
-      }
-    } else {
-      const period = calculatePeriod(
-        values.loanAmount,
-        0,
-        values.monthlyPayment,
-        5
-      )
-      if (!Number.isNaN(period)) {
-        setFieldValue('period', period)
+    const updateCalculations = async () => {
+      try {
+        if (activeField === 'period') {
+          const monthlyPayment = await calculationService.calculateCreditPayment(
+            values.loanAmount,
+            values.period
+          )
+          if (!Number.isNaN(monthlyPayment)) {
+            setFieldValue('monthlyPayment', monthlyPayment)
+          }
+        } else {
+          const period = await calculationService.calculateLoanPeriod(
+            values.loanAmount,
+            0,
+            values.monthlyPayment
+          )
+          if (!Number.isNaN(period)) {
+            setFieldValue('period', period)
+          }
+        }
+      } catch (error) {
+        console.error('❌ Error calculating credit values:', error)
       }
     }
+
+    updateCalculations()
   }, [
     activeField,
     setFieldValue,
@@ -131,30 +135,35 @@ export const FirstStepForm: FC = () => {
 
   // Рассчитывает максимальное и минимальное значение ежемесячного платежа
   useLayoutEffect(() => {
-    const maxInitialPayment = calculateMonthlyPayment(
-      values.loanAmount,
-      0,
-      1,
-      5
-    )
-
-    const minInitialPayment = calculateMonthlyPayment(
-      values.loanAmount,
-      0,
-      30,
-      5
-    )
-
-    if (!Number.isNaN(maxInitialPayment)) {
-      setMaxMonthlyPayment(maxInitialPayment)
+    const updatePaymentLimits = async () => {
+      try {
+        const maxInitialPayment = await calculationService.calculateCreditPayment(
+          values.loanAmount,
+          1 // 1 year
+        )
+        const minInitialPayment = await calculationService.calculateCreditPayment(
+          values.loanAmount,
+          30 // 30 years
+        )
+        
+        if (!Number.isNaN(maxInitialPayment)) {
+          setMaxMonthlyPayment(maxInitialPayment)
+        }
+        if (maxInitialPayment === 0) {
+          setMaxMonthlyPayment(1)
+        }
+        if (!Number.isNaN(minInitialPayment)) {
+          setMinMonthlyPayment(minInitialPayment)
+        }
+      } catch (error) {
+        console.error('❌ Error calculating payment limits:', error)
+        // Fallback to reasonable defaults
+        setMaxMonthlyPayment(51130)
+        setMinMonthlyPayment(2654)
+      }
     }
-    if (maxInitialPayment === 0) {
-      setMaxMonthlyPayment(1)
-    }
 
-    if (!Number.isNaN(maxInitialPayment)) {
-      setMinMonthlyPayment(minInitialPayment)
-    }
+    updatePaymentLimits()
   }, [values.loanAmount])
 
   return (
