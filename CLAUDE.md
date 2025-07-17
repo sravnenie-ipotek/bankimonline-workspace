@@ -331,3 +331,62 @@ Frontend environment variables:
 - `VITE_NODE_API_BASE_URL` - API base URL override
 - `VITE_APP_NAME` - Application name
 - `VITE_APP_ENV` - Environment designation
+
+## Translation Management
+
+### Translation Preservation Guidelines
+
+**⚠️ CRITICAL: NEVER DELETE TRANSLATIONS**
+
+Translation files are mission-critical for the multi-language application. Follow these strict guidelines:
+
+#### Translation File Structure
+- **English**: `/public/locales/en/translation.json` (primary language)
+- **Hebrew**: `/public/locales/he/translation.json` (RTL support)
+- **Russian**: `/public/locales/ru/translation.json` (secondary language)
+
+#### Translation Modification Rules
+1. **NEVER DELETE** any translation keys unless explicitly instructed
+2. **ALWAYS ADD** new translation keys to ALL three language files simultaneously
+3. **ALWAYS VERIFY** that component translation keys exist before using them
+4. **ALWAYS SYNC** translations between frontend and backend using `npm run sync-translations`
+
+#### Key Translation Patterns
+- Form fields: `[feature]_[field]_[type]` (e.g., `calculate_mortgage_property_ownership`)
+- Form options: `[feature]_[field]_option_[number]` (e.g., `calculate_mortgage_property_ownership_option_1`)
+- Form placeholders: `[feature]_[field]_ph` (e.g., `calculate_mortgage_property_ownership_ph`)
+- Validation errors: `error_[field]_[rule]` (e.g., `error_amount_required`)
+
+#### Missing Translation Recovery
+If translations are accidentally deleted, they can be restored from:
+1. Git history: `git show HEAD~5 -- public/locales/en/translation.json`
+2. Component usage: Search for `t('missing_key')` in codebase
+3. Database backup: Check `locales` table for fallback values
+
+#### Critical Translation Keys
+The following translation keys are essential for core functionality:
+- `calculate_mortgage_property_ownership` - Property ownership dropdown title
+- `calculate_mortgage_property_ownership_ph` - Property ownership placeholder
+- `calculate_mortgage_property_ownership_option_1` - "I don't own any property" (75% LTV)
+- `calculate_mortgage_property_ownership_option_2` - "I own a property" (50% LTV)
+- `calculate_mortgage_property_ownership_option_3` - "I'm selling a property" (70% LTV)
+
+#### Translation Validation
+Before any deployment, verify translations exist:
+```bash
+# Check for missing keys in components
+grep -r "t('.*')" mainapp/src/ | grep -v node_modules
+
+# Validate JSON structure
+node -e "JSON.parse(require('fs').readFileSync('public/locales/en/translation.json', 'utf8'))"
+```
+
+#### Translation Synchronization
+Always sync translations between frontend and backend:
+```bash
+# From project root
+npm run sync-translations
+
+# From frontend directory
+cd mainapp && npm run sync-translations
+```
