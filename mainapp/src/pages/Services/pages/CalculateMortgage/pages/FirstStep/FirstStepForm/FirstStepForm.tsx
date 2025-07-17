@@ -27,11 +27,8 @@ const FirstStepForm = () => {
   const dispatch = useAppDispatch()
 
   const [cityOptions, setCityOptions] = useState<CityOption[]>([])
-  const [ltvRatios, setLtvRatios] = useState<{[key: string]: number}>({
-    no_property: 0.75,
-    has_property: 0.50,
-    selling_property: 0.70
-  })
+  const [ltvRatios, setLtvRatios] = useState<{[key: string]: number}>({})
+  const [isLoadingLtvRatios, setIsLoadingLtvRatios] = useState(true)
 
   useEffect(() => {
     const fetchCities = async () => {
@@ -52,20 +49,56 @@ const FirstStepForm = () => {
       }
     }
 
-    // Fetch property ownership LTV ratios from database (fixes hardcoded values)
+    // Fetch property ownership LTV ratios from database using new calculation parameters API
     const fetchLtvRatios = async () => {
       try {
-        const response = await fetch('/api/property-ownership-ltv')
+        setIsLoadingLtvRatios(true)
+        const apiBaseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+          ? 'http://localhost:8003/api' 
+          : import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankdev2standalone-production.up.railway.app/api'
+        const response = await fetch(`${apiBaseUrl}/v1/calculation-parameters?business_path=mortgage`)
         const data = await response.json()
-        if (data.status === 'success') {
-          setLtvRatios(data.data)
-          console.log('✅ LTV ratios loaded from database:', data.data)
+        
+        if (data.status === 'success' && data.data.property_ownership_ltvs) {
+          // Convert the new API format to the expected format
+          const ltvData: {[key: string]: number} = {}
+          Object.keys(data.data.property_ownership_ltvs).forEach(key => {
+            ltvData[key] = data.data.property_ownership_ltvs[key].ltv / 100 // Convert percentage to ratio
+          })
+          setLtvRatios(ltvData)
+          console.info('✅ LTV ratios loaded from database:', ltvData)
+        } else if (data.status === 'error' && data.data?.property_ownership_ltvs) {
+          // Use fallback values from API if database is down
+          const ltvData: {[key: string]: number} = {}
+          Object.keys(data.data.property_ownership_ltvs).forEach(key => {
+            ltvData[key] = data.data.property_ownership_ltvs[key].ltv / 100
+          })
+          setLtvRatios(ltvData)
+          console.info('📋 Using fallback LTV ratios (database connection issue):', ltvData)
         } else {
-          console.warn('⚠️ Using fallback LTV ratios:', data.data)
-          setLtvRatios(data.data) // Use fallback values from API error response
+          throw new Error('No LTV data in response')
         }
       } catch (error) {
-        console.error('❌ Error fetching LTV ratios, using defaults:', error)
+        console.warn('⚠️ Error fetching LTV ratios from calculation parameters API:', error.message)
+        // Last resort fallback - use calculationService fallback values
+        console.info('📋 Using calculationService fallback values')
+        try {
+          const params = await calculationService.getAllParameters('mortgage')
+          setLtvRatios({
+            no_property: params.property_ownership_ltvs?.no_property?.ltv / 100 || 0.75,
+            has_property: params.property_ownership_ltvs?.has_property?.ltv / 100 || 0.50,
+            selling_property: params.property_ownership_ltvs?.selling_property?.ltv / 100 || 0.70
+          })
+        } catch (serviceError) {
+          console.warn('🚨 CRITICAL: Even calculationService failed, using hardcoded emergency values')
+          setLtvRatios({
+            no_property: 0.75,
+            has_property: 0.50,
+            selling_property: 0.70
+          })
+        }
+      } finally {
+        setIsLoadingLtvRatios(false)
       }
     }
 
@@ -109,7 +142,7 @@ const FirstStepForm = () => {
   const getMaxLoanAmount = (propertyValue: number, propertyOwnership: string): number => {
     if (!propertyValue || propertyValue === 0) return 1
     
-    // Use LTV ratios from database configuration
+    // Use LTV ratios from database configuration (fallback to no_property, then emergency default)
     const ltvRatio = ltvRatios[propertyOwnership] || ltvRatios.no_property || 0.75
     return propertyValue * ltvRatio
   }

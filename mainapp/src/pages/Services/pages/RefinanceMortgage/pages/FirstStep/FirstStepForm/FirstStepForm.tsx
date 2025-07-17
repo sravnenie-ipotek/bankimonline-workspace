@@ -16,8 +16,7 @@ import FormCaption from '@src/components/ui/FormCaption/FormCaption'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { setActiveField } from '@src/pages/Services/slices/activeField'
 import { RefinanceMortgageTypes } from '@src/pages/Services/types/formTypes'
-import calculateMonthlyPayment from '@src/utils/helpers/calculateMonthlyPayment'
-import calculatePeriod from '@src/utils/helpers/calculatePeriod'
+import { calculationService } from '@src/services/calculationService'
 
 import { MortgageData } from './ui/MortgageData'
 
@@ -63,50 +62,68 @@ const FirstStepForm = () => {
 
   // Рассчитывает максимальное и минимальное значение ежемесячного платежа
   useLayoutEffect(() => {
-    const maxInitialPayment = calculateMonthlyPayment(
-      values.mortgageBalance,
-      0,
-      4
-    )
+    const updatePaymentLimits = async () => {
+      try {
+        const maxInitialPayment = await calculationService.calculateMortgagePayment(
+          values.mortgageBalance,
+          0,
+          4 // 4 years
+        )
+        const minInitialPayment = await calculationService.calculateMortgagePayment(
+          values.mortgageBalance,
+          0,
+          30 // 30 years
+        )
 
-    const minInitialPayment = calculateMonthlyPayment(
-      values.mortgageBalance,
-      0,
-      30
-    )
+        if (!Number.isNaN(maxInitialPayment)) {
+          setMaxMonthlyPayment(maxInitialPayment)
+        }
+        if (maxInitialPayment === 0) {
+          setMaxMonthlyPayment(1)
+        }
 
-    if (!Number.isNaN(maxInitialPayment)) {
-      setMaxMonthlyPayment(maxInitialPayment)
-    }
-    if (maxInitialPayment === 0) {
-      setMaxMonthlyPayment(1)
+        if (!Number.isNaN(minInitialPayment)) {
+          setMinMonthlyPayment(minInitialPayment)
+        }
+      } catch (error) {
+        console.error('❌ Error calculating mortgage payment limits:', error)
+        // Fallback to reasonable defaults
+        setMaxMonthlyPayment(51130)
+        setMinMonthlyPayment(2654)
+      }
     }
 
-    if (!Number.isNaN(maxInitialPayment)) {
-      setMinMonthlyPayment(minInitialPayment)
-    }
+    updatePaymentLimits()
   }, [values.mortgageBalance])
 
   useEffect(() => {
-    if (activeField === 'period') {
-      const monthlyPayment = calculateMonthlyPayment(
-        values.mortgageBalance,
-        0,
-        values.period
-      )
-      if (!Number.isNaN(monthlyPayment)) {
-        setFieldValue('monthlyPayment', monthlyPayment)
-      }
-    } else {
-      const period = calculatePeriod(
-        values.mortgageBalance,
-        0,
-        values.monthlyPayment
-      )
-      if (!Number.isNaN(period)) {
-        setFieldValue('period', period)
+    const updateCalculations = async () => {
+      try {
+        if (activeField === 'period') {
+          const monthlyPayment = await calculationService.calculateMortgagePayment(
+            values.mortgageBalance,
+            0,
+            values.period
+          )
+          if (!Number.isNaN(monthlyPayment)) {
+            setFieldValue('monthlyPayment', monthlyPayment)
+          }
+        } else {
+          const period = await calculationService.calculateLoanPeriod(
+            values.mortgageBalance,
+            0,
+            values.monthlyPayment
+          )
+          if (!Number.isNaN(period)) {
+            setFieldValue('period', period)
+          }
+        }
+      } catch (error) {
+        console.error('❌ Error calculating mortgage refinance values:', error)
       }
     }
+
+    updateCalculations()
   }, [
     activeField,
     setFieldValue,

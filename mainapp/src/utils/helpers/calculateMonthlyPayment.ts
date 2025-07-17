@@ -1,16 +1,23 @@
 /**
  * Функция для расчета ежемесячного платежа по ипотеке.
+ * 
+ * ВАЖНО: Эта функция больше НЕ использует hardcoded значения процентной ставки.
+ * Все параметры теперь должны быть получены из базы данных через API.
  *
  * @param {number} totalAmount - общая сумма ипотеки.
  * @param {number} initialPayment - первоначальный взнос.
  * @param {number} period - период ипотеки в годах.
- * @param {number} [annualRate=5] - годовая процентная ставка (по умолчанию 5%).
+ * @param {number} annualRate - годовая процентная ставка (ОБЯЗАТЕЛЬНЫЙ параметр, больше нет дефолта).
  * @returns {number} - размер ежемесячного платежа, округленный в меньшую сторону до целого числа.
  *
  * @example
  *
- * const payment = calculateMonthlyPayment(1000000, 200000, 10, 5); // Возвращает, например, 8544
- * const paymentWithDefaultRate = calculateMonthlyPayment(1000000, 200000, 10); // Использует ставку 5% по умолчанию
+ * // СТАРЫЙ способ (БОЛЬШЕ НЕ ПОДДЕРЖИВАЕТСЯ):
+ * // const payment = calculateMonthlyPayment(1000000, 200000, 10); // Использовал hardcoded 5%
+ * 
+ * // НОВЫЙ способ (используйте calculationService):
+ * // const rate = await calculationService.getCurrentRate('mortgage');
+ * // const payment = calculateMonthlyPayment(1000000, 200000, 10, rate);
  *
  * @throws
  * Возвращает 0, если любой из входных параметров нулевой, отрицательный или если первоначальный взнос больше или равен общей сумме.
@@ -20,7 +27,7 @@ const calculateMonthlyPayment = (
   totalAmount: number | null,
   initialPayment: number | null,
   period: number,
-  annualRate: number = 5
+  annualRate: number
 ): number => {
   if (totalAmount === null) {
     return 1
