@@ -52,7 +52,10 @@
       "Bash(pgrep:*)",
       "Bash(open:*)",
       "mcp__playwright__browser_tab_new",
-      "Bash(export:*)"
+      "Bash(export:*)",
+      "Bash(env)",
+      "Bash(echo:*)",
+      "Bash(printenv)"
     ],
     "deny": []
   },
