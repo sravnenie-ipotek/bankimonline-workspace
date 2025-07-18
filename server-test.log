@@ -49,3 +49,285 @@
 [0mPOST /api/content [32m200[0m 2271.580 ms - 127[0m
 [0mPUT /api/content/5 [32m200[0m 838.587 ms - 459[0m
 [0mDELETE /api/content/5 [32m200[0m 256.887 ms - 113[0m
+[0mGET /api/banks/list [36m304[0m 625.124 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 92.631 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 93.497 ms - -[0m
+[0mGET /api/content/home_page/en [32m200[0m 579.825 ms - 1601[0m
+[0mGET /api/content/home_page/en [32m200[0m 580.944 ms - 2324[0m
+[0mGET /api/content/home_page/en [32m200[0m 469.068 ms - 3072[0m
+[0mGET /api/content/home_page/he [32m200[0m 1001.827 ms - 3402[0m
+[0mGET /api/content/home_page/he [36m304[0m 175.711 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 679.525 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 782.480 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 109.513 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 101.873 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 128.762 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 959.189 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 201.631 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 128.919 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 194.464 ms - -[0m
+[0mGET /api/content/home_page/he [32m200[0m 180.450 ms - 3402[0m
+[0mGET /api/content/home_page/he [36m304[0m 151.861 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 111.134 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 100.595 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 133.225 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 108.245 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 121.956 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 99.114 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 145.767 ms - -[0m
+[0mGET /api/content/home_page/en [32m200[0m 109.302 ms - 3072[0m
+[0mGET /api/content/home_page/he [32m200[0m 101.385 ms - 3402[0m
+[0mGET /api/content/home_page/he [36m304[0m 209.175 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 102.754 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 127.998 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 104.380 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 96.935 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 103.112 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 704.071 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 107.221 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 105.344 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 143.006 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 109.917 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 134.348 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 704.861 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 102.582 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 111.101 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 135.280 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 112.035 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 132.236 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 101.285 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 131.001 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 122.567 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 139.808 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 109.127 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 139.797 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 111.626 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 103.316 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 179.069 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 109.055 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 162.349 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 739.663 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 171.082 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 282.802 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 132.912 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 128.918 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 167.545 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 137.121 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 887.039 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 172.308 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 125.238 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 101.670 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 110.301 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 110.619 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 104.630 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 170.004 ms - -[0m
+[0mGET /api/content/home_page/en [32m200[0m 1116.318 ms - 3072[0m
+[0mGET /api/content/home_page/en [32m200[0m 1180.917 ms - 3072[0m
+[0mGET /api/content/home_page/he [36m304[0m 755.901 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 340.759 ms - -[0m
+[0mGET /api/content/home_page/en [32m200[0m 313.458 ms - 3072[0m
+[0mGET /api/content/home_page/he [36m304[0m 269.735 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 174.903 ms - -[0m
+[0mGET /api/content/home_page/en [32m200[0m 309.521 ms - 3072[0m
+[0mGET /api/content/home_page/he [36m304[0m 329.709 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 130.605 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 142.960 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 214.240 ms - -[0m
+[0mGET /api/content/home_page/en [32m200[0m 891.833 ms - 3072[0m
+[0mGET /api/content/home_page/he [32m200[0m 1052.246 ms - 3402[0m
+[0mGET /api/content/home_page/he [36m304[0m 707.522 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 169.171 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 184.351 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 161.255 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 168.842 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 178.990 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 155.216 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 149.198 ms - -[0m
+[CITIES] Request for language: he
+[0mGET /api/get-cities?lang=he [36m304[0m 996.951 ms - -[0m
+[CITIES] Request for language: he
+[0mGET /api/get-cities?lang=he [36m304[0m 138.181 ms - -[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8699:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1281.158 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8699:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 534.452 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8699:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1119.158 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8699:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 888.745 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8699:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1077.567 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8699:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1218.198 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8699:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1096.103 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8699:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1243.315 ms - 759[0m

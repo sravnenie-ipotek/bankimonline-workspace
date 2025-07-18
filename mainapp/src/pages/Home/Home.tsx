@@ -11,6 +11,7 @@ import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
 import { useAppDispatch } from '@src/hooks/store'
 import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
 import { openAuthModal } from '@src/pages/Services/slices/modalSlice'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import TopServices from '../../components/ui/TopServices/TopServices'
 import styles from './home.module.scss'
@@ -84,6 +85,7 @@ const cx = classNames.bind(styles)
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation()
   const dispatch = useAppDispatch()
+  const { getContent, loading, error } = useContentApi('home_page')
   
   // State for Cookie Policy Modal
   const [isCookiePolicyModalOpen, setIsCookiePolicyModalOpen] = useState(false)
@@ -299,9 +301,9 @@ const Home: React.FC = () => {
             Connected to action handlers below
           */}
           <VideoPoster
-            title={t('title_compare')}
-            subtitle={t('compare_in_5minutes')}
-            text={t('show_offers')}
+            title={getContent('title_compare', 'title_compare')}
+            subtitle={getContent('compare_in_5minutes', 'compare_in_5minutes')}
+            text={getContent('show_offers', 'show_offers')}
             onMusicToggle={handleAction4_ToggleMusic}
             onFullscreen={handleAction5_Fullscreen}
           />
