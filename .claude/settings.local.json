@@ -55,7 +55,9 @@
       "Bash(export:*)",
       "Bash(env)",
       "Bash(echo:*)",
-      "Bash(printenv)"
+      "Bash(printenv)",
+      "Bash(gtimeout:*)",
+      "Bash(psql:*)"
     ],
     "deny": []
   },
