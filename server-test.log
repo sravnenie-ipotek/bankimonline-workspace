@@ -9,29 +9,43 @@
   'https://bankdev2standalone-production.up.railway.app',
   'https://bankim-nodejs-api-production.up.railway.app'
 ]
-node:events:485
-      throw er; // Unhandled 'error' event
-      ^
+🚀 Database API Server Started
+📡 http://localhost:8003
+📧 Email login: POST /api/login
+📧 Email 2FA: POST /api/email-code-login
+📱 SMS login: POST /api/sms-login & /api/sms-code-login
+👤 Registration: POST /api/register
+🏙️ Cities: GET /api/get-cities?lang=xx
+🏠 Refinance mortgage: POST /api/refinance-mortgage
+💳 Refinance credit: POST /api/refinance-credit
+🔐 Admin login: POST /api/admin/login
+📊 Admin stats: GET /api/admin/stats
+🏦 Admin banks: GET /api/admin/banks
+🏪 Compare banks: POST /api/customer/compare-banks
+📝 Submit application: POST /api/customer/submit-application
+📋 Check status: GET /api/applications/:id/status
+🔧 Admin applications: GET /api/admin/applications
+📊 Admin app details: GET /api/admin/applications/:id
+✏️ Update app status: PUT /api/admin/applications/:id/status
 
-Error: listen EADDRINUSE: address already in use :::8003
-    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
-    at listenInCluster (node:net:1997:12)
-    at Server.listen (node:net:2102:7)
-    at app.listen (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/express/lib/application.js:635:24)
-    at Object.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:7812:5)
-    at Module._compile (node:internal/modules/cjs/loader:1734:14)
-    at Object..js (node:internal/modules/cjs/loader:1899:10)
-    at Module.load (node:internal/modules/cjs/loader:1469:32)
-    at Module._load (node:internal/modules/cjs/loader:1286:12)
-    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
-Emitted 'error' event on Server instance at:
-    at emitErrorNT (node:net:1976:8)
-    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
-  code: 'EADDRINUSE',
-  errno: -48,
-  syscall: 'listen',
-  address: '::',
-  port: 8003
-}
+🏢 PHASE 2: Bank Worker Registration System
+📨 Send invitation: POST /api/bank-worker/invite
+📝 Get registration form: GET /api/bank-worker/register/:token
+✅ Complete registration: POST /api/bank-worker/register
+📊 Check status: GET /api/bank-worker/status/:id
+📋 Admin invitations: GET /api/admin/invitations
+⏳ Admin approval queue: GET /api/admin/approval-queue
+✅ Approve worker: POST /api/admin/approve/:id
+❌ Reject worker: POST /api/admin/reject/:id
 
-Node.js v24.2.0
+✅ Content Database connected: 2025-07-17T17:05:01.284Z
+✅ Main Database connected: 2025-07-17T17:05:01.302Z
+✅ test-content table deleted successfully (if it existed)
+[0mGET /api/content/languages [32m200[0m 201.035 ms - 410[0m
+[0mGET /api/content/categories [32m200[0m 173.140 ms - 1578[0m
+[0mGET /api/content/items [32m200[0m 468.971 ms - 1449[0m
+[0mGET /api/content/login_page/en [32m200[0m 166.019 ms - 387[0m
+[0mGET /api/content/app.login.header.welcome/he [32m200[0m 176.920 ms - 117[0m
+[0mPOST /api/content [32m200[0m 2271.580 ms - 127[0m
+[0mPUT /api/content/5 [32m200[0m 838.587 ms - 459[0m
+[0mDELETE /api/content/5 [32m200[0m 256.887 ms - 113[0m

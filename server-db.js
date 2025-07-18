@@ -876,6 +876,446 @@ app.get('/api/content-db/tables', async (req, res) => {
     }
 });
 
+// ===================================================================
+// CONTENT MANAGEMENT API ENDPOINTS - Phase 1
+// ===================================================================
+
+// GET /api/content/:screen/:language - Get all content for specific screen
+app.get('/api/content/:screen/:language', async (req, res) => {
+    try {
+        const { screen, language } = req.params;
+        
+        const result = await contentPool.query(`
+            SELECT 
+                ci.content_key,
+                ci.component_type,
+                ci.category,
+                ct.content_value,
+                ct.language_code,
+                ct.status
+            FROM content_items ci
+            JOIN content_translations ct ON ci.id = ct.content_item_id
+            WHERE ci.screen_location = $1 
+                AND ct.language_code = $2 
+                AND ct.status = 'approved'
+                AND ci.is_active = TRUE
+            ORDER BY ci.content_key
+        `, [screen, language]);
+        
+        // Transform to key-value object for frontend
+        const content = {};
+        result.rows.forEach(row => {
+            content[row.content_key] = {
+                value: row.content_value,
+                component_type: row.component_type,
+                category: row.category,
+                language: row.language_code,
+                status: row.status
+            };
+        });
+        
+        res.json({
+            status: 'success',
+            screen_location: screen,
+            language_code: language,
+            content_count: result.rowCount,
+            content: content
+        });
+        
+    } catch (error) {
+        console.error('❌ Failed to get content for screen:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve content for screen',
+            error: error.message
+        });
+    }
+});
+
+// GET /api/content/:key/:language - Get specific content item with fallback
+app.get('/api/content/:key/:language', async (req, res) => {
+    try {
+        const { key, language } = req.params;
+        
+        const result = await contentPool.query(`
+            SELECT 
+                ci.content_key,
+                ci.component_type,
+                ci.category,
+                ci.screen_location,
+                COALESCE(
+                    (SELECT content_value FROM content_translations 
+                     WHERE content_item_id = ci.id AND language_code = $2 AND status = 'approved'),
+                    (SELECT content_value FROM content_translations 
+                     WHERE content_item_id = ci.id AND is_default = TRUE AND status = 'approved')
+                ) as content_value,
+                COALESCE(
+                    (SELECT language_code FROM content_translations 
+                     WHERE content_item_id = ci.id AND language_code = $2 AND status = 'approved'),
+                    (SELECT language_code FROM content_translations 
+                     WHERE content_item_id = ci.id AND is_default = TRUE AND status = 'approved')
+                ) as actual_language
+            FROM content_items ci
+            WHERE ci.content_key = $1 AND ci.is_active = TRUE
+        `, [key, language]);
+        
+        if (result.rowCount === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Content item not found',
+                content_key: key
+            });
+        }
+        
+        const item = result.rows[0];
+        res.json({
+            status: 'success',
+            content_key: key,
+            requested_language: language,
+            actual_language: item.actual_language,
+            fallback_used: item.actual_language !== language,
+            content: {
+                value: item.content_value,
+                component_type: item.component_type,
+                category: item.category,
+                screen_location: item.screen_location
+            }
+        });
+        
+    } catch (error) {
+        console.error('❌ Failed to get content item:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve content item',
+            error: error.message
+        });
+    }
+});
+
+// POST /api/content - Create new content item
+app.post('/api/content', async (req, res) => {
+    try {
+        const {
+            content_key,
+            content_type = 'text',
+            category,
+            screen_location,
+            component_type,
+            description,
+            translations = []
+        } = req.body;
+        
+        // Validate required fields
+        if (!content_key || !category || !screen_location || !component_type) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'Missing required fields: content_key, category, screen_location, component_type'
+            });
+        }
+        
+        // Start transaction
+        const client = await contentPool.connect();
+        
+        try {
+            await client.query('BEGIN');
+            
+            // Insert content item
+            const contentResult = await client.query(`
+                INSERT INTO content_items 
+                (content_key, content_type, category, screen_location, component_type, description, created_by)
+                VALUES ($1, $2, $3, $4, $5, $6, $7)
+                RETURNING id
+            `, [content_key, content_type, category, screen_location, component_type, description, 1]);
+            
+            const contentItemId = contentResult.rows[0].id;
+            
+            // Insert translations if provided
+            if (translations.length > 0) {
+                for (const translation of translations) {
+                    await client.query(`
+                        INSERT INTO content_translations 
+                        (content_item_id, language_code, content_value, is_default, status, created_by)
+                        VALUES ($1, $2, $3, $4, $5, $6)
+                    `, [
+                        contentItemId,
+                        translation.language_code,
+                        translation.content_value,
+                        translation.is_default || false,
+                        translation.status || 'draft',
+                        1
+                    ]);
+                }
+            }
+            
+            await client.query('COMMIT');
+            
+            res.json({
+                status: 'success',
+                message: 'Content item created successfully',
+                content_item_id: contentItemId,
+                content_key: content_key,
+                translations_added: translations.length
+            });
+            
+        } catch (error) {
+            await client.query('ROLLBACK');
+            throw error;
+        } finally {
+            client.release();
+        }
+        
+    } catch (error) {
+        console.error('❌ Failed to create content item:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to create content item',
+            error: error.message
+        });
+    }
+});
+
+// PUT /api/content/:id - Update content item
+app.put('/api/content/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const {
+            content_key,
+            content_type,
+            category,
+            screen_location,
+            component_type,
+            description,
+            is_active
+        } = req.body;
+        
+        const result = await contentPool.query(`
+            UPDATE content_items 
+            SET 
+                content_key = COALESCE($1, content_key),
+                content_type = COALESCE($2, content_type),
+                category = COALESCE($3, category),
+                screen_location = COALESCE($4, screen_location),
+                component_type = COALESCE($5, component_type),
+                description = COALESCE($6, description),
+                is_active = COALESCE($7, is_active),
+                updated_at = CURRENT_TIMESTAMP,
+                updated_by = $8
+            WHERE id = $9
+            RETURNING *
+        `, [content_key, content_type, category, screen_location, component_type, description, is_active, 1, id]);
+        
+        if (result.rowCount === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Content item not found'
+            });
+        }
+        
+        res.json({
+            status: 'success',
+            message: 'Content item updated successfully',
+            content_item: result.rows[0]
+        });
+        
+    } catch (error) {
+        console.error('❌ Failed to update content item:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to update content item',
+            error: error.message
+        });
+    }
+});
+
+// DELETE /api/content/:id - Delete content item
+app.delete('/api/content/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        const result = await contentPool.query(`
+            DELETE FROM content_items 
+            WHERE id = $1
+            RETURNING content_key
+        `, [id]);
+        
+        if (result.rowCount === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Content item not found'
+            });
+        }
+        
+        res.json({
+            status: 'success',
+            message: 'Content item deleted successfully',
+            deleted_content_key: result.rows[0].content_key
+        });
+        
+    } catch (error) {
+        console.error('❌ Failed to delete content item:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to delete content item',
+            error: error.message
+        });
+    }
+});
+
+// GET /api/content/categories - Get content categories tree
+app.get('/api/content/categories', async (req, res) => {
+    try {
+        const result = await contentPool.query(`
+            SELECT 
+                id,
+                name,
+                display_name,
+                description,
+                parent_id,
+                sort_order,
+                is_active
+            FROM content_categories
+            WHERE is_active = TRUE
+            ORDER BY sort_order, name
+        `);
+        
+        res.json({
+            status: 'success',
+            categories_count: result.rowCount,
+            categories: result.rows
+        });
+        
+    } catch (error) {
+        console.error('❌ Failed to get content categories:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve content categories',
+            error: error.message
+        });
+    }
+});
+
+// GET /api/content/languages - Get supported languages
+app.get('/api/content/languages', async (req, res) => {
+    try {
+        const result = await contentPool.query(`
+            SELECT 
+                id,
+                code,
+                name,
+                native_name,
+                direction,
+                is_active,
+                is_default
+            FROM languages
+            WHERE is_active = TRUE
+            ORDER BY is_default DESC, name
+        `);
+        
+        res.json({
+            status: 'success',
+            languages_count: result.rowCount,
+            languages: result.rows
+        });
+        
+    } catch (error) {
+        console.error('❌ Failed to get languages:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve languages',
+            error: error.message
+        });
+    }
+});
+
+// GET /api/content/items - Get all content items with pagination and filtering
+app.get('/api/content/items', async (req, res) => {
+    try {
+        const {
+            page = 1,
+            limit = 50,
+            category,
+            screen_location,
+            search,
+            status = 'approved'
+        } = req.query;
+        
+        const offset = (page - 1) * limit;
+        
+        let whereClause = 'WHERE ci.is_active = TRUE';
+        const params = [];
+        let paramIndex = 1;
+        
+        if (category) {
+            whereClause += ` AND ci.category = $${paramIndex++}`;
+            params.push(category);
+        }
+        
+        if (screen_location) {
+            whereClause += ` AND ci.screen_location = $${paramIndex++}`;
+            params.push(screen_location);
+        }
+        
+        if (search) {
+            whereClause += ` AND (ci.content_key ILIKE $${paramIndex++} OR ci.description ILIKE $${paramIndex++})`;
+            params.push(`%${search}%`, `%${search}%`);
+        }
+        
+        const query = `
+            SELECT 
+                ci.id,
+                ci.content_key,
+                ci.content_type,
+                ci.category,
+                ci.screen_location,
+                ci.component_type,
+                ci.description,
+                ci.created_at,
+                ci.updated_at,
+                COUNT(ct.id) as translation_count,
+                COUNT(CASE WHEN ct.status = 'approved' THEN 1 END) as approved_translations
+            FROM content_items ci
+            LEFT JOIN content_translations ct ON ci.id = ct.content_item_id
+            ${whereClause}
+            GROUP BY ci.id, ci.content_key, ci.content_type, ci.category, ci.screen_location, ci.component_type, ci.description, ci.created_at, ci.updated_at
+            ORDER BY ci.updated_at DESC
+            LIMIT $${paramIndex++} OFFSET $${paramIndex++}
+        `;
+        
+        params.push(limit, offset);
+        
+        const result = await contentPool.query(query, params);
+        
+        // Get total count for pagination
+        const countQuery = `
+            SELECT COUNT(*) as total
+            FROM content_items ci
+            ${whereClause}
+        `;
+        
+        const countResult = await contentPool.query(countQuery, params.slice(0, -2));
+        const total = parseInt(countResult.rows[0].total);
+        
+        res.json({
+            status: 'success',
+            pagination: {
+                page: parseInt(page),
+                limit: parseInt(limit),
+                total,
+                pages: Math.ceil(total / limit)
+            },
+            items: result.rows
+        });
+        
+    } catch (error) {
+        console.error('❌ Failed to get content items:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve content items',
+            error: error.message
+        });
+    }
+});
+
 // API endpoint to get property ownership LTV ratios (fixes hardcoded values issue)
 app.get('/api/property-ownership-ltv', async (req, res) => {
     try {
