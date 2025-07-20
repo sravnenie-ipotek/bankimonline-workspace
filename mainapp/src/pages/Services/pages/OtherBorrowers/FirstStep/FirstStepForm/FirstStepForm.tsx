@@ -1,6 +1,7 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { Column } from '@components/ui/Column'
 import { FormContainer } from '@components/ui/FormContainer'
@@ -27,6 +28,7 @@ import { FormTypes } from '@src/pages/Services/types/formTypes'
 
 const FirstStepForm = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('other_borrowers_step1')
 
   const [searchParams] = useSearchParams()
 
@@ -38,7 +40,7 @@ const FirstStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={t('personal_data_borrowers_title') + query} />
+      <FormCaption title={getContent('personal_data_borrowers_title', 'personal_data_borrowers_title') + query} />
       <RowTwo>
         <Info />
       </RowTwo>
