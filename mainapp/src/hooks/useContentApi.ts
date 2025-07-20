@@ -311,7 +311,14 @@ export const useContentApi = (screenLocation: string) => {
       'sms_modal_privacy_policy': ['privacy_policy'],
       'sms_modal_already_client': ['already_client'],
       'sms_modal_login_here': ['login_here'],
-      'sms_modal_close': ['close']
+      'sms_modal_close': ['close'],
+      
+      // SMS Code Verification Modal mappings
+      'sms_code_modal_title': ['accept_you_profile_for_registration'],
+      'sms_code_modal_subtitle': ['sms_phone'],
+      'sms_code_not_received': ['not_received_sms'],
+      'sms_code_send_again': ['send_sms_code_again'],
+      'sms_code_verify_button': ['accept_phone']
     };
     
     // Try specific mappings first
