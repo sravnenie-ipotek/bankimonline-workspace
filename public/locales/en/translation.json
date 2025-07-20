@@ -603,7 +603,7 @@
   "calculate_mortgage_initial_payment": "Monthly payment",
   "calculate_mortgage_calculator": "Mortgage calculator",
   "initial_payment_tooltip": "Primary residence: Borrower has no property - maximum financing up to 75%\\n\\nAlternative residence: Borrower has property which they commit to sell within two years - maximum financing up to 70%\\n\\nSecond home and above: Borrower already owns property - maximum financing up to 50%",
-  "calculate_mortgage_anketa": "Personal information",
+  "calculate_mortgage_anketa": "__MIGRATED_Personal information",
   "calculate_mortgage_income": "Income details",
   "calculate_mortgage_name_surname": "Full name",
   "calculate_mortgage_name_surname_ph": "Enter first name and last name",
