@@ -5,6 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 
 import { Modal } from '@src/components/ui/Modal'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
+import { useContentApi } from '@src/hooks/useContentApi'
 import {
   useSendSmsCodeEmailMutation,
   useSendSmsCodeMobileMutation,
@@ -29,6 +30,7 @@ const USER_DATA = 'USER_DATA'
 
 const AuthModal = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('sms_code_verification')
 
   const [sendCodeMobile] = useSendSmsCodeMobileMutation()
   const [sendCodeEmail] = useSendSmsCodeEmailMutation()
@@ -237,14 +239,14 @@ const AuthModal = () => {
     case 'codeSignUp':
       activeModalComponent = (
         <Code
-          title={t('accept_you_profile_for_registration')}
-          subtitle={t('sms_phone')}
+          title={getContent('sms_code_modal_title', 'accept_you_profile_for_registration')}
+          subtitle={getContent('sms_code_modal_subtitle', 'sms_phone')}
           onSubmit={(values) => {
             activeTab === 'phone'
               ? handleSendCodeMobile(values)
               : handleSendCodeEmail(values)
           }}
-          buttonText={t('accept_phone')}
+          buttonText={getContent('sms_code_verify_button', 'accept_phone')}
           onBack={() => {
             dispatch(setActiveModal('signUp'))
           }}

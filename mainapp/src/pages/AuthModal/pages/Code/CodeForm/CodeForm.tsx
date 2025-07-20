@@ -7,6 +7,7 @@ import BackButton from '@src/components/ui/BackButton/BackButton'
 import { Button } from '@src/components/ui/ButtonUI'
 import { CodeInput } from '@src/components/ui/CodeInput'
 import { useAppSelector } from '@src/hooks/store'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { CodeFormType } from '../Code'
 import styles from './codeForm.module.scss'
@@ -31,6 +32,7 @@ const CodeForm: React.FC<TypeProps> = ({
   onBack,
 }) => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('sms_code_verification')
 
   const { values, setFieldValue, isValid } = useFormikContext<CodeFormType>()
   const registrationData = useAppSelector((state) => state.login.registrationData)
@@ -98,18 +100,18 @@ const CodeForm: React.FC<TypeProps> = ({
         />
       </div>
       <p className={cx('code-again')}>
-        {t('not_received_sms')}{' '}
+        {getContent('sms_code_not_received', 'not_received_sms')}{' '}
         {canResendSMS ? (
           <span 
             className={cx('highlighted', 'clickable')} 
             onClick={handleResendSMS}
             style={{ cursor: 'pointer' }}
           >
-            {t('send_sms_code_again')}
+            {getContent('sms_code_send_again', 'send_sms_code_again')}
           </span>
         ) : (
           <span className={cx('highlighted', 'disabled')}>
-            {t('send_sms_code_again')} ({countdown}s)
+            {getContent('sms_code_send_again', 'send_sms_code_again')} ({countdown}s)
           </span>
         )}
       </p>
