@@ -7,6 +7,7 @@ import * as Yup from 'yup'
 import { Container } from '@src/components/ui/Container'
 import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice.ts'
 import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
 import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
@@ -59,6 +60,7 @@ export function validateInitialPayment(priceOfEstate: number, value?: number) {
 
 const FirstStep = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('mortgage_calculation')
   const dispatch = useAppDispatch()
 
   const navigate = useNavigate()
@@ -98,8 +100,8 @@ const FirstStep = () => {
         <Form>
           <Container>
             <VideoPoster
-              title={t('video_calculate_mortgage_title')}
-              text={t('show_offers')}
+              title={getContent('video_calculate_mortgage_title', 'video_calculate_mortgage_title')}
+              text={getContent('show_offers', 'show_offers')}
               size="small"
             />
             <FirstStepForm />

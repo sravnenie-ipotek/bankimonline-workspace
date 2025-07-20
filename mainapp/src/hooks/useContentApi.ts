@@ -86,8 +86,15 @@ export const useContentApi = (screenLocation: string) => {
       return content[key];
     }
     
+    // Try short key version (from transformedContent[shortKey])
+    const shortKey = key.split('.').pop() || key;
+    if (content[shortKey]) {
+      return content[shortKey];
+    }
+    
     // Try with specific prefixes based on the key
     const prefixMap: Record<string, string[]> = {
+      // Home page content
       'calculate_mortgage': ['app.home.service.calculate_mortgage'],
       'refinance_mortgage': ['app.home.service.refinance_mortgage'],
       'calculate_credit': ['app.home.service.calculate_credit'],
@@ -102,13 +109,51 @@ export const useContentApi = (screenLocation: string) => {
       'fill_form_text': ['app.home.text.fill_form_description'],
       'mortgage_calculator_text': ['app.home.text.calculator_description'],
       'calculator_description': ['app.home.text.calculator_description'],
-      'fill_form_description': ['app.home.text.fill_form_description']
+      'fill_form_description': ['app.home.text.fill_form_description'],
+      
+      // Mortgage calculation page content
+      'mobile_step_1': ['mobile_step_1_fixed', 'app.mortgage.step.mobile_step_1_fixed', 'app.mortgage.step.mobile_step_1'],
+      'mobile_step_2': ['mobile_step_2_fixed', 'app.mortgage.step.mobile_step_2_fixed', 'app.mortgage.step.mobile_step_2'],
+      'mobile_step_3': ['app.mortgage.step.mobile_step_3'],
+      'mobile_step_4': ['app.mortgage.step.mobile_step_4'],
+      'video_calculate_mortgage_title': ['video_calculate_mortgage_title_fixed', 'app.mortgage.header.video_calculate_mortgage_title_fixed', 'app.mortgage.header.video_calculate_mortgage_title'],
+      'calculate_mortgage_title': ['calculate_mortgage_title_fixed', 'app.mortgage.form.calculate_mortgage_title_fixed', 'app.mortgage.form.calculate_mortgage_title'],
+      'calculate_mortgage_price': ['app.mortgage.form.calculate_mortgage_price'],
+      'calculate_mortgage_city': ['app.mortgage.form.calculate_mortgage_city'],
+      'calculate_mortgage_when': ['app.mortgage.form.calculate_mortgage_when'],
+      'calculate_mortgage_when_options_ph': ['app.mortgage.form.calculate_mortgage_when_options_ph'],
+      'calculate_mortgage_when_options_1': ['app.mortgage.form.calculate_mortgage_when_options_1'],
+      'calculate_mortgage_when_options_2': ['app.mortgage.form.calculate_mortgage_when_options_2'],
+      'calculate_mortgage_when_options_3': ['app.mortgage.form.calculate_mortgage_when_options_3'],
+      'calculate_mortgage_when_options_4': ['app.mortgage.form.calculate_mortgage_when_options_4'],
+      'calculate_mortgage_initial_fee': ['app.mortgage.form.calculate_mortgage_initial_fee'],
+      'calculate_mortgage_type': ['app.mortgage.form.calculate_mortgage_type'],
+      'calculate_mortgage_type_ph': ['app.mortgage.form.calculate_mortgage_type_ph'],
+      'calculate_mortgage_type_options_1': ['app.mortgage.form.calculate_mortgage_type_options_1'],
+      'calculate_mortgage_type_options_2': ['app.mortgage.form.calculate_mortgage_type_options_2'],
+      'calculate_mortgage_type_options_3': ['app.mortgage.form.calculate_mortgage_type_options_3'],
+      'calculate_mortgage_type_options_4': ['app.mortgage.form.calculate_mortgage_type_options_4'],
+      'calculate_mortgage_first': ['app.mortgage.form.calculate_mortgage_first'],
+      'calculate_mortgage_first_ph': ['app.mortgage.form.calculate_mortgage_first_ph'],
+      'calculate_mortgage_first_options_1': ['app.mortgage.form.calculate_mortgage_first_options_1'],
+      'calculate_mortgage_first_options_2': ['app.mortgage.form.calculate_mortgage_first_options_2'],
+      'calculate_mortgage_first_options_3': ['app.mortgage.form.calculate_mortgage_first_options_3'],
+      'calculate_mortgage_property_ownership': ['app.mortgage.form.calculate_mortgage_property_ownership'],
+      'calculate_mortgage_property_ownership_ph': ['app.mortgage.form.calculate_mortgage_property_ownership_ph'],
+      'calculate_mortgage_property_ownership_option_1': ['app.mortgage.form.calculate_mortgage_property_ownership_option_1'],
+      'calculate_mortgage_property_ownership_option_2': ['app.mortgage.form.calculate_mortgage_property_ownership_option_2'],
+      'calculate_mortgage_property_ownership_option_3': ['app.mortgage.form.calculate_mortgage_property_ownership_option_3'],
+      'calculate_mortgage_period': ['app.mortgage.form.calculate_mortgage_period'],
+      'calculate_mortgage_period_units_min': ['app.mortgage.form.calculate_mortgage_period_units_min'],
+      'calculate_mortgage_period_units_max': ['app.mortgage.form.calculate_mortgage_period_units_max'],
+      'calculate_mortgage_initial_payment': ['app.mortgage.form.calculate_mortgage_initial_payment']
     };
     
     // Try specific mappings first
     const mappedKeys = prefixMap[key] || [];
     for (const mappedKey of mappedKeys) {
       if (content[mappedKey]) {
+        console.log(`✅ Found content for key: ${key} using mapping: ${mappedKey} -> "${content[mappedKey]}"`);
         return content[mappedKey];
       }
     }
@@ -119,17 +164,24 @@ export const useContentApi = (screenLocation: string) => {
       `app.home.button.${key}`,
       `app.home.header.${key}`,
       `app.home.text.${key}`,
-      `app.home.navigation.${key}`
+      `app.home.navigation.${key}`,
+      `app.mortgage.step.${key}`,
+      `app.mortgage.form.${key}`,
+      `app.mortgage.header.${key}`,
+      `app.mortgage.error.${key}`
     ];
     
     for (const altKey of alternativeKeys) {
       if (content[altKey]) {
+        console.log(`✅ Found content for key: ${key} using alternative: ${altKey} -> "${content[altKey]}"`);
         return content[altKey];
       }
     }
     
     // Debug logging
-    console.log(`Content lookup for key: ${key}, available keys:`, Object.keys(content));
+    console.log(`❌ Content lookup failed for key: ${key}`);
+    console.log(`Available keys:`, Object.keys(content));
+    console.log(`Tried mappings:`, mappedKeys);
     
     // Fallback to translation system
     const translationKey = fallbackKey || key;
