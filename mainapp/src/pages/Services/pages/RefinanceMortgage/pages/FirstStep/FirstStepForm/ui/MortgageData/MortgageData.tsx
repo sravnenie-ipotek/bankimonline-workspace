@@ -2,6 +2,7 @@ import classNames from 'classnames/bind'
 import { useFormikContext } from 'formik'
 import { Fragment, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { DeleteIcon } from '@assets/icons/DeleteIcon'
 import { PercentIcon } from '@assets/icons/PercentIcon'
@@ -42,6 +43,7 @@ const MortgageData = () => {
   const { isDesktop, isTablet, isMobile } = useWindowResize()
 
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('refinance_step1')
 
   useEffect(() => {
     setMortgageData(values.mortgageData)
@@ -74,11 +76,11 @@ const MortgageData = () => {
   }
 
   const data = [
-    { value: 'option_1', label: t('program_refinance_mortgage_option_1') },
-    { value: 'option_2', label: t('program_refinance_mortgage_option_2') },
-    { value: 'option_3', label: t('program_refinance_mortgage_option_3') },
-    { value: 'option_4', label: t('program_refinance_mortgage_option_4') },
-    { value: 'option_5', label: t('program_refinance_mortgage_option_5') },
+    { value: 'option_1', label: getContent('program_refinance_mortgage_option_1', 'program_refinance_mortgage_option_1') },
+    { value: 'option_2', label: getContent('program_refinance_mortgage_option_2', 'program_refinance_mortgage_option_2') },
+    { value: 'option_3', label: getContent('program_refinance_mortgage_option_3', 'program_refinance_mortgage_option_3') },
+    { value: 'option_4', label: getContent('program_refinance_mortgage_option_4', 'program_refinance_mortgage_option_4') },
+    { value: 'option_5', label: getContent('program_refinance_mortgage_option_5', 'program_refinance_mortgage_option_5') },
   ]
 
   const sumBalance = mortgageData.reduce(
@@ -91,7 +93,7 @@ const MortgageData = () => {
       <div className={cx('mortgage-data')}>
         <div className={cx('mortgage-data-title')}>
           <h4 className={cx('mortgage-data-title__text')}>
-            {t('enter_mortgage_info')}
+            {getContent('enter_mortgage_info', 'enter_mortgage_info')}
           </h4>
           {touched.mortgageData && errors.mortgageData && (
             <AlertWarning
@@ -113,10 +115,10 @@ const MortgageData = () => {
         {isDesktop && (
           <div className={cx('mortgage-data-form')}>
             <div className={cx('container', 'title')}>
-              <p className={cx('col', 'col-1')}>{t('programm')}</p>
-              <p className={cx('col', 'col-2')}>{t('balance')}</p>
-              <p className={cx('col', 'col-3')}>{t('end_date')}</p>
-              <p className={cx('col', 'col-4')}>{t('bid')}</p>
+              <p className={cx('col', 'col-1')}>{getContent('programm', 'programm')}</p>
+              <p className={cx('col', 'col-2')}>{getContent('balance', 'balance')}</p>
+              <p className={cx('col', 'col-3')}>{getContent('end_date', 'end_date')}</p>
+              <p className={cx('col', 'col-4')}>{getContent('bid', 'bid')}</p>
               <div className={cx('col', 'col-5')}></div>
             </div>
             <div className={cx('mortgage-data-form__items')}>
@@ -195,7 +197,7 @@ const MortgageData = () => {
                   <AddButton
                     variant="none"
                     color="#FBE54D"
-                    value={t('add_programm')}
+                    value={getContent('add_programm', 'add_programm')}
                     onClick={addMortgageData}
                   />
                 </div>
@@ -214,7 +216,7 @@ const MortgageData = () => {
                 {mortgageData.map((item, index) => (
                   <Fragment key={item.id}>
                     <Column>
-                      <TitleElement title={`${t('programm')} #${item.id}`} />
+                      <TitleElement title={`${getContent('programm', 'programm')} #${item.id}`} />
                       <DropdownMenu
                         data={data}
                         placeholder={t('calculate_mortgage_first_ph')}
@@ -230,7 +232,7 @@ const MortgageData = () => {
                       />
                     </Column>
                     <Column>
-                      <TitleElement title={t('balance')} />
+                      <TitleElement title={getContent('balance', 'balance')} />
                       <Control
                         placeholder="10,000"
                         value={item.balance}
@@ -246,7 +248,7 @@ const MortgageData = () => {
                     </Column>
                     <Column>
                       <Calendar
-                        title={t('end_date')}
+                        title={getContent('end_date', 'end_date')}
                         placeholder={t('date_ph')}
                         value={item.endDate}
                         allowFuture={true}
@@ -262,7 +264,7 @@ const MortgageData = () => {
                       />
                     </Column>
                     <Column>
-                      <TitleElement title={t('bid')} />
+                      <TitleElement title={getContent('bid', 'bid')} />
                       <Control
                         placeholder="1"
                         value={item.bid}
@@ -294,7 +296,7 @@ const MortgageData = () => {
                   <AddButton
                     variant="none"
                     color="#FBE54D"
-                    value={t('add_programm')}
+                    value={getContent('add_programm', 'add_programm')}
                     onClick={addMortgageData}
                   />
                 </Column>
@@ -309,7 +311,7 @@ const MortgageData = () => {
                 {mortgageData.map((item, index) => (
                   <Fragment key={item.id}>
                     <Column>
-                      <TitleElement title={`${t('programm')} #${item.id}`} />
+                      <TitleElement title={`${getContent('programm', 'programm')} #${item.id}`} />
                       <DropdownMenu
                         data={data}
                         placeholder={t('calculate_mortgage_first_ph')}
@@ -325,7 +327,7 @@ const MortgageData = () => {
                       />
                     </Column>
                     <Column>
-                      <TitleElement title={t('balance')} />
+                      <TitleElement title={getContent('balance', 'balance')} />
                       <Control
                         placeholder="10,000"
                         value={item.balance}
@@ -341,7 +343,7 @@ const MortgageData = () => {
                     </Column>
                     <Column>
                       <Calendar
-                        title={t('end_date')}
+                        title={getContent('end_date', 'end_date')}
                         placeholder={t('date_ph')}
                         value={item.endDate}
                         allowFuture={true}
@@ -357,7 +359,7 @@ const MortgageData = () => {
                       />
                     </Column>
                     <Column>
-                      <TitleElement title={t('bid')} />
+                      <TitleElement title={getContent('bid', 'bid')} />
                       <Control
                         placeholder="1"
                         value={item.bid}
@@ -389,7 +391,7 @@ const MortgageData = () => {
                   <AddButton
                     variant="none"
                     color="#FBE54D"
-                    value={t('add_programm')}
+                    value={getContent('add_programm', 'add_programm')}
                     onClick={addMortgageData}
                   />
                 </Column>

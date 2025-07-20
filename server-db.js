@@ -8734,23 +8734,33 @@ app.get('/api/v1/calculation-parameters', async (req, res) => {
         const rateResult = await pool.query(rateQuery);
         const currentRate = parseFloat(rateResult.rows[0].current_rate);
 
-        // Get property ownership LTV ratios
-        const ltvQuery = `
-            SELECT 
-                option_key,
-                ltv_percentage,
-                min_down_payment_percentage
-            FROM property_ownership_options 
-            WHERE is_active = true
-        `;
-        const ltvResult = await pool.query(ltvQuery);
-        const propertyOwnershipLtvs = {};
-        ltvResult.rows.forEach(row => {
-            propertyOwnershipLtvs[row.option_key] = {
-                ltv: parseFloat(row.ltv_percentage),
-                min_down_payment: parseFloat(row.min_down_payment_percentage)
+        // Get property ownership LTV ratios with fallback
+        let propertyOwnershipLtvs = {};
+        try {
+            const ltvQuery = `
+                SELECT 
+                    option_key,
+                    ltv_percentage,
+                    min_down_payment_percentage
+                FROM property_ownership_options 
+                WHERE is_active = true
+            `;
+            const ltvResult = await pool.query(ltvQuery);
+            ltvResult.rows.forEach(row => {
+                propertyOwnershipLtvs[row.option_key] = {
+                    ltv: parseFloat(row.ltv_percentage),
+                    min_down_payment: parseFloat(row.min_down_payment_percentage)
+                };
+            });
+        } catch (ltvError) {
+            console.warn('Property ownership options table not found, using fallback values');
+            // Use standard Israeli mortgage LTV ratios as fallback
+            propertyOwnershipLtvs = {
+                no_property: { ltv: 75.0, min_down_payment: 25.0 },
+                has_property: { ltv: 50.0, min_down_payment: 50.0 },
+                selling_property: { ltv: 70.0, min_down_payment: 30.0 }
             };
-        });
+        }
 
         res.json({
             status: 'success',
