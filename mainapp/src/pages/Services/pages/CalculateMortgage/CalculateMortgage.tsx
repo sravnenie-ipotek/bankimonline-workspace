@@ -6,6 +6,7 @@ import { Loader } from '@components/layout/Loader'
 import { ProgressBar } from '@components/ui/ProgressBar'
 import NotFound from '@src/app/Errors/NotFound/NotFound.tsx'
 import { useAppSelector } from '@src/hooks/store'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { FirstStep } from '@src/pages/Services/pages/CalculateMortgage/pages/FirstStep'
 import { FourthStep } from '@src/pages/Services/pages/CalculateMortgage/pages/FourthStep'
 import { SecondStep } from '@src/pages/Services/pages/CalculateMortgage/pages/SecondStep'
@@ -14,6 +15,7 @@ import { ThirdStep } from '@src/pages/Services/pages/CalculateMortgage/pages/Thi
 const CalculateMortgage = () => {
   const { stepNumber } = useParams()
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('mortgage_calculation')
 
   const navigate = useNavigate()
 
@@ -26,10 +28,10 @@ const CalculateMortgage = () => {
   }, [isLogin, stepNumber, navigate])
 
   const data = [
-    t('mobile_step_1'),
-    t('mobile_step_2'),
-    t('mobile_step_3'),
-    t('mobile_step_4'),
+    getContent('mobile_step_1', 'mobile_step_1'),
+    getContent('mobile_step_2', 'mobile_step_2'),
+    getContent('mobile_step_3', 'mobile_step_3'),
+    getContent('mobile_step_4', 'mobile_step_4'),
   ]
 
   let stepComponent

@@ -880,6 +880,37 @@ app.get('/api/content-db/tables', async (req, res) => {
 // CONTENT MANAGEMENT API ENDPOINTS - Phase 1
 // ===================================================================
 
+// DEBUG ENDPOINT: Fix translation status from draft to approved
+app.post('/api/content/fix-status', async (req, res) => {
+    try {
+        console.log('🔧 Debug: Updating translation status from draft to approved...');
+        
+        const result = await contentPool.query(`
+            UPDATE content_translations 
+            SET status = 'approved' 
+            WHERE status = 'draft'
+            RETURNING id, content_item_id, language_code, status
+        `);
+        
+        console.log(`✅ Updated ${result.rowCount} translation records to approved status`);
+        
+        res.json({
+            status: 'success',
+            message: 'Translation status updated successfully',
+            updated_count: result.rowCount,
+            updated_translations: result.rows
+        });
+        
+    } catch (error) {
+        console.error('❌ Failed to update translation status:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to update translation status',
+            error: error.message
+        });
+    }
+});
+
 // GET /api/content/:screen/:language - Get all content for specific screen
 app.get('/api/content/:screen/:language', async (req, res) => {
     try {
@@ -1022,16 +1053,32 @@ app.post('/api/content', async (req, res) => {
             // Insert content item
             const contentResult = await client.query(`
                 INSERT INTO content_items 
-                (content_key, content_type, category, screen_location, component_type, description, created_by)
-                VALUES ($1, $2, $3, $4, $5, $6, $7)
+                (content_key, content_type, category, screen_location, component_type, description, created_by, is_active)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, TRUE)
                 RETURNING id
             `, [content_key, content_type, category, screen_location, component_type, description, 1]);
             
             const contentItemId = contentResult.rows[0].id;
             
             // Insert translations if provided
-            if (translations.length > 0) {
-                for (const translation of translations) {
+            if (translations && typeof translations === 'object') {
+                // Handle both array format and object format
+                let translationArray = [];
+                
+                if (Array.isArray(translations)) {
+                    // Array format: [{language_code: 'en', content_value: 'text'}, ...]
+                    translationArray = translations;
+                } else {
+                    // Object format: {en: 'text', he: 'text', ru: 'text'}
+                    translationArray = Object.entries(translations).map(([langCode, contentValue]) => ({
+                        language_code: langCode,
+                        content_value: contentValue,
+                        is_default: langCode === 'en', // Set English as default
+                        status: 'approved' // Auto-approve translations
+                    }));
+                }
+                
+                for (const translation of translationArray) {
                     await client.query(`
                         INSERT INTO content_translations 
                         (content_item_id, language_code, content_value, is_default, status, created_by)
@@ -1041,7 +1088,7 @@ app.post('/api/content', async (req, res) => {
                         translation.language_code,
                         translation.content_value,
                         translation.is_default || false,
-                        translation.status || 'draft',
+                        translation.status || 'approved', // Default to 'approved' instead of 'draft'
                         1
                     ]);
                 }
