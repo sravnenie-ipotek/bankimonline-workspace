@@ -1,5 +1,6 @@
 import classNames from 'classnames/bind'
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { useAppDispatch } from '@src/hooks/store'
 import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice'
@@ -45,6 +46,7 @@ const BankCard: React.FC<TypeProps> = ({
   onBankSelect,
 }: TypeProps) => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('mortgage_step4')
   const dispatch = useAppDispatch()
 
   const formattedMortgageAmount = mortgageAmount.toLocaleString('en-US')
@@ -93,17 +95,17 @@ const BankCard: React.FC<TypeProps> = ({
       <Divider />
       <div className={cx('card-footer')}>
         <div className={cx('card-check')}>
-          <p className={cx('card-check__title')}>{t('mortgage_total')}</p>
+          <p className={cx('card-check__title')}>{getContent('mortgage_total', 'mortgage_total')}</p>
           <p className={cx('card-check__price')}>{formattedMortgageAmount} ₪</p>
         </div>
         <div className={cx('card-check')}>
           <p className={cx('card-check__title')}>
-            {t('mortgage_total_return')}
+            {getContent('mortgage_total_return', 'mortgage_total_return')}
           </p>
           <p className={cx('card-check__price')}>{formattedTotalAmount} ₪</p>
         </div>
         <div className={cx('card-check')}>
-          <p className={cx('card-check__title')}>{t('mortgage_monthly')}</p>
+          <p className={cx('card-check__title')}>{getContent('mortgage_monthly', 'mortgage_monthly')}</p>
           <p className={cx('card-check__price')}>{formattedMonthlyPayment} ₪</p>
         </div>
       </div>
@@ -112,7 +114,7 @@ const BankCard: React.FC<TypeProps> = ({
         className={cx('card-button')}
         onClick={handleBankSelection}
       >
-        {t('mortgage_select_bank')}
+        {getContent('mortgage_select_bank', 'mortgage_select_bank')}
       </button>
     </div>
   )
