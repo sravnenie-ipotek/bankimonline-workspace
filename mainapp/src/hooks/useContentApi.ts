@@ -318,7 +318,10 @@ export const useContentApi = (screenLocation: string) => {
       'sms_code_modal_subtitle': ['sms_phone'],
       'sms_code_not_received': ['not_received_sms'],
       'sms_code_send_again': ['send_sms_code_again'],
-      'sms_code_verify_button': ['accept_phone']
+      'sms_code_verify_button': ['accept_phone'],
+      
+      // Refinance Step 2 mappings
+      'refinance_step2_title': ['calculate_mortgage_step2_title']
     };
     
     // Try specific mappings first

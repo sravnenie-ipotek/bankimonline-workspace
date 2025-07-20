@@ -650,3 +650,123 @@ Get calculation parameters error: error: column "min_down_payment_percentage" do
 [0mGET /api/content/mortgage_step2/he [32m200[0m 75.088 ms - 7571[0m
 [0mGET /api/content/mortgage_step2/he [32m200[0m 76.177 ms - 7571[0m
 [0mGET /api/content/mortgage_step2/he [32m200[0m 331.819 ms - 7571[0m
+[0mPOST /api/content [32m200[0m 922.745 ms - 128[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 435.220 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 86.267 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 537.272 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 79.067 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 82.815 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 88.030 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 82.836 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 85.094 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 79.911 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 85.673 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 78.950 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 86.654 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 388.256 ms - 7571[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1067.335 ms - 759[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 399.296 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 81.214 ms - 7571[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 536.512 ms - 837[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 589.833 ms - 7571[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 576.222 ms - 759[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 400.323 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 403.696 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 406.413 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 418.352 ms - 7571[0m
+[0mGET /api/content/refinance_step2/he [32m200[0m 424.900 ms - 248[0m
+[0mGET /api/content/refinance_step2/he [32m200[0m 76.470 ms - 248[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 77.262 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 76.147 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 80.309 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 85.278 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 530.512 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 79.813 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 79.239 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 79.803 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 87.761 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 86.969 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 79.506 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 103.144 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 103.783 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 104.328 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 79.428 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 108.435 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 96.563 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 77.391 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 77.397 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 77.902 ms - 7571[0m
+[0mGET /api/content/refinance_step2/he [32m200[0m 75.814 ms - 248[0m
+[0mGET /api/content/refinance_step2/he [32m200[0m 445.993 ms - 248[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 87.581 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 85.526 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 86.040 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 86.665 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 386.573 ms - 7571[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 387.318 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 412.916 ms - 837[0m
+[0mGET /api/content/refinance_step2/he [32m200[0m 413.413 ms - 248[0m
+[0mGET /api/content/refinance_step2/he [32m200[0m 415.878 ms - 248[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 86.425 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 76.522 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 76.739 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 84.335 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 84.359 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 85.326 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 85.965 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 77.473 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 77.852 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 81.999 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 84.319 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 85.091 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 88.686 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 75.682 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 77.906 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 83.685 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 85.178 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 85.899 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 91.540 ms - 7571[0m

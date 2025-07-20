@@ -10,6 +10,7 @@ import Divider from '@src/components/ui/Divider/Divider'
 import FormCaption from '@src/components/ui/FormCaption/FormCaption'
 import { RowTwo } from '@src/components/ui/RowTwo'
 import { useAppSelector } from '@src/hooks/store'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { AddPartner } from '@src/pages/Services/components/AddPartner'
 import { AdditionalCitizenship } from '@src/pages/Services/components/AdditionalCitizenships'
 import { Birthday } from '@src/pages/Services/components/Birthday'
@@ -32,6 +33,7 @@ import { FormTypes } from '@src/pages/Services/types/formTypes'
 // Компонент расчета ипотеки - 2 шаг
 const SecondStepForm = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('refinance_step2')
 
   const { values } = useFormikContext<FormTypes>()
   const userData = useAppSelector((state) => state.login.loginData)
@@ -63,7 +65,7 @@ const SecondStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={t('calculate_mortgage_step2_title')} />
+      <FormCaption title={getContent('refinance_step2_title', 'calculate_mortgage_step2_title')} />
       <RowTwo>
         <Info />
         <UserProfileCard 
