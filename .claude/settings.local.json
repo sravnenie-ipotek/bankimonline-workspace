@@ -58,7 +58,9 @@
       "Bash(printenv)",
       "Bash(gtimeout:*)",
       "Bash(psql:*)",
-      "Bash(PGPASSWORD=HBxrSXZkMmbBEPgEfgKJOUvdUBFMqBcZ psql -h roundhouse.proxy.rlwy.net -p 29351 -U postgres -d railway -c \"\nINSERT INTO content_items (content_key, component_type, category, screen_location, status) VALUES\n  (''app.mortgage.step.mobile_step_1'', ''text'', ''progress'', ''mortgage_calculation'', ''active''),\n  (''app.mortgage.step.mobile_step_2'', ''text'', ''progress'', ''mortgage_calculation'', ''active''),\n  (''app.mortgage.step.mobile_step_3'', ''text'', ''progress'', ''mortgage_calculation'', ''active''),\n  (''app.mortgage.step.mobile_step_4'', ''text'', ''progress'', ''mortgage_calculation'', ''active'')\nON CONFLICT (content_key) DO NOTHING;\nSELECT content_key FROM content_items WHERE screen_location = ''mortgage_calculation'';\n\")"
+      "Bash(PGPASSWORD=HBxrSXZkMmbBEPgEfgKJOUvdUBFMqBcZ psql -h roundhouse.proxy.rlwy.net -p 29351 -U postgres -d railway -c \"\nINSERT INTO content_items (content_key, component_type, category, screen_location, status) VALUES\n  (''app.mortgage.step.mobile_step_1'', ''text'', ''progress'', ''mortgage_calculation'', ''active''),\n  (''app.mortgage.step.mobile_step_2'', ''text'', ''progress'', ''mortgage_calculation'', ''active''),\n  (''app.mortgage.step.mobile_step_3'', ''text'', ''progress'', ''mortgage_calculation'', ''active''),\n  (''app.mortgage.step.mobile_step_4'', ''text'', ''progress'', ''mortgage_calculation'', ''active'')\nON CONFLICT (content_key) DO NOTHING;\nSELECT content_key FROM content_items WHERE screen_location = ''mortgage_calculation'';\n\")",
+      "Bash(cp:*)",
+      "mcp__playwright__browser_hover"
     ],
     "deny": []
   },
