@@ -2,6 +2,7 @@ import classNames from 'classnames/bind'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { SliderHorizontalIcon } from '@assets/icons/SlidersHorizontalIcon'
 import { Column } from '@components/ui/Column'
@@ -27,6 +28,7 @@ const MortgageParameters: React.FC<TypeProps> = ({
   onEditClick,
 }: TypeProps) => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('mortgage_step4')
   const navigate = useNavigate()
   const serviceType = useServiceContext()
 
@@ -46,7 +48,7 @@ const MortgageParameters: React.FC<TypeProps> = ({
       <div className={cx('parameters')}>
         <div className={cx('parameters-title')}>
           <p className={cx('parameters-title__text')}>
-            {t('calculate_mortgage_parameters')}
+            {getContent('calculate_mortgage_parameters', 'calculate_mortgage_parameters')}
           </p>
           <SliderHorizontalIcon
             onClick={onEditClick || (() => navigate('/services/calculate-mortgage/1'))}
@@ -70,7 +72,7 @@ const MortgageParameters: React.FC<TypeProps> = ({
                 {formattedCost} ₪
               </div>
               <div className={cx('parameters-data__desc')}>
-                {t(isCredit ? 'calculate_credit_parameters_cost' : 'calculate_mortgage_parameters_cost')}
+                {getContent(isCredit ? 'calculate_credit_parameters_cost' : 'calculate_mortgage_parameters_cost', isCredit ? 'calculate_credit_parameters_cost' : 'calculate_mortgage_parameters_cost')}
               </div>
             </div>
           )}
@@ -80,7 +82,7 @@ const MortgageParameters: React.FC<TypeProps> = ({
                 {formattedInitialPayment} ₪
               </div>
               <div className={cx('parameters-data__desc')}>
-                {t('calculate_mortgage_parameters_initial')}
+                {getContent('calculate_mortgage_parameters_initial', 'calculate_mortgage_parameters_initial')}
               </div>
             </div>
           )}
@@ -89,10 +91,10 @@ const MortgageParameters: React.FC<TypeProps> = ({
           <div className={cx('wrapper')}>
             <div className={cx('parameters-data')}>
               <div className={cx('parameters-data__title')}>
-                {formattedPeriod} {t('calculate_mortgage_parameters_months')}
+                {formattedPeriod} {getContent('calculate_mortgage_parameters_months', 'calculate_mortgage_parameters_months')}
               </div>
               <div className={cx('parameters-data__desc')}>
-                {t(isCredit ? 'calculate_credit_parameters_period' : 'calculate_mortgage_parameters_period')}
+                {getContent(isCredit ? 'calculate_credit_parameters_period' : 'calculate_mortgage_parameters_period', isCredit ? 'calculate_credit_parameters_period' : 'calculate_mortgage_parameters_period')}
               </div>
             </div>
           </div>

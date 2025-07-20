@@ -5548,3 +5548,2791 @@ Get calculation parameters error: error: column "min_down_payment_percentage" do
 [COMPARE-BANKS] Bank 92: LTV 50.0% ≤ Bank Max 63% ✓
 [COMPARE-BANKS] Bank 92: PASSED bank-specific eligibility checks
 [COMPARE-BANKS] Bank 92: Base rate input: "3.650" → Parsed: 3.65
+[RATE CALC] Bank 92: Found 5 rate rules
+[RATE CALC] Bank 92: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 92: Final calculated rate: 3.350%
+[COMPARE-BANKS] Bank 92 (Bank Leumi Lemashkanta): Base rate 3.65% → Final rate 3.350%
+[COMPARE-BANKS] Bank 92: Starting calculation with rate 3.35%
+[COMPARE-BANKS] Bank 92: Calculation result: { decision: 'approved', monthlyPayment: 2204, error: undefined }
+[COMPARE-BANKS] Bank 92: APPROVED - Added to offers (Rate: 3.350%, Payment: 2204)
+[COMPARE-BANKS] Returning 18 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 2405.351 ms - 5902[0m
+[RATE CALC] Bank 92: Found 5 rate rules
+[RATE CALC] Bank 92: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 92: Final calculated rate: 3.350%
+[COMPARE-BANKS] Bank 92 (Bank Leumi Lemashkanta): Base rate 3.65% → Final rate 3.350%
+[COMPARE-BANKS] Bank 92: Starting calculation with rate 3.35%
+[COMPARE-BANKS] Bank 92: Calculation result: { decision: 'approved', monthlyPayment: 2204, error: undefined }
+[COMPARE-BANKS] Bank 92: APPROVED - Added to offers (Rate: 3.350%, Payment: 2204)
+[COMPARE-BANKS] Returning 18 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 2451.654 ms - 5902[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753020758048_p8up3x32q'
+}
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753020758050_uci9oytvb'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.324 ms - 2946[0m
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.197 ms - -[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753020758056_m5yllih5l'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.169 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 373.356 ms - 176[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 403.106 ms - 176[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 396.506 ms - 176[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 410.717 ms - -[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 80.113 ms - -[0m
+[0mPOST /api/content [32m200[0m 992.489 ms - 131[0m
+[0mPOST /api/content [32m200[0m 598.165 ms - 133[0m
+[0mPOST /api/content [32m200[0m 559.797 ms - 142[0m
+[0mPOST /api/content [32m200[0m 540.036 ms - 139[0m
+[0mPOST /api/content [32m200[0m 514.046 ms - 138[0m
+[0mPOST /api/content [32m200[0m 516.075 ms - 144[0m
+[0mPOST /api/content [32m200[0m 541.031 ms - 141[0m
+[0mPOST /api/content [32m200[0m 526.381 ms - 143[0m
+[0mPOST /api/content [32m200[0m 520.895 ms - 143[0m
+[0mPOST /api/content [32m200[0m 522.849 ms - 141[0m
+[0mPOST /api/content [32m200[0m 521.932 ms - 141[0m
+[0mPOST /api/content [32m200[0m 582.127 ms - 141[0m
+[0mPOST /api/content [32m200[0m 521.046 ms - 141[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 409.600 ms - -[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 78.664 ms - 5860[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021352352_yl7v4cpio'
+}
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021352353_4g6a83y0x'
+}
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021352355_ocync4cbq'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.208 ms - -[0m
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.162 ms - -[0m
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.165 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 472.476 ms - 176[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 487.166 ms - 176[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 489.572 ms - 2420[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 522.714 ms - 176[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 82.175 ms - -[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 500000,
+  property_value: 1000000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021353025_8ya1n0t30'
+}
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 500000,
+  property_value: 1000000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021353027_dzonlr7mw'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.965 ms - 2946[0m
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.445 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 500000,
+  property_value: 1000000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021353033_79f57o7gj'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.266 ms - 2946[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 85.163 ms - 2420[0m
+[COMPARE-BANKS] Using configurable base rate: 3.5
+[COMPARE-BANKS] Using configurable base rate: 3.5
+[COMPARE-BANKS] Using configurable base rate: 3.5
+[COMPARE-BANKS] Found 18 active banks
+[COMPARE-BANKS] Found 18 active banks
+[COMPARE-BANKS] Found 18 active banks
+[COMPARE-BANKS] Processing Bank 75 (State Bank of Israel)
+[COMPARE-BANKS] Bank 75 specific standards: {
+  standard_ltv_max: '82 (bank_specific)',
+  minimum_credit_score: '620 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 75: LTV 50.0% ≤ Bank Max 82% ✓
+[COMPARE-BANKS] Bank 75: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 75: Base rate input: "3.180" → Parsed: 3.18
+[0mGET /api/content/mortgage_step4/he [32m200[0m 418.803 ms - 2420[0m
+[COMPARE-BANKS] Processing Bank 75 (State Bank of Israel)
+[COMPARE-BANKS] Bank 75 specific standards: {
+  standard_ltv_max: '82 (bank_specific)',
+  minimum_credit_score: '620 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 75: LTV 50.0% ≤ Bank Max 82% ✓
+[COMPARE-BANKS] Bank 75: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 75: Base rate input: "3.180" → Parsed: 3.18
+[COMPARE-BANKS] Processing Bank 75 (State Bank of Israel)
+[COMPARE-BANKS] Bank 75 specific standards: {
+  standard_ltv_max: '82 (bank_specific)',
+  minimum_credit_score: '620 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 75: LTV 50.0% ≤ Bank Max 82% ✓
+[COMPARE-BANKS] Bank 75: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 75: Base rate input: "3.180" → Parsed: 3.18
+[RATE CALC] Bank 75: Found 3 rate rules
+[RATE CALC] Bank 75: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 75: Final calculated rate: 3.080%
+[COMPARE-BANKS] Bank 75 (State Bank of Israel): Base rate 3.18% → Final rate 3.080%
+[COMPARE-BANKS] Bank 75: Starting calculation with rate 3.08%
+[COMPARE-BANKS] Bank 75: Calculation result: { decision: 'approved', monthlyPayment: 2130, error: undefined }
+[COMPARE-BANKS] Bank 75: APPROVED - Added to offers (Rate: 3.080%, Payment: 2130)
+[COMPARE-BANKS] Processing Bank 76 (Bank Hapoalim)
+[COMPARE-BANKS] Bank 76 specific standards: {
+  standard_ltv_max: '80 (bank_specific)',
+  minimum_credit_score: '630 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 76: LTV 50.0% ≤ Bank Max 80% ✓
+[COMPARE-BANKS] Bank 76: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 76: Base rate input: "3.250" → Parsed: 3.25
+[RATE CALC] Bank 75: Found 3 rate rules
+[RATE CALC] Bank 75: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 75: Final calculated rate: 3.080%
+[COMPARE-BANKS] Bank 75 (State Bank of Israel): Base rate 3.18% → Final rate 3.080%
+[COMPARE-BANKS] Bank 75: Starting calculation with rate 3.08%
+[COMPARE-BANKS] Bank 75: Calculation result: { decision: 'approved', monthlyPayment: 2130, error: undefined }
+[COMPARE-BANKS] Bank 75: APPROVED - Added to offers (Rate: 3.080%, Payment: 2130)
+[COMPARE-BANKS] Processing Bank 76 (Bank Hapoalim)
+[COMPARE-BANKS] Bank 76 specific standards: {
+  standard_ltv_max: '80 (bank_specific)',
+  minimum_credit_score: '630 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 76: LTV 50.0% ≤ Bank Max 80% ✓
+[COMPARE-BANKS] Bank 76: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 76: Base rate input: "3.250" → Parsed: 3.25
+[RATE CALC] Bank 75: Found 3 rate rules
+[RATE CALC] Bank 75: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 75: Final calculated rate: 3.080%
+[COMPARE-BANKS] Bank 75 (State Bank of Israel): Base rate 3.18% → Final rate 3.080%
+[COMPARE-BANKS] Bank 75: Starting calculation with rate 3.08%
+[COMPARE-BANKS] Bank 75: Calculation result: { decision: 'approved', monthlyPayment: 2130, error: undefined }
+[COMPARE-BANKS] Bank 75: APPROVED - Added to offers (Rate: 3.080%, Payment: 2130)
+[COMPARE-BANKS] Processing Bank 76 (Bank Hapoalim)
+[COMPARE-BANKS] Bank 76 specific standards: {
+  standard_ltv_max: '80 (bank_specific)',
+  minimum_credit_score: '630 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 76: LTV 50.0% ≤ Bank Max 80% ✓
+[COMPARE-BANKS] Bank 76: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 76: Base rate input: "3.250" → Parsed: 3.25
+[RATE CALC] Bank 76: Found 3 rate rules
+[RATE CALC] Bank 76: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 76: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 76 (Bank Hapoalim): Base rate 3.25% → Final rate 3.150%
+[COMPARE-BANKS] Bank 76: Starting calculation with rate 3.15%
+[COMPARE-BANKS] Bank 76: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 76: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 77 (Discount Bank)
+[COMPARE-BANKS] Bank 77 specific standards: {
+  standard_ltv_max: '78 (bank_specific)',
+  minimum_credit_score: '640 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 77: LTV 50.0% ≤ Bank Max 78% ✓
+[COMPARE-BANKS] Bank 77: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 77: Base rate input: "3.300" → Parsed: 3.3
+[RATE CALC] Bank 76: Found 3 rate rules
+[RATE CALC] Bank 76: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 76: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 76 (Bank Hapoalim): Base rate 3.25% → Final rate 3.150%
+[COMPARE-BANKS] Bank 76: Starting calculation with rate 3.15%
+[COMPARE-BANKS] Bank 76: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 76: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 77 (Discount Bank)
+[COMPARE-BANKS] Bank 77 specific standards: {
+  standard_ltv_max: '78 (bank_specific)',
+  minimum_credit_score: '640 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 77: LTV 50.0% ≤ Bank Max 78% ✓
+[COMPARE-BANKS] Bank 77: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 77: Base rate input: "3.300" → Parsed: 3.3
+[RATE CALC] Bank 76: Found 3 rate rules
+[RATE CALC] Bank 76: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 76: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 76 (Bank Hapoalim): Base rate 3.25% → Final rate 3.150%
+[COMPARE-BANKS] Bank 76: Starting calculation with rate 3.15%
+[COMPARE-BANKS] Bank 76: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 76: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 77 (Discount Bank)
+[COMPARE-BANKS] Bank 77 specific standards: {
+  standard_ltv_max: '78 (bank_specific)',
+  minimum_credit_score: '640 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 77: LTV 50.0% ≤ Bank Max 78% ✓
+[COMPARE-BANKS] Bank 77: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 77: Base rate input: "3.300" → Parsed: 3.3
+[RATE CALC] Bank 77: Found 3 rate rules
+[RATE CALC] Bank 77: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 77: Final calculated rate: 3.200%
+[COMPARE-BANKS] Bank 77 (Discount Bank): Base rate 3.3% → Final rate 3.200%
+[COMPARE-BANKS] Bank 77: Starting calculation with rate 3.1999999999999997%
+[COMPARE-BANKS] Bank 77: Calculation result: { decision: 'approved', monthlyPayment: 2162, error: undefined }
+[COMPARE-BANKS] Bank 77: APPROVED - Added to offers (Rate: 3.200%, Payment: 2162)
+[COMPARE-BANKS] Processing Bank 78 (Bank Leumi)
+[COMPARE-BANKS] Bank 78 specific standards: {
+  standard_ltv_max: '75 (bank_specific)',
+  minimum_credit_score: '650 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 78: LTV 50.0% ≤ Bank Max 75% ✓
+[COMPARE-BANKS] Bank 78: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 78: Base rate input: "3.350" → Parsed: 3.35
+[RATE CALC] Bank 77: Found 3 rate rules
+[RATE CALC] Bank 77: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 77: Final calculated rate: 3.200%
+[COMPARE-BANKS] Bank 77 (Discount Bank): Base rate 3.3% → Final rate 3.200%
+[COMPARE-BANKS] Bank 77: Starting calculation with rate 3.1999999999999997%
+[COMPARE-BANKS] Bank 77: Calculation result: { decision: 'approved', monthlyPayment: 2162, error: undefined }
+[COMPARE-BANKS] Bank 77: APPROVED - Added to offers (Rate: 3.200%, Payment: 2162)
+[COMPARE-BANKS] Processing Bank 78 (Bank Leumi)
+[COMPARE-BANKS] Bank 78 specific standards: {
+  standard_ltv_max: '75 (bank_specific)',
+  minimum_credit_score: '650 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 78: LTV 50.0% ≤ Bank Max 75% ✓
+[COMPARE-BANKS] Bank 78: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 78: Base rate input: "3.350" → Parsed: 3.35
+[RATE CALC] Bank 77: Found 3 rate rules
+[RATE CALC] Bank 77: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 77: Final calculated rate: 3.200%
+[COMPARE-BANKS] Bank 77 (Discount Bank): Base rate 3.3% → Final rate 3.200%
+[COMPARE-BANKS] Bank 77: Starting calculation with rate 3.1999999999999997%
+[COMPARE-BANKS] Bank 77: Calculation result: { decision: 'approved', monthlyPayment: 2162, error: undefined }
+[COMPARE-BANKS] Bank 77: APPROVED - Added to offers (Rate: 3.200%, Payment: 2162)
+[COMPARE-BANKS] Processing Bank 78 (Bank Leumi)
+[COMPARE-BANKS] Bank 78 specific standards: {
+  standard_ltv_max: '75 (bank_specific)',
+  minimum_credit_score: '650 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 78: LTV 50.0% ≤ Bank Max 75% ✓
+[COMPARE-BANKS] Bank 78: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 78: Base rate input: "3.350" → Parsed: 3.35
+[RATE CALC] Bank 78: Found 3 rate rules
+[RATE CALC] Bank 78: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 78: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 78 (Bank Leumi): Base rate 3.35% → Final rate 3.250%
+[COMPARE-BANKS] Bank 78: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 78: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 78: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 79 (Bank Beinleumi)
+[COMPARE-BANKS] Bank 79 specific standards: {
+  standard_ltv_max: '72 (bank_specific)',
+  minimum_credit_score: '660 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 79: LTV 50.0% ≤ Bank Max 72% ✓
+[COMPARE-BANKS] Bank 79: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 79: Base rate input: "3.400" → Parsed: 3.4
+[RATE CALC] Bank 78: Found 3 rate rules
+[RATE CALC] Bank 78: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 78: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 78 (Bank Leumi): Base rate 3.35% → Final rate 3.250%
+[COMPARE-BANKS] Bank 78: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 78: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 78: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 79 (Bank Beinleumi)
+[COMPARE-BANKS] Bank 79 specific standards: {
+  standard_ltv_max: '72 (bank_specific)',
+  minimum_credit_score: '660 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 79: LTV 50.0% ≤ Bank Max 72% ✓
+[COMPARE-BANKS] Bank 79: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 79: Base rate input: "3.400" → Parsed: 3.4
+[RATE CALC] Bank 78: Found 3 rate rules
+[RATE CALC] Bank 78: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 78: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 78 (Bank Leumi): Base rate 3.35% → Final rate 3.250%
+[COMPARE-BANKS] Bank 78: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 78: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 78: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 79 (Bank Beinleumi)
+[COMPARE-BANKS] Bank 79 specific standards: {
+  standard_ltv_max: '72 (bank_specific)',
+  minimum_credit_score: '660 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 79: LTV 50.0% ≤ Bank Max 72% ✓
+[COMPARE-BANKS] Bank 79: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 79: Base rate input: "3.400" → Parsed: 3.4
+[RATE CALC] Bank 79: Found 3 rate rules
+[RATE CALC] Bank 79: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 79: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 79 (Bank Beinleumi): Base rate 3.4% → Final rate 3.300%
+[COMPARE-BANKS] Bank 79: Starting calculation with rate 3.3%
+[COMPARE-BANKS] Bank 79: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 79: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 80 (Bank Mizrahi-Tefahot)
+[COMPARE-BANKS] Bank 80 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 80: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 80: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 80: Base rate input: "3.500" → Parsed: 3.5
+[RATE CALC] Bank 79: Found 3 rate rules
+[RATE CALC] Bank 79: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 79: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 79 (Bank Beinleumi): Base rate 3.4% → Final rate 3.300%
+[COMPARE-BANKS] Bank 79: Starting calculation with rate 3.3%
+[COMPARE-BANKS] Bank 79: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 79: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 80 (Bank Mizrahi-Tefahot)
+[COMPARE-BANKS] Bank 80 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 80: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 80: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 80: Base rate input: "3.500" → Parsed: 3.5
+[RATE CALC] Bank 79: Found 3 rate rules
+[RATE CALC] Bank 79: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 79: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 79 (Bank Beinleumi): Base rate 3.4% → Final rate 3.300%
+[COMPARE-BANKS] Bank 79: Starting calculation with rate 3.3%
+[COMPARE-BANKS] Bank 79: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 79: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 80 (Bank Mizrahi-Tefahot)
+[COMPARE-BANKS] Bank 80 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 80: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 80: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 80: Base rate input: "3.500" → Parsed: 3.5
+[RATE CALC] Bank 80: Found 3 rate rules
+[RATE CALC] Bank 80: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 80: Final calculated rate: 3.400%
+[COMPARE-BANKS] Bank 80 (Bank Mizrahi-Tefahot): Base rate 3.5% → Final rate 3.400%
+[COMPARE-BANKS] Bank 80: Starting calculation with rate 3.4%
+[COMPARE-BANKS] Bank 80: Calculation result: { decision: 'approved', monthlyPayment: 2217, error: undefined }
+[COMPARE-BANKS] Bank 80: APPROVED - Added to offers (Rate: 3.400%, Payment: 2217)
+[COMPARE-BANKS] Processing Bank 81 (Bank Igood)
+[COMPARE-BANKS] Bank 81 specific standards: {
+  standard_ltv_max: '77 (bank_specific)',
+  minimum_credit_score: '625 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 81: LTV 50.0% ≤ Bank Max 77% ✓
+[COMPARE-BANKS] Bank 81: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 81: Base rate input: "3.280" → Parsed: 3.28
+[RATE CALC] Bank 80: Found 3 rate rules
+[RATE CALC] Bank 80: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 80: Final calculated rate: 3.400%
+[COMPARE-BANKS] Bank 80 (Bank Mizrahi-Tefahot): Base rate 3.5% → Final rate 3.400%
+[COMPARE-BANKS] Bank 80: Starting calculation with rate 3.4%
+[COMPARE-BANKS] Bank 80: Calculation result: { decision: 'approved', monthlyPayment: 2217, error: undefined }
+[COMPARE-BANKS] Bank 80: APPROVED - Added to offers (Rate: 3.400%, Payment: 2217)
+[COMPARE-BANKS] Processing Bank 81 (Bank Igood)
+[COMPARE-BANKS] Bank 81 specific standards: {
+  standard_ltv_max: '77 (bank_specific)',
+  minimum_credit_score: '625 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 81: LTV 50.0% ≤ Bank Max 77% ✓
+[COMPARE-BANKS] Bank 81: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 81: Base rate input: "3.280" → Parsed: 3.28
+[RATE CALC] Bank 80: Found 3 rate rules
+[RATE CALC] Bank 80: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 80: Final calculated rate: 3.400%
+[COMPARE-BANKS] Bank 80 (Bank Mizrahi-Tefahot): Base rate 3.5% → Final rate 3.400%
+[COMPARE-BANKS] Bank 80: Starting calculation with rate 3.4%
+[COMPARE-BANKS] Bank 80: Calculation result: { decision: 'approved', monthlyPayment: 2217, error: undefined }
+[COMPARE-BANKS] Bank 80: APPROVED - Added to offers (Rate: 3.400%, Payment: 2217)
+[COMPARE-BANKS] Processing Bank 81 (Bank Igood)
+[COMPARE-BANKS] Bank 81 specific standards: {
+  standard_ltv_max: '77 (bank_specific)',
+  minimum_credit_score: '625 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 81: LTV 50.0% ≤ Bank Max 77% ✓
+[COMPARE-BANKS] Bank 81: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 81: Base rate input: "3.280" → Parsed: 3.28
+[RATE CALC] Bank 81: Found 3 rate rules
+[RATE CALC] Bank 81: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 81: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 81 (Bank Igood): Base rate 3.28% → Final rate 3.180%
+[COMPARE-BANKS] Bank 81: Starting calculation with rate 3.1799999999999997%
+[COMPARE-BANKS] Bank 81: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 81: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 82 (Bank Yaav for civil servants)
+[COMPARE-BANKS] Bank 82 specific standards: {
+  standard_ltv_max: '76 (bank_specific)',
+  minimum_credit_score: '635 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 82: LTV 50.0% ≤ Bank Max 76% ✓
+[COMPARE-BANKS] Bank 82: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 82: Base rate input: "3.320" → Parsed: 3.32
+[RATE CALC] Bank 81: Found 3 rate rules
+[RATE CALC] Bank 81: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 81: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 81 (Bank Igood): Base rate 3.28% → Final rate 3.180%
+[COMPARE-BANKS] Bank 81: Starting calculation with rate 3.1799999999999997%
+[COMPARE-BANKS] Bank 81: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 81: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 82 (Bank Yaav for civil servants)
+[COMPARE-BANKS] Bank 82 specific standards: {
+  standard_ltv_max: '76 (bank_specific)',
+  minimum_credit_score: '635 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 82: LTV 50.0% ≤ Bank Max 76% ✓
+[COMPARE-BANKS] Bank 82: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 82: Base rate input: "3.320" → Parsed: 3.32
+[RATE CALC] Bank 81: Found 3 rate rules
+[RATE CALC] Bank 81: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 81: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 81 (Bank Igood): Base rate 3.28% → Final rate 3.180%
+[COMPARE-BANKS] Bank 81: Starting calculation with rate 3.1799999999999997%
+[COMPARE-BANKS] Bank 81: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 81: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 82 (Bank Yaav for civil servants)
+[COMPARE-BANKS] Bank 82 specific standards: {
+  standard_ltv_max: '76 (bank_specific)',
+  minimum_credit_score: '635 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 82: LTV 50.0% ≤ Bank Max 76% ✓
+[COMPARE-BANKS] Bank 82: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 82: Base rate input: "3.320" → Parsed: 3.32
+[RATE CALC] Bank 82: Found 3 rate rules
+[RATE CALC] Bank 82: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 82: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 82 (Bank Yaav for civil servants): Base rate 3.32% → Final rate 3.220%
+[COMPARE-BANKS] Bank 82: Starting calculation with rate 3.2199999999999998%
+[COMPARE-BANKS] Bank 82: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 82: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 83 (Mercantil Discount Bank)
+[COMPARE-BANKS] Bank 83 specific standards: {
+  standard_ltv_max: '74 (bank_specific)',
+  minimum_credit_score: '645 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 83: LTV 50.0% ≤ Bank Max 74% ✓
+[COMPARE-BANKS] Bank 83: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 83: Base rate input: "3.380" → Parsed: 3.38
+[RATE CALC] Bank 82: Found 3 rate rules
+[RATE CALC] Bank 82: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 82: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 82 (Bank Yaav for civil servants): Base rate 3.32% → Final rate 3.220%
+[COMPARE-BANKS] Bank 82: Starting calculation with rate 3.2199999999999998%
+[COMPARE-BANKS] Bank 82: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 82: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 83 (Mercantil Discount Bank)
+[COMPARE-BANKS] Bank 83 specific standards: {
+  standard_ltv_max: '74 (bank_specific)',
+  minimum_credit_score: '645 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 83: LTV 50.0% ≤ Bank Max 74% ✓
+[COMPARE-BANKS] Bank 83: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 83: Base rate input: "3.380" → Parsed: 3.38
+[RATE CALC] Bank 82: Found 3 rate rules
+[RATE CALC] Bank 82: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 82: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 82 (Bank Yaav for civil servants): Base rate 3.32% → Final rate 3.220%
+[COMPARE-BANKS] Bank 82: Starting calculation with rate 3.2199999999999998%
+[COMPARE-BANKS] Bank 82: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 82: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 83 (Mercantil Discount Bank)
+[COMPARE-BANKS] Bank 83 specific standards: {
+  standard_ltv_max: '74 (bank_specific)',
+  minimum_credit_score: '645 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 83: LTV 50.0% ≤ Bank Max 74% ✓
+[COMPARE-BANKS] Bank 83: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 83: Base rate input: "3.380" → Parsed: 3.38
+[RATE CALC] Bank 83: Found 3 rate rules
+[RATE CALC] Bank 83: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 83: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 83 (Mercantil Discount Bank): Base rate 3.38% → Final rate 3.280%
+[COMPARE-BANKS] Bank 83: Starting calculation with rate 3.28%
+[COMPARE-BANKS] Bank 83: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 83: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 84 (Bank Yerushalayim)
+[COMPARE-BANKS] Bank 84 specific standards: {
+  standard_ltv_max: '73 (bank_specific)',
+  minimum_credit_score: '655 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 84: LTV 50.0% ≤ Bank Max 73% ✓
+[COMPARE-BANKS] Bank 84: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 84: Base rate input: "3.420" → Parsed: 3.42
+[RATE CALC] Bank 83: Found 3 rate rules
+[RATE CALC] Bank 83: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 83: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 83 (Mercantil Discount Bank): Base rate 3.38% → Final rate 3.280%
+[COMPARE-BANKS] Bank 83: Starting calculation with rate 3.28%
+[COMPARE-BANKS] Bank 83: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 83: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 84 (Bank Yerushalayim)
+[COMPARE-BANKS] Bank 84 specific standards: {
+  standard_ltv_max: '73 (bank_specific)',
+  minimum_credit_score: '655 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 84: LTV 50.0% ≤ Bank Max 73% ✓
+[COMPARE-BANKS] Bank 84: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 84: Base rate input: "3.420" → Parsed: 3.42
+[RATE CALC] Bank 83: Found 3 rate rules
+[RATE CALC] Bank 83: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 83: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 83 (Mercantil Discount Bank): Base rate 3.38% → Final rate 3.280%
+[COMPARE-BANKS] Bank 83: Starting calculation with rate 3.28%
+[COMPARE-BANKS] Bank 83: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 83: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 84 (Bank Yerushalayim)
+[COMPARE-BANKS] Bank 84 specific standards: {
+  standard_ltv_max: '73 (bank_specific)',
+  minimum_credit_score: '655 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 84: LTV 50.0% ≤ Bank Max 73% ✓
+[COMPARE-BANKS] Bank 84: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 84: Base rate input: "3.420" → Parsed: 3.42
+[RATE CALC] Bank 84: Found 3 rate rules
+[RATE CALC] Bank 84: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 84: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 84 (Bank Yerushalayim): Base rate 3.42% → Final rate 3.320%
+[COMPARE-BANKS] Bank 84: Starting calculation with rate 3.32%
+[COMPARE-BANKS] Bank 84: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 84: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 85 (Postal Bank)
+[COMPARE-BANKS] Bank 85 specific standards: {
+  standard_ltv_max: '71 (bank_specific)',
+  minimum_credit_score: '665 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 85: LTV 50.0% ≤ Bank Max 71% ✓
+[COMPARE-BANKS] Bank 85: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 85: Base rate input: "3.450" → Parsed: 3.45
+[RATE CALC] Bank 84: Found 3 rate rules
+[RATE CALC] Bank 84: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 84: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 84 (Bank Yerushalayim): Base rate 3.42% → Final rate 3.320%
+[COMPARE-BANKS] Bank 84: Starting calculation with rate 3.32%
+[COMPARE-BANKS] Bank 84: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 84: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 85 (Postal Bank)
+[COMPARE-BANKS] Bank 85 specific standards: {
+  standard_ltv_max: '71 (bank_specific)',
+  minimum_credit_score: '665 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 85: LTV 50.0% ≤ Bank Max 71% ✓
+[COMPARE-BANKS] Bank 85: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 85: Base rate input: "3.450" → Parsed: 3.45
+[RATE CALC] Bank 85: Found 5 rate rules
+[RATE CALC] Bank 85: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 85: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 85 (Postal Bank): Base rate 3.45% → Final rate 3.150%
+[COMPARE-BANKS] Bank 85: Starting calculation with rate 3.1500000000000004%
+[COMPARE-BANKS] Bank 85: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 85: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 86 (Otsar Ahayal Bank)
+[COMPARE-BANKS] Bank 86 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '670 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 86: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 86: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 86: Base rate input: "3.480" → Parsed: 3.48
+[RATE CALC] Bank 84: Found 3 rate rules
+[RATE CALC] Bank 84: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 84: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 84 (Bank Yerushalayim): Base rate 3.42% → Final rate 3.320%
+[COMPARE-BANKS] Bank 84: Starting calculation with rate 3.32%
+[COMPARE-BANKS] Bank 84: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 84: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 85 (Postal Bank)
+[COMPARE-BANKS] Bank 85 specific standards: {
+  standard_ltv_max: '71 (bank_specific)',
+  minimum_credit_score: '665 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 85: LTV 50.0% ≤ Bank Max 71% ✓
+[COMPARE-BANKS] Bank 85: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 85: Base rate input: "3.450" → Parsed: 3.45
+[RATE CALC] Bank 85: Found 5 rate rules
+[RATE CALC] Bank 85: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 85: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 85 (Postal Bank): Base rate 3.45% → Final rate 3.150%
+[COMPARE-BANKS] Bank 85: Starting calculation with rate 3.1500000000000004%
+[COMPARE-BANKS] Bank 85: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 85: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 86 (Otsar Ahayal Bank)
+[COMPARE-BANKS] Bank 86 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '670 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 86: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 86: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 86: Base rate input: "3.480" → Parsed: 3.48
+[RATE CALC] Bank 86: Found 5 rate rules
+[RATE CALC] Bank 86: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 86: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 86 (Otsar Ahayal Bank): Base rate 3.48% → Final rate 3.180%
+[COMPARE-BANKS] Bank 86: Starting calculation with rate 3.18%
+[COMPARE-BANKS] Bank 86: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 86: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 87 (Bank Massad)
+[COMPARE-BANKS] Bank 87 specific standards: {
+  standard_ltv_max: '68 (bank_specific)',
+  minimum_credit_score: '675 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 87: LTV 50.0% ≤ Bank Max 68% ✓
+[COMPARE-BANKS] Bank 87: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 87: Base rate input: "3.520" → Parsed: 3.52
+[RATE CALC] Bank 85: Found 5 rate rules
+[RATE CALC] Bank 85: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 85: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 85 (Postal Bank): Base rate 3.45% → Final rate 3.150%
+[COMPARE-BANKS] Bank 85: Starting calculation with rate 3.1500000000000004%
+[COMPARE-BANKS] Bank 85: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 85: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 86 (Otsar Ahayal Bank)
+[COMPARE-BANKS] Bank 86 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '670 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 86: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 86: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 86: Base rate input: "3.480" → Parsed: 3.48
+[RATE CALC] Bank 86: Found 5 rate rules
+[RATE CALC] Bank 86: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 86: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 86 (Otsar Ahayal Bank): Base rate 3.48% → Final rate 3.180%
+[COMPARE-BANKS] Bank 86: Starting calculation with rate 3.18%
+[COMPARE-BANKS] Bank 86: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 86: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 87 (Bank Massad)
+[COMPARE-BANKS] Bank 87 specific standards: {
+  standard_ltv_max: '68 (bank_specific)',
+  minimum_credit_score: '675 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 87: LTV 50.0% ≤ Bank Max 68% ✓
+[COMPARE-BANKS] Bank 87: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 87: Base rate input: "3.520" → Parsed: 3.52
+[RATE CALC] Bank 87: Found 5 rate rules
+[RATE CALC] Bank 87: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 87: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 87 (Bank Massad): Base rate 3.52% → Final rate 3.220%
+[COMPARE-BANKS] Bank 87: Starting calculation with rate 3.22%
+[COMPARE-BANKS] Bank 87: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 87: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 88 (Yu - bank)
+[COMPARE-BANKS] Bank 88 specific standards: {
+  standard_ltv_max: '67 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 88: LTV 50.0% ≤ Bank Max 67% ✓
+[COMPARE-BANKS] Bank 88: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 88: Base rate input: "3.550" → Parsed: 3.55
+[RATE CALC] Bank 86: Found 5 rate rules
+[RATE CALC] Bank 86: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 86: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 86 (Otsar Ahayal Bank): Base rate 3.48% → Final rate 3.180%
+[COMPARE-BANKS] Bank 86: Starting calculation with rate 3.18%
+[COMPARE-BANKS] Bank 86: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 86: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 87 (Bank Massad)
+[COMPARE-BANKS] Bank 87 specific standards: {
+  standard_ltv_max: '68 (bank_specific)',
+  minimum_credit_score: '675 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 87: LTV 50.0% ≤ Bank Max 68% ✓
+[COMPARE-BANKS] Bank 87: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 87: Base rate input: "3.520" → Parsed: 3.52
+[RATE CALC] Bank 87: Found 5 rate rules
+[RATE CALC] Bank 87: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 87: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 87 (Bank Massad): Base rate 3.52% → Final rate 3.220%
+[COMPARE-BANKS] Bank 87: Starting calculation with rate 3.22%
+[COMPARE-BANKS] Bank 87: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 87: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 88 (Yu - bank)
+[COMPARE-BANKS] Bank 88 specific standards: {
+  standard_ltv_max: '67 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 88: LTV 50.0% ≤ Bank Max 67% ✓
+[COMPARE-BANKS] Bank 88: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 88: Base rate input: "3.550" → Parsed: 3.55
+[RATE CALC] Bank 88: Found 5 rate rules
+[RATE CALC] Bank 88: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 88: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 88 (Yu - bank): Base rate 3.55% → Final rate 3.250%
+[COMPARE-BANKS] Bank 88: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 88: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 88: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 89 (Arab Bank of Israel)
+[COMPARE-BANKS] Bank 89 specific standards: {
+  standard_ltv_max: '66 (bank_specific)',
+  minimum_credit_score: '685 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 89: LTV 50.0% ≤ Bank Max 66% ✓
+[COMPARE-BANKS] Bank 89: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 89: Base rate input: "3.580" → Parsed: 3.58
+[RATE CALC] Bank 87: Found 5 rate rules
+[RATE CALC] Bank 87: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 87: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 87 (Bank Massad): Base rate 3.52% → Final rate 3.220%
+[COMPARE-BANKS] Bank 87: Starting calculation with rate 3.22%
+[COMPARE-BANKS] Bank 87: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 87: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 88 (Yu - bank)
+[COMPARE-BANKS] Bank 88 specific standards: {
+  standard_ltv_max: '67 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 88: LTV 50.0% ≤ Bank Max 67% ✓
+[COMPARE-BANKS] Bank 88: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 88: Base rate input: "3.550" → Parsed: 3.55
+[RATE CALC] Bank 88: Found 5 rate rules
+[RATE CALC] Bank 88: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 88: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 88 (Yu - bank): Base rate 3.55% → Final rate 3.250%
+[COMPARE-BANKS] Bank 88: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 88: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 88: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 89 (Arab Bank of Israel)
+[COMPARE-BANKS] Bank 89 specific standards: {
+  standard_ltv_max: '66 (bank_specific)',
+  minimum_credit_score: '685 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 89: LTV 50.0% ≤ Bank Max 66% ✓
+[COMPARE-BANKS] Bank 89: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 89: Base rate input: "3.580" → Parsed: 3.58
+[RATE CALC] Bank 89: Found 5 rate rules
+[RATE CALC] Bank 89: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 89: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 89 (Arab Bank of Israel): Base rate 3.58% → Final rate 3.280%
+[COMPARE-BANKS] Bank 89: Starting calculation with rate 3.2800000000000002%
+[COMPARE-BANKS] Bank 89: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 89: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 90 (Bank Poaley Agudat Israel)
+[COMPARE-BANKS] Bank 90 specific standards: {
+  standard_ltv_max: '65 (bank_specific)',
+  minimum_credit_score: '690 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 90: LTV 50.0% ≤ Bank Max 65% ✓
+[COMPARE-BANKS] Bank 90: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 90: Base rate input: "3.600" → Parsed: 3.6
+[RATE CALC] Bank 88: Found 5 rate rules
+[RATE CALC] Bank 88: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 88: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 88 (Yu - bank): Base rate 3.55% → Final rate 3.250%
+[COMPARE-BANKS] Bank 88: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 88: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 88: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 89 (Arab Bank of Israel)
+[COMPARE-BANKS] Bank 89 specific standards: {
+  standard_ltv_max: '66 (bank_specific)',
+  minimum_credit_score: '685 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 89: LTV 50.0% ≤ Bank Max 66% ✓
+[COMPARE-BANKS] Bank 89: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 89: Base rate input: "3.580" → Parsed: 3.58
+[RATE CALC] Bank 89: Found 5 rate rules
+[RATE CALC] Bank 89: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 89: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 89 (Arab Bank of Israel): Base rate 3.58% → Final rate 3.280%
+[COMPARE-BANKS] Bank 89: Starting calculation with rate 3.2800000000000002%
+[COMPARE-BANKS] Bank 89: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 89: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 90 (Bank Poaley Agudat Israel)
+[COMPARE-BANKS] Bank 90 specific standards: {
+  standard_ltv_max: '65 (bank_specific)',
+  minimum_credit_score: '690 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 90: LTV 50.0% ≤ Bank Max 65% ✓
+[COMPARE-BANKS] Bank 90: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 90: Base rate input: "3.600" → Parsed: 3.6
+[RATE CALC] Bank 90: Found 5 rate rules
+[RATE CALC] Bank 90: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 90: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 90 (Bank Poaley Agudat Israel): Base rate 3.6% → Final rate 3.300%
+[COMPARE-BANKS] Bank 90: Starting calculation with rate 3.3000000000000003%
+[COMPARE-BANKS] Bank 90: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 90: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 91 (Discount Bank Lemashkantaot)
+[COMPARE-BANKS] Bank 91 specific standards: {
+  standard_ltv_max: '64 (bank_specific)',
+  minimum_credit_score: '695 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 91: LTV 50.0% ≤ Bank Max 64% ✓
+[COMPARE-BANKS] Bank 91: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 91: Base rate input: "3.620" → Parsed: 3.62
+[RATE CALC] Bank 89: Found 5 rate rules
+[RATE CALC] Bank 89: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 89: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 89 (Arab Bank of Israel): Base rate 3.58% → Final rate 3.280%
+[COMPARE-BANKS] Bank 89: Starting calculation with rate 3.2800000000000002%
+[COMPARE-BANKS] Bank 89: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 89: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 90 (Bank Poaley Agudat Israel)
+[COMPARE-BANKS] Bank 90 specific standards: {
+  standard_ltv_max: '65 (bank_specific)',
+  minimum_credit_score: '690 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 90: LTV 50.0% ≤ Bank Max 65% ✓
+[COMPARE-BANKS] Bank 90: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 90: Base rate input: "3.600" → Parsed: 3.6
+[RATE CALC] Bank 90: Found 5 rate rules
+[RATE CALC] Bank 90: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 90: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 90 (Bank Poaley Agudat Israel): Base rate 3.6% → Final rate 3.300%
+[COMPARE-BANKS] Bank 90: Starting calculation with rate 3.3000000000000003%
+[COMPARE-BANKS] Bank 90: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 90: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 91 (Discount Bank Lemashkantaot)
+[COMPARE-BANKS] Bank 91 specific standards: {
+  standard_ltv_max: '64 (bank_specific)',
+  minimum_credit_score: '695 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 91: LTV 50.0% ≤ Bank Max 64% ✓
+[COMPARE-BANKS] Bank 91: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 91: Base rate input: "3.620" → Parsed: 3.62
+[RATE CALC] Bank 91: Found 5 rate rules
+[RATE CALC] Bank 91: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 91: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 91 (Discount Bank Lemashkantaot): Base rate 3.62% → Final rate 3.320%
+[COMPARE-BANKS] Bank 91: Starting calculation with rate 3.3200000000000003%
+[COMPARE-BANKS] Bank 91: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 91: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 92 (Bank Leumi Lemashkanta)
+[COMPARE-BANKS] Bank 92 specific standards: {
+  standard_ltv_max: '63 (bank_specific)',
+  minimum_credit_score: '700 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 92: LTV 50.0% ≤ Bank Max 63% ✓
+[COMPARE-BANKS] Bank 92: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 92: Base rate input: "3.650" → Parsed: 3.65
+[RATE CALC] Bank 90: Found 5 rate rules
+[RATE CALC] Bank 90: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 90: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 90 (Bank Poaley Agudat Israel): Base rate 3.6% → Final rate 3.300%
+[COMPARE-BANKS] Bank 90: Starting calculation with rate 3.3000000000000003%
+[COMPARE-BANKS] Bank 90: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 90: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 91 (Discount Bank Lemashkantaot)
+[COMPARE-BANKS] Bank 91 specific standards: {
+  standard_ltv_max: '64 (bank_specific)',
+  minimum_credit_score: '695 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 91: LTV 50.0% ≤ Bank Max 64% ✓
+[COMPARE-BANKS] Bank 91: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 91: Base rate input: "3.620" → Parsed: 3.62
+[RATE CALC] Bank 91: Found 5 rate rules
+[RATE CALC] Bank 91: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 91: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 91 (Discount Bank Lemashkantaot): Base rate 3.62% → Final rate 3.320%
+[COMPARE-BANKS] Bank 91: Starting calculation with rate 3.3200000000000003%
+[COMPARE-BANKS] Bank 91: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 91: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 92 (Bank Leumi Lemashkanta)
+[COMPARE-BANKS] Bank 92 specific standards: {
+  standard_ltv_max: '63 (bank_specific)',
+  minimum_credit_score: '700 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 92: LTV 50.0% ≤ Bank Max 63% ✓
+[COMPARE-BANKS] Bank 92: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 92: Base rate input: "3.650" → Parsed: 3.65
+[RATE CALC] Bank 92: Found 5 rate rules
+[RATE CALC] Bank 92: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 92: Final calculated rate: 3.350%
+[COMPARE-BANKS] Bank 92 (Bank Leumi Lemashkanta): Base rate 3.65% → Final rate 3.350%
+[COMPARE-BANKS] Bank 92: Starting calculation with rate 3.35%
+[COMPARE-BANKS] Bank 92: Calculation result: { decision: 'approved', monthlyPayment: 2204, error: undefined }
+[COMPARE-BANKS] Bank 92: APPROVED - Added to offers (Rate: 3.350%, Payment: 2204)
+[COMPARE-BANKS] Returning 18 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 1834.674 ms - 5902[0m
+[RATE CALC] Bank 91: Found 5 rate rules
+[RATE CALC] Bank 91: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 91: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 91 (Discount Bank Lemashkantaot): Base rate 3.62% → Final rate 3.320%
+[COMPARE-BANKS] Bank 91: Starting calculation with rate 3.3200000000000003%
+[COMPARE-BANKS] Bank 91: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 91: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 92 (Bank Leumi Lemashkanta)
+[COMPARE-BANKS] Bank 92 specific standards: {
+  standard_ltv_max: '63 (bank_specific)',
+  minimum_credit_score: '700 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 92: LTV 50.0% ≤ Bank Max 63% ✓
+[COMPARE-BANKS] Bank 92: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 92: Base rate input: "3.650" → Parsed: 3.65
+[RATE CALC] Bank 92: Found 5 rate rules
+[RATE CALC] Bank 92: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 92: Final calculated rate: 3.350%
+[COMPARE-BANKS] Bank 92 (Bank Leumi Lemashkanta): Base rate 3.65% → Final rate 3.350%
+[COMPARE-BANKS] Bank 92: Starting calculation with rate 3.35%
+[COMPARE-BANKS] Bank 92: Calculation result: { decision: 'approved', monthlyPayment: 2204, error: undefined }
+[COMPARE-BANKS] Bank 92: APPROVED - Added to offers (Rate: 3.350%, Payment: 2204)
+[COMPARE-BANKS] Returning 18 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 1898.542 ms - 5902[0m
+[RATE CALC] Bank 92: Found 5 rate rules
+[RATE CALC] Bank 92: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 92: Final calculated rate: 3.350%
+[COMPARE-BANKS] Bank 92 (Bank Leumi Lemashkanta): Base rate 3.65% → Final rate 3.350%
+[COMPARE-BANKS] Bank 92: Starting calculation with rate 3.35%
+[COMPARE-BANKS] Bank 92: Calculation result: { decision: 'approved', monthlyPayment: 2204, error: undefined }
+[COMPARE-BANKS] Bank 92: APPROVED - Added to offers (Rate: 3.350%, Payment: 2204)
+[COMPARE-BANKS] Returning 18 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 1974.161 ms - 5902[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 84.909 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 82.854 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 420.508 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 397.044 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 84.368 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 417.103 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 83.610 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 80.624 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 82.018 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.623 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 81.504 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.391 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 81.378 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 86.816 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 571.563 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 82.550 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 410.514 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 412.727 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 81.854 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.063 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 81.595 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 82.269 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.738 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 413.569 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 83.719 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 80.563 ms - 2420[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 81.482 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.501 ms - 2420[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021546633_qypnf7qoq'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.441 ms - -[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021546635_n8p8raz8r'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.216 ms - -[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021546652_jgduhgolj'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.246 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 384.235 ms - 176[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 412.808 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 409.000 ms - 176[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 83.460 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 625.273 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 86.928 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 86.655 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 855.642 ms - 176[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 86.882 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 86.473 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 86.301 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 87.481 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 89.287 ms - -[0m
+[0mPOST /api/content [32m200[0m 905.740 ms - 140[0m
+[0mPOST /api/content [32m200[0m 706.866 ms - 147[0m
+[0mPOST /api/content [32m200[0m 577.292 ms - 142[0m
+[0mPOST /api/content [32m200[0m 485.059 ms - 146[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 524.639 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 575.011 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 85.836 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 86.750 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 82.704 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 85.053 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 385.518 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 448.028 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 555.078 ms - 3012[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 582.427 ms - 5860[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 419.700 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 448.053 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 453.964 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 74.335 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 532.291 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.795 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 85.444 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 559.521 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 77.392 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 76.992 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.727 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 86.922 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.789 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 74.546 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 76.377 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 700.030 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.619 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 84.286 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 83.437 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 74.055 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 77.378 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.083 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 82.366 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 85.410 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 74.156 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.441 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 80.118 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 79.180 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.240 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 75.351 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 85.506 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.253 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 76.663 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.732 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 339.841 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 353.138 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 85.488 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 86.548 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.160 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 84.455 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 89.555 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 89.665 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 80.292 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 85.990 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 402.952 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 410.931 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 417.903 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 82.386 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 84.718 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 102.322 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 92.605 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 100.743 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.878 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 520.174 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 76.385 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.102 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 83.921 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 83.736 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 86.314 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 87.482 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 75.855 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 79.237 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 80.212 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.906 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 88.305 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 89.314 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 76.384 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.198 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.344 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 83.112 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 84.871 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 88.004 ms - 3012[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021839713_q1v1p1oi9'
+}
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021839715_quru0ny61'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.167 ms - -[0m
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.194 ms - -[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 1000000,
+  property_value: 1500000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021839731_qp9116z64'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.209 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 384.497 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 75.369 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 484.381 ms - 176[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 467.845 ms - 176[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 486.822 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 506.771 ms - 176[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 74.578 ms - -[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 82.204 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 76.437 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 75.070 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 143.231 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 76.385 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 75.696 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 394.878 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 468.701 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.952 ms - 3012[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 500000,
+  property_value: 1000000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021914924_5jeg3fsiz'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.182 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 500000,
+  property_value: 1000000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021914928_4m7jjfqgt'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.293 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 500000,
+  property_value: 1000000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753021915016_rv9cn7b4l'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.216 ms - 2946[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 401.980 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 427.331 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 454.210 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 455.164 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 453.597 ms - 3012[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 456.846 ms - 5860[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 80.480 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.919 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 87.512 ms - 3012[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 89.259 ms - 5860[0m
+[COMPARE-BANKS] Using configurable base rate: 3.5
+[COMPARE-BANKS] Using configurable base rate: 3.5
+[COMPARE-BANKS] Found 18 active banks
+[COMPARE-BANKS] Found 18 active banks
+[COMPARE-BANKS] Using configurable base rate: 3.5
+[COMPARE-BANKS] Processing Bank 75 (State Bank of Israel)
+[COMPARE-BANKS] Bank 75 specific standards: {
+  standard_ltv_max: '82 (bank_specific)',
+  minimum_credit_score: '620 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 75: LTV 50.0% ≤ Bank Max 82% ✓
+[COMPARE-BANKS] Bank 75: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 75: Base rate input: "3.180" → Parsed: 3.18
+[COMPARE-BANKS] Processing Bank 75 (State Bank of Israel)
+[COMPARE-BANKS] Bank 75 specific standards: {
+  standard_ltv_max: '82 (bank_specific)',
+  minimum_credit_score: '620 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 75: LTV 50.0% ≤ Bank Max 82% ✓
+[COMPARE-BANKS] Bank 75: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 75: Base rate input: "3.180" → Parsed: 3.18
+[COMPARE-BANKS] Found 18 active banks
+[RATE CALC] Bank 75: Found 3 rate rules
+[RATE CALC] Bank 75: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 75: Final calculated rate: 3.080%
+[COMPARE-BANKS] Bank 75 (State Bank of Israel): Base rate 3.18% → Final rate 3.080%
+[COMPARE-BANKS] Bank 75: Starting calculation with rate 3.08%
+[COMPARE-BANKS] Bank 75: Calculation result: { decision: 'approved', monthlyPayment: 2130, error: undefined }
+[COMPARE-BANKS] Bank 75: APPROVED - Added to offers (Rate: 3.080%, Payment: 2130)
+[COMPARE-BANKS] Processing Bank 76 (Bank Hapoalim)
+[COMPARE-BANKS] Bank 76 specific standards: {
+  standard_ltv_max: '80 (bank_specific)',
+  minimum_credit_score: '630 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 76: LTV 50.0% ≤ Bank Max 80% ✓
+[COMPARE-BANKS] Bank 76: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 76: Base rate input: "3.250" → Parsed: 3.25
+[RATE CALC] Bank 75: Found 3 rate rules
+[RATE CALC] Bank 75: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 75: Final calculated rate: 3.080%
+[COMPARE-BANKS] Bank 75 (State Bank of Israel): Base rate 3.18% → Final rate 3.080%
+[COMPARE-BANKS] Bank 75: Starting calculation with rate 3.08%
+[COMPARE-BANKS] Bank 75: Calculation result: { decision: 'approved', monthlyPayment: 2130, error: undefined }
+[COMPARE-BANKS] Bank 75: APPROVED - Added to offers (Rate: 3.080%, Payment: 2130)
+[COMPARE-BANKS] Processing Bank 76 (Bank Hapoalim)
+[COMPARE-BANKS] Bank 76 specific standards: {
+  standard_ltv_max: '80 (bank_specific)',
+  minimum_credit_score: '630 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 76: LTV 50.0% ≤ Bank Max 80% ✓
+[COMPARE-BANKS] Bank 76: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 76: Base rate input: "3.250" → Parsed: 3.25
+[COMPARE-BANKS] Processing Bank 75 (State Bank of Israel)
+[COMPARE-BANKS] Bank 75 specific standards: {
+  standard_ltv_max: '82 (bank_specific)',
+  minimum_credit_score: '620 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 75: LTV 50.0% ≤ Bank Max 82% ✓
+[COMPARE-BANKS] Bank 75: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 75: Base rate input: "3.180" → Parsed: 3.18
+[RATE CALC] Bank 76: Found 3 rate rules
+[RATE CALC] Bank 76: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 76: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 76 (Bank Hapoalim): Base rate 3.25% → Final rate 3.150%
+[COMPARE-BANKS] Bank 76: Starting calculation with rate 3.15%
+[COMPARE-BANKS] Bank 76: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 76: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 77 (Discount Bank)
+[COMPARE-BANKS] Bank 77 specific standards: {
+  standard_ltv_max: '78 (bank_specific)',
+  minimum_credit_score: '640 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 77: LTV 50.0% ≤ Bank Max 78% ✓
+[COMPARE-BANKS] Bank 77: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 77: Base rate input: "3.300" → Parsed: 3.3
+[RATE CALC] Bank 76: Found 3 rate rules
+[RATE CALC] Bank 76: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 76: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 76 (Bank Hapoalim): Base rate 3.25% → Final rate 3.150%
+[COMPARE-BANKS] Bank 76: Starting calculation with rate 3.15%
+[COMPARE-BANKS] Bank 76: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 76: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 77 (Discount Bank)
+[COMPARE-BANKS] Bank 77 specific standards: {
+  standard_ltv_max: '78 (bank_specific)',
+  minimum_credit_score: '640 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 77: LTV 50.0% ≤ Bank Max 78% ✓
+[COMPARE-BANKS] Bank 77: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 77: Base rate input: "3.300" → Parsed: 3.3
+[RATE CALC] Bank 75: Found 3 rate rules
+[RATE CALC] Bank 75: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 75: Final calculated rate: 3.080%
+[COMPARE-BANKS] Bank 75 (State Bank of Israel): Base rate 3.18% → Final rate 3.080%
+[COMPARE-BANKS] Bank 75: Starting calculation with rate 3.08%
+[COMPARE-BANKS] Bank 75: Calculation result: { decision: 'approved', monthlyPayment: 2130, error: undefined }
+[COMPARE-BANKS] Bank 75: APPROVED - Added to offers (Rate: 3.080%, Payment: 2130)
+[COMPARE-BANKS] Processing Bank 76 (Bank Hapoalim)
+[COMPARE-BANKS] Bank 76 specific standards: {
+  standard_ltv_max: '80 (bank_specific)',
+  minimum_credit_score: '630 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 76: LTV 50.0% ≤ Bank Max 80% ✓
+[COMPARE-BANKS] Bank 76: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 76: Base rate input: "3.250" → Parsed: 3.25
+[RATE CALC] Bank 77: Found 3 rate rules
+[RATE CALC] Bank 77: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 77: Final calculated rate: 3.200%
+[COMPARE-BANKS] Bank 77 (Discount Bank): Base rate 3.3% → Final rate 3.200%
+[COMPARE-BANKS] Bank 77: Starting calculation with rate 3.1999999999999997%
+[COMPARE-BANKS] Bank 77: Calculation result: { decision: 'approved', monthlyPayment: 2162, error: undefined }
+[COMPARE-BANKS] Bank 77: APPROVED - Added to offers (Rate: 3.200%, Payment: 2162)
+[COMPARE-BANKS] Processing Bank 78 (Bank Leumi)
+[COMPARE-BANKS] Bank 78 specific standards: {
+  standard_ltv_max: '75 (bank_specific)',
+  minimum_credit_score: '650 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 78: LTV 50.0% ≤ Bank Max 75% ✓
+[COMPARE-BANKS] Bank 78: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 78: Base rate input: "3.350" → Parsed: 3.35
+[RATE CALC] Bank 77: Found 3 rate rules
+[RATE CALC] Bank 77: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 77: Final calculated rate: 3.200%
+[COMPARE-BANKS] Bank 77 (Discount Bank): Base rate 3.3% → Final rate 3.200%
+[COMPARE-BANKS] Bank 77: Starting calculation with rate 3.1999999999999997%
+[COMPARE-BANKS] Bank 77: Calculation result: { decision: 'approved', monthlyPayment: 2162, error: undefined }
+[COMPARE-BANKS] Bank 77: APPROVED - Added to offers (Rate: 3.200%, Payment: 2162)
+[COMPARE-BANKS] Processing Bank 78 (Bank Leumi)
+[COMPARE-BANKS] Bank 78 specific standards: {
+  standard_ltv_max: '75 (bank_specific)',
+  minimum_credit_score: '650 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 78: LTV 50.0% ≤ Bank Max 75% ✓
+[COMPARE-BANKS] Bank 78: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 78: Base rate input: "3.350" → Parsed: 3.35
+[RATE CALC] Bank 76: Found 3 rate rules
+[RATE CALC] Bank 76: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 76: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 76 (Bank Hapoalim): Base rate 3.25% → Final rate 3.150%
+[COMPARE-BANKS] Bank 76: Starting calculation with rate 3.15%
+[COMPARE-BANKS] Bank 76: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 76: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 77 (Discount Bank)
+[COMPARE-BANKS] Bank 77 specific standards: {
+  standard_ltv_max: '78 (bank_specific)',
+  minimum_credit_score: '640 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 77: LTV 50.0% ≤ Bank Max 78% ✓
+[COMPARE-BANKS] Bank 77: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 77: Base rate input: "3.300" → Parsed: 3.3
+[RATE CALC] Bank 78: Found 3 rate rules
+[RATE CALC] Bank 78: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 78: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 78 (Bank Leumi): Base rate 3.35% → Final rate 3.250%
+[COMPARE-BANKS] Bank 78: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 78: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 78: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 79 (Bank Beinleumi)
+[COMPARE-BANKS] Bank 79 specific standards: {
+  standard_ltv_max: '72 (bank_specific)',
+  minimum_credit_score: '660 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 79: LTV 50.0% ≤ Bank Max 72% ✓
+[COMPARE-BANKS] Bank 79: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 79: Base rate input: "3.400" → Parsed: 3.4
+[RATE CALC] Bank 78: Found 3 rate rules
+[RATE CALC] Bank 78: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 78: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 78 (Bank Leumi): Base rate 3.35% → Final rate 3.250%
+[COMPARE-BANKS] Bank 78: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 78: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 78: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 79 (Bank Beinleumi)
+[COMPARE-BANKS] Bank 79 specific standards: {
+  standard_ltv_max: '72 (bank_specific)',
+  minimum_credit_score: '660 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 79: LTV 50.0% ≤ Bank Max 72% ✓
+[COMPARE-BANKS] Bank 79: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 79: Base rate input: "3.400" → Parsed: 3.4
+[RATE CALC] Bank 79: Found 3 rate rules
+[RATE CALC] Bank 79: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 79: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 79 (Bank Beinleumi): Base rate 3.4% → Final rate 3.300%
+[COMPARE-BANKS] Bank 79: Starting calculation with rate 3.3%
+[COMPARE-BANKS] Bank 79: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 79: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 80 (Bank Mizrahi-Tefahot)
+[COMPARE-BANKS] Bank 80 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 80: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 80: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 80: Base rate input: "3.500" → Parsed: 3.5
+[RATE CALC] Bank 77: Found 3 rate rules
+[RATE CALC] Bank 77: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 77: Final calculated rate: 3.200%
+[COMPARE-BANKS] Bank 77 (Discount Bank): Base rate 3.3% → Final rate 3.200%
+[COMPARE-BANKS] Bank 77: Starting calculation with rate 3.1999999999999997%
+[COMPARE-BANKS] Bank 77: Calculation result: { decision: 'approved', monthlyPayment: 2162, error: undefined }
+[COMPARE-BANKS] Bank 77: APPROVED - Added to offers (Rate: 3.200%, Payment: 2162)
+[COMPARE-BANKS] Processing Bank 78 (Bank Leumi)
+[COMPARE-BANKS] Bank 78 specific standards: {
+  standard_ltv_max: '75 (bank_specific)',
+  minimum_credit_score: '650 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 78: LTV 50.0% ≤ Bank Max 75% ✓
+[COMPARE-BANKS] Bank 78: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 78: Base rate input: "3.350" → Parsed: 3.35
+[RATE CALC] Bank 79: Found 3 rate rules
+[RATE CALC] Bank 79: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 79: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 79 (Bank Beinleumi): Base rate 3.4% → Final rate 3.300%
+[COMPARE-BANKS] Bank 79: Starting calculation with rate 3.3%
+[COMPARE-BANKS] Bank 79: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 79: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 80 (Bank Mizrahi-Tefahot)
+[COMPARE-BANKS] Bank 80 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 80: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 80: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 80: Base rate input: "3.500" → Parsed: 3.5
+[RATE CALC] Bank 80: Found 3 rate rules
+[RATE CALC] Bank 80: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 80: Final calculated rate: 3.400%
+[COMPARE-BANKS] Bank 80 (Bank Mizrahi-Tefahot): Base rate 3.5% → Final rate 3.400%
+[COMPARE-BANKS] Bank 80: Starting calculation with rate 3.4%
+[COMPARE-BANKS] Bank 80: Calculation result: { decision: 'approved', monthlyPayment: 2217, error: undefined }
+[COMPARE-BANKS] Bank 80: APPROVED - Added to offers (Rate: 3.400%, Payment: 2217)
+[COMPARE-BANKS] Processing Bank 81 (Bank Igood)
+[COMPARE-BANKS] Bank 81 specific standards: {
+  standard_ltv_max: '77 (bank_specific)',
+  minimum_credit_score: '625 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 81: LTV 50.0% ≤ Bank Max 77% ✓
+[COMPARE-BANKS] Bank 81: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 81: Base rate input: "3.280" → Parsed: 3.28
+[RATE CALC] Bank 78: Found 3 rate rules
+[RATE CALC] Bank 78: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 78: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 78 (Bank Leumi): Base rate 3.35% → Final rate 3.250%
+[COMPARE-BANKS] Bank 78: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 78: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 78: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 79 (Bank Beinleumi)
+[COMPARE-BANKS] Bank 79 specific standards: {
+  standard_ltv_max: '72 (bank_specific)',
+  minimum_credit_score: '660 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 79: LTV 50.0% ≤ Bank Max 72% ✓
+[COMPARE-BANKS] Bank 79: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 79: Base rate input: "3.400" → Parsed: 3.4
+[RATE CALC] Bank 80: Found 3 rate rules
+[RATE CALC] Bank 80: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 80: Final calculated rate: 3.400%
+[COMPARE-BANKS] Bank 80 (Bank Mizrahi-Tefahot): Base rate 3.5% → Final rate 3.400%
+[COMPARE-BANKS] Bank 80: Starting calculation with rate 3.4%
+[COMPARE-BANKS] Bank 80: Calculation result: { decision: 'approved', monthlyPayment: 2217, error: undefined }
+[COMPARE-BANKS] Bank 80: APPROVED - Added to offers (Rate: 3.400%, Payment: 2217)
+[COMPARE-BANKS] Processing Bank 81 (Bank Igood)
+[COMPARE-BANKS] Bank 81 specific standards: {
+  standard_ltv_max: '77 (bank_specific)',
+  minimum_credit_score: '625 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 81: LTV 50.0% ≤ Bank Max 77% ✓
+[COMPARE-BANKS] Bank 81: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 81: Base rate input: "3.280" → Parsed: 3.28
+[RATE CALC] Bank 81: Found 3 rate rules
+[RATE CALC] Bank 81: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 81: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 81 (Bank Igood): Base rate 3.28% → Final rate 3.180%
+[COMPARE-BANKS] Bank 81: Starting calculation with rate 3.1799999999999997%
+[COMPARE-BANKS] Bank 81: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 81: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 82 (Bank Yaav for civil servants)
+[COMPARE-BANKS] Bank 82 specific standards: {
+  standard_ltv_max: '76 (bank_specific)',
+  minimum_credit_score: '635 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 82: LTV 50.0% ≤ Bank Max 76% ✓
+[COMPARE-BANKS] Bank 82: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 82: Base rate input: "3.320" → Parsed: 3.32
+[RATE CALC] Bank 79: Found 3 rate rules
+[RATE CALC] Bank 79: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 79: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 79 (Bank Beinleumi): Base rate 3.4% → Final rate 3.300%
+[COMPARE-BANKS] Bank 79: Starting calculation with rate 3.3%
+[COMPARE-BANKS] Bank 79: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 79: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 80 (Bank Mizrahi-Tefahot)
+[COMPARE-BANKS] Bank 80 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 80: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 80: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 80: Base rate input: "3.500" → Parsed: 3.5
+[RATE CALC] Bank 81: Found 3 rate rules
+[RATE CALC] Bank 81: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 81: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 81 (Bank Igood): Base rate 3.28% → Final rate 3.180%
+[COMPARE-BANKS] Bank 81: Starting calculation with rate 3.1799999999999997%
+[COMPARE-BANKS] Bank 81: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 81: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 82 (Bank Yaav for civil servants)
+[COMPARE-BANKS] Bank 82 specific standards: {
+  standard_ltv_max: '76 (bank_specific)',
+  minimum_credit_score: '635 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 82: LTV 50.0% ≤ Bank Max 76% ✓
+[COMPARE-BANKS] Bank 82: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 82: Base rate input: "3.320" → Parsed: 3.32
+[RATE CALC] Bank 82: Found 3 rate rules
+[RATE CALC] Bank 82: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 82: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 82 (Bank Yaav for civil servants): Base rate 3.32% → Final rate 3.220%
+[COMPARE-BANKS] Bank 82: Starting calculation with rate 3.2199999999999998%
+[COMPARE-BANKS] Bank 82: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 82: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 83 (Mercantil Discount Bank)
+[COMPARE-BANKS] Bank 83 specific standards: {
+  standard_ltv_max: '74 (bank_specific)',
+  minimum_credit_score: '645 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 83: LTV 50.0% ≤ Bank Max 74% ✓
+[COMPARE-BANKS] Bank 83: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 83: Base rate input: "3.380" → Parsed: 3.38
+[RATE CALC] Bank 80: Found 3 rate rules
+[RATE CALC] Bank 80: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 80: Final calculated rate: 3.400%
+[COMPARE-BANKS] Bank 80 (Bank Mizrahi-Tefahot): Base rate 3.5% → Final rate 3.400%
+[COMPARE-BANKS] Bank 80: Starting calculation with rate 3.4%
+[COMPARE-BANKS] Bank 80: Calculation result: { decision: 'approved', monthlyPayment: 2217, error: undefined }
+[COMPARE-BANKS] Bank 80: APPROVED - Added to offers (Rate: 3.400%, Payment: 2217)
+[COMPARE-BANKS] Processing Bank 81 (Bank Igood)
+[COMPARE-BANKS] Bank 81 specific standards: {
+  standard_ltv_max: '77 (bank_specific)',
+  minimum_credit_score: '625 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 81: LTV 50.0% ≤ Bank Max 77% ✓
+[COMPARE-BANKS] Bank 81: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 81: Base rate input: "3.280" → Parsed: 3.28
+[RATE CALC] Bank 82: Found 3 rate rules
+[RATE CALC] Bank 82: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 82: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 82 (Bank Yaav for civil servants): Base rate 3.32% → Final rate 3.220%
+[COMPARE-BANKS] Bank 82: Starting calculation with rate 3.2199999999999998%
+[COMPARE-BANKS] Bank 82: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 82: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 83 (Mercantil Discount Bank)
+[COMPARE-BANKS] Bank 83 specific standards: {
+  standard_ltv_max: '74 (bank_specific)',
+  minimum_credit_score: '645 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 83: LTV 50.0% ≤ Bank Max 74% ✓
+[COMPARE-BANKS] Bank 83: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 83: Base rate input: "3.380" → Parsed: 3.38
+[RATE CALC] Bank 83: Found 3 rate rules
+[RATE CALC] Bank 83: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 83: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 83 (Mercantil Discount Bank): Base rate 3.38% → Final rate 3.280%
+[COMPARE-BANKS] Bank 83: Starting calculation with rate 3.28%
+[COMPARE-BANKS] Bank 83: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 83: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 84 (Bank Yerushalayim)
+[COMPARE-BANKS] Bank 84 specific standards: {
+  standard_ltv_max: '73 (bank_specific)',
+  minimum_credit_score: '655 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 84: LTV 50.0% ≤ Bank Max 73% ✓
+[COMPARE-BANKS] Bank 84: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 84: Base rate input: "3.420" → Parsed: 3.42
+[RATE CALC] Bank 81: Found 3 rate rules
+[RATE CALC] Bank 81: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 81: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 81 (Bank Igood): Base rate 3.28% → Final rate 3.180%
+[COMPARE-BANKS] Bank 81: Starting calculation with rate 3.1799999999999997%
+[COMPARE-BANKS] Bank 81: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 81: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 82 (Bank Yaav for civil servants)
+[COMPARE-BANKS] Bank 82 specific standards: {
+  standard_ltv_max: '76 (bank_specific)',
+  minimum_credit_score: '635 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 82: LTV 50.0% ≤ Bank Max 76% ✓
+[COMPARE-BANKS] Bank 82: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 82: Base rate input: "3.320" → Parsed: 3.32
+[RATE CALC] Bank 84: Found 3 rate rules
+[RATE CALC] Bank 84: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 84: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 84 (Bank Yerushalayim): Base rate 3.42% → Final rate 3.320%
+[COMPARE-BANKS] Bank 84: Starting calculation with rate 3.32%
+[COMPARE-BANKS] Bank 84: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 84: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 85 (Postal Bank)
+[COMPARE-BANKS] Bank 85 specific standards: {
+  standard_ltv_max: '71 (bank_specific)',
+  minimum_credit_score: '665 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 85: LTV 50.0% ≤ Bank Max 71% ✓
+[COMPARE-BANKS] Bank 85: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 85: Base rate input: "3.450" → Parsed: 3.45
+[RATE CALC] Bank 83: Found 3 rate rules
+[RATE CALC] Bank 83: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 83: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 83 (Mercantil Discount Bank): Base rate 3.38% → Final rate 3.280%
+[COMPARE-BANKS] Bank 83: Starting calculation with rate 3.28%
+[COMPARE-BANKS] Bank 83: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 83: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 84 (Bank Yerushalayim)
+[COMPARE-BANKS] Bank 84 specific standards: {
+  standard_ltv_max: '73 (bank_specific)',
+  minimum_credit_score: '655 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 84: LTV 50.0% ≤ Bank Max 73% ✓
+[COMPARE-BANKS] Bank 84: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 84: Base rate input: "3.420" → Parsed: 3.42
+[RATE CALC] Bank 82: Found 3 rate rules
+[RATE CALC] Bank 82: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 82: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 82 (Bank Yaav for civil servants): Base rate 3.32% → Final rate 3.220%
+[COMPARE-BANKS] Bank 82: Starting calculation with rate 3.2199999999999998%
+[COMPARE-BANKS] Bank 82: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 82: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 83 (Mercantil Discount Bank)
+[COMPARE-BANKS] Bank 83 specific standards: {
+  standard_ltv_max: '74 (bank_specific)',
+  minimum_credit_score: '645 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 83: LTV 50.0% ≤ Bank Max 74% ✓
+[COMPARE-BANKS] Bank 83: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 83: Base rate input: "3.380" → Parsed: 3.38
+[RATE CALC] Bank 85: Found 5 rate rules
+[RATE CALC] Bank 85: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 85: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 85 (Postal Bank): Base rate 3.45% → Final rate 3.150%
+[COMPARE-BANKS] Bank 85: Starting calculation with rate 3.1500000000000004%
+[COMPARE-BANKS] Bank 85: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 85: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 86 (Otsar Ahayal Bank)
+[COMPARE-BANKS] Bank 86 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '670 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 86: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 86: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 86: Base rate input: "3.480" → Parsed: 3.48
+[RATE CALC] Bank 84: Found 3 rate rules
+[RATE CALC] Bank 84: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 84: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 84 (Bank Yerushalayim): Base rate 3.42% → Final rate 3.320%
+[COMPARE-BANKS] Bank 84: Starting calculation with rate 3.32%
+[COMPARE-BANKS] Bank 84: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 84: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 85 (Postal Bank)
+[COMPARE-BANKS] Bank 85 specific standards: {
+  standard_ltv_max: '71 (bank_specific)',
+  minimum_credit_score: '665 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 85: LTV 50.0% ≤ Bank Max 71% ✓
+[COMPARE-BANKS] Bank 85: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 85: Base rate input: "3.450" → Parsed: 3.45
+[RATE CALC] Bank 83: Found 3 rate rules
+[RATE CALC] Bank 83: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 83: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 83 (Mercantil Discount Bank): Base rate 3.38% → Final rate 3.280%
+[COMPARE-BANKS] Bank 83: Starting calculation with rate 3.28%
+[COMPARE-BANKS] Bank 83: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 83: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 84 (Bank Yerushalayim)
+[COMPARE-BANKS] Bank 84 specific standards: {
+  standard_ltv_max: '73 (bank_specific)',
+  minimum_credit_score: '655 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 84: LTV 50.0% ≤ Bank Max 73% ✓
+[COMPARE-BANKS] Bank 84: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 84: Base rate input: "3.420" → Parsed: 3.42
+[RATE CALC] Bank 86: Found 5 rate rules
+[RATE CALC] Bank 86: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 86: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 86 (Otsar Ahayal Bank): Base rate 3.48% → Final rate 3.180%
+[COMPARE-BANKS] Bank 86: Starting calculation with rate 3.18%
+[COMPARE-BANKS] Bank 86: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 86: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 87 (Bank Massad)
+[COMPARE-BANKS] Bank 87 specific standards: {
+  standard_ltv_max: '68 (bank_specific)',
+  minimum_credit_score: '675 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 87: LTV 50.0% ≤ Bank Max 68% ✓
+[COMPARE-BANKS] Bank 87: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 87: Base rate input: "3.520" → Parsed: 3.52
+[RATE CALC] Bank 85: Found 5 rate rules
+[RATE CALC] Bank 85: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 85: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 85 (Postal Bank): Base rate 3.45% → Final rate 3.150%
+[COMPARE-BANKS] Bank 85: Starting calculation with rate 3.1500000000000004%
+[COMPARE-BANKS] Bank 85: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 85: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 86 (Otsar Ahayal Bank)
+[COMPARE-BANKS] Bank 86 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '670 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 86: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 86: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 86: Base rate input: "3.480" → Parsed: 3.48
+[RATE CALC] Bank 84: Found 3 rate rules
+[RATE CALC] Bank 84: Applied credit_score adjustment: -0.1%
+[RATE CALC] Bank 84: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 84 (Bank Yerushalayim): Base rate 3.42% → Final rate 3.320%
+[COMPARE-BANKS] Bank 84: Starting calculation with rate 3.32%
+[COMPARE-BANKS] Bank 84: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 84: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 85 (Postal Bank)
+[COMPARE-BANKS] Bank 85 specific standards: {
+  standard_ltv_max: '71 (bank_specific)',
+  minimum_credit_score: '665 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 85: LTV 50.0% ≤ Bank Max 71% ✓
+[COMPARE-BANKS] Bank 85: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 85: Base rate input: "3.450" → Parsed: 3.45
+[RATE CALC] Bank 87: Found 5 rate rules
+[RATE CALC] Bank 87: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 87: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 87 (Bank Massad): Base rate 3.52% → Final rate 3.220%
+[COMPARE-BANKS] Bank 87: Starting calculation with rate 3.22%
+[COMPARE-BANKS] Bank 87: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 87: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 88 (Yu - bank)
+[COMPARE-BANKS] Bank 88 specific standards: {
+  standard_ltv_max: '67 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 88: LTV 50.0% ≤ Bank Max 67% ✓
+[COMPARE-BANKS] Bank 88: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 88: Base rate input: "3.550" → Parsed: 3.55
+[RATE CALC] Bank 86: Found 5 rate rules
+[RATE CALC] Bank 86: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 86: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 86 (Otsar Ahayal Bank): Base rate 3.48% → Final rate 3.180%
+[COMPARE-BANKS] Bank 86: Starting calculation with rate 3.18%
+[COMPARE-BANKS] Bank 86: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 86: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 87 (Bank Massad)
+[COMPARE-BANKS] Bank 87 specific standards: {
+  standard_ltv_max: '68 (bank_specific)',
+  minimum_credit_score: '675 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 87: LTV 50.0% ≤ Bank Max 68% ✓
+[COMPARE-BANKS] Bank 87: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 87: Base rate input: "3.520" → Parsed: 3.52
+[RATE CALC] Bank 85: Found 5 rate rules
+[RATE CALC] Bank 85: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 85: Final calculated rate: 3.150%
+[COMPARE-BANKS] Bank 85 (Postal Bank): Base rate 3.45% → Final rate 3.150%
+[COMPARE-BANKS] Bank 85: Starting calculation with rate 3.1500000000000004%
+[COMPARE-BANKS] Bank 85: Calculation result: { decision: 'approved', monthlyPayment: 2149, error: undefined }
+[COMPARE-BANKS] Bank 85: APPROVED - Added to offers (Rate: 3.150%, Payment: 2149)
+[COMPARE-BANKS] Processing Bank 86 (Otsar Ahayal Bank)
+[COMPARE-BANKS] Bank 86 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '670 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 86: LTV 50.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 86: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 86: Base rate input: "3.480" → Parsed: 3.48
+[RATE CALC] Bank 88: Found 5 rate rules
+[RATE CALC] Bank 88: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 88: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 88 (Yu - bank): Base rate 3.55% → Final rate 3.250%
+[COMPARE-BANKS] Bank 88: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 88: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 88: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 89 (Arab Bank of Israel)
+[COMPARE-BANKS] Bank 89 specific standards: {
+  standard_ltv_max: '66 (bank_specific)',
+  minimum_credit_score: '685 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 89: LTV 50.0% ≤ Bank Max 66% ✓
+[COMPARE-BANKS] Bank 89: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 89: Base rate input: "3.580" → Parsed: 3.58
+[RATE CALC] Bank 87: Found 5 rate rules
+[RATE CALC] Bank 87: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 87: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 87 (Bank Massad): Base rate 3.52% → Final rate 3.220%
+[COMPARE-BANKS] Bank 87: Starting calculation with rate 3.22%
+[COMPARE-BANKS] Bank 87: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 87: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 88 (Yu - bank)
+[COMPARE-BANKS] Bank 88 specific standards: {
+  standard_ltv_max: '67 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 88: LTV 50.0% ≤ Bank Max 67% ✓
+[COMPARE-BANKS] Bank 88: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 88: Base rate input: "3.550" → Parsed: 3.55
+[RATE CALC] Bank 86: Found 5 rate rules
+[RATE CALC] Bank 86: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 86: Final calculated rate: 3.180%
+[COMPARE-BANKS] Bank 86 (Otsar Ahayal Bank): Base rate 3.48% → Final rate 3.180%
+[COMPARE-BANKS] Bank 86: Starting calculation with rate 3.18%
+[COMPARE-BANKS] Bank 86: Calculation result: { decision: 'approved', monthlyPayment: 2157, error: undefined }
+[COMPARE-BANKS] Bank 86: APPROVED - Added to offers (Rate: 3.180%, Payment: 2157)
+[COMPARE-BANKS] Processing Bank 87 (Bank Massad)
+[COMPARE-BANKS] Bank 87 specific standards: {
+  standard_ltv_max: '68 (bank_specific)',
+  minimum_credit_score: '675 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 87: LTV 50.0% ≤ Bank Max 68% ✓
+[COMPARE-BANKS] Bank 87: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 87: Base rate input: "3.520" → Parsed: 3.52
+[RATE CALC] Bank 89: Found 5 rate rules
+[RATE CALC] Bank 89: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 89: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 89 (Arab Bank of Israel): Base rate 3.58% → Final rate 3.280%
+[COMPARE-BANKS] Bank 89: Starting calculation with rate 3.2800000000000002%
+[COMPARE-BANKS] Bank 89: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 89: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 90 (Bank Poaley Agudat Israel)
+[COMPARE-BANKS] Bank 90 specific standards: {
+  standard_ltv_max: '65 (bank_specific)',
+  minimum_credit_score: '690 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 90: LTV 50.0% ≤ Bank Max 65% ✓
+[COMPARE-BANKS] Bank 90: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 90: Base rate input: "3.600" → Parsed: 3.6
+[RATE CALC] Bank 88: Found 5 rate rules
+[RATE CALC] Bank 88: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 88: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 88 (Yu - bank): Base rate 3.55% → Final rate 3.250%
+[COMPARE-BANKS] Bank 88: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 88: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 88: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 89 (Arab Bank of Israel)
+[COMPARE-BANKS] Bank 89 specific standards: {
+  standard_ltv_max: '66 (bank_specific)',
+  minimum_credit_score: '685 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 89: LTV 50.0% ≤ Bank Max 66% ✓
+[COMPARE-BANKS] Bank 89: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 89: Base rate input: "3.580" → Parsed: 3.58
+[RATE CALC] Bank 87: Found 5 rate rules
+[RATE CALC] Bank 87: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 87: Final calculated rate: 3.220%
+[COMPARE-BANKS] Bank 87 (Bank Massad): Base rate 3.52% → Final rate 3.220%
+[COMPARE-BANKS] Bank 87: Starting calculation with rate 3.22%
+[COMPARE-BANKS] Bank 87: Calculation result: { decision: 'approved', monthlyPayment: 2168, error: undefined }
+[COMPARE-BANKS] Bank 87: APPROVED - Added to offers (Rate: 3.220%, Payment: 2168)
+[COMPARE-BANKS] Processing Bank 88 (Yu - bank)
+[COMPARE-BANKS] Bank 88 specific standards: {
+  standard_ltv_max: '67 (bank_specific)',
+  minimum_credit_score: '680 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 88: LTV 50.0% ≤ Bank Max 67% ✓
+[COMPARE-BANKS] Bank 88: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 88: Base rate input: "3.550" → Parsed: 3.55
+[RATE CALC] Bank 90: Found 5 rate rules
+[RATE CALC] Bank 90: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 90: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 90 (Bank Poaley Agudat Israel): Base rate 3.6% → Final rate 3.300%
+[COMPARE-BANKS] Bank 90: Starting calculation with rate 3.3000000000000003%
+[COMPARE-BANKS] Bank 90: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 90: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 91 (Discount Bank Lemashkantaot)
+[COMPARE-BANKS] Bank 91 specific standards: {
+  standard_ltv_max: '64 (bank_specific)',
+  minimum_credit_score: '695 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 91: LTV 50.0% ≤ Bank Max 64% ✓
+[COMPARE-BANKS] Bank 91: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 91: Base rate input: "3.620" → Parsed: 3.62
+[RATE CALC] Bank 89: Found 5 rate rules
+[RATE CALC] Bank 89: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 89: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 89 (Arab Bank of Israel): Base rate 3.58% → Final rate 3.280%
+[COMPARE-BANKS] Bank 89: Starting calculation with rate 3.2800000000000002%
+[COMPARE-BANKS] Bank 89: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 89: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 90 (Bank Poaley Agudat Israel)
+[COMPARE-BANKS] Bank 90 specific standards: {
+  standard_ltv_max: '65 (bank_specific)',
+  minimum_credit_score: '690 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 90: LTV 50.0% ≤ Bank Max 65% ✓
+[COMPARE-BANKS] Bank 90: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 90: Base rate input: "3.600" → Parsed: 3.6
+[RATE CALC] Bank 88: Found 5 rate rules
+[RATE CALC] Bank 88: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 88: Final calculated rate: 3.250%
+[COMPARE-BANKS] Bank 88 (Yu - bank): Base rate 3.55% → Final rate 3.250%
+[COMPARE-BANKS] Bank 88: Starting calculation with rate 3.25%
+[COMPARE-BANKS] Bank 88: Calculation result: { decision: 'approved', monthlyPayment: 2176, error: undefined }
+[COMPARE-BANKS] Bank 88: APPROVED - Added to offers (Rate: 3.250%, Payment: 2176)
+[COMPARE-BANKS] Processing Bank 89 (Arab Bank of Israel)
+[COMPARE-BANKS] Bank 89 specific standards: {
+  standard_ltv_max: '66 (bank_specific)',
+  minimum_credit_score: '685 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 89: LTV 50.0% ≤ Bank Max 66% ✓
+[COMPARE-BANKS] Bank 89: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 89: Base rate input: "3.580" → Parsed: 3.58
+[RATE CALC] Bank 91: Found 5 rate rules
+[RATE CALC] Bank 91: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 91: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 91 (Discount Bank Lemashkantaot): Base rate 3.62% → Final rate 3.320%
+[COMPARE-BANKS] Bank 91: Starting calculation with rate 3.3200000000000003%
+[COMPARE-BANKS] Bank 91: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 91: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 92 (Bank Leumi Lemashkanta)
+[COMPARE-BANKS] Bank 92 specific standards: {
+  standard_ltv_max: '63 (bank_specific)',
+  minimum_credit_score: '700 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 92: LTV 50.0% ≤ Bank Max 63% ✓
+[COMPARE-BANKS] Bank 92: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 92: Base rate input: "3.650" → Parsed: 3.65
+[RATE CALC] Bank 90: Found 5 rate rules
+[RATE CALC] Bank 90: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 90: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 90 (Bank Poaley Agudat Israel): Base rate 3.6% → Final rate 3.300%
+[COMPARE-BANKS] Bank 90: Starting calculation with rate 3.3000000000000003%
+[COMPARE-BANKS] Bank 90: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 90: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 91 (Discount Bank Lemashkantaot)
+[COMPARE-BANKS] Bank 91 specific standards: {
+  standard_ltv_max: '64 (bank_specific)',
+  minimum_credit_score: '695 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 91: LTV 50.0% ≤ Bank Max 64% ✓
+[COMPARE-BANKS] Bank 91: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 91: Base rate input: "3.620" → Parsed: 3.62
+[RATE CALC] Bank 89: Found 5 rate rules
+[RATE CALC] Bank 89: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 89: Final calculated rate: 3.280%
+[COMPARE-BANKS] Bank 89 (Arab Bank of Israel): Base rate 3.58% → Final rate 3.280%
+[COMPARE-BANKS] Bank 89: Starting calculation with rate 3.2800000000000002%
+[COMPARE-BANKS] Bank 89: Calculation result: { decision: 'approved', monthlyPayment: 2184, error: undefined }
+[COMPARE-BANKS] Bank 89: APPROVED - Added to offers (Rate: 3.280%, Payment: 2184)
+[COMPARE-BANKS] Processing Bank 90 (Bank Poaley Agudat Israel)
+[COMPARE-BANKS] Bank 90 specific standards: {
+  standard_ltv_max: '65 (bank_specific)',
+  minimum_credit_score: '690 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 90: LTV 50.0% ≤ Bank Max 65% ✓
+[COMPARE-BANKS] Bank 90: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 90: Base rate input: "3.600" → Parsed: 3.6
+[RATE CALC] Bank 92: Found 5 rate rules
+[RATE CALC] Bank 92: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 92: Final calculated rate: 3.350%
+[COMPARE-BANKS] Bank 92 (Bank Leumi Lemashkanta): Base rate 3.65% → Final rate 3.350%
+[COMPARE-BANKS] Bank 92: Starting calculation with rate 3.35%
+[COMPARE-BANKS] Bank 92: Calculation result: { decision: 'approved', monthlyPayment: 2204, error: undefined }
+[COMPARE-BANKS] Bank 92: APPROVED - Added to offers (Rate: 3.350%, Payment: 2204)
+[COMPARE-BANKS] Returning 18 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 2081.579 ms - 5902[0m
+[RATE CALC] Bank 91: Found 5 rate rules
+[RATE CALC] Bank 91: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 91: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 91 (Discount Bank Lemashkantaot): Base rate 3.62% → Final rate 3.320%
+[COMPARE-BANKS] Bank 91: Starting calculation with rate 3.3200000000000003%
+[COMPARE-BANKS] Bank 91: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 91: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 92 (Bank Leumi Lemashkanta)
+[COMPARE-BANKS] Bank 92 specific standards: {
+  standard_ltv_max: '63 (bank_specific)',
+  minimum_credit_score: '700 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 92: LTV 50.0% ≤ Bank Max 63% ✓
+[COMPARE-BANKS] Bank 92: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 92: Base rate input: "3.650" → Parsed: 3.65
+[RATE CALC] Bank 90: Found 5 rate rules
+[RATE CALC] Bank 90: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 90: Final calculated rate: 3.300%
+[COMPARE-BANKS] Bank 90 (Bank Poaley Agudat Israel): Base rate 3.6% → Final rate 3.300%
+[COMPARE-BANKS] Bank 90: Starting calculation with rate 3.3000000000000003%
+[COMPARE-BANKS] Bank 90: Calculation result: { decision: 'approved', monthlyPayment: 2190, error: undefined }
+[COMPARE-BANKS] Bank 90: APPROVED - Added to offers (Rate: 3.300%, Payment: 2190)
+[COMPARE-BANKS] Processing Bank 91 (Discount Bank Lemashkantaot)
+[COMPARE-BANKS] Bank 91 specific standards: {
+  standard_ltv_max: '64 (bank_specific)',
+  minimum_credit_score: '695 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 91: LTV 50.0% ≤ Bank Max 64% ✓
+[COMPARE-BANKS] Bank 91: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 91: Base rate input: "3.620" → Parsed: 3.62
+[RATE CALC] Bank 92: Found 5 rate rules
+[RATE CALC] Bank 92: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 92: Final calculated rate: 3.350%
+[COMPARE-BANKS] Bank 92 (Bank Leumi Lemashkanta): Base rate 3.65% → Final rate 3.350%
+[COMPARE-BANKS] Bank 92: Starting calculation with rate 3.35%
+[COMPARE-BANKS] Bank 92: Calculation result: { decision: 'approved', monthlyPayment: 2204, error: undefined }
+[COMPARE-BANKS] Bank 92: APPROVED - Added to offers (Rate: 3.350%, Payment: 2204)
+[COMPARE-BANKS] Returning 18 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 2187.138 ms - 5902[0m
+[RATE CALC] Bank 91: Found 5 rate rules
+[RATE CALC] Bank 91: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 91: Final calculated rate: 3.320%
+[COMPARE-BANKS] Bank 91 (Discount Bank Lemashkantaot): Base rate 3.62% → Final rate 3.320%
+[COMPARE-BANKS] Bank 91: Starting calculation with rate 3.3200000000000003%
+[COMPARE-BANKS] Bank 91: Calculation result: { decision: 'approved', monthlyPayment: 2195, error: undefined }
+[COMPARE-BANKS] Bank 91: APPROVED - Added to offers (Rate: 3.320%, Payment: 2195)
+[COMPARE-BANKS] Processing Bank 92 (Bank Leumi Lemashkanta)
+[COMPARE-BANKS] Bank 92 specific standards: {
+  standard_ltv_max: '63 (bank_specific)',
+  minimum_credit_score: '700 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 92: LTV 50.0% ≤ Bank Max 63% ✓
+[COMPARE-BANKS] Bank 92: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 92: Base rate input: "3.650" → Parsed: 3.65
+[RATE CALC] Bank 92: Found 5 rate rules
+[RATE CALC] Bank 92: Applied credit_score adjustment: -0.3%
+[RATE CALC] Bank 92: Final calculated rate: 3.350%
+[COMPARE-BANKS] Bank 92 (Bank Leumi Lemashkanta): Base rate 3.65% → Final rate 3.350%
+[COMPARE-BANKS] Bank 92: Starting calculation with rate 3.35%
+[COMPARE-BANKS] Bank 92: Calculation result: { decision: 'approved', monthlyPayment: 2204, error: undefined }
+[COMPARE-BANKS] Bank 92: APPROVED - Added to offers (Rate: 3.350%, Payment: 2204)
+[COMPARE-BANKS] Returning 18 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 2215.620 ms - 5902[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 78.561 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.933 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 87.730 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 87.747 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 88.251 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 88.906 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 76.500 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.590 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 87.507 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 86.690 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 88.951 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 87.694 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 76.446 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 81.627 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 88.303 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 86.391 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 87.423 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 87.786 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 76.862 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 80.824 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 88.675 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 88.342 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 89.138 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 88.851 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 75.962 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 80.303 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 85.205 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 84.872 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 86.810 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 88.794 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 76.368 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 82.258 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 85.045 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 86.826 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 86.286 ms - 3012[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 85.640 ms - 3012[0m
+[0mGET /api/content/home_page/he [32m200[0m 80.188 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 85.458 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 87.714 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 87.546 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 88.223 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 81.107 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 85.426 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 85.826 ms - 3402[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 229.905 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 237.406 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 238.918 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 570.257 ms - 759[0m

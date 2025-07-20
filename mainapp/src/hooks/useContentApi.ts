@@ -242,7 +242,26 @@ export const useContentApi = (screenLocation: string) => {
       'who_are_you_for_borrowers_ph': ['app.other_borrowers.step1.who_are_you_ph'],
       'calculate_mortgage_anketa': ['app.other_borrowers.step1.progress_label'],
       'calculate_mortgage_income': ['app.other_borrowers.step2.progress_label'],
-      'borrowers_income': ['app.other_borrowers.step2.income_title']
+      'borrowers_income': ['app.other_borrowers.step2.income_title'],
+      
+      // Mortgage Step 4 content mappings
+      'calculate_mortgage_final': ['app.mortgage.step4.title'],
+      'calculate_mortgage_warning': ['app.mortgage.step4.warning'],
+      'calculate_mortgage_parameters': ['app.mortgage.step4.parameters_title'],
+      'calculate_mortgage_profile_title': ['app.mortgage.step4.profile_title'],
+      'calculate_mortgage_filter_title': ['app.mortgage.step4.filter_title'],
+      'calculate_mortgage_parameters_initial': ['app.mortgage.step4.parameters_initial'],
+      'calculate_mortgage_parameters_cost': ['app.mortgage.step4.parameters_cost'],
+      'calculate_mortgage_parameters_period': ['app.mortgage.step4.parameters_period'],
+      'calculate_mortgage_parameters_months': ['app.mortgage.step4.parameters_months'],
+      'calculate_mortgage_filter_1': ['app.mortgage.step4.filter_option_1'],
+      'calculate_mortgage_filter_2': ['app.mortgage.step4.filter_option_2'],
+      'calculate_mortgage_filter_3': ['app.mortgage.step4.filter_option_3'],
+      'calculate_mortgage_filter_4': ['app.mortgage.step4.filter_option_4'],
+      'mortgage_total': ['app.mortgage.step4.mortgage_total'],
+      'mortgage_total_return': ['app.mortgage.step4.mortgage_total_return'],
+      'mortgage_monthly': ['app.mortgage.step4.mortgage_monthly'],
+      'mortgage_select_bank': ['app.mortgage.step4.mortgage_select_bank']
     };
     
     // Try specific mappings first
