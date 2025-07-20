@@ -63,7 +63,10 @@
       "mcp__playwright__browser_hover",
       "Bash(chmod:*)",
       "Bash(/tmp/create_mortgage_step4_content.sh:*)",
-      "Bash(/tmp/create_bank_card_content.sh:*)"
+      "Bash(/tmp/create_bank_card_content.sh:*)",
+      "Bash(/tmp/create_refinance_step1_content.sh:*)",
+      "Bash(/tmp/create_refinance_dropdowns.sh:*)",
+      "mcp__YouTrack__search_issues"
     ],
     "deny": []
   },
