@@ -27,6 +27,30 @@ If a phrase cannot be translated directly, rewrite it to preserve the legal inte
 8. Testing and QA
 Ensure the translation renders correctly in the frontend (no broken formatting, cutoff text, or misaligned placeholders).
 Test the translation in all relevant UI components (responsive, different user roles, etc.).
-9. Confidentiality and Compliance
+9. Database-Driven Content Management for Dropdowns
+When encountering dropdown components with hardcoded values, ALWAYS migrate them to the database:
+- Insert all dropdown options into the `content_items` table with `component_type = 'option'`
+- Use sequential numbering: `_option_1`, `_option_2`, `_option_3`, etc.
+- Create translations for all languages (EN/HE/RU) in `content_translations` table
+- Update components to use `useContentApi()` and `getContent()` instead of hardcoded arrays
+- Comment out old translation keys in JSON files with `__MIGRATED_` prefix
+- NEVER leave hardcoded dropdown values in components
+
+Example dropdown migration:
+```javascript
+// ❌ WRONG - Hardcoded values
+const options = [
+  { value: 'option_1', label: 'Hardcoded Text' },
+  { value: 'option_2', label: 'Another Hardcoded Text' }
+];
+
+// ✅ CORRECT - Database-driven
+const options = [
+  { value: 'option_1', label: getContent('field_name_option_1', 'field_name_option_1') },
+  { value: 'option_2', label: getContent('field_name_option_2', 'field_name_option_2') }
+];
+```
+
+10. Confidentiality and Compliance
 Never leak, store, or transmit translation content outside approved systems.
 Handle all legal content as confidential.
