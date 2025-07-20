@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { Column } from '@components/ui/Column'
 import { Error } from '@components/ui/Error'
@@ -8,14 +9,15 @@ import { FormTypes } from '@src/pages/Services/types/formTypes'
 
 const WhoAreYouForBorrowers = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('other_borrowers_step1')
   const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<FormTypes>()
 
   return (
     <Column>
       <StringInput
-        title={t('who_are_you_for_borrowers')}
-        placeholder={t('who_are_you_for_borrowers_ph')}
+        title={getContent('who_are_you_for_borrowers', 'who_are_you_for_borrowers')}
+        placeholder={getContent('who_are_you_for_borrowers_ph', 'who_are_you_for_borrowers_ph')}
         name="whoAreYouForBorrowers"
         onChange={(value) => setFieldValue('whoAreYouForBorrowers', value)}
         onBlur={() => setFieldTouched('whoAreYouForBorrowers')}

@@ -234,7 +234,15 @@ export const useContentApi = (screenLocation: string) => {
       'add_obligation': ['app.mortgage.step3.add_obligation'],
       'source_of_income': ['app.mortgage.step3.source_of_income'],
       'additional_source_of_income': ['app.mortgage.step3.additional_source_of_income'],
-      'obligation': ['app.mortgage.step3.obligation']
+      'obligation': ['app.mortgage.step3.obligation'],
+      
+      // Other Borrowers content mappings
+      'personal_data_borrowers_title': ['app.other_borrowers.step1.title'],
+      'who_are_you_for_borrowers': ['app.other_borrowers.step1.who_are_you_label'],
+      'who_are_you_for_borrowers_ph': ['app.other_borrowers.step1.who_are_you_ph'],
+      'calculate_mortgage_anketa': ['app.other_borrowers.step1.progress_label'],
+      'calculate_mortgage_income': ['app.other_borrowers.step2.progress_label'],
+      'borrowers_income': ['app.other_borrowers.step2.income_title']
     };
     
     // Try specific mappings first
