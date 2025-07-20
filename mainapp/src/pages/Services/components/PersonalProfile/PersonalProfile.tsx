@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { PensilSimple } from '@assets/icons/PencilSimple'
 import { Column } from '@components/ui/Column'
@@ -16,13 +17,14 @@ type TypeProps = {
 }
 const PersonalProfile: React.FC<TypeProps> = ({ name, phone }: TypeProps) => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('mortgage_step4')
   const navigate = useNavigate()
   return (
     <Column>
       <div className={cx('profile')}>
         <div className={cx('profile-title')}>
           <p className={cx('profile-title__text')}>
-            {t('calculate_mortgage_profile_title')}
+            {getContent('calculate_mortgage_profile_title', 'calculate_mortgage_profile_title')}
           </p>
           <PensilSimple
             onClick={() => navigate('/services/calculate-mortgage/2')}
