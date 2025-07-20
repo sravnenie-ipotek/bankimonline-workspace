@@ -297,7 +297,21 @@ export const useContentApi = (screenLocation: string) => {
       'bank_hapoalim': ['app.refinance.step1.bank_hapoalim'],
       'bank_leumi': ['app.refinance.step1.bank_leumi'],
       'bank_discount': ['app.refinance.step1.bank_discount'],
-      'bank_massad': ['app.refinance.step1.bank_massad']
+      'bank_massad': ['app.refinance.step1.bank_massad'],
+      
+      // SMS Verification Modal mappings
+      'sms_modal_title': ['enter_phone_number_login'],
+      'sms_modal_subtitle': ['confirm_phone_number_login'],
+      'sms_modal_name_placeholder': ['name_placeholder'],
+      'sms_modal_phone_placeholder': ['phone_placeholder'],
+      'sms_modal_continue_button': ['continue'],
+      'sms_modal_agreement_start': ['agreement_text_start'],
+      'sms_modal_user_agreement': ['user_agreement'],
+      'sms_modal_and_text': ['and'],
+      'sms_modal_privacy_policy': ['privacy_policy'],
+      'sms_modal_already_client': ['already_client'],
+      'sms_modal_login_here': ['login_here'],
+      'sms_modal_close': ['close']
     };
     
     // Try specific mappings first
