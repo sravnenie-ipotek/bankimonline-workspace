@@ -1,6 +1,7 @@
 import { useFormikContext } from 'formik'
 import { memo, useEffect, useLayoutEffect, useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { Column } from '@components/ui/Column'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
@@ -22,6 +23,7 @@ import { MortgageData } from './ui/MortgageData'
 
 const FirstStepForm = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('refinance_step1')
   const [maxMonthlyPayment, setMaxMonthlyPayment] = useState(51130)
   const [minMonthlyPayment, setMinMonthlyPayment] = useState(2654)
 
@@ -30,32 +32,32 @@ const FirstStepForm = () => {
 
   // Use useMemo to ensure dropdown options update when translations change
   const TypeSelectOptions = useMemo(() => [
-    { value: 'option_1', label: t('calculate_mortgage_type_options_1') },
-    { value: 'option_2', label: t('calculate_mortgage_type_options_2') },
-    { value: 'option_3', label: t('calculate_mortgage_type_options_3') },
-    { value: 'option_4', label: t('calculate_mortgage_type_options_4') },
-    { value: 'option_5', label: t('calculate_mortgage_type_options_5') },
-  ], [t])
+    { value: 'option_1', label: getContent('calculate_mortgage_type_options_1', 'calculate_mortgage_type_options_1') },
+    { value: 'option_2', label: getContent('calculate_mortgage_type_options_2', 'calculate_mortgage_type_options_2') },
+    { value: 'option_3', label: getContent('calculate_mortgage_type_options_3', 'calculate_mortgage_type_options_3') },
+    { value: 'option_4', label: getContent('calculate_mortgage_type_options_4', 'calculate_mortgage_type_options_4') },
+    { value: 'option_5', label: getContent('calculate_mortgage_type_options_5', 'calculate_mortgage_type_options_5') },
+  ], [getContent])
 
   const WhyDoYouRefinanceOptions = useMemo(() => [
-    { value: 'option_1', label: t('mortgage_refinance_why_option_1') },
-    { value: 'option_2', label: t('mortgage_refinance_why_option_2') },
-    { value: 'option_3', label: t('mortgage_refinance_why_option_3') },
-    { value: 'option_4', label: t('mortgage_refinance_why_option_4') },
-    { value: 'option_5', label: t('mortgage_refinance_why_option_5') },
-  ], [t])
+    { value: 'option_1', label: getContent('mortgage_refinance_why_option_1', 'mortgage_refinance_why_option_1') },
+    { value: 'option_2', label: getContent('mortgage_refinance_why_option_2', 'mortgage_refinance_why_option_2') },
+    { value: 'option_3', label: getContent('mortgage_refinance_why_option_3', 'mortgage_refinance_why_option_3') },
+    { value: 'option_4', label: getContent('mortgage_refinance_why_option_4', 'mortgage_refinance_why_option_4') },
+    { value: 'option_5', label: getContent('mortgage_refinance_why_option_5', 'mortgage_refinance_why_option_5') },
+  ], [getContent])
 
   const WhereIsRegisteredOptions = useMemo(() => [
-    { value: 'option_1', label: t('mortgage_refinance_reg_option_1') },
-    { value: 'option_2', label: t('mortgage_refinance_reg_option_2') },
-  ], [t])
+    { value: 'option_1', label: getContent('mortgage_refinance_reg_option_1', 'mortgage_refinance_reg_option_1') },
+    { value: 'option_2', label: getContent('mortgage_refinance_reg_option_2', 'mortgage_refinance_reg_option_2') },
+  ], [getContent])
 
-  const banks = [
-    { value: 'hapoalim', label: t('bank_hapoalim') },
-    { value: 'leumi', label: t('bank_leumi') },
-    { value: 'discount', label: t('bank_discount') },
-    { value: 'massad', label: t('bank_massad') },
-  ]
+  const banks = useMemo(() => [
+    { value: 'hapoalim', label: getContent('bank_hapoalim', 'bank_hapoalim') },
+    { value: 'leumi', label: getContent('bank_leumi', 'bank_leumi') },
+    { value: 'discount', label: getContent('bank_discount', 'bank_discount') },
+    { value: 'massad', label: getContent('bank_massad', 'bank_massad') },
+  ], [getContent])
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<RefinanceMortgageTypes>()
@@ -135,12 +137,12 @@ const FirstStepForm = () => {
   return (
     <>
       <FormContainer>
-        <FormCaption title={t('sidebar_sub_refinance_mortgage')} />
+        <FormCaption title={getContent('sidebar_sub_refinance_mortgage', 'sidebar_sub_refinance_mortgage')} />
         <Row>
           <Column>
             <DropdownMenu
               data={WhyDoYouRefinanceOptions}
-              title={t('mortgage_refinance_why')}
+              title={getContent('mortgage_refinance_why', 'mortgage_refinance_why')}
               placeholder={t('mortgage_refinance_why_ph')}
               value={values.whyRefinancingMortgage}
               onChange={(value) =>
@@ -155,7 +157,7 @@ const FirstStepForm = () => {
           <Column>
             <FormattedInput
               name="PriceOfEstate"
-              title={t('mortgage_refinance_left')}
+              title={getContent('mortgage_refinance_left', 'mortgage_refinance_left')}
               value={values.mortgageBalance}
               placeholder="1,000,000"
               handleChange={(value) => {
@@ -173,7 +175,7 @@ const FirstStepForm = () => {
             <FormattedInput
               handleChange={(value) => setFieldValue('priceOfEstate', value)}
               name="PriceOfEstate"
-              title={t('mortgage_refinance_price')}
+              title={getContent('mortgage_refinance_price', 'mortgage_refinance_price')}
               value={values.priceOfEstate}
               placeholder="1,000,000"
               error={errors.priceOfEstate}
@@ -186,7 +188,7 @@ const FirstStepForm = () => {
           <Column>
             <DropdownMenu
               data={TypeSelectOptions}
-              title={t('mortgage_refinance_type')}
+              title={getContent('mortgage_refinance_type', 'mortgage_refinance_type')}
               placeholder={t('mortgage_refinance_type_ph')}
               value={values.typeSelect}
               onChange={(value) => setFieldValue('typeSelect', value)}
@@ -197,7 +199,7 @@ const FirstStepForm = () => {
           <Column>
             <DropdownMenu
               data={banks}
-              title={t('mortgage_refinance_bank')}
+              title={getContent('mortgage_refinance_bank', 'mortgage_refinance_bank')}
               placeholder={t('mortgage_refinance_bank_ph')}
               value={values.bank}
               onChange={(value) => setFieldValue('bank', value)}
@@ -208,7 +210,7 @@ const FirstStepForm = () => {
           <Column>
             <DropdownMenu
               data={WhereIsRegisteredOptions}
-              title={t('mortgage_refinance_registered')}
+              title={getContent('mortgage_refinance_registered', 'mortgage_refinance_registered')}
               placeholder={t('mortgage_refinance_registered_ph')}
               value={values.propertyRegistered}
               onChange={(value) => setFieldValue('propertyRegistered', value)}
@@ -221,7 +223,7 @@ const FirstStepForm = () => {
         <Row>
           <Column>
             <Calendar
-              title={t('start_date_mortgage_title')}
+              title={getContent('start_date_mortgage_title', 'start_date_mortgage_title')}
               placeholder={t('date_ph')}
               value={values.startDate}
               onChange={(value) => setFieldValue('startDate', value)}
