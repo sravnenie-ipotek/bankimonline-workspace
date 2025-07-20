@@ -13,6 +13,7 @@ import { UserProfileCard } from '@components/ui/UserProfileCard'
 import Divider from '@src/components/ui/Divider/Divider'
 import FormCaption from '@src/components/ui/FormCaption/FormCaption'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { AdditionalIncome } from '@src/pages/Services/components/AdditionalIncome'
 import { AdditionalIncomeAmount } from '@src/pages/Services/components/AdditionalIncomeAmount'
 import { MainSourceOfIncome } from '@src/pages/Services/components/MainSourceOfIncome'
@@ -24,7 +25,7 @@ import {
   deleteObligationModal,
   deleteSourceOfIncomeModal,
 } from '@src/pages/Services/slices/borrowersSlice.ts'
-import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice.ts'
+import { updateRefinanceMortgageData } from '@src/pages/Services/slices/refinanceMortgageSlice.ts'
 import {
   createAdditionalIncomeModal,
   createObligationModal,
@@ -43,6 +44,7 @@ import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
 // Компонент расчета ипотеки - 3 шаг
 const ThirdStepForm = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('refinance_step3')
   const navigate = useNavigate()
 
   const { values } = useFormikContext<FormTypes>()
@@ -70,17 +72,17 @@ const ThirdStepForm = () => {
   const userData = useAppSelector((state) => state.login.loginData)
 
   const openSourceOfIncome = () => {
-    dispatch(updateMortgageData(values))
+    dispatch(updateRefinanceMortgageData(values))
     dispatch(createSourceOfIncomeModal())
   }
 
   const openAdditionalIncome = () => {
-    dispatch(updateMortgageData(values))
+    dispatch(updateRefinanceMortgageData(values))
     dispatch(createAdditionalIncomeModal())
   }
 
   const openObligation = () => {
-    dispatch(updateMortgageData(values))
+    dispatch(updateRefinanceMortgageData(values))
     dispatch(createObligationModal())
   }
 
@@ -139,7 +141,7 @@ const ThirdStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={t('calculate_mortgage_step3_title')} />
+      <FormCaption title={getContent('refinance_step3_title', 'calculate_mortgage_step3_title')} />
 
       <UserProfileCard
         name={userData?.nameSurname}
