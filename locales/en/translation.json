@@ -875,7 +875,7 @@
   "source_of_income 3": "Income source",
   "calculate_mortgage_add_partner": "Add partner",
   "upload_report_progress": "Report upload",
-  "accept_you_profile_for_registration": " What is the password you received? ",
+  "accept_you_profile_for_registration": "__MIGRATED_ What is the password you received? ",
   "has_account": "Do you have an existing account? ",
   "enter_bankimonline": "System login",
   "phone_auth_tab": "Login with phone number",

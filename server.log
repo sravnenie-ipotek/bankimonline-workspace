@@ -501,3 +501,152 @@ Get calculation parameters error: error: column "min_down_payment_percentage" do
 [0mGET /api/content/sms_verification/he [32m200[0m 83.498 ms - 1898[0m
 [0mGET /api/content/sms_verification/he [32m200[0m 81.931 ms - 1898[0m
 [0mGET /api/admin/content-items?search=sms_modal_title [33m404[0m 0.203 ms - 34[0m
+[0mPOST /api/content [32m200[0m 1061.244 ms - 127[0m
+[0mPOST /api/content [32m200[0m 460.707 ms - 130[0m
+[0mPOST /api/content [32m200[0m 518.186 ms - 128[0m
+[0mPOST /api/content [32m200[0m 482.898 ms - 126[0m
+[0mPOST /api/content [32m200[0m 461.516 ms - 129[0m
+[0mGET /api/content/refinance_step1/he [32m200[0m 465.145 ms - 5385[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 597.576 ms - -[0m
+[0mGET /api/content/refinance_step1/he [32m200[0m 498.482 ms - 5385[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 91.691 ms - -[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 780.343 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 738.841 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 759.269 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 578.577 ms - 759[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 445.797 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 445.946 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 486.692 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 485.638 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 418.404 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 80.977 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 80.720 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 82.450 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 482.877 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 491.514 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 85.063 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 570.161 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 587.314 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 586.403 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 90.450 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 585.144 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 88.015 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 114.272 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 93.329 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 93.713 ms - 837[0m
+[SMS] Verify 1234 for +972544654465
+[SMS] Verify 1234 for +972544654465
+[0mPOST /api/auth-verify [32m200[0m 450.625 ms - 358[0m
+[0mPOST /api/auth-verify [32m200[0m 575.039 ms - 358[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 447.157 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 449.760 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 478.167 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 477.046 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 480.160 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 74.945 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 75.184 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 83.809 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 84.013 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 85.468 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 74.849 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 76.303 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 79.742 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 81.931 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 83.154 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 680.119 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 75.274 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 74.723 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 84.159 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 83.698 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 74.713 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 75.088 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 76.177 ms - 7571[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 331.819 ms - 7571[0m
