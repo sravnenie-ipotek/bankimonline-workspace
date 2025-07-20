@@ -73,7 +73,7 @@ const ProgrammCard: React.FC<TypeProps> = ({
               <p className={cx('card-desc__content-desc')}>
                 {t('mortgage_percnt')}
               </p>
-              <p className={cx('card-desc__content-title')}>{percent}%</p>
+              <p className={cx('card-desc__content-title')}>{Number(percent).toFixed(2)}%</p>
             </div>
           </div>
           <div className={cx('card-desc')}>
