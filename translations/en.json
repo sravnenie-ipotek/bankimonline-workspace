@@ -232,7 +232,7 @@
   "register_description": "Create a personal account to receive advanced banking services",
   "register_banner_title": "Welcome to Bankimonline",
   "register_banner_description": "Your trusted partner for advanced financial solutions",
-  "enter_phone_number_login": "Enter your mobile phone number to get offers from banks",
+  "enter_phone_number_login": "__MIGRATED_Enter your mobile phone number to get offers from banks",
   "confirm_phone_number_login": "Confirm your phone number so we can send you an SMS with the banks' decision. We guarantee the security and safety of your data",
   "name_surname_login": "Full Name",
   "error_fill_field": "Please complete this field",

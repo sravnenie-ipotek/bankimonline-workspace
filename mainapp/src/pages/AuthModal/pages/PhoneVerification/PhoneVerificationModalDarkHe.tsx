@@ -5,6 +5,7 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { useAppDispatch } from '@src/hooks/store'
 import { setActiveModal, initializeUserData, setIsLogin } from '@src/pages/Services/slices/loginSlice'
+import { useContentApi } from '@src/hooks/useContentApi'
 import styles from './phoneVerificationModalDarkHe.module.scss'
 
 interface FormData {
@@ -24,6 +25,7 @@ interface PhoneVerificationModalDarkHeProps {
 
 const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> = ({ onClose, onSuccess }) => {
   const { t } = useTranslation()
+  const { getContent } = useContentApi('sms_verification')
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
@@ -184,23 +186,23 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
   return (
     <div className={styles.modalContainer} dir="rtl">
       <div className={styles.modalContent}>
-        <button className={styles.closeButton} onClick={handleClose} aria-label={t('close')}>
+        <button className={styles.closeButton} onClick={handleClose} aria-label={getContent('sms_modal_close', 'close')}>
           ×
         </button>
 
         <h2 className={styles.title}>
-          {t('enter_phone_number_login')}
+          {getContent('sms_modal_title', 'enter_phone_number_login')}
         </h2>
         
         <p className={styles.subtitle}>
-          {t('confirm_phone_number_login')}
+          {getContent('sms_modal_subtitle', 'confirm_phone_number_login')}
         </p>
 
         <div className={styles.formContainer}>
           <div className={styles.inputGroup}>
             <input 
               type="text" 
-              placeholder={t('name_placeholder')}
+              placeholder={getContent('sms_modal_name_placeholder', 'name_placeholder')}
               value={formData.name}
               onChange={handleNameChange}
               className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
@@ -220,7 +222,7 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
               onChange={handlePhoneChange}
               onlyCountries={['il', 'us', 'ru']}
               preferredCountries={['il']}
-              placeholder={t('phone_placeholder')}
+              placeholder={getContent('sms_modal_phone_placeholder', 'phone_placeholder')}
               containerClass={styles.phoneContainer}
               inputClass={`${styles.phoneInput} ${errors.phone ? styles.phoneInputError : ''}`}
               buttonClass={styles.phoneButton}
@@ -237,21 +239,21 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
           </div>
 
           <div className={styles.agreementText}>
-            <span>{t('agreement_text_start')} </span>
+            <span>{getContent('sms_modal_agreement_start', 'agreement_text_start')} </span>
             <a 
               href="#"
               onClick={(e) => { e.preventDefault(); handleUserAgreementClick(); }}
               className={styles.link}
             >
-              {t('user_agreement')}
+              {getContent('sms_modal_user_agreement', 'user_agreement')}
             </a>
-            <span> {t('and')} </span>
+            <span> {getContent('sms_modal_and_text', 'and')} </span>
             <a 
               href="#"
               onClick={(e) => { e.preventDefault(); handlePrivacyPolicyClick(); }}
               className={styles.link}
             >
-              {t('privacy_policy')}
+              {getContent('sms_modal_privacy_policy', 'privacy_policy')}
             </a>
             <span>.</span>
           </div>
@@ -262,16 +264,16 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
             onClick={handleContinue}
             className={`${styles.continueButton} ${!isFormValid ? styles.continueButtonDisabled : ''}`}
           >
-            {t('continue')}
+            {getContent('sms_modal_continue_button', 'continue')}
           </button>
 
           <div className={styles.loginPrompt}>
-            <span>{t('already_client')} </span>
+            <span>{getContent('sms_modal_already_client', 'already_client')} </span>
             <button 
               onClick={handleLoginClick}
               className={styles.loginLink}
             >
-              {t('login_here')}
+              {getContent('sms_modal_login_here', 'login_here')}
             </button>
           </div>
         </div>

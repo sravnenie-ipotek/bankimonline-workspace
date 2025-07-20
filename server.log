@@ -286,3 +286,218 @@ Get calculation parameters error: error: column "min_down_payment_percentage" do
   routine: 'errorMissingColumn'
 }
 [0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 733.732 ms - 759[0m
+[0mPOST /api/content/bulk-create [33m404[0m 0.276 ms - 163[0m
+[0mPOST /api/content [33m400[0m 0.190 ms - 110[0m
+[0mPOST /api/content [32m200[0m 1081.958 ms - 122[0m
+[0mPOST /api/content [32m200[0m 957.672 ms - 125[0m
+[0mPOST /api/content [32m200[0m 557.232 ms - 133[0m
+[0mPOST /api/content [32m200[0m 525.873 ms - 134[0m
+[0mPOST /api/content [32m200[0m 637.976 ms - 132[0m
+[0mPOST /api/content [32m200[0m 577.262 ms - 132[0m
+[0mPOST /api/content [32m200[0m 782.544 ms - 131[0m
+[0mPOST /api/content [32m200[0m 510.227 ms - 125[0m
+[0mPOST /api/content [32m200[0m 451.789 ms - 131[0m
+[0mPOST /api/content [32m200[0m 468.594 ms - 131[0m
+[0mPOST /api/content [32m200[0m 456.799 ms - 127[0m
+[0mPOST /api/content [32m200[0m 451.423 ms - 122[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 574.396 ms - -[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 633.463 ms - 759[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 92.637 ms - -[0m
+[0mGET /api/content/refinance_step1/he [32m200[0m 438.986 ms - 5385[0m
+[0mGET /api/content/refinance_step1/he [32m200[0m 577.453 ms - 5385[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 598.827 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 728.751 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 540.234 ms - 759[0m
+[0mGET /api/content/sms_verification/he [32m200[0m 437.688 ms - 1898[0m
+[0mGET /api/content/sms_verification/he [32m200[0m 442.317 ms - 1898[0m
+[0mGET /api/content/sms_verification/he [32m200[0m 389.896 ms - 1898[0m
+[0mGET /api/content/refinance_step1/he [32m200[0m 524.796 ms - 5385[0m
+[0mGET /api/content/refinance_step1/he [32m200[0m 551.738 ms - 5385[0m
+[0mGET /api/content/refinance_step1/he [32m200[0m 580.615 ms - 5385[0m
+[0mGET /api/content/refinance_step1/he [32m200[0m 583.638 ms - 5385[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 679.247 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 678.341 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 722.248 ms - 759[0m
+Get calculation parameters error: error: column "min_down_payment_percentage" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server-db.js:8746:27 {
+  length: 127,
+  severity: 'ERROR',
+  code: '42703',
+  detail: undefined,
+  hint: undefined,
+  position: '98',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '3722',
+  routine: 'errorMissingColumn'
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 762.217 ms - 759[0m
+[0mGET /api/content/sms_verification/he [32m200[0m 92.686 ms - 1898[0m
+[0mGET /api/content/sms_verification/he [32m200[0m 93.139 ms - 1898[0m
+[0mGET /api/content/sms_verification/he [32m200[0m 435.640 ms - 1898[0m
+[0mGET /api/content/sms_verification/he [32m200[0m 83.498 ms - 1898[0m
+[0mGET /api/content/sms_verification/he [32m200[0m 81.931 ms - 1898[0m
+[0mGET /api/admin/content-items?search=sms_modal_title [33m404[0m 0.203 ms - 34[0m
