@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { Column } from '@components/ui/Column'
 import CreditContextButton from '@components/ui/ContextButtons/CreditContextButton/CreditContextButton.tsx'
@@ -10,6 +11,7 @@ import { FormTypes } from '../../types/formTypes'
 
 const Borrowers = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('mortgage_step2')
   const { values, setFieldValue, errors, setFieldTouched, touched } =
     useFormikContext<FormTypes>()
 
@@ -19,8 +21,8 @@ const Borrowers = () => {
         name="borrowers"
         handleChange={(value) => setFieldValue('borrowers', value)}
         onBlur={() => setFieldTouched('borrowers')}
-        title={t('calculate_mortgage_borrowers')}
-        placeholder={t('place_borrowers')}
+        title={getContent('calculate_mortgage_borrowers', 'calculate_mortgage_borrowers')}
+        placeholder={getContent('place_borrowers', 'place_borrowers')}
         disableCurrency={true}
         value={values.borrowers}
         error={touched.borrowers && errors.borrowers}

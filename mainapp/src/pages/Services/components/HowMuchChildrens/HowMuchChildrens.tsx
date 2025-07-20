@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik'
-import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { Column } from '@components/ui/Column'
 import { Error } from '@components/ui/Error'
@@ -8,7 +8,7 @@ import { FormattedInput } from '@components/ui/FormattedInput'
 import { FormTypes } from '../../types/formTypes'
 
 const HowMuchChildrens = () => {
-  const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('mortgage_step2')
   const { values, setFieldValue, errors, touched } =
     useFormikContext<FormTypes>()
 
@@ -17,7 +17,7 @@ const HowMuchChildrens = () => {
       <FormattedInput
         name="HowManyBorrowers"
         handleChange={(value) => setFieldValue('howMuchChildrens', value)}
-        title={t('calculate_mortgage_how_much_childrens')}
+        title={getContent('calculate_mortgage_how_much_childrens', 'calculate_mortgage_how_much_childrens')}
         placeholder="0"
         disableCurrency={true}
         value={values.howMuchChildrens}
