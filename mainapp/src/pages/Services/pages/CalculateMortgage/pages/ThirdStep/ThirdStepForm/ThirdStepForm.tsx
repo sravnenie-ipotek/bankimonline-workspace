@@ -3,6 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import { createSearchParams } from 'react-router-dom'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { AddButton } from '@components/ui/AddButton'
 import { Column } from '@components/ui/Column'
@@ -43,6 +44,7 @@ import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
 // Компонент расчета ипотеки - 3 шаг
 const ThirdStepForm = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('mortgage_step3')
   const navigate = useNavigate()
 
   const { values } = useFormikContext<FormTypes>()
@@ -140,7 +142,7 @@ const ThirdStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={t('calculate_mortgage_step3_title')} />
+      <FormCaption title={getContent('calculate_mortgage_step3_title', 'calculate_mortgage_step3_title')} />
 
       <UserProfileCard
         name={userData?.nameSurname}
@@ -166,13 +168,13 @@ const ThirdStepForm = () => {
                   onDelete={() => handleDeleteSourceOfIncome(item.id)}
                   enableEdit
                   key={item.id}
-                  name={`${t('source_of_income')}${item.id + 1}`}
+                  name={`${getContent('source_of_income', 'source_of_income')}${item.id + 1}`}
                 />
               ))}
               <AddButton
                 onClick={openSourceOfIncome}
                 color="#FBE54D"
-                value={t('add_place_to_work')}
+                value={getContent('add_place_to_work', 'add_place_to_work')}
                 variant="none"
               />
             </>
@@ -199,13 +201,13 @@ const ThirdStepForm = () => {
                 onDelete={() => handleDeleteAdditionalIncome(item.id)}
                 enableEdit
                 key={item.id}
-                name={`${t('additional_source_of_income')}${item.id + 1}`}
+                name={`${getContent('additional_source_of_income', 'additional_source_of_income')}${item.id + 1}`}
               />
             ))}
             <AddButton
               onClick={openAdditionalIncome}
               color="#FBE54D"
-              value={t('add_additional_source_of_income')}
+              value={getContent('add_additional_source_of_income', 'add_additional_source_of_income')}
               variant="none"
             />
           </Column>
@@ -232,13 +234,13 @@ const ThirdStepForm = () => {
                 onDelete={() => handleDeleteObligation(item.id)}
                 enableEdit
                 key={item.id}
-                name={`${t('obligation')}${item.id + 1}`}
+                name={`${getContent('obligation', 'obligation')}${item.id + 1}`}
               />
             ))}
             <AddButton
               onClick={openObligation}
               color="#FBE54D"
-              value={t('add_obligation')}
+              value={getContent('add_obligation', 'add_obligation')}
               variant="none"
             />
           </Column>
@@ -247,7 +249,7 @@ const ThirdStepForm = () => {
 
       <Divider />
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-        {otherBorrowers && <TitleElement title={t('borrower')} />}
+        {otherBorrowers && <TitleElement title={getContent('borrower', 'borrower')} />}
         <Row style={{ columnGap: '2rem' }}>
           {otherBorrowers.map((item) => (
             <Column key={item.id}>
@@ -260,10 +262,10 @@ const ThirdStepForm = () => {
               />
             </Column>
           ))}
-          {!otherBorrowers && <TitleElement title={t('borrower')} />}
+          {!otherBorrowers && <TitleElement title={getContent('borrower', 'borrower')} />}
           <Column>
             <AddButton
-              value={t('add_borrower')}
+              value={getContent('add_borrower', 'add_borrower')}
               onClick={handleCreateOtherBorrowers}
               style={{
                 height: '3.5rem',
