@@ -1,6 +1,7 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { AddButton } from '@components/ui/AddButton'
 import { Error } from '@components/ui/Error'
@@ -13,7 +14,7 @@ import { deleteBorrowersPersonalData } from '../../slices/borrowersPersonalDataS
 import { FormTypes } from '../../types/formTypes'
 
 const AddPartner = () => {
-  const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('mortgage_step2')
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -24,7 +25,7 @@ const AddPartner = () => {
 
   return (
     <>
-      <TitleElement title={t('calculate_mortgage_add_partner_title')} />
+      <TitleElement title={getContent('calculate_mortgage_add_partner_title', 'calculate_mortgage_add_partner_title')} />
 
       {borrowerValue.obligation ? (
         <UserProfileCard
@@ -35,7 +36,7 @@ const AddPartner = () => {
         />
       ) : (
         <AddButton
-          value={t('calculate_mortgage_add_partner')}
+          value={getContent('calculate_mortgage_add_partner', 'calculate_mortgage_add_partner')}
           onClick={() => {
             dispatch(updateMortgageData(values))
             navigate('/services/borrowers-personal-data/1')

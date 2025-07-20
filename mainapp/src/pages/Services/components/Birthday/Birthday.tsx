@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import Calendar from '@components/ui/Calendar/Calendar.tsx'
 import { Error } from '@components/ui/Error'
@@ -9,12 +10,13 @@ import { FormTypes } from '../../types/formTypes'
 
 const Birthday = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('mortgage_step2')
   const { setFieldValue, values, errors } = useFormikContext<FormTypes>()
 
   return (
     <Column>
       <Calendar
-        title={t('calculate_mortgage_birth_date')}
+        title={getContent('calculate_mortgage_birth_date', 'calculate_mortgage_birth_date')}
         onChange={(date) => setFieldValue('birthday', date)}
         value={values.birthday}
         placeholder={'DD/MM/YYYY'}

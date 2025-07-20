@@ -1,5 +1,5 @@
 import { useFormikContext } from 'formik'
-import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { Column } from '@components/ui/Column'
 import { MultiSelect } from '@components/ui/MultiSelect'
@@ -8,7 +8,7 @@ import { TitleElement } from '@components/ui/TitleElement'
 import { FormTypes } from '../../types/formTypes.ts'
 
 const CitizenshipsDropdown = () => {
-  const { t } = useTranslation()
+  const { getContent } = useContentApi('mortgage_step2')
   const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<FormTypes>()
 
@@ -76,14 +76,14 @@ const CitizenshipsDropdown = () => {
 
   return (
     <Column>
-      <TitleElement title={t('calculate_mortgage_citizenship_title')} />
+      <TitleElement title={getContent('calculate_mortgage_citizenship_title', 'calculate_mortgage_citizenship_title')} />
       <MultiSelect
         data={citizenshipOptions}
-        placeholder={t('calculate_mortgage_citizenship_ph')}
+        placeholder={getContent('calculate_mortgage_citizenship_ph', 'calculate_mortgage_citizenship_ph')}
         searchable
-        searchPlaceholder={t('search')}
-        nothingFoundText={t('nothing_found')}
-        searchDescription={t('countries')}
+        searchPlaceholder={getContent('search', 'search')}
+        nothingFoundText={getContent('nothing_found', 'nothing_found')}
+        searchDescription={getContent('countries', 'countries')}
         value={values.citizenshipsDropdown}
         onChange={(value) => setFieldValue('citizenshipsDropdown', value)}
         onBlur={() => setFieldTouched('citizenshipsDropdown', true)}
