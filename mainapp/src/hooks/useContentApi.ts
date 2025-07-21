@@ -92,6 +92,13 @@ export const useContentApi = (screenLocation: string) => {
       return content[shortKey];
     }
     
+    // IMMEDIATE FALLBACK: If API content is not available, use translation system right away
+    if (Object.keys(content).length === 0 || error) {
+      const translationKey = fallbackKey || key;
+      const translatedValue = t(translationKey);
+      return translatedValue;
+    }
+    
     // Try with specific prefixes based on the key
     const prefixMap: Record<string, string[]> = {
       // Home page content
@@ -356,21 +363,19 @@ export const useContentApi = (screenLocation: string) => {
       }
     }
     
-    // Debug logging
-    console.log(`❌ Content lookup failed for key: ${key}`);
-    console.log(`Available keys:`, Object.keys(content));
-    console.log(`Tried mappings:`, mappedKeys);
+    // Debug logging (only in development)
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`❌ Content lookup failed for key: ${key}`);
+      console.log(`Available keys:`, Object.keys(content));
+      console.log(`Tried mappings:`, mappedKeys);
+    }
     
     // Fallback to translation system
     const translationKey = fallbackKey || key;
     const translatedValue = t(translationKey);
     
-    // If translation returns the key itself, it means translation not found
-    if (translatedValue === translationKey) {
-      console.warn(`No content found for key: ${key}, fallback: ${fallbackKey}`);
-      return key; // Return the key as last resort
-    }
-    
+    // Always return the translation value, even if it's the key itself
+    // This ensures the UI displays something instead of breaking
     return translatedValue;
   };
 

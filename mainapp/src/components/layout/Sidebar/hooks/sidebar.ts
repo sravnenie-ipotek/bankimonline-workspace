@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { CaretRightIcon } from '@assets/icons/CaretRightIcon'
 
@@ -6,27 +7,28 @@ import { IMenuItem } from '../types/menuItem.ts'
 
 const useMenuItems = (): IMenuItem[] => {
   const { t } = useTranslation()
+  const { getContent } = useContentApi('sidebar_company')
 
   return [
     {
-      title: t('sidebar_company_1'),
+      title: getContent('sidebar_company_1', t('sidebar_company_1')),
       path: '/services',
       icon: CaretRightIcon,
     },
     {
-      title: t('sidebar_company_2'),
+      title: getContent('sidebar_company_2', t('sidebar_company_2')),
       path: '/about',
     },
     {
-      title: t('sidebar_company_5'),
+      title: getContent('sidebar_company_5', t('sidebar_company_5')),
       path: '/Real-Estate-Brokerage',
     },
     {
-      title: t('sidebar_company_3'),
+      title: getContent('sidebar_company_3', t('sidebar_company_3')),
       path: '/vacancies',
     },
     {
-      title: t('sidebar_company_4'),
+      title: getContent('sidebar_company_4', t('sidebar_company_4')),
       path: '/contacts',
     },
   ]
@@ -34,27 +36,28 @@ const useMenuItems = (): IMenuItem[] => {
 
 const useBusinessMenuItems = (): IMenuItem[] => {
   const { t } = useTranslation()
+  const { getContent } = useContentApi('sidebar_business')
 
   return [
     {
-      title: t('sidebar_business_1'),
+      title: getContent('sidebar_business_1', t('sidebar_business_1')),
       path: '/',
       icon: CaretRightIcon,
     },
     {
-      title: t('sidebar_business_2'),
+      title: getContent('sidebar_business_2', t('sidebar_business_2')),
       path: '/cooperation',
     },
     {
-      title: t('sidebar_business_3'),
+      title: getContent('sidebar_business_3', t('sidebar_business_3')),
       path: '/tenders-for-brokers',
     },
     {
-      title: t('sidebar_company_6'),
+      title: getContent('sidebar_company_6', t('sidebar_company_6')),
       path: '/Real-Estate-Brokerage',
     },
     {
-      title: t('sidebar_business_4'),
+      title: getContent('sidebar_business_4', t('sidebar_business_4')),
       path: '/tenders-for-lawyers',
     },
   ]
