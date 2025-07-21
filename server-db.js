@@ -3281,10 +3281,23 @@ app.post('/api/refinance-mortgage', async (req, res) => {
         
         console.log(`[REFINANCE MORTGAGE] Database-driven calculation: ${currentRate}% rate, ₪${monthlyPayment}/month, ${savingsPercentage}% savings`);
         
+        // Determine language for bank names based on Accept-Language header
+        const clientLang = req.headers['accept-language']?.split(',')[0]?.split('-')[0] || 'en';
+        let nameField = 'name_en';
+        if (clientLang === 'he') {
+            nameField = 'name_he';
+        } else if (clientLang === 'ru') {
+            nameField = 'name_ru';
+        }
+        
         // Get top 3 banks with best rates for refinancing
         const banksQuery = `
             SELECT 
-                b.name_en as name,
+                CASE 
+                    WHEN $2 = 'name_he' THEN COALESCE(b.name_he, b.name_en)
+                    WHEN $2 = 'name_ru' THEN COALESCE(b.name_ru, b.name_en)
+                    ELSE b.name_en
+                END as name,
                 COALESCE(bc.base_interest_rate, $1) as rate
             FROM banks b
             LEFT JOIN bank_configurations bc ON b.id = bc.bank_id 
@@ -3294,7 +3307,7 @@ app.post('/api/refinance-mortgage', async (req, res) => {
             ORDER BY COALESCE(bc.base_interest_rate, $1) ASC
             LIMIT 3
         `;
-        const banksResult = await pool.query(banksQuery, [currentRate]);
+        const banksResult = await pool.query(banksQuery, [currentRate, nameField]);
         const recommendedBanks = banksResult.rows.map((bank, index) => ({
             name: bank.name,
             rate: parseFloat(bank.rate),
@@ -3917,6 +3930,143 @@ app.get('/api/admin/banks/:id/stats', requireAdmin, async (req, res) => {
         res.status(500).json({ 
             status: 'error', 
             message: 'Server error retrieving bank statistics',
+            error: err.message 
+        });
+    }
+});
+
+// ADMIN BANK FALLBACK CONFIGURATION ENDPOINTS
+
+// GET bank fallback configuration
+app.get('/api/admin/banks/fallback-config', requireAdmin, async (req, res) => {
+    try {
+        console.log('[BANK FALLBACK CONFIG] Fetching fallback configuration');
+        
+        // Get current configuration
+        const configResult = await pool.query(`
+            SELECT * FROM bank_fallback_config ORDER BY id DESC LIMIT 1
+        `);
+        
+        // Get banks with fallback settings
+        const banksResult = await pool.query(`
+            SELECT 
+                id, name_en, name_he, name_ru, 
+                show_in_fallback, fallback_priority, 
+                fallback_interest_rate, fallback_approval_rate,
+                is_active
+            FROM banks 
+            ORDER BY fallback_priority ASC, priority ASC, name_en ASC
+        `);
+        
+        const config = configResult.rows[0] || {
+            enable_fallback: true,
+            fallback_method: 'database_relaxed',
+            max_fallback_banks: 3,
+            default_term_years: 25,
+            language_preference: 'auto'
+        };
+        
+        res.json({
+            success: true,
+            config: config,
+            banks: banksResult.rows
+        });
+        
+    } catch (err) {
+        console.error('[BANK FALLBACK CONFIG] Error:', err);
+        res.status(500).json({ 
+            success: false, 
+            error: err.message 
+        });
+    }
+});
+
+// PUT update bank fallback configuration
+app.put('/api/admin/banks/fallback-config', requireAdmin, async (req, res) => {
+    try {
+        const { 
+            enable_fallback, 
+            fallback_method, 
+            max_fallback_banks, 
+            default_term_years, 
+            language_preference 
+        } = req.body;
+        
+        console.log('[BANK FALLBACK CONFIG] Updating configuration:', req.body);
+        
+        // Update or insert configuration
+        const upsertResult = await pool.query(`
+            INSERT INTO bank_fallback_config 
+            (enable_fallback, fallback_method, max_fallback_banks, default_term_years, language_preference, updated_at)
+            VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP)
+            ON CONFLICT (id) DO UPDATE SET
+                enable_fallback = EXCLUDED.enable_fallback,
+                fallback_method = EXCLUDED.fallback_method, 
+                max_fallback_banks = EXCLUDED.max_fallback_banks,
+                default_term_years = EXCLUDED.default_term_years,
+                language_preference = EXCLUDED.language_preference,
+                updated_at = CURRENT_TIMESTAMP
+            RETURNING *
+        `, [enable_fallback, fallback_method, max_fallback_banks, default_term_years, language_preference]);
+        
+        res.json({
+            success: true,
+            message: 'Fallback configuration updated successfully',
+            config: upsertResult.rows[0]
+        });
+        
+    } catch (err) {
+        console.error('[BANK FALLBACK CONFIG] Error updating:', err);
+        res.status(500).json({ 
+            success: false, 
+            error: err.message 
+        });
+    }
+});
+
+// PUT update bank fallback settings
+app.put('/api/admin/banks/:id/fallback', requireAdmin, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { 
+            show_in_fallback, 
+            fallback_priority, 
+            fallback_interest_rate, 
+            fallback_approval_rate 
+        } = req.body;
+        
+        console.log(`[BANK FALLBACK] Updating bank ${id} fallback settings:`, req.body);
+        
+        const result = await pool.query(`
+            UPDATE banks 
+            SET 
+                show_in_fallback = $1,
+                fallback_priority = $2,
+                fallback_interest_rate = $3,
+                fallback_approval_rate = $4,
+                updated_at = CURRENT_TIMESTAMP
+            WHERE id = $5
+            RETURNING id, name_en, show_in_fallback, fallback_priority, 
+                     fallback_interest_rate, fallback_approval_rate
+        `, [show_in_fallback, fallback_priority, fallback_interest_rate, fallback_approval_rate, id]);
+        
+        if (result.rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                error: 'Bank not found'
+            });
+        }
+        
+        res.json({
+            success: true,
+            message: 'Bank fallback settings updated successfully',
+            bank: result.rows[0]
+        });
+        
+    } catch (err) {
+        console.error('[BANK FALLBACK] Error updating bank settings:', err);
+        res.status(500).json({ 
+            success: false, 
             error: err.message 
         });
     }
@@ -7198,11 +7348,26 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         
         console.log('[COMPARE-BANKS] Using configurable base rate:', configurable_base_rate);
         
+        // Determine language for bank names based on Accept-Language header
+        const clientLang = req.headers['accept-language']?.split(',')[0]?.split('-')[0] || 'en';
+        let nameField = 'name_en';
+        if (clientLang === 'he') {
+            nameField = 'name_he';
+        } else if (clientLang === 'ru') {
+            nameField = 'name_ru';
+        }
+        
+        console.log(`[COMPARE-BANKS] Using language: ${clientLang}, name field: ${nameField}`);
+        
         // Query banks with configurations from bank_configurations table
         const banksQuery = `
             SELECT 
                 b.id, 
-                b.name_en as name, 
+                CASE 
+                    WHEN $4 = 'name_he' THEN COALESCE(b.name_he, b.name_en)
+                    WHEN $4 = 'name_ru' THEN COALESCE(b.name_ru, b.name_en)
+                    ELSE b.name_en
+                END as name, 
                 b.url as logo_url,
                 COALESCE(bc.min_loan_amount, cp_min.parameter_value, 50000) as min_loan_amount,
                 COALESCE(bc.max_loan_amount, cp_max.parameter_value, 5000000) as max_loan_amount,
@@ -7229,7 +7394,8 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         const banksResult = await pool.query(banksQuery, [
             configurable_base_rate,
             max_ltv_ratio,
-            loan_type === 'mortgage' || loan_type === 'mortgage_refinance' ? 'mortgage' : 'credit'
+            loan_type === 'mortgage' || loan_type === 'mortgage_refinance' ? 'mortgage' : 'credit',
+            nameField
         ]);
         const banks = banksResult.rows;
         
@@ -7258,7 +7424,7 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         });
         
         // Calculate loan terms for each bank
-        const bankOffers = [];
+        let bankOffers = [];
         
         for (const bank of banks) {
             try {
@@ -7410,53 +7576,99 @@ app.post('/api/customer/compare-banks', async (req, res) => {
             }
         }
         
-        // If no real offers, add fake offers for testing
+        // If no real offers, use admin-configurable database fallback
         if (bankOffers.length === 0) {
-            console.log(`[COMPARE-BANKS] No real offers found, adding fake offers for testing`);
+            console.log(`[COMPARE-BANKS] No real offers found, generating database-driven fallback offers`);
             
-            // Calculate basic loan parameters
-            const termYears = 25;
-            const termMonths = termYears * 12;
-            
-            // Fake Bank 1 - Bank Hapoalim
-            const rate1 = 3.2;
-            const monthlyRate1 = rate1 / 100 / 12;
-            const monthlyPayment1 = amount * (monthlyRate1 * Math.pow(1 + monthlyRate1, termMonths)) / (Math.pow(1 + monthlyRate1, termMonths) - 1);
-            const totalPayment1 = monthlyPayment1 * termMonths;
-            
-            bankOffers.push({
-                bank_id: 'fake-1',
-                bank_name: 'בנק הפועלים',
-                bank_logo: 'https://www.bankhapoalim.co.il/favicon.ico',
-                loan_amount: amount,
-                monthly_payment: Math.round(monthlyPayment1),
-                interest_rate: rate1,
-                term_years: termYears,
-                total_payment: Math.round(totalPayment1),
-                approval_status: 'approved',
-                ltv_ratio: property_value ? ((amount / property_value) * 100).toFixed(1) : null,
-                dti_ratio: ((monthly_expenses / monthly_income) * 100).toFixed(1)
-            });
-            
-            // Fake Bank 2 - Bank Leumi
-            const rate2 = 3.5;
-            const monthlyRate2 = rate2 / 100 / 12;
-            const monthlyPayment2 = amount * (monthlyRate2 * Math.pow(1 + monthlyRate2, termMonths)) / (Math.pow(1 + monthlyRate2, termMonths) - 1);
-            const totalPayment2 = monthlyPayment2 * termMonths;
-            
-            bankOffers.push({
-                bank_id: 'fake-2',
-                bank_name: 'בנק לאומי',
-                bank_logo: 'https://www.leumi.co.il/favicon.ico',
-                loan_amount: amount,
-                monthly_payment: Math.round(monthlyPayment2),
-                interest_rate: rate2,
-                term_years: termYears,
-                total_payment: Math.round(totalPayment2),
-                approval_status: 'approved',
-                ltv_ratio: property_value ? ((amount / property_value) * 100).toFixed(1) : null,
-                dti_ratio: ((monthly_expenses / monthly_income) * 100).toFixed(1)
-            });
+            try {
+                // Get fallback configuration
+                const fallbackConfigQuery = `
+                    SELECT enable_fallback, fallback_method, max_fallback_banks, 
+                           default_term_years, language_preference
+                    FROM bank_fallback_config 
+                    ORDER BY id DESC LIMIT 1
+                `;
+                const configResult = await pool.query(fallbackConfigQuery);
+                const config = configResult.rows[0] || {
+                    enable_fallback: true,
+                    fallback_method: 'database_relaxed',
+                    max_fallback_banks: 3,
+                    default_term_years: 25,
+                    language_preference: 'auto'
+                };
+
+                if (config.enable_fallback) {
+                    // Reuse the already declared clientLang variable
+                    let nameField = 'name_en';
+                    if (config.language_preference === 'auto') {
+                        nameField = clientLang === 'he' ? 'name_he' : 
+                                   clientLang === 'ru' ? 'name_ru' : 'name_en';
+                    } else if (config.language_preference !== 'auto') {
+                        nameField = `name_${config.language_preference}`;
+                    }
+
+                    // Query database banks for fallback
+                    const fallbackBanksQuery = `
+                        SELECT 
+                            b.id,
+                            COALESCE(b.${nameField}, b.name_en) as bank_name,
+                            b.name_en,
+                            b.name_he, 
+                            b.name_ru,
+                            b.logo,
+                            b.url,
+                            COALESCE(b.fallback_interest_rate, 5.0) as fallback_rate,
+                            COALESCE(b.fallback_approval_rate, 80.0) as approval_rate,
+                            b.fallback_priority
+                        FROM banks b
+                        WHERE b.is_active = true 
+                        AND b.show_in_fallback = true
+                        ORDER BY b.fallback_priority ASC, b.priority ASC, b.name_en ASC
+                        LIMIT $1
+                    `;
+                    
+                    const fallbackResult = await pool.query(fallbackBanksQuery, [config.max_fallback_banks]);
+                    
+                    if (fallbackResult.rows.length > 0) {
+                        const termYears = config.default_term_years;
+                        const termMonths = termYears * 12;
+                        
+                        fallbackResult.rows.forEach((bank, index) => {
+                            // Add some variance to interest rates
+                            const baseRate = parseFloat(bank.fallback_rate) || 5.0;
+                            const rate = baseRate + (index * 0.3); // Slight rate variation
+                            const monthlyRate = rate / 100 / 12;
+                            const monthlyPayment = amount * (monthlyRate * Math.pow(1 + monthlyRate, termMonths)) / (Math.pow(1 + monthlyRate, termMonths) - 1);
+                            const totalPayment = monthlyPayment * termMonths;
+                            
+                            bankOffers.push({
+                                bank_id: `fallback-${bank.id}`,
+                                bank_name: bank.bank_name || bank.name_en,
+                                bank_logo: bank.logo || bank.url,
+                                loan_amount: amount,
+                                monthly_payment: Math.round(monthlyPayment),
+                                interest_rate: parseFloat(rate.toFixed(2)),
+                                term_years: termYears,
+                                total_payment: Math.round(totalPayment),
+                                approval_status: 'approved',
+                                ltv_ratio: property_value ? ((amount / property_value) * 100).toFixed(1) : null,
+                                dti_ratio: ((monthly_expenses / monthly_income) * 100).toFixed(1),
+                                is_fallback: true
+                            });
+                        });
+                        
+                        console.log(`[COMPARE-BANKS] Generated ${bankOffers.length} database-driven fallback offers`);
+                    } else {
+                        console.log(`[COMPARE-BANKS] No fallback banks available in database`);
+                    }
+                } else {
+                    console.log(`[COMPARE-BANKS] Fallback disabled in configuration`);
+                }
+            } catch (error) {
+                console.error(`[COMPARE-BANKS] Error generating fallback offers:`, error);
+                // If database fallback fails, provide minimal response
+                bankOffers = [];
+            }
         }
         
         // Sort offers by monthly payment (lowest first)
