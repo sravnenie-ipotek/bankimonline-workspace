@@ -927,7 +927,7 @@ app.get('/api/content/:screen/:language', async (req, res) => {
             JOIN content_translations ON content_items.id = content_translations.content_item_id
             WHERE content_items.screen_location = $1 
                 AND content_translations.language_code = $2 
-                AND content_translations.status = 'active'
+                AND content_translations.status = 'approved'
                 AND content_items.is_active = true
             ORDER BY content_items.content_key
         `, [screen, language]);
@@ -975,18 +975,18 @@ app.get('/api/content/:key/:language', async (req, res) => {
                 ci.screen_location,
                 COALESCE(
                     (SELECT value FROM content_translations 
-                     WHERE content_item_id = ci.id AND language_code = $2 AND status = 'active'),
+                     WHERE content_item_id = ci.id AND language_code = $2 AND status = 'approved'),
                     (SELECT value FROM content_translations 
-                     WHERE content_item_id = ci.id AND language_code = 'en' AND status = 'active')
+                     WHERE content_item_id = ci.id AND language_code = 'en' AND status = 'approved')
                 ) as content_value,
                 COALESCE(
                     (SELECT language_code FROM content_translations 
-                     WHERE content_item_id = ci.id AND language_code = $2 AND status = 'active'),
+                     WHERE content_item_id = ci.id AND language_code = $2 AND status = 'approved'),
                     (SELECT language_code FROM content_translations 
-                     WHERE content_item_id = ci.id AND language_code = 'en' AND status = 'active')
+                     WHERE content_item_id = ci.id AND language_code = 'en' AND status = 'approved')
                 ) as actual_language
             FROM content_items ci
-            WHERE ci.key = $1 AND ci.status = 'active'
+            WHERE ci.key = $1 AND ci.is_active = true
         `, [key, language]);
         
         if (result.rowCount === 0) {

@@ -3381,3 +3381,162 @@
 ✅ [CONTENT API] Query successful, found 0 rows
 [0mGET /api/content/home_page/he [32m200[0m 417.900 ms - 102[0m
 [0mGET /api/content-db/health [32m200[0m 439.855 ms - 196[0m
+🔍 [CONTENT API] Request: screen=temporary_franchise, language=en
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/temporary_franchise/en [32m200[0m 960.381 ms - 112[0m
+🔍 [CONTENT API] Request: screen=tenders_for_brokers, language=en
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/tenders_for_brokers/en [32m200[0m 744.922 ms - 112[0m
+🔍 [CONTENT API] Request: screen=tenders_for_brokers, language=en
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/tenders_for_brokers/en [32m200[0m 409.051 ms - 112[0m
