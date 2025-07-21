@@ -7393,3 +7393,326 @@
 [0mGET /api/content/mortgage_step4/he [32m200[0m 128.876 ms - 3601[0m
 [0mGET /api/content/mortgage_step4/he [32m200[0m 132.255 ms - 3601[0m
 [0mGET /api/content/mortgage_step4/he [32m200[0m 136.697 ms - 3601[0m
+[0mGET /api/content/home_page/he [36m304[0m 599.900 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 108.399 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 116.603 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 122.002 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 132.433 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 103.062 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 140.659 ms - -[0m
+[0mGET /api/content/home_page/he [36m304[0m 124.094 ms - -[0m
+[CITIES] Request for language: he
+[0mGET /api/content/sms_code_verification/he [36m304[0m 384.843 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 465.611 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 1334.304 ms - -[0m
+[CITIES] Request for language: he
+[0mGET /api/get-cities?lang=he [36m304[0m 115.444 ms - -[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1561.798 ms - 2783[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=credit [32m200[0m 1572.012 ms - 2091[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 343.899 ms - 2783[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=credit [32m200[0m 793.191 ms - 2091[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 591.810 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 106.380 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 94.711 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 108.427 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 101.777 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 106.238 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 104.700 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 106.820 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 100.945 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 95.977 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 96.135 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 148.939 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 108.788 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 96.290 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 111.355 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 100.413 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 105.297 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 103.204 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 116.807 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 99.262 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 98.718 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 100.855 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 105.306 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 142.543 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 113.971 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 106.109 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 93.936 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 443.919 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 94.668 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 108.506 ms - -[0m
+[0mGET /api/content/calculate_credit_1/en [32m200[0m 657.614 ms - 2032[0m
+[0mGET /api/content/calculate_credit_1/en [32m200[0m 889.802 ms - 2628[0m
+[0mGET /api/content/calculate_credit_1/en [32m200[0m 776.835 ms - 2628[0m
+[0mGET /api/content/calculate_credit_1/he [32m200[0m 687.951 ms - 2699[0m
+[0mGET /api/content/mortgage_step2/en [32m200[0m 598.704 ms - 7065[0m
+[0mGET /api/content/mortgage_step2/en [32m200[0m 837.732 ms - 7065[0m
+[0mGET /api/content/mortgage_step2/en [32m200[0m 680.709 ms - 7065[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 614.651 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 625.933 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 308.815 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 300.113 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 182.631 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 121.674 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 118.170 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 133.747 ms - -[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087053016_q5x1764z2'
+}
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087053016_0gof01cvo'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 1.017 ms - -[0m
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.300 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 122.584 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 173.549 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 149.896 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 165.593 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 145.082 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 122.423 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 155.904 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 133.153 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 128.842 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 153.336 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 836.709 ms - 176[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 123.440 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 146.156 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 933.014 ms - 176[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 120.005 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 159.055 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 116.324 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 169.491 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 131.836 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 137.948 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 120.021 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 164.975 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 127.397 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 106.668 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 147.725 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 182.559 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 125.089 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 120.386 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 490.961 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 137.716 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 186.705 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 114.592 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 121.364 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 145.828 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 213.718 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 205.294 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 109.446 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 116.586 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 117.683 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 130.501 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 119.510 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 128.391 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 118.905 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 175.532 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 113.248 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 119.484 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 229.281 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 122.206 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 137.249 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 133.013 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 210.946 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 130.901 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 117.946 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 165.360 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 128.622 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 148.087 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 186.438 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 134.335 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 127.319 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 233.477 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 130.229 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 167.853 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 127.713 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 124.567 ms - -[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087070290_m045omzsx'
+}
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087070290_u9yye38f8'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.548 ms - -[0m
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.484 ms - -[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087070304_gfz1yd9iz'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [36m304[0m 1.002 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 116.874 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 273.809 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 204.480 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 137.612 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 946.537 ms - 176[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 960.037 ms - 176[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 201.095 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 963.683 ms - 176[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 556.468 ms - -[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087226418_sd68hn3ic'
+}
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087226422_w77e2xszt'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.943 ms - 2946[0m
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.328 ms - 2946[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 691.856 ms - 176[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 690.859 ms - 176[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087240419_vexdwbmt4'
+}
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087240423_i5ihekpgv'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 1.076 ms - 2946[0m
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.837 ms - 2946[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 889.610 ms - 176[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 948.482 ms - 176[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087246412_as8w4jqdk'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.283 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087246417_5491phkxq'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.252 ms - 2946[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 323.151 ms - 175[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 332.908 ms - 175[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087268416_u3f2t9vh5'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.770 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087268421_0zba7jugr'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.317 ms - 2946[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 1703.283 ms - 175[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 1715.254 ms - 175[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087276414_gi1qv7myu'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.589 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087276420_mm7tj2fzf'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.611 ms - 2946[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 1002.931 ms - 175[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 1087.705 ms - 175[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087591864_j0scvd0hi'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.198 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087591868_ymm9mqnsl'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.190 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'credit',
+  amount: 200000,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1753087591902_xceveek3a'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.192 ms - 2946[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 856.497 ms - 3601[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 887.364 ms - 3601[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 915.200 ms - 3601[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 1000.409 ms - 3601[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 141.836 ms - 3601[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 1009.486 ms - 837[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 1016.365 ms - 3601[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 126.394 ms - 837[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 1082.012 ms - 175[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 1127.970 ms - 175[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 1126.434 ms - 175[0m
