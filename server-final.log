@@ -2002,3 +2002,1382 @@
 [0mGET /api/content/home_page/he [32m200[0m 442.991 ms - 102[0m
 ✅ [CONTENT API] Query successful, found 0 rows
 [0mGET /api/content/home_page/he [32m200[0m 444.276 ms - 102[0m
+🔍 [CONTENT API] Request: screen=sidebar_business, language=he
+🔍 [CONTENT API] Request: screen=sidebar_company, language=he
+🔍 [CONTENT API] Request: screen=home_page, language=he
+🔍 [CONTENT API] Request: screen=home_page, language=he
+🔍 [CONTENT API] Request: screen=home_page, language=he
+🔍 [CONTENT API] Request: screen=home_page, language=he
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 744.692 ms - 102[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 746.887 ms - 102[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 752.429 ms - 102[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/sidebar_business/he [32m200[0m 757.508 ms - 109[0m
+🔍 [CONTENT API] Request: screen=sidebar_company, language=he
+🔍 [CONTENT API] Request: screen=sidebar_business, language=he
+🔍 [CONTENT API] Request: screen=home_page, language=he
+🔍 [CONTENT API] Request: screen=home_page, language=he
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 831.327 ms - 102[0m
+🔍 [CONTENT API] Request: screen=home_page, language=he
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/sidebar_company/he [32m200[0m 1049.758 ms - 108[0m
+🔍 [CONTENT API] Request: screen=home_page, language=he
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 406.324 ms - 102[0m
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 469.388 ms - 102[0m
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/sidebar_company/he [32m200[0m 475.317 ms - 108[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/sidebar_business/he [32m200[0m 477.546 ms - 109[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 417.451 ms - 102[0m
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 429.040 ms - 102[0m
+🔍 [CONTENT API] Request: screen=sidebar_company, language=he
+🔍 [CONTENT API] Request: screen=sidebar_business, language=he
+🔍 [CONTENT API] Request: screen=home_page, language=he
+🔍 [CONTENT API] Request: screen=home_page, language=he
+🔍 [CONTENT API] Request: screen=home_page, language=he
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 405.832 ms - 102[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 413.687 ms - 102[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 414.968 ms - 102[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/sidebar_business/he [32m200[0m 416.138 ms - 109[0m
+🔍 [CONTENT API] Request: screen=home_page, language=he
+🔍 [CONTENT API] Request: screen=sms_code_verification, language=he
+🔍 [CONTENT API] Request: screen=sidebar_company, language=he
+🔍 [CONTENT API] Request: screen=sidebar_business, language=he
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/sidebar_company/he [32m200[0m 427.623 ms - 108[0m
+🔍 [CONTENT API] Request: screen=home_page, language=he
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/sidebar_business/he [32m200[0m 404.861 ms - 109[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/sidebar_company/he [32m200[0m 414.940 ms - 108[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/sms_code_verification/he [32m200[0m 415.947 ms - 114[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 419.394 ms - 102[0m
+🔍 [CONTENT API] Request: screen=home_page, language=he
+🔍 [CONTENT API] Request: screen=sms_code_verification, language=he
+🔍 [CONTENT API] Request: screen=home_page, language=he
+🔍 [CONTENT API] Request: screen=home_page, language=he
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 429.403 ms - 102[0m
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 408.468 ms - 102[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 410.168 ms - 102[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/sms_code_verification/he [32m200[0m 416.084 ms - 114[0m
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/home_page/he [32m200[0m 417.900 ms - 102[0m
+[0mGET /api/content-db/health [32m200[0m 439.855 ms - 196[0m
