@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 
 import { IMenuItem } from '@components/layout/Sidebar/types/menuItem.ts'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import styles from './NavigationList.module.scss'
 
@@ -18,6 +19,7 @@ interface NavigationListProps {
 
 const NavigationList: FC<NavigationListProps> = ({ items, title, toggle, onClose }) => {
   const { t } = useTranslation()
+  const { getContent } = useContentApi('navigation')
   
   const handleClick = () => {
     if (onClose) {
@@ -27,7 +29,7 @@ const NavigationList: FC<NavigationListProps> = ({ items, title, toggle, onClose
   
   return (
     <ul className={cx('list')}>
-      <h3 className={cx('title')}>{t(`${title}`)}</h3>
+      <h3 className={cx('title')}>{getContent(title, t(title))}</h3>
       {items.slice(0, 1).map((item) => (
         <li key={item.title} onClick={toggle} className={cx('item')}>
           {item.title}
