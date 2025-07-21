@@ -1,6 +1,8 @@
 // Bank Offers API Service
 // Centralized API calls for bank offers and mortgage programs
 
+import i18n from 'i18next'
+
 export interface BankOfferRequest {
   loan_type: string
   amount: number
@@ -86,12 +88,20 @@ const getApiBaseUrl = () => {
 export const fetchBankOffers = async (requestPayload: BankOfferRequest): Promise<BankOffer[]> => {
   const API_BASE = getApiBaseUrl()
   
+  // Get current language for Accept-Language header
+  const currentLanguage = i18n.language || 'en'
+  const acceptLanguage = currentLanguage === 'he' ? 'he-IL' : 
+                        currentLanguage === 'ru' ? 'ru-RU' : 
+                        'en-US'
+  
   console.log('🚀 [BANK-API] Making bank offers request:', requestPayload)
+  console.log('🌍 [BANK-API] Using language:', currentLanguage, '→', acceptLanguage)
   
   const response = await fetch(`${API_BASE}/customer/compare-banks`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Accept-Language': acceptLanguage,
     },
     body: JSON.stringify(requestPayload),
   })
@@ -115,10 +125,17 @@ export const fetchMortgagePrograms = async (): Promise<MortgageProgram[]> => {
   try {
     const API_BASE = getApiBaseUrl()
     
+    // Get current language for Accept-Language header
+    const currentLanguage = i18n.language || 'en'
+    const acceptLanguage = currentLanguage === 'he' ? 'he-IL' : 
+                          currentLanguage === 'ru' ? 'ru-RU' : 
+                          'en-US'
+    
     const response = await fetch(`${API_BASE}/customer/mortgage-programs`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
+        'Accept-Language': acceptLanguage,
       },
     })
     
