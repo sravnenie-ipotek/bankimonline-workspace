@@ -44,3 +44,13 @@
 [0mGET /api/content/tenders_for_brokers/en [32m200[0m 424.180 ms - 8032[0m
 [0mGET /api/content/tenders_for_brokers/en [32m200[0m 517.175 ms - 8032[0m
 [0mGET /api/content/tenders_for_brokers/ru [32m200[0m 77.671 ms - 9516[0m
+[0mGET /api/content/cooperation/en [32m200[0m 515.170 ms - 6722[0m
+[0mGET /api/content/cooperation/en [32m200[0m 394.794 ms - 6722[0m
+[0mGET /api/content/temporary_franchise/en [32m200[0m 78.832 ms - 9335[0m
+[0mGET /api/content/tenders_for_brokers/en [32m200[0m 76.196 ms - 8032[0m
+[0mGET /api/content/tenders_for_lawyers/en [32m200[0m 77.495 ms - 12439[0m
+[0mGET /api/banks/list [36m304[0m 640.974 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 85.991 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 85.504 ms - -[0m
+[0mGET /api/content/main_page/ru [32m200[0m 420.718 ms - 1938[0m
+[0mGET /api/content/main_page/ru [32m200[0m 545.432 ms - 1938[0m
