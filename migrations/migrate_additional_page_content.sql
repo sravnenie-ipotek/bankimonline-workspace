@@ -134,7 +134,7 @@ SELECT
         WHEN ci.content_key = 'cooperation_register' AND lang.code = 'he' THEN 'הרשמה לתוכנית שותפים'
         WHEN ci.content_key = 'cooperation_register' AND lang.code = 'ru' THEN 'Регистрация в партнерской программе'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -227,7 +227,7 @@ SELECT
         WHEN ci.content_key = 'tenders_metrics_payback_value' AND lang.code = 'he' THEN '12 חודשים'
         WHEN ci.content_key = 'tenders_metrics_payback_value' AND lang.code = 'ru' THEN '12 месяцев'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -370,7 +370,7 @@ SELECT
         WHEN ci.content_key = 'lawyers_collaboration_cta_button' AND lang.code = 'he' THEN 'התחילו שותפות'
         WHEN ci.content_key = 'lawyers_collaboration_cta_button' AND lang.code = 'ru' THEN 'Начать партнерство'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci

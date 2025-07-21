@@ -27,7 +27,7 @@ SELECT
         WHEN ci.content_key = 'register_partner_program' AND lang.code = 'he' THEN 'הירשמו כשותפים'
         WHEN ci.content_key = 'register_partner_program' AND lang.code = 'ru' THEN 'Зарегистрироваться как партнер'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -73,7 +73,7 @@ SELECT
         WHEN ci.content_key = 'one_click_mortgage' AND lang.code = 'he' THEN 'משכנתא בקליק אחד'
         WHEN ci.content_key = 'one_click_mortgage' AND lang.code = 'ru' THEN 'Ипотека в один клик'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -100,7 +100,7 @@ SELECT
         WHEN ci.content_key = 'referral_description' AND lang.code = 'he' THEN 'הרוויחו עמלה על כל לקוח שרוכש את השירותים שלנו'
         WHEN ci.content_key = 'referral_description' AND lang.code = 'ru' THEN 'Зарабатывайте комиссию за каждого клиента, который приобретает наши услуги'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -122,7 +122,7 @@ SELECT
         WHEN ci.content_key = 'cooperation_cta_title' AND lang.code = 'he' THEN 'מוכנים להיות שותפים?'
         WHEN ci.content_key = 'cooperation_cta_title' AND lang.code = 'ru' THEN 'Готовы стать партнером?'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -161,7 +161,7 @@ SELECT
         WHEN ci.content_key = 'tenders_hero_cta' AND lang.code = 'he' THEN 'התחילו את המסע שלכם'
         WHEN ci.content_key = 'tenders_hero_cta' AND lang.code = 'ru' THEN 'Начните свой путь'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -237,7 +237,7 @@ SELECT
         WHEN ci.content_key = 'tenders_license_feature3_p3' AND lang.code = 'he' THEN 'תמיכה טכנית 24/7'
         WHEN ci.content_key = 'tenders_license_feature3_p3' AND lang.code = 'ru' THEN 'Техническая поддержка 24/7'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -309,7 +309,7 @@ SELECT
         WHEN ci.content_key = 'tenders_step5_desc' AND lang.code = 'he' THEN 'התחילו לעבוד עם לקוחות ולהרוויח עמלות'
         WHEN ci.content_key = 'tenders_step5_desc' AND lang.code = 'ru' THEN 'Начните работать с клиентами и зарабатывать комиссионные'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -363,7 +363,7 @@ SELECT
         WHEN ci.content_key = 'tenders_metrics_button' AND lang.code = 'he' THEN 'קבלו פרטי השקעה'
         WHEN ci.content_key = 'tenders_metrics_button' AND lang.code = 'ru' THEN 'Получить детали инвестиций'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -404,7 +404,7 @@ SELECT
         WHEN ci.content_key = 'franchise_main_hero_cta' AND lang.code = 'he' THEN 'התחילו את הזכיינות שלכם'
         WHEN ci.content_key = 'franchise_main_hero_cta' AND lang.code = 'ru' THEN 'Начните свою франшизу'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -434,7 +434,7 @@ SELECT
         WHEN ci.content_key = 'franchise_hero_cta' AND lang.code = 'he' THEN 'למידע נוסף'
         WHEN ci.content_key = 'franchise_hero_cta' AND lang.code = 'ru' THEN 'Узнать больше'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -476,7 +476,7 @@ SELECT
         WHEN ci.content_key = 'franchise_client_service_credit_refinance' AND lang.code = 'he' THEN 'מיחזור אשראי'
         WHEN ci.content_key = 'franchise_client_service_credit_refinance' AND lang.code = 'ru' THEN 'Рефинансирование кредита'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -522,7 +522,7 @@ SELECT
         WHEN ci.content_key = 'franchise_partnership_cta' AND lang.code = 'he' THEN 'הצטרפו לרשת שלנו'
         WHEN ci.content_key = 'franchise_partnership_cta' AND lang.code = 'ru' THEN 'Присоединяйтесь к нашей сети'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -607,7 +607,7 @@ SELECT
         WHEN ci.content_key = 'franchise_includes_cta' AND lang.code = 'he' THEN 'קבלו פרטי זיכיון'
         WHEN ci.content_key = 'franchise_includes_cta' AND lang.code = 'ru' THEN 'Получить детали франшизы'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -679,7 +679,7 @@ SELECT
         WHEN ci.content_key = 'franchise_step_5_description' AND lang.code = 'he' THEN 'השיקו את הזיכיון שלכם עם תמיכה מלאה'
         WHEN ci.content_key = 'franchise_step_5_description' AND lang.code = 'ru' THEN 'Запустите вашу франшизу с полной поддержкой'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -733,7 +733,7 @@ SELECT
         WHEN ci.content_key = 'franchise_pricing_cta' AND lang.code = 'he' THEN 'קבלו פרטים פיננסיים'
         WHEN ci.content_key = 'franchise_pricing_cta' AND lang.code = 'ru' THEN 'Получить финансовые детали'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -763,7 +763,7 @@ SELECT
         WHEN ci.content_key = 'franchise_final_cta_arrow' AND lang.code = 'he' THEN '←'
         WHEN ci.content_key = 'franchise_final_cta_arrow' AND lang.code = 'ru' THEN '→'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -802,7 +802,7 @@ SELECT
         WHEN ci.content_key = 'lawyers_benefit_expansion_title' AND lang.code = 'he' THEN 'צמיחה עסקית'
         WHEN ci.content_key = 'lawyers_benefit_expansion_title' AND lang.code = 'ru' THEN 'Рост бизнеса'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -833,7 +833,7 @@ SELECT
         WHEN ci.content_key = 'lawyers_about_button' AND lang.code = 'he' THEN 'הצטרפו לרשת שלנו'
         WHEN ci.content_key = 'lawyers_about_button' AND lang.code = 'ru' THEN 'Присоединиться к нашей сети'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -863,7 +863,7 @@ SELECT
         WHEN ci.content_key = 'lawyers_earnings_info_card_description' AND lang.code = 'he' THEN 'שיעורי עמלה תחרותיים עבור כל עסקה מוצלחת'
         WHEN ci.content_key = 'lawyers_earnings_info_card_description' AND lang.code = 'ru' THEN 'Конкурентные комиссионные ставки за каждую успешную сделку'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -913,7 +913,7 @@ SELECT
         WHEN ci.content_key = 'lawyers_collaboration_get_consultation' AND lang.code = 'he' THEN 'קבלו ייעוץ חינם'
         WHEN ci.content_key = 'lawyers_collaboration_get_consultation' AND lang.code = 'ru' THEN 'Получить бесплатную консультацию'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -990,7 +990,7 @@ SELECT
         WHEN ci.content_key = 'lawyers_process_apply_button' AND lang.code = 'he' THEN 'הגישו בקשה עכשיו'
         WHEN ci.content_key = 'lawyers_process_apply_button' AND lang.code = 'ru' THEN 'Подать заявку сейчас'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -1016,7 +1016,7 @@ SELECT
         WHEN ci.content_key = 'lawyers_partnership_button' AND lang.code = 'he' THEN 'הצטרפו עכשיו'
         WHEN ci.content_key = 'lawyers_partnership_button' AND lang.code = 'ru' THEN 'Присоединиться сейчас'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
@@ -1094,7 +1094,7 @@ SELECT
         WHEN ci.content_key = 'footer_copyright' AND lang.code = 'he' THEN '© 2024 טקריאלט. כל הזכויות שמורות.'
         WHEN ci.content_key = 'footer_copyright' AND lang.code = 'ru' THEN '© 2024 TechRealt. Все права защищены.'
     END,
-    'active',
+    'approved',
     NOW(),
     NOW()
 FROM content_items ci
