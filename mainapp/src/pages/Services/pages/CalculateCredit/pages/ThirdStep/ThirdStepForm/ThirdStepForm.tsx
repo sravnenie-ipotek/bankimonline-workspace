@@ -24,7 +24,7 @@ import {
   deleteObligationModal,
   deleteSourceOfIncomeModal,
 } from '@src/pages/Services/slices/borrowersSlice.ts'
-import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice.ts'
+import { updateCreditData } from '@src/pages/Services/slices/calculateCreditSlice.ts'
 import {
   createAdditionalIncomeModal,
   createObligationModal,
@@ -70,17 +70,17 @@ const ThirdStepForm = () => {
   const userData = useAppSelector((state) => state.login.loginData)
 
   const openSourceOfIncome = () => {
-    dispatch(updateMortgageData(values))
+    dispatch(updateCreditData(values))
     dispatch(createSourceOfIncomeModal())
   }
 
   const openAdditionalIncome = () => {
-    dispatch(updateMortgageData(values))
+    dispatch(updateCreditData(values))
     dispatch(createAdditionalIncomeModal())
   }
 
   const openObligation = () => {
-    dispatch(updateMortgageData(values))
+    dispatch(updateCreditData(values))
     dispatch(createObligationModal())
   }
 
@@ -124,7 +124,7 @@ const ThirdStepForm = () => {
 
   const handleCreateOtherBorrowers = () => {
     dispatch(openBorrowersPage(generateNewId(otherBorrowers)))
-    dispatch(updateMortgageData(values))
+    dispatch(updateCreditData(values))
 
     navigate({
       pathname: '/services/other-borrowers/1/',

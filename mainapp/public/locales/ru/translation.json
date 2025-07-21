@@ -1190,8 +1190,8 @@
   "privacy_policy_section_17_1": "По любым вопросам или запросам, связанным с нашей политикой конфиденциальности, пожалуйста, свяжитесь с нами:",
   "privacy_policy_section_17_address": "**Адрес:** ул. Хабанкаим 15, Тель-Авив 6812345",
   "privacy_policy_section_17_phone": "**Телефон:** 03-5371622",
-      "privacy_policy_section_17_email": "**Электронная почта:** privacy@bankimonline.com | **Сотрудник по защите данных:** dpo@bankimonline.com",
-    "refund_title": "Политика возвратов",
+  "privacy_policy_section_17_email": "**Электронная почта:** privacy@bankimonline.com | **Сотрудник по защите данных:** dpo@bankimonline.com",
+  "refund_title": "Политика возвратов",
   "refund_text": "**Условия возврата**\n\nЗа использование наших консультационных услуг и проведение тендера по процентным ставкам сумма к оплате составляет 3,850 новых израильских шекелей, включая НДС, как требуется по закону (далее: \"комиссия\"). Оплата требуется до начала предоставления услуг, и оплата производится за услугу, предоставляемую вам Bankimonline.\n\n**1.** По завершении тендера между банками мы уведомим вас об этом через один из контактных данных, которые вы предоставили Bankimonline (например: электронная почта, SMS-сообщение на мобильный телефон и т.д.), и направим вас в соответствующий банк для завершения процесса одобрения ипотеки.\n\n**2.** Вы можете попытаться получить самостоятельно и в официальном документе от банка лучшее предложение, чем лучшее предложение, полученное для вас, и для этого вам будет предоставлен период в семь дней с даты получения уведомления о завершении тендера.\n\n**3.** Для целей вышеизложенного \"лучшее предложение\" означает, что общая сумма платежей по ипотеке, на которую вы согласитесь с банком, будет ниже как минимум на 10,000 новых израильских шекелей от общей суммы платежей лучшего предложения, которое мы получили для вас, или на 1% от суммы ипотеки, в зависимости от того, что больше, все на основе той же смешанной ипотеки.\n\n**4.** В вышеуказанном случае, и если полученное вами предложение является лучшим предложением, у нас будет семь дней, чтобы попытаться улучшить лучшее предложение, которое вы получили, и в той мере, в какой мы не сможем улучшить полученное вами предложение, мы вернем вам полную стоимость.\n\n**Важное разъяснение**\n\nСледует прояснить, что в ситуации, когда в рамках тендера по процентным ставкам, который мы проводим для вас, мы получаем отказы от банков, участвующих в тендере, предоставить вам принципиальное одобрение, которое не является резидентом для рассмотрения.\n\n*Последнее обновление: 07.07.2021*",
   "sidebar_company_6": "Франшиза для брокеров недвижимости",
   "lawyers_hero_title": "Расширьте свою клиентскую базу: Партнерство с Techrealt для <span class=\"highlighted-text\">Адвокатов и Юристов!</span>",
@@ -1515,5 +1515,18 @@
       "contactSupport": "Связаться с поддержкой"
     }
   },
-  "bank_worker_validation_service_required": "Пожалуйста, выберите услугу"
+  "bank_worker_validation_service_required": "Пожалуйста, выберите услугу",
+  "__MIGRATED_calculate_credit_target_option_1": "MIGRATED TO DATABASE: Покупка автомобиля",
+  "__MIGRATED_calculate_credit_target_option_2": "MIGRATED TO DATABASE: Ремонт дома",
+  "__MIGRATED_calculate_credit_target_option_3": "MIGRATED TO DATABASE: Свадьба и мероприятия",
+  "__MIGRATED_calculate_credit_target_option_4": "MIGRATED TO DATABASE: Бизнес-инвестиции",
+  "__MIGRATED_calculate_credit_target_option_5": "MIGRATED TO DATABASE: Улучшение будущей кредитоспособности",
+  "__MIGRATED_calculate_credit_target_option_6": "MIGRATED TO DATABASE: Другое",
+  "__MIGRATED_calculate_credit_prolong_option_1": "MIGRATED TO DATABASE: До года",
+  "__MIGRATED_calculate_credit_prolong_option_2": "MIGRATED TO DATABASE: До двух лет",
+  "__MIGRATED_calculate_credit_prolong_option_3": "MIGRATED TO DATABASE: До 3 лет",
+  "__MIGRATED_calculate_credit_prolong_option_4": "MIGRATED TO DATABASE: До 5 лет",
+  "__MIGRATED_calculate_credit_prolong_option_5": "MIGRATED TO DATABASE: Более 5 лет",
+  "__MIGRATED_calculate_credit_prolong_option_6": "MIGRATED TO DATABASE: Более 7 лет",
+  "__MIGRATED_calculate_credit_prolong_option_7": "MIGRATED TO DATABASE: Более 10 лет"
 }

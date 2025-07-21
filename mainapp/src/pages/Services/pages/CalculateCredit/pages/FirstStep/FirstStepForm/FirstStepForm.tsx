@@ -15,6 +15,7 @@ import { SliderInput } from '@src/components/ui/SliderInput'
 import { TitleElement } from '@src/components/ui/TitleElement'
 import { YesNo } from '@src/components/ui/YesNo'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { setActiveField } from '@src/pages/Services/slices/activeField'
 import { CalculateCreditTypes } from '@src/pages/Services/types/formTypes'
 import { calculationService } from '@src/services/calculationService'
@@ -29,33 +30,34 @@ export const FirstStepForm: FC = () => {
   const [minMonthlyPayment, setMinMonthlyPayment] = useState(2654)
   const [cityOptions, setCityOptions] = useState<CityOption[]>([])
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('calculate_credit_1')
 
-  // Use useMemo to ensure dropdown options update when translations change
+  // ✅ CORRECT - Database-driven dropdown options
   const creditPurposes = useMemo(() => [
-    { value: 'option_1', label: t('calculate_credit_target_option_1') },
-    { value: 'option_2', label: t('calculate_credit_target_option_2') },
-    { value: 'option_3', label: t('calculate_credit_target_option_3') },
-    { value: 'option_4', label: t('calculate_credit_target_option_4') },
-    { value: 'option_5', label: t('calculate_credit_target_option_5') },
-    { value: 'option_6', label: t('calculate_credit_target_option_6') },
-  ], [t])
+    { value: 'option_1', label: getContent('calculate_credit_target_option_1', t('calculate_credit_target_option_1')) },
+    { value: 'option_2', label: getContent('calculate_credit_target_option_2', t('calculate_credit_target_option_2')) },
+    { value: 'option_3', label: getContent('calculate_credit_target_option_3', t('calculate_credit_target_option_3')) },
+    { value: 'option_4', label: getContent('calculate_credit_target_option_4', t('calculate_credit_target_option_4')) },
+    { value: 'option_5', label: getContent('calculate_credit_target_option_5', t('calculate_credit_target_option_5')) },
+    { value: 'option_6', label: getContent('calculate_credit_target_option_6', t('calculate_credit_target_option_6')) },
+  ], [getContent, t])
 
   const WhenDoYouNeedMoneyOptions = useMemo(() => [
-    { value: 'option_1', label: t('calculate_mortgage_when_options_1') },
-    { value: 'option_2', label: t('calculate_mortgage_when_options_2') },
-    { value: 'option_3', label: t('calculate_mortgage_when_options_3') },
-    { value: 'option_4', label: t('calculate_mortgage_when_options_4') },
-  ], [t])
+    { value: 'option_1', label: getContent('calculate_mortgage_when_options_1', t('calculate_mortgage_when_options_1')) },
+    { value: 'option_2', label: getContent('calculate_mortgage_when_options_2', t('calculate_mortgage_when_options_2')) },
+    { value: 'option_3', label: getContent('calculate_mortgage_when_options_3', t('calculate_mortgage_when_options_3')) },
+    { value: 'option_4', label: getContent('calculate_mortgage_when_options_4', t('calculate_mortgage_when_options_4')) },
+  ], [getContent, t])
 
   const loanDeferralOptions = useMemo(() => [
-    { value: 'option_1', label: t('calculate_credit_prolong_option_1') },
-    { value: 'option_2', label: t('calculate_credit_prolong_option_2') },
-    { value: 'option_3', label: t('calculate_credit_prolong_option_3') },
-    { value: 'option_4', label: t('calculate_credit_prolong_option_4') },
-    { value: 'option_5', label: t('calculate_credit_prolong_option_5') },
-    { value: 'option_6', label: t('calculate_credit_prolong_option_6') },
-    { value: 'option_7', label: t('calculate_credit_prolong_option_7') },
-  ], [t])
+    { value: 'option_1', label: getContent('calculate_credit_prolong_option_1', t('calculate_credit_prolong_option_1')) },
+    { value: 'option_2', label: getContent('calculate_credit_prolong_option_2', t('calculate_credit_prolong_option_2')) },
+    { value: 'option_3', label: getContent('calculate_credit_prolong_option_3', t('calculate_credit_prolong_option_3')) },
+    { value: 'option_4', label: getContent('calculate_credit_prolong_option_4', t('calculate_credit_prolong_option_4')) },
+    { value: 'option_5', label: getContent('calculate_credit_prolong_option_5', t('calculate_credit_prolong_option_5')) },
+    { value: 'option_6', label: getContent('calculate_credit_prolong_option_6', t('calculate_credit_prolong_option_6')) },
+    { value: 'option_7', label: getContent('calculate_credit_prolong_option_7', t('calculate_credit_prolong_option_7')) },
+  ], [getContent, t])
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<CalculateCreditTypes>()

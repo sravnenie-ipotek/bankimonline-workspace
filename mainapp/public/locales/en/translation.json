@@ -1448,5 +1448,18 @@
       "contactSupport": "Contact Support"
     }
   },
-  "bank_worker_validation_service_required": "Please select a service"
+  "bank_worker_validation_service_required": "Please select a service",
+  "__MIGRATED_calculate_credit_target_option_1": "MIGRATED TO DATABASE: Vehicle purchase",
+  "__MIGRATED_calculate_credit_target_option_2": "MIGRATED TO DATABASE: Home renovation",
+  "__MIGRATED_calculate_credit_target_option_3": "MIGRATED TO DATABASE: Wedding and events",
+  "__MIGRATED_calculate_credit_target_option_4": "MIGRATED TO DATABASE: Business investment",
+  "__MIGRATED_calculate_credit_target_option_5": "MIGRATED TO DATABASE: Improve future credit eligibility",
+  "__MIGRATED_calculate_credit_target_option_6": "MIGRATED TO DATABASE: Other",
+  "__MIGRATED_calculate_credit_prolong_option_1": "MIGRATED TO DATABASE: Up to one year",
+  "__MIGRATED_calculate_credit_prolong_option_2": "MIGRATED TO DATABASE: Up to two years",
+  "__MIGRATED_calculate_credit_prolong_option_3": "MIGRATED TO DATABASE: Up to 3 years",
+  "__MIGRATED_calculate_credit_prolong_option_4": "MIGRATED TO DATABASE: Up to 5 years",
+  "__MIGRATED_calculate_credit_prolong_option_5": "MIGRATED TO DATABASE: Over 5 years",
+  "__MIGRATED_calculate_credit_prolong_option_6": "MIGRATED TO DATABASE: Over 7 years",
+  "__MIGRATED_calculate_credit_prolong_option_7": "MIGRATED TO DATABASE: Over 10 years"
 }

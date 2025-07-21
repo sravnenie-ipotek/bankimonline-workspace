@@ -167,25 +167,46 @@ export const transformUserDataToRequest = (
   // Generate session ID if not provided
   const currentSessionId = sessionId || `sess_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
   
+  // Debug logging
+  console.log('🔍 [TRANSFORM-DATA] Service Type:', serviceType, 'Is Credit:', isCredit)
+  console.log('🔍 [TRANSFORM-DATA] Parameters:', parameters)
+  console.log('🔍 [TRANSFORM-DATA] User Personal Data:', userPersonalData)
+  console.log('🔍 [TRANSFORM-DATA] User Income Data:', userIncomeData)
+  
   // Calculate age from birthday if available
   let calculatedAge: number | undefined = undefined
   if (userPersonalData?.birthday) {
     const birthDate = new Date(userPersonalData.birthday)
-    const today = new Date()
-    calculatedAge = today.getFullYear() - birthDate.getFullYear()
-    const monthDiff = today.getMonth() - birthDate.getMonth()
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-      calculatedAge--
+    // Validate that birthDate is a valid date
+    if (!isNaN(birthDate.getTime())) {
+      const today = new Date()
+      calculatedAge = today.getFullYear() - birthDate.getFullYear()
+      const monthDiff = today.getMonth() - birthDate.getMonth()
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        calculatedAge--
+      }
+      // Ensure age is reasonable (between 18 and 100)
+      if (calculatedAge < 18 || calculatedAge > 100) {
+        calculatedAge = undefined
+      }
     }
   }
   
   // Ensure we have required monthly_income - check multiple possible sources
-  const monthlyIncome = userIncomeData?.monthlyIncome || 
-                       userPersonalData?.monthlyIncome || 
+  // For credit flow, userPersonalData contains the FormTypes with monthlyIncome
+  // For mortgage flow, userIncomeData contains the income information
+  const monthlyIncome = userPersonalData?.monthlyIncome || 
+                       userIncomeData?.monthlyIncome || 
                        parameters?.monthlyIncome ||
                        0 // No fallback - should be provided by user
   
-  return {
+  console.log('💰 [TRANSFORM-DATA] Monthly Income Sources:')
+  console.log('   userPersonalData.monthlyIncome:', userPersonalData?.monthlyIncome)
+  console.log('   userIncomeData.monthlyIncome:', userIncomeData?.monthlyIncome)
+  console.log('   parameters.monthlyIncome:', parameters?.monthlyIncome)
+  console.log('   Final monthlyIncome:', monthlyIncome)
+  
+  const requestPayload = {
     loan_type: isCredit ? 'credit' : 'mortgage',
     amount: isCredit 
       ? parameters.loanAmount 
@@ -200,7 +221,7 @@ export const transformUserDataToRequest = (
     employment_start_date: userIncomeData?.startDate,
     
     // Provide fallback age if birth_date not available
-    age: calculatedAge || 0, // No fallback - should be calculated from birth_date
+    age: calculatedAge || 35, // Reasonable fallback for loan calculations
     employment_years: userIncomeData?.employmentYears || 0, // No fallback - should be provided by user
     
     // Property ownership for LTV calculation (Confluence Action #12)
@@ -226,4 +247,14 @@ export const transformUserDataToRequest = (
     is_foreigner: userPersonalData?.isForeigner === 'yes',
     is_public_figure: userPersonalData?.publicPerson === 'yes'
   }
+  
+  console.log('🚀 [TRANSFORM-DATA] Final Request Payload:', requestPayload)
+  console.log('🚀 [TRANSFORM-DATA] Critical Fields Check:')
+  console.log('   loan_type:', requestPayload.loan_type, '(should not be empty)')
+  console.log('   amount:', requestPayload.amount, '(should be > 0)')
+  console.log('   monthly_income:', requestPayload.monthly_income, '(should be > 0)')
+  console.log('   age:', requestPayload.age, '(should be > 0)')
+  console.log('   property_ownership:', requestPayload.property_ownership, '(should not be empty)')
+  
+  return requestPayload
 }

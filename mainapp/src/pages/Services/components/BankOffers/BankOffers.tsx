@@ -31,7 +31,7 @@ const BankOffers = () => {
   const mortgageParameters = useAppSelector((state) => state.mortgage)
   const creditParameters = useAppSelector((state) => state.credit)
   const userPersonalData = useAppSelector((state) => serviceType === 'credit' ? state.credit : state.mortgage)
-  const userIncomeData = useAppSelector((state) => state.mortgage.incomeData)
+  const userIncomeData = useAppSelector((state) => serviceType === 'credit' ? state.credit : state.mortgage.incomeData)
   
   const isCredit = serviceType === 'credit'
 
