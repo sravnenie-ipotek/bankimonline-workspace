@@ -3,12 +3,14 @@ import { useTranslation } from 'react-i18next'
 import classNames from 'classnames/bind'
 import { useNavigate } from 'react-router-dom'
 import Container from '../../components/ui/Container/Container.tsx'
+import { useContentApi } from '@src/hooks/useContentApi'
 import styles from './contacts.module.scss'
 
 const cx = classNames.bind(styles)
 
 const Contacts: React.FC = () => {
   const { t } = useTranslation()
+  const { getContent } = useContentApi('contacts')
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('general')
 
@@ -48,24 +50,24 @@ const Contacts: React.FC = () => {
         <Container>
           <div className={cx('header-content')}>
             <div className={cx('header-info')}>
-              <h1 className={cx('title')}>{t('contacts_title')}</h1>
+              <h1 className={cx('title')}>{getContent('contacts_title', t('contacts_title'))}</h1>
               
               <div className={cx('main-office')}>
-                <h2 className={cx('office-title')}>{t('contacts_main_office')}</h2>
+                <h2 className={cx('office-title')}>{getContent('contacts_main_office', t('contacts_main_office'))}</h2>
                 <div className={cx('office-details')}>
-                  <p className={cx('address')}>{t('contacts_address')}</p>
+                  <p className={cx('address')}>{getContent('contacts_address', t('contacts_address'))}</p>
                   <div className={cx('contact-links')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_phone', t('contacts_phone')))}
                     >
-                      {t('contacts_phone_label')}: {t('contacts_phone')}
+                      {getContent('contacts_phone_label', t('contacts_phone_label'))}: {getContent('contacts_phone', t('contacts_phone'))}
                     </button>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handleEmailClick(t('contacts_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_email', t('contacts_email')))}
                     >
-                      {t('contacts_email_label')}: {t('contacts_email')}
+                      {getContent('contacts_email_label', t('contacts_email_label'))}: {getContent('contacts_email', t('contacts_email'))}
                     </button>
                   </div>
                 </div>
@@ -85,25 +87,25 @@ const Contacts: React.FC = () => {
                 className={cx('tab', { active: activeTab === 'general' })}
                 onClick={() => setActiveTab('general')}
               >
-                {t('contacts_general_questions')}
+                {getContent('contacts_general_questions', t('contacts_general_questions'))}
               </button>
               <button 
                 className={cx('tab', { active: activeTab === 'service' })}
                 onClick={() => setActiveTab('service')}
               >
-                {t('contacts_service_questions')}
+                {getContent('contacts_service_questions', t('contacts_service_questions'))}
               </button>
               <button 
                 className={cx('tab', { active: activeTab === 'realestate' })}
                 onClick={() => setActiveTab('realestate')}
               >
-                {t('contacts_real_estate_questions')}
+                {getContent('contacts_real_estate_questions', t('contacts_real_estate_questions'))}
               </button>
               <button 
                 className={cx('tab', { active: activeTab === 'cooperation' })}
                 onClick={() => setActiveTab('cooperation')}
               >
-                {t('contacts_cooperation')}
+                {getContent('contacts_cooperation', t('contacts_cooperation'))}
               </button>
             </div>
           </div>
@@ -111,79 +113,79 @@ const Contacts: React.FC = () => {
           {/* General Questions Section */}
           {activeTab === 'general' && (
             <section className={cx('section')}>
-              <h3 className={cx('section-title')}>{t('contacts_general_questions')}</h3>
+              <h3 className={cx('section-title')}>{getContent('contacts_general_questions', t('contacts_general_questions'))}</h3>
               <div className={cx('contact-grid')}>
                 {/* Technical Support */}
                 <div className={cx('contact-card')}>
-                  <h4 className={cx('card-title')}>{t('contacts_tech_support')}</h4>
+                  <h4 className={cx('card-title')}>{getContent('contacts_tech_support', t('contacts_tech_support'))}</h4>
                   <div className={cx('contact-info')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_tech_support_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_tech_support_phone', t('contacts_tech_support_phone')))}
                     >
-                      {t('contacts_tech_support_phone')}
+                      {getContent('contacts_tech_support_phone', t('contacts_tech_support_phone'))}
                     </button>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handleEmailClick(t('contacts_tech_support_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_tech_support_email', t('contacts_tech_support_email')))}
                     >
-                      {t('contacts_tech_support_email')}
+                      {getContent('contacts_tech_support_email', t('contacts_tech_support_email'))}
                     </button>
                     <button 
                       className={cx('action-link')}
-                      onClick={() => handleEmailClick(t('contacts_tech_support_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_tech_support_email', t('contacts_tech_support_email')))}
                     >
-                      {t('contacts_tech_support_link')}
+                      {getContent('contacts_tech_support_link', t('contacts_tech_support_link'))}
                     </button>
                   </div>
                 </div>
 
                 {/* Secretary */}
                 <div className={cx('contact-card')}>
-                  <h4 className={cx('card-title')}>{t('contacts_secretary')}</h4>
+                  <h4 className={cx('card-title')}>{getContent('contacts_secretary', t('contacts_secretary'))}</h4>
                   <div className={cx('contact-info')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_secretary_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_secretary_phone', t('contacts_secretary_phone')))}
                     >
-                      {t('contacts_secretary_phone')}
+                      {getContent('contacts_secretary_phone', t('contacts_secretary_phone'))}
                     </button>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handleEmailClick(t('contacts_secretary_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_secretary_email', t('contacts_secretary_email')))}
                     >
-                      {t('contacts_secretary_email')}
+                      {getContent('contacts_secretary_email', t('contacts_secretary_email'))}
                     </button>
                     <button 
                       className={cx('action-link')}
-                      onClick={() => handleEmailClick(t('contacts_secretary_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_secretary_email', t('contacts_secretary_email')))}
                     >
-                      {t('contacts_secretary_link')}
+                      {getContent('contacts_secretary_link', t('contacts_secretary_link'))}
                     </button>
                   </div>
                 </div>
 
                 {/* Customer Service */}
                 <div className={cx('contact-card')}>
-                  <h4 className={cx('card-title')}>{t('contacts_customer_service')}</h4>
+                  <h4 className={cx('card-title')}>{getContent('contacts_customer_service', t('contacts_customer_service'))}</h4>
                   <div className={cx('contact-info')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_customer_service_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_customer_service_phone', t('contacts_customer_service_phone')))}
                     >
-                      {t('contacts_customer_service_phone')}
+                      {getContent('contacts_customer_service_phone', t('contacts_customer_service_phone'))}
                     </button>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handleEmailClick(t('contacts_customer_service_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_customer_service_email', t('contacts_customer_service_email')))}
                     >
-                      {t('contacts_customer_service_email')}
+                      {getContent('contacts_customer_service_email', t('contacts_customer_service_email'))}
                     </button>
                     <button 
                       className={cx('action-link')}
-                      onClick={() => handleEmailClick(t('contacts_customer_service_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_customer_service_email', t('contacts_customer_service_email')))}
                     >
-                      {t('contacts_customer_service_link')}
+                      {getContent('contacts_customer_service_link', t('contacts_customer_service_link'))}
                     </button>
                   </div>
                 </div>
@@ -194,42 +196,42 @@ const Contacts: React.FC = () => {
           {/* Service Questions Section */}
           {activeTab === 'service' && (
             <section className={cx('section')}>
-              <h3 className={cx('section-title')}>{t('contacts_service_questions')}</h3>
+              <h3 className={cx('section-title')}>{getContent('contacts_service_questions', t('contacts_service_questions'))}</h3>
               <div className={cx('contact-grid', 'two-column')}>
                 {/* Mortgage Calculator */}
                 <div className={cx('contact-card')}>
-                  <h4 className={cx('card-title')}>{t('contacts_mortgage_calc')}</h4>
+                  <h4 className={cx('card-title')}>{getContent('contacts_mortgage_calc', t('contacts_mortgage_calc'))}</h4>
                   <div className={cx('contact-info')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_mortgage_calc_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_mortgage_calc_phone', t('contacts_mortgage_calc_phone')))}
                     >
-                      {t('contacts_mortgage_calc_phone')}
+                      {getContent('contacts_mortgage_calc_phone', t('contacts_mortgage_calc_phone'))}
                     </button>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handleEmailClick(t('contacts_mortgage_calc_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_mortgage_calc_email', t('contacts_mortgage_calc_email')))}
                     >
-                      {t('contacts_mortgage_calc_email')}
+                      {getContent('contacts_mortgage_calc_email', t('contacts_mortgage_calc_email'))}
                     </button>
                   </div>
                 </div>
 
                 {/* Credit Calculator */}
                 <div className={cx('contact-card')}>
-                  <h4 className={cx('card-title')}>{t('contacts_credit_calc')}</h4>
+                  <h4 className={cx('card-title')}>{getContent('contacts_credit_calc', t('contacts_credit_calc'))}</h4>
                   <div className={cx('contact-info')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_credit_calc_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_credit_calc_phone', t('contacts_credit_calc_phone')))}
                     >
-                      {t('contacts_credit_calc_phone')}
+                      {getContent('contacts_credit_calc_phone', t('contacts_credit_calc_phone'))}
                     </button>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handleEmailClick(t('contacts_credit_calc_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_credit_calc_email', t('contacts_credit_calc_email')))}
                     >
-                      {t('contacts_credit_calc_email')}
+                      {getContent('contacts_credit_calc_email', t('contacts_credit_calc_email'))}
                     </button>
                   </div>
                 </div>
@@ -240,42 +242,42 @@ const Contacts: React.FC = () => {
           {/* Real Estate Questions Section */}
           {activeTab === 'realestate' && (
             <section className={cx('section')}>
-              <h3 className={cx('section-title')}>{t('contacts_real_estate_questions')}</h3>
+              <h3 className={cx('section-title')}>{getContent('contacts_real_estate_questions', t('contacts_real_estate_questions'))}</h3>
               <div className={cx('contact-grid', 'two-column')}>
                 {/* Buy/Sell Real Estate */}
                 <div className={cx('contact-card')}>
-                  <h4 className={cx('card-title')}>{t('contacts_real_estate_buy_sell')}</h4>
+                  <h4 className={cx('card-title')}>{getContent('contacts_real_estate_buy_sell', t('contacts_real_estate_buy_sell'))}</h4>
                   <div className={cx('contact-info')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_real_estate_buy_sell_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_real_estate_buy_sell_phone', t('contacts_real_estate_buy_sell_phone')))}
                     >
-                      {t('contacts_real_estate_buy_sell_phone')}
+                      {getContent('contacts_real_estate_buy_sell_phone', t('contacts_real_estate_buy_sell_phone'))}
                     </button>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handleEmailClick(t('contacts_real_estate_buy_sell_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_real_estate_buy_sell_email', t('contacts_real_estate_buy_sell_email')))}
                     >
-                      {t('contacts_real_estate_buy_sell_email')}
+                      {getContent('contacts_real_estate_buy_sell_email', t('contacts_real_estate_buy_sell_email'))}
                     </button>
                   </div>
                 </div>
 
                 {/* Rent Real Estate */}
                 <div className={cx('contact-card')}>
-                  <h4 className={cx('card-title')}>{t('contacts_real_estate_rent')}</h4>
+                  <h4 className={cx('card-title')}>{getContent('contacts_real_estate_rent', t('contacts_real_estate_rent'))}</h4>
                   <div className={cx('contact-info')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_real_estate_rent_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_real_estate_rent_phone', t('contacts_real_estate_rent_phone')))}
                     >
-                      {t('contacts_real_estate_rent_phone')}
+                      {getContent('contacts_real_estate_rent_phone', t('contacts_real_estate_rent_phone'))}
                     </button>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handleEmailClick(t('contacts_real_estate_rent_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_real_estate_rent_email', t('contacts_real_estate_rent_email')))}
                     >
-                      {t('contacts_real_estate_rent_email')}
+                      {getContent('contacts_real_estate_rent_email', t('contacts_real_estate_rent_email'))}
                     </button>
                   </div>
                 </div>
@@ -286,74 +288,74 @@ const Contacts: React.FC = () => {
           {/* Cooperation Section */}
           {activeTab === 'cooperation' && (
             <section className={cx('section')}>
-              <h3 className={cx('section-title')}>{t('contacts_cooperation')}</h3>
+              <h3 className={cx('section-title')}>{getContent('contacts_cooperation', t('contacts_cooperation'))}</h3>
               <div className={cx('contact-grid')}>
                 {/* Cooperation and Management */}
                 <div className={cx('contact-card')}>
-                  <h4 className={cx('card-title')}>{t('contacts_cooperation_management')}</h4>
+                  <h4 className={cx('card-title')}>{getContent('contacts_cooperation_management', t('contacts_cooperation_management'))}</h4>
                   <div className={cx('contact-info')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_cooperation_management_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_cooperation_management_phone', t('contacts_cooperation_management_phone')))}
                     >
-                      {t('contacts_cooperation_management_phone')}
+                      {getContent('contacts_cooperation_management_phone', t('contacts_cooperation_management_phone'))}
                     </button>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handleEmailClick(t('contacts_cooperation_management_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_cooperation_management_email', t('contacts_cooperation_management_email')))}
                     >
-                      {t('contacts_cooperation_management_email')}
+                      {getContent('contacts_cooperation_management_email', t('contacts_cooperation_management_email'))}
                     </button>
                   </div>
                 </div>
 
                 {/* Management Contacts */}
                 <div className={cx('contact-card')}>
-                  <h4 className={cx('card-title')}>{t('contacts_management_contacts')}</h4>
+                  <h4 className={cx('card-title')}>{getContent('contacts_management_contacts', t('contacts_management_contacts'))}</h4>
                   <div className={cx('contact-info')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_management_contacts_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_management_contacts_phone', t('contacts_management_contacts_phone')))}
                     >
-                      {t('contacts_management_contacts_phone')}
+                      {getContent('contacts_management_contacts_phone', t('contacts_management_contacts_phone'))}
                     </button>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handleEmailClick(t('contacts_management_contacts_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_management_contacts_email', t('contacts_management_contacts_email')))}
                     >
-                      {t('contacts_management_contacts_email')}
+                      {getContent('contacts_management_contacts_email', t('contacts_management_contacts_email'))}
                     </button>
                   </div>
                 </div>
 
                 {/* Accounting */}
                 <div className={cx('contact-card')}>
-                  <h4 className={cx('card-title')}>{t('contacts_accounting')}</h4>
+                  <h4 className={cx('card-title')}>{getContent('contacts_accounting', t('contacts_accounting'))}</h4>
                   <div className={cx('contact-info')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_accounting_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_accounting_phone', t('contacts_accounting_phone')))}
                     >
-                      {t('contacts_accounting_phone')}
+                      {getContent('contacts_accounting_phone', t('contacts_accounting_phone'))}
                     </button>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handleEmailClick(t('contacts_accounting_email'))}
+                      onClick={() => handleEmailClick(getContent('contacts_accounting_email', t('contacts_accounting_email')))}
                     >
-                      {t('contacts_accounting_email')}
+                      {getContent('contacts_accounting_email', t('contacts_accounting_email'))}
                     </button>
                   </div>
                 </div>
 
                 {/* Fax */}
                 <div className={cx('contact-card')}>
-                  <h4 className={cx('card-title')}>{t('contacts_fax')}</h4>
+                  <h4 className={cx('card-title')}>{getContent('contacts_fax', t('contacts_fax'))}</h4>
                   <div className={cx('contact-info')}>
                     <button 
                       className={cx('contact-link')}
-                      onClick={() => handlePhoneClick(t('contacts_fax_phone'))}
+                      onClick={() => handlePhoneClick(getContent('contacts_fax_phone', t('contacts_fax_phone')))}
                     >
-                      {t('contacts_fax_phone')}
+                      {getContent('contacts_fax_phone', t('contacts_fax_phone'))}
                     </button>
                   </div>
                 </div>
@@ -363,7 +365,7 @@ const Contacts: React.FC = () => {
 
           {/* Social Media Section */}
           <section className={cx('section', 'social-section')}>
-            <h3 className={cx('section-title')}>{t('contacts_social_follow')}</h3>
+            <h3 className={cx('section-title')}>{getContent('contacts_social_follow', t('contacts_social_follow'))}</h3>
             <div className={cx('social-links')}>
               <button 
                 className={cx('social-link', 'facebook')} 

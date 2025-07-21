@@ -6,6 +6,7 @@ import { BankCard } from '@components/ui/BankCard'
 import { ProgrammCard } from '@components/ui/ProgrammCard'
 import { useAppSelector } from '@src/hooks/store'
 import { useServiceContext } from '@src/hooks/useServiceContext'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { 
   fetchBankOffers, 
   fetchMortgagePrograms, 
@@ -21,6 +22,7 @@ const cx = classNames.bind(styles)
 const BankOffers = () => {
   const { t, i18n } = useTranslation()
   const serviceType = useServiceContext()
+  const { getContent } = useContentApi('bank_offers')
 
   const [banks, setBanks] = useState<BankOffer[]>([])
   const [mortgagePrograms, setMortgagePrograms] = useState<MortgageProgram[]>([])
@@ -91,21 +93,19 @@ const BankOffers = () => {
                      currentLang === 'ru' ? program.title_ru : 
                      program.title_en
 
-          // Force correct Hebrew label using program.id for full determinism
-          if (currentLang === 'he') {
-            switch (program.id) {
-              case 'prime':
-                title = isCredit ? t('credit_prime_percent') : t('mortgage_prime_percent')
-                break
-              case 'fixed_inflation':
-                title = isCredit ? t('credit_fix_percent') : t('mortgage_fix_percent')
-                break
-              case 'variable_inflation':
-                title = isCredit ? t('credit_float_percent') : t('mortgage_float_percent')
-                break
-              default:
-                break
-            }
+          // Force correct label using program.id for full determinism
+          switch (program.id) {
+            case 'prime':
+              title = isCredit ? getContent('credit_prime_percent', 'Prime Rate Credit') : getContent('mortgage_prime_percent', 'Prime Rate Mortgage')
+              break
+            case 'fixed_inflation':
+              title = isCredit ? getContent('credit_fix_percent', 'Fixed Rate Credit') : getContent('mortgage_fix_percent', 'Fixed Rate Mortgage')
+              break
+            case 'variable_inflation':
+              title = isCredit ? getContent('credit_float_percent', 'Variable Rate Credit') : getContent('mortgage_float_percent', 'Variable Rate Mortgage')
+              break
+            default:
+              break
           }
           
           return {
@@ -136,54 +136,54 @@ const BankOffers = () => {
           setMortgagePrograms([
             {
               id: 'prime',
-              title: t('credit_prime_percent'),
-              description: t('prime_description') || 'Prime rate linked credit program',
-              conditionFinance: t('up_to_33_percent') || 'Up to 33%',
-              conditionPeriod: t('4_to_30_years') || '4-30 years',
-              conditionBid: t('prime_rate_structure') || 'Variable + Fixed components'
+              title: getContent('credit_prime_percent', 'Prime Rate Credit'),
+              description: getContent('prime_description', 'Prime rate linked credit program'),
+              conditionFinance: getContent('up_to_33_percent', 'Up to 33%'),
+              conditionPeriod: getContent('4_to_30_years', '4-30 years'),
+              conditionBid: getContent('prime_rate_structure', 'Variable + Fixed components')
             },
             {
               id: 'fixed_inflation',
-              title: t('credit_fix_percent') || 'Fixed rate linked to inflation',
-              description: t('fixed_inflation_description') || 'Fixed rate with inflation adjustment',
-              conditionFinance: t('up_to_70_percent') || 'Up to 70%',
-              conditionPeriod: t('5_to_30_years') || '5-30 years',
-              conditionBid: t('fixed_rate_structure') || 'Fixed rate structure'
+              title: getContent('credit_fix_percent', 'Fixed rate linked to inflation'),
+              description: getContent('fixed_inflation_description', 'Fixed rate with inflation adjustment'),
+              conditionFinance: getContent('up_to_70_percent', 'Up to 70%'),
+              conditionPeriod: getContent('5_to_30_years', '5-30 years'),
+              conditionBid: getContent('fixed_rate_structure', 'Fixed rate structure')
             },
             {
               id: 'variable_inflation',
-              title: t('credit_float_percent') || 'Variable rate linked to inflation',
-              description: t('variable_inflation_description') || 'Variable rate with inflation adjustment',
-              conditionFinance: t('up_to_75_percent') || 'Up to 75%',
-              conditionPeriod: t('4_to_25_years') || '4-25 years',
-              conditionBid: t('variable_rate_structure') || 'Variable rate structure'
+              title: getContent('credit_float_percent', 'Variable rate linked to inflation'),
+              description: getContent('variable_inflation_description', 'Variable rate with inflation adjustment'),
+              conditionFinance: getContent('up_to_75_percent', 'Up to 75%'),
+              conditionPeriod: getContent('4_to_25_years', '4-25 years'),
+              conditionBid: getContent('variable_rate_structure', 'Variable rate structure')
             }
           ])
         } else {
           setMortgagePrograms([
             {
               id: 'prime',
-              title: t('mortgage_prime_percent'),
-              description: t('prime_description') || 'Prime rate linked mortgage program',
-              conditionFinance: t('up_to_33_percent') || 'Up to 33%',
-              conditionPeriod: t('4_to_30_years') || '4-30 years',
-              conditionBid: t('prime_rate_structure') || 'Variable + Fixed components'
+              title: getContent('mortgage_prime_percent', 'Prime Rate Mortgage'),
+              description: getContent('prime_description', 'Prime rate linked mortgage program'),
+              conditionFinance: getContent('up_to_33_percent', 'Up to 33%'),
+              conditionPeriod: getContent('4_to_30_years', '4-30 years'),
+              conditionBid: getContent('prime_rate_structure', 'Variable + Fixed components')
             },
             {
               id: 'fixed_inflation',
-              title: t('mortgage_fix_percent') || 'Fixed rate linked to inflation',
-              description: t('fixed_inflation_description') || 'Fixed rate with inflation adjustment',
-              conditionFinance: t('up_to_70_percent') || 'Up to 70%',
-              conditionPeriod: t('5_to_30_years') || '5-30 years',
-              conditionBid: t('fixed_rate_structure') || 'Fixed rate structure'
+              title: getContent('mortgage_fix_percent', 'Fixed rate linked to inflation'),
+              description: getContent('fixed_inflation_description', 'Fixed rate with inflation adjustment'),
+              conditionFinance: getContent('up_to_70_percent', 'Up to 70%'),
+              conditionPeriod: getContent('5_to_30_years', '5-30 years'),
+              conditionBid: getContent('fixed_rate_structure', 'Fixed rate structure')
             },
             {
               id: 'variable_inflation',
-              title: t('mortgage_float_percent') || 'Variable rate linked to inflation',
-              description: t('variable_inflation_description') || 'Variable rate with inflation adjustment',
-              conditionFinance: t('up_to_75_percent') || 'Up to 75%',
-              conditionPeriod: t('4_to_25_years') || '4-25 years',
-              conditionBid: t('variable_rate_structure') || 'Variable rate structure'
+              title: getContent('mortgage_float_percent', 'Variable rate linked to inflation'),
+              description: getContent('variable_inflation_description', 'Variable rate with inflation adjustment'),
+              conditionFinance: getContent('up_to_75_percent', 'Up to 75%'),
+              conditionPeriod: getContent('4_to_25_years', '4-25 years'),
+              conditionBid: getContent('variable_rate_structure', 'Variable rate structure')
             }
           ])
         }
@@ -205,8 +205,8 @@ const BankOffers = () => {
     <div className={cx('container')}>
       {banks.length === 0 ? (
         <div className={cx('no-offers')}>
-          <h3>{t('no_bank_offers_available')}</h3>
-          <p>No bank offers match your profile. Try adjusting your parameters.</p>
+          <h3>{getContent('no_bank_offers_available', 'No Bank Offers Available')}</h3>
+          <p>{getContent('no_offers_message', 'No bank offers match your profile. Try adjusting your parameters.')}</p>
         </div>
       ) : (
         banks.map((bank, index) => (
@@ -214,8 +214,8 @@ const BankOffers = () => {
             <div className={cx('column')}>
               <BankCard
                 key={bank.bank_id || index}
-                title={bank.bank_name || `${t('bank_name')} #${index + 1}`}
-                infoTitle={isCredit ? t('bank_offers_credit_register') : t('mortgage_register')}
+                title={bank.bank_name || `${getContent('bank_name', 'Bank')} #${index + 1}`}
+                infoTitle={isCredit ? getContent('bank_offers_credit_register', 'Credit Registration') : getContent('mortgage_register', 'Mortgage Registration')}
                 mortgageAmount={bank.loan_amount}
                 totalAmount={bank.total_payment}
                 mothlyPayment={bank.monthly_payment}

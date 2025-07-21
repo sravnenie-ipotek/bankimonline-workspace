@@ -38,8 +38,8 @@
 ✅ Approve worker: POST /api/admin/approve/:id
 ❌ Reject worker: POST /api/admin/reject/:id
 
-✅ Content Database connected: 2025-07-21T10:26:02.343Z
+✅ Main Database connected: 2025-07-21T10:56:25.468Z
+✅ Content Database connected: 2025-07-21T10:56:25.475Z
 ✅ test-content table deleted successfully (if it existed)
-✅ Main Database connected: 2025-07-21T10:26:02.519Z
 ❌ Failed to get content for screen: column ci.key does not exist
-[0mGET /api/content/navigation/en [31m500[0m 88.338 ms - 107[0m
+[0mGET /api/content/navigation/en [31m500[0m 88.981 ms - 107[0m

@@ -915,22 +915,21 @@ app.post('/api/content/fix-status', async (req, res) => {
 app.get('/api/content/:screen/:language', async (req, res) => {
     try {
         const { screen, language } = req.params;
-        
         const result = await contentPool.query(`
             SELECT 
-                ci.content_key,
-                ci.component_type,
-                ci.category,
-                ct.content_value,
-                ct.language_code,
-                ct.status
-            FROM content_items ci
-            JOIN content_translations ct ON ci.id = ct.content_item_id
-            WHERE ci.screen_location = $1 
-                AND ct.language_code = $2 
-                AND ct.status = 'approved'
-                AND ci.is_active = TRUE
-            ORDER BY ci.content_key
+                content_items.content_key,
+                content_items.component_type,
+                content_items.category,
+                content_translations.content_value,
+                content_translations.language_code,
+                content_translations.status
+            FROM content_items
+            JOIN content_translations ON content_items.id = content_translations.content_item_id
+            WHERE content_items.screen_location = $1 
+                AND content_translations.language_code = $2 
+                AND content_translations.status = 'active'
+                AND content_items.is_active = true
+            ORDER BY content_items.content_key
         `, [screen, language]);
         
         // Transform to key-value object for frontend
@@ -970,24 +969,24 @@ app.get('/api/content/:key/:language', async (req, res) => {
         
         const result = await contentPool.query(`
             SELECT 
-                ci.content_key,
+                ci.key as content_key,
                 ci.component_type,
                 ci.category,
                 ci.screen_location,
                 COALESCE(
-                    (SELECT content_value FROM content_translations 
-                     WHERE content_item_id = ci.id AND language_code = $2 AND status = 'approved'),
-                    (SELECT content_value FROM content_translations 
-                     WHERE content_item_id = ci.id AND is_default = TRUE AND status = 'approved')
+                    (SELECT value FROM content_translations 
+                     WHERE content_item_id = ci.id AND language_code = $2 AND status = 'active'),
+                    (SELECT value FROM content_translations 
+                     WHERE content_item_id = ci.id AND language_code = 'en' AND status = 'active')
                 ) as content_value,
                 COALESCE(
                     (SELECT language_code FROM content_translations 
-                     WHERE content_item_id = ci.id AND language_code = $2 AND status = 'approved'),
+                     WHERE content_item_id = ci.id AND language_code = $2 AND status = 'active'),
                     (SELECT language_code FROM content_translations 
-                     WHERE content_item_id = ci.id AND is_default = TRUE AND status = 'approved')
+                     WHERE content_item_id = ci.id AND language_code = 'en' AND status = 'active')
                 ) as actual_language
             FROM content_items ci
-            WHERE ci.content_key = $1 AND ci.is_active = TRUE
+            WHERE ci.key = $1 AND ci.status = 'active'
         `, [key, language]);
         
         if (result.rowCount === 0) {
