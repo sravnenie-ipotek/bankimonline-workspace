@@ -12,6 +12,7 @@ import {
   useSubMenuItems,
 } from '@components/layout/Sidebar/hooks/subMenu.ts'
 import { useToggle } from '@src/hooks/useToggle.ts'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import styles from './Navigation.module.scss'
 
@@ -28,6 +29,17 @@ const Navigation: React.FC<NavigationProps> = ({ onClose }) => {
   const businessSubMenuItems = useBusinessSubMenuItems()
   const { isOn, toggle } = useToggle(false)
   const { isOn: isOpenBusiness, toggle: toggleBusiness } = useToggle(false)
+  const { loading } = useContentApi('sidebar')
+  
+  // Show loading state or skeleton while content is loading
+  if (loading) {
+    return (
+      <nav className={cx('nav')}>
+        <div className={cx('loading')}>Loading navigation...</div>
+      </nav>
+    )
+  }
+  
   return (
     <>
       <nav className={cx('nav')}>
