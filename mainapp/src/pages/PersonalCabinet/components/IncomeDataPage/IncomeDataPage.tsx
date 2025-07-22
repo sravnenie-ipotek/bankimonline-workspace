@@ -13,6 +13,7 @@ import FormCaption from '@components/ui/FormCaption/FormCaption'
 import { Info } from '@pages/Services/components/Info'
 import { PersonalCabinetLayout } from '../PersonalCabinetLayout/PersonalCabinetLayout'
 import { Button } from '@components/ui/ButtonUI'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import styles from './IncomeDataPage.module.scss'
 
@@ -160,6 +161,7 @@ const IncomeDataPage: React.FC<IncomeDataPageProps> = ({
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [showAdditionalAccounts, setShowAdditionalAccounts] = useState(false)
+  const { getContent } = useContentApi('personal_cabinet')
 
   // Get current month names (dynamic based on current date)
   const getCurrentMonthNames = () => {
@@ -232,34 +234,34 @@ const IncomeDataPage: React.FC<IncomeDataPageProps> = ({
   }
 
   const incomeSourceOptions = [
-    { value: 'employment', label: t('employment', 'Работа по найму') },
-    { value: 'self_employed', label: t('self_employed', 'Самозанятость') },
-    { value: 'business', label: t('business', 'Бизнес') },
-    { value: 'pension', label: t('pension', 'Пенсия') },
-    { value: 'unemployed', label: t('unemployed', 'Безработный') }
+    { value: 'employment', label: getContent('employment') || t('employment', 'Работа по найму') },
+    { value: 'self_employed', label: getContent('self_employed') || t('self_employed', 'Самозанятость') },
+    { value: 'business', label: getContent('business') || t('business', 'Бизнес') },
+    { value: 'pension', label: getContent('pension') || t('pension', 'Пенсия') },
+    { value: 'unemployed', label: getContent('unemployed') || t('unemployed', 'Безработный') }
   ]
 
   const activitySphereOptions = [
-    { value: 'it_technology', label: t('it_technology', 'IT и технологии') },
-    { value: 'finance_banking', label: t('finance_banking', 'Финансы и банковское дело') },
-    { value: 'healthcare', label: t('healthcare', 'Здравоохранение') },
-    { value: 'education', label: t('education', 'Образование') },
-    { value: 'construction', label: t('construction', 'Строительство') },
-    { value: 'retail_trade', label: t('retail_trade', 'Розничная торговля') },
-    { value: 'manufacturing', label: t('manufacturing', 'Производство') },
-    { value: 'government', label: t('government', 'Государственная служба') },
-    { value: 'transport_logistics', label: t('transport_logistics', 'Транспорт и логистика') },
-    { value: 'consulting', label: t('consulting', 'Консалтинг') },
-    { value: 'real_estate', label: t('real_estate', 'Недвижимость') },
-    { value: 'other', label: t('other', 'Другое') }
+    { value: 'it_technology', label: getContent('it_technology') || t('it_technology', 'IT и технологии') },
+    { value: 'finance_banking', label: getContent('finance_banking') || t('finance_banking', 'Финансы и банковское дело') },
+    { value: 'healthcare', label: getContent('healthcare') || t('healthcare', 'Здравоохранение') },
+    { value: 'education', label: getContent('education') || t('education', 'Образование') },
+    { value: 'construction', label: getContent('construction') || t('construction', 'Строительство') },
+    { value: 'retail_trade', label: getContent('retail_trade') || t('retail_trade', 'Розничная торговля') },
+    { value: 'manufacturing', label: getContent('manufacturing') || t('manufacturing', 'Производство') },
+    { value: 'government', label: getContent('government') || t('government', 'Государственная служба') },
+    { value: 'transport_logistics', label: getContent('transport_logistics') || t('transport_logistics', 'Транспорт и логистика') },
+    { value: 'consulting', label: getContent('consulting') || t('consulting', 'Консалтинг') },
+    { value: 'real_estate', label: getContent('real_estate') || t('real_estate', 'Недвижимость') },
+    { value: 'other', label: getContent('other') || t('other', 'Другое') }
   ]
 
   const additionalIncomeOptions = [
-    { value: 'alimony', label: t('alimony', 'Алименты') },
-    { value: 'rental_income', label: t('rental_income', 'Доходы от аренды') },
-    { value: 'investment_income', label: t('investment_income', 'Инвестиционные доходы') },
-    { value: 'freelance', label: t('freelance', 'Фриланс') },
-    { value: 'other_income', label: t('other_income', 'Другие доходы') }
+    { value: 'alimony', label: getContent('alimony') || t('alimony', 'Алименты') },
+    { value: 'rental_income', label: getContent('rental_income') || t('rental_income', 'Доходы от аренды') },
+    { value: 'investment_income', label: getContent('investment_income') || t('investment_income', 'Инвестиционные доходы') },
+    { value: 'freelance', label: getContent('freelance') || t('freelance', 'Фриланс') },
+    { value: 'other_income', label: getContent('other_income') || t('other_income', 'Другие доходы') }
   ]
 
   const debtTypeOptions = [
@@ -321,7 +323,7 @@ const IncomeDataPage: React.FC<IncomeDataPageProps> = ({
                     <Column>
                       <div className={cx('form-field')}>
                         <label htmlFor="mainIncomeSource">
-                          {t('main_income_source', 'Основной источник дохода')}
+                          {getContent('main_income_source') || t('main_income_source', 'Основной источник дохода')}
                         </label>
                         <select
                           id="mainIncomeSource"
@@ -330,7 +332,7 @@ const IncomeDataPage: React.FC<IncomeDataPageProps> = ({
                           onChange={(e) => setFieldValue('mainIncomeSource', e.target.value)}
                           className={cx('select-input')}
                         >
-                          <option value="">{t('select_answer', 'Выберите ответ')}</option>
+                          <option value="">{getContent('select_answer') || t('select_answer', 'Выберите ответ')}</option>
                           {incomeSourceOptions.map(option => (
                             <option key={option.value} value={option.value}>
                               {option.label}
@@ -450,7 +452,7 @@ const IncomeDataPage: React.FC<IncomeDataPageProps> = ({
                       <Column>
                         <div className={cx('form-field')}>
                           <label htmlFor="professionName">
-                            {t('profession_name', 'Название профессии')}
+                            {getContent('profession_name') || t('profession_name', 'Название профессии')}
                           </label>
                           <input
                             type="text"
@@ -955,7 +957,7 @@ const IncomeDataPage: React.FC<IncomeDataPageProps> = ({
                           onChange={(e) => setFieldValue('bankName', e.target.value)}
                           className={cx('select-input')}
                         >
-                          <option value="">{t('select_answer', 'Выберите ответ')}</option>
+                          <option value="">{getContent('select_answer') || t('select_answer', 'Выберите ответ')}</option>
                           {bankOptions.map(option => (
                             <option key={option.value} value={option.value}>
                               {option.label}
@@ -980,7 +982,7 @@ const IncomeDataPage: React.FC<IncomeDataPageProps> = ({
                           onChange={(e) => setFieldValue('branch', e.target.value)}
                           className={cx('select-input')}
                         >
-                          <option value="">{t('select_answer', 'Выберите ответ')}</option>
+                          <option value="">{getContent('select_answer') || t('select_answer', 'Выберите ответ')}</option>
                           {branchOptions.map(option => (
                             <option key={option.value} value={option.value}>
                               {option.label}
