@@ -93,14 +93,24 @@ export const useContentApi = (screenLocation: string) => {
     }
     
     // IMMEDIATE FALLBACK: If API content is not available, use translation system right away
-    if (Object.keys(content).length === 0 || error) {
+    if (Object.keys(content).length === 0 || error || loading) {
       const translationKey = fallbackKey || key;
+      // Try migrated key first
+      const migratedKey = `__MIGRATED_${key}`;
+      const migratedValue = t(migratedKey);
+      if (migratedValue !== migratedKey) {
+        return migratedValue;
+      }
+      // Then try regular key
       const translatedValue = t(translationKey);
       return translatedValue;
     }
     
     // Try with specific prefixes based on the key
     const prefixMap: Record<string, string[]> = {
+      // Sidebar content
+      'sidebar_company': ['sidebar_company'],
+      'sidebar_business': ['sidebar_business'],
       // Home page content
       'calculate_mortgage': ['app.home.service.calculate_mortgage'],
       'refinance_mortgage': ['app.home.service.refinance_mortgage'],
