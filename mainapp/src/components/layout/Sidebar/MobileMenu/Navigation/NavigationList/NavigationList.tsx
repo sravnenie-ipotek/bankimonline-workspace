@@ -19,7 +19,7 @@ interface NavigationListProps {
 
 const NavigationList: FC<NavigationListProps> = ({ items, title, toggle, onClose }) => {
   const { t } = useTranslation()
-  const { getContent } = useContentApi('navigation')
+  const { getContent, loading } = useContentApi('sidebar')
   
   const handleClick = () => {
     if (onClose) {
@@ -27,9 +27,20 @@ const NavigationList: FC<NavigationListProps> = ({ items, title, toggle, onClose
     }
   }
   
+  // Get content with proper fallback for migrated keys
+  // Always try database first, then fallback to migrated keys
+  const dbContent = getContent(title);
+  const fallbackContent = t(`__MIGRATED_${title}`);
+  const titleContent = dbContent || fallbackContent || t(title) || title;
+  
+  // Debug log to see what's happening
+  if (!dbContent && process.env.NODE_ENV === 'development') {
+    console.log(`NavigationList - Missing DB content for "${title}", using fallback: "${titleContent}"`);
+  }
+  
   return (
     <ul className={cx('list')}>
-      <h3 className={cx('title')}>{getContent(title, t(title))}</h3>
+      <h3 className={cx('title')}>{titleContent}</h3>
       {items.slice(0, 1).map((item) => (
         <li key={item.title} onClick={toggle} className={cx('item')}>
           {item.title}

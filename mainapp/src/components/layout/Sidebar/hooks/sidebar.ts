@@ -7,7 +7,7 @@ import { IMenuItem } from '../types/menuItem.ts'
 
 const useMenuItems = (): IMenuItem[] => {
   const { t } = useTranslation()
-  const { getContent } = useContentApi('sidebar_company')
+  const { getContent } = useContentApi('sidebar')
 
   return [
     {
@@ -36,7 +36,7 @@ const useMenuItems = (): IMenuItem[] => {
 
 const useBusinessMenuItems = (): IMenuItem[] => {
   const { t } = useTranslation()
-  const { getContent } = useContentApi('sidebar_business')
+  const { getContent } = useContentApi('sidebar')
 
   return [
     {
