@@ -1543,5 +1543,12 @@
   "write_to_admin": "Написать в администрацию",
   "year_dual": "лет",
   "year_plural": "лет",
-  "yes": "Да"
+  "yes": "Да",
+
+  "refinance_step2_name_surname": "Полное имя",
+  "credit_step1_title": "Кредитный калькулятор",
+  "refinance_results_title": "Результаты рефинансирования",
+  "common_button_next": "Далее",
+  "common_button_back": "Назад",
+  "common_button_submit": "Отправить"
 }
