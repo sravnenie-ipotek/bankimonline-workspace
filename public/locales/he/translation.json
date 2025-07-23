@@ -1572,5 +1572,12 @@
   "work_address": "כתובת מקום העבודה",
   "year_dual": "שנים",
   "year_plural": "שנים",
-  "yes": "כן"
+  "yes": "כן",
+
+  "refinance_step2_name_surname": "שם מלא",
+  "credit_step1_title": "מחשבון אשראי",
+  "refinance_results_title": "תוצאות מחזור משכנתא",
+  "common_button_next": "הבא",
+  "common_button_back": "חזור",
+  "common_button_submit": "שלח"
 }
