@@ -7,6 +7,8 @@ export default defineConfig({
     viewportHeight: 1080,
     video: true,
     screenshotOnRunFailure: true,
+    screenshotsFolder: 'cypress/screenshots',
+    trashAssetsBeforeRuns: false,
     chromeWebSecurity: false,
     defaultCommandTimeout: 10000,
     requestTimeout: 10000,
