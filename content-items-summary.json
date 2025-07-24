@@ -1,0 +1,41 @@
+{
+  "generated_at": "2025-07-24T05:35:15.399Z",
+  "overview": {
+    "total_content_items": 18,
+    "unique_screens": 5,
+    "unique_categories": 1,
+    "unique_component_types": 1
+  },
+  "screen_breakdown": {
+    "about": {
+      "total_items": 2,
+      "categories": {
+        "general": 2
+      }
+    },
+    "contacts": {
+      "total_items": 2,
+      "categories": {
+        "general": 2
+      }
+    },
+    "navigation": {
+      "total_items": 12,
+      "categories": {
+        "general": 12
+      }
+    },
+    "temporary_franchise": {
+      "total_items": 1,
+      "categories": {
+        "general": 1
+      }
+    },
+    "test": {
+      "total_items": 1,
+      "categories": {
+        "general": 1
+      }
+    }
+  }
+}
