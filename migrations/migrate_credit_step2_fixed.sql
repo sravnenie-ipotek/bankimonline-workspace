@@ -4,80 +4,78 @@
 
 -- Insert content items for credit step 2
 INSERT INTO content_items (
-    content_key, 
+    key, 
     component_type, 
     category, 
     screen_location, 
-    description,
-    is_active, 
-    legacy_translation_key,
+    status,
     created_at,
     updated_at
 ) VALUES 
 -- Main title
-('calculate_credit_step2_title', 'title', 'navigation', 'calculate_credit_2', 'Step 2 main title', true, 'calculate_credit_step2_title', NOW(), NOW()),
+('calculate_credit_step2_title', 'title', 'navigation', 'calculate_credit_2', 'active', NOW(), NOW()),
 
 -- Education field
-('calculate_credit_education', 'field_label', 'personal_details', 'calculate_credit_2', 'Education level field label', true, 'calculate_credit_education', NOW(), NOW()),
-('calculate_credit_education_ph', 'placeholder', 'personal_details', 'calculate_credit_2', 'Education level placeholder', true, 'calculate_credit_education_ph', NOW(), NOW()),
-('calculate_credit_education_option_1', 'option', 'personal_details', 'calculate_credit_2', 'Education option 1', true, 'calculate_credit_education_option_1', NOW(), NOW()),
-('calculate_credit_education_option_2', 'option', 'personal_details', 'calculate_credit_2', 'Education option 2', true, 'calculate_credit_education_option_2', NOW(), NOW()),
-('calculate_credit_education_option_3', 'option', 'personal_details', 'calculate_credit_2', 'Education option 3', true, 'calculate_credit_education_option_3', NOW(), NOW()),
-('calculate_credit_education_option_4', 'option', 'personal_details', 'calculate_credit_2', 'Education option 4', true, 'calculate_credit_education_option_4', NOW(), NOW()),
-('calculate_credit_education_option_5', 'option', 'personal_details', 'calculate_credit_2', 'Education option 5', true, 'calculate_credit_education_option_5', NOW(), NOW()),
-('calculate_credit_education_option_6', 'option', 'personal_details', 'calculate_credit_2', 'Education option 6', true, 'calculate_credit_education_option_6', NOW(), NOW()),
-('calculate_credit_education_option_7', 'option', 'personal_details', 'calculate_credit_2', 'Education option 7', true, 'calculate_credit_education_option_7', NOW(), NOW()),
+('calculate_credit_education', 'field_label', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_education_ph', 'placeholder', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_education_option_1', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_education_option_2', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_education_option_3', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_education_option_4', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_education_option_5', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_education_option_6', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_education_option_7', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
 
 -- Family Status field
-('calculate_credit_family_status', 'field_label', 'personal_details', 'calculate_credit_2', 'Family status field label', true, 'calculate_credit_family_status', NOW(), NOW()),
-('calculate_credit_family_status_ph', 'placeholder', 'personal_details', 'calculate_credit_2', 'Family status placeholder', true, 'calculate_credit_family_status_ph', NOW(), NOW()),
-('calculate_credit_family_status_option_1', 'option', 'personal_details', 'calculate_credit_2', 'Single', true, 'calculate_credit_family_status_option_1', NOW(), NOW()),
-('calculate_credit_family_status_option_2', 'option', 'personal_details', 'calculate_credit_2', 'Married', true, 'calculate_credit_family_status_option_2', NOW(), NOW()),
-('calculate_credit_family_status_option_3', 'option', 'personal_details', 'calculate_credit_2', 'Divorced', true, 'calculate_credit_family_status_option_3', NOW(), NOW()),
-('calculate_credit_family_status_option_4', 'option', 'personal_details', 'calculate_credit_2', 'Widowed', true, 'calculate_credit_family_status_option_4', NOW(), NOW()),
-('calculate_credit_family_status_option_5', 'option', 'personal_details', 'calculate_credit_2', 'Common law marriage', true, 'calculate_credit_family_status_option_5', NOW(), NOW()),
-('calculate_credit_family_status_option_6', 'option', 'personal_details', 'calculate_credit_2', 'Other', true, 'calculate_credit_family_status_option_6', NOW(), NOW()),
+('calculate_credit_family_status', 'field_label', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_family_status_ph', 'placeholder', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_family_status_option_1', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_family_status_option_2', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_family_status_option_3', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_family_status_option_4', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_family_status_option_5', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_family_status_option_6', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
 
 -- Citizenship field
-('calculate_credit_citizenship', 'field_label', 'personal_details', 'calculate_credit_2', 'Citizenship field label', true, 'calculate_credit_citizenship', NOW(), NOW()),
-('calculate_credit_citizenship_ph', 'placeholder', 'personal_details', 'calculate_credit_2', 'Citizenship placeholder', true, 'calculate_credit_citizenship_ph', NOW(), NOW()),
-('calculate_credit_citizenship_option_1', 'option', 'personal_details', 'calculate_credit_2', 'Israeli citizen', true, 'calculate_credit_citizenship_option_1', NOW(), NOW()),
-('calculate_credit_citizenship_option_2', 'option', 'personal_details', 'calculate_credit_2', 'New immigrant', true, 'calculate_credit_citizenship_option_2', NOW(), NOW()),
-('calculate_credit_citizenship_option_3', 'option', 'personal_details', 'calculate_credit_2', 'Foreign resident', true, 'calculate_credit_citizenship_option_3', NOW(), NOW()),
+('calculate_credit_citizenship', 'field_label', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_citizenship_ph', 'placeholder', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_citizenship_option_1', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_citizenship_option_2', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_citizenship_option_3', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
 
 -- Medical Insurance field
-('calculate_credit_medical_insurance', 'field_label', 'personal_details', 'calculate_credit_2', 'Medical insurance field label', true, 'calculate_credit_medical_insurance', NOW(), NOW()),
-('calculate_credit_medical_insurance_option_1', 'option', 'personal_details', 'calculate_credit_2', 'Yes', true, 'calculate_credit_medical_insurance_option_1', NOW(), NOW()),
-('calculate_credit_medical_insurance_option_2', 'option', 'personal_details', 'calculate_credit_2', 'No', true, 'calculate_credit_medical_insurance_option_2', NOW(), NOW()),
+('calculate_credit_medical_insurance', 'field_label', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_medical_insurance_option_1', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_medical_insurance_option_2', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
 
 -- Foreigner field
-('calculate_credit_foreigner', 'field_label', 'personal_details', 'calculate_credit_2', 'Foreigner field label', true, 'calculate_credit_foreigner', NOW(), NOW()),
-('calculate_credit_foreigner_option_1', 'option', 'personal_details', 'calculate_credit_2', 'Yes', true, 'calculate_credit_foreigner_option_1', NOW(), NOW()),
-('calculate_credit_foreigner_option_2', 'option', 'personal_details', 'calculate_credit_2', 'No', true, 'calculate_credit_foreigner_option_2', NOW(), NOW()),
+('calculate_credit_foreigner', 'field_label', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_foreigner_option_1', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_foreigner_option_2', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
 
 -- Public Person field
-('calculate_credit_public_person', 'field_label', 'personal_details', 'calculate_credit_2', 'Public person field label', true, 'calculate_credit_public_person', NOW(), NOW()),
-('calculate_credit_public_person_option_1', 'option', 'personal_details', 'calculate_credit_2', 'Yes', true, 'calculate_credit_public_person_option_1', NOW(), NOW()),
-('calculate_credit_public_person_option_2', 'option', 'personal_details', 'calculate_credit_2', 'No', true, 'calculate_credit_public_person_option_2', NOW(), NOW()),
+('calculate_credit_public_person', 'field_label', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_public_person_option_1', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_public_person_option_2', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
 
 -- US Tax Reporting field
-('calculate_credit_us_tax_reporting', 'field_label', 'personal_details', 'calculate_credit_2', 'US tax reporting field label', true, 'calculate_credit_us_tax_reporting', NOW(), NOW()),
-('calculate_credit_us_tax_reporting_option_1', 'option', 'personal_details', 'calculate_credit_2', 'Yes', true, 'calculate_credit_us_tax_reporting_option_1', NOW(), NOW()),
-('calculate_credit_us_tax_reporting_option_2', 'option', 'personal_details', 'calculate_credit_2', 'No', true, 'calculate_credit_us_tax_reporting_option_2', NOW(), NOW()),
+('calculate_credit_us_tax_reporting', 'field_label', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_us_tax_reporting_option_1', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_us_tax_reporting_option_2', 'option', 'personal_details', 'calculate_credit_2', 'active', NOW(), NOW()),
 
 -- Navigation buttons
-('calculate_credit_step2_next_button', 'button', 'navigation', 'calculate_credit_2', 'Next step button', true, 'calculate_credit_step2_next_button', NOW(), NOW()),
-('calculate_credit_step2_back_button', 'button', 'navigation', 'calculate_credit_2', 'Back step button', true, 'calculate_credit_step2_back_button', NOW(), NOW())
+('calculate_credit_step2_next_button', 'button', 'navigation', 'calculate_credit_2', 'active', NOW(), NOW()),
+('calculate_credit_step2_back_button', 'button', 'navigation', 'calculate_credit_2', 'active', NOW(), NOW())
 
-ON CONFLICT (content_key) DO NOTHING;
+ON CONFLICT (key, screen_location) DO NOTHING;
 
 -- Insert translations for all content items
 -- English translations
-INSERT INTO content_translations (content_item_id, language_code, content_value, status, created_at, updated_at)
+INSERT INTO content_translations (content_item_id, language_code, value, status, created_at, updated_at)
 SELECT 
     ci.id,
     'en',
-    CASE ci.content_key
+    CASE ci.key
         -- Main title
         WHEN 'calculate_credit_step2_title' THEN 'Personal Details'
         
@@ -133,7 +131,7 @@ SELECT
         WHEN 'calculate_credit_step2_next_button' THEN 'Continue'
         WHEN 'calculate_credit_step2_back_button' THEN 'Back'
         
-        ELSE ci.content_key
+        ELSE ci.key
     END,
     'approved',
     NOW(),
@@ -143,11 +141,11 @@ WHERE ci.screen_location = 'calculate_credit_2'
 ON CONFLICT (content_item_id, language_code) DO NOTHING;
 
 -- Hebrew translations
-INSERT INTO content_translations (content_item_id, language_code, content_value, status, created_at, updated_at)
+INSERT INTO content_translations (content_item_id, language_code, value, status, created_at, updated_at)
 SELECT 
     ci.id,
     'he',
-    CASE ci.content_key
+    CASE ci.key
         -- Main title
         WHEN 'calculate_credit_step2_title' THEN 'פרטים אישיים'
         
@@ -203,7 +201,7 @@ SELECT
         WHEN 'calculate_credit_step2_next_button' THEN 'המשך'
         WHEN 'calculate_credit_step2_back_button' THEN 'חזרה'
         
-        ELSE ci.content_key
+        ELSE ci.key
     END,
     'approved',
     NOW(),
@@ -213,11 +211,11 @@ WHERE ci.screen_location = 'calculate_credit_2'
 ON CONFLICT (content_item_id, language_code) DO NOTHING;
 
 -- Russian translations
-INSERT INTO content_translations (content_item_id, language_code, content_value, status, created_at, updated_at)
+INSERT INTO content_translations (content_item_id, language_code, value, status, created_at, updated_at)
 SELECT 
     ci.id,
     'ru',
-    CASE ci.content_key
+    CASE ci.key
         -- Main title
         WHEN 'calculate_credit_step2_title' THEN 'Личные данные'
         
@@ -273,7 +271,7 @@ SELECT
         WHEN 'calculate_credit_step2_next_button' THEN 'Продолжить'
         WHEN 'calculate_credit_step2_back_button' THEN 'Назад'
         
-        ELSE ci.content_key
+        ELSE ci.key
     END,
     'approved',
     NOW(),
