@@ -16,6 +16,7 @@ import { Row } from '@src/components/ui/Row'
 import { useAppDispatch } from '@src/hooks/store'
 import { setActiveField } from '@src/pages/Services/slices/activeField'
 import { CalculateMortgageTypes } from '@src/pages/Services/types/formTypes'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 interface CityOption {
   value: string
@@ -24,6 +25,7 @@ interface CityOption {
 
 const FirstStepForm = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('mortgage_calculation')
   const dispatch = useAppDispatch()
 
   const [cityOptions, setCityOptions] = useState<CityOption[]>([])
@@ -106,33 +108,33 @@ const FirstStepForm = () => {
     fetchLtvRatios()
   }, [i18n.language])
 
-  // Use useMemo to ensure dropdown options update when translations change
+  // Use useMemo to ensure dropdown options update when content changes
   const WhenDoYouNeedMoneyOptions = useMemo(() => [
-    { value: '1', label: t('calculate_mortgage_when_options_1') },
-    { value: '2', label: t('calculate_mortgage_when_options_2') },
-    { value: '3', label: t('calculate_mortgage_when_options_3') },
-    { value: '4', label: t('calculate_mortgage_when_options_4') },
-  ], [t])
+    { value: '1', label: getContent('mortgage_calculation.field.when_needed_option_1', 'calculate_mortgage_when_options_1') },
+    { value: '2', label: getContent('mortgage_calculation.field.when_needed_option_2', 'calculate_mortgage_when_options_2') },
+    { value: '3', label: getContent('mortgage_calculation.field.when_needed_option_3', 'calculate_mortgage_when_options_3') },
+    { value: '4', label: getContent('mortgage_calculation.field.when_needed_option_4', 'calculate_mortgage_when_options_4') },
+  ], [getContent])
 
   const TypeSelectOptions = useMemo(() => [
-    { value: '1', label: t('calculate_mortgage_type_options_1') },
-    { value: '2', label: t('calculate_mortgage_type_options_2') },
-    { value: '3', label: t('calculate_mortgage_type_options_3') },
-    { value: '4', label: t('calculate_mortgage_type_options_4') },
-  ], [t])
+    { value: '1', label: getContent('mortgage_calculation.field.type_option_1', 'calculate_mortgage_type_options_1') },
+    { value: '2', label: getContent('mortgage_calculation.field.type_option_2', 'calculate_mortgage_type_options_2') },
+    { value: '3', label: getContent('mortgage_calculation.field.type_option_3', 'calculate_mortgage_type_options_3') },
+    { value: '4', label: getContent('mortgage_calculation.field.type_option_4', 'calculate_mortgage_type_options_4') },
+  ], [getContent])
 
   const WillBeYourFirstOptions = useMemo(() => [
-    { value: '1', label: t('calculate_mortgage_first_options_1') },
-    { value: '2', label: t('calculate_mortgage_first_options_2') },
-    { value: '3', label: t('calculate_mortgage_first_options_3') },
-  ], [t])
+    { value: '1', label: getContent('mortgage_calculation.field.first_home_option_1', 'calculate_mortgage_first_options_1') },
+    { value: '2', label: getContent('mortgage_calculation.field.first_home_option_2', 'calculate_mortgage_first_options_2') },
+    { value: '3', label: getContent('mortgage_calculation.field.first_home_option_3', 'calculate_mortgage_first_options_3') },
+  ], [getContent])
 
   // Property Ownership Options (Confluence Action #12 - affects LTV ratios 75%/50%/70%)
   const PropertyOwnershipOptions = useMemo(() => [
-    { value: 'no_property', label: t('calculate_mortgage_property_ownership_option_1') },      // 75% financing
-    { value: 'has_property', label: t('calculate_mortgage_property_ownership_option_2') },     // 50% financing  
-    { value: 'selling_property', label: t('calculate_mortgage_property_ownership_option_3') }, // 70% financing
-  ], [t])
+    { value: 'no_property', label: getContent('mortgage_calculation.field.property_ownership_option_1', 'calculate_mortgage_property_ownership_option_1') },      // 75% financing
+    { value: 'has_property', label: getContent('mortgage_calculation.field.property_ownership_option_2', 'calculate_mortgage_property_ownership_option_2') },     // 50% financing  
+    { value: 'selling_property', label: getContent('mortgage_calculation.field.property_ownership_option_3', 'calculate_mortgage_property_ownership_option_3') }, // 70% financing
+  ], [getContent])
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<CalculateMortgageTypes>()
@@ -177,7 +179,7 @@ const FirstStepForm = () => {
   return (
     <>
       <FormContainer>
-        <FormCaption title={t('calculate_mortgage_title')} />
+        <FormCaption title={getContent('mortgage_calculation.header.title', 'calculate_mortgage_title')} />
         <Row>
           <Column>
             <FormattedInput
@@ -186,7 +188,7 @@ const FirstStepForm = () => {
                 setFieldValue('priceOfEstate', value)
               }}
               name="PriceOfEstate"
-              title={t('calculate_mortgage_price')}
+              title={getContent('mortgage_calculation.field.property_price', 'calculate_mortgage_price')}
               value={values.priceOfEstate}
               placeholder="1,000,000"
               error={errors.priceOfEstate}
@@ -195,7 +197,7 @@ const FirstStepForm = () => {
           </Column>
           <Column>
             <DropdownMenu
-              title={t('calculate_mortgage_city')}
+              title={getContent('mortgage_calculation.field.city', 'calculate_mortgage_city')}
               data={cityOptions}
               placeholder={t('city')}
               value={values.cityWhereYouBuy}
@@ -209,9 +211,9 @@ const FirstStepForm = () => {
           </Column>
           <Column>
             <DropdownMenu
-              title={t('calculate_mortgage_when')}
+              title={getContent('mortgage_calculation.field.when_needed', 'calculate_mortgage_when')}
               data={WhenDoYouNeedMoneyOptions}
-              placeholder={t('calculate_mortgage_when_options_ph')}
+              placeholder={getContent('mortgage_calculation.field.when_needed_ph', 'calculate_mortgage_when_options_ph')}
               value={values.whenDoYouNeedMoney}
               onChange={(value) => setFieldValue('whenDoYouNeedMoney', value)}
               onBlur={() => setFieldTouched('whenDoYouNeedMoney', true)}
@@ -227,7 +229,7 @@ const FirstStepForm = () => {
               value={values.initialFee}
               min={getMinInitialPayment(values.priceOfEstate, values.propertyOwnership)}
               max={values.priceOfEstate || 1}
-              title={t('calculate_mortgage_initial_fee')}
+              title={getContent('mortgage_calculation.field.initial_fee', 'calculate_mortgage_initial_fee')}
               handleChange={(value) => {
                 dispatch(setActiveField('period'))
                 setFieldValue('initialFee', value)
@@ -241,9 +243,9 @@ const FirstStepForm = () => {
           </Column>
           <Column>
             <DropdownMenu
-              title={t('calculate_mortgage_type')}
+              title={getContent('mortgage_calculation.field.type', 'calculate_mortgage_type')}
               data={TypeSelectOptions}
-              placeholder={t('calculate_mortgage_type_ph')}
+              placeholder={getContent('mortgage_calculation.field.type_ph', 'calculate_mortgage_type_ph')}
               value={values.typeSelect}
               onChange={(value) => setFieldValue('typeSelect', value)}
               onBlur={() => setFieldTouched('typeSelect', true)}
@@ -252,9 +254,9 @@ const FirstStepForm = () => {
           </Column>
           <Column>
             <DropdownMenu
-              title={t('calculate_mortgage_first')}
+              title={getContent('mortgage_calculation.field.first_home', 'calculate_mortgage_first')}
               data={WillBeYourFirstOptions}
-              placeholder={t('calculate_mortgage_first_ph')}
+              placeholder={getContent('mortgage_calculation.field.first_home_ph', 'calculate_mortgage_first_ph')}
               value={values.willBeYourFirst}
               onChange={(value) => setFieldValue('willBeYourFirst', value)}
               onBlur={() => setFieldTouched('willBeYourFirst', true)}
@@ -266,9 +268,9 @@ const FirstStepForm = () => {
         <Row>
           <Column>
             <DropdownMenu
-              title={t('calculate_mortgage_property_ownership')}
+              title={getContent('mortgage_calculation.field.property_ownership', 'calculate_mortgage_property_ownership')}
               data={PropertyOwnershipOptions}
-              placeholder={t('calculate_mortgage_property_ownership_ph')}
+              placeholder={getContent('mortgage_calculation.field.property_ownership_ph', 'calculate_mortgage_property_ownership_ph')}
               value={values.propertyOwnership}
               onChange={(value) => setFieldValue('propertyOwnership', value)}
               onBlur={() => setFieldTouched('propertyOwnership', true)}

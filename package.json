@@ -26,6 +26,7 @@
     "@playwright/mcp": "^0.0.29",
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
-    "eslint-plugin-react": "^7.37.5"
+    "eslint-plugin-react": "^7.37.5",
+    "node-fetch": "^2.7.0"
   }
 }
