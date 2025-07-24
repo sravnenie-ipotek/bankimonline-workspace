@@ -1,0 +1,1336 @@
+{
+  "he": {
+    "issues": [
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "fill_form_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "f",
+        "type": "Translation key",
+        "element": "button"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "f",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Hebrew",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Product Designer",
+        "type": "English in Hebrew",
+        "element": "h3"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Hebrew",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Frontend Developer",
+        "type": "English in Hebrew",
+        "element": "h3"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Hebrew",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "fill_form_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "X",
+        "type": "Translation key",
+        "element": "button"
+      }
+    ],
+    "summary": {
+      "Home": 10,
+      "About": 8,
+      "Contacts": 10,
+      "Vacancies": 13,
+      "Cooperation": 9,
+      "Brokers": 8,
+      "Other Borrowers 1": 9,
+      "Other Borrowers 2": 10,
+      "Login": 8,
+      "Registration": 9
+    }
+  },
+  "ru": {
+    "issues": [
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "f",
+        "type": "Translation key",
+        "element": "button"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "f",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Russian",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Product Designer",
+        "type": "English in Russian",
+        "element": "h3"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Russian",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Frontend Developer",
+        "type": "English in Russian",
+        "element": "h3"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Russian",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "INSTAGRAM",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "YOUTUBE",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "FACEBOOK",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "TWITTER",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "X",
+        "type": "Translation key",
+        "element": "button"
+      }
+    ],
+    "summary": {
+      "Home": 9,
+      "About": 8,
+      "Contacts": 10,
+      "Vacancies": 13,
+      "Cooperation": 9,
+      "Brokers": 8,
+      "Other Borrowers 1": 9,
+      "Other Borrowers 2": 9,
+      "Login": 8,
+      "Registration": 9
+    }
+  }
+}

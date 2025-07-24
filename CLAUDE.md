@@ -6,6 +6,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a banking/financial services web application with a React frontend and Node.js backend, designed for mortgage and credit calculations. The application features multi-language support (English, Hebrew, Russian), complex multi-step forms, and integration with a PostgreSQL database hosted on Railway.
 
+## Quick Start
+
+### Start Development Environment
+```bash
+# Start both API server (port 8003) and file server (port 3001)
+npm run dev
+
+# Alternative: start servers individually
+node server-db.js  # API server only
+node serve.js      # Static file server only
+```
+
+### Frontend Development
+```bash
+cd mainapp
+npm run dev  # Starts on port 5173 with API proxy to 8003
+```
+
 ## Development Commands
 
 ### Backend (Node.js API Server)
@@ -65,6 +83,11 @@ npm run test:e2e:headed
 
 # Run component tests
 npm run cypress:component
+
+# Test translation coverage
+npm run test:translations
+npm run test:translations:full
+npm run test:translations:screenshots
 ```
 
 ### Database
@@ -84,6 +107,13 @@ node test-login-flow.js
 # Build and run with Docker
 docker build -t bankdev .
 docker run -p 8003:8003 bankdev
+```
+
+### Database Migrations
+```bash
+# Run migrations (check migrations/ directory for SQL files)
+# Files are numbered sequentially (001-xxx.sql)
+# Recent migrations include content management system setup
 ```
 
 ## Architecture Overview
@@ -115,9 +145,13 @@ docker run -p 8003:8003 bankdev
 │   ├── public/          # Static assets
 │   └── cypress/         # E2E and component tests
 ├── server-db.js         # Main API server with PostgreSQL
-├── migrations/          # Database migration files
+├── serve.js             # Static file server (port 3001)
+├── start-dev.js         # Development launcher script
+├── migrations/          # Database migration files (numbered SQL)
 ├── locales/            # Translation files (en/he/ru)
-└── uploads/            # File upload directory
+├── uploads/            # File upload directory
+├── scripts/            # Utility scripts (sync-translations.js)
+└── DEVHelp/           # Development documentation
 ```
 
 ### Key Application Features
@@ -211,6 +245,20 @@ The application is deployed on Railway using Docker:
 - Frontend is built and served statically
 - Backend runs on port 8003
 - PostgreSQL database on Railway infrastructure
+- Static files served via serve.js on port 3001 (development only)
+
+### Build Configuration
+
+#### Vite Configuration
+- Path aliases configured: @src, @components, @pages, @assets, @lib, @shared, @context, @hooks, @types
+- Manual chunks for optimal code splitting (react, ui, state, forms, utils, i18n vendors)
+- Build output directory: mainapp/build
+- Dev server proxy: /api → localhost:8003
+
+#### TypeScript Configuration
+- Strict mode enabled
+- Path aliases matching Vite config
+- ES2022 target for modern features
 
 ### Important Patterns
 
@@ -290,16 +338,29 @@ This logic affects slider ranges, validation rules, and API calculations.
 - **RTL Support**: Hebrew language with right-to-left layout handling
 - **Font Loading**: Dynamic Hebrew font loading for proper RTL display
 
+### Dual-Server Architecture (Development)
+
+The development environment uses TWO servers:
+1. **API Server** (server-db.js) - Port 8003 - Handles API requests and database operations
+2. **File Server** (serve.js) - Port 3001 - Serves static files from uploads directory
+
+This setup is managed by start-dev.js which launches both servers with proper logging.
+
 ### Development Debugging
 
 #### Server Startup Issues
 If APIs fail with connection refused:
 ```bash
-# Check if backend server is running
-ps aux | grep "node.*server-db.js"
+# Use the development launcher (starts both servers)
+npm run dev
 
-# Start backend server in background
-nohup node server-db.js > server.log 2>&1 &
+# Or check if servers are running individually
+ps aux | grep "node.*server-db.js"
+ps aux | grep "node.*serve.js"
+
+# Start servers individually if needed
+node server-db.js  # API server
+node serve.js      # File server
 
 # Check server logs
 tail -f server.log
@@ -331,6 +392,18 @@ Frontend environment variables:
 - `VITE_NODE_API_BASE_URL` - API base URL override
 - `VITE_APP_NAME` - Application name
 - `VITE_APP_ENV` - Environment designation
+
+### Testing Configuration
+
+#### Cypress Setup
+- Base URL: http://localhost:5173
+- API URL: http://localhost:8003
+- Default viewport: 1920x1080
+- Test data configured in cypress.config.ts
+- Test user phone: 972544123456 (mock OTP: 123456)
+- Support for E2E and component testing
+- Translation testing with screenshot capabilities
+- Retry configuration: 2 retries in run mode
 
 ## Translation Management
 
@@ -390,3 +463,17 @@ npm run sync-translations
 # From frontend directory
 cd mainapp && npm run sync-translations
 ```
+
+## Migration Strategy
+
+### Database Content Migration
+The project is transitioning from JSON-based translations to database-backed content management:
+- Migration files in `migrations/` directory handle the transition
+- Content management tables: `content_pages`, `content_items`, `content_sections`
+- Use numbered migration files (e.g., 001-xxx.sql) for sequential execution
+- Recent migrations focus on moving UI text from translation.json to database
+
+### Key Migration Scripts
+- `migrate-mortgage-calculator-to-db.js` - Migrates calculator content
+- `comment-out-migrated-keys.js` - Comments migrated keys in JSON files
+- Check `migrations/MIGRATION_STATUS.md` for current migration progress
