@@ -59,6 +59,8 @@ export const validationSchema = Yup.object().shape({
         .test('end-date-after-start', i18next.t('error_credit_end_date_validation'), function(value) {
           const { startDate } = this.parent;
           if (!value || !startDate) return true;
+          
+          // Both values are now consistently string dates in YYYY-MM-DD format
           return new Date(value) > new Date(startDate);
         }),
       earlyRepayment: Yup.number()
