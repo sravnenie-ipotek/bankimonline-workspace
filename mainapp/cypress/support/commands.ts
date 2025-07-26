@@ -197,5 +197,39 @@ Cypress.Commands.add('clickContinueButton', () => {
   });
 });
 
+// Custom command to take organized screenshots
+Cypress.Commands.add('takeScreenshot', (name: string, options?: { capture?: 'viewport' | 'fullPage' | 'runner', clip?: any }) => {
+  // Get current test info
+  const testTitle = Cypress.currentTest.title;
+  const specName = Cypress.spec.name.replace(/\.cy\.(ts|js)$/, '');
+  
+  // Create descriptive filename
+  const timestamp = new Date().toISOString().replace(/:/g, '-').split('.')[0];
+  const screenshotName = `${specName}_${testTitle.replace(/\s+/g, '_')}_${name}_${timestamp}`;
+  
+  // Take screenshot with custom name
+  cy.screenshot(screenshotName, options || { capture: 'viewport' });
+});
+
+// Command to take screenshot of specific element
+Cypress.Commands.add('screenshotElement', (selector: string, name: string) => {
+  cy.get(selector).screenshot(name, {
+    overwrite: true,
+    capture: 'viewport'
+  });
+});
+
+// Command to document test step with screenshot
+Cypress.Commands.add('documentStep', (stepName: string, description?: string) => {
+  // Log the step
+  cy.log(`📸 **${stepName}**`, description || '');
+  
+  // Take screenshot
+  cy.takeScreenshot(stepName.replace(/\s+/g, '_'));
+  
+  // Optional: Add task to write to a log file
+  cy.task('log', `Step: ${stepName} - ${description || 'No description'}`);
+});
+
 // Export empty object to make this a module
 export {}
