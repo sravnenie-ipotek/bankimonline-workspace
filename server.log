@@ -101,3 +101,156 @@
 [0mGET /api/content/step3_header/en [32m200[0m 87.635 ms - 264[0m
 [0mGET /api/content/step3_personal_info/en [32m200[0m 88.765 ms - 2098[0m
 [0mGET /api/content/step4_employment/en [32m200[0m 88.211 ms - 1152[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 437.582 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 544.220 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 597.621 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 602.222 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 416.571 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 437.760 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 439.467 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 458.353 ms - 837[0m
+[0mGET /api/content/sms_code_verification/ru [32m200[0m 500.567 ms - 896[0m
+[0mGET /api/content/sms_code_verification/ru [36m304[0m 88.712 ms - -[0m
+[0mGET /api/content/sms_code_verification/ru [36m304[0m 86.614 ms - -[0m
+[0mGET /api/content/sms_code_verification/ru [36m304[0m 86.522 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 84.471 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 84.878 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 642.241 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 87.516 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 86.204 ms - -[0m
+[0mGET /api/v1/content/refinance-credit/1 [33m404[0m 0.365 ms - 34[0m
+[0mGET /api/content/refinance_credit_1/en [32m200[0m 405.614 ms - 7814[0m
+[0mGET /api/content/refinance_credit_1/en [32m200[0m 411.852 ms - 7814[0m
+[0mGET /api/content/refinance_credit_2/en [32m200[0m 81.852 ms - 6650[0m
+[0mGET /api/content/refinance_credit_3/en [32m200[0m 79.915 ms - 3385[0m
+[0mGET /api/content/refinance_credit_4/en [32m200[0m 80.210 ms - 1295[0m
+[0mGET /api/content/home_page/he [32m200[0m 507.676 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 509.685 ms - 4186[0m
+[0mGET /api/content/sidebar/he [32m200[0m 511.216 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 540.511 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 543.664 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 88.735 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 89.111 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 90.153 ms - 4186[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 90.979 ms - 837[0m
+[0mGET /api/content/sidebar/he [32m200[0m 92.054 ms - 4186[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 88.949 ms - 837[0m
+[0mGET /api/content/home_page/he [32m200[0m 90.338 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 91.562 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 91.399 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 92.971 ms - 4186[0m
+[0mGET /api/content/sidebar/he [32m200[0m 90.023 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 91.240 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 90.770 ms - 3402[0m
+[CITIES] Request for language: he
+[CITIES] Request for language: he
+[0mGET /api/content/calculate_credit_1/he [32m200[0m 88.713 ms - 2699[0m
+[0mGET /api/content/calculate_credit_1/he [32m200[0m 87.301 ms - 2699[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 87.864 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 87.868 ms - 837[0m
+[0mGET /api/get-cities?lang=he [32m200[0m 554.445 ms - 1553[0m
+[0mGET /api/get-cities?lang=he [32m200[0m 566.669 ms - 1553[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 720.579 ms - 2783[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 736.754 ms - 2783[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=credit [32m200[0m 747.634 ms - 2091[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=credit [32m200[0m 745.304 ms - 2091[0m
+[0mGET /api/content/sidebar/he [32m200[0m 87.028 ms - 4186[0m
+[0mGET /api/content/sidebar/he [32m200[0m 88.516 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 86.533 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 83.675 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 86.138 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 87.815 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 81.096 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 88.023 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 88.518 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 85.121 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 83.628 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 85.950 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 428.831 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 83.679 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 442.098 ms - 4186[0m
+[0mGET /api/content/sidebar/he [32m200[0m 399.985 ms - 4186[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 81.162 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 87.596 ms - 837[0m
+[REFINANCE CREDIT] New request received
+[REFINANCE CREDIT] Data: {
+  loans_data: [
+    {
+      id: 1,
+      bank: 'hapoalim',
+      amount: 100000,
+      monthly_payment: 1000,
+      start_date: '2020-07-26',
+      end_date: '2035-07-26',
+      early_repayment: null
+    },
+    {
+      id: 2,
+      bank: 'discount',
+      amount: 100000,
+      monthly_payment: 1000,
+      start_date: '2025-07-21',
+      end_date: '2025-07-31',
+      early_repayment: null
+    }
+  ],
+  monthly_income: undefined,
+  expenses: undefined
+}
+[0mGET /api/content/sms_verification/he [32m200[0m 396.424 ms - 1898[0m
+[0mGET /api/content/sms_verification/he [32m200[0m 412.836 ms - 1898[0m
+[REFINANCE CREDIT] Database-driven calculation: 7.5% rate (down from 8.5%), ₪4008/month, ₪5700 total savings
+[0mPOST /api/refinance-credit [32m200[0m 635.195 ms - 259[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 431.142 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 86.220 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 551.927 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 86.162 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 80.920 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 85.108 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 83.121 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 397.017 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 404.823 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 418.403 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 434.391 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 421.102 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 82.942 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 552.444 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 83.567 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 81.623 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 85.021 ms - 837[0m
+[0mGET /api/banks/list [36m304[0m 83.013 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 400.595 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 421.670 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 422.078 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 422.301 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 83.671 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 81.537 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 84.450 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 80.199 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 81.844 ms - -[0m
+[0mGET /api/banks/list [36m304[0m 80.880 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 84.446 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 78.373 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 82.245 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 88.148 ms - 837[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 88.920 ms - 837[0m
+[0mGET /api/content/home_page/he [32m200[0m 501.454 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 509.070 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 508.260 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 541.674 ms - 4186[0m
+[0mGET /api/content/sidebar/he [32m200[0m 542.451 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 88.887 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 89.537 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 89.668 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 93.142 ms - 4186[0m
+[0mGET /api/content/sidebar/he [32m200[0m 94.868 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 87.470 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 86.243 ms - 3402[0m
+[0mGET /api/content/sidebar/he [32m200[0m 88.521 ms - 4186[0m
+[0mGET /api/content/sidebar/he [32m200[0m 93.575 ms - 4186[0m
+[0mGET /api/content/home_page/he [32m200[0m 95.732 ms - 3402[0m
+[0mGET /api/content/home_page/he [32m200[0m 88.800 ms - 3402[0m

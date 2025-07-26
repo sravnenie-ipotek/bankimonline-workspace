@@ -193,8 +193,21 @@
   "calculate_credit_progress_step_3": "Income details",
   "calculate_credit_progress_step_4": "Summary and results",
   "calculate_credit_prolong": "Desired repayment period",
+  "calculate_credit_prolong_option_1": "Up to one year",
+  "calculate_credit_prolong_option_2": "Up to two years",
+  "calculate_credit_prolong_option_3": "Up to 3 years",
+  "calculate_credit_prolong_option_4": "Up to 5 years",
+  "calculate_credit_prolong_option_5": "Over 5 years",
+  "calculate_credit_prolong_option_6": "Over 7 years",
+  "calculate_credit_prolong_option_7": "Over 10 years",
   "calculate_credit_prolong_ph": "Select repayment period",
   "calculate_credit_target": "Credit purpose",
+  "calculate_credit_target_option_1": "Vehicle purchase",
+  "calculate_credit_target_option_2": "Home renovation",
+  "calculate_credit_target_option_3": "Wedding and events",
+  "calculate_credit_target_option_4": "Business investment",
+  "calculate_credit_target_option_5": "Improve future credit eligibility",
+  "calculate_credit_target_option_6": "Other",
   "calculate_credit_target_ph": "Select credit purpose",
   "calculate_credit_total_interest": "Total expected interest",
   "calculate_credit_total_payment": "Total payment amount",
@@ -1475,6 +1488,7 @@
   "year_dual": "years",
   "year_plural": "years",
   "yes": "Yes",
+
   "_comment_refinance_step2": "=== REFINANCE STEP 2 - Personal Details ===",
   "refinance_step2_name_surname": "Full Name",
   "refinance_step2_name_surname_ph": "Enter first name and last name",
@@ -1505,6 +1519,7 @@
   "refinance_step2_medical_insurance": "Are you insured with valid health insurance and entitled to medical services under the law?",
   "refinance_step2_public_person": "Do you hold a senior public position or are you among the entities defined as a Politically Exposed Person (PEP)?",
   "refinance_step2_tax_obligations": "Are you liable for tax in foreign countries or additional countries beyond Israel?",
+
   "_comment_refinance_step3": "=== REFINANCE STEP 3 - Income Details ===",
   "refinance_step3_main_source_income": "Main source of income",
   "refinance_step3_main_source_income_ph": "Select main source of income",
@@ -1542,6 +1557,7 @@
   "refinance_step3_add_workplace": "Add workplace",
   "refinance_step3_add_additional_income": "Add additional income source",
   "refinance_step3_add_obligation": "Add obligation",
+
   "_comment_refinance_step4": "=== REFINANCE STEP 4 - Summary ===",
   "refinance_step4_title": "Refinancing Summary",
   "refinance_step4_parameters_title": "Refinancing Parameters",
@@ -1560,6 +1576,7 @@
   "refinance_step4_refinance_total_return": "Total Return After Refinancing",
   "refinance_step4_refinance_select_bank": "Select Bank",
   "refinance_step4_warning": "The detailed results above are estimates only and do not constitute an offer or commitment from the bank. Final terms depend on full underwriting by the selected bank.",
+
   "_comment_credit_step1": "=== CREDIT CALCULATOR STEP 1 - Basic Details ===",
   "credit_step1_title": "Credit Calculator",
   "credit_step1_credit_amount": "Credit Amount",
@@ -1570,6 +1587,7 @@
   "credit_step1_credit_purpose_ph": "Select credit purpose",
   "credit_step1_monthly_payment": "Desired Monthly Payment",
   "credit_step1_monthly_payment_ph": "Enter desired monthly payment",
+
   "_comment_credit_step2": "=== CREDIT CALCULATOR STEP 2 - Personal Details ===",
   "credit_step2_title": "Personal Details",
   "credit_step2_name_surname": "Full Name",
@@ -1591,6 +1609,7 @@
   "credit_step2_email_ph": "Enter email address",
   "credit_step2_address": "Current Address",
   "credit_step2_address_ph": "Enter current address",
+
   "_comment_credit_step3": "=== CREDIT CALCULATOR STEP 3 - Income Details ===",
   "credit_step3_title": "Income and Financial Details",
   "credit_step3_main_source_income": "Main source of income",
@@ -1612,6 +1631,7 @@
   "credit_step3_existing_loans": "Do you have existing loans?",
   "credit_step3_existing_loans_amount": "Total monthly payments for existing loans",
   "credit_step3_existing_loans_amount_ph": "Enter total monthly payments",
+
   "_comment_credit_step4": "=== CREDIT CALCULATOR STEP 4 - Summary ===",
   "credit_step4_title": "Credit Application Summary",
   "credit_step4_parameters_title": "Credit Parameters",
@@ -1629,12 +1649,14 @@
   "credit_step4_credit_total_return": "Total Return",
   "credit_step4_credit_select_lender": "Select Lender",
   "credit_step4_warning": "The credit options presented are preliminary estimates based on the information provided. Final terms are subject to lender approval and full credit assessment.",
+
   "_comment_common_buttons": "=== COMMON BUTTONS AND NAVIGATION ===",
   "common_button_next": "Next",
   "common_button_back": "Back",
   "common_button_submit": "Submit",
   "common_button_save": "Save",
   "common_button_cancel": "Cancel",
+
   "_comment_refinance_results": "=== REFINANCE RESULTS SCREEN ===",
   "refinance_results_title": "Refinancing Results",
   "refinance_results_savings_title": "Your Potential Savings",
@@ -1646,6 +1668,7 @@
   "refinance_results_recommendation": "Based on your current mortgage terms and market conditions, refinancing could save you money.",
   "refinance_results_apply_button": "Apply for Refinancing",
   "refinance_results_compare_button": "Compare More Options",
+
   "_comment_credit_results": "=== CREDIT CALCULATOR RESULTS SCREEN ===",
   "credit_results_title": "Credit Options",
   "credit_results_best_offer": "Best Credit Offer",
@@ -1658,18 +1681,5 @@
   "credit_results_documents_required": "Required Documents",
   "credit_results_apply_now": "Apply Now",
   "credit_results_save_comparison": "Save Comparison",
-  "credit_results_contact_advisor": "Contact Financial Advisor",
-  "__MIGRATED_calculate_credit_prolong_option_1": "Up to one year",
-  "__MIGRATED_calculate_credit_prolong_option_2": "Up to two years",
-  "__MIGRATED_calculate_credit_prolong_option_3": "Up to 3 years",
-  "__MIGRATED_calculate_credit_prolong_option_4": "Up to 5 years",
-  "__MIGRATED_calculate_credit_prolong_option_5": "Over 5 years",
-  "__MIGRATED_calculate_credit_prolong_option_6": "Over 7 years",
-  "__MIGRATED_calculate_credit_prolong_option_7": "Over 10 years",
-  "__MIGRATED_calculate_credit_target_option_1": "Vehicle purchase",
-  "__MIGRATED_calculate_credit_target_option_2": "Home renovation",
-  "__MIGRATED_calculate_credit_target_option_3": "Wedding and events",
-  "__MIGRATED_calculate_credit_target_option_4": "Business investment",
-  "__MIGRATED_calculate_credit_target_option_5": "Improve future credit eligibility",
-  "__MIGRATED_calculate_credit_target_option_6": "Other"
+  "credit_results_contact_advisor": "Contact Financial Advisor"
 }
