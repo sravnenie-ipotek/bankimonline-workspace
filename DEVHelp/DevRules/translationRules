@@ -51,6 +51,79 @@ const options = [
 ];
 ```
 
-10. Confidentiality and Compliance
+10. Screen Location Naming Conventions
+All screen locations in the content_items table MUST follow specific naming patterns for consistency:
+- **Process-Specific Prefixes**: Always use the process name as prefix
+  - Mortgage calculator: `mortgage_step1`, `mortgage_step2`, etc.
+  - Credit calculator: `calculate_credit_1`, `calculate_credit_2`, etc.
+  - Refinance: `refinance_step1`, `refinance_step2`, etc.
+- **Sub-Section Naming**: For multi-section steps, use descriptive suffixes
+  - Headers: `calculate_credit_3_header`
+  - Personal info: `calculate_credit_3_personal_info`
+  - Employment: `calculate_credit_4_employment`
+  - Income: `calculate_credit_4_income`
+- **NEVER use generic names**: Avoid `step3_header`, `form_section`, `page_content`
+- **Consistency Rule**: Follow existing patterns in the database
+
+Content Key Naming Patterns:
+- **Field Labels**: `{process}_{field_name}` (e.g., `calculate_credit_education`)
+- **Placeholders**: `{process}_{field_name}_ph` (e.g., `calculate_credit_education_ph`)
+- **Options**: `{process}_{field_name}_option_{number}` (e.g., `calculate_credit_education_option_1`)
+- **Buttons**: `{process}_{step}_button_type` (e.g., `calculate_credit_step2_next_button`)
+- **Titles**: `{process}_{step}_title` (e.g., `calculate_credit_step2_title`)
+
+Screen Location Categories by Process:
+```yaml
+mortgage_calculator:
+  - mortgage_step1, mortgage_step2, mortgage_step3, mortgage_step4
+  
+credit_calculator:
+  - calculate_credit_1, calculate_credit_2
+  - calculate_credit_3_header, calculate_credit_3_personal_info
+  - calculate_credit_4_header, calculate_credit_4_employment, calculate_credit_4_income
+  
+refinance_calculator:
+  - refinance_step1, refinance_step2, refinance_step3, refinance_step4
+```
+
+11. Migration Guidelines and Database Schema
+When migrating content from translation.json files to the database:
+
+Database Tables:
+- **content_items**: Stores content metadata and structure
+  - `content_key`: Unique identifier following naming patterns above
+  - `component_type`: 'field_label', 'placeholder', 'option', 'button', 'title', 'text'
+  - `category`: Logical grouping (e.g., 'personal_details', 'income_details', 'navigation')
+  - `screen_location`: Page/step identifier following naming conventions
+  - `is_active`: Boolean flag for content availability
+  - `legacy_translation_key`: Reference to original translation.json key
+
+- **content_translations**: Stores actual translated content
+  - `content_item_id`: References content_items.id
+  - `language_code`: 'en', 'he', 'ru'
+  - `content_value`: The actual translated text
+  - `status`: 'approved', 'draft', 'review', 'archived'
+
+Migration Process:
+1. **Analyze existing translation keys** for patterns and groupings
+2. **Create content_items entries** with proper naming conventions
+3. **Insert translations** for all three languages (EN/HE/RU)
+4. **Update components** to use database content via API
+5. **Comment out migrated keys** in translation.json with `__MIGRATED_` prefix
+6. **Test all language variations** and UI components
+7. **Document screen locations** in this file for future reference
+
+Example Migration SQL:
+```sql
+-- Insert content item
+INSERT INTO content_items (content_key, component_type, category, screen_location, legacy_translation_key)
+VALUES ('calculate_credit_education', 'field_label', 'personal_details', 'calculate_credit_2', 'calculate_credit_education');
+
+-- Insert translations
+INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+SELECT id, 'en', 'Education Level', 'approved' FROM content_items WHERE content_key = 'calculate_credit_education';
+```
+
+12. Confidentiality and Compliance
 Never leak, store, or transmit translation content outside approved systems.
 Handle all legal content as confidential.
