@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next'
 import { CalendarIcon } from '@assets/icons/CalendarIcon'
 import { CaretRightIcon } from '@assets/icons/CaretRightIcon'
 import { TitleElement } from '@src/components/ui/TitleElement'
+import { Error } from '@src/components/ui/Error'
 import useTheme from '@src/hooks/useTheme'
 
 import { DropdownCalendar } from '../DropdownCalendar'
@@ -21,8 +22,8 @@ type PropTypes = {
   title?: string // Заголовок календаря
   style?: CSSProperties // Дополнительные стили для компонента
   value: string // Значение выбранной даты
-  onChange: (date: number | null) => void // Функция для изменения выбранной даты
-  placeholder: string // Плейсхолдер
+  onChange: (date: string | null) => void // Функция для изменения выбранной даты
+  placeholder: string // Плейсхолдер
   onBlur?: () => void
   error?: FormikErrors<Date>
   isMaxAge?: boolean
@@ -63,8 +64,8 @@ const Calendar: React.FC<PropTypes> = ({
   }
 
   const handleDateChange = (date: Date | null) => {
-    const unixTimestamp = date ? date.getTime() : null
-    onChange(unixTimestamp)
+    const dateString = date ? date.toISOString().split('T')[0] : null
+    onChange(dateString)
   }
 
   const handleDateOpen = () => {
@@ -150,15 +151,24 @@ const Calendar: React.FC<PropTypes> = ({
             prevMonthButtonDisabled,
             nextMonthButtonDisabled,
           }) => (
-            // Определение пользовательского заголовка календаря
-            <div
-              style={{
-                margin: 10,
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className={cx('custom-header')}>
+              {/* Выпадающий список для выбора года */}
+              <DropdownCalendar
+                value={getYear(date)}
+                items={years}
+                onChange={changeYear}
+              />
+
+              {/* Выпадающий список для выбора месяца */}
+              <DropdownCalendar
+                value={months[getMonth(date)]}
+                items={months}
+                onChange={(monthName) => {
+                  const monthIndex = months.indexOf(monthName)
+                  changeMonth(monthIndex)
+                }}
+              />
+
               {/* Кнопка для переключения на предыдущий месяц */}
               <button
                 onClick={(e) => {
@@ -172,30 +182,8 @@ const Calendar: React.FC<PropTypes> = ({
                   transform: i18n.language === 'he' ? 'rotate(180deg)' : '',
                 }}
               >
-                <CaretRightIcon
-                  size={16}
-                  color={colors.textTheme.primary}
-                  style={{ transform: 'scale(-1, 1)' }}
-                />
+                <CaretRightIcon size={16} color={colors.textTheme.primary} />
               </button>
-
-              {/* Выбор месяца */}
-              <div onClick={(e) => e.stopPropagation()}>
-                <DropdownCalendar
-                  data={months}
-                  onChange={(value) => changeMonth(months.indexOf(String(value)))}
-                  value={months[getMonth(date)]}
-                />
-              </div>
-
-              {/* Выбор года */}
-              <div onClick={(e) => e.stopPropagation()}>
-                <DropdownCalendar
-                  data={years}
-                  onChange={(value) => changeYear(Number(value))}
-                  value={getYear(date)}
-                />
-              </div>
 
               {/* Кнопка для переключения на следующий месяц */}
               <button
@@ -221,6 +209,7 @@ const Calendar: React.FC<PropTypes> = ({
         {/* Иконка календаря */}
         <CalendarIcon />
       </div>
+      {error && !isCalendarOpen && <Error error={error} />}
     </>
   )
 }
