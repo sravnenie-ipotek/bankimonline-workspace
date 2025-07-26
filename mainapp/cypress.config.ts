@@ -1,4 +1,6 @@
 import { defineConfig } from 'cypress'
+import * as fs from 'fs'
+import * as path from 'path'
 
 export default defineConfig({
   e2e: {
@@ -29,6 +31,19 @@ export default defineConfig({
     },
     
     setupNodeEvents(on, config) {
+      // Create timestamped folder for screenshots
+      const timestamp = new Date().toISOString().replace(/:/g, '-').split('.')[0]
+      const runFolder = `run-${timestamp}`
+      const screenshotsPath = path.join(config.screenshotsFolder, runFolder)
+      
+      // Update config with new screenshots folder
+      config.screenshotsFolder = screenshotsPath
+      
+      // Ensure the directory exists
+      if (!fs.existsSync(screenshotsPath)) {
+        fs.mkdirSync(screenshotsPath, { recursive: true })
+      }
+      
       // Add custom tasks here
       on('task', {
         log(message) {
@@ -38,7 +53,35 @@ export default defineConfig({
         table(message) {
           console.table(message)
           return null
+        },
+        getScreenshotFolder() {
+          return screenshotsPath
         }
+      })
+      
+      // Custom screenshot naming
+      on('after:screenshot', (details) => {
+        // Create a more descriptive filename
+        const testName = details.specName.replace(/\.cy\.(ts|js)$/, '')
+        const timestamp = new Date().toISOString().replace(/:/g, '-').split('.')[0]
+        const newFileName = `${testName}_${details.name}_${timestamp}.png`
+        const newPath = path.join(path.dirname(details.path), newFileName)
+        
+        // Rename the screenshot
+        fs.renameSync(details.path, newPath)
+        
+        // Update the details object
+        details.path = newPath
+        details.name = newFileName
+        
+        console.log(`Screenshot saved: ${newPath}`)
+        
+        return details
+      })
+      
+      // Log the screenshot folder at the start of the run
+      on('before:run', () => {
+        console.log(`\n📸 Screenshots will be saved to: ${screenshotsPath}\n`)
       })
       
       // Configure code coverage if needed
