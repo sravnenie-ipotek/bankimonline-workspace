@@ -125,11 +125,9 @@ export const AppointmentSchedulingPage: React.FC = () => {
   }
 
   // Handle date change
-  const handleDateChange = (timestamp: number | null, setFieldValue: any) => {
-    if (timestamp) {
-      const date = new Date(timestamp)
-      const formattedDate = date.toISOString().split('T')[0]
-      setFieldValue('date', formattedDate)
+  const handleDateChange = (dateString: string | null, setFieldValue: any) => {
+    if (dateString) {
+      setFieldValue('date', dateString) // Calendar now returns YYYY-MM-DD format directly
       setFieldValue('time', '') // Reset time when date changes
     }
   }
@@ -233,7 +231,7 @@ export const AppointmentSchedulingPage: React.FC = () => {
                   title={t('meeting_date', 'Дата встречи')}
                   placeholder={t('date_format', 'ДД / ММ / ГГ')}
                   value={values.date}
-                  onChange={(timestamp) => handleDateChange(timestamp, setFieldValue)}
+                  onChange={(dateString) => handleDateChange(dateString, setFieldValue)}
                   error={touched.date && errors.date}
                 />
               </div>
