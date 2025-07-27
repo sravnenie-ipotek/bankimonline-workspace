@@ -1688,5 +1688,13 @@
   "__MIGRATED_calculate_credit_why_option_1": "Улучшить процентную ставку",
   "__MIGRATED_calculate_credit_why_option_2": "Уменьшить сумму кредита",
   "__MIGRATED_calculate_credit_why_option_3": "Увеличить срок, чтобы уменьшить платеж",
-  "__MIGRATED_calculate_credit_why_option_4": "Увеличить платеж, чтобы уменьшить срок"
+  "__MIGRATED_calculate_credit_why_option_4": "Увеличить платеж, чтобы уменьшить срок",
+  "__MIGRATED_credit_refinance": "Рефинансирование кредита",
+  "__MIGRATED_credit_refinance_title": "Рефинансирование кредита",
+  "__MIGRATED_credit_refinance_banner_subtext": "Мы найдем и представим вам наиболее выгодные предложения, существующие на финансовом рынке",
+  "__MIGRATED_credit_refinance_step_1": "Шаг 1 - Рефинансирование кредита",
+  "__MIGRATED_credit_refinance_step_2": "Шаг 2 - Личные данные",
+  "__MIGRATED_credit_refinance_step_3": "Шаг 3 - Данные о доходах",
+  "__MIGRATED_credit_refinance_step_4": "Шаг 4 - Итоги заявки",
+  "__MIGRATED_credit_refinance_why_ph": "Выберите цель"
 }
