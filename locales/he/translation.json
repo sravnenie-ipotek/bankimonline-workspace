@@ -1717,5 +1717,13 @@
   "__MIGRATED_calculate_credit_why_option_1": "שיפור הריבית",
   "__MIGRATED_calculate_credit_why_option_2": "הפחתת סכום האשראי",
   "__MIGRATED_calculate_credit_why_option_3": "הגדלת התקופה כדי להפחית את התשלום",
-  "__MIGRATED_calculate_credit_why_option_4": "הגדלת התשלום כדי לקצר את התקופה"
+  "__MIGRATED_calculate_credit_why_option_4": "הגדלת התשלום כדי לקצר את התקופה",
+  "__MIGRATED_credit_refinance": "מחזור אשראי",
+  "__MIGRATED_credit_refinance_title": "מחזור אשראי",
+  "__MIGRATED_credit_refinance_banner_subtext": "נאתר ונציג בפניכם את ההצעות המשתלמות ביותר הקיימות בשוק הפיננסי",
+  "__MIGRATED_credit_refinance_step_1": "שלב 1 - מחזור אשראי",
+  "__MIGRATED_credit_refinance_step_2": "שלב 2 - פרטים אישיים",
+  "__MIGRATED_credit_refinance_step_3": "שלב 3 - פרטי הכנסה",
+  "__MIGRATED_credit_refinance_step_4": "שלב 4 - סיכום הבקשה",
+  "__MIGRATED_credit_refinance_why_ph": "בחר מטרה"
 }

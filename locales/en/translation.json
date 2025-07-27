@@ -1799,5 +1799,13 @@
   "__MIGRATED_calculate_credit_why_option_1": "Improve interest rate",
   "__MIGRATED_calculate_credit_why_option_2": "Reduce credit amount",
   "__MIGRATED_calculate_credit_why_option_3": "Increase term to reduce payment",
-  "__MIGRATED_calculate_credit_why_option_4": "Increase payment to reduce term"
+  "__MIGRATED_calculate_credit_why_option_4": "Increase payment to reduce term",
+  "__MIGRATED_credit_refinance": "Credit Refinance",
+  "__MIGRATED_credit_refinance_title": "Credit Refinance",
+  "__MIGRATED_credit_refinance_banner_subtext": "We will select the best market offers for you",
+  "__MIGRATED_credit_refinance_step_1": "Step 1 - Credit Refinancing",
+  "__MIGRATED_credit_refinance_step_2": "Step 2 - Personal Details",
+  "__MIGRATED_credit_refinance_step_3": "Step 3 - Income Details",
+  "__MIGRATED_credit_refinance_step_4": "Step 4 - Application Summary",
+  "__MIGRATED_credit_refinance_why_ph": "Select goal"
 }
