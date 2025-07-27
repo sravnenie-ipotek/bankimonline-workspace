@@ -1,0 +1,111 @@
+.bank-offer-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.card-header {
+  margin-bottom: 16px;
+  
+  .bank-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 4px 0;
+  }
+  
+  .program-name {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0;
+  }
+}
+
+.card-content {
+  margin: 16px 0;
+}
+
+.rate-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 8px;
+  
+  .rate-label {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+  
+  .rate-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #059669;
+  }
+}
+
+.payment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-footer {
+  margin-top: 16px;
+  
+  .select-button {
+    width: 100%;
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    
+    &:hover {
+      background: #2563eb;
+    }
+    
+    &:active {
+      background: #1d4ed8;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .bank-offer-card {
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .card-header {
+    .bank-name {
+      font-size: 16px;
+    }
+    
+    .program-name {
+      font-size: 13px;
+    }
+  }
+  
+  .rate-section {
+    .rate-value {
+      font-size: 18px;
+    }
+  }
+} 
