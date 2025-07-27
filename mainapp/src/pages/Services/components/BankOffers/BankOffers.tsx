@@ -55,6 +55,8 @@ const BankOffers = () => {
         const programsResult = await fetchMortgagePrograms()
         if (programsResult.success && programsResult.data) {
           setMortgagePrograms(programsResult.data.programs || [])
+        } else {
+          console.warn('⚠️ [MORTGAGE-PROGRAMS] API failed, using empty array:', programsResult.error)
         }
 
         // Fetch bank offers
@@ -62,6 +64,7 @@ const BankOffers = () => {
         if (offersResult.success && offersResult.data) {
           setBankOffers(offersResult.data.offers || [])
         } else {
+          console.warn('⚠️ [BANK-OFFERS] API failed, using fallback offers:', offersResult.error)
           // Generate fallback offers if API fails
           const fallbackOffers = generateFallbackOffers()
           setBankOffers(fallbackOffers)
