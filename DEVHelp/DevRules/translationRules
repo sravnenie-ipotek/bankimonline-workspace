@@ -30,7 +30,7 @@ Test the translation in all relevant UI components (responsive, different user r
 9. Database-Driven Content Management for Dropdowns
 When encountering dropdown components with hardcoded values, ALWAYS migrate them to the database:
 - Insert all dropdown options into the `content_items` table with `component_type = 'option'`
-- Use sequential numbering: `_option_1`, `_option_2`, `_option_3`, etc.
+  - Use sequential numbering: `_option_1`, `_option_2`, `_option_3`, etc.
 - Create translations for all languages (EN/HE/RU) in `content_translations` table
 - Update components to use `useContentApi()` and `getContent()` instead of hardcoded arrays
 - Comment out old translation keys in JSON files with `__MIGRATED_` prefix
@@ -52,21 +52,33 @@ const options = [
 ```
 
 10. Screen Location Naming Conventions
-All screen locations in the content_items table MUST follow specific naming patterns for consistency:
+⚠️ **CRITICAL**: Always reference `SystemAnalyse/procceessesPagesInDB.md` for the authoritative screen location naming conventions. This file MUST be consulted before creating any new content_items entries.
+
+All screen locations in the `content_items` table MUST follow specific naming patterns for consistency:
+
 - **Process-Specific Prefixes**: Always use the process name as prefix
-  - Mortgage calculator: `mortgage_step1`, `mortgage_step2`, etc.
-  - Credit calculator: `calculate_credit_1`, `calculate_credit_2`, etc.
-  - Refinance: `refinance_step1`, `refinance_step2`, etc.
-- **Sub-Section Naming**: For multi-section steps, use descriptive suffixes
-  - Headers: `calculate_credit_3_header`
-  - Personal info: `calculate_credit_3_personal_info`
-  - Employment: `calculate_credit_4_employment`
-  - Income: `calculate_credit_4_income`
-- **NEVER use generic names**: Avoid `step3_header`, `form_section`, `page_content`
-- **Consistency Rule**: Follow existing patterns in the database
+  - Mortgage calculator: `mortgage_step1`, `mortgage_step2`, `mortgage_step3`, `mortgage_step4`
+  - Credit calculator:  `credit_step1`, `credit_step2`, `credit_step3`, `credit_step4`
+  - Refinance mortgage: `refinance_credit_1`, `refinance_credit_2`, `refinance_credit_3`, `mortgage_step4`
+  - Refinance credit:   `refinance_credit_1`, `refinance_credit_2`, `refinance_credit_3`, `refinance_credit_4`
+
+- **Menu and Navigation**:
+  - Sidebar menu: `sidebar`
+  - Footer: `footer`
+
+- **Sub-Section Naming**: For multi-section steps, append a clear suffix
+  - Headers:        `credit_step3_header`
+  - Personal info:  `credit_step3_personal_info`
+  - Employment:     `credit_step4_employment`
+  - Income:         `credit_step4_income`
+
+- **NEVER use generic names** like `step3_header`, `form_section`, `page_content`
+- **Consistency Rule**: Follow the exact patterns in the database documentation (`SystemAnalyse/procceessesPagesInDB.md`).
 
 **⚠️ CRITICAL: Screen Location Precision Requirements**
-The `screen_location` field in `content_items` table MUST be 100% precise and match EXACTLY what frontend components expect:
+**MANDATORY**: Before creating any content_items entries, ALWAYS check `SystemAnalyse/procceessesPagesInDB.md` for the exact screen_location values to use.
+
+The `screen_location` field in `content_items` MUST be an EXACT match to what the frontend passes to `useContentApi()`:
 
 - **Exact Match Required**: The `screen_location` value MUST match the parameter passed to `useContentApi('screen_location')`
 - **No Variations Allowed**: Even small differences like `mortgage_calculation` vs `calculate_mortgage_1` will cause content to NOT load
@@ -182,3 +194,47 @@ Every **content_key + screen_location** pair **MUST be unique** in `content_item
 - **CI Guard**: Add automated lint / SQL check that fails the pipeline if a new PR introduces a duplicate `content_key` for a different `screen_location`.
 
 This section makes the translation system **bullet-proof** against accidental key re-use and guarantees full editorial flexibility for every calculator process.
+
+13. Dropdown Database Convention
+**Reference**: Always check `SystemAnalyse/procceessesPagesInDB.md` for correct screen_location values before implementing dropdown migrations.
+
+When migrating dropdown components to the database, follow this exact structure:
+
+**Database Structure for Dropdowns:**
+All dropdown components consist of multiple related entries in `content_items`, linked by the **screen_location** field:
+
+1. **Field Label** (component_type = 'field_label')
+   - Pattern: `{process}_{field_name}`
+   - Example: `calculate_credit_education`
+
+2. **Placeholder** (component_type = 'placeholder') 
+   - Pattern: `{process}_{field_name}_ph`
+   - Example: `calculate_credit_education_ph`
+
+3. **Options** (component_type = 'option')
+   - Pattern: `{process}_{field_name}_option_{number}`
+   - Sequential numbering: `_option_1`, `_option_2`, `_option_3`, etc.
+   - Examples: `calculate_credit_education_option_1`, `calculate_credit_education_option_2`
+
+**Step Association via screen_location:**
+All dropdown components for the same step share the same `screen_location` value:
+
+```sql
+-- All education dropdown components belong to step 2
+INSERT INTO content_items (content_key, component_type, screen_location, category, ...)
+VALUES 
+('calculate_credit_education', 'field_label', 'calculate_credit_2', 'personal_details', ...),
+('calculate_credit_education_ph', 'placeholder', 'calculate_credit_2', 'personal_details', ...),
+('calculate_credit_education_option_1', 'option', 'calculate_credit_2', 'personal_details', ...),
+('calculate_credit_education_option_2', 'option', 'calculate_credit_2', 'personal_details', ...),
+('calculate_credit_education_option_3', 'option', 'calculate_credit_2', 'personal_details', ...);
+```
+
+**Frontend Grouping Logic:**
+The frontend uses `useContentApi('screen_location')` to fetch ALL content for a step, then filters by content_key patterns to group dropdown components together.
+
+**Migration Requirements:**
+- NEVER mix dropdown components across different screen_locations
+- ALL options for a dropdown MUST use sequential numbering starting from 1
+- Field name MUST be consistent across label, placeholder, and all options
+- Use appropriate category values ('personal_details', 'income_details', 'loan_parameters', etc.)
