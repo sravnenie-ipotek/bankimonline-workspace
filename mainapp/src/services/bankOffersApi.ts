@@ -40,22 +40,15 @@ export interface BankOfferRequest {
 }
 
 export interface BankOffer {
-  id: string
-  bankName: string
-  program: string
-  rate: number
-  monthlyPayment: number
-  totalAmount: number
-  mortgageAmount: number
-  bank_id?: string
-  bank_name?: string
+  bank_id: string
+  bank_name: string
   bank_logo?: string
-  loan_amount?: number
-  monthly_payment?: number
-  interest_rate?: number
-  term_years?: number
-  total_payment?: number
-  approval_status?: 'approved' | 'rejected' | 'pending'
+  loan_amount: number
+  monthly_payment: number
+  interest_rate: number
+  term_years: number
+  total_payment: number
+  approval_status: 'approved' | 'rejected' | 'pending'
   ltv_ratio?: number
   dti_ratio?: number
 }
@@ -69,65 +62,6 @@ export interface MortgageProgram {
   conditionBid: string
   interestRate?: number
   termYears?: number
-}
-
-// Generate fallback bank offers when API is unavailable
-export const generateFallbackOffers = (): BankOffer[] => {
-  console.log('🔄 [FALLBACK-OFFERS] Generating fallback bank offers')
-  
-  const currentLanguage = i18n.language || 'en'
-  
-  // Bank names by language
-  const bankNames = {
-    en: ['Bank of Israel', 'Hapoalim Bank', 'Leumi Bank', 'Discount Bank', 'Mizrahi Bank', 'First International Bank'],
-    he: ['בנק ישראל', 'בנק הפועלים', 'בנק לאומי', 'בנק דיסקונט', 'בנק מזרחי', 'הבנק הבינלאומי הראשון'],
-    ru: ['Банк Израиля', 'Банк Апоалим', 'Банк Леуми', 'Банк Дисконт', 'Банк Мизрахи', 'Первый международный банк']
-  }
-  
-  // Program names by language  
-  const programNames = {
-    en: ['Prime Rate Mortgage', 'Fixed Rate Mortgage', 'Variable Rate Mortgage', 'Premium Program', 'Young Family Program', 'First Home Program'],
-    he: ['משכנתא בריבית פריים', 'משכנתא בריבית קבועה', 'משכנתא בריבית משתנה', 'תוכנית פרמיום', 'תוכנית משפחה צעירה', 'תוכנית דירה ראשונה'],
-    ru: ['Ипотека по прайм-ставке', 'Ипотека с фиксированной ставкой', 'Ипотека с переменной ставкой', 'Премиум программа', 'Программа молодой семьи', 'Программа первого дома']
-  }
-  
-  const selectedBankNames = bankNames[currentLanguage] || bankNames.en
-  const selectedProgramNames = programNames[currentLanguage] || programNames.en
-  
-  // Generate 6 fallback offers
-  const fallbackOffers: BankOffer[] = selectedBankNames.map((bankName, index) => {
-    const baseAmount = 1000000 + (index * 200000) // 1M to 2M range
-    const interestRate = 2.1 + (index * 0.3) // 2.1% to 3.9% range
-    const termYears = 20 + (index * 2) // 20 to 30 years
-    const monthlyPayments = 12 * termYears
-    const monthlyPayment = Math.round((baseAmount * (interestRate / 100) / 12) * (Math.pow(1 + (interestRate / 100) / 12, monthlyPayments)) / (Math.pow(1 + (interestRate / 100) / 12, monthlyPayments) - 1))
-    const totalAmount = monthlyPayment * monthlyPayments
-    
-    return {
-      id: `fallback_${index + 1}`,
-      bankName: bankName,
-      program: selectedProgramNames[index],
-      rate: parseFloat(interestRate.toFixed(2)),
-      monthlyPayment: monthlyPayment,
-      totalAmount: totalAmount,
-      mortgageAmount: baseAmount,
-      
-      // Legacy API compatibility fields
-      bank_id: `bank_${index + 1}`,
-      bank_name: bankName,
-      loan_amount: baseAmount,
-      monthly_payment: monthlyPayment,
-      interest_rate: parseFloat(interestRate.toFixed(2)),
-      term_years: termYears,
-      total_payment: totalAmount,
-      approval_status: 'approved' as const,
-      ltv_ratio: 75,
-      dti_ratio: 30 + (index * 5)
-    }
-  })
-  
-  console.log('✅ [FALLBACK-OFFERS] Generated', fallbackOffers.length, 'fallback offers')
-  return fallbackOffers
 }
 
 // Helper function to calculate age from birth date
@@ -150,61 +84,44 @@ const getApiBaseUrl = () => {
            'http://localhost:8003/api')
 }
 
-// Fetch bank offers from API with improved error handling
-export const fetchBankOffers = async (requestPayload?: BankOfferRequest): Promise<{success: boolean, data?: {offers: BankOffer[]}, error?: string}> => {
+// Fetch bank offers from API
+export const fetchBankOffers = async (requestPayload: BankOfferRequest): Promise<BankOffer[]> => {
   const API_BASE = getApiBaseUrl()
   
-  try {
-    // Get current language for Accept-Language header
-    const currentLanguage = i18n.language || 'en'
-    const acceptLanguage = currentLanguage === 'he' ? 'he-IL' : 
-                          currentLanguage === 'ru' ? 'ru-RU' : 
-                          'en-US'
-    
-    console.log('🚀 [BANK-API] Making bank offers request:', requestPayload)
-    console.log('🌍 [BANK-API] Using language:', currentLanguage, '→', acceptLanguage)
-    
-    const response = await fetch(`${API_BASE}/customer/compare-banks`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept-Language': acceptLanguage,
-      },
-      body: JSON.stringify(requestPayload || {}),
-    })
-    
-    console.log('📡 [BANK-API] Response status:', response.status)
-    
-    if (!response.ok) {
-      const errorText = await response.text()
-      console.error('❌ [BANK-API] Error:', response.status, errorText)
-      return {
-        success: false,
-        error: `API Error: ${response.status} - ${errorText}`
-      }
-    }
-    
-    const data = await response.json()
-    console.log('📦 [BANK-API] Response data:', data)
-    
-    return {
-      success: true,
-      data: {
-        offers: data.data?.bank_offers || []
-      }
-    }
-    
-  } catch (error) {
-    console.error('❌ [BANK-API] Network error:', error)
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error'
-    }
+  // Get current language for Accept-Language header
+  const currentLanguage = i18n.language || 'en'
+  const acceptLanguage = currentLanguage === 'he' ? 'he-IL' : 
+                        currentLanguage === 'ru' ? 'ru-RU' : 
+                        'en-US'
+  
+  console.log('🚀 [BANK-API] Making bank offers request:', requestPayload)
+  console.log('🌍 [BANK-API] Using language:', currentLanguage, '→', acceptLanguage)
+  
+  const response = await fetch(`${API_BASE}/customer/compare-banks`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept-Language': acceptLanguage,
+    },
+    body: JSON.stringify(requestPayload),
+  })
+  
+  console.log('📡 [BANK-API] Response status:', response.status)
+  
+  if (!response.ok) {
+    const errorText = await response.text()
+    console.error('❌ [BANK-API] Error:', response.status, errorText)
+    throw new Error(`API Error: ${response.status} - ${errorText}`)
   }
+  
+  const data = await response.json()
+  console.log('📦 [BANK-API] Response data:', data)
+  
+  return data.data?.bank_offers || []
 }
 
-// Fetch mortgage programs from API with improved error handling
-export const fetchMortgagePrograms = async (): Promise<{success: boolean, data?: {programs: MortgageProgram[]}, error?: string}> => {
+// Fetch mortgage programs from API
+export const fetchMortgagePrograms = async (): Promise<MortgageProgram[]> => {
   try {
     const API_BASE = getApiBaseUrl()
     
@@ -225,25 +142,14 @@ export const fetchMortgagePrograms = async (): Promise<{success: boolean, data?:
     if (response.ok) {
       const data = await response.json()
       console.log('📋 [MORTGAGE-PROGRAMS-API] Fetched programs:', data)
-      return {
-        success: true,
-        data: {
-          programs: data.data?.programs || []
-        }
-      }
+      return data.data?.programs || []
     } else {
       console.warn('⚠️ [MORTGAGE-PROGRAMS-API] Failed to fetch programs')
-      return {
-        success: false,
-        error: `Failed to fetch programs: ${response.status}`
-      }
+      throw new Error(`Failed to fetch programs: ${response.status}`)
     }
   } catch (error) {
     console.error('❌ [MORTGAGE-PROGRAMS-API] Error:', error)
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : 'Unknown error'
-    }
+    throw error
   }
 }
 
