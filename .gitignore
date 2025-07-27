@@ -35,3 +35,9 @@ secrets/
 # Local configuration files
 config.local.js
 config.local.json
+
+# Playwright Test Artifacts
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
