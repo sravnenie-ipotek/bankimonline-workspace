@@ -7,6 +7,7 @@ import { ProgrammCard } from '@components/ui/ProgrammCard'
 import { useAppSelector } from '@src/hooks/store'
 import { useServiceContext } from '@src/hooks/useServiceContext'
 import { useContentApi } from '@src/hooks/useContentApi'
+import type { MortgageFilterType } from '@src/pages/Services/slices/filterSlice'
 import { 
   fetchBankOffers, 
   fetchMortgagePrograms, 
@@ -34,6 +35,7 @@ const BankOffers = () => {
   const creditParameters = useAppSelector((state) => state.credit)
   const userPersonalData = useAppSelector((state) => serviceType === 'credit' ? state.credit : state.mortgage)
   const userIncomeData = useAppSelector((state) => serviceType === 'credit' ? state.credit : state.mortgage.incomeData)
+  const mortgageTypeFilter = useAppSelector((state) => state.filter.mortgageType)
   
   const isCredit = serviceType === 'credit'
 
@@ -96,13 +98,13 @@ const BankOffers = () => {
           // Force correct label using program.id for full determinism
           switch (program.id) {
             case 'prime':
-              title = isCredit ? getContent('credit_prime_percent', 'Prime Rate Credit') : getContent('mortgage_prime_percent', 'Prime Rate Mortgage')
+              title = isCredit ? t('credit_prime_percent', 'Prime Rate Credit') : t('mortgage_prime_percent', 'Prime Rate Mortgage')
               break
             case 'fixed_inflation':
-              title = isCredit ? getContent('credit_fix_percent', 'Fixed Rate Credit') : getContent('mortgage_fix_percent', 'Fixed Rate Mortgage')
+              title = isCredit ? t('credit_fix_percent', 'Fixed Rate Credit') : t('mortgage_fix_percent', 'Fixed Rate Mortgage')
               break
             case 'variable_inflation':
-              title = isCredit ? getContent('credit_float_percent', 'Variable Rate Credit') : getContent('mortgage_float_percent', 'Variable Rate Mortgage')
+              title = isCredit ? t('credit_float_percent', 'Variable Rate Credit') : t('mortgage_float_percent', 'Variable Rate Mortgage')
               break
             default:
               break
@@ -136,54 +138,54 @@ const BankOffers = () => {
           setMortgagePrograms([
             {
               id: 'prime',
-              title: getContent('credit_prime_percent', 'Prime Rate Credit'),
-              description: getContent('prime_description', 'Prime rate linked credit program'),
-              conditionFinance: getContent('up_to_33_percent', 'Up to 33%'),
-              conditionPeriod: getContent('4_to_30_years', '4-30 years'),
-              conditionBid: getContent('prime_rate_structure', 'Variable + Fixed components')
+              title: t('credit_prime_percent', 'Prime Rate Credit'),
+              description: t('prime_description', 'Prime rate linked credit program'),
+              conditionFinance: t('up_to_33_percent', 'Up to 33%'),
+              conditionPeriod: t('4_to_30_years', '4-30 years'),
+              conditionBid: t('prime_rate_structure', 'Variable + Fixed components')
             },
             {
               id: 'fixed_inflation',
-              title: getContent('credit_fix_percent', 'Fixed rate linked to inflation'),
-              description: getContent('fixed_inflation_description', 'Fixed rate with inflation adjustment'),
-              conditionFinance: getContent('up_to_70_percent', 'Up to 70%'),
-              conditionPeriod: getContent('5_to_30_years', '5-30 years'),
-              conditionBid: getContent('fixed_rate_structure', 'Fixed rate structure')
+              title: t('credit_fix_percent', 'Fixed rate linked to inflation'),
+              description: t('fixed_inflation_description', 'Fixed rate with inflation adjustment'),
+              conditionFinance: t('up_to_70_percent', 'Up to 70%'),
+              conditionPeriod: t('5_to_30_years', '5-30 years'),
+              conditionBid: t('fixed_rate_structure', 'Fixed rate structure')
             },
             {
               id: 'variable_inflation',
-              title: getContent('credit_float_percent', 'Variable rate linked to inflation'),
-              description: getContent('variable_inflation_description', 'Variable rate with inflation adjustment'),
-              conditionFinance: getContent('up_to_75_percent', 'Up to 75%'),
-              conditionPeriod: getContent('4_to_25_years', '4-25 years'),
-              conditionBid: getContent('variable_rate_structure', 'Variable rate structure')
+              title: t('credit_float_percent', 'Variable rate linked to inflation'),
+              description: t('variable_inflation_description', 'Variable rate with inflation adjustment'),
+              conditionFinance: t('up_to_75_percent', 'Up to 75%'),
+              conditionPeriod: t('4_to_25_years', '4-25 years'),
+              conditionBid: t('variable_rate_structure', 'Variable rate structure')
             }
           ])
         } else {
           setMortgagePrograms([
             {
               id: 'prime',
-              title: getContent('mortgage_prime_percent', 'Prime Rate Mortgage'),
-              description: getContent('prime_description', 'Prime rate linked mortgage program'),
-              conditionFinance: getContent('up_to_33_percent', 'Up to 33%'),
-              conditionPeriod: getContent('4_to_30_years', '4-30 years'),
-              conditionBid: getContent('prime_rate_structure', 'Variable + Fixed components')
+              title: t('mortgage_prime_percent', 'Prime Rate Mortgage'),
+              description: t('prime_description', 'Prime rate linked mortgage program'),
+              conditionFinance: t('up_to_33_percent', 'Up to 33%'),
+              conditionPeriod: t('4_to_30_years', '4-30 years'),
+              conditionBid: t('prime_rate_structure', 'Variable + Fixed components')
             },
             {
               id: 'fixed_inflation',
-              title: getContent('mortgage_fix_percent', 'Fixed rate linked to inflation'),
-              description: getContent('fixed_inflation_description', 'Fixed rate with inflation adjustment'),
-              conditionFinance: getContent('up_to_70_percent', 'Up to 70%'),
-              conditionPeriod: getContent('5_to_30_years', '5-30 years'),
-              conditionBid: getContent('fixed_rate_structure', 'Fixed rate structure')
+              title: t('mortgage_fix_percent', 'Fixed rate linked to inflation'),
+              description: t('fixed_inflation_description', 'Fixed rate with inflation adjustment'),
+              conditionFinance: t('up_to_70_percent', 'Up to 70%'),
+              conditionPeriod: t('5_to_30_years', '5-30 years'),
+              conditionBid: t('fixed_rate_structure', 'Fixed rate structure')
             },
             {
               id: 'variable_inflation',
-              title: getContent('mortgage_float_percent', 'Variable rate linked to inflation'),
-              description: getContent('variable_inflation_description', 'Variable rate with inflation adjustment'),
-              conditionFinance: getContent('up_to_75_percent', 'Up to 75%'),
-              conditionPeriod: getContent('4_to_25_years', '4-25 years'),
-              conditionBid: getContent('variable_rate_structure', 'Variable rate structure')
+              title: t('mortgage_float_percent', 'Variable rate linked to inflation'),
+              description: t('variable_inflation_description', 'Variable rate with inflation adjustment'),
+              conditionFinance: t('up_to_75_percent', 'Up to 75%'),
+              conditionPeriod: t('4_to_25_years', '4-25 years'),
+              conditionBid: t('variable_rate_structure', 'Variable rate structure')
             }
           ])
         }
@@ -192,6 +194,29 @@ const BankOffers = () => {
 
     loadMortgagePrograms()
   }, [t, i18n.language, isCredit])
+
+  // Filter mortgage programs based on selected filter
+  const getFilteredPrograms = (programs: MortgageProgram[]) => {
+    if (mortgageTypeFilter === 'all' || isCredit) {
+      return programs
+    }
+
+    return programs.filter(program => {
+      switch (mortgageTypeFilter) {
+        case 'prime':
+          // Filter for prime rate programs
+          return program.id === 'prime'
+        case 'fixed':
+          // Filter for fixed rate programs (fixed_inflation)
+          return program.id === 'fixed_inflation'
+        case 'variable':
+          // Filter for variable rate programs (variable_inflation)
+          return program.id === 'variable_inflation'
+        default:
+          return true
+      }
+    })
+  }
 
   if (loading) {
     return <div className={cx('container')}>Loading bank offers...</div>
@@ -229,21 +254,28 @@ const BankOffers = () => {
                   mortgageAmount: bank.loan_amount
                 }}
               >
-                {!isCredit &&
-                  mortgagePrograms.map((program, programIndex) => (
-                    <ProgrammCard
-                      key={programIndex}
-                      title={program.title}
-                      percent={bank.interest_rate || program.interestRate || 2.1}
-                      mortgageAmount={bank.loan_amount}
-                      monthlyPayment={bank.monthly_payment}
-                      period={bank.term_years || program.termYears || 20}
-                      description={program.description}
-                      conditionFinance={program.conditionFinance}
-                      conditionPeriod={program.conditionPeriod}
-                      conditionBid={program.conditionBid}
-                    />
-                  ))}
+                {!isCredit && (
+                  getFilteredPrograms(mortgagePrograms).length > 0 ? (
+                    getFilteredPrograms(mortgagePrograms).map((program, programIndex) => (
+                      <ProgrammCard
+                        key={programIndex}
+                        title={program.title}
+                        percent={bank.interest_rate || program.interestRate || 2.1}
+                        mortgageAmount={bank.loan_amount}
+                        monthlyPayment={bank.monthly_payment}
+                        period={bank.term_years || program.termYears || 20}
+                        description={program.description}
+                        conditionFinance={program.conditionFinance}
+                        conditionPeriod={program.conditionPeriod}
+                        conditionBid={program.conditionBid}
+                      />
+                    ))
+                  ) : (
+                    <div style={{ padding: '20px', textAlign: 'center', color: '#666' }}>
+                      {getContent('no_programs_match_filter', 'No programs match your selected filter. Try selecting "All Programs" to see all available options.')}
+                    </div>
+                  )
+                )}
               </BankCard>
             </div>
           </Fragment>
