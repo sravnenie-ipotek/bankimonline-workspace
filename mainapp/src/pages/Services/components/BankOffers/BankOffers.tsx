@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 import { FormContainer } from '@components/ui/FormContainer'
-import { Button } from '@components/ui/Button'
+import { Button } from '@components/ui/ButtonUI'
 import { BankOfferCard } from '@components/ui/BankOfferCard'
 import { useAppSelector, useAppDispatch } from '@src/hooks/store.ts'
 import { useContentApi } from '@src/hooks/useContentApi'
@@ -26,220 +26,127 @@ const BankOffers = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useAppDispatch()
-
-  const [mortgagePrograms, setMortgagePrograms] = useState<MortgageProgram[]>([])
-  const [banks, setBanks] = useState<BankOffer[]>([])
-  const [loading, setLoading] = useState(true)
-
-  // Get state from Redux
-  const mortgageParameters = useAppSelector((state) => state.mortgage)
-  const creditParameters = useAppSelector((state) => state.credit)
-  const userPersonalData = useAppSelector((state) => state.personalData)
-  const userIncomeData = useAppSelector((state) => state.incomeData)
-  const filterState = useAppSelector((state) => state.filter)
-
-  // Determine if this is a credit calculation
+  
+  // Get mortgage type filter from Redux state
+  const mortgageTypeFilter = useAppSelector((state) => state.filter.mortgageType)
+  
+  // Check if we're on credit or mortgage page
   const isCredit = location.pathname.includes('calculate-credit')
+  
+  const [mortgagePrograms, setMortgagePrograms] = useState<MortgageProgram[]>([])
+  const [bankOffers, setBankOffers] = useState<BankOffer[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  // Filter mortgage programs based on selected mortgage type
+  // Reset filter when component unmounts or page changes
+  useEffect(() => {
+    return () => {
+      dispatch(resetFilter())
+    }
+  }, [dispatch, location.pathname])
+
+  useEffect(() => {
+    const loadBankData = async () => {
+      try {
+        setIsLoading(true)
+        setError(null)
+
+        // Fetch mortgage programs
+        const programsResult = await fetchMortgagePrograms()
+        if (programsResult.success && programsResult.data) {
+          setMortgagePrograms(programsResult.data.programs || [])
+        }
+
+        // Fetch bank offers
+        const offersResult = await fetchBankOffers()
+        if (offersResult.success && offersResult.data) {
+          setBankOffers(offersResult.data.offers || [])
+        } else {
+          // Generate fallback offers if API fails
+          const fallbackOffers = generateFallbackOffers()
+          setBankOffers(fallbackOffers)
+        }
+      } catch (err) {
+        console.error('[BANK-OFFERS] Error loading bank data:', err)
+        setError('Failed to load bank offers')
+        // Generate fallback offers on error
+        const fallbackOffers = generateFallbackOffers()
+        setBankOffers(fallbackOffers)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadBankData()
+  }, [])
+
+  // Filter mortgage programs based on selected filter
   const filteredMortgagePrograms = useMemo(() => {
-    if (!filterState.mortgageType || filterState.mortgageType === 'all') {
+    if (mortgageTypeFilter === 'all') {
       return mortgagePrograms
     }
     
-    return mortgagePrograms.filter(program => {
-      // Map program IDs to filter values
-      switch (filterState.mortgageType) {
-        case 'prime':
-          return program.id === 'prime'
-        case 'fixed_inflation':
-          return program.id === 'fixed_inflation'
-        case 'variable_inflation':
-          return program.id === 'variable_inflation'
-        default:
-          return true
-      }
-    })
-  }, [mortgagePrograms, filterState.mortgageType])
-
-  // Also filter bank offers based on mortgage type
-  const filteredBankOffers = useMemo(() => {
-    if (!filterState.mortgageType || filterState.mortgageType === 'all') {
-      return banks
+    // Map filter values to program IDs/types
+    const filterMap: { [key: string]: string[] } = {
+      'prime': ['1', '2'], // Prime rate programs
+      'fixed': ['3', '4'], // Fixed rate programs  
+      'variable': ['5', '6'] // Variable rate programs
     }
     
-    return banks.filter(bank => {
-      // Assuming bank offers have a programType property that matches our filter values
-      const programType = bank.programType || bank.mortgageType || 'prime' // fallback
-      return programType === filterState.mortgageType
+    const allowedIds = filterMap[mortgageTypeFilter] || []
+    return mortgagePrograms.filter(program => 
+      allowedIds.includes(program.id.toString())
+    )
+  }, [mortgagePrograms, mortgageTypeFilter])
+
+  // Filter bank offers based on selected filter
+  const filteredBankOffers = useMemo(() => {
+    if (mortgageTypeFilter === 'all') {
+      return bankOffers
+    }
+    
+    // Filter offers based on mortgage type
+    return bankOffers.filter(offer => {
+      // You can add logic here to filter based on offer type
+      // For now, return all offers when filtered
+      return true
     })
-  }, [banks, filterState.mortgageType])
+  }, [bankOffers, mortgageTypeFilter])
 
-  useEffect(() => {
-    const loadBankOffers = async () => {
-      try {
-        setLoading(true)
-        const offers = await fetchBankOffers()
-        setBanks(offers || generateFallbackOffers())
-      } catch (error) {
-        console.warn('⚠️ [BANK-OFFERS] Using fallback offers due to API error')
-        setBanks(generateFallbackOffers())
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    loadBankOffers()
-  }, [mortgageParameters, creditParameters, userPersonalData, userIncomeData, isCredit, t])
-
-  useEffect(() => {
-    const loadMortgagePrograms = async () => {
-      try {
-        const programs = await fetchMortgagePrograms()
-        
-        // Map API data to use correct language fields based on current language
-        const currentLang = i18n.language || 'en'
-        const mappedPrograms = programs.map((program: any) => {
-          // Base title by language
-          let title = currentLang === 'he' ? program.title : 
-                     currentLang === 'ru' ? program.title_ru : 
-                     program.title_en
-
-          // Force correct label using program.id for full determinism
-          switch (program.id) {
-            case 'prime':
-              title = isCredit ? getContent('credit_prime_percent', 'Prime Rate Credit') : getContent('mortgage_prime_percent', 'Prime Rate Mortgage')
-              break
-            case 'fixed_inflation':
-              title = isCredit ? getContent('credit_fix_percent', 'Fixed Rate Credit') : getContent('mortgage_fix_percent', 'Fixed Rate Mortgage')
-              break
-            case 'variable_inflation':
-              title = isCredit ? getContent('credit_float_percent', 'Variable Rate Credit') : getContent('mortgage_float_percent', 'Variable Rate Mortgage')
-              break
-            default:
-              break
-          }
-          
-          return {
-            id: program.id,
-            title: title,
-            description: currentLang === 'he' ? program.description : 
-                        currentLang === 'ru' ? program.description_ru : 
-                        program.description_en,
-            conditionFinance: currentLang === 'he' ? program.conditionFinance : 
-                             currentLang === 'ru' ? program.conditionFinance_ru : 
-                             program.conditionFinance_en,
-            conditionPeriod: currentLang === 'he' ? program.conditionPeriod : 
-                            currentLang === 'ru' ? program.conditionPeriod_ru : 
-                            program.conditionPeriod_en,
-            conditionBid: currentLang === 'he' ? program.conditionBid : 
-                         currentLang === 'ru' ? program.conditionBid_ru : 
-                         program.conditionBid_en,
-            interestRate: program.interestRate,
-            termYears: program.termYears
-          }
-        })
-        
-        setMortgagePrograms(mappedPrograms)
-      } catch (error) {
-        console.warn('⚠️ [MORTGAGE-PROGRAMS] Failed to fetch programs, using fallback')
-        // Fallback to basic program types if API fails
-        if (isCredit) {
-          setMortgagePrograms([
-            {
-              id: 'prime',
-              title: getContent('credit_prime_percent', 'Prime Rate Credit'),
-              description: getContent('prime_description', 'Prime rate linked credit program'),
-              conditionFinance: getContent('up_to_33_percent', 'Up to 33%'),
-              conditionPeriod: getContent('4_to_30_years', '4-30 years'),
-              conditionBid: getContent('prime_rate_structure', 'Variable + Fixed components'),
-              interestRate: 2.1,
-              termYears: 20
-            },
-            {
-              id: 'fixed_inflation',
-              title: getContent('credit_fix_percent', 'Fixed Rate Credit'),
-              description: getContent('fixed_inflation_description', 'Fixed rate with inflation adjustment'),
-              conditionFinance: getContent('up_to_70_percent', 'Up to 70%'),
-              conditionPeriod: getContent('5_to_30_years', '5-30 years'),
-              conditionBid: getContent('fixed_rate_structure', 'Fixed rate structure'),
-              interestRate: 3.2,
-              termYears: 25
-            },
-            {
-              id: 'variable_inflation',
-              title: getContent('credit_float_percent', 'Variable Rate Credit'),
-              description: getContent('variable_inflation_description', 'Variable rate with inflation adjustment'),
-              conditionFinance: getContent('up_to_75_percent', 'Up to 75%'),
-              conditionPeriod: getContent('4_to_25_years', '4-25 years'),
-              conditionBid: getContent('variable_rate_structure', 'Variable rate structure'),
-              interestRate: 2.8,
-              termYears: 22
-            }
-          ])
-        } else {
-          setMortgagePrograms([
-            {
-              id: 'prime',
-              title: getContent('mortgage_prime_percent', 'Prime Rate Mortgage'),
-              description: getContent('prime_description', 'Prime rate linked mortgage program'),
-              conditionFinance: getContent('up_to_33_percent', 'Up to 33%'),
-              conditionPeriod: getContent('4_to_30_years', '4-30 years'),
-              conditionBid: getContent('prime_rate_structure', 'Variable + Fixed components'),
-              interestRate: 2.1,
-              termYears: 20
-            },
-            {
-              id: 'fixed_inflation',
-              title: getContent('mortgage_fix_percent', 'Fixed Rate Mortgage'),
-              description: getContent('fixed_inflation_description', 'Fixed rate with inflation adjustment'),
-              conditionFinance: getContent('up_to_70_percent', 'Up to 70%'),
-              conditionPeriod: getContent('5_to_30_years', '5-30 years'),
-              conditionBid: getContent('fixed_rate_structure', 'Fixed rate structure'),
-              interestRate: 3.2,
-              termYears: 25
-            },
-            {
-              id: 'variable_inflation',
-              title: getContent('mortgage_float_percent', 'Variable Rate Mortgage'),
-              description: getContent('variable_inflation_description', 'Variable rate with inflation adjustment'),
-              conditionFinance: getContent('up_to_75_percent', 'Up to 75%'),
-              conditionPeriod: getContent('4_to_25_years', '4-25 years'),
-              conditionBid: getContent('variable_rate_structure', 'Variable rate structure'),
-              interestRate: 2.8,
-              termYears: 22
-            }
-          ])
-        }
-      }
-    }
-
-    loadMortgagePrograms()
-  }, [isCredit, getContent, i18n.language])
-
-  const handleBankSelection = (bankOffer: BankOffer) => {
-    if (isCredit) {
-      navigate('/services/calculate-credit/4', { 
-        state: { selectedBankOffer: bankOffer } 
-      })
-    } else {
-      navigate('/services/calculate-mortgage/4', { 
-        state: { selectedBankOffer: bankOffer } 
-      })
-    }
+  const handleBankSelection = (bank: BankOffer) => {
+    console.log('[BANK-OFFERS] Bank selected:', bank)
+    // Add bank selection logic here
+    // Navigate to next step or show modal
   }
 
-  const handleResetFilter = () => {
-    dispatch(resetFilter())
+  const handleProceed = () => {
+    const routeBase = isCredit ? '/services/calculate-credit' : '/services/calculate-mortgage'
+    navigate(`${routeBase}/5`)
   }
 
-  if (loading) {
+  const handleGoBack = () => {
+    const routeBase = isCredit ? '/services/calculate-credit' : '/services/calculate-mortgage'  
+    navigate(`${routeBase}/3`)
+  }
+
+  if (isLoading) {
     return (
       <FormContainer>
-        <div className={cx('loading-container')}>
-          <div className={cx('loading-text')}>
-            {getContent('loading_programs', 'Loading programs...')}
-          </div>
+        <div className={cx('loading')}>
+          <p>{getContent('loading_offers', 'Loading bank offers...')}</p>
+        </div>
+      </FormContainer>
+    )
+  }
+
+  if (error) {
+    return (
+      <FormContainer>
+        <div className={cx('error')}>
+          <p className={cx('error-text')}>{error}</p>
+          <Button onClick={() => window.location.reload()}>
+            {getContent('retry', 'Try Again')}
+          </Button>
         </div>
       </FormContainer>
     )
@@ -247,37 +154,22 @@ const BankOffers = () => {
 
   return (
     <FormContainer>
-      <div className={cx('offers-container')}>
+      <div className={cx('bank-offers')}>
+        
         {/* Mortgage Programs Section */}
         {filteredMortgagePrograms.length > 0 && (
           <div className={cx('programs-section')}>
             <h3 className={cx('section-title')}>
-              {isCredit ? getContent('available_credit_programs', 'Available Credit Programs') : getContent('available_mortgage_programs', 'Available Mortgage Programs')}
+              {getContent('mortgage_programs_title', 'Mortgage Programs')}
             </h3>
             <div className={cx('programs-grid')}>
               {filteredMortgagePrograms.map((program) => (
                 <div key={program.id} className={cx('program-card')}>
-                  <div className={cx('program-header')}>
-                    <h4 className={cx('program-title')}>{program.title}</h4>
-                    <span className={cx('interest-rate')}>{program.interestRate}%</span>
-                  </div>
-                  <div className={cx('program-details')}>
-                    <p className={cx('program-description')}>{program.description}</p>
-                    <div className={cx('program-conditions')}>
-                      <div className={cx('condition')}>
-                        <span className={cx('condition-label')}>{getContent('financing', 'Financing')}:</span>
-                        <span className={cx('condition-value')}>{program.conditionFinance}</span>
-                      </div>
-                      <div className={cx('condition')}>
-                        <span className={cx('condition-label')}>{getContent('period', 'Period')}:</span>
-                        <span className={cx('condition-value')}>{program.conditionPeriod}</span>
-                      </div>
-                      <div className={cx('condition')}>
-                        <span className={cx('condition-label')}>{getContent('rate_type', 'Rate Type')}:</span>
-                        <span className={cx('condition-value')}>{program.conditionBid}</span>
-                      </div>
-                    </div>
-                  </div>
+                  <h4 className={cx('program-title')}>{program.title}</h4>
+                  <p className={cx('program-rate')}>
+                    {getContent('interest_rate', 'Interest Rate')}: {program.interestRate}%
+                  </p>
+                  <p className={cx('program-description')}>{program.description}</p>
                 </div>
               ))}
             </div>
@@ -309,17 +201,31 @@ const BankOffers = () => {
             <p className={cx('no-results-text')}>
               {getContent('no_programs_found', 'No programs found for the selected filter')}
             </p>
-            <Button
-              onClick={handleResetFilter}
-              size="medium"
-            >
-              {getContent('show_all_programs', 'Show All Programs')}
-            </Button>
           </div>
         )}
+
+        {/* Navigation Buttons */}
+        <div className={cx('navigation')}>
+          <Button
+            variant="secondary"
+            onClick={handleGoBack}
+            className={cx('back-button')}
+          >
+            {getContent('back', 'Back')}
+          </Button>
+          
+          <Button
+            variant="primary"
+            onClick={handleProceed}
+            className={cx('proceed-button')}
+            disabled={filteredBankOffers.length === 0}
+          >
+            {getContent('proceed', 'Proceed')}
+          </Button>
+        </div>
       </div>
     </FormContainer>
   )
 }
 
-export { BankOffers }
+export default BankOffers
