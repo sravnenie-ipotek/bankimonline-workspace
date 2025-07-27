@@ -20,10 +20,16 @@
     "start": "node server-db.js",
     "dev": "node start-dev.js",
     "sync-translations": "node scripts/sync-translations.js",
-    "translations": "node scripts/sync-translations.js"
+    "translations": "node scripts/sync-translations.js",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report"
   },
   "devDependencies": {
     "@playwright/mcp": "^0.0.29",
+    "@playwright/test": "^1.54.1",
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
     "eslint-plugin-react": "^7.37.5",
