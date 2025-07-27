@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind'
 import { useContentApi } from '@src/hooks/useContentApi'
 
-import { Button } from '@components/ui/Button'
+import { Button } from '@components/ui/ButtonUI'
 import { Divider } from '@components/ui/Divider'
 import { Info } from '@components/ui/Info'
 
@@ -80,6 +80,8 @@ const BankOfferCard: React.FC<TypeProps> = ({
         <Button
           onClick={onSelect}
           className={cx('select-button')}
+          variant="primary"
+          size="full"
         >
           {getContent('select_bank', 'Select This Bank')}
         </Button>
