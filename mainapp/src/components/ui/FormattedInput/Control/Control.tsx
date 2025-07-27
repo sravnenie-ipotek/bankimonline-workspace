@@ -20,6 +20,7 @@ interface ControlProps {
   validation?: string
   rightSection?: React.ReactNode
   type?: 'comma' | 'numeric' | 'default'
+  'data-testid'?: string
 }
 
 export function convertInputToNumber(value: string) {
@@ -38,6 +39,7 @@ const Control: React.FC<ControlProps> = ({
   size,
   rightSection,
   type = 'comma',
+  'data-testid': dataTestId,
 }) => {
   const { currency } = useAppSelector((state) => state.currency);
   const formattedValue = (value != null) ? value.toLocaleString('en-US') : ''
@@ -82,6 +84,7 @@ const Control: React.FC<ControlProps> = ({
         value={formattedValue}
         onChange={handleInputChange}
         onBlur={onBlur}
+        data-testid={dataTestId}
       />
 
       {!disableCurrency && !rightSection ? (

@@ -1,15 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+export interface FilterState {
+  mortgageType: string
+}
+
+const initialState: FilterState = {
+  mortgageType: 'all' // Default to show all mortgage programs
+}
+
 export const filterSlice = createSlice({
   name: 'filter',
-  initialState: '',
+  initialState,
   reducers: {
     setFilter: (state, action) => {
-      return (state = action.payload)
+      state.mortgageType = action.payload
     },
+    resetFilter: (state) => {
+      state.mortgageType = 'all'
+    }
   },
 })
 
-export const { setFilter } = filterSlice.actions
+export const { setFilter, resetFilter } = filterSlice.actions
 
 export default filterSlice.reducer

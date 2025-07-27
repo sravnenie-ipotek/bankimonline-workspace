@@ -142,7 +142,7 @@ const ThirdStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={getContent('calculate_mortgage_step3_title', 'calculate_mortgage_step3_title')} />
+      <FormCaption title={getContent('mortgage_step3_title', 'Income & Employment Information')} />
 
       <UserProfileCard
         name={userData?.nameSurname}

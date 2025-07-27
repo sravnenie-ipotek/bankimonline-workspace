@@ -16,8 +16,8 @@ const WhoAreYouForBorrowers = () => {
   return (
     <Column>
       <StringInput
-        title={getContent('who_are_you_for_borrowers', 'who_are_you_for_borrowers')}
-        placeholder={getContent('who_are_you_for_borrowers_ph', 'who_are_you_for_borrowers_ph')}
+        title={getContent('app.other_borrowers.step1.who_are_you_for_borrowers_label', 'What is your relationship to the borrowers?')}
+        placeholder={getContent('who_are_you_for_borrowers_ph', 'Please specify your relationship')}
         name="whoAreYouForBorrowers"
         onChange={(value) => setFieldValue('whoAreYouForBorrowers', value)}
         onBlur={() => setFieldTouched('whoAreYouForBorrowers')}
