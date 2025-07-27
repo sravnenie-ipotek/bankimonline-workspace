@@ -381,3 +381,181 @@ import { useContentApi } from '@/hooks/useContentApi';
 4. ❌ Not testing all language variants
 5. ❌ Missing screen_location parameter in `useContentApi()`
 6. ❌ Using wrong screen_location name that doesn't match database
+
+15. Duplicate Prevention - Pre-Migration Checks
+**MANDATORY**: Before starting any migration, ALWAYS run duplicate prevention checks to ensure data integrity and avoid conflicts.
+
+**Pre-Migration Duplicate Check Process:**
+
+**Step 1: Check Existing Content Keys**
+```sql
+-- Query to find existing content_keys that might conflict
+SELECT content_key, screen_location, COUNT(*) as count
+FROM content_items 
+WHERE content_key LIKE 'target_process_%'  -- Replace with your process prefix
+GROUP BY content_key, screen_location
+ORDER BY content_key;
+```
+
+**Step 2: Check for Cross-Process Key Conflicts**
+```sql
+-- Find content_keys used across multiple screen_locations (potential conflicts)
+SELECT content_key, ARRAY_AGG(DISTINCT screen_location) AS screen_locations, COUNT(DISTINCT screen_location) as location_count
+FROM content_items
+GROUP BY content_key
+HAVING COUNT(DISTINCT screen_location) > 1
+ORDER BY content_key;
+```
+
+**Step 3: Validate Against Translation.json**
+```javascript
+// Script template for checking translation.json keys against database
+const existingKeys = await client.query(
+    `SELECT content_key FROM content_items WHERE content_key LIKE 'process_prefix_%'`
+);
+const existingKeySet = new Set(existingKeys.rows.map(row => row.content_key));
+
+// Check each key to migrate
+keysToMigrate.forEach(key => {
+    if (existingKeySet.has(key.content_key)) {
+        console.log(`⚠️  DUPLICATE DETECTED: ${key.content_key} already exists in database`);
+        // STOP MIGRATION - investigate conflict
+    }
+});
+```
+
+**Step 4: Screen Location Validation**
+```sql
+-- Verify screen_location follows naming conventions
+SELECT DISTINCT screen_location 
+FROM content_items 
+WHERE screen_location NOT LIKE 'mortgage_step%' 
+  AND screen_location NOT LIKE 'credit_step%'
+  AND screen_location NOT LIKE 'refinance_credit_%'
+  AND screen_location NOT IN ('sidebar', 'footer', 'about_page', 'contacts_page', 'bank_offers')
+ORDER BY screen_location;
+```
+
+**Pre-Migration Checklist:**
+- [ ] Run duplicate key detection queries
+- [ ] Verify screen_location naming conventions
+- [ ] Check translation.json for key conflicts
+- [ ] Validate process isolation (no shared content_keys across processes)
+- [ ] Confirm target screen_locations exist or follow conventions
+- [ ] Review `SystemAnalyse/procceessesPagesInDB.md` for naming rules
+
+**Migration Blocking Conditions:**
+- ❌ ANY duplicate content_key found in database
+- ❌ Screen_location doesn't follow documented conventions
+- ❌ Process isolation violated (same content_key across different processes)
+- ❌ Translation.json keys already marked as `__MIGRATED_`
+
+**Resolution Actions:**
+1. **Duplicate Keys**: Rename keys with process-specific prefixes
+2. **Wrong Screen Location**: Update to follow documented conventions
+3. **Process Conflicts**: Create separate content_keys for each process
+4. **Already Migrated**: Skip or update existing entries
+
+16. Post-Migration Translation.json Updates
+**MANDATORY**: After successful database migration, ALWAYS update translation.json files to maintain system integrity and fallback functionality.
+
+**Post-Migration Update Process:**
+
+**Step 1: Verify Database Migration Success**
+```sql
+-- Confirm all migrated keys exist in database
+SELECT content_key, screen_location, component_type 
+FROM content_items 
+WHERE content_key IN ('key1', 'key2', 'key3', ...) -- List of migrated keys
+ORDER BY content_key;
+
+-- Confirm all translations exist
+SELECT ci.content_key, ct.language_code, ct.content_value
+FROM content_items ci
+JOIN content_translations ct ON ci.id = ct.content_item_id
+WHERE ci.content_key IN ('key1', 'key2', 'key3', ...)
+ORDER BY ci.content_key, ct.language_code;
+```
+
+**Step 2: Update Translation.json Files - All Languages**
+```javascript
+// Automated script template for marking migrated keys
+const languages = ['en', 'he', 'ru'];
+const migratedKeys = ['key1', 'key2', 'key3']; // List of successfully migrated keys
+
+for (const lang of languages) {
+    const filePath = `locales/${lang}/translation.json`;
+    const translations = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    let markedCount = 0;
+
+    for (const key of migratedKeys) {
+        if (translations[key] && !translations[`__MIGRATED_${key}`]) {
+            // Mark as migrated (preserve original for fallback)
+            translations[`__MIGRATED_${key}`] = translations[key];
+            markedCount++;
+            console.log(`✅ MARKED: ${key} → __MIGRATED_${key} in ${lang}`);
+        }
+    }
+
+    if (markedCount > 0) {
+        // Save updated file
+        fs.writeFileSync(filePath, JSON.stringify(translations, null, 2), 'utf8');
+        console.log(`💾 SAVED: ${markedCount} keys marked in ${lang}/translation.json`);
+    }
+}
+```
+
+**Step 3: Verification and Testing**
+```bash
+# 1. Verify migration marking worked
+grep -c "__MIGRATED_target_key" locales/*/translation.json
+
+# 2. Test API endpoints
+curl "http://localhost:8003/api/content/screen_location/en"
+curl "http://localhost:8003/api/content/screen_location/he" 
+curl "http://localhost:8003/api/content/screen_location/ru"
+
+# 3. Test fallback functionality (with database disabled)
+# Verify translation.json keys still work when database is unavailable
+```
+
+**Step 4: Documentation Updates**
+```markdown
+## Migration Completion Record
+- **Date**: YYYY-MM-DD
+- **Process**: Process Name (e.g., Credit Calculator)
+- **Keys Migrated**: X keys
+- **Screen Locations**: location1, location2, location3
+- **Languages Updated**: EN, HE, RU
+- **Translation.json Status**: ✅ All keys marked with __MIGRATED_
+- **Database Verification**: ✅ All content_items and content_translations created
+- **API Testing**: ✅ All endpoints returning correct content
+- **Fallback Testing**: ✅ Translation.json fallbacks working
+```
+
+**Post-Migration Validation Checklist:**
+- [ ] All migrated keys exist in database with correct screen_locations
+- [ ] All 3 languages have complete translations in database  
+- [ ] All translation.json files updated with `__MIGRATED_` prefixes
+- [ ] Original translation.json keys preserved as fallbacks
+- [ ] API endpoints return migrated content correctly
+- [ ] Frontend components load content from database
+- [ ] Fallback mechanism works when database unavailable
+- [ ] All languages switch correctly in frontend
+- [ ] No duplicate content_keys in database
+- [ ] Migration documentation completed
+
+**Rollback Procedures (If Issues Found):**
+1. **Database Rollback**: Remove migrated content_items and content_translations
+2. **Translation.json Rollback**: Remove `__MIGRATED_` prefixed keys
+3. **Frontend Rollback**: Revert components to use `useTranslation()`
+4. **Investigation**: Analyze and fix issues before re-attempting migration
+
+**Success Indicators:**
+- ✅ Database contains all migrated content with proper structure
+- ✅ Translation.json files properly marked but maintain fallback capability  
+- ✅ Frontend displays content from database correctly
+- ✅ All languages work consistently
+- ✅ System gracefully handles database failures via translation.json fallbacks
+
+**CRITICAL**: Never consider a migration complete until ALL post-migration steps are verified and documented. The translation.json update is NOT optional - it's essential for system reliability and migration tracking.
