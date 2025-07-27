@@ -65,6 +65,31 @@ All screen locations in the content_items table MUST follow specific naming patt
 - **NEVER use generic names**: Avoid `step3_header`, `form_section`, `page_content`
 - **Consistency Rule**: Follow existing patterns in the database
 
+**⚠️ CRITICAL: Screen Location Precision Requirements**
+The `screen_location` field in `content_items` table MUST be 100% precise and match EXACTLY what frontend components expect:
+
+- **Exact Match Required**: The `screen_location` value MUST match the parameter passed to `useContentApi('screen_location')`
+- **No Variations Allowed**: Even small differences like `mortgage_calculation` vs `calculate_mortgage_1` will cause content to NOT load
+- **Case Sensitive**: `mortgage_step1` ≠ `Mortgage_Step1` ≠ `MORTGAGE_STEP1`
+- **Frontend Dependency**: Always check the React component code to see what `screen_location` is being used
+
+**Examples of Precise Matching:**
+```typescript
+// ✅ CORRECT - Frontend component uses 'mortgage_calculation'
+const { getContent } = useContentApi('mortgage_calculation')
+// Database must have: screen_location = 'mortgage_calculation'
+
+// ❌ WRONG - Mismatch will cause content not to load
+// Frontend: useContentApi('mortgage_calculation')
+// Database: screen_location = 'calculate_mortgage_1'  // ❌ NO MATCH!
+```
+
+**Verification Steps:**
+1. **Check Frontend Code**: Search for `useContentApi('...')` calls in React components
+2. **Match Exactly**: Ensure database `screen_location` matches the parameter exactly
+3. **Test API**: Verify `/api/content/{screen_location}/{language}` returns data
+4. **Update Documentation**: Document any new screen_location values used
+
 Content Key Naming Patterns:
 - **Field Labels**: `{process}_{field_name}` (e.g., `calculate_credit_education`)
 - **Placeholders**: `{process}_{field_name}_ph` (e.g., `calculate_credit_education_ph`)
@@ -127,3 +152,33 @@ SELECT id, 'en', 'Education Level', 'approved' FROM content_items WHERE content_
 12. Confidentiality and Compliance
 Never leak, store, or transmit translation content outside approved systems.
 Handle all legal content as confidential.
+
+13. Duplicate Prevention & Process-Specific Translations
+Every **content_key + screen_location** pair **MUST be unique** in `content_items` across the entire system. Re-using the same `content_key` for different processes (mortgage vs credit vs refinance) is **FORBIDDEN**, even if the UI text looks identical.
+
+- **Process Isolation**: Each process maintains its own namespace. Example for **step 4 (results page)** which is common across all calculators:
+  - Mortgage:     `mortgage_step4_result_title`
+  - Credit:       `calculate_credit_4_result_title`
+  - Refinance:    `refinance_step4_result_title`
+  - Refinance-Credit: `refinance_credit_4_result_title`
+
+- **Editing Independence**: Editors MUST be able to update text for one process without affecting the others. Never share a single translation row across processes.
+
+- **Database Constraint**: Enforce a composite **UNIQUE(content_key, screen_location)** index (already present) AND follow naming conventions so keys never collide.
+
+- **Migration Checklist**:
+  1. Scan existing `content_items` for duplicate `content_key` values across different `screen_location`s.
+  2. If found, split into process-specific keys using the naming scheme above.
+  3. Add translations for all three languages (EN/HE/RU).
+  4. Verify with:
+     ```sql
+     SELECT content_key, ARRAY_AGG(DISTINCT screen_location) AS screens
+     FROM content_items
+     GROUP BY content_key
+     HAVING COUNT(DISTINCT screen_location) > 1;
+     ```
+  5. QA: Load each step in the frontend and ensure text can be edited independently per process.
+
+- **CI Guard**: Add automated lint / SQL check that fails the pipeline if a new PR introduces a duplicate `content_key` for a different `screen_location`.
+
+This section makes the translation system **bullet-proof** against accidental key re-use and guarantees full editorial flexibility for every calculator process.

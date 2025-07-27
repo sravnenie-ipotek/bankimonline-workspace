@@ -2,6 +2,7 @@ import classNames from 'classnames/bind'
 import i18next from 'i18next'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { Modal } from '../../Modal'
 import { Tabs } from '../../Tabs'
@@ -19,17 +20,6 @@ type BankInfoModalProps = {
   conditionBid: string
 }
 
-const tabs = [
-  {
-    value: 'description',
-    label: i18next.t('description'),
-  },
-  {
-    value: 'condition',
-    label: i18next.t('condition'),
-  },
-]
-
 const BankInfoModal: React.FC<BankInfoModalProps> = ({
   isVisible,
   onClose,
@@ -40,7 +30,19 @@ const BankInfoModal: React.FC<BankInfoModalProps> = ({
   conditionBid,
 }) => {
   const { t, i18n } = useTranslation()
-  const [activeTab, setActiveTab] = useState(tabs[0].value)
+  const { getContent } = useContentApi('bank_offers')
+  const [activeTab, setActiveTab] = useState('description')
+  
+  const tabs = [
+    {
+      value: 'description',
+      label: getContent('description', 'description'),
+    },
+    {
+      value: 'condition',
+      label: getContent('condition', 'condition'),
+    },
+  ]
 
   const handleChangeTab = (value: string) => {
     setActiveTab(value)

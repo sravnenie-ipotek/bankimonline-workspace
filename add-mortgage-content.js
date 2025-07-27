@@ -2,7 +2,7 @@ const express = require('express');
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:HBxrSXZkMmbBEPgEfgKJOUvdUBFMqBcZ@roundhouse.proxy.rlwy.net:29351/railway',
+  connectionString: process.env.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway',
   ssl: { rejectUnauthorized: false }
 });
 
@@ -305,28 +305,32 @@ async function addMortgageContent() {
 
     // Insert content items and translations
     for (const content of mortgageContent) {
-      // Insert content item
-      await client.query(`
-        INSERT INTO content_items (content_key, component_type, category, screen_location, status)
-        VALUES ($1, $2, $3, 'mortgage_calculation', 'active')
+      // Insert content item and get the ID
+      const contentResult = await client.query(`
+        INSERT INTO content_items (content_key, component_type, category, screen_location, is_active)
+        VALUES ($1, $2, $3, 'mortgage_calculation', true)
         ON CONFLICT (content_key) DO UPDATE SET
           component_type = EXCLUDED.component_type,
           category = EXCLUDED.category,
-          screen_location = EXCLUDED.screen_location
+          screen_location = EXCLUDED.screen_location,
+          is_active = EXCLUDED.is_active
+        RETURNING id
       `, [content.key, content.component_type, content.category]);
+      
+      const contentItemId = contentResult.rows[0].id;
 
       // Insert translations for each language
       const languages = ['en', 'he', 'ru'];
       for (const lang of languages) {
         if (content[lang]) {
           await client.query(`
-            INSERT INTO content_translations (content_key, language_code, translation_value, status)
+            INSERT INTO content_translations (content_item_id, language_code, content_value, status)
             VALUES ($1, $2, $3, 'approved')
-            ON CONFLICT (content_key, language_code) DO UPDATE SET
-              translation_value = EXCLUDED.translation_value,
+            ON CONFLICT (content_item_id, language_code) DO UPDATE SET
+              content_value = EXCLUDED.content_value,
               status = EXCLUDED.status,
               updated_at = CURRENT_TIMESTAMP
-          `, [content.key, lang, content[lang]]);
+          `, [contentItemId, lang, content[lang]]);
         }
       }
     }
@@ -342,7 +346,7 @@ async function addMortgageContent() {
         ci.category,
         COUNT(ct.language_code) as translation_count
       FROM content_items ci
-      LEFT JOIN content_translations ct ON ci.content_key = ct.content_key
+      LEFT JOIN content_translations ct ON ci.id = ct.content_item_id
       WHERE ci.screen_location = 'mortgage_calculation'
       GROUP BY ci.content_key, ci.component_type, ci.category
       ORDER BY ci.content_key

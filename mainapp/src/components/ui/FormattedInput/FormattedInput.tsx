@@ -24,6 +24,7 @@ interface FormattedInputProps {
   tright?: string
   tooltip?: string
   hasTooltip?: boolean
+  'data-testid'?: string
 }
 
 const FormattedInput: React.FC<FormattedInputProps> = ({
@@ -38,6 +39,7 @@ const FormattedInput: React.FC<FormattedInputProps> = ({
   validation,
   onBlur,
   size,
+  'data-testid': dataTestId,
 }) => {
   return (
     <div className={cx('formatted-input')}>
@@ -52,6 +54,7 @@ const FormattedInput: React.FC<FormattedInputProps> = ({
         error={error}
         validation={validation}
         size={size}
+        data-testid={dataTestId}
       />
     </div>
   )

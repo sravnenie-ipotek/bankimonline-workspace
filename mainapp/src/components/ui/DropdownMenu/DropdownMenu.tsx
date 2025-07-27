@@ -16,6 +16,7 @@ interface DropdownProps
   nothingFoundText?: string
   error?: boolean | unknown | string
   className?: string
+  dataTestId?: string
 }
 
 const DropdownMenu = ({
@@ -30,6 +31,7 @@ const DropdownMenu = ({
   onBlur,
   error,
   className,
+  dataTestId,
 }: DropdownProps) => {
   return (
     <>
@@ -45,6 +47,7 @@ const DropdownMenu = ({
         onBlur={onBlur}
         error={error as string}
         className={className}
+        dataTestId={dataTestId}
       />
     </>
   )

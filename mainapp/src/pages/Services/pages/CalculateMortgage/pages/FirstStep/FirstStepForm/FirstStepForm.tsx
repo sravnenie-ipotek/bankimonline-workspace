@@ -17,6 +17,7 @@ import { useAppDispatch } from '@src/hooks/store'
 import { setActiveField } from '@src/pages/Services/slices/activeField'
 import { CalculateMortgageTypes } from '@src/pages/Services/types/formTypes'
 import { useContentApi } from '@src/hooks/useContentApi'
+import { calculationService } from '@src/services/calculationService'
 
 interface CityOption {
   value: string
@@ -192,6 +193,7 @@ const FirstStepForm = () => {
               value={values.priceOfEstate}
               placeholder="1,000,000"
               error={errors.priceOfEstate}
+              data-testid="property-price-input"
             />
             {errors.priceOfEstate && <Error error={errors.priceOfEstate} />}
           </Column>
@@ -199,14 +201,15 @@ const FirstStepForm = () => {
             <DropdownMenu
               title={getContent('mortgage_calculation.field.city', 'calculate_mortgage_city')}
               data={cityOptions}
-              placeholder={t('city')}
+              placeholder={getContent('mortgage_calculation.field.city_ph', 'Select city')}
               value={values.cityWhereYouBuy}
               onChange={(value) => setFieldValue('cityWhereYouBuy', value)}
               onBlur={() => setFieldTouched('cityWhereYouBuy', true)}
               searchable
-              searchPlaceholder={t('search')}
-              nothingFoundText={t('nothing_found')}
+              searchPlaceholder={getContent('mortgage_calculation.field.search_ph', 'Search...')}
+              nothingFoundText={getContent('mortgage_calculation.field.nothing_found', 'Nothing found')}
               error={touched.cityWhereYouBuy && errors.cityWhereYouBuy}
+              dataTestId="city-dropdown"
             />
           </Column>
           <Column>
@@ -218,6 +221,7 @@ const FirstStepForm = () => {
               onChange={(value) => setFieldValue('whenDoYouNeedMoney', value)}
               onBlur={() => setFieldTouched('whenDoYouNeedMoney', true)}
               error={touched.whenDoYouNeedMoney && errors.whenDoYouNeedMoney}
+              dataTestId="when-needed-dropdown"
             />
           </Column>
         </Row>
@@ -234,9 +238,10 @@ const FirstStepForm = () => {
                 dispatch(setActiveField('period'))
                 setFieldValue('initialFee', value)
               }}
-              tooltip={t('initial_payment_tooltip')}
+              tooltip={getContent('mortgage_calculation.field.initial_payment_tooltip', 'Minimum down payment depends on property ownership status')}
               error={errors.initialFee}
               disableRangeValues
+              data-testid="initial-fee-input"
             />
             <InitialFeeContext />
             {errors.initialFee && <Error error={errors.initialFee} />}
@@ -250,6 +255,7 @@ const FirstStepForm = () => {
               onChange={(value) => setFieldValue('typeSelect', value)}
               onBlur={() => setFieldTouched('typeSelect', true)}
               error={touched.typeSelect && errors.typeSelect}
+              dataTestId="property-type-dropdown"
             />
           </Column>
           <Column>
@@ -261,6 +267,7 @@ const FirstStepForm = () => {
               onChange={(value) => setFieldValue('willBeYourFirst', value)}
               onBlur={() => setFieldTouched('willBeYourFirst', true)}
               error={touched.willBeYourFirst && errors.willBeYourFirst}
+              dataTestId="first-home-dropdown"
             />
           </Column>
         </Row>
@@ -275,6 +282,7 @@ const FirstStepForm = () => {
               onChange={(value) => setFieldValue('propertyOwnership', value)}
               onBlur={() => setFieldTouched('propertyOwnership', true)}
               error={touched.propertyOwnership && errors.propertyOwnership}
+              dataTestId="property-ownership-dropdown"
             />
           </Column>
           <Column />

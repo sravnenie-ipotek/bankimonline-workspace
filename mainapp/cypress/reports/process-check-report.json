@@ -1,0 +1,73 @@
+{
+  "timestamp": "2025-07-26T21:39:02.368Z",
+  "results": [
+    {
+      "process": "Calculate Mortgage",
+      "accessible": false,
+      "redirected": true,
+      "finalUrl": "http://localhost:5173/services/calculate-mortgage/1",
+      "translationIssues": [
+        "Mixed languages detected on the same page"
+      ],
+      "errors": [],
+      "content": {
+        "hasEnglish": true,
+        "hasHebrew": true,
+        "hasRussian": false,
+        "mixedLanguages": true,
+        "untranslatedKeys": []
+      }
+    },
+    {
+      "process": "Calculate Credit",
+      "accessible": false,
+      "redirected": true,
+      "finalUrl": "http://localhost:5173/services/calculate-credit/1",
+      "translationIssues": [
+        "Mixed languages detected on the same page"
+      ],
+      "errors": [],
+      "content": {
+        "hasEnglish": true,
+        "hasHebrew": true,
+        "hasRussian": false,
+        "mixedLanguages": true,
+        "untranslatedKeys": []
+      }
+    },
+    {
+      "process": "Refinance Mortgage",
+      "accessible": false,
+      "redirected": true,
+      "finalUrl": "http://localhost:5173/services/refinance-mortgage/1",
+      "translationIssues": [
+        "Mixed languages detected on the same page"
+      ],
+      "errors": [],
+      "content": {
+        "hasEnglish": true,
+        "hasHebrew": true,
+        "hasRussian": false,
+        "mixedLanguages": true,
+        "untranslatedKeys": []
+      }
+    },
+    {
+      "process": "Refinance Credit",
+      "accessible": false,
+      "redirected": true,
+      "finalUrl": "http://localhost:5173/services/refinance-credit/1",
+      "translationIssues": [
+        "Mixed languages detected on the same page"
+      ],
+      "errors": [],
+      "content": {
+        "hasEnglish": true,
+        "hasHebrew": true,
+        "hasRussian": false,
+        "mixedLanguages": true,
+        "untranslatedKeys": []
+      }
+    }
+  ]
+}

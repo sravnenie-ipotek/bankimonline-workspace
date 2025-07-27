@@ -21,6 +21,7 @@ interface SliderInputProps {
   unitsMax?: string
   unitsMin?: string
   disableRanger?: boolean
+  'data-testid'?: string
 }
 
 const SliderInput = ({
@@ -36,6 +37,7 @@ const SliderInput = ({
   disableCurrency,
   unitsMax,
   unitsMin,
+  'data-testid': dataTestId,
 }: SliderInputProps) => {
   const [localValue, setLocalValue] = useState<number>(value)
 
@@ -66,6 +68,7 @@ const SliderInput = ({
           error={error}
           value={localValue}
           handleChange={handleInputChange}
+          data-testid={dataTestId}
         />
 
         <Ranger
@@ -75,6 +78,7 @@ const SliderInput = ({
           values={[value]}
           onUpdate={handleSliderChange}
           onChange={handleSliderChangeComplete}
+          data-testid={dataTestId ? `${dataTestId}-slider` : undefined}
         />
 
         {!disableRangeValues && (

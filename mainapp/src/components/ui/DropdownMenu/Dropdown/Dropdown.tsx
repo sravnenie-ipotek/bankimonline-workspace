@@ -30,6 +30,7 @@ interface DropdownProps
   nothingFoundText?: string
   error?: boolean | string
   className?: string
+  dataTestId?: string
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -43,6 +44,7 @@ const Dropdown: React.FC<DropdownProps> = ({
   onBlur,
   error,
   className,
+  dataTestId,
   ...props
 }) => {
   const id = useId()
@@ -89,6 +91,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           `${error && !isOpen && 'error'}`,
           className
         )}
+        data-testid={dataTestId}
         {...props}
       >
         <div
@@ -144,6 +147,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                   tabIndex={0}
                   className={cx('dropdown-select__item')}
                   onClick={() => handleSelectItem(item)}
+                  data-testid={`${dataTestId}-item-${item.value}`}
                 >
                   {item.label}
                   {value === item.value && <CheckIcon />}

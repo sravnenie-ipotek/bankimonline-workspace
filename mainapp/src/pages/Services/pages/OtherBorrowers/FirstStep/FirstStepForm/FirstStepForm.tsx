@@ -40,7 +40,7 @@ const FirstStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={getContent('personal_data_borrowers_title', 'personal_data_borrowers_title') + query} />
+      <FormCaption title={getContent('app.other_borrowers.step1.personal_data_title', 'Personal Data of Borrower') + ' ' + query} />
       <RowTwo>
         <Info />
       </RowTwo>
