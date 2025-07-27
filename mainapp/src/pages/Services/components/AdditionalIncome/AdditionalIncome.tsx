@@ -8,9 +8,13 @@ import { DropdownMenu } from '@components/ui/DropdownMenu'
 
 import { FormTypes } from '../../types/formTypes'
 
-const AdditionalIncome = () => {
+interface AdditionalIncomeProps {
+  screenLocation?: string
+}
+
+const AdditionalIncome = ({ screenLocation = 'mortgage_step3' }: AdditionalIncomeProps) => {
   const { t, i18n } = useTranslation()
-  const { getContent } = useContentApi('mortgage_step3')
+  const { getContent } = useContentApi(screenLocation)
 
   const { values, setFieldValue, errors, setFieldTouched, touched } =
     useFormikContext<FormTypes>()

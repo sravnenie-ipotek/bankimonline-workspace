@@ -7,9 +7,13 @@ import { DropdownMenu } from '@components/ui/DropdownMenu'
 
 import { FormTypes } from '../../types/formTypes'
 
-const MainSourceOfIncome = () => {
+interface MainSourceOfIncomeProps {
+  screenLocation?: string
+}
+
+const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfIncomeProps) => {
   const { t, i18n } = useTranslation()
-  const { getContent } = useContentApi('mortgage_step3')
+  const { getContent } = useContentApi(screenLocation)
 
   const MainSourceOfIncomeOptions = [
     { value: 'option_1', label: getContent('calculate_mortgage_main_source_option_1', 'calculate_mortgage_main_source_option_1') },

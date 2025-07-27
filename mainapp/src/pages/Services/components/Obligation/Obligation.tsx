@@ -7,9 +7,13 @@ import { DropdownMenu } from '@components/ui/DropdownMenu'
 
 import { FormTypes } from '../../types/formTypes'
 
-const Obligation = () => {
+interface ObligationProps {
+  screenLocation?: string
+}
+
+const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   const { t, i18n } = useTranslation()
-  const { getContent } = useContentApi('mortgage_step3')
+  const { getContent } = useContentApi(screenLocation)
 
   const { values, setFieldValue, touched, errors, setFieldTouched } =
     useFormikContext<FormTypes>()
