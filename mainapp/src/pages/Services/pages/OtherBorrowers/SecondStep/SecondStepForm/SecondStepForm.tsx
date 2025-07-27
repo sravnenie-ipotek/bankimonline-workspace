@@ -2,6 +2,7 @@ import { useFormikContext } from 'formik'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { Column } from '@components/ui/Column'
 import { FormContainer } from '@components/ui/FormContainer'
@@ -34,6 +35,7 @@ import { FormTypes } from '@src/pages/Services/types/formTypes'
 
 const SecondStepForm = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('other_borrowers_step2')
 
   const [searchParams] = useSearchParams()
 
@@ -104,7 +106,7 @@ const SecondStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={`${t('borrowers_income')}#${pageId}`} />
+      <FormCaption title={`${getContent('app.other_borrowers.step2.borrowers_income_title', 'Borrower\'s Income')}#${pageId}`} />
 
       <Row>
         <MainSourceOfIncome />
@@ -126,7 +128,7 @@ const SecondStepForm = () => {
                   onDelete={() => handleDeleteSourceOfIncome(item.id, pageId)}
                   enableEdit
                   key={item.id}
-                  name={`${t('source_of_income')}${item.id + 1}`}
+                  name={`${getContent('app.other_borrowers.step2.source_of_income_label', 'Source of Income')} ${item.id + 1}`}
                 />
               ))}
             <AddButton

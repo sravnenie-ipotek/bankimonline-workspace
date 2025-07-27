@@ -16,6 +16,7 @@ interface RangerProps {
   values: readonly number[]
   onUpdate: (values: ReadonlyArray<number>) => void
   onChange: (values: ReadonlyArray<number>) => void
+  'data-testid'?: string
 }
 
 const Ranger: React.FC<RangerProps> = ({
@@ -25,6 +26,7 @@ const Ranger: React.FC<RangerProps> = ({
   values,
   onUpdate,
   onChange,
+  'data-testid': dataTestId,
 }) => {
   const { i18n } = useTranslation()
 
@@ -38,6 +40,7 @@ const Ranger: React.FC<RangerProps> = ({
       values={values}
       reversed={i18n.language === 'he'}
       className={cx('slider')}
+      data-testid={dataTestId}
     >
       <Rail>
         {({ getRailProps }) => (

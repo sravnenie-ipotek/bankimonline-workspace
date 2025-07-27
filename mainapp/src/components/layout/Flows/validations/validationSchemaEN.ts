@@ -1,6 +1,7 @@
 import * as Yup from 'yup'
+import { getValidationError } from '@src/utils/validationHelpers'
 
-const validationName = Yup.string().required('Please fill this field')
+const validationName = Yup.string().required(getValidationError('error_fill_field', 'Please fill this field'))
 
 const validationPhone = Yup.string()
   .test({
@@ -13,7 +14,7 @@ const validationPhone = Yup.string()
       if (!email) {
         if (value) return true
         return this.createError({
-          message: `Please fill this field`,
+          message: getValidationError('error_fill_field', 'Please fill this field'),
         })
       }
       return true
@@ -22,7 +23,7 @@ const validationPhone = Yup.string()
   .nullable()
 
 const validationEmail = Yup.string()
-  .email('Invalid email address')
+  .email(getValidationError('error_invalid_email', 'Invalid email address'))
   .test({
     name: 'check-phone',
     exclusive: false,
@@ -33,7 +34,7 @@ const validationEmail = Yup.string()
       if (!phone) {
         if (value) return true
         return this.createError({
-          message: `Please fill this field`,
+          message: getValidationError('error_fill_field', 'Please fill this field'),
         })
       }
       return true
@@ -48,19 +49,19 @@ const validationPassword = Yup.string()
       const errors = []
 
       if (!/^(?=.{8,})/.test(value)) {
-        errors.push('Minimum 8 characters required')
+        errors.push(getValidationError('error_password_min_length', 'Minimum 8 characters required'))
       }
 
       if (!/^(?=.*[!@#\$%\^&\*])/.test(value)) {
-        errors.push('Must contain special characters')
+        errors.push(getValidationError('error_password_special_chars', 'Must contain special characters'))
       }
 
       if (!/^(?=.*[0-9])/.test(value)) {
-        errors.push('Must contain numbers')
+        errors.push(getValidationError('error_password_numbers', 'Must contain numbers'))
       }
 
       if (!/^(?=.*[A-Z, А-Я])/.test(value)) {
-        errors.push('Must contain uppercase and lowercase letters')
+        errors.push(getValidationError('error_password_case', 'Must contain uppercase and lowercase letters'))
       }
 
       if (errors.length > 0) {
@@ -75,7 +76,7 @@ const validationPassword = Yup.string()
       return true
     },
   })
-  .required('Please fill this field')
+  .required(getValidationError('error_fill_field', 'Please fill this field'))
 
 export const validationSchemaEN = {
   AuthFlow: {
@@ -85,7 +86,7 @@ export const validationSchemaEN = {
       password: validationPassword,
     }),
     CodeVerify: Yup.object().shape({
-      code: Yup.string().length(4, '').required('Please fill this field'),
+      code: Yup.string().length(4, '').required(getValidationError('error_fill_field', 'Please fill this field')),
     }),
   },
   RestorePasswordFlow: {
@@ -97,72 +98,72 @@ export const validationSchemaEN = {
       password: validationPassword,
     }),
     CodeVerify: Yup.object().shape({
-      code: Yup.string().length(4, '').required('Please fill this field'),
+      code: Yup.string().length(4, '').required(getValidationError('error_fill_field', 'Please fill this field')),
     }),
   },
   RegistrationFlow: {
     PersonalDataForm: Yup.object().shape({
       name: validationName,
-      citizenship: Yup.string().required('Please fill this field'),
+      citizenship: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       additionalCitizenship: Yup.array().nullable(),
-      dateBirth: Yup.string().required('Please fill this field'),
-      sex: Yup.string().required('Please fill this field'),
-      familyStatus: Yup.string().required('Please fill this field'),
-      children18: Yup.string().required('Please fill this field'),
+      dateBirth: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      sex: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      familyStatus: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      children18: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       children18Number: Yup.string().nullable(),
-      education: Yup.string().required('Please fill this field'),
-      payTax: Yup.string().required('Please fill this field'),
+      education: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      payTax: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       payTaxCountries: Yup.array().nullable(),
-      isPublic: Yup.string().required('Please fill this field'),
+      isPublic: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
     }),
     PartnerPersonalDataForm: Yup.object().shape({
       name: validationName,
-      citizenship: Yup.string().required('Please fill this field'),
+      citizenship: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       additionalCitizenship: Yup.array().nullable(),
-      dateBirth: Yup.string().required('Please fill this field'),
-      sex: Yup.string().required('Please fill this field'),
-      education: Yup.string().required('Please fill this field'),
-      payTax: Yup.string().required('Please fill this field'),
+      dateBirth: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      sex: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      education: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      payTax: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       payTaxCountries: Yup.array().nullable(),
-      isPublic: Yup.string().required('Please fill this field'),
+      isPublic: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
     }),
     IncomeForm: Yup.object().shape({
-      yearsWork: Yup.string().required('Please fill this field'),
-      sphere: Yup.string().required('Please fill this field'),
-      monthlyIncomeNet: Yup.string().required('Please fill this field'),
-      monthlyIncomeGross: Yup.string().required('Please fill this field'),
-      additionalIncome: Yup.string().required('Please fill this field'),
+      yearsWork: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      sphere: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      monthlyIncomeNet: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      monthlyIncomeGross: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      additionalIncome: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       additionalIncomeAmount: Yup.string().nullable(),
-      monthlyOutgoings: Yup.string().required('Please fill this field'),
-      assets: Yup.string().required('Please fill this field'),
+      monthlyOutgoings: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      assets: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       assetsAmount: Yup.string().nullable(),
-      existingLoans: Yup.string().required('Please fill this field'),
+      existingLoans: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       existingLoansBankName: Yup.string().nullable(),
       existingLoansAmount: Yup.string().nullable(),
       existingLoansType: Yup.string().nullable(),
       existingLoansMonthlyPayments: Yup.string().nullable(),
       existingLoansTermEnd: Yup.string().nullable(),
-      creditCards: Yup.string().required('Please fill this field'),
+      creditCards: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       creditCardsAmount: Yup.string().nullable(),
       creditCardsMonthlyPayments: Yup.string().nullable(),
     }),
     PartnerIncomeForm: Yup.object().shape({
-      yearsWork: Yup.string().required('Please fill this field'),
-      sphere: Yup.string().required('Please fill this field'),
-      monthlyIncomeNet: Yup.string().required('Please fill this field'),
-      monthlyIncomeGross: Yup.string().required('Please fill this field'),
-      additionalIncome: Yup.string().required('Please fill this field'),
+      yearsWork: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      sphere: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      monthlyIncomeNet: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      monthlyIncomeGross: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      additionalIncome: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       additionalIncomeAmount: Yup.string().nullable(),
-      monthlyOutgoings: Yup.string().required('Please fill this field'),
-      assets: Yup.string().required('Please fill this field'),
+      monthlyOutgoings: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
+      assets: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       assetsAmount: Yup.string().nullable(),
-      existingLoans: Yup.string().required('Please fill this field'),
+      existingLoans: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       existingLoansBankName: Yup.string().nullable(),
       existingLoansAmount: Yup.string().nullable(),
       existingLoansType: Yup.string().nullable(),
       existingLoansMonthlyPayments: Yup.string().nullable(),
       existingLoansTermEnd: Yup.string().nullable(),
-      creditCards: Yup.string().required('Please fill this field'),
+      creditCards: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
       creditCardsAmount: Yup.string().nullable(),
       creditCardsMonthlyPayments: Yup.string().nullable(),
     }),

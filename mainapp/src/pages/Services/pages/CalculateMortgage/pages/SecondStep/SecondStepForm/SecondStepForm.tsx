@@ -41,7 +41,7 @@ const SecondStepForm = () => {
   return (
     <>
       <FormContainer>
-        <FormCaption title={getContent('calculate_mortgage_step2_title', 'calculate_mortgage_step2_title')} />
+        <FormCaption title={getContent('mortgage_step2_title', 'Personal Details')} />
         <RowTwo>
           <Info />
           <UserProfileCard

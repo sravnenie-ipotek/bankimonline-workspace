@@ -14,20 +14,20 @@ const Education = () => {
     useFormikContext<FormTypes>()
 
   const EducationSelectOptions = [
-    { value: 'option_1', label: getContent('calculate_mortgage_education_option_1') },
-    { value: 'option_2', label: getContent('calculate_mortgage_education_option_2') },
-    { value: 'option_3', label: getContent('calculate_mortgage_education_option_3') },
-    { value: 'option_4', label: getContent('calculate_mortgage_education_option_4') },
-    { value: 'option_5', label: getContent('calculate_mortgage_education_option_5') },
-    { value: 'option_6', label: getContent('calculate_mortgage_education_option_6') },
-    { value: 'option_7', label: getContent('calculate_mortgage_education_option_7') },
+    { value: 'option_1', label: getContent('mortgage_step2_education_option_1', 'No high school certificate') },
+    { value: 'option_2', label: getContent('mortgage_step2_education_option_2', 'Partial high school certificate') },
+    { value: 'option_3', label: getContent('mortgage_step2_education_option_3', 'Full high school certificate') },
+    { value: 'option_4', label: getContent('mortgage_step2_education_option_4', 'Post-secondary education') },
+    { value: 'option_5', label: getContent('mortgage_step2_education_option_5', 'Bachelor\'s degree') },
+    { value: 'option_6', label: getContent('mortgage_step2_education_option_6', 'Master\'s degree') },
+    { value: 'option_7', label: getContent('mortgage_step2_education_option_7', 'Doctoral degree') },
   ]
 
   return (
     <Column>
       <DropdownMenu
-        title={getContent('calculate_mortgage_education')}
-        placeholder={getContent('calculate_mortgage_education_ph')}
+        title={getContent('mortgage_step2_education', 'Education')}
+        placeholder={getContent('mortgage_step2_education_ph', 'Select education level')}
         value={values.education}
         data={EducationSelectOptions}
         onChange={(value) => setFieldValue('education', value)}
