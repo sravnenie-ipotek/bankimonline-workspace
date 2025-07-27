@@ -176,9 +176,9 @@ export const FirstStepForm: FC = () => {
         <Row>
           <Column>
             <DropdownMenu
-              title={t('calculate_why')}
+              title={getContent('calculate_why', t('calculate_why'))}
               data={creditPurposes}
-              placeholder={t('calculate_credit_target_ph')}
+              placeholder={getContent('calculate_credit_target_ph', t('calculate_credit_target_ph'))}
               value={values.purposeOfLoan}
               onChange={(value) => setFieldValue('purposeOfLoan', value)}
               onBlur={() => setFieldTouched('purposeOfLoan', true)}
@@ -192,7 +192,7 @@ export const FirstStepForm: FC = () => {
                 setFieldValue('loanAmount', value)
               }}
               name="loanAmount"
-              title={t('calculate_amount')}
+              title={getContent('calculate_amount', t('calculate_amount'))}
               value={values.loanAmount}
               placeholder="1,000,000"
               error={errors.loanAmount}
@@ -202,9 +202,9 @@ export const FirstStepForm: FC = () => {
 
           <Column>
             <DropdownMenu
-              title={t('calculate_when')}
+              title={getContent('calculate_when', t('calculate_when'))}
               data={WhenDoYouNeedMoneyOptions}
-              placeholder={t('calculate_mortgage_when_options_Time')}
+              placeholder={getContent('calculate_mortgage_when_options_Time', t('calculate_mortgage_when_options_Time'))}
               value={values.whenDoYouNeedMoney}
               onChange={(value) => setFieldValue('whenDoYouNeedMoney', value)}
               onBlur={() => setFieldTouched('whenDoYouNeedMoney', true)}
@@ -215,9 +215,9 @@ export const FirstStepForm: FC = () => {
         <Row>
           <Column>
             <DropdownMenu
-              title={t('calculate_prolong')}
+              title={getContent('calculate_prolong', t('calculate_prolong'))}
               data={loanDeferralOptions}
-              placeholder={t('calculate_credit_prolong_ph')}
+              placeholder={getContent('calculate_credit_prolong_ph', t('calculate_credit_prolong_ph'))}
               value={values.loanDeferral}
               onChange={(value) => setFieldValue('loanDeferral', value)}
               onBlur={() => setFieldTouched('loanDeferral', true)}

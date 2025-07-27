@@ -2,6 +2,7 @@ import { useFormikContext } from 'formik'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { createSearchParams } from 'react-router-dom'
 
 import { AddButton } from '@components/ui/AddButton'
@@ -43,6 +44,7 @@ import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
 // Компонент расчета ипотеки - 3 шаг
 const ThirdStepForm = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('calculate_credit_3')
   const navigate = useNavigate()
 
   const { values } = useFormikContext<FormTypes>()
@@ -140,7 +142,7 @@ const ThirdStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={t('calculate_mortgage_step3_title')} />
+      <FormCaption title={getContent('calculate_credit_step3_title', t('credit_step3_title'))} />
 
       <UserProfileCard
         name={userData?.nameSurname}
@@ -148,7 +150,7 @@ const ThirdStepForm = () => {
       />
 
       <Row>
-        <MainSourceOfIncome />
+        <MainSourceOfIncome screenLocation="calculate_credit_3" />
         {componentsByIncomeSource[mainSourceOfIncome] &&
           componentsByIncomeSource[mainSourceOfIncome].map(
             (Component, index) => (
@@ -166,13 +168,13 @@ const ThirdStepForm = () => {
                 onDelete={() => handleDeleteSourceOfIncome(item.id)}
                 enableEdit
                 key={item.id}
-                name={`${t('source_of_income')}${item.id + 1}`}
+                name={`${getContent('calculate_credit_source_of_income', t('main_income_source'))}${item.id + 1}`}
               />
             ))}
             <AddButton
               onClick={openSourceOfIncome}
               color="#FBE54D"
-              value={t('add_place_to_work')}
+              value={getContent('calculate_credit_add_place_to_work', t('add_place_to_work'))}
               variant="none"
             />
           </Column>
@@ -182,7 +184,7 @@ const ThirdStepForm = () => {
       <Divider />
 
       <Row>
-        <AdditionalIncome />
+        <AdditionalIncome screenLocation="calculate_credit_3" />
         {additionalIncome && additionalIncome !== 'option_1' && (
           <AdditionalIncomeAmount />
         )}
@@ -198,13 +200,13 @@ const ThirdStepForm = () => {
                 onDelete={() => handleDeleteAdditionalIncome(item.id)}
                 enableEdit
                 key={item.id}
-                name={`${t('additional_source_of_income')}${item.id + 1}`}
+                name={`${getContent('calculate_credit_additional_income', t('additional_source_of_income'))}${item.id + 1}`}
               />
             ))}
             <AddButton
               onClick={openAdditionalIncome}
               color="#FBE54D"
-              value={t('add_additional_source_of_income')}
+              value={getContent('calculate_credit_add_additional_income', t('add_additional_source_of_income'))}
               variant="none"
             />
           </Column>
@@ -214,7 +216,7 @@ const ThirdStepForm = () => {
       <Divider />
 
       <Row>
-        <Obligation />
+        <Obligation screenLocation="calculate_credit_3" />
         {componentsByObligation[obligation] &&
           componentsByObligation[obligation].map((Component, index) => (
             <React.Fragment key={index}>{Component}</React.Fragment>
@@ -231,13 +233,13 @@ const ThirdStepForm = () => {
                 onDelete={() => handleDeleteObligation(item.id)}
                 enableEdit
                 key={item.id}
-                name={`${t('obligation')}${item.id + 1}`}
+                name={`${getContent('calculate_credit_obligation', t('obligation'))}${item.id + 1}`}
               />
             ))}
             <AddButton
               onClick={openObligation}
               color="#FBE54D"
-              value={t('add_obligation')}
+              value={getContent('calculate_credit_add_obligation', t('add_obligation'))}
               variant="none"
             />
           </Column>
@@ -246,7 +248,7 @@ const ThirdStepForm = () => {
 
       <Divider />
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-        {otherBorrowers && <TitleElement title={t('borrower')} />}
+        {otherBorrowers && <TitleElement title={getContent('calculate_credit_borrower', t('borrower'))} />}
         <Row style={{ columnGap: '2rem' }}>
           {otherBorrowers.map((item) => (
             <Column key={item.id}>
@@ -259,10 +261,10 @@ const ThirdStepForm = () => {
               />
             </Column>
           ))}
-          {!otherBorrowers && <TitleElement title={t('borrower')} />}
+          {!otherBorrowers && <TitleElement title={getContent('calculate_credit_borrower', t('borrower'))} />}
           <Column>
             <AddButton
-              value={t('add_borrower')}
+              value={getContent('calculate_credit_add_borrower', t('add_borrower'))}
               onClick={handleCreateOtherBorrowers}
               style={{
                 height: '3.5rem',

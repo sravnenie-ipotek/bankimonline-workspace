@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { Column } from '@components/ui/Column'
 import { FormContainer } from '@components/ui/FormContainer'
@@ -31,6 +32,7 @@ import { FormTypes } from '@src/pages/Services/types/formTypes'
 // Компонент расчета ипотеки - 2 шаг
 const SecondStepForm = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('calculate_credit_2')
 
   const { values } = useFormikContext<FormTypes>()
 
@@ -38,7 +40,7 @@ const SecondStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={t('calculate_mortgage_step2_title')} />
+      <FormCaption title={getContent('calculate_credit_step2_title', t('calculate_mortgage_step2_title'))} />
       <RowTwo>
         <Info />
         <UserProfileCard
