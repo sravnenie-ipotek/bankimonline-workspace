@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { AlertWarning } from '@components/ui/AlertWarning'
 import { FormContainer } from '@components/ui/FormContainer'
@@ -11,19 +12,20 @@ import { UserParams } from '@src/pages/Services/components/UserParams'
 
 const FourthStepForm = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('calculate_credit_4')
 
   const userData = useAppSelector((state) => state.login.loginData)
   const creditParameters = useAppSelector((state) => state.credit)
 
   return (
     <FormContainer>
-      <FormCaption title={t('calculate_credit_final')} />
+      <FormCaption title={getContent('calculate_credit_final', t('calculate_credit_final'))} />
       <UserParams
         credit={creditParameters.loanAmount}
         nameSurname={userData?.nameSurname}
         phoneNumber={userData?.phoneNumber}
       />
-      <AlertWarning text={t('calculate_credit_warning')} />
+      <AlertWarning text={getContent('calculate_credit_warning', t('calculate_credit_warning'))} />
       <Row>
         <Filter />
       </Row>

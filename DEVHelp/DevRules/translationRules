@@ -238,3 +238,146 @@ The frontend uses `useContentApi('screen_location')` to fetch ALL content for a 
 - ALL options for a dropdown MUST use sequential numbering starting from 1
 - Field name MUST be consistent across label, placeholder, and all options
 - Use appropriate category values ('personal_details', 'income_details', 'loan_parameters', etc.)
+
+14. Frontend and Translation.json Updates During Migration
+**CRITICAL**: When migrating content from translation.json to the database, ALWAYS update both the frontend components AND the translation.json files to maintain system integrity.
+
+**Complete Migration Process:**
+
+**Step 1: Database Migration**
+```sql
+-- Insert content items
+INSERT INTO content_items (content_key, component_type, screen_location, category, is_active)
+VALUES 
+('calculate_credit_education', 'field_label', 'calculate_credit_2', 'personal_details', true),
+('calculate_credit_education_ph', 'placeholder', 'calculate_credit_2', 'personal_details', true),
+('calculate_credit_education_option_1', 'option', 'calculate_credit_2', 'personal_details', true);
+
+-- Insert translations for all languages
+INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+SELECT id, 'en', 'Education Level', 'approved' FROM content_items WHERE content_key = 'calculate_credit_education';
+INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+SELECT id, 'he', 'רמת השכלה', 'approved' FROM content_items WHERE content_key = 'calculate_credit_education';
+INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+SELECT id, 'ru', 'Уровень образования', 'approved' FROM content_items WHERE content_key = 'calculate_credit_education';
+```
+
+**Step 2: Frontend Component Update**
+```typescript
+// ❌ BEFORE - Using translation.json
+import { useTranslation } from 'react-i18next';
+
+const CreditForm = () => {
+  const { t } = useTranslation();
+  
+  const educationOptions = [
+    { value: 'high_school', label: t('calculate_credit_education_option_1') },
+    { value: 'bachelor', label: t('calculate_credit_education_option_2') },
+    { value: 'master', label: t('calculate_credit_education_option_3') }
+  ];
+
+  return (
+    <select>
+      <option value="">{t('calculate_credit_education_ph')}</option>
+      {educationOptions.map(option => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  );
+};
+
+// ✅ AFTER - Using database via useContentApi
+import { useContentApi } from '@/hooks/useContentApi';
+
+const CreditForm = () => {
+  const { getContent } = useContentApi('calculate_credit_2');
+  
+  const educationOptions = [
+    { value: 'high_school', label: getContent('calculate_credit_education_option_1', 'High School') },
+    { value: 'bachelor', label: getContent('calculate_credit_education_option_2', 'Bachelor Degree') },
+    { value: 'master', label: getContent('calculate_credit_education_option_3', 'Master Degree') }
+  ];
+
+  return (
+    <div>
+      <label>{getContent('calculate_credit_education', 'Education Level')}</label>
+      <select>
+        <option value="">{getContent('calculate_credit_education_ph', 'Select education level')}</option>
+        {educationOptions.map(option => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+```
+
+**Step 3: Translation.json File Updates**
+Mark migrated keys with `__MIGRATED_` prefix and reference information:
+
+```json
+// translations/en.json
+{
+  "__MIGRATED_calculate_credit_education": "MIGRATED to database - screen_location: calculate_credit_2, content_key: calculate_credit_education",
+  "__MIGRATED_calculate_credit_education_ph": "MIGRATED to database - screen_location: calculate_credit_2, content_key: calculate_credit_education_ph", 
+  "__MIGRATED_calculate_credit_education_option_1": "MIGRATED to database - screen_location: calculate_credit_2, content_key: calculate_credit_education_option_1",
+  "__MIGRATED_calculate_credit_education_option_2": "MIGRATED to database - screen_location: calculate_credit_2, content_key: calculate_credit_education_option_2",
+  "__MIGRATED_calculate_credit_education_option_3": "MIGRATED to database - screen_location: calculate_credit_2, content_key: calculate_credit_education_option_3",
+  
+  "other_active_key": "Still active translation",
+  "another_key": "Another active translation"
+}
+```
+
+**Step 4: Import Statement Updates**
+```typescript
+// Remove translation imports where no longer needed
+// ❌ Remove if no longer using translation.json for this component
+import { useTranslation } from 'react-i18next';
+
+// ✅ Add database content API import
+import { useContentApi } from '@/hooks/useContentApi';
+```
+
+**Step 5: Verification Checklist**
+1. **Database Check**: Verify content exists with correct screen_location
+   ```sql
+   SELECT * FROM content_items WHERE screen_location = 'calculate_credit_2' AND content_key LIKE 'calculate_credit_education%';
+   ```
+
+2. **API Test**: Confirm API endpoint returns data
+   ```bash
+   curl http://localhost:8003/api/content/calculate_credit_2/en
+   ```
+
+3. **Frontend Test**: Load the page and verify content displays correctly
+4. **Language Test**: Switch languages and confirm translations work
+5. **Fallback Test**: Verify fallback values display if database content missing
+
+**Step 6: Documentation Update**
+```markdown
+## Migration Log
+- Date: 2024-01-XX
+- Component: CreditForm education dropdown
+- Screen Location: calculate_credit_2
+- Migrated Keys: calculate_credit_education, calculate_credit_education_ph, calculate_credit_education_option_1-3
+- Status: ✅ Complete
+```
+
+**NEVER Skip Frontend Updates:**
+- Always update components to use `useContentApi()` instead of `useTranslation()`
+- Always mark migrated keys in translation.json files
+- Always test both database content and fallback scenarios
+- Always verify all three languages (EN/HE/RU) work correctly
+
+**Common Migration Mistakes to Avoid:**
+1. ❌ Migrating to database but leaving frontend using `useTranslation()`
+2. ❌ Not marking migrated keys in translation.json
+3. ❌ Forgetting to add fallback values in `getContent()` calls
+4. ❌ Not testing all language variants
+5. ❌ Missing screen_location parameter in `useContentApi()`
+6. ❌ Using wrong screen_location name that doesn't match database

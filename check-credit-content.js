@@ -6,12 +6,12 @@ async function checkRefinanceContent() {
     const result = await pool.query(`
       SELECT screen_location, COUNT(*) as content_items
       FROM content_items 
-      WHERE screen_location IN ('refinance_step1', 'refinance_step2', 'refinance_step3', 'mortgage_step4')
+      WHERE screen_location IN ('credit_step1', 'credit_step2', 'credit_step3', 'credit_step4', 'calculate_credit_1', 'calculate_credit_2', 'calculate_credit_3', 'calculate_credit_4')
       GROUP BY screen_location
       ORDER BY screen_location
     `);
     
-    console.log('📊 Refinance Mortgage Database Content Status:');
+    console.log('📊 Calculate Credit Database Content Status:');
     console.log('===============================================');
     result.rows.forEach(row => {
       console.log(`${row.screen_location}: ${row.content_items} items`);
@@ -21,7 +21,7 @@ async function checkRefinanceContent() {
     const detailResult = await pool.query(`
       SELECT screen_location, content_key, component_type
       FROM content_items 
-      WHERE screen_location IN ('refinance_step1', 'refinance_step2', 'refinance_step3', 'mortgage_step4')
+      WHERE screen_location IN ('credit_step1', 'credit_step2', 'credit_step3', 'credit_step4', 'calculate_credit_1', 'calculate_credit_2', 'calculate_credit_3', 'calculate_credit_4')
       ORDER BY screen_location, content_key
     `);
     
