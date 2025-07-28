@@ -1,0 +1,31 @@
+# Comparison of Customer-Facing Processes up to Step 4
+
+This document summarizes how the current implementation of the four service flows compares to the Confluence specification, covering Steps 1 → 4 for each flow.
+
+| Process ID | Flow | Steps 1-3 | Step 4 | Alignment to Spec (≈) |
+|-----------|---------------------------|-------------------------|----------------------------|---------------------|
+| **P-1** | Calculate Mortgage | ✔ Implemented, validations & slice wiring correct | Implemented but **auth bypass** (temporary), no bank-offer API | **85 %** |
+| **P-2** | Refinance Mortgage | ✔ Implemented & validated | **Navigation path wrong** (redirects to mortgage URL) + **dispatches wrong slice**; no bank-offer API | **≈70 %** |
+| **P-3** | Calculate Credit | ✔ Implemented & validated | Implemented, slice correct; still lacks offer API | **80 %** |
+| **P-4** | Refinance Credit | ✔ Implemented & validated | Same issues as P-2 – wrong navigation + wrong slice; no offer API | **≈70 %** |
+
+### Key Findings
+1. **Navigation Errors**  
+   • P-2 & P-4 Step-3 and Step-4 call `navigate('/services/calculate-mortgage/4')` instead of their own routes.  
+2. **Slice Mis-wiring**  
+   • P-2 Step-4 dispatches `updateMortgageData` instead of `updateRefinanceMortgageData`.  
+   • P-4 Step-4 dispatches the same wrong slice; should use `updateRefinanceCreditData` (not yet created).  
+3. **Authentication Logic**  
+   • P-1 Step-4 bypasses auth (`// TODO` section). P-2–P-4 still open `AuthModal` when unauthenticated.
+4. **Bank/Offer Integration**  
+   • All Step-4 forms only store local choice; no API call to retrieve real offers.
+
+### Recommended Next Steps
+1. Correct route strings in P-2 & P-4 Step-3/4 components.  
+2. Connect Step-4 components to the proper Redux slices (create missing slice for refinance credit if needed).  
+3. Re-enable real authentication flow in P-1 and replicate across other processes.  
+4. Integrate back-end endpoint to fetch bank offers and persist selection.  
+5. Add e2e tests to cover the `/1…4` journey for each process to prevent regressions.
+
+— **Generated analysis 28 July 2025**
+

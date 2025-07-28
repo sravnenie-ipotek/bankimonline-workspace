@@ -56,11 +56,11 @@ PORT=3000
 
 Your app likely uses one of these:
 
-#### Option 1: SQLite (File-based)
+#### Option 1: File-based Database
 ```javascript
 // No Railway database service needed
-const sqlite3 = require('sqlite3');
-const db = new sqlite3.Database('./app.db');
+const fs = require('fs');
+const data = JSON.parse(fs.readFileSync('./app.json', 'utf8'));
 ```
 
 #### Option 2: In-Memory Database
