@@ -48,7 +48,7 @@ This folder contains configuration files for Railway deployment - both for **sel
 ## 🎯 For AI Agents
 
 ### Self-Contained Apps
-Use **`SELF_CONTAINED_SETUP.md`** for apps that create their own database (SQLite, in-memory, etc.)
+Use **`SELF_CONTAINED_SETUP.md`** for apps that create their own database (in-memory, file-based, etc.)
 
 ### External Database Apps  
 Use **`RAILWAY_SETUP_PROMPT.md`** for apps that need Railway PostgreSQL service. It contains:
