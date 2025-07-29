@@ -10,18 +10,20 @@ import { Row } from '@components/ui/Row'
 import { SliderInput } from '@components/ui/SliderInput'
 import Divider from '@src/components/ui/Divider/Divider'
 import FormCaption from '@src/components/ui/FormCaption/FormCaption'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { RefinanceCreditTypes } from '@src/pages/Services/types/formTypes'
 
 import { CreditData } from './ui/CreditData'
 
 const FirstStepForm = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('refinance_credit_1')
 
   const WhyYouTakeCreditOptions = [
-    { value: 'option_1', label: t('calculate_credit_why_option_1') },
-    { value: 'option_2', label: t('calculate_credit_why_option_2') },
-    { value: 'option_3', label: t('calculate_credit_why_option_3') },
-    { value: 'option_4', label: t('calculate_credit_why_option_4') },
+    { value: 'option_1', label: getContent('calculate_credit_why_option_1', t('calculate_credit_why_option_1')) },
+    { value: 'option_2', label: getContent('calculate_credit_why_option_2', t('calculate_credit_why_option_2')) },
+    { value: 'option_3', label: getContent('calculate_credit_why_option_3', t('calculate_credit_why_option_3')) },
+    { value: 'option_4', label: getContent('calculate_credit_why_option_4', t('calculate_credit_why_option_4')) },
   ]
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
@@ -29,14 +31,14 @@ const FirstStepForm = () => {
 
   return (
     <FormContainer>
-      <FormCaption title={t('credit_refinance_title')} />
+      <FormCaption title={getContent('credit_refinance_title', t('credit_refinance_title'))} />
 
       <Row>
         <Column>
           <DropdownMenu
             data={WhyYouTakeCreditOptions}
-            title={t('mortgage_credit_why')}
-            placeholder={t('credit_refinance_why_ph')}
+            title={getContent('mortgage_credit_why', t('mortgage_credit_why'))}
+            placeholder={getContent('credit_refinance_why_ph', t('credit_refinance_why_ph'))}
             value={values.refinancingCredit}
             onChange={(value) => setFieldValue('refinancingCredit', value)}
             onBlur={() => setFieldTouched('refinancingCredit')}
@@ -62,7 +64,7 @@ const FirstStepForm = () => {
             <Column>
               <FormattedInput
                 name="desiredMonthlyPayment"
-                title={t('desired_monthly_payment')}
+                title={getContent('desired_monthly_payment', t('desired_monthly_payment'))}
                 handleChange={(value) => setFieldValue('desiredMonthlyPayment', value)}
                 value={values.desiredMonthlyPayment}
                 onBlur={() => setFieldTouched('desiredMonthlyPayment')}
@@ -81,16 +83,15 @@ const FirstStepForm = () => {
             <Column>
               <SliderInput
                 disableCurrency={true}
-                unitsMax={t('calculate_mortgage_period_units_max')}
-                unitsMin={t('calculate_mortgage_period_units_min')}
+                unitsMax={getContent('calculate_mortgage_period_units_max', t('calculate_mortgage_period_units_max'))}
+                unitsMin={getContent('calculate_mortgage_period_units_min', t('calculate_mortgage_period_units_min'))}
                 value={values.desiredTerm}
                 name="desiredTerm"
                 min={4}
                 max={30}
                 error={errors.desiredTerm}
-                title={t('credit_loan_period')}
+                title={getContent('credit_loan_period', t('credit_loan_period'))}
                 handleChange={(value) => setFieldValue('desiredTerm', value)}
-                onBlur={() => setFieldTouched('desiredTerm')}
               />
               {errors.desiredTerm && <Error error={errors.desiredTerm} />}
             </Column>
