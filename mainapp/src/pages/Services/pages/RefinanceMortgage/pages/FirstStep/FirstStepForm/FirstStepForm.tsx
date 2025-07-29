@@ -32,11 +32,11 @@ const FirstStepForm = () => {
 
   // Use useMemo to ensure dropdown options update when translations change
   const TypeSelectOptions = useMemo(() => [
-    { value: 'option_1', label: getContent('app.refinance.step1.program_option_1', t('app.refinance.step1.program_option_1')) },
-    { value: 'option_2', label: getContent('app.refinance.step1.program_option_2', t('app.refinance.step1.program_option_2')) },
-    { value: 'option_3', label: getContent('app.refinance.step1.program_option_3', t('app.refinance.step1.program_option_3')) },
-    { value: 'option_4', label: getContent('app.refinance.step1.program_option_4', t('app.refinance.step1.program_option_4')) },
-    { value: 'option_5', label: getContent('app.refinance.step1.program_option_5', t('app.refinance.step1.program_option_5')) },
+    { value: 'option_1', label: getContent('app.refinance.step1.property_option_1', t('app.refinance.step1.property_option_1')) },
+    { value: 'option_2', label: getContent('app.refinance.step1.property_option_2', t('app.refinance.step1.property_option_2')) },
+    { value: 'option_3', label: getContent('app.refinance.step1.property_option_3', t('app.refinance.step1.property_option_3')) },
+    { value: 'option_4', label: getContent('app.refinance.step1.property_option_4', t('app.refinance.step1.property_option_4')) },
+    { value: 'option_5', label: getContent('app.refinance.step1.property_option_5', t('app.refinance.step1.property_option_5')) },
   ], [getContent, t])
 
   const WhyDoYouRefinanceOptions = useMemo(() => [
