@@ -27,9 +27,19 @@ const SingleButton: React.FC<SingleButtonProps> = ({
     console.log('errors:', errors)
     console.log('========================')
     
-    // ALWAYS SUBMIT - IGNORE VALIDATION FOR NOW
-    console.log('FORCING SUBMIT REGARDLESS OF VALIDATION')
-    handleSubmit()
+    // Touch all fields to show validation errors
+    Object.keys(values).forEach(fieldName => {
+      setFieldTouched(fieldName, true, false)
+    })
+    
+    // Only submit if form is valid
+    if (isValid) {
+      console.log('Form is valid, submitting...')
+      handleSubmit()
+    } else {
+      console.log('Form is invalid, showing errors...')
+      setShowErrors(true)
+    }
   }
 
   return (
@@ -41,8 +51,8 @@ const SingleButton: React.FC<SingleButtonProps> = ({
             size="smallLong"
             type="button"
             style={{
-              opacity: 1,
-              cursor: 'pointer',
+              opacity: isValid ? 1 : 0.7,
+              cursor: isValid ? 'pointer' : 'not-allowed',
               pointerEvents: 'auto',
               zIndex: 9999
             }}
