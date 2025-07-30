@@ -2,7 +2,7 @@
 const validationCache = new Map<string, Record<string, string>>();
 
 /**
- * Get current language from i18next or document
+ * Get current language from i18next
  */
 const getCurrentLanguage = (): string => {
   try {
