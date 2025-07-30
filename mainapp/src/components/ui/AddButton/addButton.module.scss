@@ -42,7 +42,13 @@
 }
 
 .outline {
-  // No border styling for link version
+  // Remove border styling - no border for outline version
+  border: none !important;
+}
+
+.none {
+  // No border styling for none version
+  border: none !important;
 }
 
 .wrapper {

@@ -20,7 +20,7 @@ const AddButton: React.FC<PropTypes> = ({
   value,
   error,
   onClick,
-  variant = 'outline',
+  variant = 'none',
   color = '#F5C842',
   ...props
 }: PropTypes) => {
