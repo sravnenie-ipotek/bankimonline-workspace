@@ -21,7 +21,18 @@
   text-align: center;
   cursor: pointer;
   border-radius: 50%;
-  // transition: all 0.1s ease-in;
+  z-index: 10;
+  touch-action: none;
+  user-select: none;
+  transition: all 0.1s ease-in;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
 }
 
 .track {

@@ -27,7 +27,7 @@ const Handle: React.FC<HandleProps> = ({
       className={cx('handle', 'bg-accent-primary')}
       style={{
         left: `${percent}%`,
-        marginLeft: `${i18n.language === 'he' && '-12px'}`,
+        marginLeft: i18n.language === 'he' ? '-12px' : '0px',
       }}
       {...getHandleProps(id)}
     />
