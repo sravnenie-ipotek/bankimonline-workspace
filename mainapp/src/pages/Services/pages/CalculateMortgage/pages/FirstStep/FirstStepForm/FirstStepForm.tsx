@@ -111,23 +111,23 @@ const FirstStepForm = () => {
 
   // Use useMemo to ensure dropdown options update when content changes
   const WhenDoYouNeedMoneyOptions = useMemo(() => [
-    { value: '1', label: getContent('mortgage_step1.field.when_needed_option_1', 'calculate_mortgage_when_options_1') },
-    { value: '2', label: getContent('mortgage_step1.field.when_needed_option_2', 'calculate_mortgage_when_options_2') },
-    { value: '3', label: getContent('mortgage_step1.field.when_needed_option_3', 'calculate_mortgage_when_options_3') },
-    { value: '4', label: getContent('mortgage_step1.field.when_needed_option_4', 'calculate_mortgage_when_options_4') },
+    { value: 'next_3_months', label: getContent('mortgage_step1.field.when_needed_option_1', 'calculate_mortgage_when_options_1') },
+    { value: '3_to_6_months', label: getContent('mortgage_step1.field.when_needed_option_2', 'calculate_mortgage_when_options_2') },
+    { value: '6_to_12_months', label: getContent('mortgage_step1.field.when_needed_option_3', 'calculate_mortgage_when_options_3') },
+    { value: 'more_than_12_months', label: getContent('mortgage_step1.field.when_needed_option_4', 'calculate_mortgage_when_options_4') },
   ], [getContent])
 
   const TypeSelectOptions = useMemo(() => [
-    { value: '1', label: getContent('mortgage_step1.field.type_option_1', 'calculate_mortgage_type_options_1') },
-    { value: '2', label: getContent('mortgage_step1.field.type_option_2', 'calculate_mortgage_type_options_2') },
-    { value: '3', label: getContent('mortgage_step1.field.type_option_3', 'calculate_mortgage_type_options_3') },
-    { value: '4', label: getContent('mortgage_step1.field.type_option_4', 'calculate_mortgage_type_options_4') },
+    { value: 'fixed_rate', label: getContent('mortgage_step1.field.type_option_1', 'calculate_mortgage_type_options_1') },
+    { value: 'variable_rate', label: getContent('mortgage_step1.field.type_option_2', 'calculate_mortgage_type_options_2') },
+    { value: 'mixed_rate', label: getContent('mortgage_step1.field.type_option_3', 'calculate_mortgage_type_options_3') },
+    { value: 'not_sure', label: getContent('mortgage_step1.field.type_option_4', 'calculate_mortgage_type_options_4') },
   ], [getContent])
 
   const WillBeYourFirstOptions = useMemo(() => [
-    { value: '1', label: getContent('mortgage_step1.field.first_home_option_1', 'calculate_mortgage_first_options_1') },
-    { value: '2', label: getContent('mortgage_step1.field.first_home_option_2', 'calculate_mortgage_first_options_2') },
-    { value: '3', label: getContent('mortgage_step1.field.first_home_option_3', 'calculate_mortgage_first_options_3') },
+    { value: 'first_apartment', label: getContent('mortgage_step1.field.first_home_option_1', 'calculate_mortgage_first_options_1') },
+    { value: 'not_first_apartment', label: getContent('mortgage_step1.field.first_home_option_2', 'calculate_mortgage_first_options_2') },
+    { value: 'investment', label: getContent('mortgage_step1.field.first_home_option_3', 'calculate_mortgage_first_options_3') },
   ], [getContent])
 
   // Property Ownership Options (Confluence Action #12 - affects LTV ratios 75%/50%/70%)
