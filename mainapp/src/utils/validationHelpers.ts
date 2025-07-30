@@ -2,25 +2,25 @@
 const validationCache = new Map<string, Record<string, string>>();
 
 /**
- * Get current language from i18next
+ * Get current language from i18next (same as useContentApi)
  */
 const getCurrentLanguage = (): string => {
   try {
-    // Try to get from i18next first
+    // Use the same logic as useContentApi
     if (typeof window !== 'undefined' && window.i18next) {
-      return window.i18next.language || 'he'
+      return window.i18next.language || 'en'
     }
     
     // Fallback to document language
     if (typeof document !== 'undefined') {
-      return document.documentElement.lang || 'he'
+      return document.documentElement.lang || 'en'
     }
     
-    // Default to Hebrew
-    return 'he'
+    // Default to English (same as useContentApi)
+    return 'en'
   } catch (error) {
-    console.warn('Failed to get current language, defaulting to Hebrew:', error)
-    return 'he'
+    console.warn('Failed to get current language, defaulting to English:', error)
+    return 'en'
   }
 }
 
