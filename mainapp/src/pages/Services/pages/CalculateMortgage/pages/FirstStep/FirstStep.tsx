@@ -1,9 +1,10 @@
 import { Form, Formik } from 'formik'
 import i18next from 'i18next'
-import { getValidationError } from '@src/utils/validationHelpers'
+import { getValidationErrorSync, preloadValidationErrors } from '@src/utils/validationHelpers'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import * as Yup from 'yup'
+import { useEffect } from 'react'
 
 import { Container } from '@src/components/ui/Container'
 import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
@@ -20,33 +21,33 @@ import FirstStepForm from './FirstStepForm/FirstStepForm'
 
 export const validationSchema = Yup.object().shape({
   priceOfEstate: Yup.number()
-    .max(10000000, getValidationError('error_max_price', 'Maximum property value is 10,000,000 NIS'))
-    .required(getValidationError('error_property_value_required', 'Property value is required')),
-  cityWhereYouBuy: Yup.string().required(getValidationError('error_city_required', 'City is required')),
-  whenDoYouNeedMoney: Yup.string().required(getValidationError('error_when_need_mortgage', 'Please specify when you need the mortgage')),
+    .max(10000000, getValidationErrorSync('error_max_price', 'Maximum property value is 10,000,000 NIS'))
+    .required(getValidationErrorSync('error_property_value_required', 'Property value is required')),
+  cityWhereYouBuy: Yup.string().required(getValidationErrorSync('error_city_required', 'City is required')),
+  whenDoYouNeedMoney: Yup.string().required(getValidationErrorSync('error_when_need_mortgage', 'Please specify when you need the mortgage')),
   initialFee: Yup.number()
     .test(
       'initial-payment-percentage',
-      getValidationError('error_initial_fee', 'Initial payment cannot exceed 75% of property value'),
+      getValidationErrorSync('error_initial_fee', 'Initial payment cannot exceed 75% of property value'),
       function (value) {
         const priceOfEstate: number = this.parent.priceOfEstate || 0
         return validateInitialPayment(priceOfEstate, value)
       }
     )
-    .required(getValidationError('error_initial_payment_required', 'Initial payment is required')),
-  typeSelect: Yup.string().required(getValidationError('error_mortgage_type_required', 'Mortgage type is required')),
-  willBeYourFirst: Yup.string().required(getValidationError('error_first_home_required', 'Please specify if this is your first home')),
-  propertyOwnership: Yup.string().required(getValidationError('error_property_ownership_required', 'Property ownership status is required')),
+    .required(getValidationErrorSync('error_initial_payment_required', 'Initial payment is required')),
+  typeSelect: Yup.string().required(getValidationErrorSync('error_mortgage_type_required', 'Mortgage type is required')),
+  willBeYourFirst: Yup.string().required(getValidationErrorSync('error_first_home_required', 'Please specify if this is your first home')),
+  propertyOwnership: Yup.string().required(getValidationErrorSync('error_property_ownership_required', 'Property ownership status is required')),
   period: Yup.number()
-    .min(4, getValidationError('error_min_period', 'Minimum period is 4 years'))
-    .max(30, getValidationError('error_max_period', 'Maximum period is 30 years'))
-    .required(getValidationError('error_period_required', 'Mortgage period is required')),
+    .min(4, getValidationErrorSync('error_min_period', 'Minimum period is 4 years'))
+    .max(30, getValidationErrorSync('error_max_period', 'Maximum period is 30 years'))
+    .required(getValidationErrorSync('error_period_required', 'Mortgage period is required')),
   monthlyPayment: Yup.number()
     .min(
       2654,
-      getValidationError('error_min_monthly_payment', 'Minimum monthly payment is 2,664 NIS')
+      getValidationErrorSync('error_min_monthly_payment', 'Minimum monthly payment is 2,664 NIS')
     )
-    .required(getValidationError('error_monthly_payment_required', 'Monthly payment is required')),
+    .required(getValidationErrorSync('error_monthly_payment_required', 'Monthly payment is required')),
 })
 
 export function validateInitialPayment(priceOfEstate: number, value?: number) {
@@ -69,6 +70,11 @@ const FirstStep = () => {
   const savedValue = useAppSelector((state) => state.mortgage)
 
   const isLogin = useAppSelector((state) => state.login.isLogin)
+
+  // Preload validation errors when component mounts
+  useEffect(() => {
+    preloadValidationErrors()
+  }, [])
 
   const initialValues = {
     priceOfEstate: savedValue.priceOfEstate || 1000000,
