@@ -76,7 +76,7 @@ const SecondStepForm = () => {
       <Row>
         <NameSurname />
         <Birthday />
-        <Education />
+        <Education screenLocation="refinance_step2" />
       </Row>
       <Row>
         <Column style={{ gap: '2rem' }}>
