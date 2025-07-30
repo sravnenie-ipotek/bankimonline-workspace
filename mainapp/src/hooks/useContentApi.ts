@@ -37,6 +37,8 @@ export const useContentApi = (screenLocation: string) => {
         // Use relative URL to work with proxy in development
         const apiUrl = `/api/content/${screenLocation}/${language}`;
         
+
+        
         const response = await fetch(apiUrl);
         
         if (!response.ok) {
@@ -44,6 +46,8 @@ export const useContentApi = (screenLocation: string) => {
         }
         
         const data: ContentResponse = await response.json();
+        
+
         
         if (data.status === 'success' && data.content) {
           // Transform API response to key-value pairs
@@ -57,6 +61,7 @@ export const useContentApi = (screenLocation: string) => {
             // Also store with full key for more specific lookups
             transformedContent[key] = item.value;
           });
+          
           
           setContent(transformedContent);
         } else {
@@ -83,20 +88,22 @@ export const useContentApi = (screenLocation: string) => {
   const getContent = (key: string, fallbackKey?: string): string => {
     // Try to get from API content first (exact match)
     if (content[key]) {
+      
       return content[key];
     }
     
     // Try short key version (from transformedContent[shortKey])
     const shortKey = key.split('.').pop() || key;
     if (content[shortKey]) {
+      
       return content[shortKey];
     }
     
     // IMMEDIATE FALLBACK: If API content is not available, use translation system right away
     if (Object.keys(content).length === 0 || error || loading) {
       const translationKey = fallbackKey || key;
-      // Just use the regular translation key - don't try migrated keys
-      const translatedValue = t(translationKey);
+              // Just use the regular translation key - don't try migrated keys
+        const translatedValue = t(translationKey);
       return translatedValue;
     }
     

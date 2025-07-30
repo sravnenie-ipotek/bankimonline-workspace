@@ -7,11 +7,11 @@ import { DeleteIcon } from '@assets/icons/DeleteIcon'
 import { AddButton } from '@src/components/ui/AddButton'
 import { Calendar } from '@src/components/ui/Calendar'
 import { Column } from '@src/components/ui/Column'
+import { Row } from '@src/components/ui/Row'
 import Divider from '@src/components/ui/Divider/Divider'
 import { DropdownMenu } from '@src/components/ui/DropdownMenu'
 import { ExitModule } from '@src/components/ui/ExitModule'
 import { FormattedInput } from '@src/components/ui/FormattedInput'
-import { Row } from '@src/components/ui/Row'
 import { useContentApi } from '@src/hooks/useContentApi'
 import useDisclosure from '@src/hooks/useDisclosure'
 import { useWindowResize } from '@src/hooks/useWindowResize'
@@ -99,8 +99,8 @@ const CreditData = () => {
             <div className={cx('mortgage-data-form__items')}>
               {creditData.map((item) => (
                 <Fragment key={item.id}>
-                  <div className={cx('mortgage-data-form__item')}>
-                    <div className={cx('mortgage-data-form__item-bank')}>
+                  <Row>
+                    <Column>
                       <DropdownMenu
                         data={banks}
                         title={getContent('bank_apply_credit', t('bank_apply_credit'))}
@@ -115,8 +115,8 @@ const CreditData = () => {
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && errors.creditData}
                       />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-amount')}>
+                    </Column>
+                    <Column>
                       <FormattedInput
                         title={getContent('amount_credit_title', t('amount_credit_title'))}
                         handleChange={(value) => {
@@ -129,8 +129,8 @@ const CreditData = () => {
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && errors.creditData}
                       />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-payment')}>
+                    </Column>
+                    <Column>
                       <FormattedInput
                         title={getContent('calculate_mortgage_initial_payment', t('calculate_mortgage_initial_payment'))}
                         handleChange={(value) => {
@@ -143,8 +143,10 @@ const CreditData = () => {
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && errors.creditData}
                       />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-start-date')}>
+                    </Column>
+                  </Row>
+                  <Row>
+                    <Column>
                       <Calendar
                         title={getContent('refinance_credit_start_date', t('refinance_credit_start_date'))}
                         placeholder={getContent('date_ph', t('date_ph'))}
@@ -158,8 +160,8 @@ const CreditData = () => {
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && errors.creditData}
                       />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-end-date')}>
+                    </Column>
+                    <Column>
                       <Calendar
                         title={getContent('refinance_credit_end_date', t('refinance_credit_end_date'))}
                         placeholder={getContent('date_ph', t('date_ph'))}
@@ -173,9 +175,9 @@ const CreditData = () => {
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && errors.creditData}
                       />
-                    </div>
+                    </Column>
                     {shouldShowEarlyRepayment && (
-                      <div className={cx('mortgage-data-form__item-early-repayment')}>
+                      <Column>
                         <FormattedInput
                           title={getContent('early_repayment', t('early_repayment'))}
                           handleChange={(value) => {
@@ -188,17 +190,18 @@ const CreditData = () => {
                           onBlur={() => setFieldTouched('creditData')}
                           error={touched.creditData && errors.creditData}
                         />
-                      </div>
+                      </Column>
                     )}
-                    <div className={cx('mortgage-data-form__item-delete')}>
-                      <button
-                        type="button"
-                        className={cx('mortgage-data-form__item-delete-button')}
-                        onClick={() => openModalWithId(item.id)}
-                      >
-                        <DeleteIcon />
-                      </button>
-                    </div>
+                    {!shouldShowEarlyRepayment && <Column />}
+                  </Row>
+                  <div className={cx('mortgage-data-form__item-delete-wrapper')}>
+                    <button
+                      type="button"
+                      className={cx('mortgage-data-form__item-delete-button')}
+                      onClick={() => openModalWithId(item.id)}
+                    >
+                      <DeleteIcon />
+                    </button>
                   </div>
                   <Divider />
                 </Fragment>
@@ -212,13 +215,13 @@ const CreditData = () => {
             </div>
           </div>
         )}
-        {isTablet && (
+        {(isTablet || isMobile) && (
           <div className={cx('mortgage-data-form')}>
             <div className={cx('mortgage-data-form__items')}>
               {creditData.map((item) => (
                 <Fragment key={item.id}>
-                  <div className={cx('mortgage-data-form__item')}>
-                    <div className={cx('mortgage-data-form__item-bank')}>
+                  <Row>
+                    <Column>
                       <DropdownMenu
                         data={banks}
                         title={getContent('bank_apply_credit', t('bank_apply_credit'))}
@@ -233,8 +236,8 @@ const CreditData = () => {
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && errors.creditData}
                       />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-amount')}>
+                    </Column>
+                    <Column>
                       <FormattedInput
                         title={getContent('amount_credit_title', t('amount_credit_title'))}
                         handleChange={(value) => {
@@ -247,8 +250,8 @@ const CreditData = () => {
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && errors.creditData}
                       />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-payment')}>
+                    </Column>
+                    <Column>
                       <FormattedInput
                         title={getContent('calculate_mortgage_initial_payment', t('calculate_mortgage_initial_payment'))}
                         handleChange={(value) => {
@@ -261,8 +264,8 @@ const CreditData = () => {
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && errors.creditData}
                       />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-start-date')}>
+                    </Column>
+                    <Column>
                       <Calendar
                         title={getContent('refinance_credit_start_date', t('refinance_credit_start_date'))}
                         placeholder={getContent('date_ph', t('date_ph'))}
@@ -276,8 +279,8 @@ const CreditData = () => {
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && errors.creditData}
                       />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-end-date')}>
+                    </Column>
+                    <Column>
                       <Calendar
                         title={getContent('refinance_credit_end_date', t('refinance_credit_end_date'))}
                         placeholder={getContent('date_ph', t('date_ph'))}
@@ -291,9 +294,9 @@ const CreditData = () => {
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && errors.creditData}
                       />
-                    </div>
+                    </Column>
                     {shouldShowEarlyRepayment && (
-                      <div className={cx('mortgage-data-form__item-early-repayment')}>
+                      <Column>
                         <FormattedInput
                           title={getContent('early_repayment', t('early_repayment'))}
                           handleChange={(value) => {
@@ -306,135 +309,17 @@ const CreditData = () => {
                           onBlur={() => setFieldTouched('creditData')}
                           error={touched.creditData && errors.creditData}
                         />
-                      </div>
+                      </Column>
                     )}
-                    <div className={cx('mortgage-data-form__item-delete')}>
-                      <button
-                        type="button"
-                        className={cx('mortgage-data-form__item-delete-button')}
-                        onClick={() => openModalWithId(item.id)}
-                      >
-                        <DeleteIcon />
-                      </button>
-                    </div>
-                  </div>
-                  <Divider />
-                </Fragment>
-              ))}
-            </div>
-            <div className={cx('mortgage-data-form__add')}>
-              <AddButton
-                value={getContent('add_credit', t('add_credit'))}
-                onClick={addCreditData}
-              />
-            </div>
-          </div>
-        )}
-        {isMobile && (
-          <div className={cx('mortgage-data-form')}>
-            <div className={cx('mortgage-data-form__items')}>
-              {creditData.map((item) => (
-                <Fragment key={item.id}>
-                  <div className={cx('mortgage-data-form__item')}>
-                    <div className={cx('mortgage-data-form__item-bank')}>
-                      <DropdownMenu
-                        data={banks}
-                        title={getContent('bank_apply_credit', t('bank_apply_credit'))}
-                        placeholder={getContent('calculate_mortgage_first_ph', t('calculate_mortgage_first_ph'))}
-                        value={item.bank}
-                        onChange={(value) => {
-                          const updatedData = creditData.map((credit) =>
-                            credit.id === item.id ? { ...credit, bank: value } : credit
-                          )
-                          setFieldValue('creditData', updatedData)
-                        }}
-                        onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
-                      />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-amount')}>
-                      <FormattedInput
-                        title={getContent('amount_credit_title', t('amount_credit_title'))}
-                        handleChange={(value) => {
-                          const updatedData = creditData.map((credit) =>
-                            credit.id === item.id ? { ...credit, amount: value } : credit
-                          )
-                          setFieldValue('creditData', updatedData)
-                        }}
-                        value={item.amount}
-                        onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
-                      />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-payment')}>
-                      <FormattedInput
-                        title={getContent('calculate_mortgage_initial_payment', t('calculate_mortgage_initial_payment'))}
-                        handleChange={(value) => {
-                          const updatedData = creditData.map((credit) =>
-                            credit.id === item.id ? { ...credit, monthlyPayment: value } : credit
-                          )
-                          setFieldValue('creditData', updatedData)
-                        }}
-                        value={item.monthlyPayment}
-                        onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
-                      />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-start-date')}>
-                      <Calendar
-                        title={getContent('refinance_credit_start_date', t('refinance_credit_start_date'))}
-                        placeholder={getContent('date_ph', t('date_ph'))}
-                        value={item.startDate}
-                        onChange={(value) => {
-                          const updatedData = creditData.map((credit) =>
-                            credit.id === item.id ? { ...credit, startDate: value } : credit
-                          )
-                          setFieldValue('creditData', updatedData)
-                        }}
-                        onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
-                      />
-                    </div>
-                    <div className={cx('mortgage-data-form__item-end-date')}>
-                      <Calendar
-                        title={getContent('refinance_credit_end_date', t('refinance_credit_end_date'))}
-                        placeholder={getContent('date_ph', t('date_ph'))}
-                        value={item.endDate}
-                        onChange={(value) => {
-                          const updatedData = creditData.map((credit) =>
-                            credit.id === item.id ? { ...credit, endDate: value } : credit
-                          )
-                          setFieldValue('creditData', updatedData)
-                        }}
-                        onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
-                      />
-                    </div>
-                    {shouldShowEarlyRepayment && (
-                      <div className={cx('mortgage-data-form__item-early-repayment')}>
-                        <FormattedInput
-                          title={getContent('early_repayment', t('early_repayment'))}
-                          handleChange={(value) => {
-                            const updatedData = creditData.map((credit) =>
-                              credit.id === item.id ? { ...credit, earlyRepayment: value } : credit
-                            )
-                            setFieldValue('creditData', updatedData)
-                          }}
-                          value={item.earlyRepayment}
-                          onBlur={() => setFieldTouched('creditData')}
-                          error={touched.creditData && errors.creditData}
-                        />
-                      </div>
-                    )}
-                    <div className={cx('mortgage-data-form__item-delete')}>
-                      <button
-                        type="button"
-                        className={cx('mortgage-data-form__item-delete-button')}
-                        onClick={() => openModalWithId(item.id)}
-                      >
-                        <DeleteIcon />
-                      </button>
-                    </div>
+                  </Row>
+                  <div className={cx('mortgage-data-form__item-delete-wrapper')}>
+                    <button
+                      type="button"
+                      className={cx('mortgage-data-form__item-delete-button')}
+                      onClick={() => openModalWithId(item.id)}
+                    >
+                      <DeleteIcon />
+                    </button>
                   </div>
                   <Divider />
                 </Fragment>

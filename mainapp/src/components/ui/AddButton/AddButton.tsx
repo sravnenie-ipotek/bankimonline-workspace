@@ -21,7 +21,7 @@ const AddButton: React.FC<PropTypes> = ({
   error,
   onClick,
   variant = 'outline',
-  color = 'white',
+  color = '#F5C842',
   ...props
 }: PropTypes) => {
   return (
@@ -29,13 +29,12 @@ const AddButton: React.FC<PropTypes> = ({
       <button
         type="button"
         onClick={onClick}
-        style={{ color }}
         className={cx('add-button', `${error && 'error'}`, {
           [`${variant}`]: variant,
         })}
         {...props}
       >
-        <PlusIcon color={color} />
+        <PlusIcon color={error ? '#ef4444' : color} />
         <p className={cx('add-button-text')}>{value}</p>
       </button>
     </div>

@@ -61,7 +61,7 @@ export function validateInitialPayment(priceOfEstate: number, value?: number) {
 
 const FirstStep = () => {
   const { t, i18n } = useTranslation()
-  const { getContent } = useContentApi('mortgage_calculation')
+  const { getContent } = useContentApi('mortgage_step1')
   const dispatch = useAppDispatch()
 
   const navigate = useNavigate()

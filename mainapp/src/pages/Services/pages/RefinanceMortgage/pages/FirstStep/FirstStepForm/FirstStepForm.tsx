@@ -2,6 +2,7 @@ import { useFormikContext } from 'formik'
 import { memo, useEffect, useLayoutEffect, useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useContentApi } from '@src/hooks/useContentApi'
+import { useDropdownData } from '@src/hooks/useDropdownData'
 
 import { Column } from '@components/ui/Column'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
@@ -27,37 +28,16 @@ const FirstStepForm = () => {
   const [maxMonthlyPayment, setMaxMonthlyPayment] = useState(51130)
   const [minMonthlyPayment, setMinMonthlyPayment] = useState(2654)
 
+
+
   const dispatch = useAppDispatch()
   const activeField = useAppSelector((state) => state.activeField)
 
-  // Use useMemo to ensure dropdown options update when translations change
-  const TypeSelectOptions = useMemo(() => [
-    { value: 'option_1', label: getContent('app.refinance.step1.property_option_1', t('app.refinance.step1.property_option_1')) },
-    { value: 'option_2', label: getContent('app.refinance.step1.property_option_2', t('app.refinance.step1.property_option_2')) },
-    { value: 'option_3', label: getContent('app.refinance.step1.property_option_3', t('app.refinance.step1.property_option_3')) },
-    { value: 'option_4', label: getContent('app.refinance.step1.property_option_4', t('app.refinance.step1.property_option_4')) },
-    { value: 'option_5', label: getContent('app.refinance.step1.property_option_5', t('app.refinance.step1.property_option_5')) },
-  ], [getContent, t])
-
-  const WhyDoYouRefinanceOptions = useMemo(() => [
-    { value: 'option_1', label: getContent('app.refinance.step1.why_option_1', t('app.refinance.step1.why_option_1')) },
-    { value: 'option_2', label: getContent('app.refinance.step1.why_option_2', t('app.refinance.step1.why_option_2')) },
-    { value: 'option_3', label: getContent('app.refinance.step1.why_option_3', t('app.refinance.step1.why_option_3')) },
-    { value: 'option_4', label: getContent('app.refinance.step1.why_option_4', t('app.refinance.step1.why_option_4')) },
-    { value: 'option_5', label: getContent('app.refinance.step1.why_option_5', t('app.refinance.step1.why_option_5')) },
-  ], [getContent, t])
-
-  const WhereIsRegisteredOptions = useMemo(() => [
-    { value: 'option_1', label: getContent('app.refinance.step1.registered_option_1', t('app.refinance.step1.registered_option_1')) },
-    { value: 'option_2', label: getContent('app.refinance.step1.registered_option_2', t('app.refinance.step1.registered_option_2')) },
-  ], [getContent, t])
-
-  const banks = useMemo(() => [
-    { value: 'hapoalim', label: getContent('app.refinance.step1.bank_hapoalim', t('app.refinance.step1.bank_hapoalim')) },
-    { value: 'leumi', label: getContent('app.refinance.step1.bank_leumi', t('app.refinance.step1.bank_leumi')) },
-    { value: 'discount', label: getContent('app.refinance.step1.bank_discount', t('app.refinance.step1.bank_discount')) },
-    { value: 'massad', label: getContent('app.refinance.step1.bank_massad', t('app.refinance.step1.bank_massad')) },
-  ], [getContent, t])
+  // Use dynamic dropdown data from database
+  const { options: TypeSelectOptions, loading: propertyTypeLoading } = useDropdownData('refinance_step1', 'refinance_step1_property_type')
+  const { options: WhyDoYouRefinanceOptions, loading: whyLoading } = useDropdownData('refinance_step1', 'refinance_step1_why')
+  const { options: WhereIsRegisteredOptions, loading: registrationLoading } = useDropdownData('refinance_step1', 'refinance_step1_registration')
+  const { options: banks, loading: banksLoading } = useDropdownData('refinance_step1', 'refinance_step1_bank')
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<RefinanceMortgageTypes>()
