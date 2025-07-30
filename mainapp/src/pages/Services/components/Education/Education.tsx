@@ -18,19 +18,19 @@ const Education = ({ screenLocation = 'mortgage_step2' }: EducationProps) => {
     useFormikContext<FormTypes>()
 
   const EducationSelectOptions = [
-    { value: 'option_1', label: getContent(`${screenLocation}_education_option_1`, 'No high school certificate') },
-    { value: 'option_2', label: getContent(`${screenLocation}_education_option_2`, 'Partial high school certificate') },
-    { value: 'option_3', label: getContent(`${screenLocation}_education_option_3`, 'Full high school certificate') },
-    { value: 'option_4', label: getContent(`${screenLocation}_education_option_4`, 'Post-secondary education') },
-    { value: 'option_5', label: getContent(`${screenLocation}_education_option_5`, 'Bachelor\'s degree') },
-    { value: 'option_6', label: getContent(`${screenLocation}_education_option_6`, 'Master\'s degree') },
-    { value: 'option_7', label: getContent(`${screenLocation}_education_option_7`, 'Doctoral degree') },
+    { value: 'no_certificate', label: getContent(`${screenLocation}_education_no_certificate`, 'No high school certificate') },
+    { value: 'partial_certificate', label: getContent(`${screenLocation}_education_partial_certificate`, 'Partial high school certificate') },
+    { value: 'full_certificate', label: getContent(`${screenLocation}_education_full_certificate`, 'Full high school certificate') },
+    { value: 'post_secondary', label: getContent(`${screenLocation}_education_post_secondary`, 'Post-secondary education') },
+    { value: 'bachelors', label: getContent(`${screenLocation}_education_bachelors`, 'Bachelor\'s degree') },
+    { value: 'masters', label: getContent(`${screenLocation}_education_masters`, 'Master\'s degree') },
+    { value: 'doctorate', label: getContent(`${screenLocation}_education_doctorate`, 'Doctoral degree') },
   ]
 
   return (
     <Column>
       <DropdownMenu
-        title={getContent(`${screenLocation}_education`, 'Education')}
+        title={getContent(`${screenLocation}_education_label`, 'Education')}
         placeholder={getContent(`${screenLocation}_education_ph`, 'Select education level')}
         value={values.education}
         data={EducationSelectOptions}
