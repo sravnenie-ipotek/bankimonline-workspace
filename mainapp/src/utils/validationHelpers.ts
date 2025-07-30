@@ -38,14 +38,26 @@ export const getValidationError = async (errorKey: string, fallback?: string): P
       return cached[errorKey]
     }
     
-    // Fetch from database if not in cache
-    const response = await fetch(`/api/content/validation_errors/${currentLang}`)
-    if (response.ok) {
-      const data = await response.json()
-      if (data.content && data.content[errorKey] && data.content[errorKey].value) {
-        // Cache the result
-        validationCache.set(`validation_errors_${currentLang}`, data.content)
-        return data.content[errorKey].value
+    // Try to fetch from database first
+    try {
+      const response = await fetch(`/api/content/validation_errors/${currentLang}`)
+      if (response.ok) {
+        const data = await response.json()
+        if (data.content && data.content[errorKey] && data.content[errorKey].value) {
+          // Cache the result
+          validationCache.set(`validation_errors_${currentLang}`, data.content)
+          return data.content[errorKey].value
+        }
+      }
+    } catch (dbError) {
+      console.warn('Database fetch failed, falling back to translation system:', dbError)
+    }
+    
+    // FALLBACK: Use translation system (i18next)
+    if (typeof window !== 'undefined' && window.i18next) {
+      const translatedValue = window.i18next.t(errorKey)
+      if (translatedValue && translatedValue !== errorKey) {
+        return translatedValue
       }
     }
     
@@ -71,7 +83,15 @@ export const getValidationErrorSync = (errorKey: string, fallback?: string): str
       return cached[errorKey]
     }
     
-    // Return fallback if not in cache
+    // FALLBACK: Use translation system (i18next) synchronously
+    if (typeof window !== 'undefined' && window.i18next) {
+      const translatedValue = window.i18next.t(errorKey)
+      if (translatedValue && translatedValue !== errorKey) {
+        return translatedValue
+      }
+    }
+    
+    // Return fallback if not in cache or translation
     return fallback || errorKey
   } catch (error) {
     console.warn(`Validation error key not found: ${errorKey}`)
@@ -88,17 +108,24 @@ export const preloadValidationErrors = async () => {
     const currentLang = getCurrentLanguage()
     console.log('🔄 Preloading validation errors for language:', currentLang)
     
-    const response = await fetch(`/api/content/validation_errors/${currentLang}`)
-    if (response.ok) {
-      const data = await response.json()
-      if (data.content) {
-        validationCache.set(`validation_errors_${currentLang}`, data.content)
-        console.log('✅ Validation errors preloaded for language:', currentLang)
-        console.log('📊 Cached validation errors:', Object.keys(data.content))
+    // Try database first
+    try {
+      const response = await fetch(`/api/content/validation_errors/${currentLang}`)
+      if (response.ok) {
+        const data = await response.json()
+        if (data.content) {
+          validationCache.set(`validation_errors_${currentLang}`, data.content)
+          console.log('✅ Validation errors preloaded from database for language:', currentLang)
+          console.log('📊 Cached validation errors:', Object.keys(data.content))
+          return
+        }
       }
-    } else {
-      console.warn('❌ Failed to preload validation errors, response not ok:', response.status)
+    } catch (dbError) {
+      console.warn('Database preload failed, validation errors will use translation system:', dbError)
     }
+    
+    // If database fails, we'll rely on translation system
+    console.log('ℹ️ Validation errors will use translation system for language:', currentLang)
   } catch (error) {
     console.warn('Failed to preload validation errors:', error)
   }
@@ -115,7 +142,7 @@ export const reloadValidationErrors = async () => {
     // Clear existing cache for this language
     validationCache.delete(`validation_errors_${currentLang}`)
     
-    // Reload from database
+    // Reload from database or translation system
     await preloadValidationErrors()
   } catch (error) {
     console.warn('Failed to reload validation errors:', error)
