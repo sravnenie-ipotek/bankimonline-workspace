@@ -8,6 +8,7 @@ import { ErrorBoundary } from '@src/app/Errors/ErrorBoundary'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store.ts'
 import { initializeUserData, setIsLogin } from '@src/pages/Services/slices/loginSlice'
 import { updateWindowSize } from '@src/store/slices/windowSizeSlice.ts'
+import { preloadValidationErrors } from '@src/utils/validationHelpers'
 
 import { RootState } from '../store'
 import { debounce } from '../utils/helpers/debounce.ts'
@@ -96,6 +97,10 @@ const App = () => {
         document.documentElement.setAttribute('dir', direction)
         document.documentElement.setAttribute('lang', language)
         console.log('✅ Translations loaded for language:', language)
+        
+        // Preload validation errors after translations are loaded
+        console.log('🔄 Preloading validation errors for language:', language)
+        await preloadValidationErrors()
       } catch (error) {
         console.error('❌ Error loading translations:', error)
         setTranslationsLoaded(true) // Continue anyway
