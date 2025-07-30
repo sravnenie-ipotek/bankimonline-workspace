@@ -1,0 +1,2680 @@
+{
+  "generated": "2025-07-29T20:38:44.109Z",
+  "summary": {
+    "totalScreens": 14,
+    "totalDropdowns": 167,
+    "totalOptions": 328
+  },
+  "dropdowns": {
+    "cooperation": {
+      "cooperation_step1_desc": {
+        "name": "cooperation_step1_desc",
+        "options": {
+          "cooperation_step1_desc": {
+            "en": "Submit an application for the partner program through our website",
+            "he": "הגישו בקשה לתוכנית השותפים דרך האתר שלנו",
+            "ru": "Подайте заявку на партнерскую программу через наш сайт"
+          }
+        },
+        "category": "steps"
+      },
+      "cooperation_step1_title": {
+        "name": "cooperation_step1_title",
+        "options": {
+          "cooperation_step1_title": {
+            "en": "Fill out the form",
+            "he": "מלאו את הטופס",
+            "ru": "Заполните форму"
+          }
+        },
+        "category": "steps"
+      },
+      "cooperation_step2_desc": {
+        "name": "cooperation_step2_desc",
+        "options": {
+          "cooperation_step2_desc": {
+            "en": "A representative from our team will contact you to schedule a meeting",
+            "he": "נציג מהצוות שלנו יצור איתכם קשר לתיאום פגישה",
+            "ru": "Представитель нашей команды свяжется с вами для назначения встречи"
+          }
+        },
+        "category": "steps"
+      },
+      "cooperation_step2_title": {
+        "name": "cooperation_step2_title",
+        "options": {
+          "cooperation_step2_title": {
+            "en": "Representative will contact",
+            "he": "נציג יצור קשר",
+            "ru": "Представитель свяжется"
+          }
+        },
+        "category": "steps"
+      },
+      "cooperation_step3_desc": {
+        "name": "cooperation_step3_desc",
+        "options": {
+          "cooperation_step3_desc": {
+            "en": "We'll sign a partnership agreement defining terms and commissions",
+            "he": "נחתום על הסכם שותפות המגדיר תנאים ועמלות",
+            "ru": "Мы подпишем партнерское соглашение, определяющее условия и комиссии"
+          }
+        },
+        "category": "steps"
+      },
+      "cooperation_step3_title": {
+        "name": "cooperation_step3_title",
+        "options": {
+          "cooperation_step3_title": {
+            "en": "Sign agreement",
+            "he": "חתימה על הסכם",
+            "ru": "Подписание договора"
+          }
+        },
+        "category": "steps"
+      },
+      "cooperation_step4_desc": {
+        "name": "cooperation_step4_desc",
+        "options": {
+          "cooperation_step4_desc": {
+            "en": "You'll receive tools and support for efficient client referrals",
+            "he": "תקבלו כלים ותמיכה להפניית לקוחות יעילה",
+            "ru": "Вы получите инструменты и поддержку для эффективного направления клиентов"
+          }
+        },
+        "category": "steps"
+      },
+      "cooperation_step4_title": {
+        "name": "cooperation_step4_title",
+        "options": {
+          "cooperation_step4_title": {
+            "en": "Start referring clients",
+            "he": "התחילו להפנות לקוחות",
+            "ru": "Начните направлять клиентов"
+          }
+        },
+        "category": "steps"
+      },
+      "cooperation_step5_desc": {
+        "name": "cooperation_step5_desc",
+        "options": {
+          "cooperation_step5_desc": {
+            "en": "You'll receive monthly payments for clients you referred",
+            "he": "תקבלו תשלומים חודשיים עבור לקוחות שהפניתם",
+            "ru": "Вы будете получать ежемесячные платежи за клиентов, которых вы направили"
+          }
+        },
+        "category": "steps"
+      },
+      "cooperation_step5_title": {
+        "name": "cooperation_step5_title",
+        "options": {
+          "cooperation_step5_title": {
+            "en": "Receive payments",
+            "he": "קבלת תשלומים",
+            "ru": "Получение платежей"
+          }
+        },
+        "category": "steps"
+      }
+    },
+    "main_page": {
+      "employment_status": {
+        "name": "employment_status",
+        "options": {
+          "app.main.action.1.dropdown.income_source": {
+            "en": "Primary Income Source",
+            "he": "מקור הכנסה עיקרי",
+            "ru": "Основной источник дохода"
+          },
+          "app.main.action.2.dropdown.employment_type": {
+            "en": "Employment Type",
+            "he": "סוג תעסוקה",
+            "ru": "Тип занятости"
+          }
+        },
+        "category": "dropdowns"
+      },
+      "app.main.action.3.dropdown.property_type": {
+        "name": "app.main.action.3.dropdown.property_type",
+        "options": {
+          "app.main.action.3.dropdown.property_type": {
+            "en": "Property Type",
+            "he": "סוג נכס",
+            "ru": "Тип недвижимости"
+          }
+        },
+        "category": "dropdowns"
+      },
+      "app.main.action.4.dropdown.loan_purpose": {
+        "name": "app.main.action.4.dropdown.loan_purpose",
+        "options": {
+          "app.main.action.4.dropdown.loan_purpose": {
+            "en": "Loan Purpose",
+            "he": "מטרת הלוואה",
+            "ru": "Цель кредита"
+          }
+        },
+        "category": "dropdowns"
+      },
+      "app.main.action.6.dropdown.document_type": {
+        "name": "app.main.action.6.dropdown.document_type",
+        "options": {
+          "app.main.action.6.dropdown.document_type": {
+            "en": "Document Type",
+            "he": "סוג מסמך",
+            "ru": "Тип документа"
+          }
+        },
+        "category": "dropdowns"
+      },
+      "app.main.action.7.dropdown.family_status": {
+        "name": "app.main.action.7.dropdown.family_status",
+        "options": {
+          "app.main.action.7.dropdown.family_status": {
+            "en": "Family Status",
+            "he": "מצב משפחתי",
+            "ru": "Семейное положение"
+          }
+        },
+        "category": "dropdowns"
+      },
+      "app.main.action.8.dropdown.education_level": {
+        "name": "app.main.action.8.dropdown.education_level",
+        "options": {
+          "app.main.action.8.dropdown.education_level": {
+            "en": "Education Level",
+            "he": "רמת השכלה",
+            "ru": "Уровень образования"
+          }
+        },
+        "category": "dropdowns"
+      }
+    },
+    "mortgage_calculation": {
+      "app.mortgage.form.calculate_mortgage_city": {
+        "name": "app.mortgage.form.calculate_mortgage_city",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_city": {
+            "en": "City",
+            "he": "חישוב משכנתא",
+            "ru": "Рассчитать ипотеку "
+          }
+        },
+        "category": "form"
+      },
+      "app.mortgage.form.calculate_mortgage_first": {
+        "name": "app.mortgage.form.calculate_mortgage_first",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_first": {
+            "en": "Is this your first apartment?",
+            "he": "האם זו הדירה הראשונה שלך???",
+            "ru": "Это ваша первая квартира?"
+          }
+        },
+        "category": "form"
+      },
+      "calculate_mortgage_first": {
+        "name": "calculate_mortgage_first",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_first_options_1": {
+            "en": "Yes, first apartment",
+            "he": "כן, דירה ראשונה",
+            "ru": "Да, первая квартира"
+          },
+          "app.mortgage.form.calculate_mortgage_first_options_2": {
+            "en": "No, not first apartment",
+            "he": "לא, לא דירה ראשונה",
+            "ru": "Нет, не первая квартира"
+          },
+          "app.mortgage.form.calculate_mortgage_first_options_3": {
+            "en": "Investment property",
+            "he": "נכס השקעה",
+            "ru": "Инвестиционная недвижимость"
+          }
+        },
+        "category": "form"
+      },
+      "app.mortgage.form.calculate_mortgage_initial_fee": {
+        "name": "app.mortgage.form.calculate_mortgage_initial_fee",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_initial_fee": {
+            "en": "Down Payment",
+            "he": "מקדמה",
+            "ru": "Первоначальный взнос"
+          }
+        },
+        "category": "form"
+      },
+      "app.mortgage.form.calculate_mortgage_initial_payment": {
+        "name": "app.mortgage.form.calculate_mortgage_initial_payment",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_initial_payment": {
+            "en": "Monthly Payment",
+            "he": "תשלום חודשי",
+            "ru": "Ежемесячный платеж"
+          }
+        },
+        "category": "form"
+      },
+      "app.mortgage.form.calculate_mortgage_period": {
+        "name": "app.mortgage.form.calculate_mortgage_period",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_period": {
+            "en": "Loan Period (Years)",
+            "he": "תקופת ההלוואה (שנים)",
+            "ru": "Срок кредита (лет)"
+          }
+        },
+        "category": "form"
+      },
+      "app.mortgage.form.calculate_mortgage_price": {
+        "name": "app.mortgage.form.calculate_mortgage_price",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_price": {
+            "en": "Property Value",
+            "he": "שווי הנכס",
+            "ru": "Стоимость недвижимости"
+          }
+        },
+        "category": "form"
+      },
+      "app.mortgage.form.calculate_mortgage_property_ownership": {
+        "name": "app.mortgage.form.calculate_mortgage_property_ownership",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_property_ownership": {
+            "en": "Property Ownership Status",
+            "he": "סטטוס בעלות על נכס",
+            "ru": "Статус владения недвижимостью"
+          }
+        },
+        "category": "form"
+      },
+      "property_type": {
+        "name": "property_type",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_property_ownership_option_1": {
+            "en": "I don't own any property",
+            "he": "אני לא בעל נכס",
+            "ru": "У меня нет недвижимости"
+          },
+          "app.mortgage.form.calculate_mortgage_property_ownership_option_2": {
+            "en": "I own a property",
+            "he": "אני בעל נכס",
+            "ru": "У меня есть недвижимость"
+          },
+          "app.mortgage.form.calculate_mortgage_property_ownership_option_3": {
+            "en": "I'm selling a property",
+            "he": "אני מוכר נכס",
+            "ru": "Я продаю недвижимость"
+          },
+          "mortgage_calculation.field.property_ownership_option_1": {
+            "en": "I don't own any property",
+            "he": "אני לא בעלים של נכס",
+            "ru": "Я не владею недвижимостью"
+          },
+          "mortgage_calculation.field.property_ownership_option_2": {
+            "en": "I own a property",
+            "he": "אני בעלים של נכס",
+            "ru": "Я владею недвижимостью"
+          },
+          "mortgage_calculation.field.property_ownership_option_3": {
+            "en": "I'm selling a property",
+            "he": "אני מוכר נכס",
+            "ru": "Я продаю недвижимость"
+          }
+        },
+        "category": "form"
+      },
+      "app.mortgage.form.calculate_mortgage_type": {
+        "name": "app.mortgage.form.calculate_mortgage_type",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_type": {
+            "en": "Mortgage Type",
+            "he": "סוג המשכנתא",
+            "ru": "Тип ипотеки"
+          }
+        },
+        "category": "form"
+      },
+      "calculate_mortgage_type": {
+        "name": "calculate_mortgage_type",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_type_options_1": {
+            "en": "Fixed Rate",
+            "he": "ריבית קבועה",
+            "ru": "Фиксированная ставка"
+          },
+          "app.mortgage.form.calculate_mortgage_type_options_2": {
+            "en": "Variable Rate",
+            "he": "ריבית משתנה",
+            "ru": "Переменная ставка"
+          },
+          "app.mortgage.form.calculate_mortgage_type_options_3": {
+            "en": "Mixed Rate",
+            "he": "ריבית מעורבת",
+            "ru": "Смешанная ставка"
+          },
+          "app.mortgage.form.calculate_mortgage_type_options_4": {
+            "en": "Not Sure",
+            "he": "לא בטוח",
+            "ru": "Не уверен"
+          }
+        },
+        "category": "form"
+      },
+      "app.mortgage.form.calculate_mortgage_when": {
+        "name": "app.mortgage.form.calculate_mortgage_when",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_when": {
+            "en": "When do you plan to take the mortgage?",
+            "he": "מתי תרצה לקחת את המשכנתא?",
+            "ru": "Когда вы планируете взять ипотеку?"
+          }
+        },
+        "category": "form"
+      },
+      "calculate_mortgage_when": {
+        "name": "calculate_mortgage_when",
+        "options": {
+          "app.mortgage.form.calculate_mortgage_when_options_1": {
+            "en": "In the next 3 months",
+            "he": "בשלושת החודשים הקרובים",
+            "ru": "В ближайшие 3 месяца"
+          },
+          "app.mortgage.form.calculate_mortgage_when_options_2": {
+            "en": "In 3-6 months",
+            "he": "בעוד 3-6 חודשים",
+            "ru": "Через 3-6 месяцев"
+          },
+          "app.mortgage.form.calculate_mortgage_when_options_3": {
+            "en": "In 6-12 months",
+            "he": "בעוד 6-12 חודשים",
+            "ru": "Через 6-12 месяцев"
+          },
+          "app.mortgage.form.calculate_mortgage_when_options_4": {
+            "en": "More than 12 months",
+            "he": "יותר מ-12 חודשים",
+            "ru": "Более 12 месяцев"
+          }
+        },
+        "category": "form"
+      },
+      "mortgage_calculation.field.bank": {
+        "name": "mortgage_calculation.field.bank",
+        "options": {
+          "mortgage_calculation.field.bank": {
+            "en": "Lending bank",
+            "he": "בנק מלווה",
+            "ru": "Банк-кредитор"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.birth_date": {
+        "name": "mortgage_calculation.field.birth_date",
+        "options": {
+          "mortgage_calculation.field.birth_date": {
+            "en": "Date of birth",
+            "he": "תאריך לידה",
+            "ru": "Дата рождения"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.borrowers": {
+        "name": "mortgage_calculation.field.borrowers",
+        "options": {
+          "mortgage_calculation.field.borrowers": {
+            "en": "How many mortgage borrowers will there be in total, including you?",
+            "he": " כמה חייבים במשכנתא יהיו בסך הכול, כולל אתכם?",
+            "ru": "Сколько всего заемщиков будет по ипотеке, включая вас?"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.children18": {
+        "name": "mortgage_calculation.field.children18",
+        "options": {
+          "mortgage_calculation.field.children18": {
+            "en": "Children under 18",
+            "he": "ילדים מתחת לגיל 18",
+            "ru": "Дети до 18 лет"
+          }
+        },
+        "category": "labels"
+      },
+      "citizenship": {
+        "name": "citizenship",
+        "options": {
+          "mortgage_calculation.field.citizenship": {
+            "en": "Do you have additional citizenship?",
+            "he": "האם יש לך אזרחות נוספת?",
+            "ru": "Имеете ли вы дополнительное гражданство?"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.city": {
+        "name": "mortgage_calculation.field.city",
+        "options": {
+          "mortgage_calculation.field.city": {
+            "en": "City",
+            "he": "עיר בא נמצא הנכס??",
+            "ru": "Город расположения недвижимости"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.company": {
+        "name": "mortgage_calculation.field.company",
+        "options": {
+          "mortgage_calculation.field.company": {
+            "en": "Company",
+            "he": "מקום עבודה",
+            "ru": "Место работы"
+          }
+        },
+        "category": "labels"
+      },
+      "debt_type": {
+        "name": "debt_type",
+        "options": {
+          "mortgage_calculation.field.debt_types": {
+            "en": "Do you have bank debts or existing financial obligations?",
+            "he": " האם יש לכם חובות בנקאיים או התחייבויות פיננסיות קיימות?",
+            "ru": "Имеете ли вы банковские долги или существующие финансовые обязательства?"
+          },
+          "mortgage_calculation.field.debt_types_option_1": {
+            "en": "No obligations",
+            "he": "אין התחייבות",
+            "ru": "Нет обязательств"
+          },
+          "mortgage_calculation.field.debt_types_option_2": {
+            "en": "Bank loan",
+            "he": "הלוואה בנקאית",
+            "ru": "Банковский кредит"
+          },
+          "mortgage_calculation.field.debt_types_option_3": {
+            "en": "Consumer credit",
+            "he": "אשראי צרכני",
+            "ru": "Потребительский кредит"
+          },
+          "mortgage_calculation.field.debt_types_option_4": {
+            "en": "Credit card debt",
+            "he": "חוב כרטיס אשראי",
+            "ru": "Долг по кредитной карте"
+          },
+          "mortgage_calculation.field.debt_types_option_5": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.education": {
+        "name": "mortgage_calculation.field.education",
+        "options": {
+          "mortgage_calculation.field.education": {
+            "en": "Education",
+            "he": " השכלה",
+            "ru": "Образование"
+          }
+        },
+        "category": "labels"
+      },
+      "education": {
+        "name": "education",
+        "options": {
+          "mortgage_calculation.field.education_option_1": {
+            "en": "No high school diploma",
+            "he": "ללא תעודת בגרות",
+            "ru": "Без аттестата о среднем образовании"
+          },
+          "mortgage_calculation.field.education_option_2": {
+            "en": "Partial high school diploma",
+            "he": "תעודת בגרות חלקית",
+            "ru": "Частичный аттестат о среднем образовании"
+          },
+          "mortgage_calculation.field.education_option_3": {
+            "en": "Full high school diploma",
+            "he": "תעודת בגרות מלאה",
+            "ru": "Полный аттестат о среднем образовании"
+          },
+          "mortgage_calculation.field.education_option_4": {
+            "en": "Post-secondary education",
+            "he": "השכלה על-תיכונית",
+            "ru": "Послесреднее образование"
+          },
+          "mortgage_calculation.field.education_option_5": {
+            "en": "Bachelor's degree",
+            "he": "תואר ראשון",
+            "ru": "Высшее образование (бакалавриат)"
+          },
+          "mortgage_calculation.field.education_option_6": {
+            "en": "Master's degree",
+            "he": "תואר שני",
+            "ru": "Высшее образование (магистратура)"
+          },
+          "mortgage_calculation.field.education_option_7": {
+            "en": "Doctoral degree",
+            "he": "תואר שלישי",
+            "ru": "Высшее образование (докторантура)"
+          }
+        },
+        "category": "options"
+      },
+      "mortgage_calculation.field.end_date": {
+        "name": "mortgage_calculation.field.end_date",
+        "options": {
+          "mortgage_calculation.field.end_date": {
+            "en": "Obligation end date",
+            "he": "תאריך סיום ההתחייבות",
+            "ru": "Дата окончания обязательства"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.family_status": {
+        "name": "mortgage_calculation.field.family_status",
+        "options": {
+          "mortgage_calculation.field.family_status": {
+            "en": "Marital status",
+            "he": "מצב משפחתי",
+            "ru": "Семейное положение"
+          }
+        },
+        "category": "labels"
+      },
+      "family_status": {
+        "name": "family_status",
+        "options": {
+          "mortgage_calculation.field.family_status_option_1": {
+            "en": "Single",
+            "he": "רווק/רווקה",
+            "ru": "Холост/не замужем"
+          },
+          "mortgage_calculation.field.family_status_option_2": {
+            "en": "Married",
+            "he": "נשוי/נשואה",
+            "ru": "Женат/замужем"
+          },
+          "mortgage_calculation.field.family_status_option_3": {
+            "en": "Divorced",
+            "he": "גרוש/גרושה",
+            "ru": "Разведен/разведена"
+          },
+          "mortgage_calculation.field.family_status_option_4": {
+            "en": "Widowed",
+            "he": "אלמן/אלמנה",
+            "ru": "Вдовец/вдова"
+          },
+          "mortgage_calculation.field.family_status_option_5": {
+            "en": "Common-law partner",
+            "he": "ידוע/ידועה בציבור",
+            "ru": "Гражданский брак"
+          },
+          "mortgage_calculation.field.family_status_option_6": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "options"
+      },
+      "mortgage_calculation.field.first_home": {
+        "name": "mortgage_calculation.field.first_home",
+        "options": {
+          "mortgage_calculation.field.first_home": {
+            "en": "Is this a first home?",
+            "he": "האם מדובר בדירה ראשונה?",
+            "ru": "Это ваша первая квартира?"
+          }
+        },
+        "category": "labels"
+      },
+      "first_home": {
+        "name": "first_home",
+        "options": {
+          "mortgage_calculation.field.first_home_option_1": {
+            "en": "Yes, first home",
+            "he": "כן, דירה ראשונה",
+            "ru": "Да, первая квартира"
+          },
+          "mortgage_calculation.field.first_home_option_2": {
+            "en": "No, additional property",
+            "he": "לא, נכס נוסף",
+            "ru": "Нет, дополнительная недвижимость"
+          },
+          "mortgage_calculation.field.first_home_option_3": {
+            "en": "Investment property",
+            "he": "נכס ל השקעה",
+            "ru": "Инвестиционная недвижимость"
+          }
+        },
+        "category": "options"
+      },
+      "additional_income": {
+        "name": "additional_income",
+        "options": {
+          "mortgage_calculation.field.has_additional": {
+            "en": "Do you have additional income?",
+            "he": "האם קיימות הכנסות נוספות?",
+            "ru": "Имеются ли дополнительные доходы?"
+          },
+          "mortgage_calculation.field.has_additional_option_1": {
+            "en": "None",
+            "he": "אין הכנסות נוספות",
+            "ru": "Нет дополнительных доходов"
+          },
+          "mortgage_calculation.field.has_additional_option_2": {
+            "en": "Additional Salary",
+            "he": "שכר נוסף",
+            "ru": "Дополнительная зарплата"
+          },
+          "mortgage_calculation.field.has_additional_option_3": {
+            "en": "Additional Work",
+            "he": "עבודה נוספת",
+            "ru": "Дополнительная работа"
+          },
+          "mortgage_calculation.field.has_additional_option_4": {
+            "en": "Property Rental",
+            "he": "הכנסה מהשכרת נכסים",
+            "ru": "Доход от аренды недвижимости"
+          },
+          "mortgage_calculation.field.has_additional_option_5": {
+            "en": "Investments",
+            "he": "הכנסה מהשקעות",
+            "ru": "Доход от инвестиций"
+          },
+          "mortgage_calculation.field.has_additional_option_6": {
+            "en": "Pension",
+            "he": "קצבת פנסיה",
+            "ru": "Пенсия"
+          },
+          "mortgage_calculation.field.has_additional_option_7": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.how_much_childrens": {
+        "name": "mortgage_calculation.field.how_much_childrens",
+        "options": {
+          "mortgage_calculation.field.how_much_childrens": {
+            "en": "Number of children under 18",
+            "he": "כמות ילדים מתחת לגיל 18",
+            "ru": "Количество детей до 18 лет"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.initial_fee": {
+        "name": "mortgage_calculation.field.initial_fee",
+        "options": {
+          "mortgage_calculation.field.initial_fee": {
+            "en": "Down payment",
+            "he": "הון עצמי",
+            "ru": "Первоначальный взнос"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.is_foreigner": {
+        "name": "mortgage_calculation.field.is_foreigner",
+        "options": {
+          "mortgage_calculation.field.is_foreigner": {
+            "en": "Are you considered a foreign resident according to income tax law?",
+            "he": " האם אתם נחשבים לתושבי חוץ על פי חוק מס הכנסה?",
+            "ru": "Считаетесь ли вы иностранным резидентом согласно закону подоходного налога?"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.is_medinsurance": {
+        "name": "mortgage_calculation.field.is_medinsurance",
+        "options": {
+          "mortgage_calculation.field.is_medinsurance": {
+            "en": "Are you insured with valid health insurance and covered by medical insurance rights?",
+            "he": "האם אתם מבוטחים בביטוח בריאות תקף וחלים עליכם זכויות ביטוח רפואי?",
+            "ru": "Имеете ли вы действующее медицинское страхование и распространяются ли на вас права медицинского страхования?"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.is_public": {
+        "name": "mortgage_calculation.field.is_public",
+        "options": {
+          "mortgage_calculation.field.is_public": {
+            "en": "Do you hold a senior public position or are you among close family/business partners of a public position holder?",
+            "he": "האם אתם מכהנים בתפקיד ציבורי בכיר או נמנים עם קרובי המשפחה/השותפים העסקיים של נושא תפקיד ציבורי?",
+            "ru": "Занимаете ли вы высокую государственную должность или являетесь родственником/деловым партнером лица, занимающего государственную должность?"
+          }
+        },
+        "category": "labels"
+      },
+      "employment_status": {
+        "name": "employment_status",
+        "options": {
+          "mortgage_calculation.field.main_source": {
+            "en": "Main income source",
+            "he": "מקור הכנסה עיקרי",
+            "ru": "Основной источник дохода"
+          },
+          "mortgage_calculation.field.main_source_option_1": {
+            "en": "Employee",
+            "he": "עובד שכיר",
+            "ru": "Наемный работник"
+          },
+          "mortgage_calculation.field.main_source_option_2": {
+            "en": "Self-employed",
+            "he": "עצמאי",
+            "ru": "Самозанятый"
+          },
+          "mortgage_calculation.field.main_source_option_3": {
+            "en": "Pensioner",
+            "he": "פנסיונר",
+            "ru": "Пенсионер"
+          },
+          "mortgage_calculation.field.main_source_option_4": {
+            "en": "Student",
+            "he": "סטודנט",
+            "ru": "Студент"
+          },
+          "mortgage_calculation.field.main_source_option_5": {
+            "en": "Unpaid leave",
+            "he": "חופשה ללא תשלום",
+            "ru": "Отпуск без содержания"
+          },
+          "mortgage_calculation.field.main_source_option_6": {
+            "en": "Unemployed",
+            "he": "מובטל",
+            "ru": "Безработный"
+          },
+          "mortgage_calculation.field.main_source_option_7": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.monthly_income": {
+        "name": "mortgage_calculation.field.monthly_income",
+        "options": {
+          "mortgage_calculation.field.monthly_income": {
+            "en": "Monthly net income",
+            "he": "הכנסה חודשית נטו",
+            "ru": "Чистый ежемесячный доход"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.monthly_payment": {
+        "name": "mortgage_calculation.field.monthly_payment",
+        "options": {
+          "mortgage_calculation.field.monthly_payment": {
+            "en": "Monthly payment",
+            "he": "תשלום חודשי",
+            "ru": "Ежемесячный платеж"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.name_surname": {
+        "name": "mortgage_calculation.field.name_surname",
+        "options": {
+          "mortgage_calculation.field.name_surname": {
+            "en": "Full name",
+            "he": "שם מלא",
+            "ru": "Полное имя"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.partner_pay_mortgage": {
+        "name": "mortgage_calculation.field.partner_pay_mortgage",
+        "options": {
+          "mortgage_calculation.field.partner_pay_mortgage": {
+            "en": "Will the partner participate in mortgage payments?",
+            "he": "האם השותף ישתתף בתשלומי המשכנתא?",
+            "ru": "Будет ли партнер участвовать в платежах по ипотеке?"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.period": {
+        "name": "mortgage_calculation.field.period",
+        "options": {
+          "mortgage_calculation.field.period": {
+            "en": "Desired mortgage period",
+            "he": "תקופת משכנתא רצויה",
+            "ru": "Желаемый срок ипотеки"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.profession": {
+        "name": "mortgage_calculation.field.profession",
+        "options": {
+          "mortgage_calculation.field.profession": {
+            "en": "Position",
+            "he": "תפקיד",
+            "ru": "Должность"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.property_ownership": {
+        "name": "mortgage_calculation.field.property_ownership",
+        "options": {
+          "mortgage_calculation.field.property_ownership": {
+            "en": "Property Ownership Status",
+            "he": "סטטוס בעלות על נכס",
+            "ru": "Статус владения недвижимостью"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.property_price": {
+        "name": "mortgage_calculation.field.property_price",
+        "options": {
+          "mortgage_calculation.field.property_price": {
+            "en": "Property price",
+            "he": "שווי הנכס",
+            "ru": "Стоимость недвижимости"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.sphere": {
+        "name": "mortgage_calculation.field.sphere",
+        "options": {
+          "mortgage_calculation.field.sphere": {
+            "en": "Field of Activity",
+            "he": "תחום פעילות מקצועי",
+            "ru": "Профессиональная сфера деятельности"
+          }
+        },
+        "category": "labels"
+      },
+      "sphere": {
+        "name": "sphere",
+        "options": {
+          "mortgage_calculation.field.sphere_option_1": {
+            "en": "Banking and Finance",
+            "he": "בנקאות ושירותים פיננסיים",
+            "ru": "Банковское дело и финансовые услуги"
+          },
+          "mortgage_calculation.field.sphere_option_10": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          },
+          "mortgage_calculation.field.sphere_option_2": {
+            "en": "Technology and Cyber",
+            "he": "טכנולוגיה ואבטחת מידע",
+            "ru": "Технологии и информационная безопасность"
+          },
+          "mortgage_calculation.field.sphere_option_3": {
+            "en": "Medicine and Health",
+            "he": "רפואה ושירותי בריאות",
+            "ru": "Медицина и здравоохранение"
+          },
+          "mortgage_calculation.field.sphere_option_4": {
+            "en": "Education and Teaching",
+            "he": "חינוך והוראה",
+            "ru": "Образование и преподавание"
+          },
+          "mortgage_calculation.field.sphere_option_5": {
+            "en": "Law and Consulting",
+            "he": "משפטים ויעוץ עסקי",
+            "ru": "Юриспруденция и бизнес-консалтинг"
+          },
+          "mortgage_calculation.field.sphere_option_6": {
+            "en": "Engineering and Construction",
+            "he": "הנדסה ובנייה",
+            "ru": "Инженерия и строительство"
+          },
+          "mortgage_calculation.field.sphere_option_7": {
+            "en": "Sales and Marketing",
+            "he": "מכירות ושיווק",
+            "ru": "Продажи и маркетинг"
+          },
+          "mortgage_calculation.field.sphere_option_8": {
+            "en": "Services and Hospitality",
+            "he": "שירותים ואירוח",
+            "ru": "Услуги и гостеприимство"
+          },
+          "mortgage_calculation.field.sphere_option_9": {
+            "en": "Manufacturing and Logistics",
+            "he": "ייצור ולוגיסטיקה",
+            "ru": "Производство и логистика"
+          }
+        },
+        "category": "options"
+      },
+      "mortgage_calculation.field.start_date": {
+        "name": "mortgage_calculation.field.start_date",
+        "options": {
+          "mortgage_calculation.field.start_date": {
+            "en": "Work start date",
+            "he": "תאריך תחילת העבודה",
+            "ru": "Дата начала работы"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.tax": {
+        "name": "mortgage_calculation.field.tax",
+        "options": {
+          "mortgage_calculation.field.tax": {
+            "en": "Are you liable to pay tax in foreign countries or additional jurisdictions?",
+            "he": "האם אתם חייבים במס במדינות זרות או בתחומי שיפוט נוספים??",
+            "ru": "Обязаны ли вы платить налоги в зарубежных странах или других юрисдикциях?"
+          }
+        },
+        "category": "labels"
+      },
+      "mortgage_calculation.field.type": {
+        "name": "mortgage_calculation.field.type",
+        "options": {
+          "mortgage_calculation.field.type": {
+            "en": "Mortgage type",
+            "he": "סוג משכנתא",
+            "ru": "Тип ипотеки"
+          }
+        },
+        "category": "labels"
+      },
+      "type": {
+        "name": "type",
+        "options": {
+          "mortgage_calculation.field.type_option_1": {
+            "en": "Apartment",
+            "he": "דירה",
+            "ru": "Квартира"
+          },
+          "mortgage_calculation.field.type_option_2": {
+            "en": "Private house",
+            "he": "בית פרטי",
+            "ru": "Частный дом"
+          },
+          "mortgage_calculation.field.type_option_3": {
+            "en": "Garden apartment",
+            "he": "דירת גן",
+            "ru": "Квартира с садом"
+          },
+          "mortgage_calculation.field.type_option_4": {
+            "en": "Penthouse",
+            "he": "פנטהאוס",
+            "ru": "Пентхаус"
+          },
+          "mortgage_calculation.field.type_option_5": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "options"
+      },
+      "mortgage_calculation.field.when_needed": {
+        "name": "mortgage_calculation.field.when_needed",
+        "options": {
+          "mortgage_calculation.field.when_needed": {
+            "en": "When do you need the mortgage?",
+            "he": "מתי תזדקק למשכנתא?",
+            "ru": "Когда вам нужна ипотека?"
+          }
+        },
+        "category": "labels"
+      },
+      "when_needed": {
+        "name": "when_needed",
+        "options": {
+          "mortgage_calculation.field.when_needed_option_1": {
+            "en": "Within 3 months",
+            "he": "תוך 3 חודשים",
+            "ru": "До 3 месяцев"
+          },
+          "mortgage_calculation.field.when_needed_option_2": {
+            "en": "Within 3-6 months",
+            "he": "תוך 3-6 חודשים",
+            "ru": "3-6 месяцев"
+          },
+          "mortgage_calculation.field.when_needed_option_3": {
+            "en": "Within 6-12 months",
+            "he": "תוך 6-12 חודשים",
+            "ru": "6-12 месяцев"
+          },
+          "mortgage_calculation.field.when_needed_option_4": {
+            "en": "Over 12 months",
+            "he": "מעל 12 חודשים",
+            "ru": "Более 12 месяцев"
+          }
+        },
+        "category": "options"
+      }
+    },
+    "mortgage_step1": {
+      "app.mortgage.step1.dropdown.property_ownership": {
+        "name": "app.mortgage.step1.dropdown.property_ownership",
+        "options": {
+          "app.mortgage.step1.dropdown.property_ownership": {
+            "en": "Credit Calculator",
+            "he": "חישוב אשראי",
+            "ru": "Расчет Кредита"
+          }
+        },
+        "category": "dropdowns"
+      }
+    },
+    "mortgage_step2": {
+      "education": {
+        "name": "education",
+        "options": {
+          "app.mortgage.step2.education_option_1": {
+            "en": "No high school certificate",
+            "he": "ללא תעודת בגרות",
+            "ru": "Без аттестата средней школы"
+          },
+          "app.mortgage.step2.education_option_2": {
+            "en": "Partial high school certificate",
+            "he": "תעודת בגרות חלקית",
+            "ru": "Частичный аттестат средней школы"
+          },
+          "app.mortgage.step2.education_option_3": {
+            "en": "Full high school certificate",
+            "he": "תעודת בגרות מלאה",
+            "ru": "Полный аттестат средней школы"
+          },
+          "app.mortgage.step2.education_option_4": {
+            "en": "Post-secondary education",
+            "he": "השכלה על-תיכונית",
+            "ru": "Послешкольное образование"
+          },
+          "app.mortgage.step2.education_option_5": {
+            "en": "Bachelor's degree",
+            "he": "תואר ראשון",
+            "ru": "Степень бакалавра"
+          },
+          "app.mortgage.step2.education_option_6": {
+            "en": "Master's degree",
+            "he": "תואר שני",
+            "ru": "Степень магистра"
+          },
+          "app.mortgage.step2.education_option_7": {
+            "en": "Doctoral degree",
+            "he": "תואר שלישי",
+            "ru": "Докторская степень"
+          }
+        },
+        "category": "form"
+      },
+      "family_status": {
+        "name": "family_status",
+        "options": {
+          "app.mortgage.step2.family_status_option_1": {
+            "en": "Single",
+            "he": "רווק/רווקה",
+            "ru": "Холост/незамужем"
+          },
+          "app.mortgage.step2.family_status_option_2": {
+            "en": "Married",
+            "he": "נשוי/נשואה",
+            "ru": "Женат/замужем"
+          },
+          "app.mortgage.step2.family_status_option_3": {
+            "en": "Divorced",
+            "he": "גרוש/גרושה",
+            "ru": "Разведен/разведена"
+          },
+          "app.mortgage.step2.family_status_option_4": {
+            "en": "Widowed",
+            "he": "אלמן/אלמנה",
+            "ru": "Вдовец/вдова"
+          },
+          "app.mortgage.step2.family_status_option_5": {
+            "en": "Common-law marriage",
+            "he": "ידוע/ידועה בציבור",
+            "ru": "Гражданский брак"
+          },
+          "app.mortgage.step2.family_status_option_6": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "form"
+      },
+      "citizenship": {
+        "name": "citizenship",
+        "options": {
+          "calculate_mortgage_citizenship_option_1": {
+            "en": "Israel",
+            "he": "ישראל",
+            "ru": "Израиль"
+          },
+          "calculate_mortgage_citizenship_option_2": {
+            "en": "United States",
+            "he": "ארצות הברית",
+            "ru": "США"
+          },
+          "calculate_mortgage_citizenship_option_3": {
+            "en": "Russia",
+            "he": "רוסיה",
+            "ru": "Россия"
+          },
+          "calculate_mortgage_citizenship_option_4": {
+            "en": "Germany",
+            "he": "גרמניה",
+            "ru": "Германия"
+          },
+          "calculate_mortgage_citizenship_option_5": {
+            "en": "France",
+            "he": "צרפת",
+            "ru": "Франция"
+          },
+          "calculate_mortgage_citizenship_option_6": {
+            "en": "United Kingdom",
+            "he": "בריטניה",
+            "ru": "Великобритания"
+          },
+          "calculate_mortgage_citizenship_option_7": {
+            "en": "Canada",
+            "he": "קנדה",
+            "ru": "Канада"
+          },
+          "calculate_mortgage_citizenship_option_8": {
+            "en": "Ukraine",
+            "he": "אוקראינה",
+            "ru": "Украина"
+          },
+          "calculate_mortgage_citizenship_option_9": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "mortgage"
+      },
+      "mortgage_step2_education": {
+        "name": "mortgage_step2_education",
+        "options": {
+          "mortgage_step2_education_option_1": {
+            "en": "No high school certificate",
+            "he": "ללא תעודת בגרות",
+            "ru": "Без аттестата средней школы"
+          },
+          "mortgage_step2_education_option_2": {
+            "en": "Partial high school certificate",
+            "he": "תעודת בגרות חלקית",
+            "ru": "Частичный аттестат средней школы"
+          },
+          "mortgage_step2_education_option_3": {
+            "en": "Full high school certificate",
+            "he": "תעודת בגרות מלאה",
+            "ru": "Полный аттестат средней школы"
+          },
+          "mortgage_step2_education_option_4": {
+            "en": "Post-secondary education",
+            "he": "השכלה על-תיכונית",
+            "ru": "Послешкольное образование"
+          },
+          "mortgage_step2_education_option_5": {
+            "en": "Bachelor's degree",
+            "he": "תואר ראשון",
+            "ru": "Степень бакалавра"
+          },
+          "mortgage_step2_education_option_6": {
+            "en": "Master's degree",
+            "he": "תואר שני",
+            "ru": "Степень магистра"
+          },
+          "mortgage_step2_education_option_7": {
+            "en": "Doctoral degree",
+            "he": "תואר שלישי",
+            "ru": "Докторская степень"
+          }
+        },
+        "category": "personal_details"
+      }
+    },
+    "mortgage_step3": {
+      "additional_income": {
+        "name": "additional_income",
+        "options": {
+          "app.mortgage.step3.additional_income_option_1": {
+            "en": "No additional income",
+            "he": "אין הכנסות נוספות",
+            "ru": "Нет дополнительных доходов"
+          },
+          "app.mortgage.step3.additional_income_option_2": {
+            "en": "Additional salary",
+            "he": "שכר נוסף",
+            "ru": "Дополнительная зарплата"
+          },
+          "app.mortgage.step3.additional_income_option_3": {
+            "en": "Additional work",
+            "he": "עבודה נוספת",
+            "ru": "Дополнительная работа"
+          },
+          "app.mortgage.step3.additional_income_option_4": {
+            "en": "Property rental income",
+            "he": "הכנסה מהשכרת נכסים",
+            "ru": "Доход от аренды недвижимости"
+          },
+          "app.mortgage.step3.additional_income_option_5": {
+            "en": "Investment income",
+            "he": "הכנסה מהשקעות",
+            "ru": "Доход от инвестиций"
+          },
+          "app.mortgage.step3.additional_income_option_6": {
+            "en": "Pension income",
+            "he": "קצבת פנסיה",
+            "ru": "Пенсионный доход"
+          },
+          "app.mortgage.step3.additional_income_option_7": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "form"
+      },
+      "employment_status": {
+        "name": "employment_status",
+        "options": {
+          "app.mortgage.step3.main_source_income_option_1": {
+            "en": "Employee",
+            "he": "עובד שכיר",
+            "ru": "Наемный работник"
+          },
+          "app.mortgage.step3.main_source_income_option_2": {
+            "en": "Self-employed",
+            "he": "עצמאי",
+            "ru": "Самозанятый"
+          },
+          "app.mortgage.step3.main_source_income_option_3": {
+            "en": "Pensioner",
+            "he": "פנסיונר",
+            "ru": "Пенсионер"
+          },
+          "app.mortgage.step3.main_source_income_option_4": {
+            "en": "Student",
+            "he": "סטודנט",
+            "ru": "Студент"
+          },
+          "app.mortgage.step3.main_source_income_option_5": {
+            "en": "Unpaid leave",
+            "he": "חופשה ללא תשלום",
+            "ru": "Неоплачиваемый отпуск"
+          },
+          "app.mortgage.step3.main_source_income_option_6": {
+            "en": "Unemployed",
+            "he": "מובטל",
+            "ru": "Безработный"
+          },
+          "app.mortgage.step3.main_source_income_option_7": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "form"
+      },
+      "obligations": {
+        "name": "obligations",
+        "options": {
+          "app.mortgage.step3.obligations_option_1": {
+            "en": "No obligations",
+            "he": "אין התחייבות",
+            "ru": "Нет обязательств"
+          },
+          "app.mortgage.step3.obligations_option_2": {
+            "en": "Bank loan",
+            "he": "הלוואה בנקאית",
+            "ru": "Банковский кредит"
+          },
+          "app.mortgage.step3.obligations_option_3": {
+            "en": "Consumer credit",
+            "he": "אשראי צרכני",
+            "ru": "Потребительский кредит"
+          },
+          "app.mortgage.step3.obligations_option_4": {
+            "en": "Credit card debt",
+            "he": "חוב כרטיס אשראי",
+            "ru": "Долг по кредитной карте"
+          },
+          "app.mortgage.step3.obligations_option_5": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "form"
+      },
+      "calculate_mortgage_sphere": {
+        "name": "calculate_mortgage_sphere",
+        "options": {
+          "calculate_mortgage_sphere_option_1": {
+            "en": "Government/Public Sector",
+            "he": "ממשלה/מגזר ציבורי",
+            "ru": "Правительство/Государственный сектор"
+          },
+          "calculate_mortgage_sphere_option_2": {
+            "en": "Banking and Finance",
+            "he": "בנקאות ופיננסים",
+            "ru": "Банковское дело и финансы"
+          },
+          "calculate_mortgage_sphere_option_3": {
+            "en": "Technology and Hi-Tech",
+            "he": "טכנולוגיה והיי-טק",
+            "ru": "Технологии и хай-тек"
+          },
+          "calculate_mortgage_sphere_option_4": {
+            "en": "Healthcare and Medicine",
+            "he": "בריאות ורפואה",
+            "ru": "Здравоохранение и медицина"
+          }
+        },
+        "category": "employment_details"
+      }
+    },
+    "mortgage_step4": {
+      "filter": {
+        "name": "filter",
+        "options": {
+          "app.mortgage.step4.filter_option_1": {
+            "en": "All mortgage programs",
+            "he": "כל תכניות המשכנתא",
+            "ru": "Все ипотечные программы"
+          },
+          "app.mortgage.step4.filter_option_2": {
+            "en": "Prime rate mortgages",
+            "he": "משכנתאות בריבית פריים",
+            "ru": "Ипотека по базовой ставке"
+          },
+          "app.mortgage.step4.filter_option_3": {
+            "en": "Fixed rate mortgages",
+            "he": "משכנתאות בריבית קבועה",
+            "ru": "Ипотека с фиксированной ставкой"
+          },
+          "app.mortgage.step4.filter_option_4": {
+            "en": "Variable rate mortgages",
+            "he": "משכנתאות בריבית משתנה",
+            "ru": "Ипотека с переменной ставкой"
+          }
+        },
+        "category": "form"
+      }
+    },
+    "refinance_credit_1": {
+      "purpose": {
+        "name": "purpose",
+        "options": {
+          "app.refinance_credit.step1.why_option_1": {
+            "en": "Improve interest rate",
+            "he": "שיפור הריבית",
+            "ru": "Улучшить процентную ставку"
+          },
+          "app.refinance_credit.step1.why_option_2": {
+            "en": "Reduce credit amount",
+            "he": "הפחתת סכום האשראי",
+            "ru": "Уменьшить сумму кредита"
+          },
+          "app.refinance_credit.step1.why_option_3": {
+            "en": "Increase term to reduce payment",
+            "he": "הגדלת התקופה כדי להפחית את התשלום",
+            "ru": "Увеличить срок, чтобы уменьшить платеж"
+          },
+          "app.refinance_credit.step1.why_option_4": {
+            "en": "Increase payment to reduce term",
+            "he": "הגדלת התשלום כדי לקצר את התקופה",
+            "ru": "Увеличить платеж, чтобы уменьшить срок"
+          },
+          "calculate_credit_why_option_1": {
+            "en": "Improve interest rate",
+            "he": "שיפור הריבית",
+            "ru": "Улучшить процентную ставку"
+          },
+          "calculate_credit_why_option_2": {
+            "en": "Reduce credit amount",
+            "he": "הפחתת סכום האשראי",
+            "ru": "Уменьшить сумму кредита"
+          },
+          "calculate_credit_why_option_3": {
+            "en": "Increase term to reduce payment",
+            "he": "הגדלת התקופה כדי להפחית את התשלום",
+            "ru": "Увеличить срок для уменьшения платежа"
+          },
+          "calculate_credit_why_option_4": {
+            "en": "Increase payment to reduce term",
+            "he": "הגדלת התשלום כדי לקצר את התקופה",
+            "ru": "Увеличить платеж для сокращения срока"
+          }
+        },
+        "category": "form"
+      },
+      "bank_discount": {
+        "name": "bank_discount",
+        "options": {
+          "bank_discount": {
+            "en": "Discount Bank",
+            "he": "בנק דיסקונט",
+            "ru": "Дисконт Банк"
+          }
+        },
+        "category": "bank"
+      },
+      "bank_hapoalim": {
+        "name": "bank_hapoalim",
+        "options": {
+          "bank_hapoalim": {
+            "en": "Bank Hapoalim",
+            "he": "בנק הפועלים",
+            "ru": "Банк Апоалим"
+          }
+        },
+        "category": "bank"
+      },
+      "bank_israel": {
+        "name": "bank_israel",
+        "options": {
+          "bank_israel": {
+            "en": "Bank of Israel",
+            "he": "בנק ישראל",
+            "ru": "Банк Израиля"
+          }
+        },
+        "category": "bank"
+      },
+      "bank_leumi": {
+        "name": "bank_leumi",
+        "options": {
+          "bank_leumi": {
+            "en": "Bank Leumi",
+            "he": "בנק לאומי",
+            "ru": "Банк Леуми"
+          }
+        },
+        "category": "bank"
+      },
+      "bank_massad": {
+        "name": "bank_massad",
+        "options": {
+          "bank_massad": {
+            "en": "Massad Bank",
+            "he": "בנק מסד",
+            "ru": "Банк Масад"
+          }
+        },
+        "category": "bank"
+      }
+    },
+    "refinance_credit_2": {
+      "calculate_mortgage_add_partner": {
+        "name": "calculate_mortgage_add_partner",
+        "options": {
+          "calculate_mortgage_add_partner": {
+            "en": "Add partner as borrower?",
+            "he": "להוסיף את בן/בת הזוג כלווה?",
+            "ru": "Добавить партнера как заемщика?"
+          },
+          "calculate_mortgage_add_partner_option_1": {
+            "en": "As primary borrower",
+            "he": "כלווה ראשי",
+            "ru": "Как основной заемщик"
+          },
+          "calculate_mortgage_add_partner_option_2": {
+            "en": "As secondary borrower",
+            "he": "כלווה משני",
+            "ru": "Как второстепенный заемщик"
+          },
+          "calculate_mortgage_add_partner_option_3": {
+            "en": "No",
+            "he": "לא",
+            "ru": "Нет"
+          }
+        },
+        "category": "form_field"
+      },
+      "calculate_mortgage_education": {
+        "name": "calculate_mortgage_education",
+        "options": {
+          "calculate_mortgage_education": {
+            "en": "Education level",
+            "he": "רמת השכלה",
+            "ru": "Уровень образования"
+          },
+          "calculate_mortgage_education_option_1": {
+            "en": "No high school diploma",
+            "he": "ללא תעודת בגרות",
+            "ru": "Без аттестата о среднем образовании"
+          },
+          "calculate_mortgage_education_option_2": {
+            "en": "Partial high school diploma",
+            "he": "תעודת בגרות חלקית",
+            "ru": "Неполное среднее образование"
+          },
+          "calculate_mortgage_education_option_3": {
+            "en": "Full high school diploma",
+            "he": "תעודת בגרות מלאה",
+            "ru": "Полное среднее образование"
+          },
+          "calculate_mortgage_education_option_4": {
+            "en": "Post-secondary education",
+            "he": "השכלה על-תיכונית",
+            "ru": "Среднее специальное образование"
+          },
+          "calculate_mortgage_education_option_5": {
+            "en": "Bachelor's degree",
+            "he": "תואר ראשון",
+            "ru": "Степень бакалавра"
+          },
+          "calculate_mortgage_education_option_6": {
+            "en": "Master's degree",
+            "he": "תואר שני",
+            "ru": "Степень магистра"
+          },
+          "calculate_mortgage_education_option_7": {
+            "en": "Doctoral degree",
+            "he": "תואר שלישי",
+            "ru": "Докторская степень"
+          }
+        },
+        "category": "form_field"
+      },
+      "calculate_mortgage_family_status": {
+        "name": "calculate_mortgage_family_status",
+        "options": {
+          "calculate_mortgage_family_status": {
+            "en": "Marital status",
+            "he": "מצב משפחתי",
+            "ru": "Семейное положение"
+          },
+          "calculate_mortgage_family_status_option_1": {
+            "en": "Single",
+            "he": "רווק/ה",
+            "ru": "Холост/Не замужем"
+          },
+          "calculate_mortgage_family_status_option_2": {
+            "en": "Married",
+            "he": "נשוי/אה",
+            "ru": "Женат/Замужем"
+          },
+          "calculate_mortgage_family_status_option_3": {
+            "en": "Divorced",
+            "he": "גרוש/ה",
+            "ru": "Разведен/а"
+          },
+          "calculate_mortgage_family_status_option_4": {
+            "en": "Widowed",
+            "he": "אלמן/ה",
+            "ru": "Вдовец/Вдова"
+          },
+          "calculate_mortgage_family_status_option_5": {
+            "en": "Common-law partner",
+            "he": "ידוע/ה בציבור",
+            "ru": "Гражданский брак"
+          },
+          "calculate_mortgage_family_status_option_6": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "form_field"
+      }
+    },
+    "refinance_credit_3": {
+      "debt_type": {
+        "name": "debt_type",
+        "options": {
+          "calculate_mortgage_debt_types_option_1": {
+            "en": "No obligations",
+            "he": "אין התחייבויות",
+            "ru": "Нет обязательств"
+          },
+          "calculate_mortgage_debt_types_option_2": {
+            "en": "Bank loan",
+            "he": "הלוואה בנקאית",
+            "ru": "Банковский кредит"
+          },
+          "calculate_mortgage_debt_types_option_3": {
+            "en": "Consumer credit",
+            "he": "אשראי צרכני",
+            "ru": "Потребительский кредит"
+          },
+          "calculate_mortgage_debt_types_option_4": {
+            "en": "Credit card debt",
+            "he": "חוב כרטיס אשראי",
+            "ru": "Долг по кредитной карте"
+          },
+          "calculate_mortgage_debt_types_option_5": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "obligation_type"
+      },
+      "additional_income": {
+        "name": "additional_income",
+        "options": {
+          "calculate_mortgage_has_additional_option_1": {
+            "en": "None",
+            "he": "אין",
+            "ru": "Нет"
+          },
+          "calculate_mortgage_has_additional_option_2": {
+            "en": "Additional Salary",
+            "he": "משכורת נוספת",
+            "ru": "Дополнительная зарплата"
+          },
+          "calculate_mortgage_has_additional_option_3": {
+            "en": "Additional Work",
+            "he": "עבודה נוספת",
+            "ru": "Дополнительная работа"
+          },
+          "calculate_mortgage_has_additional_option_4": {
+            "en": "Property Rental",
+            "he": "השכרת נכס",
+            "ru": "Аренда недвижимости"
+          },
+          "calculate_mortgage_has_additional_option_5": {
+            "en": "Investments",
+            "he": "השקעות",
+            "ru": "Инвестиции"
+          },
+          "calculate_mortgage_has_additional_option_6": {
+            "en": "Pension",
+            "he": "פנסיה",
+            "ru": "Пенсия"
+          },
+          "calculate_mortgage_has_additional_option_7": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "additional_income"
+      },
+      "employment_status": {
+        "name": "employment_status",
+        "options": {
+          "calculate_mortgage_main_source_option_1": {
+            "en": "Employee",
+            "he": "שכיר",
+            "ru": "Наемный работник"
+          },
+          "calculate_mortgage_main_source_option_2": {
+            "en": "Self-employed",
+            "he": "עצמאי",
+            "ru": "Самозанятый"
+          },
+          "calculate_mortgage_main_source_option_3": {
+            "en": "Pensioner",
+            "he": "פנסיונר",
+            "ru": "Пенсионер"
+          },
+          "calculate_mortgage_main_source_option_4": {
+            "en": "Student",
+            "he": "סטודנט",
+            "ru": "Студент"
+          },
+          "calculate_mortgage_main_source_option_5": {
+            "en": "Unpaid leave",
+            "he": "חופשה ללא תשלום",
+            "ru": "Неоплачиваемый отпуск"
+          },
+          "calculate_mortgage_main_source_option_6": {
+            "en": "Unemployed",
+            "he": "לא עובד",
+            "ru": "Безработный"
+          },
+          "calculate_mortgage_main_source_option_7": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "income_source"
+      }
+    },
+    "refinance_step1": {
+      "app.refinance.step1.bank_discount": {
+        "name": "app.refinance.step1.bank_discount",
+        "options": {
+          "app.refinance.step1.bank_discount": {
+            "en": "Discount Bank",
+            "he": "בנק דיסקונט",
+            "ru": "Банк Дисконт"
+          }
+        },
+        "category": "form"
+      },
+      "app.refinance.step1.bank_hapoalim": {
+        "name": "app.refinance.step1.bank_hapoalim",
+        "options": {
+          "app.refinance.step1.bank_hapoalim": {
+            "en": "Bank Hapoalim",
+            "he": "בנק הפועלים",
+            "ru": "Банк Апоалим"
+          }
+        },
+        "category": "form"
+      },
+      "app.refinance.step1.bank_leumi": {
+        "name": "app.refinance.step1.bank_leumi",
+        "options": {
+          "app.refinance.step1.bank_leumi": {
+            "en": "Bank Leumi",
+            "he": "בנק לאומי",
+            "ru": "Банк Леуми"
+          }
+        },
+        "category": "form"
+      },
+      "app.refinance.step1.bank_massad": {
+        "name": "app.refinance.step1.bank_massad",
+        "options": {
+          "app.refinance.step1.bank_massad": {
+            "en": "Massad Bank",
+            "he": "בנק מסד",
+            "ru": "Банк Масад"
+          }
+        },
+        "category": "form"
+      },
+      "program_type": {
+        "name": "program_type",
+        "options": {
+          "app.refinance.step1.program_option_1": {
+            "en": "Fixed Interest",
+            "he": "ריבית קבועה",
+            "ru": "Фиксированная ставка"
+          },
+          "app.refinance.step1.program_option_2": {
+            "en": "Variable Interest",
+            "he": "ריבית משתנה",
+            "ru": "Переменная ставка"
+          },
+          "app.refinance.step1.program_option_3": {
+            "en": "Prime Interest",
+            "he": "ריבית פריים",
+            "ru": "Ставка Прайм"
+          },
+          "app.refinance.step1.program_option_4": {
+            "en": "Mixed Interest",
+            "he": "ריבית מעורבת",
+            "ru": "Смешанная ставка"
+          },
+          "app.refinance.step1.program_option_5": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "form"
+      },
+      "property_type": {
+        "name": "property_type",
+        "options": {
+          "app.refinance.step1.property_option_1": {
+            "en": "Apartment",
+            "he": "דירה",
+            "ru": "Квартира"
+          },
+          "app.refinance.step1.property_option_2": {
+            "en": "Private House",
+            "he": "בית פרטי",
+            "ru": "Частный дом"
+          },
+          "app.refinance.step1.property_option_3": {
+            "en": "Commercial Property",
+            "he": "נכס מסחרי",
+            "ru": "Коммерческая недвижимость"
+          },
+          "app.refinance.step1.property_option_4": {
+            "en": "Land",
+            "he": "מגרש",
+            "ru": "Земельный участок"
+          },
+          "app.refinance.step1.property_option_5": {
+            "en": "Other",
+            "he": "אחר",
+            "ru": "Другое"
+          }
+        },
+        "category": "property_type"
+      },
+      "registration_status": {
+        "name": "registration_status",
+        "options": {
+          "app.refinance.step1.registered_option_1": {
+            "en": "Yes, Registered in Land Registry",
+            "he": "כן, רשומה בטאבו",
+            "ru": "Да, зарегистрирована в земельном реестре"
+          },
+          "app.refinance.step1.registered_option_2": {
+            "en": "No, Not Registered",
+            "he": "לא, לא רשומה",
+            "ru": "Нет, не зарегистрирована"
+          }
+        },
+        "category": "form"
+      },
+      "purpose": {
+        "name": "purpose",
+        "options": {
+          "app.refinance.step1.why_option_1": {
+            "en": "Lower Interest Rate",
+            "he": "הפחתת ריבית",
+            "ru": "Снижение процентной ставки"
+          },
+          "app.refinance.step1.why_option_2": {
+            "en": "Reduce Monthly Payment",
+            "he": "הפחתת תשלום חודשי",
+            "ru": "Снижение ежемесячного платежа"
+          },
+          "app.refinance.step1.why_option_3": {
+            "en": "Shorten Mortgage Term",
+            "he": "קיצור תקופת המשכנתא",
+            "ru": "Сокращение срока ипотеки"
+          },
+          "app.refinance.step1.why_option_4": {
+            "en": "Cash Out Refinance",
+            "he": "מחזור למזומן",
+            "ru": "Рефинансирование с доп. средствами"
+          },
+          "app.refinance.step1.why_option_5": {
+            "en": "Consolidate Debts",
+            "he": "איחוד חובות",
+            "ru": "Консолидация долгов"
+          }
+        },
+        "category": "form"
+      }
+    },
+    "temporary_franchise": {
+      "franchise_includes_digital_platform": {
+        "name": "franchise_includes_digital_platform",
+        "options": {
+          "franchise_includes_digital_platform": {
+            "en": "Advanced CRM system",
+            "he": "מערכת CRM מתקדמת",
+            "ru": "Продвинутая CRM-система"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_digital_support": {
+        "name": "franchise_includes_digital_support",
+        "options": {
+          "franchise_includes_digital_support": {
+            "en": "Technical support and updates",
+            "he": "תמיכה טכנית ועדכונים",
+            "ru": "Техническая поддержка и обновления"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_digital_title": {
+        "name": "franchise_includes_digital_title",
+        "options": {
+          "franchise_includes_digital_title": {
+            "en": "Digital Technology Platform",
+            "he": "פלטפורמה טכנולוגית דיגיטלית",
+            "ru": "Цифровая технологическая платформа"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_digital_tools": {
+        "name": "franchise_includes_digital_tools",
+        "options": {
+          "franchise_includes_digital_tools": {
+            "en": "Professional real estate tools",
+            "he": "כלי נדל\"ן מקצועיים",
+            "ru": "Профессиональные инструменты недвижимости"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_support_consultation": {
+        "name": "franchise_includes_support_consultation",
+        "options": {
+          "franchise_includes_support_consultation": {
+            "en": "Business development consultation",
+            "he": "ייעוץ לפיתוח עסקי",
+            "ru": "Консультации по развитию бизнеса"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_support_phone": {
+        "name": "franchise_includes_support_phone",
+        "options": {
+          "franchise_includes_support_phone": {
+            "en": "24/7 phone support",
+            "he": "תמיכה טלפונית 24/7",
+            "ru": "Телефонная поддержка 24/7"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_support_title": {
+        "name": "franchise_includes_support_title",
+        "options": {
+          "franchise_includes_support_title": {
+            "en": "Comprehensive Training & Support",
+            "he": "הכשרה ותמיכה מקיפה",
+            "ru": "Комплексное обучение и поддержка"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_support_training": {
+        "name": "franchise_includes_support_training",
+        "options": {
+          "franchise_includes_support_training": {
+            "en": "Initial and ongoing training programs",
+            "he": "תוכניות הכשרה ראשוניות ומתמשכות",
+            "ru": "Начальные и постоянные программы обучения"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_turnkey_benefit_brand": {
+        "name": "franchise_includes_turnkey_benefit_brand",
+        "options": {
+          "franchise_includes_turnkey_benefit_brand": {
+            "en": "Established brand recognition",
+            "he": "זיהוי מותג מבוסס",
+            "ru": "Узнаваемость бренда"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_turnkey_benefit_marketing": {
+        "name": "franchise_includes_turnkey_benefit_marketing",
+        "options": {
+          "franchise_includes_turnkey_benefit_marketing": {
+            "en": "Marketing and advertising support",
+            "he": "תמיכה בשיווק ופרסום",
+            "ru": "Маркетинговая и рекламная поддержка"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_turnkey_benefit_office": {
+        "name": "franchise_includes_turnkey_benefit_office",
+        "options": {
+          "franchise_includes_turnkey_benefit_office": {
+            "en": "Fully equipped office setup",
+            "he": "הקמת משרד מאובזר במלואו",
+            "ru": "Полностью оборудованный офис"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_turnkey_benefit_team": {
+        "name": "franchise_includes_turnkey_benefit_team",
+        "options": {
+          "franchise_includes_turnkey_benefit_team": {
+            "en": "Recruitment and training support",
+            "he": "תמיכה בגיוס והכשרה",
+            "ru": "Поддержка в найме и обучении"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_includes_turnkey_title": {
+        "name": "franchise_includes_turnkey_title",
+        "options": {
+          "franchise_includes_turnkey_title": {
+            "en": "Turnkey Business Solution",
+            "he": "פתרון עסקי מוכן",
+            "ru": "Готовое бизнес-решение"
+          }
+        },
+        "category": "includes"
+      },
+      "franchise_step_1_description": {
+        "name": "franchise_step_1_description",
+        "options": {
+          "franchise_step_1_description": {
+            "en": "Complete our online franchise application form",
+            "he": "השלימו את טופס הבקשה המקוון לזיכיון",
+            "ru": "Заполните нашу онлайн-форму заявки на франшизу"
+          }
+        },
+        "category": "steps"
+      },
+      "franchise_step_1_title": {
+        "name": "franchise_step_1_title",
+        "options": {
+          "franchise_step_1_title": {
+            "en": "Submit Application",
+            "he": "הגישו בקשה",
+            "ru": "Подать заявку"
+          }
+        },
+        "category": "steps"
+      },
+      "franchise_step_2_description": {
+        "name": "franchise_step_2_description",
+        "options": {
+          "franchise_step_2_description": {
+            "en": "Meet with our franchise team for mutual evaluation",
+            "he": "פגשו את צוות הזיכיון שלנו להערכה הדדית",
+            "ru": "Встреча с нашей командой франчайзинга для взаимной оценки"
+          }
+        },
+        "category": "steps"
+      },
+      "franchise_step_2_title": {
+        "name": "franchise_step_2_title",
+        "options": {
+          "franchise_step_2_title": {
+            "en": "Evaluation Meeting",
+            "he": "פגישת הערכה",
+            "ru": "Оценочная встреча"
+          }
+        },
+        "category": "steps"
+      },
+      "franchise_step_3_description": {
+        "name": "franchise_step_3_description",
+        "options": {
+          "franchise_step_3_description": {
+            "en": "Review and sign the franchise agreement",
+            "he": "עיון וחתימה על הסכם הזיכיון",
+            "ru": "Изучение и подписание франчайзингового договора"
+          }
+        },
+        "category": "steps"
+      },
+      "franchise_step_3_title": {
+        "name": "franchise_step_3_title",
+        "options": {
+          "franchise_step_3_title": {
+            "en": "Sign Agreement",
+            "he": "חתימה על הסכם",
+            "ru": "Подписание договора"
+          }
+        },
+        "category": "steps"
+      },
+      "franchise_step_4_description": {
+        "name": "franchise_step_4_description",
+        "options": {
+          "franchise_step_4_description": {
+            "en": "Set up your office and complete training program",
+            "he": "הקימו את המשרד והשלימו תוכנית הכשרה",
+            "ru": "Настройте офис и пройдите программу обучения"
+          }
+        },
+        "category": "steps"
+      },
+      "franchise_step_4_title": {
+        "name": "franchise_step_4_title",
+        "options": {
+          "franchise_step_4_title": {
+            "en": "Setup & Training",
+            "he": "הקמה והכשרה",
+            "ru": "Настройка и обучение"
+          }
+        },
+        "category": "steps"
+      },
+      "franchise_step_5_description": {
+        "name": "franchise_step_5_description",
+        "options": {
+          "franchise_step_5_description": {
+            "en": "Launch your franchise with full support",
+            "he": "השיקו את הזיכיון שלכם עם תמיכה מלאה",
+            "ru": "Запустите вашу франшизу с полной поддержкой"
+          }
+        },
+        "category": "steps"
+      },
+      "franchise_step_5_title": {
+        "name": "franchise_step_5_title",
+        "options": {
+          "franchise_step_5_title": {
+            "en": "Grand Opening",
+            "he": "פתיחה חגיגית",
+            "ru": "Торжественное открытие"
+          }
+        },
+        "category": "steps"
+      }
+    },
+    "tenders_for_brokers": {
+      "tenders_license_feature1_p1": {
+        "name": "tenders_license_feature1_p1",
+        "options": {
+          "tenders_license_feature1_p1": {
+            "en": "Advanced CRM system for client management",
+            "he": "מערכת CRM מתקדמת לניהול לקוחות",
+            "ru": "Продвинутая CRM-система для управления клиентами"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_license_feature1_p2": {
+        "name": "tenders_license_feature1_p2",
+        "options": {
+          "tenders_license_feature1_p2": {
+            "en": "Professional tools and calculators",
+            "he": "כלים ומחשבונים מקצועיים",
+            "ru": "Профессиональные инструменты и калькуляторы"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_license_feature1_p3": {
+        "name": "tenders_license_feature1_p3",
+        "options": {
+          "tenders_license_feature1_p3": {
+            "en": "Office and equipment support",
+            "he": "תמיכה במשרד וציוד",
+            "ru": "Поддержка офиса и оборудования"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_license_feature1_title": {
+        "name": "tenders_license_feature1_title",
+        "options": {
+          "tenders_license_feature1_title": {
+            "en": "Professional Infrastructure",
+            "he": "תשתית מקצועית",
+            "ru": "Профессиональная инфраструктура"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_license_feature2_p1": {
+        "name": "tenders_license_feature2_p1",
+        "options": {
+          "tenders_license_feature2_p1": {
+            "en": "Lead generation system",
+            "he": "מערכת לייצור לידים",
+            "ru": "Система генерации лидов"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_license_feature2_p2": {
+        "name": "tenders_license_feature2_p2",
+        "options": {
+          "tenders_license_feature2_p2": {
+            "en": "Digital marketing campaigns",
+            "he": "קמפיינים שיווקיים דיגיטליים",
+            "ru": "Цифровые маркетинговые кампании"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_license_feature2_p3": {
+        "name": "tenders_license_feature2_p3",
+        "options": {
+          "tenders_license_feature2_p3": {
+            "en": "Brand and reputation building",
+            "he": "בניית מותג ומוניטין",
+            "ru": "Построение бренда и репутации"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_license_feature2_title": {
+        "name": "tenders_license_feature2_title",
+        "options": {
+          "tenders_license_feature2_title": {
+            "en": "Marketing Support",
+            "he": "תמיכה שיווקית",
+            "ru": "Маркетинговая поддержка"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_license_feature3_p1": {
+        "name": "tenders_license_feature3_p1",
+        "options": {
+          "tenders_license_feature3_p1": {
+            "en": "Comprehensive training program",
+            "he": "תוכנית הכשרה מקיפה",
+            "ru": "Комплексная программа обучения"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_license_feature3_p2": {
+        "name": "tenders_license_feature3_p2",
+        "options": {
+          "tenders_license_feature3_p2": {
+            "en": "Ongoing professional development",
+            "he": "פיתוח מקצועי מתמשך",
+            "ru": "Постоянное профессиональное развитие"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_license_feature3_p3": {
+        "name": "tenders_license_feature3_p3",
+        "options": {
+          "tenders_license_feature3_p3": {
+            "en": "24/7 technical support",
+            "he": "תמיכה טכנית 24/7",
+            "ru": "Техническая поддержка 24/7"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_license_feature3_title": {
+        "name": "tenders_license_feature3_title",
+        "options": {
+          "tenders_license_feature3_title": {
+            "en": "Training & Support",
+            "he": "הכשרה ותמיכה",
+            "ru": "Обучение и поддержка"
+          }
+        },
+        "category": "license"
+      },
+      "tenders_step1": {
+        "name": "tenders_step1",
+        "options": {
+          "tenders_step1": {
+            "en": "Fill out the form on the website",
+            "he": "מלאו את הטופס באתר",
+            "ru": "Заполните форму на сайте"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step1_desc": {
+        "name": "tenders_step1_desc",
+        "options": {
+          "tenders_step1_desc": {
+            "en": "Fill out our simple application form",
+            "he": "מלאו את טופס הבקשה הפשוט שלנו",
+            "ru": "Заполните нашу простую форму заявки"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step1_title": {
+        "name": "tenders_step1_title",
+        "options": {
+          "tenders_step1_title": {
+            "en": "Apply Online",
+            "he": "הגישו בקשה מקוונת",
+            "ru": "Подайте заявку онлайн"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step2": {
+        "name": "tenders_step2",
+        "options": {
+          "tenders_step2": {
+            "en": "Our representative will contact you",
+            "he": "הנציג שלנו ייצור איתכם קשר",
+            "ru": "Наш представитель свяжется с вами"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step2_desc": {
+        "name": "tenders_step2_desc",
+        "options": {
+          "tenders_step2_desc": {
+            "en": "Meet with our team to discuss your goals",
+            "he": "פגשו את הצוות שלנו כדי לדון ביעדים שלכם",
+            "ru": "Встретьтесь с нашей командой для обсуждения ваших целей"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step2_title": {
+        "name": "tenders_step2_title",
+        "options": {
+          "tenders_step2_title": {
+            "en": "Initial Interview",
+            "he": "ראיון ראשוני",
+            "ru": "Первичное собеседование"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step3": {
+        "name": "tenders_step3",
+        "options": {
+          "tenders_step3": {
+            "en": "Sign an agency agreement",
+            "he": "חתמו על הסכם סוכנות",
+            "ru": "Подпишите агентский договор"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step3_desc": {
+        "name": "tenders_step3_desc",
+        "options": {
+          "tenders_step3_desc": {
+            "en": "Complete our comprehensive training course",
+            "he": "השלימו את קורס ההכשרה המקיף שלנו",
+            "ru": "Пройдите наш комплексный учебный курс"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step3_title": {
+        "name": "tenders_step3_title",
+        "options": {
+          "tenders_step3_title": {
+            "en": "Training Program",
+            "he": "תוכנית הכשרה",
+            "ru": "Программа обучения"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step4": {
+        "name": "tenders_step4",
+        "options": {
+          "tenders_step4": {
+            "en": "We equip and train your office",
+            "he": "אנחנו מצייד ומכשירים את המשרד שלכם",
+            "ru": "Мы оборудуем и обучаем ваш офис"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step4_desc": {
+        "name": "tenders_step4_desc",
+        "options": {
+          "tenders_step4_desc": {
+            "en": "Receive your license and set up your office",
+            "he": "קבלו את הרישיון שלכם והקימו את המשרד",
+            "ru": "Получите лицензию и настройте офис"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step4_title": {
+        "name": "tenders_step4_title",
+        "options": {
+          "tenders_step4_title": {
+            "en": "License & Setup",
+            "he": "רישיון והקמה",
+            "ru": "Лицензия и настройка"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step5": {
+        "name": "tenders_step5",
+        "options": {
+          "tenders_step5": {
+            "en": "Start earning stable income",
+            "he": "התחילו להרוויח הכנסה יציבה",
+            "ru": "Начните зарабатывать стабильный доход"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step5_desc": {
+        "name": "tenders_step5_desc",
+        "options": {
+          "tenders_step5_desc": {
+            "en": "Begin working with clients and earning commissions",
+            "he": "התחילו לעבוד עם לקוחות ולהרוויח עמלות",
+            "ru": "Начните работать с клиентами и зарабатывать комиссионные"
+          }
+        },
+        "category": "steps"
+      },
+      "tenders_step5_title": {
+        "name": "tenders_step5_title",
+        "options": {
+          "tenders_step5_title": {
+            "en": "Start Earning",
+            "he": "התחילו להרוויח",
+            "ru": "Начните зарабатывать"
+          }
+        },
+        "category": "steps"
+      }
+    },
+    "tenders_for_lawyers": {
+      "lawyers_process_step_1_description": {
+        "name": "lawyers_process_step_1_description",
+        "options": {
+          "lawyers_process_step_1_description": {
+            "en": "Submit your application and credentials for review",
+            "he": "הגישו את הבקשה והאישורים שלכם לבדיקה",
+            "ru": "Подайте заявку и документы для рассмотрения"
+          }
+        },
+        "category": "process"
+      },
+      "lawyers_process_step_1_title": {
+        "name": "lawyers_process_step_1_title",
+        "options": {
+          "lawyers_process_step_1_title": {
+            "en": "Application & Review",
+            "he": "בקשה ובדיקה",
+            "ru": "Заявка и рассмотрение"
+          }
+        },
+        "category": "process"
+      },
+      "lawyers_process_step_2_description": {
+        "name": "lawyers_process_step_2_description",
+        "options": {
+          "lawyers_process_step_2_description": {
+            "en": "Sign partnership agreement and set terms",
+            "he": "חתמו על הסכם שותפות וקבעו תנאים",
+            "ru": "Подпишите партнерское соглашение и установите условия"
+          }
+        },
+        "category": "process"
+      },
+      "lawyers_process_step_2_title": {
+        "name": "lawyers_process_step_2_title",
+        "options": {
+          "lawyers_process_step_2_title": {
+            "en": "Partnership Agreement",
+            "he": "הסכם שותפות",
+            "ru": "Партнерское соглашение"
+          }
+        },
+        "category": "process"
+      },
+      "lawyers_process_step_3_description": {
+        "name": "lawyers_process_step_3_description",
+        "options": {
+          "lawyers_process_step_3_description": {
+            "en": "Learn to use our platform and tools",
+            "he": "למדו להשתמש בפלטפורמה והכלים שלנו",
+            "ru": "Научитесь использовать нашу платформу и инструменты"
+          }
+        },
+        "category": "process"
+      },
+      "lawyers_process_step_3_title": {
+        "name": "lawyers_process_step_3_title",
+        "options": {
+          "lawyers_process_step_3_title": {
+            "en": "Platform Training",
+            "he": "הכשרת פלטפורמה",
+            "ru": "Обучение платформе"
+          }
+        },
+        "category": "process"
+      },
+      "lawyers_process_step_4_description": {
+        "name": "lawyers_process_step_4_description",
+        "options": {
+          "lawyers_process_step_4_description": {
+            "en": "Start receiving qualified client leads",
+            "he": "התחילו לקבל לידים איכותיים של לקוחות",
+            "ru": "Начните получать квалифицированные лиды клиентов"
+          }
+        },
+        "category": "process"
+      },
+      "lawyers_process_step_4_title": {
+        "name": "lawyers_process_step_4_title",
+        "options": {
+          "lawyers_process_step_4_title": {
+            "en": "Receive Leads",
+            "he": "קבלת לידים",
+            "ru": "Получение лидов"
+          }
+        },
+        "category": "process"
+      },
+      "lawyers_process_step_5_description": {
+        "name": "lawyers_process_step_5_description",
+        "options": {
+          "lawyers_process_step_5_description": {
+            "en": "Get paid for successful transactions",
+            "he": "קבלו תשלום עבור עסקאות מוצלחות",
+            "ru": "Получайте оплату за успешные сделки"
+          }
+        },
+        "category": "process"
+      },
+      "lawyers_process_step_5_title": {
+        "name": "lawyers_process_step_5_title",
+        "options": {
+          "lawyers_process_step_5_title": {
+            "en": "Earn Commissions",
+            "he": "הרוויחו עמלות",
+            "ru": "Зарабатывайте комиссии"
+          }
+        },
+        "category": "process"
+      },
+      "lawyers_step_1_desc": {
+        "name": "lawyers_step_1_desc",
+        "options": {
+          "lawyers_step_1_desc": {
+            "en": "Simply fill out a short form on our website to join our referral program",
+            "he": "פשוט מלאו טופס קצר באתר שלנו כדי להצטרף לתוכנית ההפניות שלנו",
+            "ru": "Просто заполните короткую форму на нашем сайте, чтобы присоединиться к нашей реферальной программе"
+          }
+        },
+        "category": "steps"
+      },
+      "lawyers_step_1_title": {
+        "name": "lawyers_step_1_title",
+        "options": {
+          "lawyers_step_1_title": {
+            "en": "Fill Out Form on Our Website",
+            "he": "מלאו טופס באתר שלנו",
+            "ru": "Заполните форму на нашем сайте"
+          }
+        },
+        "category": "steps"
+      },
+      "lawyers_step_2_desc": {
+        "name": "lawyers_step_2_desc",
+        "options": {
+          "lawyers_step_2_desc": {
+            "en": "After filling out the form, our representative will contact you to discuss details and answer your questions. We will review your application and make a decision about cooperation.",
+            "he": "לאחר מילוי הטופס, הנציג שלנו ייצור איתכם קשר כדי לדון בפרטים ולענות על שאלותיכם. נבדוק את הבקשה שלכם ונקבל החלטה לגבי שיתוף הפעולה.",
+            "ru": "После заполнения формы наш представитель свяжется с вами для обсуждения деталей и ответа на ваши вопросы. Мы рассмотрим вашу заявку и примем решение о сотрудничестве."
+          }
+        },
+        "category": "steps"
+      },
+      "lawyers_step_2_title": {
+        "name": "lawyers_step_2_title",
+        "options": {
+          "lawyers_step_2_title": {
+            "en": "Our Representative Will Contact You",
+            "he": "הנציג שלנו ייצור איתכם קשר",
+            "ru": "Наш представитель свяжется с вами"
+          }
+        },
+        "category": "steps"
+      },
+      "lawyers_step_3_desc": {
+        "name": "lawyers_step_3_desc",
+        "options": {
+          "lawyers_step_3_desc": {
+            "en": "We sign an agency agreement for services provision on terms favorable to you.",
+            "he": "אנו חותמים על הסכם סוכנות למתן שירותים בתנאים נוחים לכם.",
+            "ru": "Мы подписываем агентский договор на оказание услуг на выгодных для вас условиях."
+          }
+        },
+        "category": "steps"
+      },
+      "lawyers_step_3_title": {
+        "name": "lawyers_step_3_title",
+        "options": {
+          "lawyers_step_3_title": {
+            "en": "We Sign Agency Agreement for Services",
+            "he": "אנחנו חותמים על הסכם סוכנות לשירותים",
+            "ru": "Мы подписываем агентский договор на услуги"
+          }
+        },
+        "category": "steps"
+      },
+      "lawyers_step_4_desc": {
+        "name": "lawyers_step_4_desc",
+        "options": {
+          "lawyers_step_4_desc": {
+            "en": "In case of winning the tender, we will transfer clients who need legal help to you. We provide access to upload complete information about you and your activities on the business card website",
+            "he": "במקרה של זכייה במכרז, נעביר אליכם לקוחות הזקוקים לעזרה משפטית. אנו מספקים גישה להעלאת מידע מלא עליכם ועל פעילותכם באתר כרטיס הביקור",
+            "ru": "В случае выигрыша тендера мы передадим вам клиентов, нуждающихся в юридической помощи. Мы предоставляем доступ для загрузки полной информации о вас и вашей деятельности на сайте визитной карточки"
+          }
+        },
+        "category": "steps"
+      },
+      "lawyers_step_4_title": {
+        "name": "lawyers_step_4_title",
+        "options": {
+          "lawyers_step_4_title": {
+            "en": "We Transfer Our Clients Who Need Legal Help",
+            "he": "אנו מעבירים את הלקוחות שלנו הזקוקים לעזרה משפטית",
+            "ru": "Мы передаем наших клиентов, нуждающихся в юридической помощи"
+          }
+        },
+        "category": "steps"
+      },
+      "lawyers_step_5_desc": {
+        "name": "lawyers_step_5_desc",
+        "options": {
+          "lawyers_step_5_desc": {
+            "en": "You receive:\n\nExclusive clients\nAccess to Digital platform and 24/7 support\nSavings on advertising costs\n\nWe bill based on work volume and number of clients provided to you on individual terms",
+            "he": "אתם מקבלים:\n\nלקוחות בלעדיים\nגישה לפלטפורמה דיגיטלית ותמיכה 24/7\nחיסכון בעלויות פרסום\n\nאנו מחייבים על סמך היקף העבודה ומספר הלקוחות המסופקים לכם בתנאים אישיים",
+            "ru": "Вы получаете:\n\nЭксклюзивных клиентов\nДоступ к цифровой платформе и поддержку 24/7\nЭкономию на рекламных расходах\n\nМы выставляем счета на основе объема работы и количества предоставленных вам клиентов на индивидуальных условиях"
+          }
+        },
+        "category": "steps"
+      },
+      "lawyers_step_5_title": {
+        "name": "lawyers_step_5_title",
+        "options": {
+          "lawyers_step_5_title": {
+            "en": "Monthly Payment for Our Services",
+            "he": "תשלום חודשי עבור השירותים שלנו",
+            "ru": "Ежемесячная оплата за наши услуги"
+          }
+        },
+        "category": "steps"
+      }
+    }
+  }
+}

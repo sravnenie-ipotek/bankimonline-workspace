@@ -1,0 +1,298 @@
+calculate-mortgage/1
+
+==================================
+DROPDOWNS FOR MORTGAGE CALCULATOR
+==================================
+
+Total Dropdowns Found: 52
+Total Options: 169
+
+Additional Income Sources (from mortgage_calculation)
+  1. None
+  2. Additional Salary
+  3. Additional Work
+  4. Property Rental
+  5. Investments
+  6. Pension
+  7. Other
+  8. No additional income
+  9. Additional salary
+  10. Additional work
+  11. Property rental income
+  12. Investment income
+  13. Pension income
+  14. Other
+  15. Do you have additional income?
+
+Bank Selection (from mortgage_calculation)
+  1. Lending bank
+
+Birth Date (from mortgage_calculation)
+  1. Date of birth
+
+Borrowers (from mortgage_calculation)
+  1. How many mortgage borrowers will there be in total, including you?
+
+Children18 (from mortgage_calculation)
+  1. Children under 18
+
+Citizenship (from mortgage_calculation)
+  1. Israel
+  2. United States
+  3. Russia
+  4. Germany
+  5. France
+  6. United Kingdom
+  7. Canada
+  8. Ukraine
+  9. Other
+  10. Do you have additional citizenship?
+
+City/Location (from mortgage_calculation)
+  1. City
+  2. City
+
+Company (from mortgage_calculation)
+  1. Company
+
+Debt Types (from mortgage_calculation)
+  1. No obligations
+  2. Bank loan
+  3. Consumer credit
+  4. Credit card debt
+  5. Other
+  6. Do you have bank debts or existing financial obligations?
+
+Education Level (from mortgage_calculation)
+  1. No high school diploma
+  2. Partial high school diploma
+  3. Full high school diploma
+  4. Post-secondary education
+  5. Bachelor's degree
+  6. Master's degree
+  7. Doctoral degree
+  8. No high school certificate
+  9. Partial high school certificate
+  10. Full high school certificate
+  11. Post-secondary education
+  12. Bachelor's degree
+  13. Master's degree
+  14. Doctoral degree
+  15. Education
+  16. No high school certificate
+  17. Partial high school certificate
+  18. Full high school certificate
+  19. Post-secondary education
+  20. Bachelor's degree
+  21. Master's degree
+  22. Doctoral degree
+
+Employment Status (from mortgage_calculation)
+  1. Employee
+  2. Self-employed
+  3. Pensioner
+  4. Student
+  5. Unpaid leave
+  6. Unemployed
+  7. Other
+  8. Employee
+  9. Self-employed
+  10. Pensioner
+  11. Student
+  12. Unpaid leave
+  13. Unemployed
+  14. Other
+  15. Main income source
+
+End Date (from mortgage_calculation)
+  1. Obligation end date
+
+Family Status (from mortgage_calculation)
+  1. Single
+  2. Married
+  3. Divorced
+  4. Widowed
+  5. Common-law partner
+  6. Other
+  7. Single
+  8. Married
+  9. Divorced
+  10. Widowed
+  11. Common-law marriage
+  12. Other
+  13. Marital status
+
+First Home (from mortgage_calculation)
+  1. Yes, first home
+  2. No, additional property
+  3. Investment property
+  4. Is this a first home?
+
+How Much Childrens (from mortgage_calculation)
+  1. Number of children under 18
+
+Initial Fee (from mortgage_calculation)
+  1. Down payment
+
+Is Foreigner (from mortgage_calculation)
+  1. Are you considered a foreign resident according to income tax law?
+
+Is Medinsurance (from mortgage_calculation)
+  1. Are you insured with valid health insurance and covered by medical insurance rights?
+
+Is Public (from mortgage_calculation)
+  1. Do you hold a senior public position or are you among close family/business partners of a public position holder?
+
+Monthly Income (from mortgage_calculation)
+  1. Monthly net income
+
+Monthly Payment (from mortgage_calculation)
+  1. Monthly payment
+
+Mortgage Calculate Mortgage First Options 1 (from mortgage_calculation)
+  1. Yes, first apartment
+
+Mortgage Calculate Mortgage First Options 2 (from mortgage_calculation)
+  1. No, not first apartment
+
+Mortgage Calculate Mortgage First Options 3 (from mortgage_calculation)
+  1. Investment property
+
+Mortgage Calculate Mortgage First (from mortgage_calculation)
+  1. Is this your first apartment?
+
+Mortgage Calculate Mortgage Initial Fee (from mortgage_calculation)
+  1. Down Payment
+
+Mortgage Calculate Mortgage Initial Payment (from mortgage_calculation)
+  1. Monthly Payment
+
+Mortgage Calculate Mortgage Period (from mortgage_calculation)
+  1. Loan Period (Years)
+
+Mortgage Calculate Mortgage Price (from mortgage_calculation)
+  1. Property Value
+
+Mortgage Calculate Mortgage Type Options 1 (from mortgage_calculation)
+  1. Fixed Rate
+
+Mortgage Calculate Mortgage Type Options 2 (from mortgage_calculation)
+  1. Variable Rate
+
+Mortgage Calculate Mortgage Type Options 3 (from mortgage_calculation)
+  1. Mixed Rate
+
+Mortgage Calculate Mortgage Type Options 4 (from mortgage_calculation)
+  1. Not Sure
+
+Mortgage Calculate Mortgage Type (from mortgage_calculation)
+  1. Mortgage Type
+
+Mortgage Calculate Mortgage When Options 1 (from mortgage_calculation)
+  1. In the next 3 months
+
+Mortgage Calculate Mortgage When Options 2 (from mortgage_calculation)
+  1. In 3-6 months
+
+Mortgage Calculate Mortgage When Options 3 (from mortgage_calculation)
+  1. In 6-12 months
+
+Mortgage Calculate Mortgage When Options 4 (from mortgage_calculation)
+  1. More than 12 months
+
+Mortgage Calculate Mortgage When (from mortgage_calculation)
+  1. When do you plan to take the mortgage?
+
+Mortgage Step3 Obligations (from mortgage_step3)
+  1. No obligations
+  2. Bank loan
+  3. Consumer credit
+  4. Credit card debt
+  5. Other
+
+Mortgage Step4 Filter (from mortgage_step4)
+  1. All mortgage programs
+  2. Prime rate mortgages
+  3. Fixed rate mortgages
+  4. Variable rate mortgages
+
+Name Surname (from mortgage_calculation)
+  1. Full name
+
+Partner Pay Mortgage (from mortgage_calculation)
+  1. Will the partner participate in mortgage payments?
+
+Period (from mortgage_calculation)
+  1. Desired mortgage period
+
+Profession (from mortgage_calculation)
+  1. Position
+
+Property Ownership Status (from mortgage_calculation)
+  1. I don't own any property
+  2. I own a property
+  3. I'm selling a property
+  4. I don't own any property
+  5. I own a property
+  6. I'm selling a property
+  7. Property Ownership Status
+  8. Credit Calculator
+  9. Property Ownership Status
+
+Property Price (from mortgage_calculation)
+  1. Property price
+
+Sphere (from mortgage_calculation)
+  1. Banking and Finance
+  2. Other
+  3. Technology and Cyber
+  4. Medicine and Health
+  5. Education and Teaching
+  6. Law and Consulting
+  7. Engineering and Construction
+  8. Sales and Marketing
+  9. Services and Hospitality
+  10. Manufacturing and Logistics
+  11. Government/Public Sector
+  12. Banking and Finance
+  13. Technology and Hi-Tech
+  14. Healthcare and Medicine
+  15. Field of Activity
+
+Start Date (from mortgage_calculation)
+  1. Work start date
+
+Tax (from mortgage_calculation)
+  1. Are you liable to pay tax in foreign countries or additional jurisdictions?
+
+Type (from mortgage_calculation)
+  1. Apartment
+  2. Private house
+  3. Garden apartment
+  4. Penthouse
+  5. Other
+  6. Mortgage type
+
+When Needed (from mortgage_calculation)
+  1. Within 3 months
+  2. Within 3-6 months
+  3. Within 6-12 months
+  4. Over 12 months
+  5. When do you need the mortgage?
+
+
+==================================
+EXPECTED DROPDOWNS (MAY BE MISSING):
+==================================
+
+Property Ownership Status: ❌ Not found in database
+Property Type: ❌ Not found in database
+City/Location: ❌ Not found in database
+Bank Selection: ❌ Not found in database
+Citizenship: ✅ Found
+Employment Status: ❌ Not found in database
+Income Source: ❌ Not found in database
+Education Level: ❌ Not found in database
+Family Status: ❌ Not found in database
+Debt Types: ❌ Not found in database
+Purpose of Mortgage: ❌ Not found in database

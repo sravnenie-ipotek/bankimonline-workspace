@@ -11,48 +11,67 @@ import styles from './exitModule.module.scss'
 const cx = classNames.bind(styles)
 
 type TypeProps = {
-  isVisible: boolean
-  onCancel: () => void
-  onSubmit: () => void
-  text: string
+  opened?: boolean
+  onClose?: () => void
+  onConfirm?: () => void
+  title?: string
   subtitle?: string
+  confirmText?: string
+  // Legacy props for backward compatibility
+  isVisible?: boolean
+  onCancel?: () => void
+  onSubmit?: () => void
+  text?: string
 }
 
 const ExitModule: React.FC<TypeProps> = ({
+  opened,
+  onClose,
+  onConfirm,
+  title,
+  subtitle,
+  confirmText,
+  // Legacy props
   isVisible,
   onCancel,
   onSubmit,
   text,
-  subtitle,
 }) => {
   const dialogRef = useRef<HTMLDialogElement | null>(null)
   const { t, i18n } = useTranslation()
+  
+  // Use new props if available, fall back to legacy props
+  const visible = opened ?? isVisible ?? false
+  const handleCancel = onClose ?? onCancel ?? (() => {})
+  const handleConfirm = onConfirm ?? onSubmit ?? (() => {})
+  const displayText = title ?? text ?? ''
+  const displayConfirmText = confirmText ?? t('confirm')
 
   useEffect(() => {
-    if (isVisible) dialogRef?.current?.showModal()
+    if (visible) dialogRef?.current?.showModal()
     else dialogRef?.current?.close()
-  }, [isVisible])
+  }, [visible])
 
   const closeDialog = () => {
     dialogRef?.current?.close()
-    onCancel && onCancel()
+    handleCancel()
   }
 
   return (
     <>
-      {isVisible &&
+      {visible &&
         createPortal(
           <dialog ref={dialogRef} className={cx('dialog')}>
             <div className={cx('dialog-icon')}>
               <SignOut />
             </div>
-            <div className={cx('dialog-text')}>{text}</div>
+            <div className={cx('dialog-text')}>{displayText}</div>
             {subtitle && <div className={cx('dialog-subtitle')}>{subtitle}</div>}
             <div className={cx('dialog-buttons')}>
               <NewButton
-                text={t('confirm')}
+                text={displayConfirmText}
                 color="warning"
-                onChange={onSubmit}
+                onChange={handleConfirm}
               />
               <NewButton text={t('cancel')} onChange={closeDialog} />
             </div>
