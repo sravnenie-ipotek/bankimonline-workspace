@@ -1,0 +1,1 @@
+import{c as o,j as e}from"./index-740c29d7.js";const m="_column_1uzwz_1",l={column:m},a=o.bind(l),t=({children:s,...n})=>e.jsxDEV("div",{className:a("column"),...n,children:s},void 0,!1,{fileName:"/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/src/components/ui/Column/Column.tsx",lineNumber:19,columnNumber:5},globalThis);export{t as C};
