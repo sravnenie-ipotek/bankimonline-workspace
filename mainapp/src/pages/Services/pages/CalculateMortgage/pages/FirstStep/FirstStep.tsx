@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik'
 import i18next from 'i18next'
-import { getValidationErrorSync, preloadValidationErrors } from '@src/utils/validationHelpers'
+import { getValidationErrorSync, preloadValidationErrors, reloadValidationErrors } from '@src/utils/validationHelpers'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import * as Yup from 'yup'
@@ -73,8 +73,24 @@ const FirstStep = () => {
 
   // Preload validation errors when component mounts
   useEffect(() => {
+    console.log('🚀 FirstStep component mounted, preloading validation errors...')
     preloadValidationErrors()
   }, [])
+
+  // Reload validation errors when language changes
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      console.log('🌐 Language changed to:', i18n.language)
+      reloadValidationErrors()
+    }
+
+    // Listen for language changes
+    i18n.on('languageChanged', handleLanguageChange)
+
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange)
+    }
+  }, [i18n])
 
   const initialValues = {
     priceOfEstate: savedValue.priceOfEstate || 1000000,
