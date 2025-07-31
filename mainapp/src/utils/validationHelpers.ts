@@ -31,23 +31,32 @@ const getCurrentLanguage = (): string => {
 export const getValidationError = async (errorKey: string, fallback?: string): Promise<string> => {
   try {
     const currentLang = getCurrentLanguage()
+    console.log(`🔍 getValidationError called for key: ${errorKey}, language: ${currentLang}`)
     
     // Try to get from content cache first
     const cached = validationCache.get(`validation_errors_${currentLang}`)
     if (cached && cached[errorKey]) {
+      console.log(`✅ Found cached validation error: ${errorKey} -> "${cached[errorKey]}"`)
       return cached[errorKey]
     }
     
     // Try to fetch from database first
     try {
+      console.log(`🌐 Fetching from database: /api/content/validation_errors/${currentLang}`)
       const response = await fetch(`/api/content/validation_errors/${currentLang}`)
       if (response.ok) {
         const data = await response.json()
+        console.log(`📊 Database response:`, data)
         if (data.content && data.content[errorKey] && data.content[errorKey].value) {
           // Cache the result
           validationCache.set(`validation_errors_${currentLang}`, data.content)
+          console.log(`✅ Found database validation error: ${errorKey} -> "${data.content[errorKey].value}"`)
           return data.content[errorKey].value
+        } else {
+          console.log(`❌ Key ${errorKey} not found in database response`)
         }
+      } else {
+        console.log(`❌ Database response not ok:`, response.status)
       }
     } catch (dbError) {
       console.warn('Database fetch failed, falling back to translation system:', dbError)
@@ -57,11 +66,15 @@ export const getValidationError = async (errorKey: string, fallback?: string): P
     if (typeof window !== 'undefined' && window.i18next) {
       const translatedValue = window.i18next.t(errorKey)
       if (translatedValue && translatedValue !== errorKey) {
+        console.log(`✅ Found translation: ${errorKey} -> "${translatedValue}"`)
         return translatedValue
+      } else {
+        console.log(`❌ Translation not found for key: ${errorKey}`)
       }
     }
     
     // Return fallback or key if not found
+    console.log(`⚠️ Using fallback for key: ${errorKey} -> "${fallback || errorKey}"`)
     return fallback || errorKey
   } catch (error) {
     console.warn(`Validation error key not found: ${errorKey}`, error)
@@ -76,10 +89,12 @@ export const getValidationError = async (errorKey: string, fallback?: string): P
 export const getValidationErrorSync = (errorKey: string, fallback?: string): string => {
   try {
     const currentLang = getCurrentLanguage()
+    console.log(`🔍 getValidationErrorSync called for key: ${errorKey}, language: ${currentLang}`)
     
     // Try to get from content cache first
     const cached = validationCache.get(`validation_errors_${currentLang}`)
     if (cached && cached[errorKey]) {
+      console.log(`✅ Found cached validation error: ${errorKey} -> "${cached[errorKey]}"`)
       return cached[errorKey]
     }
     
@@ -87,11 +102,15 @@ export const getValidationErrorSync = (errorKey: string, fallback?: string): str
     if (typeof window !== 'undefined' && window.i18next) {
       const translatedValue = window.i18next.t(errorKey)
       if (translatedValue && translatedValue !== errorKey) {
+        console.log(`✅ Found translation: ${errorKey} -> "${translatedValue}"`)
         return translatedValue
+      } else {
+        console.log(`❌ Translation not found for key: ${errorKey}`)
       }
     }
     
     // Return fallback if not in cache or translation
+    console.log(`⚠️ Using fallback for key: ${errorKey} -> "${fallback || errorKey}"`)
     return fallback || errorKey
   } catch (error) {
     console.warn(`Validation error key not found: ${errorKey}`)

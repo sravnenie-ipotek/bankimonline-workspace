@@ -9,9 +9,17 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const NodeCache = require('node-cache');
 
 const app = express();
 const PORT = process.env.PORT || 8003;
+
+// Initialize cache for content endpoints (5-minute TTL)
+const contentCache = new NodeCache({ 
+    stdTTL: 300, // 5 minutes
+    checkperiod: 60, // Check for expired keys every 60 seconds
+    useClones: false // Better performance for JSON objects
+});
 
 // Main database connection
 const pool = new Pool({
@@ -911,11 +919,73 @@ app.post('/api/content/fix-status', async (req, res) => {
     }
 });
 
-// GET /api/content/:screen/:language - Get all content for specific screen
+// GET /api/content/cache/stats - Get cache statistics and management
+app.get('/api/content/cache/stats', (req, res) => {
+    try {
+        const stats = contentCache.getStats();
+        const keys = contentCache.keys();
+        
+        res.json({
+            status: 'success',
+            cache_stats: {
+                keys_count: keys.length,
+                hits: stats.hits,
+                misses: stats.misses,
+                hit_rate: stats.hits + stats.misses > 0 ? (stats.hits / (stats.hits + stats.misses) * 100).toFixed(2) + '%' : '0%',
+                keys: keys.length > 20 ? keys.slice(0, 20).concat(['... and ' + (keys.length - 20) + ' more']) : keys
+            },
+            ttl: '300 seconds (5 minutes)',
+            checkperiod: '60 seconds'
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to get cache stats',
+            error: error.message
+        });
+    }
+});
+
+// DELETE /api/content/cache/clear - Clear content cache
+app.delete('/api/content/cache/clear', (req, res) => {
+    try {
+        const keysBefore = contentCache.keys().length;
+        contentCache.flushAll();
+        
+        res.json({
+            status: 'success',
+            message: 'Content cache cleared successfully',
+            keys_cleared: keysBefore
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to clear cache',
+            error: error.message
+        });
+    }
+});
+
+// GET /api/content/:screen/:language - Get content for specific screen with optional type filtering and caching
 app.get('/api/content/:screen/:language', async (req, res) => {
     try {
         const { screen, language } = req.params;
-        const result = await contentPool.query(`
+        const { type } = req.query; // Optional type filter
+        
+        // Create cache key including type filter
+        const cacheKey = `content_${screen}_${language}_${type || 'all'}`;
+        
+        // Check cache first
+        const cached = contentCache.get(cacheKey);
+        if (cached) {
+            console.log(`✅ Cache HIT for ${cacheKey}`);
+            return res.json(cached);
+        }
+        
+        console.log(`⚡ Cache MISS for ${cacheKey} - querying database`);
+        
+        // Build query with optional type filtering
+        let query = `
             SELECT 
                 content_items.content_key,
                 content_items.component_type,
@@ -928,9 +998,19 @@ app.get('/api/content/:screen/:language', async (req, res) => {
             WHERE content_items.screen_location = $1 
                 AND content_translations.language_code = $2 
                 AND content_translations.status = 'approved'
-                AND content_items.is_active = true
-            ORDER BY content_items.content_key
-        `, [screen, language]);
+                AND content_items.is_active = true`;
+        
+        const params = [screen, language];
+        
+        // Add type filter if specified
+        if (type) {
+            query += ' AND content_items.component_type = $3';
+            params.push(type);
+        }
+        
+        query += ' ORDER BY content_items.content_key';
+        
+        const result = await contentPool.query(query, params);
         
         // Transform to key-value object for frontend
         const content = {};
@@ -944,13 +1024,20 @@ app.get('/api/content/:screen/:language', async (req, res) => {
             };
         });
         
-        res.json({
+        const response = {
             status: 'success',
             screen_location: screen,
             language_code: language,
             content_count: result.rowCount,
-            content: content
-        });
+            content: content,
+            ...(type && { filtered_by_type: type }),
+            cached: false
+        };
+        
+        // Cache the response for 5 minutes
+        contentCache.set(cacheKey, { ...response, cached: true });
+        
+        res.json(response);
         
     } catch (error) {
         console.error('❌ Failed to get content for screen:', error.message);
@@ -958,6 +1045,191 @@ app.get('/api/content/:screen/:language', async (req, res) => {
             status: 'error',
             message: 'Failed to retrieve content for screen',
             error: error.message
+        });
+    }
+});
+
+// GET /api/dropdowns/:screen/:language - Get structured dropdown data with caching
+app.get('/api/dropdowns/:screen/:language', async (req, res) => {
+    try {
+        const { screen, language } = req.params;
+        
+        // Create cache key for dropdowns
+        const cacheKey = `dropdowns_${screen}_${language}`;
+        
+        // Check cache first
+        const cached = contentCache.get(cacheKey);
+        if (cached) {
+            console.log(`✅ Dropdown cache HIT for ${cacheKey}`);
+            return res.json(cached);
+        }
+        
+        console.log(`⚡ Dropdown cache MISS for ${cacheKey} - querying database`);
+        
+        // Fetch all dropdown-related content for the screen
+        const result = await contentPool.query(`
+            SELECT 
+                content_items.content_key,
+                content_items.component_type,
+                content_translations.content_value
+            FROM content_items
+            JOIN content_translations ON content_items.id = content_translations.content_item_id
+            WHERE content_items.screen_location = $1 
+                AND content_translations.language_code = $2
+                AND content_translations.status = 'approved'
+                AND content_items.is_active = true
+                AND content_items.component_type IN ('dropdown', 'option', 'placeholder', 'label')
+            ORDER BY content_items.content_key, content_items.component_type
+        `, [screen, language]);
+        
+        // Structure the response according to the specification
+        const response = {
+            status: 'success',
+            screen_location: screen,
+            language_code: language,
+            dropdowns: [],
+            options: {},
+            placeholders: {},
+            labels: {},
+            cached: false
+        };
+        
+        // Group by dropdown field - extract field name from content_key
+        const dropdownMap = new Map();
+        
+        result.rows.forEach(row => {
+            // Extract field name using multiple patterns to handle various key formats
+            // Examples: mortgage_step1.field.property_ownership, app.mortgage.form.calculate_mortgage_city
+            let fieldName = null;
+            
+            // Pattern 1: mortgage_step1.field.{fieldname}
+            let match = row.content_key.match(/^[^.]*\.field\.([^.]+)/);
+            if (match) {
+                fieldName = match[1];
+            }
+            
+            // Pattern 2: app.mortgage.form.calculate_mortgage_{fieldname}
+            if (!fieldName) {
+                match = row.content_key.match(/calculate_mortgage_([^_]+)(?:_option_|_ph|$)/);
+                if (match) {
+                    fieldName = match[1];
+                }
+            }
+            
+            // Pattern 3: mortgage_calculation.field.{fieldname}
+            if (!fieldName) {
+                match = row.content_key.match(/mortgage_calculation\.field\.([^.]+)/);
+                if (match) {
+                    fieldName = match[1];
+                }
+            }
+            
+            // Pattern 4: Simple field name extraction from various patterns
+            if (!fieldName) {
+                // Try to extract from patterns like field_name_option_X or field_name_ph
+                match = row.content_key.match(/([^._]+)(?:_option_|_ph|$)/);
+                if (match && match[1] !== 'mortgage' && match[1] !== 'step1' && match[1] !== 'field') {
+                    fieldName = match[1];
+                }
+            }
+            
+            // Fallback: use the content_key itself if no pattern matches
+            if (!fieldName) {
+                fieldName = row.content_key.replace(/[._]/g, '_');
+            }
+            
+            // Create dropdown key
+            const dropdownKey = `${screen}_${fieldName}`;
+            
+            if (!dropdownMap.has(fieldName)) {
+                dropdownMap.set(fieldName, {
+                    key: dropdownKey,
+                    label: null,
+                    options: [],
+                    placeholder: null
+                });
+            }
+            
+            const dropdown = dropdownMap.get(fieldName);
+            
+            switch (row.component_type) {
+                case 'dropdown':
+                    dropdown.label = row.content_value;
+                    response.labels[dropdown.key] = row.content_value;
+                    break;
+                    
+                case 'option':
+                    // Extract option value from content_key
+                    let optionValue = null;
+                    
+                    // Try various patterns for option values
+                    const optionPatterns = [
+                        /_option_(.+)$/,  // Standard pattern: field_option_value
+                        /_([^_]+)$/       // Last part after underscore
+                    ];
+                    
+                    for (const pattern of optionPatterns) {
+                        const optionMatch = row.content_key.match(pattern);
+                        if (optionMatch) {
+                            optionValue = optionMatch[1];
+                            break;
+                        }
+                    }
+                    
+                    if (optionValue) {
+                        dropdown.options.push({
+                            value: optionValue,
+                            label: row.content_value
+                        });
+                    }
+                    break;
+                    
+                case 'placeholder':
+                    dropdown.placeholder = row.content_value;
+                    response.placeholders[dropdown.key] = row.content_value;
+                    break;
+                    
+                case 'label':
+                    if (!dropdown.label) { // Don't override dropdown type label
+                        dropdown.label = row.content_value;
+                        response.labels[dropdown.key] = row.content_value;
+                    }
+                    break;
+            }
+        });
+        
+        // Build final response - only include dropdowns that have options
+        dropdownMap.forEach((dropdown, fieldName) => {
+            if (dropdown.options.length > 0 || dropdown.label) {
+                response.dropdowns.push({
+                    key: dropdown.key,
+                    label: dropdown.label || fieldName.replace(/_/g, ' ')
+                });
+                
+                if (dropdown.options.length > 0) {
+                    response.options[dropdown.key] = dropdown.options;
+                }
+            }
+        });
+        
+        // Add performance metadata
+        response.performance = {
+            total_items: result.rowCount,
+            dropdowns_found: response.dropdowns.length,
+            query_time: new Date().toISOString()
+        };
+        
+        // Cache the response for 5 minutes
+        contentCache.set(cacheKey, { ...response, cached: true });
+        
+        res.json(response);
+        
+    } catch (error) {
+        console.error('❌ Failed to get dropdown data:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve dropdown data',
+            error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
         });
     }
 });
@@ -1268,6 +1540,78 @@ app.get('/api/content/languages', async (req, res) => {
         res.status(500).json({
             status: 'error',
             message: 'Failed to retrieve languages',
+            error: error.message
+        });
+    }
+});
+
+// GET /api/content/validation_errors/:language - Get validation error messages for specific language
+app.get('/api/content/validation_errors/:language', async (req, res) => {
+    try {
+        const { language } = req.params;
+        
+        // Create cache key for validation errors
+        const cacheKey = `validation_errors_${language}`;
+        
+        // Check cache first
+        const cached = contentCache.get(cacheKey);
+        if (cached) {
+            console.log(`✅ Validation errors cache HIT for ${language}`);
+            return res.json(cached);
+        }
+        
+        console.log(`⚡ Validation errors cache MISS for ${language} - querying database`);
+        
+        const query = `
+            SELECT 
+                content_items.content_key,
+                content_items.component_type,
+                content_items.category,
+                content_translations.content_value,
+                content_translations.language_code,
+                content_translations.status
+            FROM content_items
+            JOIN content_translations ON content_items.id = content_translations.content_item_id
+            WHERE content_items.screen_location = 'validation_errors'
+                AND content_translations.language_code = $1 
+                AND content_translations.status = 'approved'
+                AND content_items.is_active = true
+            ORDER BY content_items.content_key
+        `;
+        
+        const result = await contentPool.query(query, [language]);
+        
+        // Transform to key-value object for frontend
+        const content = {};
+        result.rows.forEach(row => {
+            content[row.content_key] = {
+                value: row.content_value,
+                component_type: row.component_type,
+                category: row.category,
+                language: row.language_code,
+                status: row.status
+            };
+        });
+        
+        const response = {
+            status: 'success',
+            screen_location: 'validation_errors',
+            language_code: language,
+            content_count: result.rowCount,
+            content: content,
+            cached: false
+        };
+        
+        // Cache the response for 10 minutes (validation errors don't change often)
+        contentCache.set(cacheKey, { ...response, cached: true });
+        
+        res.json(response);
+        
+    } catch (error) {
+        console.error('❌ Failed to get validation errors:', error.message);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to retrieve validation errors',
             error: error.message
         });
     }

@@ -1,6 +1,11 @@
 import { defineConfig } from 'cypress'
 import * as fs from 'fs'
 import * as path from 'path'
+import { Pool } from 'pg'
+import * as dotenv from 'dotenv'
+
+// Load environment variables
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
 export default defineConfig({
   e2e: {
@@ -44,6 +49,21 @@ export default defineConfig({
         fs.mkdirSync(screenshotsPath, { recursive: true })
       }
       
+      // Database connection pools
+      const mainDbPool = new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: process.env.DATABASE_URL && process.env.DATABASE_URL.includes('railway') ? {
+          rejectUnauthorized: false
+        } : false
+      })
+      
+      const contentDbPool = new Pool({
+        connectionString: process.env.CONTENT_DATABASE_URL || process.env.DATABASE_PUBLIC_URL || process.env.DATABASE_URL,
+        ssl: (process.env.CONTENT_DATABASE_URL || process.env.DATABASE_URL || '').includes('railway') ? {
+          rejectUnauthorized: false
+        } : false
+      })
+      
       // Add custom tasks here
       on('task', {
         log(message) {
@@ -56,6 +76,32 @@ export default defineConfig({
         },
         getScreenshotFolder() {
           return screenshotsPath
+        },
+        
+        // Database query tasks
+        async queryDb(query: string) {
+          try {
+            const result = await mainDbPool.query(query)
+            return result.rows
+          } catch (error: any) {
+            console.error('Main DB query error:', error.message)
+            throw error
+          }
+        },
+        
+        async queryContentDb(query: string) {
+          try {
+            const result = await contentDbPool.query(query)
+            return result.rows
+          } catch (error: any) {
+            console.error('Content DB query error:', error.message)
+            throw error
+          }
+        },
+        
+        async checkFileExists(filePath: string) {
+          const fullPath = path.resolve(__dirname, '..', filePath)
+          return fs.existsSync(fullPath)
         }
       })
       
@@ -82,6 +128,8 @@ export default defineConfig({
       // Log the screenshot folder at the start of the run
       on('before:run', () => {
         console.log(`\n📸 Screenshots will be saved to: ${screenshotsPath}\n`)
+        console.log(`📊 Main Database: ${process.env.DATABASE_URL ? 'Configured' : 'Not configured'}`)
+        console.log(`📊 Content Database: ${process.env.CONTENT_DATABASE_URL ? 'Configured' : 'Not configured'}\n`)
       })
       
       // Configure code coverage if needed
