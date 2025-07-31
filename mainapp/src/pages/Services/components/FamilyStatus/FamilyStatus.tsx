@@ -1,9 +1,11 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { useContentApi } from '@src/hooks/useContentApi'
+import { useDropdownData } from '@src/hooks/useDropdownData'
 
 import { Column } from '@components/ui/Column'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
+import { Error } from '@components/ui/Error'
 
 import { FormTypes } from '../../types/formTypes'
 
@@ -13,44 +15,33 @@ const FamilyStatus = () => {
   const { values, setFieldValue, touched, errors, setFieldTouched } =
     useFormikContext<FormTypes>()
 
-  const FamilyStatusOptions = [
-    {
-      value: 'option_1',
-      label: getContent('calculate_mortgage_family_status_option_1', 'calculate_mortgage_family_status_option_1'),
-    },
-    {
-      value: 'option_2',
-      label: getContent('calculate_mortgage_family_status_option_2', 'calculate_mortgage_family_status_option_2'),
-    },
-    {
-      value: 'option_3',
-      label: getContent('calculate_mortgage_family_status_option_3', 'calculate_mortgage_family_status_option_3'),
-    },
-    {
-      value: 'option_4',
-      label: getContent('calculate_mortgage_family_status_option_4', 'calculate_mortgage_family_status_option_4'),
-    },
-    {
-      value: 'option_5',
-      label: getContent('calculate_mortgage_family_status_option_5', 'calculate_mortgage_family_status_option_5'),
-    },
-    {
-      value: 'option_6',
-      label: getContent('calculate_mortgage_family_status_option_6', 'calculate_mortgage_family_status_option_6'),
-    },
-  ]
+  // Phase 4: Use database-driven dropdown data instead of hardcoded array
+  const dropdownData = useDropdownData('mortgage_step2', 'family_status', 'full')
+
+  // Phase 4: Handle loading and error states
+  if (dropdownData.loading) {
+    console.log('🔄 Loading family status dropdown options...')
+  }
+
+  if (dropdownData.error) {
+    console.warn('❌ Family status dropdown error:', dropdownData.error)
+  }
 
   return (
     <Column>
       <DropdownMenu
-        title={getContent('calculate_mortgage_family_status', 'calculate_mortgage_family_status')}
-        placeholder={getContent('calculate_mortgage_family_status_ph', 'calculate_mortgage_family_status_ph')}
+        title={dropdownData.label || getContent('calculate_mortgage_family_status', 'calculate_mortgage_family_status')}
+        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_family_status_ph', 'calculate_mortgage_family_status_ph')}
         value={values.familyStatus}
-        data={FamilyStatusOptions}
+        data={dropdownData.options}
         onChange={(value) => setFieldValue('familyStatus', value)}
         onBlur={() => setFieldTouched('familyStatus', true)}
         error={touched.familyStatus && errors.familyStatus}
+        disabled={dropdownData.loading}
       />
+      {dropdownData.error && (
+        <Error error="Failed to load family status options. Please refresh the page." />
+      )}
     </Column>
   )
 }

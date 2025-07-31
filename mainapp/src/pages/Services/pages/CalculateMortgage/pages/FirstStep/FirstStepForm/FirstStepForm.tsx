@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 
 import InitialFeeContext from '@components/ui/ContextButtons/InitialFeeContext/InitialFeeContext'
 import CreditParams from '@components/ui/CreditParams'
@@ -17,6 +17,7 @@ import { useAppDispatch } from '@src/hooks/store'
 import { setActiveField } from '@src/pages/Services/slices/activeField'
 import { CalculateMortgageTypes } from '@src/pages/Services/types/formTypes'
 import { useContentApi } from '@src/hooks/useContentApi'
+import { useAllDropdowns } from '@src/hooks/useDropdownData'
 import { calculationService } from '@src/services/calculationService'
 
 interface CityOption {
@@ -28,6 +29,9 @@ const FirstStepForm = () => {
   const { t, i18n } = useTranslation()
   const { getContent } = useContentApi('mortgage_step1')
   const dispatch = useAppDispatch()
+
+  // Phase 4: Use bulk dropdown fetching for better performance
+  const { data: dropdownData, loading: dropdownsLoading, error: dropdownsError, getDropdownProps } = useAllDropdowns('mortgage_step1')
 
   const [cityOptions, setCityOptions] = useState<CityOption[]>([])
   const [ltvRatios, setLtvRatios] = useState<{[key: string]: number}>({})
@@ -109,33 +113,26 @@ const FirstStepForm = () => {
     fetchLtvRatios()
   }, [i18n.language])
 
-  // Use useMemo to ensure dropdown options update when content changes
-  const WhenDoYouNeedMoneyOptions = useMemo(() => [
-    { value: 'next_3_months', label: getContent('mortgage_step1.field.when_needed_option_1', 'calculate_mortgage_when_options_1') },
-    { value: '3_to_6_months', label: getContent('mortgage_step1.field.when_needed_option_2', 'calculate_mortgage_when_options_2') },
-    { value: '6_to_12_months', label: getContent('mortgage_step1.field.when_needed_option_3', 'calculate_mortgage_when_options_3') },
-    { value: 'more_than_12_months', label: getContent('mortgage_step1.field.when_needed_option_4', 'calculate_mortgage_when_options_4') },
-  ], [getContent])
+  // Phase 4: Get dropdown data from database instead of hardcoded arrays
+  const whenNeededProps = getDropdownProps('when_needed')
+  const typeProps = getDropdownProps('type') 
+  const firstHomeProps = getDropdownProps('first_home')
+  const propertyOwnershipProps = getDropdownProps('property_ownership')
 
-  const TypeSelectOptions = useMemo(() => [
-    { value: 'fixed_rate', label: getContent('mortgage_step1.field.type_option_1', 'calculate_mortgage_type_options_1') },
-    { value: 'variable_rate', label: getContent('mortgage_step1.field.type_option_2', 'calculate_mortgage_type_options_2') },
-    { value: 'mixed_rate', label: getContent('mortgage_step1.field.type_option_3', 'calculate_mortgage_type_options_3') },
-    { value: 'not_sure', label: getContent('mortgage_step1.field.type_option_4', 'calculate_mortgage_type_options_4') },
-  ], [getContent])
+  // Phase 4: Show loading state for dropdowns while fetching from API
+  if (dropdownsLoading) {
+    console.log('🔄 Loading dropdown data for mortgage_step1...')
+  }
 
-  const WillBeYourFirstOptions = useMemo(() => [
-    { value: 'first_apartment', label: getContent('mortgage_step1.field.first_home_option_1', 'calculate_mortgage_first_options_1') },
-    { value: 'not_first_apartment', label: getContent('mortgage_step1.field.first_home_option_2', 'calculate_mortgage_first_options_2') },
-    { value: 'investment', label: getContent('mortgage_step1.field.first_home_option_3', 'calculate_mortgage_first_options_3') },
-  ], [getContent])
-
-  // Property Ownership Options (Confluence Action #12 - affects LTV ratios 75%/50%/70%)
-  const PropertyOwnershipOptions = useMemo(() => [
-    { value: 'no_property', label: getContent('mortgage_step1.field.property_ownership_option_1', 'calculate_mortgage_property_ownership_option_1') },      // 75% financing
-    { value: 'has_property', label: getContent('mortgage_step1.field.property_ownership_option_2', 'calculate_mortgage_property_ownership_option_2') },     // 50% financing  
-    { value: 'selling_property', label: getContent('mortgage_step1.field.property_ownership_option_3', 'calculate_mortgage_property_ownership_option_3') }, // 70% financing
-  ], [getContent])
+  // Phase 4: Log dropdown data for debugging
+  if (dropdownData && !dropdownsLoading) {
+    console.log('✅ Dropdown data loaded for mortgage_step1:', {
+      whenNeeded: whenNeededProps.options.length,
+      type: typeProps.options.length,
+      firstHome: firstHomeProps.options.length,
+      propertyOwnership: propertyOwnershipProps.options.length
+    })
+  }
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<CalculateMortgageTypes>()
@@ -214,15 +211,19 @@ const FirstStepForm = () => {
           </Column>
           <Column>
             <DropdownMenu
-              title={getContent('mortgage_step1.field.when_needed', 'calculate_mortgage_when')}
-              data={WhenDoYouNeedMoneyOptions}
-              placeholder={getContent('mortgage_step1.field.when_needed_ph', 'calculate_mortgage_when_options_ph')}
+              title={whenNeededProps.label || getContent('mortgage_step1.field.when_needed', 'calculate_mortgage_when')}
+              data={whenNeededProps.options}
+              placeholder={whenNeededProps.placeholder || getContent('mortgage_step1.field.when_needed_ph', 'calculate_mortgage_when_options_ph')}
               value={values.whenDoYouNeedMoney}
               onChange={(value) => setFieldValue('whenDoYouNeedMoney', value)}
               onBlur={() => setFieldTouched('whenDoYouNeedMoney', true)}
               error={touched.whenDoYouNeedMoney && errors.whenDoYouNeedMoney}
               dataTestId="when-needed-dropdown"
+              disabled={dropdownsLoading}
             />
+            {dropdownsError && (
+              <Error error="Failed to load options. Please refresh the page." />
+            )}
           </Column>
         </Row>
 
@@ -248,42 +249,54 @@ const FirstStepForm = () => {
           </Column>
           <Column>
             <DropdownMenu
-              title={getContent('mortgage_step1.field.type', 'calculate_mortgage_type')}
-              data={TypeSelectOptions}
-              placeholder={getContent('mortgage_step1.field.type_ph', 'calculate_mortgage_type_ph')}
+              title={typeProps.label || getContent('mortgage_step1.field.type', 'calculate_mortgage_type')}
+              data={typeProps.options}
+              placeholder={typeProps.placeholder || getContent('mortgage_step1.field.type_ph', 'calculate_mortgage_type_ph')}
               value={values.typeSelect}
               onChange={(value) => setFieldValue('typeSelect', value)}
               onBlur={() => setFieldTouched('typeSelect', true)}
               error={touched.typeSelect && errors.typeSelect}
               dataTestId="property-type-dropdown"
+              disabled={dropdownsLoading}
             />
+            {dropdownsError && (
+              <Error error="Failed to load type options. Please refresh the page." />
+            )}
           </Column>
           <Column>
             <DropdownMenu
-              title={getContent('mortgage_step1.field.first_home', 'calculate_mortgage_first')}
-              data={WillBeYourFirstOptions}
-              placeholder={getContent('mortgage_step1.field.first_home_ph', 'calculate_mortgage_first_ph')}
+              title={firstHomeProps.label || getContent('mortgage_step1.field.first_home', 'calculate_mortgage_first')}
+              data={firstHomeProps.options}
+              placeholder={firstHomeProps.placeholder || getContent('mortgage_step1.field.first_home_ph', 'calculate_mortgage_first_ph')}
               value={values.willBeYourFirst}
               onChange={(value) => setFieldValue('willBeYourFirst', value)}
               onBlur={() => setFieldTouched('willBeYourFirst', true)}
               error={touched.willBeYourFirst && errors.willBeYourFirst}
               dataTestId="first-home-dropdown"
+              disabled={dropdownsLoading}
             />
+            {dropdownsError && (
+              <Error error="Failed to load first home options. Please refresh the page." />
+            )}
           </Column>
         </Row>
 
         <Row>
           <Column>
             <DropdownMenu
-              title={getContent('mortgage_step1.field.property_ownership', 'calculate_mortgage_property_ownership')}
-              data={PropertyOwnershipOptions}
-              placeholder={getContent('mortgage_step1.field.property_ownership_ph', 'calculate_mortgage_property_ownership_ph')}
+              title={propertyOwnershipProps.label || getContent('mortgage_step1.field.property_ownership', 'calculate_mortgage_property_ownership')}
+              data={propertyOwnershipProps.options}
+              placeholder={propertyOwnershipProps.placeholder || getContent('mortgage_step1.field.property_ownership_ph', 'calculate_mortgage_property_ownership_ph')}
               value={values.propertyOwnership}
               onChange={(value) => setFieldValue('propertyOwnership', value)}
               onBlur={() => setFieldTouched('propertyOwnership', true)}
               error={touched.propertyOwnership && errors.propertyOwnership}
               dataTestId="property-ownership-dropdown"
+              disabled={dropdownsLoading}
             />
+            {dropdownsError && (
+              <Error error="Failed to load property ownership options. Please refresh the page." />
+            )}
           </Column>
           <Column />
           <Column />

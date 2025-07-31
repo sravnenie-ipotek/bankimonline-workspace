@@ -38,9 +38,2076 @@
 ✅ Approve worker: POST /api/admin/approve/:id
 ❌ Reject worker: POST /api/admin/reject/:id
 
-✅ Content Database connected: 2025-07-27T05:44:18.624Z
-✅ Main Database connected: 2025-07-27T05:44:18.610Z
+✅ Main Database connected: 2025-07-30T23:16:08.583Z
+✅ Content Database connected: 2025-07-30T23:16:08.605Z
 ✅ test-content table deleted successfully (if it existed)
-[0mGET /api/content/bank_offers/he [32m200[0m 1050.220 ms - 104[0m
-[0mGET /api/content/mortgage_step4/he [32m200[0m 713.288 ms - 3601[0m
-[0mGET /api/content/bank_offers/he [32m200[0m 769.796 ms - 724[0m
+[0mGET /api/content/cache/stats [32m200[0m 1.356 ms - 156[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_en - querying database
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 439.986 ms - 7508[0m
+⚡ Cache MISS for content_mortgage_step1_en_option - querying database
+[0mGET /api/content/mortgage_step1/en?type=option [32m200[0m 88.757 ms - 7248[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.286 ms - 223[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.470 ms - 7507[0m
+✅ Cache HIT for content_mortgage_step1_en_option
+[0mGET /api/content/mortgage_step1/en?type=option [32m200[0m 0.558 ms - 7247[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.174 ms - 224[0m
+[0mDELETE /api/content/cache/clear [32m200[0m 0.184 ms - 84[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.181 ms - 156[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step2_en - querying database
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 684.782 ms - 9198[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_he - querying database
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 432.463 ms - 8267[0m
+⚡ Cache MISS for content_mortgage_step1_en_dropdown - querying database
+[0mGET /api/content/mortgage_step1/en?type=dropdown [32m200[0m 565.631 ms - 4271[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_en - querying database
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 86.964 ms - 7508[0m
+[0mDELETE /api/content/cache/clear [32m200[0m 0.134 ms - 84[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_en - querying database
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 89.282 ms - 7508[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.716 ms - 7507[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.304 ms - 189[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.470 ms - 7507[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_he - querying database
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 87.455 ms - 8267[0m
+[0mDELETE /api/content/cache/clear [32m200[0m 0.189 ms - 84[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_en - querying database
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 88.378 ms - 7508[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.225 ms - 7507[0m
+⚡ Cache MISS for content_mortgage_step1_en_dropdown - querying database
+[0mGET /api/content/mortgage_step1/en?type=dropdown [32m200[0m 514.647 ms - 4271[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 1.182 ms - 7507[0m
+[0mDELETE /api/content/cache/clear [32m200[0m 0.127 ms - 84[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_en - querying database
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 91.499 ms - 7508[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.794 ms - 7507[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.405 ms - 189[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.450 ms - 7507[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_he - querying database
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 91.763 ms - 8267[0m
+[0mDELETE /api/content/cache/clear [32m200[0m 0.154 ms - 84[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_en - querying database
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 90.642 ms - 7508[0m
+[0mGET /api/health [32m200[0m 0.245 ms - 151[0m
+⚡ Cache MISS for content_mortgage_step1_en_all - querying database
+[0mGET /api/content/mortgage_step1/en [32m200[0m 424.510 ms - 14173[0m
+⚡ Cache MISS for content_mortgage_step2_en_all - querying database
+[0mGET /api/content/mortgage_step2/en [32m200[0m 86.361 ms - 18679[0m
+⚡ Cache MISS for content_mortgage_step3_en_all - querying database
+[0mGET /api/content/mortgage_step3/en [32m200[0m 84.525 ms - 15155[0m
+⚡ Cache MISS for content_mortgage_step4_en_all - querying database
+[0mGET /api/content/mortgage_step4/en [32m200[0m 81.880 ms - 4223[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.298 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.255 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.292 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.262 ms - 15154[0m
+⚡ Cache MISS for content_mortgage_step1_en_all - querying database
+[0mGET /api/content/mortgage_step1/en [32m200[0m 515.537 ms - 14173[0m
+⚡ Cache MISS for content_mortgage_step1_en_dropdown - querying database
+[0mGET /api/content/mortgage_step1/en?type=dropdown [32m200[0m 90.179 ms - 4271[0m
+⚡ Cache MISS for content_mortgage_step1_en_option - querying database
+[0mGET /api/content/mortgage_step1/en?type=option [32m200[0m 90.262 ms - 7248[0m
+⚡ Cache MISS for content_mortgage_step1_en_placeholder - querying database
+[0mGET /api/content/mortgage_step1/en?type=placeholder [32m200[0m 88.278 ms - 2271[0m
+⚡ Cache MISS for content_mortgage_step1_en_label - querying database
+[0mGET /api/content/mortgage_step1/en?type=label [32m200[0m 87.528 ms - 272[0m
+⚡ Cache MISS for content_mortgage_step1_he_all - querying database
+[0mGET /api/content/mortgage_step1/he [32m200[0m 91.673 ms - 14882[0m
+⚡ Cache MISS for content_mortgage_step1_he_dropdown - querying database
+[0mGET /api/content/mortgage_step1/he?type=dropdown [32m200[0m 88.323 ms - 4591[0m
+⚡ Cache MISS for content_mortgage_step1_he_option - querying database
+[0mGET /api/content/mortgage_step1/he?type=option [32m200[0m 87.945 ms - 7485[0m
+⚡ Cache MISS for content_mortgage_step1_he_placeholder - querying database
+[0mGET /api/content/mortgage_step1/he?type=placeholder [32m200[0m 89.556 ms - 2370[0m
+⚡ Cache MISS for content_mortgage_step1_he_label - querying database
+[0mGET /api/content/mortgage_step1/he?type=label [32m200[0m 88.276 ms - 299[0m
+⚡ Cache MISS for content_mortgage_step1_ru_all - querying database
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 90.221 ms - 16094[0m
+⚡ Cache MISS for content_mortgage_step1_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step1/ru?type=dropdown [32m200[0m 87.629 ms - 5114[0m
+⚡ Cache MISS for content_mortgage_step1_ru_option - querying database
+[0mGET /api/content/mortgage_step1/ru?type=option [32m200[0m 90.487 ms - 7959[0m
+⚡ Cache MISS for content_mortgage_step1_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step1/ru?type=placeholder [32m200[0m 86.206 ms - 2562[0m
+⚡ Cache MISS for content_mortgage_step1_ru_label - querying database
+[0mGET /api/content/mortgage_step1/ru?type=label [32m200[0m 87.114 ms - 328[0m
+⚡ Cache MISS for content_mortgage_step2_en_all - querying database
+[0mGET /api/content/mortgage_step2/en [32m200[0m 91.648 ms - 18679[0m
+⚡ Cache MISS for content_mortgage_step2_en_dropdown - querying database
+[0mGET /api/content/mortgage_step2/en?type=dropdown [32m200[0m 87.883 ms - 4108[0m
+⚡ Cache MISS for content_mortgage_step2_en_option - querying database
+[0mGET /api/content/mortgage_step2/en?type=option [32m200[0m 88.803 ms - 5785[0m
+⚡ Cache MISS for content_mortgage_step2_en_placeholder - querying database
+[0mGET /api/content/mortgage_step2/en?type=placeholder [32m200[0m 88.399 ms - 2527[0m
+⚡ Cache MISS for content_mortgage_step2_en_label - querying database
+[0mGET /api/content/mortgage_step2/en?type=label [32m200[0m 87.469 ms - 2516[0m
+⚡ Cache MISS for content_mortgage_step2_he_all - querying database
+[0mGET /api/content/mortgage_step2/he [32m200[0m 90.253 ms - 19775[0m
+⚡ Cache MISS for content_mortgage_step2_he_dropdown - querying database
+[0mGET /api/content/mortgage_step2/he?type=dropdown [32m200[0m 88.357 ms - 4414[0m
+⚡ Cache MISS for content_mortgage_step2_he_option - querying database
+[0mGET /api/content/mortgage_step2/he?type=option [32m200[0m 90.535 ms - 6005[0m
+⚡ Cache MISS for content_mortgage_step2_he_placeholder - querying database
+[0mGET /api/content/mortgage_step2/he?type=placeholder [32m200[0m 86.985 ms - 2582[0m
+⚡ Cache MISS for content_mortgage_step2_he_label - querying database
+[0mGET /api/content/mortgage_step2/he?type=label [32m200[0m 87.879 ms - 2735[0m
+⚡ Cache MISS for content_mortgage_step2_ru_all - querying database
+[0mGET /api/content/mortgage_step2/ru [32m200[0m 90.899 ms - 22230[0m
+⚡ Cache MISS for content_mortgage_step2_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step2/ru?type=dropdown [32m200[0m 90.267 ms - 4970[0m
+⚡ Cache MISS for content_mortgage_step2_ru_option - querying database
+[0mGET /api/content/mortgage_step2/ru?type=option [32m200[0m 89.366 ms - 6683[0m
+⚡ Cache MISS for content_mortgage_step2_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step2/ru?type=placeholder [32m200[0m 88.142 ms - 2871[0m
+⚡ Cache MISS for content_mortgage_step2_ru_label - querying database
+[0mGET /api/content/mortgage_step2/ru?type=label [32m200[0m 87.055 ms - 3126[0m
+⚡ Cache MISS for content_mortgage_step3_en_all - querying database
+[0mGET /api/content/mortgage_step3/en [32m200[0m 89.218 ms - 15155[0m
+⚡ Cache MISS for content_mortgage_step3_en_dropdown - querying database
+[0mGET /api/content/mortgage_step3/en?type=dropdown [32m200[0m 87.202 ms - 1697[0m
+⚡ Cache MISS for content_mortgage_step3_en_option - querying database
+[0mGET /api/content/mortgage_step3/en?type=option [32m200[0m 89.955 ms - 7447[0m
+⚡ Cache MISS for content_mortgage_step3_en_placeholder - querying database
+[0mGET /api/content/mortgage_step3/en?type=placeholder [32m200[0m 86.489 ms - 1938[0m
+⚡ Cache MISS for content_mortgage_step3_en_label - querying database
+[0mGET /api/content/mortgage_step3/en?type=label [32m200[0m 87.348 ms - 2565[0m
+⚡ Cache MISS for content_mortgage_step3_he_all - querying database
+[0mGET /api/content/mortgage_step3/he [32m200[0m 92.581 ms - 16124[0m
+⚡ Cache MISS for content_mortgage_step3_he_dropdown - querying database
+[0mGET /api/content/mortgage_step3/he?type=dropdown [32m200[0m 88.792 ms - 1856[0m
+⚡ Cache MISS for content_mortgage_step3_he_option - querying database
+[0mGET /api/content/mortgage_step3/he?type=option [32m200[0m 90.849 ms - 7810[0m
+⚡ Cache MISS for content_mortgage_step3_he_placeholder - querying database
+[0mGET /api/content/mortgage_step3/he?type=placeholder [32m200[0m 86.531 ms - 2051[0m
+⚡ Cache MISS for content_mortgage_step3_he_label - querying database
+[0mGET /api/content/mortgage_step3/he?type=label [32m200[0m 87.196 ms - 2711[0m
+⚡ Cache MISS for content_mortgage_step3_ru_all - querying database
+[0mGET /api/content/mortgage_step3/ru [32m200[0m 91.118 ms - 17631[0m
+⚡ Cache MISS for content_mortgage_step3_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step3/ru?type=dropdown [32m200[0m 86.575 ms - 2007[0m
+⚡ Cache MISS for content_mortgage_step3_ru_option - querying database
+[0mGET /api/content/mortgage_step3/ru?type=option [32m200[0m 90.400 ms - 8440[0m
+⚡ Cache MISS for content_mortgage_step3_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step3/ru?type=placeholder [32m200[0m 86.453 ms - 2293[0m
+⚡ Cache MISS for content_mortgage_step3_ru_label - querying database
+[0mGET /api/content/mortgage_step3/ru?type=label [32m200[0m 86.860 ms - 2919[0m
+⚡ Cache MISS for content_mortgage_step4_en_all - querying database
+[0mGET /api/content/mortgage_step4/en [32m200[0m 89.466 ms - 4223[0m
+⚡ Cache MISS for content_mortgage_step4_en_dropdown - querying database
+[0mGET /api/content/mortgage_step4/en?type=dropdown [32m200[0m 85.562 ms - 306[0m
+⚡ Cache MISS for content_mortgage_step4_en_option - querying database
+[0mGET /api/content/mortgage_step4/en?type=option [32m200[0m 86.987 ms - 789[0m
+⚡ Cache MISS for content_mortgage_step4_en_placeholder - querying database
+[0mGET /api/content/mortgage_step4/en?type=placeholder [32m200[0m 88.289 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_en_label - querying database
+[0mGET /api/content/mortgage_step4/en?type=label [32m200[0m 88.442 ms - 1016[0m
+⚡ Cache MISS for content_mortgage_step4_he_all - querying database
+[0mGET /api/content/mortgage_step4/he [32m200[0m 87.126 ms - 4504[0m
+⚡ Cache MISS for content_mortgage_step4_he_dropdown - querying database
+[0mGET /api/content/mortgage_step4/he?type=dropdown [32m200[0m 86.847 ms - 312[0m
+⚡ Cache MISS for content_mortgage_step4_he_option - querying database
+[0mGET /api/content/mortgage_step4/he?type=option [32m200[0m 87.599 ms - 857[0m
+⚡ Cache MISS for content_mortgage_step4_he_placeholder - querying database
+[0mGET /api/content/mortgage_step4/he?type=placeholder [32m200[0m 87.537 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_he_label - querying database
+[0mGET /api/content/mortgage_step4/he?type=label [32m200[0m 87.771 ms - 1051[0m
+⚡ Cache MISS for content_mortgage_step4_ru_all - querying database
+[0mGET /api/content/mortgage_step4/ru [32m200[0m 88.606 ms - 4958[0m
+⚡ Cache MISS for content_mortgage_step4_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step4/ru?type=dropdown [32m200[0m 86.150 ms - 326[0m
+⚡ Cache MISS for content_mortgage_step4_ru_option - querying database
+[0mGET /api/content/mortgage_step4/ru?type=option [32m200[0m 86.035 ms - 908[0m
+⚡ Cache MISS for content_mortgage_step4_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step4/ru?type=placeholder [32m200[0m 87.705 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_ru_label - querying database
+[0mGET /api/content/mortgage_step4/ru?type=label [32m200[0m 87.072 ms - 1107[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.268 ms - 14172[0m
+⚡ Cache MISS for content_mortgage_step1_en_invalid_type - querying database
+[0mGET /api/content/mortgage_step1/en?type=invalid_type [32m200[0m 88.461 ms - 156[0m
+[0mPOST /api/content/cache/clear [33m404[0m 1.323 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.309 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.247 ms - 14172[0m
+⚡ Cache MISS for content_invalid_screen_en_all - querying database
+[0mGET /api/content/invalid_screen/en [32m200[0m 87.756 ms - 122[0m
+✅ Cache HIT for content_invalid_screen_en_all
+[0mGET /api/content/invalid_screen/en [32m200[0m 0.383 ms - 121[0m
+✅ Cache HIT for content_invalid_screen_en_all
+[0mGET /api/content/invalid_screen/en [32m200[0m 0.214 ms - 121[0m
+⚡ Cache MISS for content_mortgage_step1_invalid_all - querying database
+[0mGET /api/content/mortgage_step1/invalid [32m200[0m 91.360 ms - 127[0m
+✅ Cache HIT for content_mortgage_step1_invalid_all
+[0mGET /api/content/mortgage_step1/invalid [32m200[0m 0.272 ms - 126[0m
+✅ Cache HIT for content_mortgage_step1_invalid_all
+[0mGET /api/content/mortgage_step1/invalid [32m200[0m 0.254 ms - 126[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.680 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.327 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.467 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.289 ms - 4222[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.289 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.273 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.264 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.249 ms - 4222[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.300 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.526 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.293 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.257 ms - 4222[0m
+[0mGET /api/health [32m200[0m 0.355 ms - 151[0m
+⚡ Cache MISS for content_mortgage_step1_en_all - querying database
+[0mGET /api/content/mortgage_step1/en [32m200[0m 437.466 ms - 14173[0m
+⚡ Cache MISS for content_mortgage_step1_en_dropdown - querying database
+[0mGET /api/content/mortgage_step1/en?type=dropdown [32m200[0m 85.344 ms - 4271[0m
+⚡ Cache MISS for content_mortgage_step1_en_option - querying database
+[0mGET /api/content/mortgage_step1/en?type=option [32m200[0m 85.833 ms - 7248[0m
+⚡ Cache MISS for content_mortgage_step1_en_placeholder - querying database
+[0mGET /api/content/mortgage_step1/en?type=placeholder [32m200[0m 84.287 ms - 2271[0m
+⚡ Cache MISS for content_mortgage_step1_en_label - querying database
+[0mGET /api/content/mortgage_step1/en?type=label [32m200[0m 82.959 ms - 272[0m
+⚡ Cache MISS for content_mortgage_step1_he_all - querying database
+[0mGET /api/content/mortgage_step1/he [32m200[0m 86.222 ms - 14882[0m
+⚡ Cache MISS for content_mortgage_step1_he_dropdown - querying database
+[0mGET /api/content/mortgage_step1/he?type=dropdown [32m200[0m 83.777 ms - 4591[0m
+⚡ Cache MISS for content_mortgage_step1_he_option - querying database
+[0mGET /api/content/mortgage_step1/he?type=option [32m200[0m 86.398 ms - 7485[0m
+⚡ Cache MISS for content_mortgage_step1_he_placeholder - querying database
+[0mGET /api/content/mortgage_step1/he?type=placeholder [32m200[0m 83.889 ms - 2370[0m
+⚡ Cache MISS for content_mortgage_step1_he_label - querying database
+[0mGET /api/content/mortgage_step1/he?type=label [32m200[0m 83.784 ms - 299[0m
+⚡ Cache MISS for content_mortgage_step1_ru_all - querying database
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 86.812 ms - 16094[0m
+⚡ Cache MISS for content_mortgage_step1_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step1/ru?type=dropdown [32m200[0m 85.798 ms - 5114[0m
+⚡ Cache MISS for content_mortgage_step1_ru_option - querying database
+[0mGET /api/content/mortgage_step1/ru?type=option [32m200[0m 85.666 ms - 7959[0m
+⚡ Cache MISS for content_mortgage_step1_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step1/ru?type=placeholder [32m200[0m 83.457 ms - 2562[0m
+⚡ Cache MISS for content_mortgage_step1_ru_label - querying database
+[0mGET /api/content/mortgage_step1/ru?type=label [32m200[0m 82.531 ms - 328[0m
+⚡ Cache MISS for content_mortgage_step2_en_all - querying database
+[0mGET /api/content/mortgage_step2/en [32m200[0m 87.902 ms - 18679[0m
+⚡ Cache MISS for content_mortgage_step2_en_dropdown - querying database
+[0mGET /api/content/mortgage_step2/en?type=dropdown [32m200[0m 83.312 ms - 4108[0m
+⚡ Cache MISS for content_mortgage_step2_en_option - querying database
+[0mGET /api/content/mortgage_step2/en?type=option [32m200[0m 84.795 ms - 5785[0m
+⚡ Cache MISS for content_mortgage_step2_en_placeholder - querying database
+[0mGET /api/content/mortgage_step2/en?type=placeholder [32m200[0m 84.714 ms - 2527[0m
+⚡ Cache MISS for content_mortgage_step2_en_label - querying database
+[0mGET /api/content/mortgage_step2/en?type=label [32m200[0m 84.306 ms - 2516[0m
+⚡ Cache MISS for content_mortgage_step2_he_all - querying database
+[0mGET /api/content/mortgage_step2/he [32m200[0m 87.740 ms - 19775[0m
+⚡ Cache MISS for content_mortgage_step2_he_dropdown - querying database
+[0mGET /api/content/mortgage_step2/he?type=dropdown [32m200[0m 83.987 ms - 4414[0m
+⚡ Cache MISS for content_mortgage_step2_he_option - querying database
+[0mGET /api/content/mortgage_step2/he?type=option [32m200[0m 85.040 ms - 6005[0m
+⚡ Cache MISS for content_mortgage_step2_he_placeholder - querying database
+[0mGET /api/content/mortgage_step2/he?type=placeholder [32m200[0m 84.495 ms - 2582[0m
+⚡ Cache MISS for content_mortgage_step2_he_label - querying database
+[0mGET /api/content/mortgage_step2/he?type=label [32m200[0m 83.754 ms - 2735[0m
+⚡ Cache MISS for content_mortgage_step2_ru_all - querying database
+[0mGET /api/content/mortgage_step2/ru [32m200[0m 85.564 ms - 22230[0m
+⚡ Cache MISS for content_mortgage_step2_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step2/ru?type=dropdown [32m200[0m 84.236 ms - 4970[0m
+⚡ Cache MISS for content_mortgage_step2_ru_option - querying database
+[0mGET /api/content/mortgage_step2/ru?type=option [32m200[0m 85.129 ms - 6683[0m
+⚡ Cache MISS for content_mortgage_step2_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step2/ru?type=placeholder [32m200[0m 83.509 ms - 2871[0m
+⚡ Cache MISS for content_mortgage_step2_ru_label - querying database
+[0mGET /api/content/mortgage_step2/ru?type=label [32m200[0m 84.260 ms - 3126[0m
+⚡ Cache MISS for content_mortgage_step3_en_all - querying database
+[0mGET /api/content/mortgage_step3/en [32m200[0m 84.648 ms - 15155[0m
+⚡ Cache MISS for content_mortgage_step3_en_dropdown - querying database
+[0mGET /api/content/mortgage_step3/en?type=dropdown [32m200[0m 83.689 ms - 1697[0m
+⚡ Cache MISS for content_mortgage_step3_en_option - querying database
+[0mGET /api/content/mortgage_step3/en?type=option [32m200[0m 85.642 ms - 7447[0m
+⚡ Cache MISS for content_mortgage_step3_en_placeholder - querying database
+[0mGET /api/content/mortgage_step3/en?type=placeholder [32m200[0m 84.923 ms - 1938[0m
+⚡ Cache MISS for content_mortgage_step3_en_label - querying database
+[0mGET /api/content/mortgage_step3/en?type=label [32m200[0m 82.700 ms - 2565[0m
+⚡ Cache MISS for content_mortgage_step3_he_all - querying database
+[0mGET /api/content/mortgage_step3/he [32m200[0m 86.169 ms - 16124[0m
+⚡ Cache MISS for content_mortgage_step3_he_dropdown - querying database
+[0mGET /api/content/mortgage_step3/he?type=dropdown [32m200[0m 82.929 ms - 1856[0m
+⚡ Cache MISS for content_mortgage_step3_he_option - querying database
+[0mGET /api/content/mortgage_step3/he?type=option [32m200[0m 86.797 ms - 7810[0m
+⚡ Cache MISS for content_mortgage_step3_he_placeholder - querying database
+[0mGET /api/content/mortgage_step3/he?type=placeholder [32m200[0m 83.074 ms - 2051[0m
+⚡ Cache MISS for content_mortgage_step3_he_label - querying database
+[0mGET /api/content/mortgage_step3/he?type=label [32m200[0m 83.350 ms - 2711[0m
+⚡ Cache MISS for content_mortgage_step3_ru_all - querying database
+[0mGET /api/content/mortgage_step3/ru [32m200[0m 85.443 ms - 17631[0m
+⚡ Cache MISS for content_mortgage_step3_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step3/ru?type=dropdown [32m200[0m 84.480 ms - 2007[0m
+⚡ Cache MISS for content_mortgage_step3_ru_option - querying database
+[0mGET /api/content/mortgage_step3/ru?type=option [32m200[0m 86.134 ms - 8440[0m
+⚡ Cache MISS for content_mortgage_step3_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step3/ru?type=placeholder [32m200[0m 84.778 ms - 2293[0m
+⚡ Cache MISS for content_mortgage_step3_ru_label - querying database
+[0mGET /api/content/mortgage_step3/ru?type=label [32m200[0m 83.668 ms - 2919[0m
+⚡ Cache MISS for content_mortgage_step4_en_all - querying database
+[0mGET /api/content/mortgage_step4/en [32m200[0m 84.822 ms - 4223[0m
+⚡ Cache MISS for content_mortgage_step4_en_dropdown - querying database
+[0mGET /api/content/mortgage_step4/en?type=dropdown [32m200[0m 94.747 ms - 306[0m
+⚡ Cache MISS for content_mortgage_step4_en_option - querying database
+[0mGET /api/content/mortgage_step4/en?type=option [32m200[0m 83.605 ms - 789[0m
+⚡ Cache MISS for content_mortgage_step4_en_placeholder - querying database
+[0mGET /api/content/mortgage_step4/en?type=placeholder [32m200[0m 83.288 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_en_label - querying database
+[0mGET /api/content/mortgage_step4/en?type=label [32m200[0m 82.845 ms - 1016[0m
+⚡ Cache MISS for content_mortgage_step4_he_all - querying database
+[0mGET /api/content/mortgage_step4/he [32m200[0m 85.197 ms - 4504[0m
+⚡ Cache MISS for content_mortgage_step4_he_dropdown - querying database
+[0mGET /api/content/mortgage_step4/he?type=dropdown [32m200[0m 82.238 ms - 312[0m
+⚡ Cache MISS for content_mortgage_step4_he_option - querying database
+[0mGET /api/content/mortgage_step4/he?type=option [32m200[0m 82.275 ms - 857[0m
+⚡ Cache MISS for content_mortgage_step4_he_placeholder - querying database
+[0mGET /api/content/mortgage_step4/he?type=placeholder [32m200[0m 83.128 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_he_label - querying database
+[0mGET /api/content/mortgage_step4/he?type=label [32m200[0m 83.330 ms - 1051[0m
+⚡ Cache MISS for content_mortgage_step4_ru_all - querying database
+[0mGET /api/content/mortgage_step4/ru [32m200[0m 82.851 ms - 4958[0m
+⚡ Cache MISS for content_mortgage_step4_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step4/ru?type=dropdown [32m200[0m 84.362 ms - 326[0m
+⚡ Cache MISS for content_mortgage_step4_ru_option - querying database
+[0mGET /api/content/mortgage_step4/ru?type=option [32m200[0m 83.741 ms - 908[0m
+⚡ Cache MISS for content_mortgage_step4_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step4/ru?type=placeholder [32m200[0m 84.104 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_ru_label - querying database
+[0mGET /api/content/mortgage_step4/ru?type=label [32m200[0m 83.713 ms - 1107[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.283 ms - 14172[0m
+⚡ Cache MISS for content_mortgage_step1_en_invalid_type - querying database
+[0mGET /api/content/mortgage_step1/en?type=invalid_type [32m200[0m 84.121 ms - 156[0m
+[0mPOST /api/content/cache/clear [33m404[0m 1.141 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.303 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.223 ms - 14172[0m
+⚡ Cache MISS for content_invalid_screen_en_all - querying database
+[0mGET /api/content/invalid_screen/en [32m200[0m 83.629 ms - 122[0m
+⚡ Cache MISS for content_mortgage_step1_invalid_all - querying database
+[0mGET /api/content/mortgage_step1/invalid [32m200[0m 83.887 ms - 127[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.318 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.293 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.409 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.290 ms - 4222[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_en - querying database
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 510.941 ms - 7508[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.247 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.264 ms - 7507[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_he - querying database
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 90.051 ms - 8267[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.315 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.401 ms - 8266[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_ru - querying database
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 89.314 ms - 9773[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.289 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.301 ms - 9772[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step2_en - querying database
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 89.037 ms - 9198[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.292 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.277 ms - 9197[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step2_he - querying database
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 89.366 ms - 10269[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.308 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.292 ms - 10268[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step2_ru - querying database
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 89.563 ms - 12571[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.380 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.289 ms - 12570[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step3_en - querying database
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 89.627 ms - 9532[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.394 ms - 9531[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.309 ms - 9531[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step3_he - querying database
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 89.471 ms - 10487[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_he
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 0.339 ms - 10486[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_he
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 0.285 ms - 10486[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step3_ru - querying database
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 90.527 ms - 11799[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_ru
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 0.272 ms - 11798[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_ru
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 0.310 ms - 11798[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step4_en - querying database
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 87.798 ms - 1321[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.211 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.213 ms - 1320[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step4_he - querying database
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 85.899 ms - 1471[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_he
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 0.220 ms - 1470[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_he
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 0.212 ms - 1470[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step4_ru - querying database
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 85.653 ms - 1662[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_ru
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 0.227 ms - 1661[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_ru
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 0.223 ms - 1661[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.261 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.271 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.228 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.170 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.264 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.233 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.161 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.263 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.223 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.241 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.226 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.105 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.262 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.160 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.135 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.348 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.186 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.129 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.239 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.227 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.219 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.236 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.228 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.313 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.245 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.228 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.170 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.193 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.337 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.258 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.207 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.282 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.227 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.292 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.275 ms - 8266[0m
+⚡ Dropdown cache MISS for dropdowns_invalid_screen_en - querying database
+[0mGET /api/dropdowns/invalid_screen/en [32m200[0m 86.413 ms - 241[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_invalid - querying database
+[0mGET /api/dropdowns/mortgage_step1/invalid [32m200[0m 85.994 ms - 246[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.202 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.322 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.302 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.257 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.342 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.282 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.286 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.318 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.272 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.308 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.298 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.264 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.279 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.372 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.288 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.292 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.308 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.316 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.341 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.274 ms - 9531[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.293 ms - 9531[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.274 ms - 9531[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_he
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 0.356 ms - 10486[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_he
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 0.326 ms - 10486[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_he
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 0.282 ms - 10486[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_ru
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 0.370 ms - 11798[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_ru
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 0.474 ms - 11798[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_ru
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 0.290 ms - 11798[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.231 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.275 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.257 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_he
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 0.232 ms - 1470[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_he
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 0.262 ms - 1470[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_he
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 0.277 ms - 1470[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_ru
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 0.285 ms - 1661[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_ru
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 0.285 ms - 1661[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_ru
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 0.253 ms - 1661[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.258 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.206 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.169 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.403 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.264 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.209 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.183 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.273 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.254 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.236 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.298 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.128 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.347 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.240 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.143 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.307 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.231 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.274 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.255 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.273 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.332 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.326 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.290 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.217 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.214 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.282 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.205 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.275 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.393 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.274 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.241 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.329 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_invalid_screen_en
+[0mGET /api/dropdowns/invalid_screen/en [32m200[0m 0.223 ms - 240[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_invalid
+[0mGET /api/dropdowns/mortgage_step1/invalid [32m200[0m 0.222 ms - 245[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.254 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.252 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.229 ms - 9531[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.201 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.256 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.295 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.280 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.272 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.316 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.299 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.307 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.367 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.267 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.325 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.280 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.323 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.332 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.368 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.290 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.318 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.328 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.281 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.265 ms - 9531[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.301 ms - 9531[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.248 ms - 9531[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_he
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 0.419 ms - 10486[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_he
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 0.270 ms - 10486[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_he
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 0.289 ms - 10486[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_ru
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 0.381 ms - 11798[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_ru
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 0.363 ms - 11798[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_ru
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 0.277 ms - 11798[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.271 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.250 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.276 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_he
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 0.298 ms - 1470[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_he
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 0.270 ms - 1470[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_he
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 0.292 ms - 1470[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_ru
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 0.338 ms - 1661[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_ru
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 0.305 ms - 1661[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_ru
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 0.259 ms - 1661[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.292 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.323 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.259 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.172 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.276 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.116 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.208 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.238 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.118 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.217 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.228 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.119 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.256 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.248 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.242 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.264 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.240 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.283 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.334 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.242 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.274 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_invalid_screen_en
+[0mGET /api/dropdowns/invalid_screen/en [32m200[0m 0.234 ms - 240[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_invalid
+[0mGET /api/dropdowns/mortgage_step1/invalid [32m200[0m 0.218 ms - 245[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.316 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.209 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.264 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.298 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.344 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.308 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.345 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.312 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.367 ms - 9531[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_he
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 0.281 ms - 10486[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_ru
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 0.300 ms - 11798[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.223 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_he
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 0.398 ms - 1470[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_ru
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 0.278 ms - 1661[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.245 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.345 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.276 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.252 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.272 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.150 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.253 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.246 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.111 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.362 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.220 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.262 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.262 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.395 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.244 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.194 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.249 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.294 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_invalid_screen_en
+[0mGET /api/dropdowns/invalid_screen/en [32m200[0m 0.213 ms - 240[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_invalid
+[0mGET /api/dropdowns/mortgage_step1/invalid [32m200[0m 0.230 ms - 245[0m
+[0mGET /api/health [32m200[0m 0.272 ms - 151[0m
+⚡ Cache MISS for content_mortgage_step1_en_all - querying database
+[0mGET /api/content/mortgage_step1/en [32m200[0m 436.577 ms - 14173[0m
+⚡ Cache MISS for content_mortgage_step1_en_dropdown - querying database
+[0mGET /api/content/mortgage_step1/en?type=dropdown [32m200[0m 85.489 ms - 4271[0m
+⚡ Cache MISS for content_mortgage_step1_en_option - querying database
+[0mGET /api/content/mortgage_step1/en?type=option [32m200[0m 87.298 ms - 7248[0m
+⚡ Cache MISS for content_mortgage_step1_en_placeholder - querying database
+[0mGET /api/content/mortgage_step1/en?type=placeholder [32m200[0m 85.172 ms - 2271[0m
+⚡ Cache MISS for content_mortgage_step1_en_label - querying database
+[0mGET /api/content/mortgage_step1/en?type=label [32m200[0m 84.735 ms - 272[0m
+⚡ Cache MISS for content_mortgage_step1_he_all - querying database
+[0mGET /api/content/mortgage_step1/he [32m200[0m 88.024 ms - 14882[0m
+⚡ Cache MISS for content_mortgage_step1_he_dropdown - querying database
+[0mGET /api/content/mortgage_step1/he?type=dropdown [32m200[0m 84.584 ms - 4591[0m
+⚡ Cache MISS for content_mortgage_step1_he_option - querying database
+[0mGET /api/content/mortgage_step1/he?type=option [32m200[0m 86.674 ms - 7485[0m
+⚡ Cache MISS for content_mortgage_step1_he_placeholder - querying database
+[0mGET /api/content/mortgage_step1/he?type=placeholder [32m200[0m 85.943 ms - 2370[0m
+⚡ Cache MISS for content_mortgage_step1_he_label - querying database
+[0mGET /api/content/mortgage_step1/he?type=label [32m200[0m 83.451 ms - 299[0m
+⚡ Cache MISS for content_mortgage_step1_ru_all - querying database
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 87.729 ms - 16094[0m
+⚡ Cache MISS for content_mortgage_step1_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step1/ru?type=dropdown [32m200[0m 85.352 ms - 5114[0m
+⚡ Cache MISS for content_mortgage_step1_ru_option - querying database
+[0mGET /api/content/mortgage_step1/ru?type=option [32m200[0m 86.181 ms - 7959[0m
+⚡ Cache MISS for content_mortgage_step1_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step1/ru?type=placeholder [32m200[0m 85.123 ms - 2562[0m
+⚡ Cache MISS for content_mortgage_step1_ru_label - querying database
+[0mGET /api/content/mortgage_step1/ru?type=label [32m200[0m 85.492 ms - 328[0m
+⚡ Cache MISS for content_mortgage_step2_en_all - querying database
+[0mGET /api/content/mortgage_step2/en [32m200[0m 86.007 ms - 18679[0m
+⚡ Cache MISS for content_mortgage_step2_en_dropdown - querying database
+[0mGET /api/content/mortgage_step2/en?type=dropdown [32m200[0m 84.231 ms - 4108[0m
+⚡ Cache MISS for content_mortgage_step2_en_option - querying database
+[0mGET /api/content/mortgage_step2/en?type=option [32m200[0m 357.856 ms - 5785[0m
+⚡ Cache MISS for content_mortgage_step2_en_placeholder - querying database
+[0mGET /api/content/mortgage_step2/en?type=placeholder [32m200[0m 85.363 ms - 2527[0m
+⚡ Cache MISS for content_mortgage_step2_en_label - querying database
+[0mGET /api/content/mortgage_step2/en?type=label [32m200[0m 84.994 ms - 2516[0m
+⚡ Cache MISS for content_mortgage_step2_he_all - querying database
+[0mGET /api/content/mortgage_step2/he [32m200[0m 90.240 ms - 19775[0m
+⚡ Cache MISS for content_mortgage_step2_he_dropdown - querying database
+[0mGET /api/content/mortgage_step2/he?type=dropdown [32m200[0m 85.564 ms - 4414[0m
+⚡ Cache MISS for content_mortgage_step2_he_option - querying database
+[0mGET /api/content/mortgage_step2/he?type=option [32m200[0m 85.544 ms - 6005[0m
+⚡ Cache MISS for content_mortgage_step2_he_placeholder - querying database
+[0mGET /api/content/mortgage_step2/he?type=placeholder [32m200[0m 83.675 ms - 2582[0m
+⚡ Cache MISS for content_mortgage_step2_he_label - querying database
+[0mGET /api/content/mortgage_step2/he?type=label [32m200[0m 84.556 ms - 2735[0m
+⚡ Cache MISS for content_mortgage_step2_ru_all - querying database
+[0mGET /api/content/mortgage_step2/ru [32m200[0m 90.226 ms - 22230[0m
+⚡ Cache MISS for content_mortgage_step2_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step2/ru?type=dropdown [32m200[0m 86.538 ms - 4970[0m
+⚡ Cache MISS for content_mortgage_step2_ru_option - querying database
+[0mGET /api/content/mortgage_step2/ru?type=option [32m200[0m 86.612 ms - 6683[0m
+⚡ Cache MISS for content_mortgage_step2_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step2/ru?type=placeholder [32m200[0m 84.281 ms - 2871[0m
+⚡ Cache MISS for content_mortgage_step2_ru_label - querying database
+[0mGET /api/content/mortgage_step2/ru?type=label [32m200[0m 83.277 ms - 3126[0m
+⚡ Cache MISS for content_mortgage_step3_en_all - querying database
+[0mGET /api/content/mortgage_step3/en [32m200[0m 87.583 ms - 15155[0m
+⚡ Cache MISS for content_mortgage_step3_en_dropdown - querying database
+[0mGET /api/content/mortgage_step3/en?type=dropdown [32m200[0m 83.544 ms - 1697[0m
+⚡ Cache MISS for content_mortgage_step3_en_option - querying database
+[0mGET /api/content/mortgage_step3/en?type=option [32m200[0m 86.209 ms - 7447[0m
+⚡ Cache MISS for content_mortgage_step3_en_placeholder - querying database
+[0mGET /api/content/mortgage_step3/en?type=placeholder [32m200[0m 83.736 ms - 1938[0m
+⚡ Cache MISS for content_mortgage_step3_en_label - querying database
+[0mGET /api/content/mortgage_step3/en?type=label [32m200[0m 83.790 ms - 2565[0m
+⚡ Cache MISS for content_mortgage_step3_he_all - querying database
+[0mGET /api/content/mortgage_step3/he [32m200[0m 87.192 ms - 16124[0m
+⚡ Cache MISS for content_mortgage_step3_he_dropdown - querying database
+[0mGET /api/content/mortgage_step3/he?type=dropdown [32m200[0m 83.568 ms - 1856[0m
+⚡ Cache MISS for content_mortgage_step3_he_option - querying database
+[0mGET /api/content/mortgage_step3/he?type=option [32m200[0m 85.452 ms - 7810[0m
+⚡ Cache MISS for content_mortgage_step3_he_placeholder - querying database
+[0mGET /api/content/mortgage_step3/he?type=placeholder [32m200[0m 83.919 ms - 2051[0m
+⚡ Cache MISS for content_mortgage_step3_he_label - querying database
+[0mGET /api/content/mortgage_step3/he?type=label [32m200[0m 84.766 ms - 2711[0m
+⚡ Cache MISS for content_mortgage_step3_ru_all - querying database
+[0mGET /api/content/mortgage_step3/ru [32m200[0m 86.473 ms - 17631[0m
+⚡ Cache MISS for content_mortgage_step3_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step3/ru?type=dropdown [32m200[0m 83.818 ms - 2007[0m
+⚡ Cache MISS for content_mortgage_step3_ru_option - querying database
+[0mGET /api/content/mortgage_step3/ru?type=option [32m200[0m 84.900 ms - 8440[0m
+⚡ Cache MISS for content_mortgage_step3_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step3/ru?type=placeholder [32m200[0m 84.886 ms - 2293[0m
+⚡ Cache MISS for content_mortgage_step3_ru_label - querying database
+[0mGET /api/content/mortgage_step3/ru?type=label [32m200[0m 87.092 ms - 2919[0m
+⚡ Cache MISS for content_mortgage_step4_en_all - querying database
+[0mGET /api/content/mortgage_step4/en [32m200[0m 86.413 ms - 4223[0m
+⚡ Cache MISS for content_mortgage_step4_en_dropdown - querying database
+[0mGET /api/content/mortgage_step4/en?type=dropdown [32m200[0m 85.065 ms - 306[0m
+⚡ Cache MISS for content_mortgage_step4_en_option - querying database
+[0mGET /api/content/mortgage_step4/en?type=option [32m200[0m 85.391 ms - 789[0m
+⚡ Cache MISS for content_mortgage_step4_en_placeholder - querying database
+[0mGET /api/content/mortgage_step4/en?type=placeholder [32m200[0m 83.163 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_en_label - querying database
+[0mGET /api/content/mortgage_step4/en?type=label [32m200[0m 84.315 ms - 1016[0m
+⚡ Cache MISS for content_mortgage_step4_he_all - querying database
+[0mGET /api/content/mortgage_step4/he [32m200[0m 84.934 ms - 4504[0m
+⚡ Cache MISS for content_mortgage_step4_he_dropdown - querying database
+[0mGET /api/content/mortgage_step4/he?type=dropdown [32m200[0m 84.142 ms - 312[0m
+⚡ Cache MISS for content_mortgage_step4_he_option - querying database
+[0mGET /api/content/mortgage_step4/he?type=option [32m200[0m 84.349 ms - 857[0m
+⚡ Cache MISS for content_mortgage_step4_he_placeholder - querying database
+[0mGET /api/content/mortgage_step4/he?type=placeholder [32m200[0m 83.800 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_he_label - querying database
+[0mGET /api/content/mortgage_step4/he?type=label [32m200[0m 84.968 ms - 1051[0m
+⚡ Cache MISS for content_mortgage_step4_ru_all - querying database
+[0mGET /api/content/mortgage_step4/ru [32m200[0m 84.893 ms - 4958[0m
+⚡ Cache MISS for content_mortgage_step4_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step4/ru?type=dropdown [32m200[0m 83.819 ms - 326[0m
+⚡ Cache MISS for content_mortgage_step4_ru_option - querying database
+[0mGET /api/content/mortgage_step4/ru?type=option [32m200[0m 83.768 ms - 908[0m
+⚡ Cache MISS for content_mortgage_step4_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step4/ru?type=placeholder [32m200[0m 85.437 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_ru_label - querying database
+[0mGET /api/content/mortgage_step4/ru?type=label [32m200[0m 84.890 ms - 1107[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.367 ms - 14172[0m
+⚡ Cache MISS for content_mortgage_step1_en_invalid_type - querying database
+[0mGET /api/content/mortgage_step1/en?type=invalid_type [32m200[0m 84.551 ms - 156[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.102 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.276 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.317 ms - 14172[0m
+⚡ Cache MISS for content_invalid_screen_en_all - querying database
+[0mGET /api/content/invalid_screen/en [32m200[0m 85.729 ms - 122[0m
+⚡ Cache MISS for content_mortgage_step1_invalid_all - querying database
+[0mGET /api/content/mortgage_step1/invalid [32m200[0m 84.146 ms - 127[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.235 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.416 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.312 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.358 ms - 4222[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.247 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.378 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.240 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.304 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.294 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.317 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.317 ms - 9531[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_he
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 0.286 ms - 10486[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_ru
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 0.409 ms - 11798[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.259 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_he
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 0.225 ms - 1470[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_ru
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 0.287 ms - 1661[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.282 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.289 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.330 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.219 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.269 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.127 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.246 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.161 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.110 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.235 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.225 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.124 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.262 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.257 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.284 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.312 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.247 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.271 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.199 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.177 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.269 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_invalid_screen_en
+[0mGET /api/dropdowns/invalid_screen/en [32m200[0m 0.252 ms - 240[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_invalid
+[0mGET /api/dropdowns/mortgage_step1/invalid [32m200[0m 0.248 ms - 245[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.316 ms - 14172[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.241 ms - 7507[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.282 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.300 ms - 9197[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.280 ms - 15154[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.230 ms - 9531[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.259 ms - 4222[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.235 ms - 1320[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.092 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.261 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.201 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.111 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.277 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.288 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.112 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.355 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.232 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.130 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.266 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.296 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.167 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.137 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.229 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.167 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.168 ms - 4222[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.170 ms - 4222[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.129 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.268 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.261 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.372 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.300 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.251 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.276 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.214 ms - 4222[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.256 ms - 4222[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.131 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.264 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.199 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.186 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.217 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.209 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.212 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.316 ms - 4222[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.173 ms - 4222[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.100 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.297 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.223 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.231 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.230 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.162 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.189 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.145 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.217 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.218 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.269 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.097 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.301 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.231 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.277 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.280 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.283 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.203 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.195 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.284 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.272 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.215 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.116 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.285 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.238 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.216 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.271 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.201 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.229 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.232 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.275 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.247 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.251 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.097 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.234 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.238 ms - 14881[0m
+✅ Cache HIT for content_mortgage_step1_ru_all
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 0.174 ms - 16093[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.125 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.243 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.263 ms - 14881[0m
+✅ Cache HIT for content_mortgage_step1_ru_all
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 0.266 ms - 16093[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.112 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.247 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.231 ms - 14881[0m
+✅ Cache HIT for content_mortgage_step1_ru_all
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 0.252 ms - 16093[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.309 ms - 14172[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.243 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.113 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.270 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.207 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.157 ms - 7507[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.184 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.239 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.141 ms - 7507[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.147 ms - 817[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.135 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.649 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.269 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.215 ms - 7507[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.247 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.262 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.194 ms - 7507[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.180 ms - 817[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.110 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.279 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.267 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.176 ms - 7507[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.196 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.224 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.246 ms - 7507[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.125 ms - 817[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.201 ms - 817[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.210 ms - 817[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.196 ms - 817[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.392 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.264 ms - 14881[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.192 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.251 ms - 9197[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.126 ms - 817[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.091 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.100 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.099 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.097 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.101 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.119 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.102 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.130 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.123 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.117 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.095 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.097 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.106 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.093 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.124 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.104 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.111 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.110 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.119 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.096 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.106 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.102 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_dropdown
+[0mGET /api/content/mortgage_step1/en?type=dropdown [32m200[0m 0.242 ms - 4270[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.321 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.304 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.241 ms - 14881[0m
+✅ Cache HIT for content_mortgage_step1_ru_all
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 0.275 ms - 16093[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.306 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.269 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.254 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.148 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.181 ms - 9772[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.207 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.094 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.232 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.232 ms - 14172[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.181 ms - 817[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.122 ms - 163[0m
+[0mGET /api/health [32m200[0m 0.164 ms - 151[0m
+⚡ Cache MISS for content_mortgage_step1_en_all - querying database
+[0mGET /api/content/mortgage_step1/en [32m200[0m 516.067 ms - 14173[0m
+⚡ Cache MISS for content_mortgage_step1_en_dropdown - querying database
+[0mGET /api/content/mortgage_step1/en?type=dropdown [32m200[0m 90.895 ms - 4271[0m
+⚡ Cache MISS for content_mortgage_step1_en_option - querying database
+[0mGET /api/content/mortgage_step1/en?type=option [32m200[0m 91.797 ms - 7248[0m
+⚡ Cache MISS for content_mortgage_step1_en_placeholder - querying database
+[0mGET /api/content/mortgage_step1/en?type=placeholder [32m200[0m 87.706 ms - 2271[0m
+⚡ Cache MISS for content_mortgage_step1_en_label - querying database
+[0mGET /api/content/mortgage_step1/en?type=label [32m200[0m 87.525 ms - 272[0m
+⚡ Cache MISS for content_mortgage_step1_he_all - querying database
+[0mGET /api/content/mortgage_step1/he [32m200[0m 91.575 ms - 14882[0m
+⚡ Cache MISS for content_mortgage_step1_he_dropdown - querying database
+[0mGET /api/content/mortgage_step1/he?type=dropdown [32m200[0m 88.110 ms - 4591[0m
+⚡ Cache MISS for content_mortgage_step1_he_option - querying database
+[0mGET /api/content/mortgage_step1/he?type=option [32m200[0m 90.119 ms - 7485[0m
+⚡ Cache MISS for content_mortgage_step1_he_placeholder - querying database
+[0mGET /api/content/mortgage_step1/he?type=placeholder [32m200[0m 88.053 ms - 2370[0m
+⚡ Cache MISS for content_mortgage_step1_he_label - querying database
+[0mGET /api/content/mortgage_step1/he?type=label [32m200[0m 86.663 ms - 299[0m
+⚡ Cache MISS for content_mortgage_step1_ru_all - querying database
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 90.456 ms - 16094[0m
+⚡ Cache MISS for content_mortgage_step1_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step1/ru?type=dropdown [32m200[0m 89.044 ms - 5114[0m
+⚡ Cache MISS for content_mortgage_step1_ru_option - querying database
+[0mGET /api/content/mortgage_step1/ru?type=option [32m200[0m 90.582 ms - 7959[0m
+⚡ Cache MISS for content_mortgage_step1_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step1/ru?type=placeholder [32m200[0m 88.387 ms - 2562[0m
+⚡ Cache MISS for content_mortgage_step1_ru_label - querying database
+[0mGET /api/content/mortgage_step1/ru?type=label [32m200[0m 87.543 ms - 328[0m
+⚡ Cache MISS for content_mortgage_step2_en_all - querying database
+[0mGET /api/content/mortgage_step2/en [32m200[0m 91.637 ms - 18679[0m
+⚡ Cache MISS for content_mortgage_step2_en_dropdown - querying database
+[0mGET /api/content/mortgage_step2/en?type=dropdown [32m200[0m 88.804 ms - 4108[0m
+⚡ Cache MISS for content_mortgage_step2_en_option - querying database
+[0mGET /api/content/mortgage_step2/en?type=option [32m200[0m 89.814 ms - 5785[0m
+⚡ Cache MISS for content_mortgage_step2_en_placeholder - querying database
+[0mGET /api/content/mortgage_step2/en?type=placeholder [32m200[0m 89.240 ms - 2527[0m
+⚡ Cache MISS for content_mortgage_step2_en_label - querying database
+[0mGET /api/content/mortgage_step2/en?type=label [32m200[0m 87.903 ms - 2516[0m
+⚡ Cache MISS for content_mortgage_step2_he_all - querying database
+[0mGET /api/content/mortgage_step2/he [32m200[0m 90.696 ms - 19775[0m
+⚡ Cache MISS for content_mortgage_step2_he_dropdown - querying database
+[0mGET /api/content/mortgage_step2/he?type=dropdown [32m200[0m 90.387 ms - 4414[0m
+⚡ Cache MISS for content_mortgage_step2_he_option - querying database
+[0mGET /api/content/mortgage_step2/he?type=option [32m200[0m 89.732 ms - 6005[0m
+⚡ Cache MISS for content_mortgage_step2_he_placeholder - querying database
+[0mGET /api/content/mortgage_step2/he?type=placeholder [32m200[0m 88.212 ms - 2582[0m
+⚡ Cache MISS for content_mortgage_step2_he_label - querying database
+[0mGET /api/content/mortgage_step2/he?type=label [32m200[0m 88.317 ms - 2735[0m
+⚡ Cache MISS for content_mortgage_step2_ru_all - querying database
+[0mGET /api/content/mortgage_step2/ru [32m200[0m 92.382 ms - 22230[0m
+⚡ Cache MISS for content_mortgage_step2_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step2/ru?type=dropdown [32m200[0m 87.907 ms - 4970[0m
+⚡ Cache MISS for content_mortgage_step2_ru_option - querying database
+[0mGET /api/content/mortgage_step2/ru?type=option [32m200[0m 88.382 ms - 6683[0m
+⚡ Cache MISS for content_mortgage_step2_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step2/ru?type=placeholder [32m200[0m 89.300 ms - 2871[0m
+⚡ Cache MISS for content_mortgage_step2_ru_label - querying database
+[0mGET /api/content/mortgage_step2/ru?type=label [32m200[0m 88.357 ms - 3126[0m
+⚡ Cache MISS for content_mortgage_step3_en_all - querying database
+[0mGET /api/content/mortgage_step3/en [32m200[0m 99.057 ms - 15155[0m
+⚡ Cache MISS for content_mortgage_step3_en_dropdown - querying database
+[0mGET /api/content/mortgage_step3/en?type=dropdown [32m200[0m 91.300 ms - 1697[0m
+⚡ Cache MISS for content_mortgage_step3_en_option - querying database
+[0mGET /api/content/mortgage_step3/en?type=option [32m200[0m 89.611 ms - 7447[0m
+⚡ Cache MISS for content_mortgage_step3_en_placeholder - querying database
+[0mGET /api/content/mortgage_step3/en?type=placeholder [32m200[0m 86.500 ms - 1938[0m
+⚡ Cache MISS for content_mortgage_step3_en_label - querying database
+[0mGET /api/content/mortgage_step3/en?type=label [32m200[0m 87.984 ms - 2565[0m
+⚡ Cache MISS for content_mortgage_step3_he_all - querying database
+[0mGET /api/content/mortgage_step3/he [32m200[0m 91.854 ms - 16124[0m
+⚡ Cache MISS for content_mortgage_step3_he_dropdown - querying database
+[0mGET /api/content/mortgage_step3/he?type=dropdown [32m200[0m 88.443 ms - 1856[0m
+⚡ Cache MISS for content_mortgage_step3_he_option - querying database
+[0mGET /api/content/mortgage_step3/he?type=option [32m200[0m 88.712 ms - 7810[0m
+⚡ Cache MISS for content_mortgage_step3_he_placeholder - querying database
+[0mGET /api/content/mortgage_step3/he?type=placeholder [32m200[0m 88.072 ms - 2051[0m
+⚡ Cache MISS for content_mortgage_step3_he_label - querying database
+[0mGET /api/content/mortgage_step3/he?type=label [32m200[0m 87.635 ms - 2711[0m
+⚡ Cache MISS for content_mortgage_step3_ru_all - querying database
+[0mGET /api/content/mortgage_step3/ru [32m200[0m 90.097 ms - 17631[0m
+⚡ Cache MISS for content_mortgage_step3_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step3/ru?type=dropdown [32m200[0m 86.162 ms - 2007[0m
+⚡ Cache MISS for content_mortgage_step3_ru_option - querying database
+[0mGET /api/content/mortgage_step3/ru?type=option [32m200[0m 88.951 ms - 8440[0m
+⚡ Cache MISS for content_mortgage_step3_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step3/ru?type=placeholder [32m200[0m 86.947 ms - 2293[0m
+⚡ Cache MISS for content_mortgage_step3_ru_label - querying database
+[0mGET /api/content/mortgage_step3/ru?type=label [32m200[0m 87.123 ms - 2919[0m
+⚡ Cache MISS for content_mortgage_step4_en_all - querying database
+[0mGET /api/content/mortgage_step4/en [32m200[0m 86.485 ms - 4223[0m
+⚡ Cache MISS for content_mortgage_step4_en_dropdown - querying database
+[0mGET /api/content/mortgage_step4/en?type=dropdown [32m200[0m 87.770 ms - 306[0m
+⚡ Cache MISS for content_mortgage_step4_en_option - querying database
+[0mGET /api/content/mortgage_step4/en?type=option [32m200[0m 88.165 ms - 789[0m
+⚡ Cache MISS for content_mortgage_step4_en_placeholder - querying database
+[0mGET /api/content/mortgage_step4/en?type=placeholder [32m200[0m 87.645 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_en_label - querying database
+[0mGET /api/content/mortgage_step4/en?type=label [32m200[0m 90.262 ms - 1016[0m
+⚡ Cache MISS for content_mortgage_step4_he_all - querying database
+[0mGET /api/content/mortgage_step4/he [32m200[0m 86.669 ms - 4504[0m
+⚡ Cache MISS for content_mortgage_step4_he_dropdown - querying database
+[0mGET /api/content/mortgage_step4/he?type=dropdown [32m200[0m 85.617 ms - 312[0m
+⚡ Cache MISS for content_mortgage_step4_he_option - querying database
+[0mGET /api/content/mortgage_step4/he?type=option [32m200[0m 87.757 ms - 857[0m
+⚡ Cache MISS for content_mortgage_step4_he_placeholder - querying database
+[0mGET /api/content/mortgage_step4/he?type=placeholder [32m200[0m 88.142 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_he_label - querying database
+[0mGET /api/content/mortgage_step4/he?type=label [32m200[0m 88.220 ms - 1051[0m
+⚡ Cache MISS for content_mortgage_step4_ru_all - querying database
+[0mGET /api/content/mortgage_step4/ru [32m200[0m 88.880 ms - 4958[0m
+⚡ Cache MISS for content_mortgage_step4_ru_dropdown - querying database
+[0mGET /api/content/mortgage_step4/ru?type=dropdown [32m200[0m 87.102 ms - 326[0m
+⚡ Cache MISS for content_mortgage_step4_ru_option - querying database
+[0mGET /api/content/mortgage_step4/ru?type=option [32m200[0m 87.293 ms - 908[0m
+⚡ Cache MISS for content_mortgage_step4_ru_placeholder - querying database
+[0mGET /api/content/mortgage_step4/ru?type=placeholder [32m200[0m 87.913 ms - 155[0m
+⚡ Cache MISS for content_mortgage_step4_ru_label - querying database
+[0mGET /api/content/mortgage_step4/ru?type=label [32m200[0m 86.989 ms - 1107[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.295 ms - 14172[0m
+⚡ Cache MISS for content_mortgage_step1_en_invalid_type - querying database
+[0mGET /api/content/mortgage_step1/en?type=invalid_type [32m200[0m 87.322 ms - 156[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.123 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.205 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.239 ms - 14172[0m
+⚡ Cache MISS for content_invalid_screen_en_all - querying database
+[0mGET /api/content/invalid_screen/en [32m200[0m 87.218 ms - 122[0m
+⚡ Cache MISS for content_mortgage_step1_invalid_all - querying database
+[0mGET /api/content/mortgage_step1/invalid [32m200[0m 86.441 ms - 127[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.318 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.439 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.271 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.274 ms - 4222[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_en - querying database
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 91.023 ms - 7508[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_he - querying database
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 89.285 ms - 8267[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_ru - querying database
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 89.536 ms - 9773[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step2_en - querying database
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 90.371 ms - 9198[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step2_he - querying database
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 90.952 ms - 10269[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step2_ru - querying database
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 93.611 ms - 12571[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step3_en - querying database
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 90.098 ms - 9532[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step3_he - querying database
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 88.851 ms - 10487[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step3_ru - querying database
+[0mGET /api/dropdowns/mortgage_step3/ru [32m200[0m 90.747 ms - 11799[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step4_en - querying database
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 87.200 ms - 1321[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step4_he - querying database
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 88.560 ms - 1471[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step4_ru - querying database
+[0mGET /api/dropdowns/mortgage_step4/ru [32m200[0m 87.719 ms - 1662[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.239 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.252 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.153 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.290 ms - 9772[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.309 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.112 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.233 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.145 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.103 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.275 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.214 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.123 ms - 163[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.323 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.185 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.259 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.301 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.229 ms - 1320[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.260 ms - 9197[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.229 ms - 10268[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_ru
+[0mGET /api/dropdowns/mortgage_step2/ru [32m200[0m 0.235 ms - 12570[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.319 ms - 8266[0m
+⚡ Dropdown cache MISS for dropdowns_invalid_screen_en - querying database
+[0mGET /api/dropdowns/invalid_screen/en [32m200[0m 87.975 ms - 241[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_invalid - querying database
+[0mGET /api/dropdowns/mortgage_step1/invalid [32m200[0m 87.828 ms - 246[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.245 ms - 14172[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.296 ms - 7507[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.350 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.309 ms - 9197[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.259 ms - 15154[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step3_en
+[0mGET /api/dropdowns/mortgage_step3/en [32m200[0m 0.259 ms - 9531[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.192 ms - 4222[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step4_en
+[0mGET /api/dropdowns/mortgage_step4/en [32m200[0m 0.267 ms - 1320[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.088 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.265 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.486 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.099 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.282 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.271 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.111 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.264 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.275 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.099 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.253 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.220 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.202 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.176 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.233 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.178 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.206 ms - 4222[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.106 ms - 4222[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.090 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.234 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.237 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.205 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.292 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.241 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.238 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.212 ms - 4222[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.191 ms - 4222[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.097 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.267 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.204 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.229 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.207 ms - 18678[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.235 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step3_en_all
+[0mGET /api/content/mortgage_step3/en [32m200[0m 0.171 ms - 15154[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.194 ms - 4222[0m
+✅ Cache HIT for content_mortgage_step4_en_all
+[0mGET /api/content/mortgage_step4/en [32m200[0m 0.187 ms - 4222[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.122 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.241 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.253 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.152 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.142 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.198 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.160 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.201 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.218 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.209 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.218 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.114 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.257 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.197 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.275 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.242 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.207 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.221 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.212 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.212 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.267 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.236 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.091 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.255 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.249 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.208 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.247 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.287 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.232 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.248 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.213 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.231 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.206 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.095 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.232 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.221 ms - 14881[0m
+✅ Cache HIT for content_mortgage_step1_ru_all
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 0.252 ms - 16093[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.118 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.295 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.239 ms - 14881[0m
+✅ Cache HIT for content_mortgage_step1_ru_all
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 0.259 ms - 16093[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.108 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.261 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.233 ms - 14881[0m
+✅ Cache HIT for content_mortgage_step1_ru_all
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 0.251 ms - 16093[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.325 ms - 14172[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.225 ms - 7507[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.087 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.279 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.266 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.157 ms - 7507[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.256 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.170 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.156 ms - 7507[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.174 ms - 894[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.105 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.287 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.214 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.187 ms - 7507[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.157 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.215 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.209 ms - 7507[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.565 ms - 894[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.130 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.267 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.247 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.216 ms - 7507[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.194 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step2_en_all
+[0mGET /api/content/mortgage_step2/en [32m200[0m 0.247 ms - 18678[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.271 ms - 7507[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.131 ms - 894[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.187 ms - 894[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.210 ms - 894[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.202 ms - 894[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.304 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.288 ms - 14881[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.204 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_en
+[0mGET /api/dropdowns/mortgage_step2/en [32m200[0m 0.220 ms - 9197[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.097 ms - 894[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.082 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.091 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.095 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.101 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.090 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.096 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.089 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.103 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.090 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.093 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.090 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.088 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.083 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.089 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.112 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.128 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.093 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.089 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.086 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.084 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.089 ms - 163[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.100 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_dropdown
+[0mGET /api/content/mortgage_step1/en?type=dropdown [32m200[0m 0.255 ms - 4270[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.247 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.278 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.273 ms - 14881[0m
+✅ Cache HIT for content_mortgage_step1_ru_all
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 0.255 ms - 16093[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.240 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.192 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.173 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.178 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.182 ms - 9772[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.249 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.093 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.264 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.164 ms - 14172[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.177 ms - 894[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.074 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_dropdown
+[0mGET /api/content/mortgage_step1/en?type=dropdown [32m200[0m 0.237 ms - 4270[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.292 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.271 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.196 ms - 14881[0m
+✅ Cache HIT for content_mortgage_step1_ru_all
+[0mGET /api/content/mortgage_step1/ru [32m200[0m 0.231 ms - 16093[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.236 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.283 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_en
+[0mGET /api/dropdowns/mortgage_step1/en [32m200[0m 0.169 ms - 7507[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.172 ms - 8266[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_ru
+[0mGET /api/dropdowns/mortgage_step1/ru [32m200[0m 0.184 ms - 9772[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.247 ms - 14172[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.094 ms - 163[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.232 ms - 14172[0m
+✅ Cache HIT for content_mortgage_step1_en_all
+[0mGET /api/content/mortgage_step1/en [32m200[0m 0.194 ms - 14172[0m
+[0mGET /api/content/cache/stats [32m200[0m 0.184 ms - 894[0m
+[0mPOST /api/content/cache/clear [33m404[0m 0.099 ms - 163[0m
+⚡ Cache MISS for content_sms_code_verification_he_all - querying database
+⚡ Cache MISS for content_sidebar_he_all - querying database
+[0mGET /api/content/sms_code_verification/he [32m200[0m 611.324 ms - 852[0m
+[0mGET /api/content/sidebar/he [32m200[0m 561.260 ms - 3878[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.310 ms - 851[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [32m200[0m 0.180 ms - 3877[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.219 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.208 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.221 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.152 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.149 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.173 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.214 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.179 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.266 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.450 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.224 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.197 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.179 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.159 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.138 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.230 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.202 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.172 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.255 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.196 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.217 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.202 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.221 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.276 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.191 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.179 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.228 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.217 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.240 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.151 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.135 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.245 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.277 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.142 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.178 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.190 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.229 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.188 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.319 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.281 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.239 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.172 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.263 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.529 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.317 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.548 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.218 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.172 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.280 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.196 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.174 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.145 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.187 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.293 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.212 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.166 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.224 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.153 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.239 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.167 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.138 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.208 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.270 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.131 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.145 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.141 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.202 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.186 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.320 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.308 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.247 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.233 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.207 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.221 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.171 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.261 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.195 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.166 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.265 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.177 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.157 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.190 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.206 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.270 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.167 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.160 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.185 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.203 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.271 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.189 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.144 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.210 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.223 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.152 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.184 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.187 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.192 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.170 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.320 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.205 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.128 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.163 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.187 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.159 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.149 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.203 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.243 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.319 ms - -[0m

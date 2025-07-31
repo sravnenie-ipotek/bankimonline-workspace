@@ -1,32 +1,49 @@
 import { useFormikContext } from 'formik'
 import { useContentApi } from '@src/hooks/useContentApi'
+import { useDropdownData } from '@src/hooks/useDropdownData'
 
 import { Column } from '@components/ui/Column'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
+import { Error } from '@components/ui/Error'
 
 import { FormTypes } from '../../types/formTypes'
 
-const Gender = () => {
-  const { getContent } = useContentApi('personal_data_form')
+interface GenderProps {
+  screenLocation?: string
+}
+
+const Gender = ({ screenLocation = 'personal_data_form' }: GenderProps) => {
+  const { getContent } = useContentApi(screenLocation)
   const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<FormTypes>()
 
-  const GenderOptions = [
-    { value: 'male', label: getContent('personal_data_gender_option_1', 'Male') },
-    { value: 'female', label: getContent('personal_data_gender_option_2', 'Female') },
-  ]
+  // Phase 4: Use database-driven dropdown data instead of hardcoded array
+  const dropdownData = useDropdownData(screenLocation, 'gender', 'full')
+
+  // Phase 4: Handle loading and error states
+  if (dropdownData.loading) {
+    console.log('🔄 Loading gender dropdown options...')
+  }
+
+  if (dropdownData.error) {
+    console.warn('❌ Gender dropdown error:', dropdownData.error)
+  }
 
   return (
     <Column>
       <DropdownMenu
-        title={getContent('personal_data_gender', 'Gender')}
-        placeholder={getContent('personal_data_gender_ph', 'Select gender')}
+        title={dropdownData.label || getContent('personal_data_gender', 'Gender')}
+        placeholder={dropdownData.placeholder || getContent('personal_data_gender_ph', 'Select gender')}
         value={values.gender}
-        data={GenderOptions}
+        data={dropdownData.options}
         onChange={(value) => setFieldValue('gender', value)}
         onBlur={() => setFieldTouched('gender', true)}
         error={touched.gender && errors.gender}
+        disabled={dropdownData.loading}
       />
+      {dropdownData.error && (
+        <Error error="Failed to load gender options. Please refresh the page." />
+      )}
     </Column>
   )
 }
