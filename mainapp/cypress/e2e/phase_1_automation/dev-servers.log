@@ -1,0 +1,287 @@
+
+> bankimonline@0.1.0 dev
+> vite
+
+
+  VITE v4.4.9  ready in 104 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+Browserslist: caniuse-lite is outdated. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+3:06:55 AM [vite] page reload src/hooks/useDropdownData.ts
+3:07:28 AM [vite] page reload src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx
+3:07:37 AM [vite] page reload src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx
+3:07:55 AM [vite] page reload src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx
+3:08:05 AM [vite] page reload src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx
+3:08:17 AM [vite] page reload src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx
+3:08:26 AM [vite] page reload src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx
+3:09:47 AM [vite] page reload src/pages/Services/components/FamilyStatus/FamilyStatus.tsx
+3:16:40 AM [vite] page reload src/pages/Services/components/Education/Education.tsx
+3:17:05 AM [vite] page reload src/pages/Services/components/MainSourceOfIncome/MainSourceOfIncome.tsx
+3:17:22 AM [vite] page reload src/pages/Services/components/AdditionalIncome/AdditionalIncome.tsx
+3:17:36 AM [vite] page reload src/pages/Services/components/Bank/Bank.tsx
+3:17:59 AM [vite] page reload src/pages/Services/components/Filter/Filter.tsx
+3:18:19 AM [vite] page reload src/pages/Services/components/PropertyOwnership/PropertyOwnership.tsx
+3:18:36 AM [vite] page reload src/pages/Services/components/Gender/Gender.tsx
+3:19:07 AM [vite] page reload src/pages/Services/components/Obligation/Obligation.tsx
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/dropdowns/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/get-cities?lang=he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/sms_code_verification/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/dropdowns/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/get-cities?lang=he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/mortgage_calculation/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/sms_code_verification/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/mortgage_calculation/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/sms_code_verification/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:24 AM [vite] http proxy error at /api/content/sms_code_verification/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/dropdowns/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/get-cities?lang=he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/sms_code_verification/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/mortgage_calculation/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/dropdowns/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/sms_code_verification/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/get-cities?lang=he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/mortgage_calculation/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/validation_errors/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/sms_code_verification/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/mortgage_step1/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+11:42:29 AM [vite] http proxy error at /api/content/sms_code_verification/he:
+AggregateError
+    at internalConnectMultiple (node:net:1114:18)
+    at afterConnectMultiple (node:net:1667:5)
+Failed to load url /assets/index-0f4c7356.js (resolved id: /assets/index-0f4c7356.js). Does the file exist?
+Failed to load url /assets/index-0f4c7356.js (resolved id: /assets/index-0f4c7356.js). Does the file exist?
+Failed to load url /assets/index-0f4c7356.js (resolved id: /assets/index-0f4c7356.js). Does the file exist?
