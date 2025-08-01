@@ -44,7 +44,7 @@ const Education = ({ screenLocation = 'mortgage_step2' }: EducationProps) => {
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (
-        <Error error="Failed to load education options. Please refresh the page." />
+        <Error error={getContent('error_dropdown_load_failed', 'Failed to load education options. Please refresh the page.')} />
       )}
     </Column>
   )

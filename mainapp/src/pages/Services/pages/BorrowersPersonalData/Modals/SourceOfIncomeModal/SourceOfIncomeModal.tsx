@@ -9,6 +9,7 @@ import { updateSourceOfIncomeModal } from '@src/pages/Services/slices/borrowersP
 import { closeModal } from '@src/pages/Services/slices/modalSlice.ts'
 import { SourceOfIncomeModalTypes } from '@src/pages/Services/types/formTypes'
 import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
+import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
 import { SourceOfIncomeForm } from './SourceOfIncomeForm'
 
@@ -48,35 +49,35 @@ const SourceOfIncomeModal: React.FC = () => {
 
 
   const validationSchema = Yup.object().shape({
-    mainSourceOfIncome: Yup.string().required(t('error_select_answer')),
+    mainSourceOfIncome: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
     monthlyIncome: Yup.number().when('mainSourceOfIncome', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
-      then: (schema) => schema.required(t('error_fill_field')),
+      then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
       otherwise: (schema) => schema.notRequired(),
     }),
     startDate: Yup.string().when('mainSourceOfIncome', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
-      then: (schema) => schema.required(t('error_date')),
+      then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please select a date')),
       otherwise: (schema) => schema.notRequired(),
     }),
     fieldOfActivity: Yup.string().when('mainSourceOfIncome', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
-      then: (shema) => shema.required(t('error_select_field_of_activity')),
+      then: (shema) => shema.required(getValidationErrorSync('error_select_field_of_activity', 'Please select field of activity')),
       otherwise: (shema) => shema.notRequired(),
     }),
     profession: Yup.string().when('mainSourceOfIncome', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
-      then: (schema) => schema.required(t('error_fill_field')),
+      then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
       otherwise: (schema) => schema.notRequired(),
     }),
     companyName: Yup.string().when('mainSourceOfIncome', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
-      then: (schema) => schema.required(t('error_fill_field')),
+      then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
       otherwise: (schema) => schema.notRequired(),
     }),
   })

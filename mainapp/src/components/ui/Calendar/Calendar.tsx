@@ -54,11 +54,11 @@ const Calendar: React.FC<PropTypes> = ({
 
   // Установка текущего языка приложения
 
-  // Функция для создания списка годов
-  function range(startYear: number, currentYear: number): number[] {
+  // Функция для создания списка годов в убывающем порядке
+  function rangeDesc(startYear: number, currentYear: number): number[] {
     const years = []
-    while (startYear <= currentYear) {
-      years.push(startYear++)
+    while (currentYear >= startYear) {
+      years.push(currentYear--)
     }
     return years
   }
@@ -79,16 +79,17 @@ const Calendar: React.FC<PropTypes> = ({
     }
   }
 
-  // Создание списка годов для выбора
-  const years = range(
+  // Создание списка годов для выбора в убывающем порядке, начиная с текущего года
+  const currentYear = getYear(new Date())
+  const years = rangeDesc(
     isCreditDate
       ? getYear(new Date().setMonth(new Date().getMonth() - 30 * 12)) // 30 лет назад для кредитов
       : getYear(new Date().setMonth(new Date().getMonth() - 1200)), // 100 лет назад по умолчанию
     isMaxAge
       ? getYear(new Date().setMonth(new Date().getMonth() - 18 * 12))
       : allowFuture
-      ? getYear(new Date()) + 50 // Добавляем 50 лет в будущее для выбора дат окончания кредитов
-      : getYear(new Date())
+      ? currentYear + 50 // Добавляем 50 лет в будущее для выбора дат окончания кредитов
+      : currentYear
   )
 
   // Создание списка месяцев для выбора
@@ -155,14 +156,14 @@ const Calendar: React.FC<PropTypes> = ({
               {/* Выпадающий список для выбора года */}
               <DropdownCalendar
                 value={getYear(date)}
-                items={years}
+                data={years}
                 onChange={changeYear}
               />
 
               {/* Выпадающий список для выбора месяца */}
               <DropdownCalendar
                 value={months[getMonth(date)]}
-                items={months}
+                data={months}
                 onChange={(monthName) => {
                   const monthIndex = months.indexOf(monthName)
                   changeMonth(monthIndex)

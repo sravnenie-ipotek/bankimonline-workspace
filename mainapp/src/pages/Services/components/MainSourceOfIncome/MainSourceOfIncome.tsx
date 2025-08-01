@@ -20,7 +20,7 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
     useFormikContext<FormTypes>()
 
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  const dropdownData = useDropdownData(screenLocation, 'main_source', 'full')
+  const dropdownData = useDropdownData(screenLocation, 'main_source', 'full') as any
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
@@ -31,20 +31,47 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
     console.warn('❌ Main source of income dropdown error:', dropdownData.error)
   }
 
+  // Debug dropdown data
+  console.log('🔍 MainSourceOfIncome dropdown data:', {
+    options: dropdownData.options,
+    placeholder: dropdownData.placeholder,
+    label: dropdownData.label,
+    currentValue: values.mainSourceOfIncome,
+    selectedItem: dropdownData.options.find(item => item.value === values.mainSourceOfIncome),
+    errors: errors.mainSourceOfIncome,
+    touched: touched.mainSourceOfIncome,
+    errorShowing: touched.mainSourceOfIncome && errors.mainSourceOfIncome
+  })
+
+  const handleValueChange = (value: string) => {
+    console.log('🔍 MainSourceOfIncome onChange:', { 
+      value, 
+      currentValue: values.mainSourceOfIncome,
+      dropdownOptions: dropdownData.options,
+      selectedOption: dropdownData.options.find(item => item.value === value)
+    })
+    setFieldValue('mainSourceOfIncome', value)
+    setFieldTouched('mainSourceOfIncome', true)
+    // Force revalidation after setting the value
+    setTimeout(() => {
+      setFieldTouched('mainSourceOfIncome', true)
+    }, 0)
+  }
+
   return (
     <Column>
       <DropdownMenu
-        data={dropdownData.options}
+        data={dropdownData.options || []}
         title={dropdownData.label || getContent('calculate_mortgage_main_source', 'calculate_mortgage_main_source')}
         placeholder={dropdownData.placeholder || getContent('calculate_mortgage_main_source_ph', 'calculate_mortgage_main_source_ph')}
-        value={values.mainSourceOfIncome}
-        onChange={(value) => setFieldValue('mainSourceOfIncome', value)}
+        value={values.mainSourceOfIncome || ''}
+        onChange={handleValueChange}
         onBlur={() => setFieldTouched('mainSourceOfIncome', true)}
         error={touched.mainSourceOfIncome && errors.mainSourceOfIncome}
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (
-        <Error error="Failed to load main source of income options. Please refresh the page." />
+        <Error error={getContent('error_dropdown_load_failed', 'Failed to load main source of income options. Please refresh the page.')} />
       )}
     </Column>
   )

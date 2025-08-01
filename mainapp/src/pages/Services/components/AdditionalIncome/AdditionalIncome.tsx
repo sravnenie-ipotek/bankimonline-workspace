@@ -45,7 +45,7 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3' }: AdditionalIncom
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (
-        <Error error="Failed to load additional income options. Please refresh the page." />
+        <Error error={getContent('error_dropdown_load_failed', 'Failed to load additional income options. Please refresh the page.')} />
       )}
       <AddInc />
     </Column>
