@@ -17,8 +17,10 @@ const cx = classNames.bind(styles)
 const SourceOfIncomeForm = () => {
   const { t, i18n } = useTranslation()
 
-  const { handleSubmit, isValid, values } =
+  const { handleSubmit, isValid, values, errors, touched } =
     useFormikContext<SourceOfIncomeModalTypes>()
+
+
 
   const { mainSourceOfIncome } = values
 

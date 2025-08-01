@@ -1,8 +1,8 @@
 import { Form, Formik } from 'formik'
-import i18next from 'i18next'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import * as Yup from 'yup'
+import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
 import { Container } from '@components/ui/Container'
 import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
@@ -19,44 +19,45 @@ import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/Fir
 import { SingleButton } from '../../../../components/SingleButton'
 import FirstStepForm from './FirstStepForm/FirstStepForm'
 
-export const validationSchema = Yup.object().shape({
-  refinancingCredit: Yup.string().required(i18next.t('error_select_answer')),
+// Dynamic validation schema that gets validation errors from database at runtime
+export const getValidationSchema = () => Yup.object().shape({
+  refinancingCredit: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
   // option_3: Increase term to reduce payment - requires desired monthly payment
   desiredMonthlyPayment: Yup.number()
-    .positive(i18next.t('error_credit_payment_positive'))
+    .positive(getValidationErrorSync('error_credit_payment_positive', 'Payment must be positive'))
     .when('refinancingCredit', {
       is: 'option_3',
-      then: (schema) => schema.required(i18next.t('error_required_to_fill_out')),
+      then: (schema) => schema.required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
       otherwise: (schema) => schema.notRequired(),
     }),
   // option_4: Increase payment to reduce term - requires desired term
   desiredTerm: Yup.number()
-    .min(4, i18next.t('error_min_period'))
-    .max(30, i18next.t('error_max_period'))
+    .min(4, getValidationErrorSync('error_min_period', 'Minimum period is 4 years'))
+    .max(30, getValidationErrorSync('error_max_period', 'Maximum period is 30 years'))
     .when('refinancingCredit', {
       is: 'option_4',
-      then: (schema) => schema.required(i18next.t('error_required_to_fill_out')),
+      then: (schema) => schema.required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
       otherwise: (schema) => schema.notRequired(),
     }),
   period: Yup.number()
-    .min(4, i18next.t('error_min_period'))
-    .max(30, i18next.t('error_max_period'))
+    .min(4, getValidationErrorSync('error_min_period', 'Minimum period is 4 years'))
+    .max(30, getValidationErrorSync('error_max_period', 'Maximum period is 30 years'))
     .notRequired(),
   monthlyPayment: Yup.number()
     .notRequired(),
   creditData: Yup.array().of(
     Yup.object().shape({
-      bank: Yup.string().required(i18next.t('error_credit_bank_required')),
+      bank: Yup.string().required(getValidationErrorSync('error_credit_bank_required', 'Bank selection is required')),
       amount: Yup.number()
-        .positive(i18next.t('error_credit_amount_positive'))
-        .required(i18next.t('error_credit_amount_required')),
+        .positive(getValidationErrorSync('error_credit_amount_positive', 'Amount must be positive'))
+        .required(getValidationErrorSync('error_credit_amount_required', 'Credit amount is required')),
       monthlyPayment: Yup.number()
-        .positive(i18next.t('error_credit_payment_positive'))
-        .required(i18next.t('error_credit_payment_required')),
-      startDate: Yup.string().required(i18next.t('error_credit_start_date_required')),
+        .positive(getValidationErrorSync('error_credit_payment_positive', 'Payment must be positive'))
+        .required(getValidationErrorSync('error_credit_payment_required', 'Monthly payment is required')),
+      startDate: Yup.string().required(getValidationErrorSync('error_credit_start_date_required', 'Start date is required')),
       endDate: Yup.string()
-        .required(i18next.t('error_credit_end_date_required'))
-        .test('end-date-after-start', i18next.t('error_credit_end_date_validation'), function(value) {
+        .required(getValidationErrorSync('error_credit_end_date_required', 'End date is required'))
+        .test('end-date-after-start', getValidationErrorSync('error_credit_end_date_validation', 'End date must be after start date'), function(value) {
           const { startDate } = this.parent;
           if (!value || !startDate) return true;
           
@@ -64,11 +65,11 @@ export const validationSchema = Yup.object().shape({
           return new Date(value) > new Date(startDate);
         }),
       earlyRepayment: Yup.number()
-        .positive(i18next.t('error_credit_early_payment_positive'))
+        .positive(getValidationErrorSync('error_credit_early_payment_positive', 'Early payment must be positive'))
         .nullable()
         .notRequired(),
     })
-  ).min(1, i18next.t('error_credit_data_required')),
+  ).min(1, getValidationErrorSync('error_credit_data_required', 'At least one credit entry is required')),
 })
 
 const FirstStep = () => {
@@ -116,7 +117,7 @@ const FirstStep = () => {
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={getValidationSchema()}
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateRefinanceCreditData(values))

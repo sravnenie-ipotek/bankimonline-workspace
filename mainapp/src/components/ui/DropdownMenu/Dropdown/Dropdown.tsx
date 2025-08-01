@@ -76,7 +76,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [handleClickOutside])
 
-  const filteredOptions = data.filter((item) =>
+  const filteredOptions = (data || []).filter((item) =>
     item.label.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
@@ -104,7 +104,7 @@ const Dropdown: React.FC<DropdownProps> = ({
             className={cx('dropdown-input', 'truncate', className)}
             id={id}
             placeholder={placeholder}
-            value={data.find((item) => item.value === value)?.label || ''}
+            value={(data || []).find((item) => item.value === value)?.label || ''}
           />
           {isOpen ? (
             <CaretUpIcon

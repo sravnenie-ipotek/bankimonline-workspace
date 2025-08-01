@@ -905,4 +905,97 @@ WHERE screen_location LIKE 'refinance_mortgage_%'
 ORDER BY content_key;
 ```
 
-This structure provides a flexible, scalable system for managing dropdown content across multiple languages and screens with bulletproof validation and error prevention.
+## 🎯 **VALIDATION TRANSLATIONS: CRITICAL DATABASE-FIRST REQUIREMENT**
+
+### **🚨 VALIDATION ERROR MESSAGES MUST BE IN DATABASE ONLY**
+
+**CRITICAL POLICY**: All validation error messages MUST use database translations via `getValidationErrorSync()`. Translation.json files are FALLBACK ONLY.
+
+**Why This is Critical:**
+1. **Consistency**: All user-facing text uses same database system
+2. **Language Switching**: Database translations update immediately when language changes
+3. **Content Management**: Centralized control over all user messages
+4. **Translation Quality**: Professional translation workflow for validation errors
+5. **Caching**: Proper cache invalidation when language changes
+
+### **Correct Usage Patterns**
+
+**✅ CORRECT: Use getValidationErrorSync() in Yup schemas**
+```typescript
+// Dynamic validation schema using database translations
+export const getValidationSchema = () => Yup.object().shape({
+  field: Yup.string().required(
+    getValidationErrorSync('error_required_field', 'This field is required')
+  ),
+  email: Yup.string()
+    .email(getValidationErrorSync('error_invalid_email', 'Please enter a valid email'))
+    .required(getValidationErrorSync('error_email_required', 'Email is required')),
+  amount: Yup.number()
+    .min(1000, getValidationErrorSync('error_min_amount', 'Minimum amount is 1,000 NIS'))
+    .max(10000000, getValidationErrorSync('error_max_amount', 'Maximum amount is 10,000,000 NIS'))
+    .required(getValidationErrorSync('error_amount_required', 'Amount is required'))
+})
+```
+
+**❌ WRONG: Direct i18next.t() usage**
+```typescript
+// Static schema with cached translations - NEVER USE
+export const validationSchema = Yup.object().shape({
+  field: Yup.string().required(i18next.t('error_required_field')), // ❌ Cached at module load
+  email: Yup.string().email(i18next.t('error_invalid_email'))      // ❌ Won't update on language change
+})
+```
+
+**❌ WRONG: Async getValidationError() in sync schema**
+```typescript
+// Async function in sync context - WILL CAUSE ERRORS
+export const validationSchema = Yup.object().shape({
+  field: Yup.string().required(
+    getValidationError('error_required_field') // ❌ Returns Promise, not string
+  )
+})
+```
+
+### **Required Database Content Structure**
+
+**All validation error messages must be stored in content_items table:**
+```sql
+-- Validation error content structure
+INSERT INTO content_items (content_key, component_type, category, screen_location, is_active)
+VALUES 
+('error_required_field', 'validation', 'errors', 'global', true),
+('error_invalid_email', 'validation', 'errors', 'global', true),
+('error_min_amount', 'validation', 'errors', 'global', true),
+('error_max_amount', 'validation', 'errors', 'global', true),
+('error_amount_required', 'validation', 'errors', 'global', true);
+
+-- Multi-language translations for each error
+INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+VALUES 
+-- Required field error
+(error_id_1, 'en', 'This field is required', 'approved'),
+(error_id_1, 'he', 'שדה זה הוא חובה', 'approved'),
+(error_id_1, 'ru', 'Это поле обязательно', 'approved'),
+
+-- Invalid email error
+(error_id_2, 'en', 'Please enter a valid email address', 'approved'),
+(error_id_2, 'he', 'אנא הזן כתובת אימייל תקינה', 'approved'),
+(error_id_2, 'ru', 'Пожалуйста, введите действительный адрес электронной почты', 'approved');
+```
+
+### **Translation.json as FALLBACK ONLY**
+
+**IMPORTANT**: Translation.json files should ONLY be used as emergency fallback when:
+1. Database is unavailable
+2. Network connection fails
+3. API endpoint returns error
+
+**System-wide fixes completed:**
+- ✅ Fixed validation object rendering bug (extract `.value` from cached objects)
+- ✅ Updated CalculateCredit/FirstStep to use `getValidationErrorSync()`
+- ✅ Updated RefinanceCredit/FirstStep to use `getValidationErrorSync()`
+- ✅ Updated RefinanceMortgage/FirstStep to use `getValidationErrorSync()`
+- ✅ Fixed static validation schemas to be dynamic functions
+- ✅ Added language change listeners for automatic validation error reloading
+
+This structure provides a flexible, scalable system for managing dropdown content AND validation error messages across multiple languages and screens with bulletproof validation and error prevention.
