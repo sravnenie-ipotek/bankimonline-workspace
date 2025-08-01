@@ -1,29 +1,29 @@
 import * as Yup from 'yup'
-import { getValidationError } from '@src/utils/validationHelpers'
+import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
 export const validationSchema = Yup.object().shape({
-  nameSurname: Yup.string().required(getValidationError('error_name_surname', 'Please enter your name and surname')),
-  birthday: Yup.string().required(getValidationError('error_date', 'Please enter a valid date')),
-  education: Yup.string().required(getValidationError('error_select_answer', 'Please select an answer')),
+  nameSurname: Yup.string().required(getValidationErrorSync('error_name_surname', 'Please enter your name and surname')),
+  birthday: Yup.string().required(getValidationErrorSync('error_date', 'Please enter a valid date')),
+  education: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
   additionalCitizenships: Yup.string().required(
-    getValidationError('error_select_answer', 'Please select an answer')
+    getValidationErrorSync('error_select_answer', 'Please select an answer')
   ),
   citizenshipsDropdown: Yup.array().when('additionalCitizenships', {
     is: 'yes',
-    then: (shema) => shema.min(1, getValidationError('error_select_answer', 'Please select an answer')),
+    then: (shema) => shema.min(1, getValidationErrorSync('error_select_answer', 'Please select an answer')),
     otherwise: (shema) => shema.min(0),
   }),
-  taxes: Yup.string().required(getValidationError('error_select_answer', 'Please select an answer')),
+  taxes: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
   countriesPayTaxes: Yup.array().when('taxes', {
     is: 'yes',
-    then: (shema) => shema.min(1, getValidationError('error_select_answer', 'Please select an answer')),
+    then: (shema) => shema.min(1, getValidationErrorSync('error_select_answer', 'Please select an answer')),
     otherwise: (shema) => shema.min(0),
   }),
-  childrens: Yup.string().required(getValidationError('error_select_answer', 'Please select an answer')),
-  howMuchChildrens: Yup.number().required(getValidationError('error_fill_field', 'Please fill this field')),
-  medicalInsurance: Yup.string().required(getValidationError('error_select_answer', 'Please select an answer')),
-  isForeigner: Yup.string().required(getValidationError('error_select_answer', 'Please select an answer')),
-  publicPerson: Yup.string().required(getValidationError('error_select_answer', 'Please select an answer')),
-  whoAreYouForBorrowers: Yup.string().required(getValidationError('error_fill_field', 'Please fill this field')),
-  familyStatus: Yup.string().required(getValidationError('error_select_answer', 'Please select an answer')),
+  childrens: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
+  howMuchChildrens: Yup.number().required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
+  medicalInsurance: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
+  isForeigner: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
+  publicPerson: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
+  whoAreYouForBorrowers: Yup.string().required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
+  familyStatus: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
 })
