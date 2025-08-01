@@ -153,11 +153,13 @@ export const useDropdownData = (
 
       // Extract data for specific field
       const dropdownKey = `${screenLocation}_${fieldName}`;
+      const placeholderKey = `${dropdownKey}_ph`;
+      const labelKey = `${dropdownKey}_label`;
       
       const result: DropdownData = {
         options: apiData.options?.[dropdownKey] || [],
-        placeholder: apiData.placeholders?.[dropdownKey],
-        label: apiData.labels?.[dropdownKey],
+        placeholder: apiData.placeholders?.[placeholderKey] || apiData.placeholders?.[dropdownKey],
+        label: apiData.labels?.[labelKey] || apiData.labels?.[dropdownKey],
         loading: false,
         error: null
       };
