@@ -36,8 +36,10 @@ export const getValidationError = async (errorKey: string, fallback?: string): P
     // Try to get from content cache first
     const cached = validationCache.get(`validation_errors_${currentLang}`)
     if (cached && cached[errorKey]) {
-      console.log(`✅ Found cached validation error: ${errorKey} -> "${cached[errorKey]}"`)
-      return cached[errorKey]
+      // Extract the value if it's an object, otherwise use as-is
+      const cachedValue = typeof cached[errorKey] === 'object' ? cached[errorKey].value : cached[errorKey]
+      console.log(`✅ Found cached validation error: ${errorKey} -> "${cachedValue}"`)
+      return cachedValue
     }
     
     // Try to fetch from database first
@@ -94,8 +96,10 @@ export const getValidationErrorSync = (errorKey: string, fallback?: string): str
     // Try to get from content cache first
     const cached = validationCache.get(`validation_errors_${currentLang}`)
     if (cached && cached[errorKey]) {
-      console.log(`✅ Found cached validation error: ${errorKey} -> "${cached[errorKey]}"`)
-      return cached[errorKey]
+      // Extract the value if it's an object, otherwise use as-is
+      const cachedValue = typeof cached[errorKey] === 'object' ? cached[errorKey].value : cached[errorKey]
+      console.log(`✅ Found cached validation error: ${errorKey} -> "${cachedValue}"`)
+      return cachedValue
     }
     
     // FALLBACK: Use translation system (i18next) synchronously
@@ -147,6 +151,49 @@ export const preloadValidationErrors = async () => {
     console.log('ℹ️ Validation errors will use translation system for language:', currentLang)
   } catch (error) {
     console.warn('Failed to preload validation errors:', error)
+  }
+}
+
+/**
+ * Initialize language change listener
+ * Should be called in app initialization
+ */
+export const initializeValidationLanguageListener = () => {
+  try {
+    // Listen for i18next language changes
+    if (typeof window !== 'undefined' && window.i18next) {
+      window.i18next.on('languageChanged', (lng: string) => {
+        console.log('🔄 i18next language changed, reloading validation errors for:', lng)
+        reloadValidationErrors()
+      })
+      console.log('✅ i18next language change listener initialized')
+    }
+    
+    // Listen for document language changes (fallback)
+    if (typeof document !== 'undefined') {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'lang') {
+            const newLang = document.documentElement.lang
+            if (newLang) {
+              console.log('🔄 Document language changed, reloading validation errors for:', newLang)
+              setTimeout(() => reloadValidationErrors(), 100) // Small delay to ensure language is fully switched
+            }
+          }
+        })
+      })
+      
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['lang']
+      })
+      console.log('✅ Document language change observer initialized')
+    }
+    
+    // Preload validation errors for current language
+    preloadValidationErrors()
+  } catch (error) {
+    console.warn('Failed to initialize validation language listener:', error)
   }
 }
 
