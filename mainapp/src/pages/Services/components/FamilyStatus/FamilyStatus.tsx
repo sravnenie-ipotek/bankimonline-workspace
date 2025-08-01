@@ -40,7 +40,7 @@ const FamilyStatus = () => {
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (
-        <Error error="Failed to load family status options. Please refresh the page." />
+        <Error error={getContent('error_dropdown_load_failed', 'Failed to load family status options. Please refresh the page.')} />
       )}
     </Column>
   )

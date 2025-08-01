@@ -44,7 +44,7 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (
-        <Error error="Failed to load obligations options. Please refresh the page." />
+        <Error error={getContent('error_dropdown_load_failed', 'Failed to load obligations options. Please refresh the page.')} />
       )}
     </Column>
   )

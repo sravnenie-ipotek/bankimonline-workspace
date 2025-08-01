@@ -109,7 +109,7 @@ const SecondStepForm = () => {
       <FormCaption title={`${getContent('app.other_borrowers.step2.borrowers_income_title', 'Borrower\'s Income')}#${pageId}`} />
 
       <Row>
-        <MainSourceOfIncome />
+        <MainSourceOfIncome screenLocation="mortgage_step3" />
         {componentsByIncomeSource[mainSourceOfIncome] &&
           componentsByIncomeSource[mainSourceOfIncome].map(
             (Component, index) => (
@@ -145,13 +145,13 @@ const SecondStepForm = () => {
 
       <Row>
         <AdditionalIncome />
-        {additionalIncome && additionalIncome !== 'option_1' && (
+        {additionalIncome && additionalIncome !== 'option_1' && additionalIncome !== '1' && additionalIncome !== 'no_additional_income' && (
           <AdditionalIncomeAmount />
         )}
         <Column />
       </Row>
 
-      {additionalIncome && additionalIncome !== 'option_1' && (
+      {additionalIncome && additionalIncome !== 'option_1' && additionalIncome !== '1' && additionalIncome !== 'no_additional_income' && (
         <Row>
           <Column>
             {additionalIncomeValues &&
@@ -185,7 +185,7 @@ const SecondStepForm = () => {
         <Column />
       </Row>
 
-      {obligation && obligation !== 'option_1' && (
+      {obligation && obligation !== 'option_1' && obligation !== '1' && obligation !== 'no_obligations' && (
         <Row>
           <Column>
             {obligationValues &&

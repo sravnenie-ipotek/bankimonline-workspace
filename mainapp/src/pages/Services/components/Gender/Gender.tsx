@@ -42,7 +42,7 @@ const Gender = ({ screenLocation = 'personal_data_form' }: GenderProps) => {
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (
-        <Error error="Failed to load gender options. Please refresh the page." />
+        <Error error={getContent('error_dropdown_load_failed', 'Failed to load gender options. Please refresh the page.')} />
       )}
     </Column>
   )

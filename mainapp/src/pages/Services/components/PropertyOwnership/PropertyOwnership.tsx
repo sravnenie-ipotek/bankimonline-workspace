@@ -42,7 +42,7 @@ const PropertyOwnership = ({ screenLocation = 'personal_data_form' }: PropertyOw
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (
-        <Error error="Failed to load property ownership options. Please refresh the page." />
+        <Error error={getContent('error_dropdown_load_failed', 'Failed to load property ownership options. Please refresh the page.')} />
       )}
     </Column>
   )

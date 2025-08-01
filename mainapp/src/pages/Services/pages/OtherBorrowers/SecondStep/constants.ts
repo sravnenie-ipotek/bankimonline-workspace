@@ -3,48 +3,40 @@ import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
 // Dynamic validation schema that gets validation errors from database at runtime
 export const getValidationSchema = () => Yup.object().shape({
-  mainSourceOfIncome: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')).test(
-    'not-empty',
-    getValidationErrorSync('error_select_answer', 'Please select an answer'),
-    (value) => value !== null && value !== undefined && value !== ''
-  ),
+  mainSourceOfIncome: Yup.string().nullable().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
   monthlyIncome: Yup.number().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !['unemployed', 'unpaid_leave'].includes(value), // Not unemployed or no income
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
   startDate: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !['unemployed', 'unpaid_leave'].includes(value), // Not unemployed or no income
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),
   fieldOfActivity: Yup.string().when('mainSourceOfIncome', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value),
+      value !== null && value !== undefined && value !== '' && !['unemployed', 'unpaid_leave'].includes(value),
     then: (shema) =>
       shema.required(getValidationErrorSync('error_select_field_of_activity', 'Please select field of activity')),
     otherwise: (shema) => shema.notRequired(),
   }),
   profession: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !['unemployed', 'unpaid_leave'].includes(value), // Not unemployed or no income
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
   companyName: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !['unemployed', 'unpaid_leave'].includes(value), // Not unemployed or no income
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
   additionalIncome: Yup.string().required(
     getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')
-  ).test(
-    'not-empty',
-    getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options'),
-    (value) => value !== null && value !== undefined && value !== ''
   ),
   additionalIncomeAmount: Yup.number().when('additionalIncome', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== 'option_1' && value !== '1' && value !== 'no_additional_income',
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
@@ -53,19 +45,19 @@ export const getValidationSchema = () => Yup.object().shape({
   ),
   bank: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== 'option_1' && value !== '1' && value !== 'no_obligations',
     then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
     otherwise: (shema) => shema.notRequired(),
   }),
   monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== 'option_1' && value !== '1' && value !== 'no_obligations',
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
   endDate: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== 'option_1' && value !== '1' && value !== 'no_obligations',
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),

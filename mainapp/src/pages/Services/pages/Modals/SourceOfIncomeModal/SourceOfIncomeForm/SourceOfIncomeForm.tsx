@@ -1,6 +1,7 @@
 import classNames from 'classnames/bind'
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
+import React from 'react'
 
 import { Button } from '@src/components/ui/ButtonUI'
 import { Column } from '@src/components/ui/Column'
@@ -17,12 +18,30 @@ const cx = classNames.bind(styles)
 const SourceOfIncomeForm = () => {
   const { t, i18n } = useTranslation()
 
-  const { handleSubmit, isValid, values } =
+  const { handleSubmit, isValid, values, errors, touched, validateForm } =
     useFormikContext<SourceOfIncomeModalTypes>()
 
   const { mainSourceOfIncome } = values
 
   const dispatch = useAppDispatch()
+
+  // Debug validation state
+  React.useEffect(() => {
+    console.log('🔍 Form Validation Debug:', {
+      isValid,
+      values,
+      errors,
+      touched,
+      mainSourceOfIncome: values.mainSourceOfIncome
+    })
+  }, [isValid, values, errors, touched])
+
+  // Force validation when mainSourceOfIncome changes
+  React.useEffect(() => {
+    if (mainSourceOfIncome) {
+      validateForm()
+    }
+  }, [mainSourceOfIncome, validateForm])
 
   return (
     <>
@@ -45,13 +64,13 @@ const SourceOfIncomeForm = () => {
           <div className={cx('buttons')}>
             <Button
               variant="modalBase"
-              type="submit"
+              type="button"
               onClick={() => dispatch(closeModal())}
             >
               {t('button_back')}
             </Button>
             <Button
-              type="submit"
+              type="button"
               isDisabled={!isValid}
               onClick={handleSubmit as () => void}
               size="full"

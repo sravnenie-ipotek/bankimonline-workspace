@@ -13,7 +13,7 @@ import { AdditionalIncomeModal } from '../Modals/AdditionalIncomeModal'
 import { ObligationModal } from '../Modals/ObligationModal'
 import { SourceOfIncomeModal } from '../Modals/SourceOfIncomeModal'
 import { SecondStepForm } from './SecondStepForm'
-import { validationSchema } from './constants'
+import { getValidationSchema } from './constants'
 
 const SecondStep = () => {
   const dispatch = useAppDispatch()
@@ -43,7 +43,7 @@ const SecondStep = () => {
   }
 
   const initialValues = {
-    mainSourceOfIncome: savedValue?.mainSourceOfIncome || '',
+    mainSourceOfIncome: savedValue?.mainSourceOfIncome || null,
     monthlyIncome: savedValue?.monthlyIncome || null,
     startDate: savedValue?.startDate || new Date().getTime(),
     fieldOfActivity: savedValue?.fieldOfActivity || '',
@@ -67,7 +67,7 @@ const SecondStep = () => {
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={getValidationSchema()}
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateOtherBorrowers({ id: pageId, newFields: values }))

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Form Validation Debug</h1>
+    
+    <div class="debug-section">
+        <h2>Test Form</h2>
+        <form id="testForm">
+            <div>
+                <label>Main Source of Income:</label>
+                <select id="mainSourceOfIncome">
+                    <option value="">Select...</option>
+                    <option value="employee">Employee</option>
+                    <option value="pension">Pension</option>
+                    <option value="unemployed">Unemployed</option>
+                    <option value="unpaid_leave">Unpaid Leave</option>
+                </select>
+            </div>
+            <div>
+                <label>Monthly Income:</label>
+                <input type="number" id="monthlyIncome" />
+            </div>
+            <div>
+                <label>Start Date:</label>
+                <input type="date" id="startDate" />
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="debug-section">
+        <h2>Form State</h2>
+        <div id="formState"></div>
+    </div>
+
+    <div class="debug-section">
+        <h2>Validation Results</h2>
+        <div id="validationResults"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('testForm');
+        const formStateDiv = document.getElementById('formState');
+        const validationResultsDiv = document.getElementById('validationResults');
+
+        // Mock validation schema
+        const validationSchema = {
+            mainSourceOfIncome: (value) => {
+                if (!value || value === '') return 'Required';
+                return null;
+            },
+            monthlyIncome: (value, mainSource) => {
+                if (mainSource && mainSource !== '' && !['unpaid_leave', 'unemployed'].includes(mainSource)) {
+                    if (!value || value === '') return 'Required for employed';
+                }
+                return null;
+            },
+            startDate: (value, mainSource) => {
+                if (mainSource && mainSource !== '' && !['unpaid_leave', 'unemployed'].includes(mainSource)) {
+                    if (!value || value === '') return 'Required for employed';
+                }
+                return null;
+            }
+        };
+
+        function updateDebug() {
+            const mainSource = document.getElementById('mainSourceOfIncome').value;
+            const monthlyIncome = document.getElementById('monthlyIncome').value;
+            const startDate = document.getElementById('startDate').value;
+
+            const formData = { mainSourceOfIncome: mainSource, monthlyIncome, startDate };
+            
+            // Update form state
+            formStateDiv.innerHTML = `
+                <p><strong>Form Values:</strong></p>
+                <pre>${JSON.stringify(formData, null, 2)}</pre>
+            `;
+
+            // Validate
+            const errors = {};
+            errors.mainSourceOfIncome = validationSchema.mainSourceOfIncome(mainSource);
+            errors.monthlyIncome = validationSchema.monthlyIncome(monthlyIncome, mainSource);
+            errors.startDate = validationSchema.startDate(startDate, mainSource);
+
+            const hasErrors = Object.values(errors).some(error => error !== null);
+            const isValid = !hasErrors && mainSource !== '';
+
+            // Update validation results
+            validationResultsDiv.innerHTML = `
+                <p><strong>Is Form Valid:</strong> <span class="${isValid ? 'success' : 'error'}">${isValid ? 'YES' : 'NO'}</span></p>
+                <p><strong>Errors:</strong></p>
+                <ul>
+                    ${Object.entries(errors).map(([field, error]) => 
+                        error ? `<li class="error">${field}: ${error}</li>` : ''
+                    ).join('')}
+                </ul>
+                <p><strong>Button State:</strong> <span class="${isValid ? 'success' : 'error'}">${isValid ? 'ENABLED' : 'DISABLED'}</span></p>
+            `;
+        }
+
+        // Add event listeners
+        document.getElementById('mainSourceOfIncome').addEventListener('change', updateDebug);
+        document.getElementById('monthlyIncome').addEventListener('input', updateDebug);
+        document.getElementById('startDate').addEventListener('input', updateDebug);
+
+        // Initial update
+        updateDebug();
+    </script>
+</body>
+</html> 
