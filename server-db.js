@@ -1050,6 +1050,13 @@ app.get('/api/content/:screen/:language', async (req, res) => {
     }
 });
 
+// POST /api/cache/clear - Clear content cache
+app.post('/api/cache/clear', (req, res) => {
+    contentCache.flushAll();
+    console.log('🗑️ Content cache cleared');
+    res.json({ status: 'success', message: 'Cache cleared' });
+});
+
 // GET /api/dropdowns/:screen/:language - Get structured dropdown data with caching
 app.get('/api/dropdowns/:screen/:language', async (req, res) => {
     try {
@@ -1105,13 +1112,28 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
             
             // Pattern 1: mortgage_step1.field.{fieldname} (handles both container and options)
             // First check if this is an option that needs to be grouped
-            let match = row.content_key.match(/^[^.]*\.field\.([^.]+?)_(?:within_3_months|3_to_6_months|6_to_12_months|over_12_months|apartment|garden_apartment|penthouse|private_house|other|yes_first_home|no_additional_property|investment|fixed_rate|variable_rate|mixed_rate|not_sure|im_|i_no_|i_own_|selling_|no_|has_|single|married|divorced|widowed|partner|commonlaw_partner|no_high_school_diploma|partial_high_school_diploma|full_high_school_diploma|postsecondary_education|bachelors|masters|doctorate|employee|selfemployed|pension|student|unemployed|unpaid_leave|additional_salary|additional_work|property_rental_income|no_additional_income|bank_loan|consumer_credit|credit_card|no_obligations)/);
+            // Special pattern for numbered options like additional_income_0_no_additional_income
+            let match = row.content_key.match(/^[^.]*\.field\.([^.]+?)_[0-9]_(?:no_additional_income|no_obligations)/);
             if (match) {
                 fieldName = match[1];
             } else {
-                match = row.content_key.match(/^[^.]*\.field\.([^.]+)/);
+                match = row.content_key.match(/^[^.]*\.field\.([^.]+?)_(?:within_3_months|3_to_6_months|6_to_12_months|over_12_months|apartment|garden_apartment|penthouse|private_house|other|yes_first_home|no_additional_property|investment|fixed_rate|variable_rate|mixed_rate|not_sure|im_|i_no_|i_own_|selling_|no_|has_|single|married|divorced|widowed|partner|commonlaw_partner|no_high_school_diploma|partial_high_school_diploma|full_high_school_diploma|postsecondary_education|bachelors|masters|doctorate|employee|selfemployed|pension|student|unemployed|unpaid_leave|additional_salary|additional_work|property_rental_income|no_additional_income|bank_loan|consumer_credit|credit_card|no_obligations)/);
                 if (match) {
                     fieldName = match[1];
+                }
+            }
+            if (!fieldName) {
+                // Fix: Handle underscores in field names like field_of_activity
+                // First try to match the full field name including underscores
+                match = row.content_key.match(/^[^.]*\.field\.([^.]+?)_(?:agriculture|technology|healthcare|education|finance|real_estate|construction|retail|manufacturing|government|transport|consulting|entertainment|other)/);
+                if (match) {
+                    fieldName = match[1];
+                } else {
+                    // Fallback to original pattern
+                    match = row.content_key.match(/^[^.]*\.field\.([^.]+)/);
+                    if (match) {
+                        fieldName = match[1];
+                    }
                 }
             }
             
@@ -1236,11 +1258,14 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                         /_(unemployed)$/,
                         /_(unpaid_leave)$/,
                         // Additional income options (step 3)
+                        /_(0_no_additional_income)$/,
+                        /_(1_no_additional_income)$/,
                         /_(additional_salary)$/,
                         /_(additional_work)$/,
                         /_(property_rental_income)$/,
                         /_(no_additional_income)$/,
                         // Obligations options (step 3)
+                        /_(0_no_obligations)$/,
                         /_(bank_loan)$/,
                         /_(consumer_credit)$/,
                         /_(credit_card)$/,
@@ -1257,6 +1282,15 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                     }
                     
                     if (optionValue) {
+                        // Special handling for numbered options like 0_no_additional_income or 1_no_additional_income
+                        if (optionValue === '0_no_additional_income' || optionValue === '1_no_additional_income') {
+                            optionValue = 'no_additional_income';
+                        }
+                        // Special handling for 0_no_obligations
+                        if (optionValue === '0_no_obligations') {
+                            optionValue = 'no_obligations';
+                        }
+                        
                         dropdown.options.push({
                             value: optionValue,
                             label: row.content_value
