@@ -222,7 +222,7 @@ const FirstStepForm = () => {
               disabled={dropdownsLoading}
             />
             {dropdownsError && (
-              <Error error="Failed to load options. Please refresh the page." />
+              <Error error={getContent('error_dropdown_load_failed', 'Failed to load options. Please refresh the page.')} />
             )}
           </Column>
         </Row>
@@ -260,7 +260,7 @@ const FirstStepForm = () => {
               disabled={dropdownsLoading}
             />
             {dropdownsError && (
-              <Error error="Failed to load type options. Please refresh the page." />
+              <Error error={getContent('error_dropdown_load_failed', 'Failed to load type options. Please refresh the page.')} />
             )}
           </Column>
           <Column>
@@ -276,7 +276,7 @@ const FirstStepForm = () => {
               disabled={dropdownsLoading}
             />
             {dropdownsError && (
-              <Error error="Failed to load first home options. Please refresh the page." />
+              <Error error={getContent('error_dropdown_load_failed', 'Failed to load first home options. Please refresh the page.')} />
             )}
           </Column>
         </Row>
@@ -295,7 +295,7 @@ const FirstStepForm = () => {
               disabled={dropdownsLoading}
             />
             {dropdownsError && (
-              <Error error="Failed to load property ownership options. Please refresh the page." />
+              <Error error={getContent('error_dropdown_load_failed', 'Failed to load property ownership options. Please refresh the page.')} />
             )}
           </Column>
           <Column />

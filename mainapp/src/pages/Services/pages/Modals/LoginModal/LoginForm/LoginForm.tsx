@@ -20,6 +20,7 @@ import {
   useSendSmsCodeMobileMutation,
   useSignInNameMutation,
 } from '@src/services/auth/auth'
+import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
 import styles from './loginForm.module.scss'
 import { NameSurnameLogin } from './ui/NameSurnameLogin'
@@ -61,12 +62,12 @@ const LoginForm = () => {
   // i18n.language === 'he' ? 'HE' : 'RU',
   // `${t('error_wrong_phone_number_login')}`
 
-  const phoneShema = Yup.string().required(t('error_fill_field'))
+  const phoneShema = Yup.string().required(getValidationErrorSync('error_fill_field', 'Please fill this field'))
 
   const validationSchema = Yup.object().shape({
     nameSurname: Yup.string()
-      .min(3, t('error_not_enough_symbols'))
-      .required(t('error_fill_field')),
+      .min(3, getValidationErrorSync('error_not_enough_symbols', 'Not enough symbols'))
+      .required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     phoneNumber: phoneShema,
   })
 

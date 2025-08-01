@@ -47,35 +47,42 @@ const SourceOfIncomeModal: React.FC = () => {
 
 
   const validationSchema = Yup.object().shape({
-    mainSourceOfIncome: Yup.string().required(t('error_select_answer')),
-    monthlyIncome: Yup.number().when('mainSourceOfIncome', {
+    mainSourceOfIncome: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
+    monthlyIncome: Yup.number().transform((value, originalValue) => {
+      // Handle string values from FormattedInput
+      if (typeof originalValue === 'string') {
+        const numericValue = originalValue.replace(/[^0-9]/g, '')
+        return numericValue ? parseInt(numericValue, 10) : null
+      }
+      return value
+    }).when('mainSourceOfIncome', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
-      then: (schema) => schema.required(t('error_fill_field')),
+      then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
       otherwise: (schema) => schema.notRequired(),
     }),
     startDate: Yup.string().when('mainSourceOfIncome', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
-      then: (schema) => schema.required(t('error_date')),
+      then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please select a date')),
       otherwise: (schema) => schema.notRequired(),
     }),
     fieldOfActivity: Yup.string().when('mainSourceOfIncome', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
-      then: (shema) => shema.required(t('error_select_field_of_activity')),
+      then: (shema) => shema.required(getValidationErrorSync('error_select_field_of_activity', 'Please select field of activity')),
       otherwise: (shema) => shema.notRequired(),
     }),
     profession: Yup.string().when('mainSourceOfIncome', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
-      then: (schema) => schema.required(t('error_fill_field')),
+      then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
       otherwise: (schema) => schema.notRequired(),
     }),
     companyName: Yup.string().when('mainSourceOfIncome', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
-      then: (schema) => schema.required(t('error_fill_field')),
+      then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
       otherwise: (schema) => schema.notRequired(),
     }),
   })
@@ -89,7 +96,9 @@ const SourceOfIncomeModal: React.FC = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        validateOnMount={true}
+        validateOnMount={false}
+        validateOnChange={true}
+        validateOnBlur={true}
         onSubmit={(values) => {
           dispatch(updateSourceOfIncomeModal({ id: modalId, ...values }))
           handleClose()

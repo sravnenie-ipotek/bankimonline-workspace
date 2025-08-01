@@ -9,6 +9,7 @@ import { closeModal } from '@src/pages/Services/slices/modalSlice.ts'
 import { updateObligationModal } from '@src/pages/Services/slices/otherBorrowersSlice'
 import { ObligationModalTypes } from '@src/pages/Services/types/formTypes'
 import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
+import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
 import { ObligationForm } from './ObligationForm'
 
@@ -51,20 +52,20 @@ const ObligationModal = () => {
   }
 
   const validationSchema = Yup.object().shape({
-    obligation: Yup.string().required(t('error_select_one_of_the_options')),
+    obligation: Yup.string().required(getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')),
     bank: Yup.string().when('obligation', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && value !== 'option_1',
-      then: (shema) => shema.required(t('error_select_bank')),
+      then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
       otherwise: (shema) => shema.notRequired(),
     }),
     monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
       is: (value: string) =>
         value !== null && value !== undefined && value !== '' && value !== 'option_1',
-      then: (shema) => shema.required(t('error_fill_field')),
+      then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
       otherwise: (shema) => shema.notRequired(),
     }),
-    endDate: Yup.string().required(t('error_date')),
+    endDate: Yup.string().required(getValidationErrorSync('error_date', 'Please select a date')),
   })
 
   return (

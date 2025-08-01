@@ -218,18 +218,21 @@ All screen locations support three languages in `content_translations` table:
 - `ru` (Russian)
 
 ### Migration Status in Database
-- ✅ `refinance_credit_1` - Content migrated to database
-- ✅ `refinance_credit_2` - Content migrated to database
-- ✅ `refinance_credit_3` - Content migrated to database
-- ✅ `refinance_credit_4` - Content migrated to database
-- ✅ `mortgage_step4` - Content migrated to database
-- ⚠️ `mortgage_step1` - Partially migrated
-- ⚠️ `mortgage_step2` - Partially migrated  
-- ⚠️ `mortgage_step3` - Partially migrated
-- ❌ `credit_step1` - Not migrated
-- ❌ `credit_step2` - Not migrated
-- ❌ `credit_step3` - Not migrated
-- ❌ `credit_step4` - Not migrated
+- ✅ `mortgage_step1` - Fully migrated (61 items)
+- ✅ `mortgage_step2` - Fully migrated (101 items)
+- ✅ `mortgage_step3` - Fully migrated (82 items)
+- ✅ `mortgage_step4` - Fully migrated (26 items)
+- ✅ `credit_step1` - Fully migrated (19 items)
+- ✅ `credit_step2` - Fully migrated (26 items)
+- ✅ `credit_step3` - Fully migrated (22 items)
+- ❌ `credit_step4` - Not migrated (0 items)
+- ✅ `refinance_mortgage_step1` - Fully migrated (19 items)
+- ✅ `refinance_mortgage_step2` - Fully migrated (26 items)
+- ✅ `refinance_mortgage_step3` - Fully migrated (22 items)
+- ✅ `refinance_credit_step1` - Fully migrated (19 items)
+- ✅ `refinance_credit_step2` - Fully migrated (26 items)
+- ✅ `refinance_credit_step3` - Fully migrated (22 items)
+- ❌ `refinance_credit_step4` - Not migrated (0 items)
 
 ## Database Verification Queries
 
@@ -287,41 +290,98 @@ ORDER BY screen_location;
 All dropdown fields consist of multiple related database entries grouped by `screen_location`:
 
 #### Component Types:
-1. **Field Label**: `component_type = 'field_label'`
-   - Content key pattern: `{process}_{field_name}`
-   - Example: `calculate_credit_education`
+1. **Container**: `component_type = 'dropdown_container'`
+   - Content key pattern: `{screen_location}.field.{field_name}`
+   - Example: `mortgage_step2.field.education`
 
-2. **Placeholder**: `component_type = 'placeholder'`
-   - Content key pattern: `{process}_{field_name}_ph`
-   - Example: `calculate_credit_education_ph`
+2. **Options**: `component_type = 'dropdown_option'`
+   - Content key pattern: `{screen_location}.field.{field_name}_{descriptive_value}`
+   - Uses descriptive naming for better maintainability
+   - Examples: `mortgage_step2.field.education_bachelors`, `mortgage_step2.field.education_masters`
 
-3. **Options**: `component_type = 'option'`
-   - Content key pattern: `{process}_{field_name}_option_{number}`
-   - Sequential numbering: `_option_1`, `_option_2`, `_option_3`, etc.
-   - Examples: `calculate_credit_education_option_1`, `calculate_credit_education_option_2`
+#### Descriptive Option Naming
+The database uses descriptive option names rather than numbered patterns for better code maintainability:
 
-#### Step Association
-All dropdown components for the same field share the same `screen_location`:
+**Education Field Examples:**
+- `mortgage_step2.field.education_no_high_school_diploma`
+- `mortgage_step2.field.education_partial_high_school_diploma` 
+- `mortgage_step2.field.education_full_high_school_diploma`
+- `mortgage_step2.field.education_bachelors`
+- `mortgage_step2.field.education_masters`
+- `mortgage_step2.field.education_doctorate`
 
-**Example - Education Dropdown in Credit Step 2:**
-```
-screen_location: 'calculate_credit_2'
-- calculate_credit_education (field_label)
-- calculate_credit_education_ph (placeholder)  
-- calculate_credit_education_option_1 (option)
-- calculate_credit_education_option_2 (option)
-- calculate_credit_education_option_3 (option)
-```
+**Additional Income Examples:**
+- `mortgage_step3.field.additional_income_additional_salary`
+- `mortgage_step3.field.additional_income_property_rental_income`
+- `mortgage_step3.field.additional_income_0_no_additional_income`
 
 #### Database Query Example
 ```sql
--- Get all education dropdown components for credit step 2
-SELECT content_key, component_type, category
-FROM content_items 
-WHERE screen_location = 'calculate_credit_2' 
-  AND content_key LIKE 'calculate_credit_education%'
-ORDER BY component_type, content_key;
+-- Get all education dropdown data for mortgage step 2
+SELECT ci.content_key, ci.component_type, ct.content_value
+FROM content_items ci
+JOIN content_translations ct ON ci.id = ct.content_item_id
+WHERE ci.screen_location = 'mortgage_step2' 
+  AND ci.content_key LIKE '%education%'
+  AND ct.language_code = 'en'
+ORDER BY ci.component_type, ci.content_key;
 ```
 
-#### Frontend Integration
-Components use `useContentApi('screen_location')` to fetch all content for a step, then filter by content_key patterns to group dropdown components together.
+---
+
+## Frontend Code Integration
+
+### Hooks
+Components use the `useDropdownData()` hook to fetch dropdown data from the database:
+
+```typescript
+// Hook usage in components
+const dropdownData = useDropdownData(screenLocation, fieldName, 'full')
+
+// Example: Main source of income dropdown
+const dropdownData = useDropdownData('mortgage_step3', 'main_source', 'full')
+```
+
+### API Endpoints
+The dropdown data is served through these API endpoints:
+
+```typescript
+// API endpoint pattern
+GET /api/dropdowns/{screen_location}/{language}
+
+// Example API calls
+GET /api/dropdowns/mortgage_step2/en
+GET /api/dropdowns/mortgage_step3/he
+```
+
+### Component Implementation Examples
+
+```typescript
+// MainSourceOfIncome component
+const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }) => {
+  const dropdownData = useDropdownData(screenLocation, 'main_source', 'full')
+  
+  return (
+    <DropdownMenu
+      data={dropdownData.options}
+      title={dropdownData.label}
+      placeholder={dropdownData.placeholder}
+      // ... other props
+    />
+  )
+}
+
+// Obligation component
+const Obligation = ({ screenLocation = 'mortgage_step3' }) => {
+  const dropdownData = useDropdownData(screenLocation, 'obligations', 'full')
+  
+  return (
+    <DropdownMenu
+      data={dropdownData.options}
+      title={dropdownData.label}
+      placeholder={dropdownData.placeholder}
+      // ... other props
+    />
+  )
+}
+```
