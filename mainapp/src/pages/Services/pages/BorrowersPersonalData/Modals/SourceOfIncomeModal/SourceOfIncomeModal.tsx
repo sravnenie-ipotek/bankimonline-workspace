@@ -45,18 +45,40 @@ const SourceOfIncomeModal: React.FC = () => {
     amountIncomeCurrentYear: savedValue?.amountIncomeCurrentYear || null,
   }
 
+
+
   const validationSchema = Yup.object().shape({
     mainSourceOfIncome: Yup.string().required(t('error_select_answer')),
-    monthlyIncome: Yup.number().required(t('error_fill_field')),
-    startDate: Yup.string().required(t('error_date')),
+    monthlyIncome: Yup.number().when('mainSourceOfIncome', {
+      is: (value: string) =>
+        value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
+      then: (schema) => schema.required(t('error_fill_field')),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    startDate: Yup.string().when('mainSourceOfIncome', {
+      is: (value: string) =>
+        value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
+      then: (schema) => schema.required(t('error_date')),
+      otherwise: (schema) => schema.notRequired(),
+    }),
     fieldOfActivity: Yup.string().when('mainSourceOfIncome', {
       is: (value: string) =>
-        value !== null && value !== undefined && value !== '',
+        value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
       then: (shema) => shema.required(t('error_select_field_of_activity')),
       otherwise: (shema) => shema.notRequired(),
     }),
-    profession: Yup.string().required(t('error_fill_field')),
-    companyName: Yup.string().required(t('error_fill_field')),
+    profession: Yup.string().when('mainSourceOfIncome', {
+      is: (value: string) =>
+        value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
+      then: (schema) => schema.required(t('error_fill_field')),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    companyName: Yup.string().when('mainSourceOfIncome', {
+      is: (value: string) =>
+        value !== null && value !== undefined && value !== '' && !['unpaid_leave', 'unemployed'].includes(value),
+      then: (schema) => schema.required(t('error_fill_field')),
+      otherwise: (schema) => schema.notRequired(),
+    }),
   })
 
   return (
@@ -68,7 +90,7 @@ const SourceOfIncomeModal: React.FC = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        validateOnMount={false}
+        validateOnMount={true}
         onSubmit={(values) => {
           dispatch(
             updateSourceOfIncomeModal({

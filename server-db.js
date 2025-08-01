@@ -97,6 +97,7 @@ const getCorsOrigins = () => {
         'http://localhost:3000',
         'http://localhost:5173', // Vite dev server
         'http://localhost:5174', // Vite dev server (alternative port)
+        'http://localhost:5175', // Vite dev server (another alternative port)
         'http://localhost:8003',
         // Railway domains
         'https://bankdev2standalone-production.up.railway.app',
@@ -1078,7 +1079,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 AND content_translations.language_code = $2
                 AND content_translations.status = 'approved'
                 AND content_items.is_active = true
-                AND content_items.component_type IN ('dropdown', 'option', 'placeholder', 'label')
+                AND content_items.component_type IN ('dropdown_container', 'dropdown_option', 'placeholder', 'label')
             ORDER BY content_items.content_key, content_items.component_type
         `, [screen, language]);
         
@@ -1102,25 +1103,45 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
             // Examples: mortgage_step1.field.property_ownership, app.mortgage.form.calculate_mortgage_city
             let fieldName = null;
             
-            // Pattern 1: mortgage_step1.field.{fieldname}
-            let match = row.content_key.match(/^[^.]*\.field\.([^.]+)/);
+            // Pattern 1: mortgage_step1.field.{fieldname} (handles both container and options)
+            // First check if this is an option that needs to be grouped
+            let match = row.content_key.match(/^[^.]*\.field\.([^.]+?)_(?:within_3_months|3_to_6_months|6_to_12_months|over_12_months|apartment|garden_apartment|penthouse|private_house|other|yes_first_home|no_additional_property|investment|fixed_rate|variable_rate|mixed_rate|not_sure|im_|i_no_|i_own_|selling_|no_|has_|single|married|divorced|widowed|partner|commonlaw_partner|no_high_school_diploma|partial_high_school_diploma|full_high_school_diploma|postsecondary_education|bachelors|masters|doctorate|employee|selfemployed|pension|student|unemployed|unpaid_leave|additional_salary|additional_work|property_rental_income|no_additional_income|bank_loan|consumer_credit|credit_card|no_obligations)/);
             if (match) {
                 fieldName = match[1];
-            }
-            
-            // Pattern 2: app.mortgage.form.calculate_mortgage_{fieldname}
-            if (!fieldName) {
-                match = row.content_key.match(/calculate_mortgage_([^_]+)(?:_option_|_ph|$)/);
+            } else {
+                match = row.content_key.match(/^[^.]*\.field\.([^.]+)/);
                 if (match) {
                     fieldName = match[1];
                 }
             }
             
-            // Pattern 3: mortgage_calculation.field.{fieldname}
+            // Pattern 2: app.mortgage.form.calculate_mortgage_{fieldname} (handles both container and options)
             if (!fieldName) {
-                match = row.content_key.match(/mortgage_calculation\.field\.([^.]+)/);
+                // For options like: calculate_mortgage_property_ownership_selling_property
+                match = row.content_key.match(/calculate_mortgage_([^_]+(?:_[^_]+)*)_(?:im_|i_no_|i_own_|selling_|no_|has_)/);
                 if (match) {
                     fieldName = match[1];
+                } else {
+                    // For containers like: calculate_mortgage_property_ownership
+                    match = row.content_key.match(/calculate_mortgage_([^_]+(?:_[^_]+)*)(?:_ph|$)/);
+                    if (match) {
+                        fieldName = match[1];
+                    }
+                }
+            }
+            
+            // Pattern 3: mortgage_calculation.field.{fieldname} (handles both container and options)
+            if (!fieldName) {
+                // For options like: mortgage_calculation.field.property_ownership_selling_property
+                match = row.content_key.match(/mortgage_calculation\.field\.([^.]+?)_(?:im_|i_no_|i_own_|selling_|no_|has_)/);
+                if (match) {
+                    fieldName = match[1];
+                } else {
+                    // For containers like: mortgage_calculation.field.property_ownership
+                    match = row.content_key.match(/mortgage_calculation\.field\.([^.]+)/);
+                    if (match) {
+                        fieldName = match[1];
+                    }
                 }
             }
             
@@ -1153,19 +1174,78 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
             const dropdown = dropdownMap.get(fieldName);
             
             switch (row.component_type) {
-                case 'dropdown':
+                case 'dropdown_container':
                     dropdown.label = row.content_value;
                     response.labels[dropdown.key] = row.content_value;
                     break;
                     
-                case 'option':
+                case 'dropdown_option':
                     // Extract option value from content_key
                     let optionValue = null;
                     
                     // Try various patterns for option values
                     const optionPatterns = [
-                        /_option_(.+)$/,  // Standard pattern: field_option_value
-                        /_([^_]+)$/       // Last part after underscore
+                        /_option_(.+)$/,                         // Standard pattern: field_option_value
+                        // Property ownership options
+                        /_(selling_property)$/,                 
+                        /_(no_property)$/,                      
+                        /_(has_property)$/,                     
+                        /_(im_selling_a_property)$/,            
+                        /_(i_no_own_any_property)$/,            
+                        /_(i_own_a_property)$/,                 
+                        // First home options
+                        /_(yes_first_home)$/,                   
+                        /_(no_additional_property)$/,           
+                        /_(investment)$/,
+                        // Timing options
+                        /_(within_3_months)$/,
+                        /_(3_to_6_months)$/,
+                        /_(6_to_12_months)$/,
+                        /_(over_12_months)$/,
+                        // Property type options
+                        /_(apartment)$/,
+                        /_(garden_apartment)$/,
+                        /_(penthouse)$/,
+                        /_(private_house)$/,
+                        /_(other)$/,
+                        // Mortgage type options
+                        /_(fixed_rate)$/,
+                        /_(variable_rate)$/,
+                        /_(mixed_rate)$/,
+                        /_(not_sure)$/,
+                        // Family status options (step 2)
+                        /_(single)$/,
+                        /_(married)$/,
+                        /_(divorced)$/,
+                        /_(widowed)$/,
+                        /_(partner)$/,
+                        /_(commonlaw_partner)$/,
+                        // Education options (step 2)
+                        /_(no_high_school_diploma)$/,
+                        /_(partial_high_school_diploma)$/,
+                        /_(full_high_school_diploma)$/,
+                        /_(postsecondary_education)$/,
+                        /_(bachelors)$/,
+                        /_(masters)$/,
+                        /_(doctorate)$/,
+                        // Main source options (step 3)
+                        /_(employee)$/,
+                        /_(selfemployed)$/,
+                        /_(pension)$/,
+                        /_(student)$/,
+                        /_(unemployed)$/,
+                        /_(unpaid_leave)$/,
+                        // Additional income options (step 3)
+                        /_(additional_salary)$/,
+                        /_(additional_work)$/,
+                        /_(property_rental_income)$/,
+                        /_(no_additional_income)$/,
+                        // Obligations options (step 3)
+                        /_(bank_loan)$/,
+                        /_(consumer_credit)$/,
+                        /_(credit_card)$/,
+                        /_(no_obligations)$/,
+                        /_([^_]+)$/                             // Last part after underscore (fallback)
                     ];
                     
                     for (const pattern of optionPatterns) {

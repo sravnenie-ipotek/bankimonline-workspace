@@ -59,6 +59,22 @@ const MultiSelect: React.FC<TypeProps> = ({
     }
   }, [])
 
+  const handleBlur = useCallback((event: React.FocusEvent) => {
+    // Prevent blur if clicking inside the dropdown
+    if (wrapperRef.current && wrapperRef.current.contains(event.relatedTarget as Node)) {
+      return
+    }
+    
+    // If dropdown is open and checkItem differs from value, apply changes
+    if (isOpen && JSON.stringify(checkItem.sort()) !== JSON.stringify((value || []).sort())) {
+      onChange?.(checkItem)
+    }
+    setIsOpen(false)
+    onBlur?.()
+  }, [isOpen, checkItem, value, onChange, onBlur])
+
+
+
   const handleSelectItem = (item: string) => {
     setCheckItem((prevCheckItems) => {
       if (prevCheckItems.includes(item)) {
@@ -96,7 +112,7 @@ const MultiSelect: React.FC<TypeProps> = ({
     <>
       <div
         ref={wrapperRef}
-        onBlur={onBlur as () => void}
+        onBlur={handleBlur}
         className={cx(
           'multiselect',
           `${isOpen && 'focus'}`,
@@ -137,7 +153,10 @@ const MultiSelect: React.FC<TypeProps> = ({
           )}
         </div>
         {isOpen && (
-          <div className={cx('multiselect-select')}>
+          <div 
+            className={cx('multiselect-select')}
+            onClick={(e) => e.stopPropagation()}
+          >
             <div
               className={cx(
                 'multiselect-scroll',
@@ -168,17 +187,26 @@ const MultiSelect: React.FC<TypeProps> = ({
                     key={index}
                     tabIndex={0}
                     className={cx('multiselect-select__item')}
-                    onClick={() => handleSelectItem(item)}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      handleSelectItem(item)
+                    }}
                   >
                     <div className={cx('multiselect-select__item-title')}>
                       <input
                         type="checkbox"
-                        id={item}
+                        id={`${item}-${index}`}
                         className={cx('checkbox')}
                         checked={checkItem.includes(item)}
                         onChange={() => handleSelectItem(item)}
+                        onClick={(e) => e.stopPropagation()}
                       />
-                      <label htmlFor={item}>{item}</label>
+                      <label 
+                        htmlFor={`${item}-${index}`} 
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        {item}
+                      </label>
                     </div>
                   </div>
                 ))
@@ -192,7 +220,8 @@ const MultiSelect: React.FC<TypeProps> = ({
               <button
                 type="button"
                 className={cx('multiselect-select__button-item')}
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation()
                   onChange?.(checkItem)
                   setIsOpen(false)
                 }}

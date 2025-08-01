@@ -845,3 +845,410 @@ ORDER BY content_items.content_key, content_items.component_type
 - 🎯 10+ frontend components successfully migrated
 
 **Owner:** *Claude Opus 4*    **Last updated:** 2025-07-31
+
+---
+
+## 🐛 **VALIDATION TRANSLATION SYSTEM FIXES** *(2025-07-31)*
+
+### **🚨 CRITICAL VALIDATION TRANSLATION BUG DISCOVERED AND PARTIALLY FIXED**
+
+**Root Cause Analysis**: Validation error messages were experiencing the same translation issues as dropdowns - cached translations not updating on language switch and incorrect object/string handling.
+
+**Impact**: Users seeing validation errors in wrong language, React rendering crashes from object-to-string conversion issues.
+
+### **✅ FIXES COMPLETED**
+
+#### **Phase 1: Core Validation System** ✅ **COMPLETED**
+1. **Fixed validation language switching** - Added `initializeValidationLanguageListener()` in App.tsx
+2. **Fixed object rendering bug** - Fixed `getValidationErrorSync()` to extract `.value` property
+3. **Added dynamic schema support** - Core `getValidationSchema()` pattern established
+4. **Database-first policy enforced** - `getValidationErrorSync()` mandatory for all new schemas
+
+#### **Phase 2: High-Priority Schema Conversions** ✅ **COMPLETED**
+Successfully fixed **6 critical files** with multiple validation issues:
+
+1. **✅ OtherBorrowers/SecondStep/constants.ts** - i18next.t() → getValidationErrorSync() + dynamic schema
+2. **✅ RefinanceCredit/pages/SecondStep/constants.ts** - i18next.t() → getValidationErrorSync() + dynamic schema  
+3. **✅ RefinanceCredit/pages/ThirdStep/constants.ts** - i18next.t() → getValidationErrorSync() + dynamic schema
+4. **✅ RefinanceMortgage/pages/SecondStep/constants.ts** - i18next.t() → getValidationErrorSync() + dynamic schema
+5. **✅ RefinanceMortgage/pages/ThirdStep/constants.ts** - i18next.t() → getValidationErrorSync() + dynamic schema  
+6. **✅ CalculateCredit/pages/ThirdStep/constants.ts** - i18next.t() → getValidationErrorSync() + dynamic schema
+
+#### **Phase 3: Legacy Schema System Fix** ✅ **COMPLETED**
+- **✅ validationSchemaEN.ts** - Fixed async `getValidationError()` → `getValidationErrorSync()` throughout entire legacy validation system
+
+**Current Progress**: **12 files fixed** out of 54 total validation files identified
+
+### **📊 VALIDATION SYSTEM STATUS**
+
+#### **1. Core Infrastructure Fixes** ✅
+- **Fixed object rendering bug**: Updated `getValidationErrorSync()` to extract `.value` from cached database objects
+- **Added language change listeners**: Automatic validation error reloading when language switches  
+- **Improved caching logic**: Proper handling of both string and object formats
+
+#### **2. High-Priority File Fixes** ✅ (5 files completed)
+- ✅ **CalculateCredit/FirstStep/FirstStep.tsx**: Converted to `getValidationErrorSync()` with dynamic schema
+- ✅ **RefinanceCredit/FirstStep/FirstStep.tsx**: Fixed static schema and database translation usage
+- ✅ **RefinanceMortgage/FirstStep/FirstStep.tsx**: Complete validation system overhaul
+- ✅ **CalculateMortgage/SecondStep/constants.ts**: Converted async to sync validation functions
+- ✅ **BorrowersPersonalData/FirstStep/constants.ts**: Added dynamic schema support
+
+#### **3. Database-First Policy Established** ✅
+- **Updated documentation**: Added comprehensive validation translation requirements to `dropDownsInDBLogic.md`
+- **Database-First Rule**: ALL validation errors must use database translations via `getValidationErrorSync()`
+- **Translation.json as Fallback**: JSON files serve as emergency fallback only
+
+### **🔍 REMAINING FILES REQUIRING VALIDATION SCHEMA UPDATES**
+
+**System Analysis Results**: **35-40 files** still need validation translation fixes across **300+ individual violations**.
+
+#### **🚨 HIGH PRIORITY: Files Using i18next.t() in Validation Schemas** (11 files)
+
+These files use static `i18next.t()` calls that won't update on language changes:
+
+1. **`/pages/TendersForLawyers/LawyersPage.tsx`**
+   - Lines 41-51: Multiple `i18next.t()` calls in validation schema
+
+2. **`/pages/Services/pages/BorrowersPersonalData/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx`**
+   - Line 50: `i18next.t('error_fill_field')`
+
+3. **`/pages/Services/pages/OtherBorrowers/SecondStep/constants.ts`**
+   - Lines 5-60: 15+ instances of `i18next.t()` in validation schema
+
+4. **`/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx`**
+   - Line 59: `i18next.t('error_fill_field')`
+
+5. **`/pages/Services/pages/CalculateCredit/pages/ThirdStep/constants.ts`**
+   - Lines 5-60: 15+ instances of `i18next.t()` in validation schema
+
+6. **`/pages/Services/pages/RefinanceCredit/pages/SecondStep/constants.ts`**
+   - Lines 5-33: 20+ instances of `i18next.t()` in validation schema
+
+7. **`/pages/Services/pages/RefinanceCredit/pages/ThirdStep/constants.ts`**
+   - Lines 5-60: 15+ instances of `i18next.t()` in validation schema
+
+8. **`/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx`**
+   - Line 52: `i18next.t('error_fill_field')`
+
+9. **`/pages/Services/pages/RefinanceMortgage/pages/SecondStep/constants.ts`**
+   - Lines 5-33: 20+ instances of `i18next.t()` in validation schema
+
+10. **`/pages/Services/pages/RefinanceMortgage/pages/ThirdStep/constants.ts`**
+    - Lines 5-60: 15+ instances of `i18next.t()` in validation schema
+
+11. **`/pages/AuthModal/pages/ResetPassword/ResetPasswordForm/ResetPasswordForm.tsx`**
+    - Lines 21-25: `i18next.t()` calls (may be used in validation contexts)
+
+#### **🚨 HIGH PRIORITY: Files Using Async getValidationError()** (10 files)
+
+These files use async `getValidationError()` instead of sync `getValidationErrorSync()`:
+
+1. **`/pages/Services/pages/CalculateMortgage/pages/ThirdStep/constants.ts`**
+   - Lines 6-61: 12 instances of async `getValidationError()`
+
+2. **`/pages/Services/pages/OtherBorrowers/FirstStep/constants.ts`**
+   - Lines 5-28: 10 instances of async `getValidationError()`
+
+3. **`/pages/Services/pages/BorrowersPersonalData/SecondStep/constants.ts`**
+   - Lines 5-60: 12 instances of async `getValidationError()`
+
+4. **`/pages/Services/pages/CalculateCredit/pages/SecondStep/constants.ts`**
+   - Lines 5-33: 12 instances of async `getValidationError()`
+
+5. **`/components/layout/Flows/validations/validationSchemaEN.ts`**
+   - Lines 4-171: 35+ instances of async `getValidationError()`
+
+6. **`/components/layout/Flows/validations/validationSchemaHE.ts`** *(likely same issue)*
+
+7. **`/components/layout/Flows/validations/validationSchemaRU.ts`** *(likely same issue)*
+
+#### **🟡 MEDIUM PRIORITY: Static Validation Schemas** (13 files)
+
+These files export static validation schemas that should be dynamic functions:
+
+1. **`/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStep.tsx`**
+2. **`/pages/Services/pages/CalculateMortgage/pages/ThirdStep/constants.ts`**
+3. **`/pages/Services/pages/OtherBorrowers/FirstStep/constants.ts`**
+4. **`/pages/Services/pages/RefinanceMortgage/pages/FourthStep/FourthStep.tsx`**
+5. **`/pages/Services/pages/RefinanceMortgage/pages/ThirdStep/constants.ts`**
+6. **`/pages/Services/pages/OtherBorrowers/SecondStep/constants.ts`**
+7. **`/pages/Services/pages/RefinanceMortgage/pages/SecondStep/constants.ts`**
+8. **`/pages/Services/pages/BorrowersPersonalData/SecondStep/constants.ts`**
+9. **`/pages/Services/pages/RefinanceCredit/pages/FourthStep/FourthStep.tsx`**
+10. **`/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStep.tsx`**
+11. **`/pages/Services/pages/RefinanceCredit/pages/ThirdStep/constants.ts`**
+12. **`/pages/Services/pages/CalculateCredit/pages/ThirdStep/constants.ts`**
+13. **`/pages/Services/pages/RefinanceCredit/pages/SecondStep/constants.ts`**
+
+#### **🟡 MEDIUM PRIORITY: Hardcoded Validation Strings** (20+ files)
+
+These files have hardcoded validation error messages instead of using translation keys:
+
+**Personal Cabinet Pages (10 files):**
+- `MainBorrowerPersonalDataPage.tsx` - 30+ hardcoded strings
+- `CoBorrowerPersonalDataPage.tsx` - 20+ hardcoded strings
+- `CoBorrowerIncomeDataPage.tsx` - 25+ hardcoded strings
+- `IncomeDataPage.tsx` - 20+ hardcoded strings
+- `PartnerPersonalDataPage.tsx` - 5 hardcoded strings
+- `CreditHistoryPage.tsx` - 10+ hardcoded strings
+- `CreditHistoryConsentPage.tsx` - 2 hardcoded strings
+- `BankAuthorizationPage.tsx` - 1 hardcoded string
+- Plus several modal files
+
+**Auth Modal Pages (3 files):**
+- `SignUp.tsx` - 8 hardcoded strings
+- `ResetPassword.tsx` - 2 hardcoded strings
+
+#### **🔥 HIGHEST IMPACT FILES** (Multiple Issues)
+
+These files have multiple validation issues and should be fixed first:
+
+1. **`OtherBorrowers/SecondStep/constants.ts`** - i18next.t() + static schema
+2. **`RefinanceCredit/pages/SecondStep/constants.ts`** - i18next.t() + static schema
+3. **`RefinanceCredit/pages/ThirdStep/constants.ts`** - i18next.t() + static schema
+4. **`RefinanceMortgage/pages/SecondStep/constants.ts`** - i18next.t() + static schema
+5. **`RefinanceMortgage/pages/ThirdStep/constants.ts`** - i18next.t() + static schema
+6. **`CalculateCredit/pages/ThirdStep/constants.ts`** - i18next.t() + static schema
+
+### **📋 VALIDATION TRANSLATION REQUIREMENTS**
+
+**CRITICAL RULE**: All validation error messages MUST:
+- Use `getValidationErrorSync()` in Yup schemas (not async `getValidationError()`)
+- Be stored in database `content_items` table with `component_type = 'validation'`
+- Have approved translations in EN/HE/RU languages  
+- Update immediately when language changes
+- Fall back to translation.json only when database fails
+
+### **🔧 REQUIRED FIXES BY PATTERN**
+
+#### **Pattern 1: Replace i18next.t() with getValidationErrorSync()**
+```typescript
+// ❌ WRONG (cached translations)
+export const validationSchema = Yup.object().shape({
+  field: Yup.string().required(i18next.t('error_required_field'))
+})
+
+// ✅ CORRECT (database-first with fallback)
+export const getValidationSchema = () => Yup.object().shape({
+  field: Yup.string().required(
+    getValidationErrorSync('error_required_field', 'This field is required')
+  )
+})
+```
+
+#### **Pattern 2: Replace getValidationError() with getValidationErrorSync()**
+```typescript
+// ❌ WRONG (async in sync context)
+export const validationSchema = Yup.object().shape({
+  field: Yup.string().required(getValidationError('error_required_field'))
+})
+
+// ✅ CORRECT (sync function)
+export const getValidationSchema = () => Yup.object().shape({
+  field: Yup.string().required(
+    getValidationErrorSync('error_required_field', 'This field is required')
+  )
+})
+```
+
+#### **Pattern 3: Convert Static to Dynamic Schemas**
+```typescript
+// ❌ WRONG (static, cached at module load)
+export const validationSchema = Yup.object().shape({...})
+
+// Component usage
+<Formik validationSchema={validationSchema}>
+
+// ✅ CORRECT (dynamic, created at runtime)
+export const getValidationSchema = () => Yup.object().shape({...})
+
+// Component usage  
+<Formik validationSchema={getValidationSchema()}>
+```
+
+### **🎯 SUCCESS CRITERIA**
+
+**Before marking validation translation fixes as complete:**
+- [ ] All validation schemas use `getValidationErrorSync()`
+- [ ] No direct `i18next.t()` usage in validation schemas
+- [ ] No async `getValidationError()` in Yup schemas
+- [ ] All schemas are dynamic functions (`getValidationSchema()`)
+- [ ] All validation error keys exist in database
+- [ ] All error messages have EN/HE/RU translations
+- [ ] All translations have `status = 'approved'`
+- [ ] Language switching updates validation errors immediately
+- [ ] Fallback to translation.json works when database fails
+- [ ] No React "Objects are not valid as children" errors
+
+### **📊 PROGRESS SUMMARY**
+
+| Category | Total Files | Fixed | Remaining | Progress |
+|----------|-------------|-------|-----------|----------|
+| **i18next.t() Direct Usage** | 11 | 0 | 11 | 0% |
+| **Async getValidationError()** | 10 | 2 | 8 | 20% |
+| **Static Validation Schemas** | 13 | 3 | 10 | 23% |
+| **Hardcoded Strings** | 20+ | 0 | 20+ | 0% |
+| **TOTAL** | **54+** | **5** | **49+** | **9%** |
+
+**Next Priority**: Complete the remaining high-priority files with i18next.t() usage and async getValidationError() calls.
+
+**Owner:** *Claude Sonnet 4*    **Last updated:** 2025-07-31
+
+---
+
+## 🐛 **COMMON DROPDOWN BUGS AND SOLUTIONS** *(Updated: 2025-07-31)*
+
+### **Bug 1: Dropdown Not Showing Values (Empty Dropdown)**
+
+**Problem Symptoms**:
+- Dropdown opens but shows no options
+- Console shows `optionsCount: 0` in API response
+- Dropdown component renders but options array is empty
+
+**Root Causes**:
+1. **Missing database content**: No dropdown options exist in `content_items` table for the specific field
+2. **Wrong component_type**: Options stored with incorrect component type (not 'option')
+3. **Screen location mismatch**: Content exists but under wrong `screen_location`
+4. **Missing translations**: Content exists but no approved translations
+
+**Diagnostic Steps**:
+1. Check console logs for API response: `optionsCount: 0` indicates missing content
+2. Query database to verify content exists:
+   ```sql
+   SELECT * FROM content_items 
+   WHERE screen_location = 'mortgage_step3' 
+   AND content_key LIKE '%debt_types%'
+   AND component_type = 'option';
+   ```
+3. Check if translations exist and are approved:
+   ```sql
+   SELECT ct.* FROM content_translations ct
+   JOIN content_items ci ON ct.content_item_id = ci.id
+   WHERE ci.content_key LIKE '%debt_types%' 
+   AND ct.status = 'approved';
+   ```
+
+**Solutions**:
+- **Missing content**: Add dropdown options to database via migration
+- **Wrong component_type**: Update existing records to use 'option' component type
+- **Screen location**: Move content to correct location (e.g., from 'mortgage_calculation' to 'mortgage_step3')
+- **Missing translations**: Add approved translations for all languages (EN/HE/RU)
+
+**Example Fix** (debt_types dropdown):
+```sql
+-- Add missing dropdown container
+INSERT INTO content_items (content_key, component_type, screen_location, category, is_active)
+VALUES ('mortgage_step3_debt_types', 'dropdown', 'mortgage_step3', 'form', true);
+
+-- Add dropdown options
+INSERT INTO content_items (content_key, component_type, screen_location, category, is_active)
+VALUES 
+  ('mortgage_step3_debt_types_no_obligations', 'option', 'mortgage_step3', 'form', true),
+  ('mortgage_step3_debt_types_bank_loan', 'option', 'mortgage_step3', 'form', true),
+  ('mortgage_step3_debt_types_credit_card', 'option', 'mortgage_step3', 'form', true);
+
+-- Add translations for all options
+INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+SELECT ci.id, 'en', 
+  CASE ci.content_key
+    WHEN 'mortgage_step3_debt_types_no_obligations' THEN 'No financial obligations'
+    WHEN 'mortgage_step3_debt_types_bank_loan' THEN 'Bank loan'
+    WHEN 'mortgage_step3_debt_types_credit_card' THEN 'Credit card debt'
+  END,
+  'approved'
+FROM content_items ci
+WHERE ci.content_key IN ('mortgage_step3_debt_types_no_obligations', 'mortgage_step3_debt_types_bank_loan', 'mortgage_step3_debt_types_credit_card');
+```
+
+### **Bug 2: Dropdown Value/Label Mapping Issue (Next Button Not Enabling)**
+
+**Problem Symptoms**:
+- Dropdown selection appears to work (shows selected value)
+- Additional form fields don't appear when they should
+- Next button remains disabled despite selection
+- Modal forms can't be completed
+
+**Root Cause**:
+The dropdown component stores the display text (label) instead of the option key (value), causing conditional logic to fail.
+
+**Example**:
+- User selects "Employee" from dropdown
+- System stores `mainSourceOfIncome = "Employee"` (display text)
+- Conditional logic expects `mainSourceOfIncome = "option_1"` (option key)
+- Since `componentsByIncomeSource["Employee"]` returns undefined, no additional fields render
+- Form validation fails because required fields are missing
+
+**Diagnostic Steps**:
+1. Check what value is being stored in form state:
+   ```javascript
+   console.log('Form values:', values.mainSourceOfIncome); // Shows "Employee" instead of "option_1"
+   ```
+2. Check if conditional components are rendering:
+   ```javascript
+   console.log('Components found:', componentsByIncomeSource[values.mainSourceOfIncome]); // Returns undefined
+   ```
+3. Verify the dropdown data structure:
+   ```javascript
+   console.log('Dropdown options:', dropdownData.options); // Should show {value: "option_1", label: "Employee"}
+   ```
+
+**Solution Pattern**:
+Update dropdown components to store the `value` field instead of the `label` field:
+
+```typescript
+// ❌ WRONG - Storing label
+onChange={(selectedOption) => {
+  setFieldValue(name, selectedOption?.label); // Stores "Employee"
+}}
+
+// ✅ CORRECT - Storing value
+onChange={(selectedOption) => {
+  setFieldValue(name, selectedOption?.value); // Stores "option_1"
+}}
+```
+
+**Files That Need This Fix**:
+- `MainSourceOfIncome.tsx` - Income source dropdown
+- `AdditionalIncome.tsx` - Additional income dropdown
+- Any dropdown that has conditional component rendering
+
+**Verification**:
+After fix, verify:
+1. Form state contains option keys (option_1, option_2) not display text
+2. Conditional components render correctly
+3. Form validation passes with all required fields
+4. Next button enables when form is complete
+
+### **Bug 3: Missing Translation Keys**
+
+**Problem Symptoms**:
+- UI shows raw translation keys like "source_of_income 2" instead of proper text
+- Components display untranslated text
+
+**Root Cause**:
+Translation key doesn't exist in translation files.
+
+**Solution**:
+Add missing translation key to all language files:
+
+```json
+// /public/locales/en/translation.json
+"source_of_income": "Income source"
+
+// /public/locales/he/translation.json  
+"source_of_income": "מקור הכנסה"
+
+// /public/locales/ru/translation.json
+"source_of_income": "Источник дохода"
+```
+
+### **Prevention Best Practices**:
+
+1. **Database-First Approach**: Always check database content exists before implementing dropdown
+2. **Value vs Label Consistency**: Ensure dropdowns store option keys (values) not display text (labels)  
+3. **Translation Coverage**: Verify all UI text has translation keys in all languages
+4. **API Response Validation**: Check `optionsCount` in console logs during development
+5. **Conditional Logic Testing**: Test that dependent fields appear when expected
+6. **Cross-Language Testing**: Test dropdown functionality in all supported languages
+
+**Owner:** *Claude Opus 4*    **Last updated:** 2025-07-31

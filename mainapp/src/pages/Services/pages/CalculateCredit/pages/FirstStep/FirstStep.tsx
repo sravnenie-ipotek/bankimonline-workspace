@@ -1,9 +1,9 @@
 import { Form, Formik } from 'formik'
-import i18next from 'i18next'
 import { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import * as Yup from 'yup'
+import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
 import { Container } from '@components/ui/Container'
 import { VideoPoster } from '@src/components/ui/VideoPoster'
@@ -17,43 +17,44 @@ import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/Fir
 import { SingleButton } from '../../../../components/SingleButton'
 import { FirstStepForm } from './FirstStepForm/FirstStepForm'
 
-export const validationSchema = Yup.object().shape({
-  purposeOfLoan: Yup.string().required(i18next.t('error_select_answer')),
+// Dynamic validation schema that gets validation errors from database at runtime
+export const getValidationSchema = () => Yup.object().shape({
+  purposeOfLoan: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
   loanAmount: Yup.number()
     .when('purposeOfLoan', {
-      is: i18next.t('calculate_credit_target_option_6'),
+      is: 'option_6', // Use option value instead of translation
       then: (shema) =>
         shema.max(
           1000000,
-          i18next.t('error_loan_of_amount_credit_max_1000000')
+          getValidationErrorSync('error_loan_of_amount_credit_max_1000000', 'Maximum loan amount is 1,000,000 NIS')
         ),
       otherwise: (shema) =>
-        shema.max(200000, i18next.t('error_loan_of_amount_credit_max_200000')),
+        shema.max(200000, getValidationErrorSync('error_loan_of_amount_credit_max_200000', 'Maximum loan amount is 200,000 NIS')),
     })
-    .required(i18next.t('error_required_to_fill_out')),
-  whenDoYouNeedMoney: Yup.string().required(i18next.t('error_select_answer')),
-  loanDeferral: Yup.string().required(i18next.t('error_select_answer')),
+    .required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
+  whenDoYouNeedMoney: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
+  loanDeferral: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
   priceOfEstate: Yup.number().when('purposeOfLoan', {
     is: 'option_2',
-    then: (schema) => schema.required(i18next.t('error_required_to_fill_out')),
+    then: (schema) => schema.required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
     otherwise: (schema) => schema.notRequired(),
   }),
   cityWhereYouBuy: Yup.string().when('purposeOfLoan', {
     is: 'option_2',
-    then: (schema) => schema.required(i18next.t('error_select_answer')),
+    then: (schema) => schema.required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
     otherwise: (schema) => schema.notRequired(),
   }),
   haveMortgage: Yup.string().when('purposeOfLoan', {
     is: 'option_2',
-    then: (schema) => schema.required(i18next.t('error_select_answer')),
+    then: (schema) => schema.required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
     otherwise: (schema) => schema.notRequired(),
   }),
   period: Yup.number()
-    .min(1, i18next.t('error_min__credit_period'))
-    .max(30, i18next.t('error_max_credit_period'))
-    .required(i18next.t('error_required_to_fill_out')),
+    .min(1, getValidationErrorSync('error_min_credit_period', 'Minimum period is 1 year'))
+    .max(30, getValidationErrorSync('error_max_credit_period', 'Maximum period is 30 years'))
+    .required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
   monthlyPayment: Yup.number().required(
-    i18next.t('error_required_to_fill_out')
+    getValidationErrorSync('error_required_to_fill_out', 'This field is required')
   ),
 })
 
@@ -82,7 +83,7 @@ const FirstStep: FC = () => {
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={getValidationSchema()}
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateCreditData(values))

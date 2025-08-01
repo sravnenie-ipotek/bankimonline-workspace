@@ -1,10 +1,9 @@
 import { Form, Formik } from 'formik'
 import i18next from 'i18next'
-import { getValidationErrorSync, preloadValidationErrors, reloadValidationErrors } from '@src/utils/validationHelpers'
+import { getValidationErrorSync } from '@src/utils/validationHelpers'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import * as Yup from 'yup'
-import { useEffect } from 'react'
 
 import { Container } from '@src/components/ui/Container'
 import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
@@ -19,7 +18,8 @@ import MortgagePhoneVerificationModal from './MortgagePhoneVerificationModal'
 import { SingleButton } from '../../../../components/SingleButton'
 import FirstStepForm from './FirstStepForm/FirstStepForm'
 
-export const validationSchema = Yup.object().shape({
+// Dynamic validation schema that gets validation errors at runtime
+export const getValidationSchema = () => Yup.object().shape({
   priceOfEstate: Yup.number()
     .max(10000000, getValidationErrorSync('error_max_price', 'Maximum property value is 10,000,000 NIS'))
     .required(getValidationErrorSync('error_property_value_required', 'Property value is required')),
@@ -71,27 +71,6 @@ const FirstStep = () => {
 
   const isLogin = useAppSelector((state) => state.login.isLogin)
 
-  // Preload validation errors when component mounts
-  useEffect(() => {
-    console.log('🚀 FirstStep component mounted, preloading validation errors...')
-    preloadValidationErrors()
-  }, [])
-
-  // Reload validation errors when language changes
-  useEffect(() => {
-    const handleLanguageChange = () => {
-      console.log('🌐 Language changed to:', i18n.language)
-      reloadValidationErrors()
-    }
-
-    // Listen for language changes
-    i18n.on('languageChanged', handleLanguageChange)
-
-    return () => {
-      i18n.off('languageChanged', handleLanguageChange)
-    }
-  }, [i18n])
-
   const initialValues = {
     priceOfEstate: savedValue.priceOfEstate || 1000000,
     cityWhereYouBuy: savedValue.cityWhereYouBuy || '',
@@ -108,7 +87,7 @@ const FirstStep = () => {
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={getValidationSchema()}
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateMortgageData(values))

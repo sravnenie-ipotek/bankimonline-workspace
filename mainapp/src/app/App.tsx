@@ -8,6 +8,8 @@ import { ErrorBoundary } from '@src/app/Errors/ErrorBoundary'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store.ts'
 import { initializeUserData, setIsLogin } from '@src/pages/Services/slices/loginSlice'
 import { updateWindowSize } from '@src/store/slices/windowSizeSlice.ts'
+import { initializeValidationLanguageListener } from '@src/utils/validationHelpers'
+import '@src/utils/yupLocale'
 
 import { RootState } from '../store'
 import { debounce } from '../utils/helpers/debounce.ts'
@@ -96,6 +98,10 @@ const App = () => {
         document.documentElement.setAttribute('dir', direction)
         document.documentElement.setAttribute('lang', language)
         console.log('✅ Translations loaded for language:', language)
+        
+        // Initialize validation language listener
+        initializeValidationLanguageListener()
+        console.log('✅ Validation language listener initialized')
       } catch (error) {
         console.error('❌ Error loading translations:', error)
         setTranslationsLoaded(true) // Continue anyway

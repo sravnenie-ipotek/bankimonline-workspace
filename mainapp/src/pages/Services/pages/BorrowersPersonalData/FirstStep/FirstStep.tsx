@@ -8,7 +8,7 @@ import { FormTypes } from '@src/pages/Services/types/formTypes'
 
 import { DoubleButtons } from '../../../components/DoubleButtons'
 import FirstStepForm from './FirstStepForm'
-import { validationSchema } from './constants'
+import { getValidationSchema } from './constants'
 
 const FirstStep = () => {
   const dispatch = useAppDispatch()
@@ -41,7 +41,7 @@ const FirstStep = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      validationSchema={getValidationSchema()}
       validateOnMount={true}
       onSubmit={(values) => {
         dispatch(updateBorrowersPersonalData(values))

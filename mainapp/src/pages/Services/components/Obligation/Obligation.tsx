@@ -20,23 +20,23 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
     useFormikContext<FormTypes>()
 
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  const dropdownData = useDropdownData(screenLocation, 'debt_types', 'full')
+  const dropdownData = useDropdownData(screenLocation, 'obligations', 'full')
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
-    console.log('🔄 Loading debt types dropdown options...')
+    console.log('🔄 Loading obligations dropdown options...')
   }
 
   if (dropdownData.error) {
-    console.warn('❌ Debt types dropdown error:', dropdownData.error)
+    console.warn('❌ Obligations dropdown error:', dropdownData.error)
   }
 
   return (
     <Column>
       <DropdownMenu
-        title={dropdownData.label || getContent('calculate_mortgage_debt_types', 'calculate_mortgage_debt_types')}
+        title={dropdownData.label || getContent('calculate_mortgage_obligations', 'Obligations')}
         data={dropdownData.options}
-        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_debt_types_ph', 'calculate_mortgage_debt_types_ph')}
+        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_obligations_ph', 'Select obligation type')}
         value={values.obligation}
         onChange={(value) => setFieldValue('obligation', value)}
         onBlur={() => setFieldTouched('obligation')}
@@ -44,7 +44,7 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (
-        <Error error="Failed to load debt types options. Please refresh the page." />
+        <Error error="Failed to load obligations options. Please refresh the page." />
       )}
     </Column>
   )

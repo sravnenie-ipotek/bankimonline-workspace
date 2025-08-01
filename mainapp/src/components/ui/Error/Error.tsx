@@ -14,7 +14,9 @@ const Error: React.FC<TypeProps> = ({ error }) => {
   return (
     <div className={cx('error')}>
       <WarningOctagonIcon />
-      <p className={cx('error-title')}>{error}</p>
+      <p className={cx('error-title')}>
+        {typeof error === 'string' ? error : 'An error occurred'}
+      </p>
     </div>
   )
 }

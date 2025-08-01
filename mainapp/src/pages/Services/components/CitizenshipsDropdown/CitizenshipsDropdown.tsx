@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik'
-import { useContentApi } from '@src/hooks/useContentApi'
+import { useDropdownData } from '@src/hooks/useDropdownData'
+import { useState, useEffect } from 'react'
 
 import { Column } from '@components/ui/Column'
 import { MultiSelect } from '@components/ui/MultiSelect'
@@ -7,86 +8,128 @@ import { TitleElement } from '@components/ui/TitleElement'
 
 import { FormTypes } from '../../types/formTypes.ts'
 
+interface CitizenshipOption {
+  value: string
+  label: string
+}
+
 const CitizenshipsDropdown = () => {
-  const { getContent } = useContentApi('mortgage_step2')
-  const { values, setFieldValue, errors, touched, setFieldTouched } =
+  const { values, setFieldValue, errors, touched, setFieldTouched, validateField } =
     useFormikContext<FormTypes>()
 
-  // Static list of countries for citizenship selection
-  // Using string array as required by MultiSelect component
-  const citizenshipOptions = [
-    'ישראל', // Israel
-    'ארצות הברית', // United States
-    'רוסיה', // Russia
-    'גרמניה', // Germany
-    'צרפת', // France
-    'בריטניה', // United Kingdom
-    'קנדה', // Canada
-    'אוסטרליה', // Australia
-    'איטליה', // Italy
-    'ספרד', // Spain
-    'הולנד', // Netherlands
-    'בלגיה', // Belgium
-    'שוויץ', // Switzerland
-    'אוסטריה', // Austria
-    'שוודיה', // Sweden
-    'נורווגיה', // Norway
-    'דנמרק', // Denmark
-    'פינלנד', // Finland
-    'פולין', // Poland
-    'צ\'כיה', // Czech Republic
-    'הונגריה', // Hungary
-    'רומניה', // Romania
-    'בולגריה', // Bulgaria
-    'יוון', // Greece
-    'קפריסין', // Cyprus
-    'פורטוגל', // Portugal
-    'אירלנד', // Ireland
-    'לוקסמבורג', // Luxembourg
-    'מלטה', // Malta
-    'סלובקיה', // Slovakia
-    'סלובניה', // Slovenia
-    'קרואטיה', // Croatia
-    'ליטא', // Lithuania
-    'לטביה', // Latvia
-    'אסטוניה', // Estonia
-    'אוקראינה', // Ukraine
-    'בלרוס', // Belarus
-    'מולדובה', // Moldova
-    'ארגנטינה', // Argentina
-    'ברזיל', // Brazil
-    'צ\'ילה', // Chile
-    'מקסיקו', // Mexico
-    'יפן', // Japan
-    'דרום קוריאה', // South Korea
-    'סין', // China
-    'הודו', // India
-    'תאילנד', // Thailand
-    'סינגפור', // Singapore
-    'מלזיה', // Malaysia
-    'פיליפינים', // Philippines
-    'אינדונזיה', // Indonesia
-    'וייטנאם', // Vietnam
-    'דרום אפריקה', // South Africa
-    'מרוקו', // Morocco
-    'מצרים', // Egypt
-    'טורקיה', // Turkey
-    'אחר' // Other
-  ]
+  const [citizenshipOptions, setCitizenshipOptions] = useState<CitizenshipOption[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  // Fetch all citizenship options from API
+  useEffect(() => {
+    const fetchCitizenshipOptions = async () => {
+      try {
+        setLoading(true)
+        setError(null)
+
+        const response = await fetch('/api/dropdowns/mortgage_step2/he')
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+        }
+
+        const data = await response.json()
+        
+        // Extract all citizenship options
+        const allOptions: CitizenshipOption[] = []
+        Object.keys(data.options).forEach(key => {
+          if (key.includes('citizenship') && key !== 'mortgage_step2_citizenship') {
+            const options = data.options[key]
+            if (Array.isArray(options) && options.length > 0) {
+              allOptions.push(...options)
+            }
+          }
+        })
+
+        // Remove duplicates based on value
+        const uniqueOptions = allOptions.filter((option, index, arr) => 
+          arr.findIndex(o => o.value === option.value) === index
+        )
+
+        setCitizenshipOptions(uniqueOptions)
+        console.log('✅ Citizenship options loaded:', uniqueOptions.length, 'options')
+        
+      } catch (err) {
+        console.error('❌ Error fetching citizenship options:', err)
+        setError(err instanceof Error ? err.message : 'Unknown error')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchCitizenshipOptions()
+  }, [])
+
+  const handleCitizenshipChange = (selectedLabels: string[]) => {
+    console.log('=== Citizenship Change Debug ===')
+    console.log('Selected labels:', selectedLabels)
+    console.log('Current Formik values BEFORE update:', values)
+    console.log('Current citizenshipsDropdown BEFORE:', values.citizenshipsDropdown)
+    console.log('Formik errors BEFORE:', errors)
+    console.log('Formik touched BEFORE:', touched)
+    
+    // Store labels directly - simpler approach
+    setFieldValue('citizenshipsDropdown', selectedLabels, true)
+    setFieldTouched('citizenshipsDropdown', true, true)
+    
+    // Force validation after setting value
+    setTimeout(() => {
+      console.log('=== After Update (delayed) ===')
+      console.log('Formik values AFTER:', values)
+      console.log('citizenshipsDropdown AFTER:', values.citizenshipsDropdown)
+      console.log('Formik errors AFTER:', errors)
+      validateField('citizenshipsDropdown')
+    }, 100)
+  }
+
+  if (loading) {
+    return (
+      <Column gap="16px">
+        <TitleElement title="אזרחות" />
+        <div>Loading citizenship options...</div>
+      </Column>
+    )
+  }
+
+  if (error) {
+    return (
+      <Column gap="16px">
+        <TitleElement title="אזרחות" />
+        <div>Error loading citizenship options: {error}</div>
+      </Column>
+    )
+  }
+
+  // No conversion needed - we're storing labels directly now
+  const displayValues = values.citizenshipsDropdown || []
+  
+  console.log('=== CitizenshipsDropdown Render ===')
+  console.log('Current form values.citizenshipsDropdown:', values.citizenshipsDropdown)
+  console.log('Display values:', displayValues)
+  console.log('Citizenship options:', citizenshipOptions.length)
+  console.log('Touched:', touched.citizenshipsDropdown)
+  console.log('Error:', errors.citizenshipsDropdown)
+  console.log('Current language:', typeof window !== 'undefined' && window.i18next ? window.i18next.language : 'unknown')
+  console.log('Document language:', typeof document !== 'undefined' ? document.documentElement.lang : 'unknown')
 
   return (
-    <Column>
-      <TitleElement title={getContent('calculate_mortgage_citizenship_title', 'calculate_mortgage_citizenship_title')} />
+    <Column gap="16px">
+      <TitleElement title="אזרחות" />
       <MultiSelect
-        data={citizenshipOptions}
-        placeholder={getContent('calculate_mortgage_citizenship_ph', 'calculate_mortgage_citizenship_ph')}
-        searchable
-        searchPlaceholder={getContent('search', 'search')}
-        nothingFoundText={getContent('nothing_found', 'nothing_found')}
-        searchDescription={getContent('countries', 'countries')}
-        value={values.citizenshipsDropdown}
-        onChange={(value) => setFieldValue('citizenshipsDropdown', value)}
+        data={citizenshipOptions.map(option => option.label)}
+        value={displayValues}
+        onChange={handleCitizenshipChange}
         onBlur={() => setFieldTouched('citizenshipsDropdown', true)}
+        placeholder="בחר אזרחות"
+        searchable={true}
+        searchPlaceholder="חפש מדינה..."
+        searchDescription="בחר אזרחויות נוספות ולחץ על 'החל'"
+        nothingFoundText="לא נמצאו תוצאות"
         error={touched.citizenshipsDropdown && errors.citizenshipsDropdown}
       />
     </Column>
