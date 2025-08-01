@@ -1,8 +1,8 @@
 import { Form, Formik } from 'formik'
-import i18next from 'i18next'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import * as Yup from 'yup'
+import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
 import { Container } from '@components/ui/Container'
 import VideoPoster from '@src/components/ui/VideoPoster/VideoPoster'
@@ -16,14 +16,15 @@ import MortgagePhoneVerificationModal from '../../../CalculateMortgage/pages/Fir
 import { SingleButton } from '../../../../components/SingleButton'
 import FirstStepForm from './FirstStepForm/FirstStepForm'
 
-export const validationSchema = Yup.object().shape({
+// Dynamic validation schema that gets validation errors from database at runtime
+export const getValidationSchema = () => Yup.object().shape({
   whyRefinancingMortgage: Yup.string().required(
-    i18next.t('error_refinance_why_required')
+    getValidationErrorSync('error_refinance_why_required', 'Please specify why you want to refinance')
   ),
   mortgageBalance: Yup.number()
     .test(
       'is-less',
-      i18next.t('error_refinance_balance_greater_than_property'),
+      getValidationErrorSync('error_refinance_balance_greater_than_property', 'Mortgage balance cannot exceed property value'),
       function (this: Yup.TestContext, mortgageBalance?: number) {
         const { priceOfEstate } = this.parent
 
@@ -37,11 +38,11 @@ export const validationSchema = Yup.object().shape({
         return true
       }
     )
-    .required(i18next.t('error_required_to_fill_out')),
+    .required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
   priceOfEstate: Yup.number()
     .test(
       'is-greater',
-      i18next.t('error_refinance_property_less_than_balance'),
+      getValidationErrorSync('error_refinance_property_less_than_balance', 'Property value must be at least the mortgage balance'),
       function (this: Yup.TestContext, priceOfEstate?: number) {
         const { mortgageBalance } = this.parent
 
@@ -54,42 +55,42 @@ export const validationSchema = Yup.object().shape({
         return true
       }
     )
-    .required(i18next.t('error_required_to_fill_out')),
-  typeSelect: Yup.string().required(i18next.t('error_refinance_type_required')),
-  bank: Yup.string().required(i18next.t('error_refinance_bank_required')),
-  propertyRegistered: Yup.string().required(i18next.t('error_refinance_registered_required')),
-  startDate: Yup.string().required(i18next.t('error_refinance_start_date_required')),
+    .required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
+  typeSelect: Yup.string().required(getValidationErrorSync('error_refinance_type_required', 'Property type is required')),
+  bank: Yup.string().required(getValidationErrorSync('error_refinance_bank_required', 'Current bank is required')),
+  propertyRegistered: Yup.string().required(getValidationErrorSync('error_refinance_registered_required', 'Property registration status is required')),
+  startDate: Yup.string().required(getValidationErrorSync('error_refinance_start_date_required', 'Mortgage start date is required')),
   period: Yup.number()
-    .min(4, i18next.t('error_min_period'))
-    .max(30, i18next.t('error_max_period'))
-    .required(i18next.t('error_required_to_fill_out')),
+    .min(4, getValidationErrorSync('error_min_period', 'Minimum period is 4 years'))
+    .max(30, getValidationErrorSync('error_max_period', 'Maximum period is 30 years'))
+    .required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
   monthlyPayment: Yup.number()
-    .positive(i18next.t('error_mortgage_payment_positive'))
-    .required(i18next.t('error_required_to_fill_out')),
+    .positive(getValidationErrorSync('error_mortgage_payment_positive', 'Monthly payment must be positive'))
+    .required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
   decreaseMortgage: Yup.string().when('whyRefinancingMortgage', {
     is: 'option_2',
-    then: (shema) => shema.required(i18next.t('error_required_to_fill_out')),
+    then: (shema) => shema.required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
     otherwise: (shema) => shema.notRequired(),
   }),
   increaseMortgage: Yup.string().when('whyRefinancingMortgage', {
     is: 'option_5',
-    then: (shema) => shema.required(i18next.t('error_required_to_fill_out')),
+    then: (shema) => shema.required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
     otherwise: (shema) => shema.notRequired(),
   }),
   mortgageData: Yup.array().of(
     Yup.object().shape({
-      program: Yup.string().required(i18next.t('error_mortgage_program_required')),
+      program: Yup.string().required(getValidationErrorSync('error_mortgage_program_required', 'Mortgage program is required')),
       balance: Yup.number()
-        .positive(i18next.t('error_mortgage_balance_positive'))
-        .required(i18next.t('error_mortgage_balance_required')),
-      endDate: Yup.string().required(i18next.t('error_mortgage_end_date_required')),
+        .positive(getValidationErrorSync('error_mortgage_balance_positive', 'Balance must be positive'))
+        .required(getValidationErrorSync('error_mortgage_balance_required', 'Mortgage balance is required')),
+      endDate: Yup.string().required(getValidationErrorSync('error_mortgage_end_date_required', 'End date is required')),
       bid: Yup.number()
-        .positive(i18next.t('error_mortgage_bid_positive'))
-        .required(i18next.t('error_mortgage_bid_required')),
+        .positive(getValidationErrorSync('error_mortgage_bid_positive', 'Bid must be positive'))
+        .required(getValidationErrorSync('error_mortgage_bid_required', 'Bid is required')),
     })
   ).test(
     'is-balance-sum-equal',
-    i18next.t('error_refinance_mortgage_balance_mismatch'),
+    getValidationErrorSync('error_refinance_mortgage_balance_mismatch', 'Total mortgage balance must match individual balances'),
     function () {
       const totalBalance = this.parent.mortgageData.reduce(
         (sum: number, item: { balance: number }) => sum + (item.balance || 0),
@@ -130,7 +131,7 @@ const FirstStep = () => {
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={getValidationSchema()}
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateRefinanceMortgageData(values))

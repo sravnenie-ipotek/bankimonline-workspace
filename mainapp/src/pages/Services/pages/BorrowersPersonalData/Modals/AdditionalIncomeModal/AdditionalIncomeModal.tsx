@@ -43,6 +43,10 @@ const AdditionalIncomeModal = () => {
   const validationSchema = Yup.object().shape({
     additionalIncome: Yup.string().required(
       t('error_select_one_of_the_options')
+    ).test(
+      'not-empty',
+      t('error_select_one_of_the_options'),
+      (value) => value !== null && value !== undefined && value !== ''
     ),
     additionalIncomeAmount: Yup.number().when('additionalIncome', {
       is: (value: string) =>
