@@ -128,6 +128,16 @@ Dropdowns should display options such as "Fixed Interest", "Variable Interest", 
 1. Added database key: `obligation_modal_title` in `common` screen location
 2. Updated all `ObligationModal` components to use `getContent()`
 
+### Issue 8: Irrelevant "No Additional Income" Option in Modal
+**Symptom**: Additional Income modal shows "אין הכנסות נוספות" (No Additional Income) option, which is illogical since user clicked "Add Additional Income".
+
+**Root Cause**: Same dropdown component used in both main form (where "No Additional Income" is valid) and modal (where it's irrelevant).
+
+**Solution**:
+1. Added `excludeNoIncome` prop to `AdditionalIncome` component
+2. Updated filtering logic to exclude "no_additional_income" option when `excludeNoIncome=true`
+3. Updated all `AdditionalIncomeModal` forms to pass `excludeNoIncome={true}`
+
 ## Testing Verification
 - ✅ Bank dropdown shows: בנק הפועלים, בנק לאומי, בנק דיסקונט, בנק מסד
 - ✅ Program dropdown shows: Fixed Interest, Variable Interest, Prime Interest, Mixed Interest, Other
@@ -138,6 +148,7 @@ Dropdowns should display options such as "Fixed Interest", "Variable Interest", 
 - ✅ Card labels properly translated: "מקור הכנסה 2", "מקור הכנסה נוסף 2" instead of raw keys
 - ✅ Button texts properly translated: "הוסף מקום עבודה", "הוסף מקור הכנסה נוסף", "הוסף התחייבות"
 - ✅ Obligation modal title properly translated: "התחייבות 2" instead of "obligation 2"
+- ✅ Additional Income modal excludes irrelevant "אין הכנסות נוספות" option
 - ✅ Education dropdown shows: תואר ראשון, תואר שני, תואר שלישי, תעודת בגרות מלאה, etc.
 
 The dropdowns were empty because the backend was filtering out the options due to a mismatch in the expected `component_type` value. Additionally, bank options weren't being grouped correctly and refinance step 2 patterns weren't recognized. Fixing the backend to accept both `option` and `dropdown_option`, updating the parsing logic for bank options, and adding support for refinance_step2 patterns resolved all issues.
