@@ -185,7 +185,7 @@ const ThirdStepForm = () => {
 
       <Row>
         <AdditionalIncome />
-        {additionalIncome && additionalIncome !== 'option_1' && (
+        {additionalIncome && additionalIncome !== 'no_additional_income' && (
           <AdditionalIncomeAmount />
         )}
         <Column />
@@ -224,7 +224,7 @@ const ThirdStepForm = () => {
         <Column />
       </Row>
 
-      {obligation && obligation !== 'option_1' && (
+      {obligation && obligation !== 'no_obligations' && (
         <Row>
           <Column>
             {obligationValues.map((item) => (
