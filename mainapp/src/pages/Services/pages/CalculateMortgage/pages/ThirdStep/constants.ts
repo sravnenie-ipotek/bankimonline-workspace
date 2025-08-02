@@ -1,7 +1,47 @@
 import * as Yup from 'yup'
 import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
-// Validation schema for CalculateMortgage ThirdStep - Fixed validation logic bug
+// Helper function to check if a value indicates "no income" or "unemployed"
+const isNoIncomeValue = (value: string): boolean => {
+  if (!value) return false
+  const lowerValue = value.toLowerCase()
+  return (
+    lowerValue.includes('unemployed') ||
+    lowerValue.includes('no_income') || 
+    lowerValue.includes('no income') ||
+    lowerValue.includes('option_5') ||
+    lowerValue.includes('option_6') ||
+    lowerValue === 'app.mortgage.step3.main_source_income_option_5' ||
+    lowerValue === 'app.mortgage.step3.main_source_income_option_6'
+  )
+}
+
+// Helper function to check if a value indicates "no additional income"
+const isNoAdditionalIncomeValue = (value: string): boolean => {
+  if (!value) return false
+  const lowerValue = value.toLowerCase()
+  return (
+    lowerValue === 'option_1' ||
+    lowerValue === '1' ||
+    lowerValue.includes('no_additional') ||
+    lowerValue.includes('no additional') ||
+    lowerValue.includes('none')
+  )
+}
+
+// Helper function to check if a value indicates "no obligation"
+const isNoObligationValue = (value: string): boolean => {
+  if (!value) return false
+  const lowerValue = value.toLowerCase()
+  return (
+    lowerValue === 'option_1' ||
+    lowerValue.includes('no_obligation') ||
+    lowerValue.includes('no obligation') ||
+    lowerValue.includes('none')
+  )
+}
+
+// Validation schema for CalculateMortgage ThirdStep - Fixed validation logic for database-driven dropdowns
 export const validationSchema = Yup.object().shape({
   mainSourceOfIncome: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')).test(
     'not-empty',
@@ -9,29 +49,29 @@ export const validationSchema = Yup.object().shape({
     (value) => value !== null && value !== undefined && value !== ''
   ),
   monthlyIncome: Yup.number().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !isNoIncomeValue(value), // Not unemployed or no income
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
   startDate: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !isNoIncomeValue(value), // Not unemployed or no income
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),
   fieldOfActivity: Yup.string().when('mainSourceOfIncome', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value),
+      value !== null && value !== undefined && value !== '' && !isNoIncomeValue(value),
     then: (shema) =>
       shema.required(getValidationErrorSync('error_select_field_of_activity', 'Please select field of activity')),
     otherwise: (shema) => shema.notRequired(),
   }),
   profession: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !isNoIncomeValue(value), // Not unemployed or no income
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
   companyName: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !isNoIncomeValue(value), // Not unemployed or no income
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
@@ -44,7 +84,7 @@ export const validationSchema = Yup.object().shape({
   ),
   additionalIncomeAmount: Yup.number().when('additionalIncome', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && !isNoAdditionalIncomeValue(value),
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
@@ -53,19 +93,19 @@ export const validationSchema = Yup.object().shape({
   ),
   bank: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && !isNoObligationValue(value),
     then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
     otherwise: (shema) => shema.notRequired(),
   }),
   monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && !isNoObligationValue(value),
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
   endDate: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && !isNoObligationValue(value),
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),

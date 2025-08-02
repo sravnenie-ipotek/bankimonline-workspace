@@ -2,7 +2,7 @@ import { useFormikContext } from 'formik'
 import { memo, useEffect, useLayoutEffect, useState, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useContentApi } from '@src/hooks/useContentApi'
-import { useDropdownData } from '@src/hooks/useDropdownData'
+import { useAllDropdowns } from '@src/hooks/useDropdownData'
 
 import { Column } from '@components/ui/Column'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
@@ -33,14 +33,32 @@ const FirstStepForm = () => {
   const dispatch = useAppDispatch()
   const activeField = useAppSelector((state) => state.activeField)
 
-  // Use dynamic dropdown data from database
-  const { options: TypeSelectOptions, loading: propertyTypeLoading } = useDropdownData('refinance_step1', 'refinance_step1_property_type')
-  const { options: WhyDoYouRefinanceOptions, loading: whyLoading } = useDropdownData('refinance_step1', 'refinance_step1_why')
-  const { options: WhereIsRegisteredOptions, loading: registrationLoading } = useDropdownData('refinance_step1', 'refinance_step1_registration')
-  const { options: banks, loading: banksLoading } = useDropdownData('refinance_step1', 'refinance_step1_bank')
+  // Phase 4: Use bulk dropdown fetching for better performance
+  const { data: dropdownData, loading: dropdownsLoading, error: dropdownsError, getDropdownProps } = useAllDropdowns('refinance_step1')
+
+  // Phase 4: Get dropdown data from database instead of hardcoded arrays
+  const whyProps = getDropdownProps('why')
+  const propertyTypeProps = getDropdownProps('property_type')
+  const registrationProps = getDropdownProps('registration')
+  const bankProps = getDropdownProps('bank')
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<RefinanceMortgageTypes>()
+
+  // Phase 4: Show loading state for dropdowns while fetching from API
+  if (dropdownsLoading) {
+    console.log('🔄 Loading dropdown data for refinance_step1...')
+  }
+
+  // Phase 4: Log dropdown data for debugging
+  if (dropdownData && !dropdownsLoading) {
+    console.log('✅ Dropdown data loaded for refinance_step1:', {
+      why: whyProps.options.length,
+      propertyType: propertyTypeProps.options.length,
+      registration: registrationProps.options.length,
+      bank: bankProps.options.length
+    })
+  }
 
   // Рассчитывает максимальное и минимальное значение ежемесячного платежа
   useLayoutEffect(() => {
@@ -121,9 +139,9 @@ const FirstStepForm = () => {
         <Row>
           <Column>
             <DropdownMenu
-              data={WhyDoYouRefinanceOptions}
-              title={getContent('app.refinance.step1.why_label', t('app.refinance.step1.why_label'))}
-              placeholder={t('mortgage_refinance_why_ph')}
+              data={whyProps.options}
+              title={whyProps.label || getContent('app.refinance.step1.why_label', t('app.refinance.step1.why_label'))}
+              placeholder={whyProps.placeholder || t('mortgage_refinance_why_ph')}
               value={values.whyRefinancingMortgage}
               onChange={(value) =>
                 setFieldValue('whyRefinancingMortgage', value)
@@ -167,9 +185,9 @@ const FirstStepForm = () => {
         <Row>
           <Column>
             <DropdownMenu
-              data={TypeSelectOptions}
-              title={getContent('app.refinance.step1.property_type_label', t('app.refinance.step1.property_type_label'))}
-              placeholder={t('mortgage_refinance_type_ph')}
+              data={propertyTypeProps.options}
+              title={propertyTypeProps.label || getContent('app.refinance.step1.property_type_label', t('app.refinance.step1.property_type_label'))}
+              placeholder={propertyTypeProps.placeholder || t('mortgage_refinance_type_ph')}
               value={values.typeSelect}
               onChange={(value) => setFieldValue('typeSelect', value)}
               onBlur={() => setFieldTouched('typeSelect')}
@@ -178,9 +196,9 @@ const FirstStepForm = () => {
           </Column>
           <Column>
             <DropdownMenu
-              data={banks}
-              title={getContent('app.refinance.step1.current_bank_label', t('app.refinance.step1.current_bank_label'))}
-              placeholder={t('mortgage_refinance_bank_ph')}
+              data={bankProps.options}
+              title={bankProps.label || getContent('app.refinance.step1.current_bank_label', t('app.refinance.step1.current_bank_label'))}
+              placeholder={bankProps.placeholder || t('mortgage_refinance_bank_ph')}
               value={values.bank}
               onChange={(value) => setFieldValue('bank', value)}
               onBlur={() => setFieldTouched('bank')}
@@ -189,9 +207,9 @@ const FirstStepForm = () => {
           </Column>
           <Column>
             <DropdownMenu
-              data={WhereIsRegisteredOptions}
-              title={getContent('app.refinance.step1.registered_label', t('app.refinance.step1.registered_label'))}
-              placeholder={t('mortgage_refinance_registered_ph')}
+              data={registrationProps.options}
+              title={registrationProps.label || getContent('app.refinance.step1.registered_label', t('app.refinance.step1.registered_label'))}
+              placeholder={registrationProps.placeholder || t('mortgage_refinance_registered_ph')}
               value={values.propertyRegistered}
               onChange={(value) => setFieldValue('propertyRegistered', value)}
               onBlur={() => setFieldTouched('propertyRegistered')}

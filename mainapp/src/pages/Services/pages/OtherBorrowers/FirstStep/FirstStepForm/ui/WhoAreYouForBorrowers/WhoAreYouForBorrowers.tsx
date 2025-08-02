@@ -9,7 +9,7 @@ import { FormTypes } from '@src/pages/Services/types/formTypes'
 
 const WhoAreYouForBorrowers = () => {
   const { t, i18n } = useTranslation()
-  const { getContent } = useContentApi('mortgage_step2')
+  const { getContent } = useContentApi('other_borrowers_step1')
   const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<FormTypes>()
 
