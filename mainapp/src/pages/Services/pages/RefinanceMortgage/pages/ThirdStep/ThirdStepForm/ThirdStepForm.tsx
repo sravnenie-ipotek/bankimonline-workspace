@@ -167,13 +167,13 @@ const ThirdStepForm = () => {
                   onDelete={() => handleDeleteSourceOfIncome(item.id)}
                   enableEdit
                   key={item.id}
-                  name={`${t('source_of_income')}${item.id + 1}`}
+                  name={`${getContent('source_of_income_label', 'Source of Income')} ${item.id + 1}`}
                 />
               ))}
               <AddButton
                 onClick={openSourceOfIncome}
                 color="#FBE54D"
-                value={t('add_place_to_work')}
+                value={getContent('add_place_to_work_button', 'Add Place to Work')}
                 variant="none"
               />
             </>
@@ -200,13 +200,13 @@ const ThirdStepForm = () => {
                 onDelete={() => handleDeleteAdditionalIncome(item.id)}
                 enableEdit
                 key={item.id}
-                name={`${t('additional_source_of_income')}${item.id + 1}`}
+                name={`${getContent('additional_source_of_income_label', 'Additional Source of Income')} ${item.id + 1}`}
               />
             ))}
             <AddButton
               onClick={openAdditionalIncome}
               color="#FBE54D"
-              value={t('add_additional_source_of_income')}
+              value={getContent('add_additional_source_of_income_button', 'Add Additional Source of Income')}
               variant="none"
             />
           </Column>
@@ -233,13 +233,13 @@ const ThirdStepForm = () => {
                 onDelete={() => handleDeleteObligation(item.id)}
                 enableEdit
                 key={item.id}
-                name={`${t('obligation')}${item.id + 1}`}
+                name={`${getContent('obligation_label', 'Obligation')} ${item.id + 1}`}
               />
             ))}
             <AddButton
               onClick={openObligation}
               color="#FBE54D"
-              value={t('add_obligation')}
+              value={getContent('add_obligation_button', 'Add Obligation')}
               variant="none"
             />
           </Column>

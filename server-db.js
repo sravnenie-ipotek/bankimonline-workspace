@@ -1086,7 +1086,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 AND content_translations.language_code = $2
                 AND content_translations.status = 'approved'
                 AND content_items.is_active = true
-                AND content_items.component_type IN ('dropdown_container', 'dropdown_option', 'placeholder', 'label')
+                AND content_items.component_type IN ('dropdown_container', 'dropdown_option', 'option', 'placeholder', 'label')
             ORDER BY content_items.content_key, content_items.component_type
         `, [screen, language]);
         
@@ -1167,7 +1167,37 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 }
             }
             
-            // Pattern 4: Simple field name extraction from various patterns
+            // Pattern 4: refinance_step1_{fieldname} (handles both container and options)
+            if (!fieldName) {
+                // For options like: refinance_step1_why_lower_interest_rate
+                match = row.content_key.match(/refinance_step1_([^_]+(?:_[^_]+)*)_(?:lower_interest_rate|reduce_monthly_payment|shorten_mortgage_term|cash_out_refinance|consolidate_debts|fixed_interest|variable_interest|prime_interest|mixed_interest|other|apartment|private_house|commercial|land|other|land|no_not_registered|hapoalim|leumi|discount|massad)/);
+                if (match) {
+                    fieldName = match[1];
+                } else {
+                    // For containers like: refinance_step1_why
+                    match = row.content_key.match(/refinance_step1_([^_]+(?:_[^_]+)*)(?:_ph|$)/);
+                    if (match) {
+                        fieldName = match[1];
+                    }
+                }
+            }
+            
+            // Pattern 4.5: refinance_step2_{fieldname} (handles both container and options)
+            if (!fieldName) {
+                // For options like: refinance_step2_education_bachelors, refinance_step2_education_masters, etc.
+                match = row.content_key.match(/refinance_step2_([^_]+(?:_[^_]+)*)_(?:bachelors|masters|doctorate|full_certificate|partial_certificate|no_certificate|post_secondary|postsecondary_education|full_high_school_certificate|partial_high_school_certificat|no_high_school_certificate)/);
+                if (match) {
+                    fieldName = match[1];
+                } else {
+                    // For containers like: refinance_step2_education
+                    match = row.content_key.match(/refinance_step2_([^_]+(?:_[^_]+)*)(?:_ph|$)/);
+                    if (match) {
+                        fieldName = match[1];
+                    }
+                }
+            }
+            
+            // Pattern 5: Simple field name extraction from various patterns
             if (!fieldName) {
                 // Try to extract from patterns like field_name_option_X or field_name_ph
                 match = row.content_key.match(/([^._]+)(?:_option_|_ph|$)/);
@@ -1202,6 +1232,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                     break;
                     
                 case 'dropdown_option':
+                case 'option':
                     // Extract option value from content_key
                     let optionValue = null;
                     
@@ -1270,6 +1301,22 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                         /_(consumer_credit)$/,
                         /_(credit_card)$/,
                         /_(no_obligations)$/,
+                        // Refinance mortgage specific options
+                        /_(fixed_interest)$/,
+                        /_(variable_interest)$/,
+                        /_(prime_interest)$/,
+                        /_(mixed_interest)$/,
+                        /_(cash_out_refinance)$/,
+                        /_(consolidate_debts)$/,
+                        /_(lower_interest_rate)$/,
+                        /_(reduce_monthly_payment)$/,
+                        /_(shorten_mortgage_term)$/,
+                        /_(land)$/,
+                        /_(no_not_registered)$/,
+                        /_(hapoalim)$/,
+                        /_(leumi)$/,
+                        /_(discount)$/,
+                        /_(massad)$/,
                         /_([^_]+)$/                             // Last part after underscore (fallback)
                     ];
                     

@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 
 import { Modal } from '@src/components/ui/Modal'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { closeModal } from '@src/pages/Services/slices/modalSlice.ts'
 import { updateObligationModal } from '@src/pages/Services/slices/otherBorrowersSlice'
 import { ObligationModalTypes } from '@src/pages/Services/types/formTypes'
@@ -15,6 +16,7 @@ import { ObligationForm } from './ObligationForm'
 
 const ObligationModal = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('common')
 
   const dispatch = useAppDispatch()
 
@@ -72,7 +74,7 @@ const ObligationModal = () => {
     <Modal
       isVisible={isOpen}
       onCancel={handleClose}
-      title={`${t('obligation')} ${modalId + 1}`}
+      title={`${getContent('obligation_modal_title', 'Obligation')} ${modalId + 1}`}
     >
       <Formik
         initialValues={initialValues}
