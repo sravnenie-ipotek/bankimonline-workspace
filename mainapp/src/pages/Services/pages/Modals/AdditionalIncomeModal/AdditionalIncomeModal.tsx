@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 
 import { Modal } from '@src/components/ui/Modal'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { updateAdditionalIncomeModal } from '@src/pages/Services/slices/borrowersSlice.ts'
 import { closeModal } from '@src/pages/Services/slices/modalSlice.ts'
 import { AdditionalIncomeModalTypes } from '@src/pages/Services/types/formTypes'
@@ -14,6 +15,7 @@ import { AdditionalIncomeForm } from './AdditionalIncomeForm'
 
 const AdditionalIncomeModal = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('common')
 
   const dispatch = useAppDispatch()
 
@@ -62,7 +64,7 @@ const AdditionalIncomeModal = () => {
     <Modal
       isVisible={isOpen}
       onCancel={handleClose}
-      title={`${t('additional_source_of_income')} ${modalId + 1}`}
+      title={`${getContent('additional_source_of_income_modal_title', 'Additional Source of Income')} ${modalId + 1}`}
     >
       <Formik
         initialValues={initialValues}
