@@ -138,6 +138,38 @@ Dropdowns should display options such as "Fixed Interest", "Variable Interest", 
 2. Updated filtering logic to exclude "no_additional_income" option when `excludeNoIncome=true`
 3. Updated all `AdditionalIncomeModal` forms to pass `excludeNoIncome={true}`
 
+### Issue 9: Bank Lender Dropdown Empty in Obligation Modal
+**Symptom**: Obligation modal "בנק מלווה" (Bank Lender) dropdown has no options.
+
+**Root Cause**: Missing `mortgage_step3_bank` dropdown options. The obligation modal uses two dropdowns: first for obligation type (`mortgage_step3_obligations` - which existed), then for bank selection (`mortgage_step3_bank` - which was missing).
+
+**Solution**:
+1. Added database keys for `mortgage_step3_bank` dropdown (reusing existing bank pattern from `refinance_step1_bank`):
+   - `mortgage_step3_bank_container` → "בנק מלווה" 
+   - `mortgage_step3_bank_hapoalim` → "בנק הפועלים"
+   - `mortgage_step3_bank_leumi` → "בנק לאומי"
+   - `mortgage_step3_bank_discount` → "בנק דיסקונט"
+   - `mortgage_step3_bank_massad` → "בנק מסד"
+2. Added Pattern 4.6 to `server-db.js` for `mortgage_step3_bank_` parsing
+3. **Note**: Bank options already existed in `refinance_step1_bank`, but were needed for `mortgage_step3_bank` as well
+
+### Issue 10: Wrong Placeholder Text in Obligation Modal
+**Symptom**: Monthly payment field in obligation modal shows wrong placeholder "הזן הכנסה חודשית נטו" (Enter net monthly income) instead of payment-related text.
+
+**Root Cause**: MonthlyPayment component was using generic mortgage translation keys instead of obligation-specific content.
+
+**Solution**:
+1. Created obligation-specific content in `common` screen location:
+   - `obligation_monthly_payment_title` → "תשלום חודשי" (Monthly Payment)
+   - `obligation_monthly_payment_placeholder` → "הזן סכום תשלום חודשי" (Enter monthly payment amount)
+   - `obligation_end_date_title` → "תאריך סיום ההתחייבות" (Obligation End Date)
+   - `obligation_bank_title` → "בנק מלווה" (Bank Lender)
+   - `obligation_bank_placeholder` → "בחר בנק" (Select bank)
+2. Updated MonthlyPayment component to use `getContent()` instead of `t()`
+3. Updated EndDate component to use obligation-specific title
+4. Updated Bank component to use obligation-specific content when in obligation context
+5. **Followed @procceessesPagesInDB.md**: Used `common` screen location as specified for modal content
+
 ## Testing Verification
 - ✅ Bank dropdown shows: בנק הפועלים, בנק לאומי, בנק דיסקונט, בנק מסד
 - ✅ Program dropdown shows: Fixed Interest, Variable Interest, Prime Interest, Mixed Interest, Other
@@ -149,6 +181,8 @@ Dropdowns should display options such as "Fixed Interest", "Variable Interest", 
 - ✅ Button texts properly translated: "הוסף מקום עבודה", "הוסף מקור הכנסה נוסף", "הוסף התחייבות"
 - ✅ Obligation modal title properly translated: "התחייבות 2" instead of "obligation 2"
 - ✅ Additional Income modal excludes irrelevant "אין הכנסות נוספות" option
+- ✅ Bank Lender dropdown (in obligation modal) shows: בנק הפועלים, בנק לאומי, בנק דיסקונט, בנק מסד
+- ✅ Obligation modal content properly translated: "תשלום חודשי", "הזן סכום תשלום חודשי", "תאריך סיום ההתחייבות", "בנק מלווה"
 - ✅ Education dropdown shows: תואר ראשון, תואר שני, תואר שלישי, תעודת בגרות מלאה, etc.
 
 The dropdowns were empty because the backend was filtering out the options due to a mismatch in the expected `component_type` value. Additionally, bank options weren't being grouped correctly and refinance step 2 patterns weren't recognized. Fixing the backend to accept both `option` and `dropdown_option`, updating the parsing logic for bank options, and adding support for refinance_step2 patterns resolved all issues.

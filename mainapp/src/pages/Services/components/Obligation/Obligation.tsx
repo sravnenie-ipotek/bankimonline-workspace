@@ -19,6 +19,18 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   const { values, setFieldValue, touched, errors, setFieldTouched } =
     useFormikContext<FormTypes>()
 
+  // Helper function to check if a value indicates "no obligation"
+  const checkIfNoObligationValue = (value: string): boolean => {
+    if (!value) return false
+    const lowerValue = value.toLowerCase()
+    return (
+      lowerValue === 'option_1' ||
+      lowerValue.includes('no_obligation') ||
+      lowerValue.includes('no obligation') ||
+      lowerValue.includes('none')
+    )
+  }
+
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
   const dropdownData = useDropdownData(screenLocation, 'obligations', 'full')
 
@@ -31,6 +43,26 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
     console.warn('❌ Obligations dropdown error:', dropdownData.error)
   }
 
+  // Debug obligation values
+  console.log('🔍 Obligation debug:', {
+    currentValue: values.obligation,
+    options: dropdownData.options,
+    isNoObligationValue: checkIfNoObligationValue(values.obligation),
+    errors: errors.obligation,
+    touched: touched.obligation
+  })
+
+  const handleValueChange = (value: string) => {
+    console.log('🔍 Obligation onChange:', { 
+      value,
+      currentValue: values.obligation,
+      isNoObligationValue: checkIfNoObligationValue(value),
+      willShowBankFields: !checkIfNoObligationValue(value)
+    })
+    setFieldValue('obligation', value)
+    setFieldTouched('obligation', true)
+  }
+
   return (
     <Column>
       <DropdownMenu
@@ -38,7 +70,7 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
         data={dropdownData.options}
         placeholder={dropdownData.placeholder || getContent('calculate_mortgage_obligations_ph', 'Select obligation type')}
         value={values.obligation}
-        onChange={(value) => setFieldValue('obligation', value)}
+        onChange={handleValueChange}
         onBlur={() => setFieldTouched('obligation')}
         error={touched.obligation && errors.obligation}
         disabled={dropdownData.loading}

@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { Calendar } from '@components/ui/Calendar'
 import { Column } from '@components/ui/Column'
@@ -9,11 +10,12 @@ import { FormTypes } from '../../types/formTypes'
 
 const EndDate = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('common')
   const { values, setFieldValue, errors } = useFormikContext<FormTypes>()
   return (
     <Column>
       <Calendar
-        title={t('calculate_mortgage_end_date')}
+        title={getContent('obligation_end_date_title', 'Obligation End Date')}
         value={values.endDate}
         onChange={(value) => setFieldValue('endDate', value)}
         placeholder="ДД / ММ / ГГ"

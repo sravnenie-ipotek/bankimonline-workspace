@@ -19,6 +19,21 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
   const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<FormTypes>()
 
+  // Helper function to check if a value indicates "no income" or "unemployed"
+  const checkIfNoIncomeValue = (value: string): boolean => {
+    if (!value) return false
+    const lowerValue = value.toLowerCase()
+    return (
+      lowerValue.includes('unemployed') ||
+      lowerValue.includes('no_income') || 
+      lowerValue.includes('no income') ||
+      lowerValue.includes('option_5') ||
+      lowerValue.includes('option_6') ||
+      lowerValue.includes('main_source_income_option_5') ||
+      lowerValue.includes('main_source_income_option_6')
+    )
+  }
+
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
   const dropdownData = useDropdownData(screenLocation, 'main_source', 'full') as any
 
@@ -50,6 +65,15 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
       dropdownOptions: dropdownData.options,
       selectedOption: dropdownData.options.find(item => item.value === value)
     })
+    
+    // Additional validation debugging
+    console.log('🔍 MainSourceOfIncome validation debug:', {
+      value,
+      isEmpty: !value || value === '' || value === null || value === undefined,
+      isNoIncomeValue: checkIfNoIncomeValue(value),
+      willRequireFields: !checkIfNoIncomeValue(value)
+    })
+    
     setFieldValue('mainSourceOfIncome', value)
     setFieldTouched('mainSourceOfIncome', true)
     // Force revalidation after setting the value

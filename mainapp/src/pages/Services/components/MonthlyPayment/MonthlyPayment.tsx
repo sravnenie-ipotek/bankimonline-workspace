@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 
 import { Column } from '@components/ui/Column'
 import { Error } from '@components/ui/Error'
@@ -9,6 +10,7 @@ import { FormTypes } from '../../types/formTypes'
 
 const MonthlyPayment = () => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('common')
 
   const { values, setFieldValue, errors, setFieldTouched, touched } =
     useFormikContext<FormTypes>()
@@ -16,8 +18,8 @@ const MonthlyPayment = () => {
     <Column>
       <FormattedInput
         value={values.monthlyPaymentForAnotherBank}
-        title={t('calculate_mortgage_monthly_payment')}
-        placeholder={t('calculate_mortgage_monthly_income_ph')}
+        title={getContent('obligation_monthly_payment_title', 'Monthly Payment')}
+        placeholder={getContent('obligation_monthly_payment_placeholder', 'Enter monthly payment amount')}
         name="MonthlyPayment"
         handleChange={(value) =>
           setFieldValue('monthlyPaymentForAnotherBank', value)

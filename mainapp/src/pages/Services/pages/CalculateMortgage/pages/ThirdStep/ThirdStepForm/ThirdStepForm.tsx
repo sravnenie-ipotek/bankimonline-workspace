@@ -41,6 +41,31 @@ import {
 import { FormTypes } from '@src/pages/Services/types/formTypes'
 import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
 
+// Helper function to check if a value indicates "no additional income"
+const isNoAdditionalIncomeValue = (value: string): boolean => {
+  if (!value) return false
+  const lowerValue = value.toLowerCase()
+  return (
+    lowerValue === 'option_1' ||
+    lowerValue === '1' ||
+    lowerValue.includes('no_additional') ||
+    lowerValue.includes('no additional') ||
+    lowerValue.includes('none')
+  )
+}
+
+// Helper function to check if a value indicates "no obligation"
+const isNoObligationValue = (value: string): boolean => {
+  if (!value) return false
+  const lowerValue = value.toLowerCase()
+  return (
+    lowerValue === 'option_1' ||
+    lowerValue.includes('no_obligation') ||
+    lowerValue.includes('no obligation') ||
+    lowerValue.includes('none')
+  )
+}
+
 // Компонент расчета ипотеки - 3 шаг
 const ThirdStepForm = () => {
   const { t, i18n } = useTranslation()
@@ -186,13 +211,13 @@ const ThirdStepForm = () => {
 
       <Row>
         <AdditionalIncome />
-        {additionalIncome && additionalIncome !== 'option_1' && additionalIncome !== '1' && additionalIncome !== 'no_additional_income' && (
+        {additionalIncome && !isNoAdditionalIncomeValue(additionalIncome) && (
           <AdditionalIncomeAmount />
         )}
         <Column />
       </Row>
 
-      {additionalIncome && additionalIncome !== 'option_1' && additionalIncome !== '1' && additionalIncome !== 'no_additional_income' && (
+      {additionalIncome && !isNoAdditionalIncomeValue(additionalIncome) && (
         <Row>
           <Column>
             {additionalIncomeValues.map((item) => (
@@ -225,7 +250,7 @@ const ThirdStepForm = () => {
         <Column />
       </Row>
 
-      {obligation && obligation !== 'option_1' && (
+      {obligation && !isNoObligationValue(obligation) && (
         <Row>
           <Column>
             {obligationValues.map((item) => (
