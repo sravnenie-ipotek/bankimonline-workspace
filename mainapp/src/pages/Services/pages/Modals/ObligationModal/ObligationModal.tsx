@@ -46,13 +46,13 @@ const ObligationModal = () => {
     obligation: Yup.string().required(getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')),
     bank: Yup.string().when('obligation', {
       is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value !== 'option_1',
+        value !== null && value !== undefined && value !== '' && value !== 'no_obligations',
       then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
       otherwise: (shema) => shema.notRequired(),
     }),
     monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
       is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value !== 'option_1',
+        value !== null && value !== undefined && value !== '' && value !== 'no_obligations',
       then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
       otherwise: (shema) => shema.notRequired(),
     }),
