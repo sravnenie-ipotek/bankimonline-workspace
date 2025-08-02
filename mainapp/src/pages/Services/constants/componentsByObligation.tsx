@@ -3,18 +3,18 @@ import { EndDate } from '../components/EndDate'
 import { MonthlyPayment } from '../components/MonthlyPayment'
 
 export const componentsByObligation: ComponentByObligation = {
-  obligations_bank_loan: [
+  bank_loan: [
     <Bank key="Bank" />,
     <MonthlyPayment key="MonthlyPayment" />,
     <EndDate key="EndDate" />,
   ],
-  obligations_consumer_credit: [
+  consumer_credit: [
     <Bank key="Bank" />,
     <MonthlyPayment key="MonthlyPayment" />,
     <EndDate key="EndDate" />,
   ],
-  obligations_credit_card: [<MonthlyPayment key="MonthlyPayment" />],
-  obligations_other: [<MonthlyPayment key="MonthlyPayment" />],
+  credit_card: [<MonthlyPayment key="MonthlyPayment" />],
+  other: [<MonthlyPayment key="MonthlyPayment" />],
 }
 
 interface ComponentByObligation {

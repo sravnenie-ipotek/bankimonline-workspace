@@ -16,6 +16,7 @@ interface BankProps {
 const Bank = ({ screenLocation = 'mortgage_step3' }: BankProps) => {
   const { t, i18n } = useTranslation()
   const { getContent } = useContentApi(screenLocation)
+  const { getContent: getCommonContent } = useContentApi('common')
   const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<FormTypes>()
 
@@ -30,11 +31,21 @@ const Bank = ({ screenLocation = 'mortgage_step3' }: BankProps) => {
   if (dropdownData.error) {
     console.warn('❌ Bank dropdown error:', dropdownData.error)
   }
+
+  // Use obligation-specific content when in obligation context
+  const isObligationContext = screenLocation === 'mortgage_step3' && values.obligation
+  const title = isObligationContext 
+    ? getCommonContent('obligation_bank_title', 'Bank Lender')
+    : (dropdownData.label || getContent('calculate_mortgage_bank', t('calculate_mortgage_bank')))
+  const placeholder = isObligationContext
+    ? getCommonContent('obligation_bank_placeholder', 'Select bank')
+    : (dropdownData.placeholder || getContent('calculate_mortgage_bank_ph', t('calculate_mortgage_bank')))
+
   return (
     <Column>
       <DropdownMenu
-        title={dropdownData.label || getContent('calculate_mortgage_bank', t('calculate_mortgage_bank'))}
-        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_bank_ph', t('calculate_mortgage_bank'))}
+        title={title}
+        placeholder={placeholder}
         data={dropdownData.options}
         value={values.bank}
         onChange={(value) => setFieldValue('bank', value)}
