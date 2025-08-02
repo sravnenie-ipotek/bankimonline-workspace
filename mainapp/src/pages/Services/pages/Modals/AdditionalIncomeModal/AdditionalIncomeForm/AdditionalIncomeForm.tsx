@@ -23,7 +23,7 @@ const AdditionalIncomeForm = () => {
     <>
       <div className={cx('modal')}>
         <div className={cx('modal-item')}>
-          <AdditionalIncome />
+          <AdditionalIncome excludeNoIncome={true} />
           {values.additionalIncome && <AdditionalIncomeAmount />}
         </div>
         <div className={cx('modal-buttons')}>
