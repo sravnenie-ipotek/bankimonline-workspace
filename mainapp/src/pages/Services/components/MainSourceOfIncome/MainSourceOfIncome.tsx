@@ -16,7 +16,7 @@ interface MainSourceOfIncomeProps {
 const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfIncomeProps) => {
   const { t, i18n } = useTranslation()
   const { getContent } = useContentApi(screenLocation)
-  const { values, setFieldValue, errors, touched, setFieldTouched } =
+  const { values, setFieldValue, errors, touched, setFieldTouched, setFieldError } =
     useFormikContext<FormTypes>()
 
   // Helper function to check if a value indicates "no income" or "unemployed"
@@ -74,12 +74,18 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
       willRequireFields: !checkIfNoIncomeValue(value)
     })
     
+    // If a valid option is selected, clear any validation error FIRST
+    if (value && value.trim() !== '') {
+      setFieldError('mainSourceOfIncome', undefined)
+    }
+    
+    // Then set the value
     setFieldValue('mainSourceOfIncome', value)
-    setFieldTouched('mainSourceOfIncome', true)
-    // Force revalidation after setting the value
-    setTimeout(() => {
+    
+    // Mark as touched after clearing error to prevent validation flash
+    if (value && value.trim() !== '') {
       setFieldTouched('mainSourceOfIncome', true)
-    }, 0)
+    }
   }
 
   return (

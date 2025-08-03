@@ -18,7 +18,7 @@ interface AdditionalIncomeProps {
 const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome = false }: AdditionalIncomeProps) => {
   const { t, i18n } = useTranslation()
   const { getContent } = useContentApi(screenLocation)
-  const { values, setFieldValue, errors, setFieldTouched, touched } =
+  const { values, setFieldValue, errors, setFieldTouched, touched, setFieldError, validateField } =
     useFormikContext<FormTypes>()
 
   // Helper function to check if a value indicates "no additional income"
@@ -72,8 +72,19 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
       isNoAdditionalIncomeValue: checkIfNoAdditionalIncomeValue(value),
       willShowAmountField: !checkIfNoAdditionalIncomeValue(value)
     })
+    
+    // If a valid option is selected, clear any validation error FIRST
+    if (value && value.trim() !== '') {
+      setFieldError('additionalIncome', undefined)
+    }
+    
+    // Then set the value
     setFieldValue('additionalIncome', value)
-    setFieldTouched('additionalIncome', true)
+    
+    // Mark as touched after clearing error to prevent validation flash
+    if (value && value.trim() !== '') {
+      setFieldTouched('additionalIncome', true)
+    }
   }
 
   return (
