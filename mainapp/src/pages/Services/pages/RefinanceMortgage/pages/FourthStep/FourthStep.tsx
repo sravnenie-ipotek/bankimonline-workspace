@@ -25,7 +25,7 @@ const FourthStep = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const loginData = useAppSelector((state) => state.login.loginData)
-  const isAuthenticated = useAppSelector((state) => state.login.isAuthenticated)
+  const isAuthenticated = useAppSelector((state) => state.login.isLogin)
 
   return (
     <Formik

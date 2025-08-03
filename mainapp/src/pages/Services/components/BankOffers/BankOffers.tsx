@@ -33,8 +33,38 @@ const BankOffers = () => {
   // Get parameters from Redux store based on service type
   const mortgageParameters = useAppSelector((state) => state.mortgage)
   const creditParameters = useAppSelector((state) => state.credit)
-  const userPersonalData = useAppSelector((state) => serviceType === 'credit' ? state.credit : state.mortgage)
-  const userIncomeData = useAppSelector((state) => serviceType === 'credit' ? state.credit : state.mortgage.incomeData)
+  const refinanceMortgageParameters = useAppSelector((state) => state.refinanceMortgage)
+  const refinanceCreditParameters = useAppSelector((state) => state.refinanceCredit)
+  
+  // Select the correct state based on service type
+  const getUserPersonalData = () => {
+    switch (serviceType) {
+      case 'credit':
+        return creditParameters
+      case 'refinance-mortgage':
+        return refinanceMortgageParameters
+      case 'refinance-credit':
+        return refinanceCreditParameters
+      default:
+        return mortgageParameters
+    }
+  }
+  
+  const getUserIncomeData = () => {
+    switch (serviceType) {
+      case 'credit':
+        return creditParameters
+      case 'refinance-mortgage':
+        return refinanceMortgageParameters
+      case 'refinance-credit':
+        return refinanceCreditParameters
+      default:
+        return mortgageParameters.incomeData
+    }
+  }
+  
+  const userPersonalData = getUserPersonalData()
+  const userIncomeData = getUserIncomeData()
   const mortgageTypeFilter = useAppSelector((state) => state.filter.mortgageType)
   
   const isCredit = serviceType === 'credit'
@@ -45,9 +75,23 @@ const BankOffers = () => {
         setLoading(true)
         setError(null)
         
+        // Get the correct parameters based on service type
+        const getParameters = () => {
+          switch (serviceType) {
+            case 'credit':
+              return creditParameters
+            case 'refinance-mortgage':
+              return refinanceMortgageParameters
+            case 'refinance-credit':
+              return refinanceCreditParameters
+            default:
+              return mortgageParameters
+          }
+        }
+        
         // Transform user data to API request format
         const requestPayload = transformUserDataToRequest(
-          isCredit ? creditParameters : mortgageParameters, 
+          getParameters(), 
           userPersonalData, 
           userIncomeData,
           serviceType || undefined
@@ -55,8 +99,9 @@ const BankOffers = () => {
         
         console.log('🚀 [BANK-OFFERS] Service Type:', serviceType)
         console.log('🚀 [BANK-OFFERS] Is Credit:', isCredit)
-        console.log('🚀 [BANK-OFFERS] Credit Parameters:', creditParameters)
-        console.log('🚀 [BANK-OFFERS] Mortgage Parameters:', mortgageParameters)
+        console.log('🚀 [BANK-OFFERS] Selected Parameters:', getParameters())
+        console.log('🚀 [BANK-OFFERS] User Personal Data:', userPersonalData)
+        console.log('🚀 [BANK-OFFERS] User Income Data:', userIncomeData)
         console.log('🚀 [BANK-OFFERS] Making API request with payload:', requestPayload)
         
         // Fetch bank offers from API
@@ -80,7 +125,7 @@ const BankOffers = () => {
     }
 
     loadBankOffers()
-  }, [mortgageParameters, creditParameters, userPersonalData, userIncomeData, isCredit, t])
+  }, [mortgageParameters, creditParameters, refinanceMortgageParameters, refinanceCreditParameters, userPersonalData, userIncomeData, serviceType, t])
 
   useEffect(() => {
     const loadMortgagePrograms = async () => {

@@ -59,7 +59,7 @@ const RefinanceMortgage = () => {
 
   return (
     <>
-      {stepNumber !== '4' && stepNumber !== 'upload-report' && <ProgressBar progress={progressValue} data={data} />}
+      {stepNumber !== 'upload-report' && <ProgressBar progress={progressValue} data={data} />}
       {stepNumber === 'upload-report' && <ProgressBar progress="1" data={[t('upload_report_progress'), t('mobile_step_2'), t('mobile_step_3')]} />}
       <Suspense fallback={<Loader />}>{stepComponent}</Suspense>
     </>
