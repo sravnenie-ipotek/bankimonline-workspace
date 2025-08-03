@@ -1,5 +1,41 @@
 # 📋 Dropdowns in Database Logic
 
+## 🚨 **CRITICAL: Document Alignment Notice**
+
+**This document has been updated to align with the AUTHORITATIVE `procceessesPagesInDB.md` document.**
+
+### **Key Changes Made:**
+- ✅ **Screen Location Naming**: Updated to use exact conventions from leading document
+- ✅ **Refinance Mortgage Process**: Now correctly uses `refinance_credit_*` screen locations
+- ✅ **Component Type Standards**: Aligned with leading document definitions
+- ✅ **Content Key Patterns**: Updated to match namespaced patterns (`app.refinance.step1.*`)
+
+### **CRITICAL Database Convention:**
+**Refinance Mortgage** process MUST use `refinance_credit_*` screen locations in database:
+- Step 1 (Calculator): `refinance_credit_1`
+- Step 2 (Personal Data): `refinance_credit_2` 
+- Step 3 (Income Data): `refinance_credit_3`
+- Step 4 (Program/Bank Selection): `mortgage_step4`
+
+This differs from the process name but MUST match exactly what the frontend code uses in `useContentApi()` calls.
+
+## 🚨 **CRITICAL DISCREPANCY DISCOVERED**
+
+**Frontend vs Database Documentation Mismatch:**
+
+**Frontend Code Actually Uses:**
+- `useContentApi('refinance_step1')` - RefinanceMortgage Step 1
+- `useContentApi('refinance_step2')` - RefinanceMortgage Step 2  
+- `useContentApi('refinance_step3')` - RefinanceMortgage Step 3
+
+**Leading Document Says:**
+- `refinance_credit_1` - Refinance Mortgage Step 1
+- `refinance_credit_2` - Refinance Mortgage Step 2
+- `refinance_credit_3` - Refinance Mortgage Step 3
+
+**RESOLUTION REQUIRED:**
+Either the frontend code needs to be updated to match the database conventions, OR the database conventions need to be updated to match the frontend code. This mismatch will cause content to not load properly.
+
 ## 🎯 **Overview**
 
 This document explains how dropdowns and their options are structured and marked in the database for the BankIM application. The system uses a flexible content management approach where dropdowns are stored as content items with specific component types.
@@ -101,25 +137,28 @@ Example: "mortgage_refinance_bank_label"
 ### **Database Records Structure**
 
 ```sql
+-- CRITICAL: Use EXACT screen locations as defined in procceessesPagesInDB.md
+-- Refinance Mortgage Step 1 uses 'refinance_credit_1' (NOT 'refinance_mortgage_1')
+
 -- 1. Main dropdown container
 INSERT INTO content_items (content_key, component_type, screen_location, category, is_active)
-VALUES ('mortgage_refinance_bank', 'dropdown', 'refinance_mortgage_2', 'form', true);
+VALUES ('app.refinance.step1.bank', 'dropdown_container', 'refinance_credit_1', 'form', true);
 
--- 2. Dropdown options
+-- 2. Dropdown options (using descriptive naming from leading document)
 INSERT INTO content_items (content_key, component_type, screen_location, category, is_active)
 VALUES 
-('mortgage_refinance_bank_hapoalim', 'option', 'refinance_mortgage_2', 'form', true),
-('mortgage_refinance_bank_leumi', 'option', 'refinance_mortgage_2', 'form', true),
-('mortgage_refinance_bank_discount', 'option', 'refinance_mortgage_2', 'form', true),
-('mortgage_refinance_bank_massad', 'option', 'refinance_mortgage_2', 'form', true);
+('app.refinance.step1.bank_hapoalim', 'dropdown_option', 'refinance_credit_1', 'form', true),
+('app.refinance.step1.bank_leumi', 'dropdown_option', 'refinance_credit_1', 'form', true),
+('app.refinance.step1.bank_discount', 'dropdown_option', 'refinance_credit_1', 'form', true),
+('app.refinance.step1.bank_massad', 'dropdown_option', 'refinance_credit_1', 'form', true);
 
 -- 3. Placeholder
 INSERT INTO content_items (content_key, component_type, screen_location, category, is_active)
-VALUES ('mortgage_refinance_bank_ph', 'placeholder', 'refinance_mortgage_2', 'form', true);
+VALUES ('app.refinance.step1.bank_ph', 'text', 'refinance_credit_1', 'form', true);
 
 -- 4. Label
 INSERT INTO content_items (content_key, component_type, screen_location, category, is_active)
-VALUES ('mortgage_refinance_bank_label', 'label', 'refinance_mortgage_2', 'form', true);
+VALUES ('app.refinance.step1.bank_label', 'text', 'refinance_credit_1', 'form', true);
 ```
 
 ### **Translation Records**
@@ -189,8 +228,11 @@ WHERE screen_location = 'refinance_mortgage_2'
 ### **API Endpoint Usage**
 
 ```javascript
-// Get all dropdown content for a screen
-GET /api/content/refinance_mortgage_2/en
+// Get all dropdown content for a screen (using correct screen locations)
+GET /api/content/refinance_credit_1/en   // Refinance Mortgage Step 1
+GET /api/content/refinance_credit_2/en   // Refinance Mortgage Step 2
+GET /api/content/refinance_credit_3/en   // Refinance Mortgage Step 3
+GET /api/content/mortgage_step4/en       // Refinance Mortgage Step 4
 
 // Response structure
 {
@@ -226,15 +268,24 @@ GET /api/content/refinance_mortgage_2/en
 
 ## 🎯 **Key Principles**
 
-### **1. Component Type is the Key**
-- `"dropdown"` = Main dropdown field
-- `"option"` = Individual dropdown choices
-- `"placeholder"` = Default text
-- `"label"` = Field label
+### **1. Component Type is the Key (Updated per Leading Document)**
+- `"dropdown_container"` = Main dropdown field container
+- `"dropdown_option"` = Individual dropdown choices
+- `"text"` = Placeholder text and field labels
+- Note: Leading document shows descriptive option naming (e.g., `_bachelors`, `_masters`) rather than numbered options
 
-### **2. Screen Location Groups Them**
+### **2. Screen Location Groups Them (CRITICAL: Use Leading Document Conventions)**
 - All related items share the same `screen_location`
-- Example: `"refinance_mortgage_2"`
+- Must EXACTLY MATCH what frontend code uses in `useContentApi()` calls
+- Case sensitive: `mortgage_step1` ≠ `Mortgage_Step1`
+- **Refinance Mortgage Process**: Uses `refinance_credit_*` screen locations
+  - Step 1: `refinance_credit_1` (Calculator)
+  - Step 2: `refinance_credit_2` (Personal Data)
+  - Step 3: `refinance_credit_3` (Income Data)
+  - Step 4: `mortgage_step4` (Program/Bank Selection)
+- **Calculate Mortgage Process**: Uses `mortgage_step*` screen locations
+- **Calculate Credit Process**: Uses `credit_step*` screen locations
+- **Refinance Credit Process**: Uses `refinance_credit_*` screen locations
 
 ### **3. Content Key Links Them**
 - Options reference the main dropdown in their key
@@ -349,10 +400,11 @@ refinance_mortgage_3: mortgage_refinance_bank_hapoalim  -- Wrong!
 **Query Pattern:**
 ```sql
 -- Always filter by both screen_location AND component_type
+-- Use EXACT screen locations from leading document
 SELECT * FROM content_items ci
 JOIN content_translations ct ON ci.id = ct.content_item_id
-WHERE ci.screen_location = 'refinance_mortgage_2' 
-  AND ci.component_type = 'dropdown'
+WHERE ci.screen_location = 'refinance_credit_1'   -- Correct for refinance mortgage step 1
+  AND ci.component_type = 'dropdown_container'
   AND ci.is_active = true
   AND ct.status = 'approved';
 ```
@@ -529,13 +581,13 @@ VALUES
 
 **BULLETPROOF ANSWER: Use consistent, descriptive screen location names.**
 
-**Recommended Naming Convention:**
+**AUTHORITATIVE Naming Convention (from Leading Document):**
 ```sql
--- ✅ CORRECT: Consistent, descriptive screen locations
-"refinance_mortgage_1"  → Step 1: Basic mortgage details
-"refinance_mortgage_2"  → Step 2: Bank and property selection
-"refinance_mortgage_3"  → Step 3: Income and employment details
-"refinance_mortgage_4"  → Step 4: Summary and submission
+-- ✅ CORRECT: MUST match procceessesPagesInDB.md exactly
+"refinance_credit_1"    → Refinance Mortgage Step 1: Calculator
+"refinance_credit_2"    → Refinance Mortgage Step 2: Personal Data
+"refinance_credit_3"    → Refinance Mortgage Step 3: Income Data
+"mortgage_step4"        → Refinance Mortgage Step 4: Program/Bank Selection
 
 -- ✅ ALTERNATIVE: More descriptive names
 "refinance_mortgage_details"     → Step 1
@@ -558,15 +610,15 @@ VALUES
 
 **Query Pattern:**
 ```sql
--- Get all content for a specific step
+-- Get all content for refinance mortgage process (using correct naming)
 SELECT * FROM content_items 
-WHERE screen_location LIKE 'refinance_mortgage_%'
+WHERE screen_location IN ('refinance_credit_1', 'refinance_credit_2', 'refinance_credit_3', 'mortgage_step4')
   AND is_active = true
 ORDER BY screen_location, content_key;
 
--- Get content for specific step
+-- Get content for specific refinance mortgage step
 SELECT * FROM content_items 
-WHERE screen_location = 'refinance_mortgage_2'
+WHERE screen_location = 'refinance_credit_1'  -- Correct for step 1
   AND is_active = true
 ORDER BY content_key;
 ```
@@ -667,49 +719,49 @@ refinance_mortgage_3: mortgage_refinance_income_salary
 
 ## 🎯 **Validation Queries**
 
-### **Check for Duplicate Content Keys:**
+### **Check for Duplicate Content Keys (Updated):**
 ```sql
-SELECT content_key, COUNT(*) as count
+SELECT content_key, screen_location, COUNT(*) as count
 FROM content_items
-WHERE screen_location = 'refinance_mortgage_2'
-GROUP BY content_key
+WHERE screen_location IN ('refinance_credit_1', 'refinance_credit_2', 'refinance_credit_3', 'mortgage_step4')
+GROUP BY content_key, screen_location
 HAVING COUNT(*) > 1;
 ```
 
-### **Check for Missing Translations:**
+### **Check for Missing Translations (Updated):**
 ```sql
-SELECT ci.content_key, ci.component_type
+SELECT ci.content_key, ci.component_type, ci.screen_location
 FROM content_items ci
 LEFT JOIN content_translations ct ON ci.id = ct.content_item_id
-WHERE ci.screen_location = 'refinance_mortgage_2'
+WHERE ci.screen_location IN ('refinance_credit_1', 'refinance_credit_2', 'refinance_credit_3', 'mortgage_step4')
   AND ci.is_active = true
   AND ct.id IS NULL;
 ```
 
-### **Check for Draft Status in Production:**
+### **Check for Draft Status in Production (Updated):**
 ```sql
-SELECT ci.content_key, ct.language_code, ct.status
+SELECT ci.content_key, ci.screen_location, ct.language_code, ct.status
 FROM content_items ci
 JOIN content_translations ct ON ci.id = ct.content_item_id
-WHERE ci.screen_location = 'refinance_mortgage_2'
+WHERE ci.screen_location IN ('refinance_credit_1', 'refinance_credit_2', 'refinance_credit_3', 'mortgage_step4')
   AND ci.is_active = true
   AND ct.status != 'approved';
 ```
 
 ### **Check for Inconsistent Component Types:**
 ```sql
-SELECT content_key, component_type
+SELECT content_key, component_type, screen_location
 FROM content_items
-WHERE screen_location = 'refinance_mortgage_2'
-  AND component_type NOT IN ('dropdown', 'option', 'placeholder', 'label')
+WHERE screen_location IN ('refinance_credit_1', 'refinance_credit_2', 'refinance_credit_3', 'mortgage_step4')
+  AND component_type NOT IN ('dropdown_container', 'dropdown_option', 'text')
   AND is_active = true;
 ```
 
-### **Check for Inconsistent Categories:**
+### **Check for Inconsistent Categories (Updated):**
 ```sql
 SELECT screen_location, category, COUNT(*) as count
 FROM content_items
-WHERE screen_location LIKE 'refinance_mortgage_%'
+WHERE screen_location IN ('refinance_credit_1', 'refinance_credit_2', 'refinance_credit_3', 'mortgage_step4')
   AND is_active = true
 GROUP BY screen_location, category
 ORDER BY screen_location, category;
@@ -897,12 +949,13 @@ GROUP BY screen_location, category
 ORDER BY screen_location, category;
 ```
 
-### **Check Refinance Mortgage Content:**
+### **Check Refinance Mortgage Content (Using Correct Screen Locations):**
 ```sql
-SELECT content_key, component_type, category
+SELECT content_key, component_type, category, screen_location
 FROM content_items
-WHERE screen_location LIKE 'refinance_mortgage_%'
-ORDER BY content_key;
+WHERE screen_location IN ('refinance_credit_1', 'refinance_credit_2', 'refinance_credit_3', 'mortgage_step4')
+  AND content_key LIKE '%refinance%'
+ORDER BY screen_location, content_key;
 ```
 
 ## 🎯 **VALIDATION TRANSLATIONS: CRITICAL DATABASE-FIRST REQUIREMENT**

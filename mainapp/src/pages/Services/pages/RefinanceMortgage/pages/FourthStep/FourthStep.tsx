@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { Container } from '@components/ui/Container'
 import { DoubleButtons } from '@src/pages/Services/components/DoubleButtons'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
-import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice'
+import { updateRefinanceMortgageData } from '@src/pages/Services/slices/refinanceMortgageSlice'
 import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
 import { openAuthModal } from '@src/pages/Services/slices/modalSlice'
 
@@ -36,7 +36,7 @@ const FourthStep = () => {
         console.log('Saving refinance mortgage data and proceeding...', values)
         
         // Save any selected bank/offer data
-        dispatch(updateMortgageData(values))
+        dispatch(updateRefinanceMortgageData(values))
         
         // If user is not authenticated, open auth modal
         if (!isAuthenticated || !loginData?.phoneNumber) {

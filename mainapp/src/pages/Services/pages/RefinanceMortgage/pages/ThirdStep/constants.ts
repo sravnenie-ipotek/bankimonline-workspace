@@ -37,14 +37,10 @@ export const getValidationSchema = () => Yup.object().shape({
   }),
   additionalIncome: Yup.string().required(
     getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')
-  ).test(
-    'not-empty',
-    getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options'),
-    (value) => value !== null && value !== undefined && value !== ''
   ),
   additionalIncomeAmount: Yup.number().when('additionalIncome', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== 'no_additional_income',
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
@@ -53,19 +49,19 @@ export const getValidationSchema = () => Yup.object().shape({
   ),
   bank: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== 'no_obligations',
     then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
     otherwise: (shema) => shema.notRequired(),
   }),
   monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== 'no_obligations',
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
   endDate: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== 'no_obligations',
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),
