@@ -191,7 +191,7 @@ app.get('/api/health', (req, res) => {
     res.json({ 
         status: 'ok', 
         database: 'connected',
-        version: '5.1.0-dropdown-fix',
+        version: '5.2.0-regex-greedy-fix',
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV || 'development',
         corsEnabled: true
@@ -1117,7 +1117,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
             if (match) {
                 fieldName = match[1];
             } else {
-                match = row.content_key.match(/^[^.]*\.field\.([^.]+?)_(?:has_property|no_property|selling_property|within_3_months|3_to_6_months|6_to_12_months|over_12_months|apartment|garden_apartment|penthouse|private_house|other|yes_first_home|no_additional_property|investment|fixed_rate|variable_rate|mixed_rate|not_sure|im_|i_no_|i_own_|selling_|no_|has_|single|married|divorced|widowed|partner|commonlaw_partner|no_high_school_diploma|partial_high_school_diploma|full_high_school_diploma|postsecondary_education|bachelors|masters|doctorate|employee|selfemployed|pension|student|unemployed|unpaid_leave|additional_salary|additional_work|property_rental_income|no_additional_income|bank_loan|consumer_credit|credit_card|no_obligations|hapoalim|leumi|discount|massad|mizrahi)/);
+                match = row.content_key.match(/^[^.]*\.field\.([^.]+)_(?:has_property|no_property|selling_property|within_3_months|3_to_6_months|6_to_12_months|over_12_months|apartment|garden_apartment|penthouse|private_house|other|yes_first_home|no_additional_property|investment|fixed_rate|variable_rate|mixed_rate|not_sure|im_|i_no_|i_own_|selling_|no_|has_|single|married|divorced|widowed|partner|commonlaw_partner|no_high_school_diploma|partial_high_school_diploma|full_high_school_diploma|postsecondary_education|bachelors|masters|doctorate|employee|selfemployed|pension|student|unemployed|unpaid_leave|additional_salary|additional_work|property_rental_income|no_additional_income|bank_loan|consumer_credit|credit_card|no_obligations|hapoalim|leumi|discount|massad|mizrahi)/);
                 if (match) {
                     fieldName = match[1];
                 }
