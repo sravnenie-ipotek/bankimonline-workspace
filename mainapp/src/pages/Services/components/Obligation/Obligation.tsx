@@ -16,7 +16,7 @@ interface ObligationProps {
 const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   const { t, i18n } = useTranslation()
   const { getContent } = useContentApi(screenLocation)
-  const { values, setFieldValue, touched, errors, setFieldTouched } =
+  const { values, setFieldValue, touched, errors, setFieldTouched, setFieldError } =
     useFormikContext<FormTypes>()
 
   // Helper function to check if a value indicates "no obligation"
@@ -59,8 +59,19 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
       isNoObligationValue: checkIfNoObligationValue(value),
       willShowBankFields: !checkIfNoObligationValue(value)
     })
+    
+    // If a valid option is selected, clear any validation error FIRST
+    if (value && value.trim() !== '') {
+      setFieldError('obligation', undefined)
+    }
+    
+    // Then set the value
     setFieldValue('obligation', value)
-    setFieldTouched('obligation', true)
+    
+    // Mark as touched after clearing error to prevent validation flash
+    if (value && value.trim() !== '') {
+      setFieldTouched('obligation', true)
+    }
   }
 
   return (
