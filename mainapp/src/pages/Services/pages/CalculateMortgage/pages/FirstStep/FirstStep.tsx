@@ -23,8 +23,8 @@ export const getValidationSchema = () => Yup.object().shape({
   priceOfEstate: Yup.number()
     .max(10000000, getValidationErrorSync('error_max_price', 'Maximum property value is 10,000,000 NIS'))
     .required(getValidationErrorSync('error_property_value_required', 'Property value is required')),
-  cityWhereYouBuy: Yup.string().required(getValidationErrorSync('error_city_required', 'City is required')),
-  whenDoYouNeedMoney: Yup.string().required(getValidationErrorSync('error_when_need_mortgage', 'Please specify when you need the mortgage')),
+  cityWhereYouBuy: Yup.string().required(getValidationErrorSync('error_city_required', 'עיר נדרשת')),
+  whenDoYouNeedMoney: Yup.string().required(getValidationErrorSync('error_when_need_mortgage', 'יש לבחור מתי תזדקק למשכנתא')),
   initialFee: Yup.number()
     .test(
       'initial-payment-percentage',
