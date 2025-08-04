@@ -10,24 +10,24 @@ export const getValidationSchema = () => Yup.object().shape({
     otherwise: (schema) => schema.notRequired(),
   }),
   startDate: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['unemployed', 'unpaid_leave'].includes(value), // Not unemployed or no income
+    is: (value: string) => !['unemployed', 'unpaid_leave', 'main_source_other'].includes(value), // Not unemployed, no income, or other
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),
   fieldOfActivity: Yup.string().when('mainSourceOfIncome', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && !['unemployed', 'unpaid_leave'].includes(value),
+      value !== null && value !== undefined && value !== '' && !['unemployed', 'unpaid_leave', 'main_source_other'].includes(value),
     then: (shema) =>
       shema.required(getValidationErrorSync('error_select_field_of_activity', 'Please select field of activity')),
     otherwise: (shema) => shema.notRequired(),
   }),
   profession: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['unemployed', 'unpaid_leave'].includes(value), // Not unemployed or no income
+    is: (value: string) => !['unemployed', 'unpaid_leave', 'main_source_other'].includes(value), // Not unemployed, no income, or other
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
   companyName: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['unemployed', 'unpaid_leave'].includes(value), // Not unemployed or no income
+    is: (value: string) => !['unemployed', 'unpaid_leave', 'main_source_other'].includes(value), // Not unemployed, no income, or other
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
