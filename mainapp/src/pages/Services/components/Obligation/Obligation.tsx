@@ -25,7 +25,8 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
     const lowerValue = value.toLowerCase()
     return (
       lowerValue === 'option_1' ||
-      lowerValue.includes('no_obligation') ||
+      lowerValue === 'no_obligations' ||           // CRITICAL FIX: Database value (plural)
+      lowerValue.includes('no_obligation') ||      // Legacy patterns
       lowerValue.includes('no obligation') ||
       lowerValue.includes('none')
     )
