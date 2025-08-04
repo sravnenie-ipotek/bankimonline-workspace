@@ -2,6 +2,19 @@
 const validationCache = new Map<string, Record<string, string>>();
 
 /**
+ * Get API base URL (same logic as api.ts)
+ */
+const getApiBaseUrl = (): string => {
+  // Check if we're running on localhost (development)
+  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    return 'http://localhost:8003/api'
+  }
+  
+  // In production, use environment variable or fallback to Railway production
+  return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankdev2standalone-production.up.railway.app/api'
+}
+
+/**
  * Get current language from i18next (same as useContentApi)
  */
 const getCurrentLanguage = (): string => {
@@ -44,8 +57,9 @@ export const getValidationError = async (errorKey: string, fallback?: string): P
     
     // Try to fetch from database first
     try {
-      console.log(`🌐 Fetching from database: /api/content/validation_errors/${currentLang}`)
-      const response = await fetch(`/api/content/validation_errors/${currentLang}`)
+      const apiUrl = `${getApiBaseUrl()}/content/validation_errors/${currentLang}`
+      console.log(`🌐 Fetching from database: ${apiUrl}`)
+      const response = await fetch(apiUrl)
       if (response.ok) {
         const data = await response.json()
         console.log(`📊 Database response:`, data)
@@ -133,7 +147,8 @@ export const preloadValidationErrors = async () => {
     
     // Try database first
     try {
-      const response = await fetch(`/api/content/validation_errors/${currentLang}`)
+      const apiUrl = `${getApiBaseUrl()}/content/validation_errors/${currentLang}`
+      const response = await fetch(apiUrl)
       if (response.ok) {
         const data = await response.json()
         if (data.content) {
