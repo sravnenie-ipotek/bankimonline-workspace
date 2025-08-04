@@ -71,9 +71,9 @@ if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('dev'));
 }
 
-// Serve static files from frontend build directory
-app.use(express.static(path.join(__dirname, 'frontend/build')));
-app.use(express.static(path.join(__dirname, 'frontend/dist')));
+// Serve static files from mainapp build directory
+app.use(express.static(path.join(__dirname, 'mainapp/build')));
+app.use(express.static(path.join(__dirname, 'mainapp/dist')));
 
 // ============================================
 // API ROUTES
@@ -198,8 +198,8 @@ app.post('/api/users', async (req, res) => {
 app.get('*', (req, res) => {
     // Try different possible build directories
     const possiblePaths = [
-        path.join(__dirname, 'frontend/build/index.html'),
-        path.join(__dirname, 'frontend/dist/index.html'),
+        path.join(__dirname, 'mainapp/build/index.html'),
+        path.join(__dirname, 'mainapp/dist/index.html'),
         path.join(__dirname, 'build/index.html'),
         path.join(__dirname, 'dist/index.html')
     ];
