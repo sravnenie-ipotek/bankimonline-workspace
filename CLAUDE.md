@@ -6,6 +6,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a banking/financial services web application with a React frontend and Node.js backend, designed for mortgage and credit calculations. The application features multi-language support (English, Hebrew, Russian), complex multi-step forms, and integration with a PostgreSQL database hosted on Railway.
 
+### Dual Repository Architecture
+This project maintains two synchronized GitHub repositories:
+- **Main Repository**: https://github.com/MichaelMishaev/bankDev2_standalone (complete application)
+- **Server Repository**: https://github.com/MichaelMishaev/bankimonlineapi (backend focus)
+
+Use the provided script for synchronized commits:
+```bash
+# Automated push to both repositories
+./push-to-both-repos.sh "Your commit message"
+
+# Manual push to both
+git add . && git commit -m "Update" && git push origin main && git push bankimonlineapi main
+```
+
 ## Quick Start
 
 ### Start Development Environment
@@ -69,6 +83,8 @@ npm run sync-translations
 ```
 
 ### Testing
+
+#### Frontend Testing (Cypress)
 ```bash
 cd mainapp
 
@@ -88,6 +104,20 @@ npm run cypress:component
 npm run test:translations
 npm run test:translations:full
 npm run test:translations:screenshots
+```
+
+#### Backend Testing (Playwright)
+```bash
+# Root directory Playwright tests
+npm run test              # Run all Playwright tests
+npm run test:headed       # Run with browser visible
+npm run test:ui           # Interactive UI mode
+npm run test:debug        # Debug mode
+npm run test:report       # Show test report
+
+# Individual test files
+npx playwright test tests/mortgage-calculator-flow.spec.ts
+npx playwright test tests/banking-app.spec.ts
 ```
 
 ### Database
@@ -395,7 +425,7 @@ Frontend environment variables:
 
 ### Testing Configuration
 
-#### Cypress Setup
+#### Cypress Setup (Frontend Testing)
 - Base URL: http://localhost:5173
 - API URL: http://localhost:8003
 - Default viewport: 1920x1080
@@ -404,6 +434,16 @@ Frontend environment variables:
 - Support for E2E and component testing
 - Translation testing with screenshot capabilities
 - Retry configuration: 2 retries in run mode
+
+#### Playwright Setup (Backend/Integration Testing)
+- Base URL: http://localhost:5173 (configured in playwright.config.ts)
+- Automated server startup: Both frontend (port 5173) and backend (port 8003)
+- Cross-browser testing: Chrome, Firefox, Safari, Mobile Chrome, Mobile Safari
+- Test directory: `./tests/`
+- Test files: mortgage-calculator-flow.spec.ts, banking-app.spec.ts
+- Parallel execution enabled
+- Screenshot/video capture on failures
+- HTML reporting with trace collection
 
 ## Translation Management
 
@@ -477,3 +517,35 @@ The project is transitioning from JSON-based translations to database-backed con
 - `migrate-mortgage-calculator-to-db.js` - Migrates calculator content
 - `comment-out-migrated-keys.js` - Comments migrated keys in JSON files
 - Check `migrations/MIGRATION_STATUS.md` for current migration progress
+
+## MCP Integration
+
+This project includes MCP (Model Context Protocol) server configuration for enhanced AI tooling:
+
+### Available MCP Servers
+- **@playwright/mcp** - Playwright testing automation server
+- **YouTrack** - Issue tracking and project management
+- **Atlassian** - Confluence documentation access
+- **Figma** - Design system integration
+
+### MCP Configuration
+The `.mcp.json` file contains server configurations for development workflow automation.
+
+## Development Workflow Best Practices
+
+### Git Workflow
+- Always commit to both repositories using the provided script
+- Use descriptive commit messages following conventional commit format
+- Test both frontend and backend before committing
+
+### Code Quality Standards
+- Frontend: ESLint + Prettier configuration enforced
+- TypeScript strict mode enabled
+- All components should follow established patterns
+- Translation keys must exist in all three languages before use
+
+### Performance Considerations
+- Vite build optimization with manual chunks configured
+- Redux state persistence for user experience
+- API response caching implemented via RTK Query
+- Lazy loading for route-based code splitting
