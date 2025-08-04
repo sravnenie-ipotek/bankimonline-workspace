@@ -73,18 +73,11 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
       willShowAmountField: !checkIfNoAdditionalIncomeValue(value)
     })
     
-    // If a valid option is selected, clear any validation error FIRST
-    if (value && value.trim() !== '') {
-      setFieldError('additionalIncome', undefined)
-    }
-    
-    // Then set the value
+    // Just set the value - let Formik handle validation naturally
     setFieldValue('additionalIncome', value)
     
-    // Mark as touched after clearing error to prevent validation flash
-    if (value && value.trim() !== '') {
-      setFieldTouched('additionalIncome', true)
-    }
+    // Mark as touched only after value is set
+    setFieldTouched('additionalIncome', true)
   }
 
   return (

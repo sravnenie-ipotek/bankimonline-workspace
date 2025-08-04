@@ -60,18 +60,11 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
       willShowBankFields: !checkIfNoObligationValue(value)
     })
     
-    // If a valid option is selected, clear any validation error FIRST
-    if (value && value.trim() !== '') {
-      setFieldError('obligation', undefined)
-    }
-    
-    // Then set the value
+    // Just set the value - let Formik handle validation naturally
     setFieldValue('obligation', value)
     
-    // Mark as touched after clearing error to prevent validation flash
-    if (value && value.trim() !== '') {
-      setFieldTouched('obligation', true)
-    }
+    // Mark as touched only after value is set
+    setFieldTouched('obligation', true)
   }
 
   return (
