@@ -21,33 +21,33 @@ import FirstStepForm from './FirstStepForm/FirstStepForm'
 // Dynamic validation schema that gets validation errors at runtime
 export const getValidationSchema = () => Yup.object().shape({
   priceOfEstate: Yup.number()
-    .max(10000000, getValidationErrorSync('error_max_price', 'Maximum property value is 10,000,000 NIS'))
-    .required(getValidationErrorSync('error_property_value_required', 'Property value is required')),
+    .max(10000000, getValidationErrorSync('error_max_price', 'ערך הנכס המקסימלי הוא 10,000,000 ש"ח'))
+    .required(getValidationErrorSync('error_property_value_required', 'ערך הנכס נדרש')),
   cityWhereYouBuy: Yup.string().required(getValidationErrorSync('error_city_required', 'עיר נדרשת')),
   whenDoYouNeedMoney: Yup.string().required(getValidationErrorSync('error_when_need_mortgage', 'יש לבחור מתי תזדקק למשכנתא')),
   initialFee: Yup.number()
     .test(
       'initial-payment-percentage',
-      getValidationErrorSync('error_initial_fee', 'Initial payment cannot exceed 75% of property value'),
+      getValidationErrorSync('error_initial_fee', 'תשלום ראשוני לא יכול לעלות על 75% מערך הנכס'),
       function (value) {
         const priceOfEstate: number = this.parent.priceOfEstate || 0
         return validateInitialPayment(priceOfEstate, value)
       }
     )
-    .required(getValidationErrorSync('error_initial_payment_required', 'Initial payment is required')),
-  typeSelect: Yup.string().required(getValidationErrorSync('error_mortgage_type_required', 'Mortgage type is required')),
-  willBeYourFirst: Yup.string().required(getValidationErrorSync('error_first_home_required', 'Please specify if this is your first home')),
-  propertyOwnership: Yup.string().required(getValidationErrorSync('error_property_ownership_required', 'Property ownership status is required')),
+    .required(getValidationErrorSync('error_initial_payment_required', 'תשלום ראשוני נדרש')),
+  typeSelect: Yup.string().required(getValidationErrorSync('error_mortgage_type_required', 'סוג משכנתה נדרש')),
+  willBeYourFirst: Yup.string().required(getValidationErrorSync('error_first_home_required', 'אנא ציין אם זה הבית הראשון שלך')),
+  propertyOwnership: Yup.string().required(getValidationErrorSync('error_property_ownership_required', 'סטטוס בעלות על נכס נדרש')),
   period: Yup.number()
-    .min(4, getValidationErrorSync('error_min_period', 'Minimum period is 4 years'))
-    .max(30, getValidationErrorSync('error_max_period', 'Maximum period is 30 years'))
-    .required(getValidationErrorSync('error_period_required', 'Mortgage period is required')),
+    .min(4, getValidationErrorSync('error_min_period', 'תקופה מינימלית היא 4 שנים'))
+    .max(30, getValidationErrorSync('error_max_period', 'תקופה מקסימלית היא 30 שנה'))
+    .required(getValidationErrorSync('error_period_required', 'תקופת המשכנתה נדרשת')),
   monthlyPayment: Yup.number()
     .min(
       2654,
-      getValidationErrorSync('error_min_monthly_payment', 'Minimum monthly payment is 2,664 NIS')
+      getValidationErrorSync('error_min_monthly_payment', 'תשלום חודשי מינימלי הוא 2,664 ש"ח')
     )
-    .required(getValidationErrorSync('error_monthly_payment_required', 'Monthly payment is required')),
+    .required(getValidationErrorSync('error_monthly_payment_required', 'תשלום חודשי נדרש')),
 })
 
 export function validateInitialPayment(priceOfEstate: number, value?: number) {
