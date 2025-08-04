@@ -74,18 +74,11 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
       willRequireFields: !checkIfNoIncomeValue(value)
     })
     
-    // If a valid option is selected, clear any validation error FIRST
-    if (value && value.trim() !== '') {
-      setFieldError('mainSourceOfIncome', undefined)
-    }
-    
-    // Then set the value
+    // Just set the value - let Formik handle validation naturally
     setFieldValue('mainSourceOfIncome', value)
     
-    // Mark as touched after clearing error to prevent validation flash
-    if (value && value.trim() !== '') {
-      setFieldTouched('mainSourceOfIncome', true)
-    }
+    // Mark as touched only after value is set
+    setFieldTouched('mainSourceOfIncome', true)
   }
 
   return (

@@ -1075,6 +1075,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
         console.log(`⚡ Dropdown cache MISS for ${cacheKey} - querying database`);
         
         // Fetch all dropdown-related content for the screen
+        console.log(`🔍 Executing query for screen: ${screen}, language: ${language}`);
         const result = await contentPool.query(`
             SELECT 
                 content_items.content_key,
@@ -1089,6 +1090,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 AND content_items.component_type IN ('dropdown_container', 'dropdown_option', 'option', 'placeholder', 'label')
             ORDER BY content_items.content_key, content_items.component_type
         `, [screen, language]);
+        console.log(`📊 Query returned ${result.rows.length} rows`);
         
         // Structure the response according to the specification
         const response = {
@@ -1105,7 +1107,11 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
         // Group by dropdown field - extract field name from content_key
         const dropdownMap = new Map();
         
+        console.log(`📊 Processing ${result.rows.length} rows for ${screen}/${language}`);
+        
         result.rows.forEach(row => {
+            console.log(`🔍 Processing: ${row.content_key} (${row.component_type})`);
+            
             // Extract field name using multiple patterns to handle various key formats
             // Examples: mortgage_step1.field.property_ownership, app.mortgage.form.calculate_mortgage_city
             let fieldName = null;
@@ -1138,16 +1144,32 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
             }
             
             // Pattern 2: app.mortgage.form.calculate_mortgage_{fieldname} (handles both container and options)
+            // FIXED: Properly group placeholders and options under base field name
             if (!fieldName) {
-                // For options like: calculate_mortgage_property_ownership_selling_property
-                match = row.content_key.match(/calculate_mortgage_([^_]+(?:_[^_]+)*)_(?:im_|i_no_|i_own_|selling_|no_|has_)/);
-                if (match) {
-                    fieldName = match[1];
-                } else {
-                    // For containers like: calculate_mortgage_property_ownership
-                    match = row.content_key.match(/calculate_mortgage_([^_]+(?:_[^_]+)*)(?:_ph|$)/);
+                if (row.content_key.includes('_ph')) {
+                    // For placeholders: calculate_mortgage_main_source_ph → main_source  
+                    match = row.content_key.match(/calculate_mortgage_([^_]+(?:_[^_]+)*)_ph$/);
                     if (match) {
                         fieldName = match[1];
+                    }
+                } else if (row.content_key.includes('_option_')) {
+                    // For options: calculate_mortgage_main_source_option_1 → main_source
+                    match = row.content_key.match(/calculate_mortgage_([^_]+(?:_[^_]+)*)_option_\d+$/);
+                    if (match) {
+                        fieldName = match[1];
+                    }
+                } else {
+                    // For labels and other suffixes: calculate_mortgage_main_source → main_source
+                    // Also handle legacy patterns with specific endings
+                    match = row.content_key.match(/calculate_mortgage_([^_]+(?:_[^_]+)*)_(?:im_|i_no_|i_own_|selling_|no_|has_)/);
+                    if (match) {
+                        fieldName = match[1];
+                    } else {
+                        // For base containers: calculate_mortgage_main_source → main_source
+                        match = row.content_key.match(/calculate_mortgage_([^_]+(?:_[^_]+)*)$/);
+                        if (match) {
+                            fieldName = match[1];
+                        }
                     }
                 }
             }
