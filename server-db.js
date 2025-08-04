@@ -21,14 +21,14 @@ const contentCache = new NodeCache({
     useClones: false // Better performance for JSON objects
 });
 
-// Main database connection
+// Main database connection (Core Database)
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway'
+    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:lqqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway'
 });
 
-// Content database connection (SECOND database for content)
+// Content database connection (SECOND database for content/translations)
 const contentPool = new Pool({
-    connectionString: process.env.CONTENT_DATABASE_URL || process.env.DATABASE_PUBLIC_URL || process.env.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway'
+    connectionString: process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway'
 });
 
 // Test main database connection
