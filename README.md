@@ -1,3 +1,23 @@
+# BankIM Online - Banking Application
+
+## 🚀 Quick Start
+
+### Dual Repository Setup
+This project maintains two GitHub repositories that must be kept in sync:
+- **Main Repo**: https://github.com/MichaelMishaev/bankDev2_standalone
+- **Server Repo**: https://github.com/MichaelMishaev/bankimonlineapi
+
+### Push to Both Repositories
+```bash
+# Automated push to both repos (recommended)
+./push-to-both-repos.sh "Your commit message"
+
+# Manual push
+git add . && git commit -m "Update" && git push origin main && git push bankimonlineapi main
+```
+
+📖 **Detailed instructions**: See [GITHUB_PUSH_INSTRUCTIONS.md](./GITHUB_PUSH_INSTRUCTIONS.md)
+
 # 🏦 Bankimonline Standalone Application
 
 A **lightweight, portable** React application with Node.js mock API backend. This is a self-contained version of the Bankimonline platform that runs **without PHP, databases, or complex infrastructure**.
@@ -408,7 +428,10 @@ For database integration questions:
 
 **Made with ❤️ for the Bankimonline development team** 
 
-*This standalone version provides both immediate demo capabilities and a clear path to full production deployment with the included database backup.* #   T r i g g e r   d e p l o y m e n t  
- #   T r i g g e r   d e p l o y m e n t   w i t h   f i x e d   v e r c e l . j s o n  
- #   R a i l w a y   d e p l o y m e n t   f i x   0 6 / 1 8 / 2 0 2 5   1 4 : 1 1 : 4 1  
+*This standalone version provides both immediate demo capabilities and a clear path to full production deployment with the included database backup.* #   T r i g g e r   d e p l o y m e n t 
+ 
+ #   T r i g g e r   d e p l o y m e n t   w i t h   f i x e d   v e r c e l . j s o n 
+ 
+ #   R a i l w a y   d e p l o y m e n t   f i x   0 6 / 1 8 / 2 0 2 5   1 4 : 1 1 : 4 1 
+ 
  
