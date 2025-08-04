@@ -194,10 +194,10 @@ app.get('/api/test', (req, res) => {
     res.json({ message: 'Railway API is working!' });
 });
 
-// Serve React app for all other routes
+# Serve React app for all other routes
 app.get('*', (req, res) => {
-    const indexPath = path.join(__dirname, 'frontend/build/index.html') || 
-                     path.join(__dirname, 'frontend/dist/index.html');
+    const indexPath = path.join(__dirname, 'mainapp/build/index.html') || 
+                     path.join(__dirname, 'mainapp/dist/index.html');
     res.sendFile(indexPath);
 });
 
@@ -219,7 +219,7 @@ app.listen(PORT, '0.0.0.0', () => {
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
-    "build": "cd frontend && npm run build"
+    "build": "cd mainapp && npm run build"
   },
   "dependencies": {
     "express": "^4.18.2",

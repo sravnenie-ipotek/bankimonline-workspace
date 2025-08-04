@@ -9,19 +9,19 @@ export VITE_NODE_ENV=production
 # Clean previous builds
 echo "🧹 Cleaning previous builds..."
 rm -rf node_modules/.cache
-rm -rf frontend/node_modules/.cache
-rm -rf frontend/build
-rm -rf frontend/dist
+rm -rf mainapp/node_modules/.cache
+rm -rf mainapp/build
+rm -rf mainapp/dist
 
 # Install root dependencies (server)
 echo "📦 Installing server dependencies..."
 npm ci --prefer-offline --no-audit || exit 1
 
-# Check if frontend directory exists
-if [ -d "frontend" ]; then
-    # Navigate to frontend and install dependencies
+# Check if mainapp directory exists
+if [ -d "mainapp" ]; then
+    # Navigate to mainapp and install dependencies
     echo "📦 Installing frontend dependencies..."
-    cd frontend || exit 1
+    cd mainapp || exit 1
     npm ci --prefer-offline --no-audit || exit 1
 
     # Clean any existing build artifacts
@@ -35,11 +35,11 @@ if [ -d "frontend" ]; then
     cd ..
     echo "✅ Frontend build completed!"
 else
-    echo "⚠️ No frontend directory found, skipping frontend build"
+    echo "⚠️ No mainapp directory found, skipping frontend build"
 fi
 
 # Verify build artifacts
-if [ -d "frontend/build" ] || [ -d "frontend/dist" ]; then
+if [ -d "mainapp/build" ] || [ -d "mainapp/dist" ]; then
     echo "✅ Build artifacts verified!"
 else
     echo "⚠️ No build artifacts found - frontend may not have been built"
