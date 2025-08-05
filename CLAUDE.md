@@ -6,18 +6,24 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a banking/financial services web application with a React frontend and Node.js backend, designed for mortgage and credit calculations. The application features multi-language support (English, Hebrew, Russian), complex multi-step forms, and integration with a PostgreSQL database hosted on Railway.
 
-### Dual Repository Architecture
-This project maintains two synchronized GitHub repositories:
+### Triple Repository Architecture
+This project maintains three synchronized GitHub repositories:
 - **Main Repository**: https://github.com/MichaelMishaev/bankDev2_standalone (complete application)
 - **Server Repository**: https://github.com/MichaelMishaev/bankimonlineapi (backend focus)
+- **Shared Documents**: https://github.com/MichaelMishaev/bankimonline_shared (documentation & guides)
 
 Use the provided script for synchronized commits:
 ```bash
-# Automated push to both repositories
-./push-to-both-repos.sh "Your commit message"
+# Automated push to all three repositories
+./push-to-all-repos.sh "Your commit message"
 
-# Manual push to both
-git add . && git commit -m "Update" && git push origin main && git push bankimonlineapi main
+# Or use npm script
+npm run push:all "Your commit message"
+
+# Manual push to individual repositories
+npm run push:main     # Main repository
+npm run push:api      # API repository  
+npm run push:shared   # Shared documents
 ```
 
 ## Quick Start

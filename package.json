@@ -1,7 +1,10 @@
 {
-  "name": "bankim-server",
+  "name": "bankim-monorepo",
   "version": "5.0.0",
   "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "engines": {
     "node": "20.x"
   },
@@ -26,7 +29,26 @@
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
-    "test:report": "playwright show-report"
+    "test:report": "playwright show-report",
+    "client:dev": "npm run dev --workspace=@bankimonline/client",
+    "client:build": "npm run build --workspace=@bankimonline/client",
+    "client:test": "npm run test --workspace=@bankimonline/client",
+    "client:test:run": "npm run test:run --workspace=@bankimonline/client",
+    "server:dev": "npm run dev --workspace=@bankimonline/server",
+    "server:start": "npm run start --workspace=@bankimonline/server",
+    "shared:build": "npm run build --workspace=@bankimonline/shared",
+    "shared:validate": "npm run validate --workspace=@bankimonline/shared",
+    "build:all": "npm run shared:build && npm run client:build",
+    "dev:all": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "dev:client": "concurrently \"npm run dev\" \"npm run client:dev\"",
+    "install:all": "npm install && npm run shared:build",
+    "push:all": "./push-to-all-repos.sh",
+    "push:main": "git push origin main",
+    "push:api": "git push bankimonlineapi main",
+    "push:shared": "git push shared main",
+    "push:client": "./push-client.sh",
+    "push:server": "./push-server.sh",
+    "push:smart": "./smart-push.sh"
   },
   "devDependencies": {
     "@playwright/mcp": "^0.0.29",
@@ -34,6 +56,7 @@
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
     "eslint-plugin-react": "^7.37.5",
-    "node-fetch": "^2.7.0"
+    "node-fetch": "^2.7.0",
+    "concurrently": "^7.6.0"
   }
 }
