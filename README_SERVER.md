@@ -9,16 +9,20 @@ This repository contains the Node.js server-side code for the BankIM Online appl
 ```
 /var/www/bankim/
 ├── bankimonlineapi/          # Server repository
-│   ├── mainapp/             # Main application directory
-│   │   ├── server-db.js     # Main server entry point
-│   │   ├── package.json     # Server dependencies
-│   │   ├── .env.production  # Production environment variables
-│   │   └── migrations/      # Database migration files
+│   ├── server-db.js         # Main server entry point (directly in repo)
+│   ├── package.json         # Server dependencies
+│   ├── .env.production      # Production environment variables
+│   ├── migrations/          # Database migration files
+│   ├── mainapp/             # Additional app directory (contains React build)
+│   │   ├── build/           # React build output
+│   │   └── public/          # Static assets
 │   └── .git/                # Git repository
 └── client/                  # Client repository (separate)
     ├── mainapp/             # React application
     │   ├── src/             # React source code
     │   ├── package.json     # Client dependencies
+    │   ├── vite.config.ts   # Vite configuration
+    │   ├── index.html       # HTML template
     │   └── .env             # Client environment variables
     └── .git/                # Git repository
 ```
@@ -73,7 +77,7 @@ psql -U bankim_user -d bankim_content -f railway_backup.sql
 ### 3. Start Server with PM2
 ```bash
 # Start server
-pm2 start mainapp/server-db.js --name "bankim-server"
+pm2 start server-db.js --name "bankim-server"
 
 # Check status
 pm2 status
@@ -85,10 +89,10 @@ pm2 logs bankim-server
 ## File Locations and Purposes
 
 ### Core Server Files
-- `mainapp/server-db.js` - Main server entry point
-- `mainapp/package.json` - Server dependencies and scripts
-- `mainapp/.env.production` - Production environment variables
-- `mainapp/migrations/` - Database migration files
+- `server-db.js` - Main server entry point (directly in repo root)
+- `package.json` - Server dependencies and scripts
+- `.env.production` - Production environment variables
+- `migrations/` - Database migration files
 
 ### Database Files
 - `railway_backup.sql` - Database backup from Railway
