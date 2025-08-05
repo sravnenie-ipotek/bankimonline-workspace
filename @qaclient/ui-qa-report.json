@@ -1,0 +1,182 @@
+[
+  {
+    "page": "http://localhost:5173/",
+    "element": "Social media links in header",
+    "action": "visual inspection",
+    "result": "untranslated",
+    "errorDetails": "Social media platform names are in English",
+    "responsiveIssue": null,
+    "untranslated": "INSTAGRAM, YOUTUBE, FACEBOOK, TWITTER",
+    "timestamp": "2025-07-06T10:00:00Z"
+  },
+  {
+    "page": "http://localhost:5173/",
+    "element": "Currency dropdown",
+    "action": "visual inspection",
+    "result": "success",
+    "errorDetails": null,
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-06T10:00:00Z"
+  },
+  {
+    "page": "http://localhost:5173/",
+    "element": "Email address in footer",
+    "action": "visual inspection",
+    "result": "untranslated",
+    "errorDetails": "Email displayed as 'Bankimonline@mail.com' in English",
+    "responsiveIssue": null,
+    "untranslated": "Bankimonline@mail.com",
+    "timestamp": "2025-07-06T10:00:00Z"
+  },
+  {
+    "page": "http://localhost:5173/",
+    "element": "Footer social media link labels",
+    "action": "visual inspection",
+    "result": "untranslated",
+    "errorDetails": "Social media platform names are in lowercase English",
+    "responsiveIssue": null,
+    "untranslated": "instagram, youtube, facebook, telegram, twitter, whatsapp",
+    "timestamp": "2025-07-06T10:00:00Z"
+  },
+  {
+    "page": "http://localhost:5173/",
+    "element": "Mobile navigation - Country selector",
+    "action": "responsive test mobile 375x667",
+    "result": "untranslated",
+    "errorDetails": "Translation keys displayed instead of translated text",
+    "responsiveIssue": null,
+    "untranslated": "sel_cntr, country_russia, language_russian, country_us, language_english, language_hebrew",
+    "timestamp": "2025-07-06T10:01:00Z"
+  },
+  {
+    "page": "http://localhost:5173/",
+    "element": "Mobile navigation - Currency selector",
+    "action": "responsive test mobile 375x667",
+    "result": "untranslated",
+    "errorDetails": "English text in currency selector",
+    "responsiveIssue": null,
+    "untranslated": "Currency, Select Currency, ILS, USD, EUR",
+    "timestamp": "2025-07-06T10:01:00Z"
+  },
+  {
+    "page": "http://localhost:5173/",
+    "element": "Mobile social media links",
+    "action": "responsive test mobile 375x667",
+    "result": "untranslated",
+    "errorDetails": "Social media names in English in mobile menu",
+    "responsiveIssue": null,
+    "untranslated": "INSTAGRAM, YOUTUBE, FACEBOOK, TELEGRAM, TWITTER, WHATSAPP",
+    "timestamp": "2025-07-06T10:01:00Z"
+  },
+  {
+    "page": "http://localhost:5173/services/calculate-mortgage/1",
+    "element": "Mortgage calculator page",
+    "action": "page load",
+    "result": "success",
+    "errorDetails": null,
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-06T10:02:00Z"
+  },
+  {
+    "page": "http://localhost:5173/services/calculate-mortgage/1",
+    "element": "Phone number validation",
+    "action": "form validation test",
+    "result": "success",
+    "errorDetails": "Phone validation works correctly with Hebrew error message",
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-06T10:02:30Z"
+  },
+  {
+    "page": "http://localhost:5173/services/calculate-credit/1",
+    "element": "Credit calculator page",
+    "action": "page load",
+    "result": "success",
+    "errorDetails": null,
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-06T10:03:00Z"
+  },
+  {
+    "page": "http://localhost:5173/services/calculate-credit/1",
+    "element": "Credit purpose dropdown",
+    "action": "dropdown test",
+    "result": "success",
+    "errorDetails": "All dropdown options are properly translated to Hebrew",
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-06T10:03:30Z"
+  },
+  {
+    "page": "http://localhost:5173/about",
+    "element": "About page",
+    "action": "page load",
+    "result": "success",
+    "errorDetails": null,
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-06T10:04:00Z"
+  },
+  {
+    "page": "http://localhost:5173/about",
+    "element": "Navigation menu in tablet view",
+    "action": "responsive test tablet 768x1024",
+    "result": "untranslated",
+    "errorDetails": "Translation keys displayed in navigation",
+    "responsiveIssue": null,
+    "untranslated": "sel_cntr, country_russia, language_russian, country_us, language_english, language_hebrew, Currency, Select Currency, ILS, USD, EUR",
+    "timestamp": "2025-07-06T10:04:30Z"
+  },
+  {
+    "page": "http://localhost:5173/contacts",
+    "element": "Contact page",
+    "action": "page load",
+    "result": "success",
+    "errorDetails": null,
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-06T10:05:00Z"
+  },
+  {
+    "page": "http://localhost:5173/contacts",
+    "element": "Contact form",
+    "action": "form test",
+    "result": "success",
+    "errorDetails": "Form fields accept Hebrew input correctly",
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-06T10:05:30Z"
+  },
+  {
+    "page": "http://localhost:5173/contacts",
+    "element": "Email addresses in contact info",
+    "action": "visual inspection",
+    "result": "untranslated",
+    "errorDetails": "Email addresses shown in English",
+    "responsiveIssue": null,
+    "untranslated": "info@bankimonline.com, Bankimonline@mail.com",
+    "timestamp": "2025-07-06T10:05:45Z"
+  },
+  {
+    "page": "All pages",
+    "element": "Desktop view header",
+    "action": "responsive test desktop 1920x1080",
+    "result": "untranslated",
+    "errorDetails": "Social media links remain in English across all pages",
+    "responsiveIssue": null,
+    "untranslated": "INSTAGRAM, YOUTUBE, FACEBOOK, TWITTER",
+    "timestamp": "2025-07-06T10:06:00Z"
+  },
+  {
+    "page": "All pages",
+    "element": "404 Page",
+    "action": "routing test",
+    "result": "success",
+    "errorDetails": "404 page displays proper Hebrew message 'הדף המבוקש לא נמצא' with return home button",
+    "responsiveIssue": null,
+    "untranslated": null,
+    "timestamp": "2025-07-06T10:06:30Z"
+  }
+]

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug YouTrack Dashboard</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .file-test {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .success {
+            color: green;
+        }
+        .error {
+            color: red;
+        }
+        .data-preview {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>YouTrack Dashboard Debug</h1>
+        <p>Testing data loading from youtrackReports/ folder...</p>
+        <div id="results"></div>
+    </div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+        
+        // List of files to test
+        const testFiles = [
+            'youtrackReports/youTrackReports.json',
+            'youtrackReports/youTrackReports_136-200.json',
+            'youtrackReports/youTrackReports_200-300.json',
+            'youtrackReports/youTrackReports_300-400.json',
+            'youtrackReports/youTrackReports_400-500.json',
+            'youtrackReports/youTrackReports_500-600.json',
+            'youtrackReports/youTrackReports_600-628.json',
+            'youtrackReports/youTrackReports_LK.json'
+        ];
+
+        async function testFile(filePath) {
+            const testDiv = document.createElement('div');
+            testDiv.className = 'file-test';
+            
+            try {
+                console.log(`Testing ${filePath}...`);
+                const response = await fetch(`./${filePath}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // Analyze the structure
+                let issueCount = 0;
+                let structure = 'Unknown structure';
+                let sampleIssue = null;
+                
+                if (data.issues && Array.isArray(data.issues)) {
+                    issueCount = data.issues.length;
+                    structure = 'Has "issues" array';
+                    sampleIssue = data.issues[0];
+                } else if (data.reports && typeof data.reports === 'object') {
+                    issueCount = Object.keys(data.reports).length;
+                    structure = 'Has "reports" object';
+                    sampleIssue = Object.values(data.reports)[0];
+                } else if (Array.isArray(data)) {
+                    issueCount = data.length;
+                    structure = 'Root is array';
+                    sampleIssue = data[0];
+                } else {
+                    // Check for other structures
+                    const keys = Object.keys(data);
+                    structure = `Has keys: ${keys.slice(0, 5).join(', ')}${keys.length > 5 ? '...' : ''}`;
+                }
+                
+                testDiv.innerHTML = `
+                    <h3 class="success">✓ ${filePath}</h3>
+                    <p><strong>Status:</strong> Successfully loaded</p>
+                    <p><strong>Structure:</strong> ${structure}</p>
+                    <p><strong>Issue Count:</strong> ${issueCount}</p>
+                    <div class="data-preview">
+                        <strong>Sample Issue:</strong>
+                        <pre>${JSON.stringify(sampleIssue, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                testDiv.innerHTML = `
+                    <h3 class="error">✗ ${filePath}</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                `;
+                console.error(`Error loading ${filePath}:`, error);
+            }
+            
+            resultsDiv.appendChild(testDiv);
+        }
+
+        // Test all files
+        async function runTests() {
+            resultsDiv.innerHTML = '<p>Running tests...</p>';
+            
+            for (const file of testFiles) {
+                await testFile(file);
+            }
+            
+            resultsDiv.innerHTML += '<p><strong>All tests completed!</strong></p>';
+        }
+
+        // Run tests on load
+        runTests();
+    </script>
+</body>
+</html>

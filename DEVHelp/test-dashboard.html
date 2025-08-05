@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard Test</title>
+</head>
+<body>
+    <h1>Testing YouTrack Reports Dashboard File Access</h1>
+    <div id="results"></div>
+    
+    <script>
+        async function testFileAccess() {
+            const files = [
+                'youtrackReports/youTrackReports.json',
+                'youtrackReports/youTrackReports_136-200.json',
+                'youtrackReports/youTrackReports_200-300.json',
+                'youtrackReports/youTrackReports_300-400.json',
+                'youtrackReports/youTrackReports_400-500.json',
+                'youtrackReports/youTrackReports_500-600.json',
+                'youtrackReports/youTrackReports_600-628.json'
+            ];
+            
+            const results = document.getElementById('results');
+            results.innerHTML = '<h2>Testing File Access:</h2>';
+            
+            for (const file of files) {
+                try {
+                    const response = await fetch(`./${file}`);
+                    const status = response.ok ? '✅ ACCESSIBLE' : '❌ NOT FOUND';
+                    const color = response.ok ? 'green' : 'red';
+                    results.innerHTML += `<p style="color: ${color}">${file}: ${status}</p>`;
+                } catch (error) {
+                    results.innerHTML += `<p style="color: red">${file}: ❌ ERROR - ${error.message}</p>`;
+                }
+            }
+        }
+        
+        // Run test when page loads
+        testFileAccess();
+    </script>
+</body>
+</html>

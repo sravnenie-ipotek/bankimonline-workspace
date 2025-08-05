@@ -1,0 +1,96 @@
+🔒 CORS Configuration:
+📝 CORS_ALLOWED_ORIGINS env var: Not set
+🌐 Resolved CORS origins: [
+  'http://localhost:3001',
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:8003',
+  'https://bankdev2standalone-production.up.railway.app',
+  'https://bankim-nodejs-api-production.up.railway.app'
+]
+🚀 Database API Server Started
+📡 http://localhost:8003
+📧 Email login: POST /api/login
+📧 Email 2FA: POST /api/email-code-login
+📱 SMS login: POST /api/sms-login & /api/sms-code-login
+👤 Registration: POST /api/register
+🏙️ Cities: GET /api/get-cities?lang=xx
+🏠 Refinance mortgage: POST /api/refinance-mortgage
+💳 Refinance credit: POST /api/refinance-credit
+🔐 Admin login: POST /api/admin/login
+📊 Admin stats: GET /api/admin/stats
+🏦 Admin banks: GET /api/admin/banks
+🏪 Compare banks: POST /api/customer/compare-banks
+📝 Submit application: POST /api/customer/submit-application
+📋 Check status: GET /api/applications/:id/status
+🔧 Admin applications: GET /api/admin/applications
+📊 Admin app details: GET /api/admin/applications/:id
+✏️ Update app status: PUT /api/admin/applications/:id/status
+
+🏢 PHASE 2: Bank Worker Registration System
+📨 Send invitation: POST /api/bank-worker/invite
+📝 Get registration form: GET /api/bank-worker/register/:token
+✅ Complete registration: POST /api/bank-worker/register
+📊 Check status: GET /api/bank-worker/status/:id
+📋 Admin invitations: GET /api/admin/invitations
+⏳ Admin approval queue: GET /api/admin/approval-queue
+✅ Approve worker: POST /api/admin/approve/:id
+❌ Reject worker: POST /api/admin/reject/:id
+
+✅ Content Database connected: 2025-07-21T11:11:41.735Z
+✅ Main Database connected: 2025-07-21T11:11:41.736Z
+✅ test-content table deleted successfully (if it existed)
+🔍 [CONTENT API] Request: screen=navigation, language=en
+📋 [CONTENT API] Tables found: [ 'content_items' ]
+🔍 [CONTENT API] Checking column structure...
+📋 [CONTENT API] Columns in content_items: [
+  'id:bigint',
+  'content_key:character varying',
+  'content_type:character varying',
+  'category:character varying',
+  'screen_location:character varying',
+  'component_type:character varying',
+  'description:text',
+  'is_active:boolean',
+  'legacy_translation_key:character varying',
+  'migration_status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'updated_by:integer'
+]
+📋 [CONTENT API] Columns in content_translations: [
+  'id:bigint',
+  'content_item_id:bigint',
+  'language_code:character varying',
+  'content_value:text',
+  'is_default:boolean',
+  'status:character varying',
+  'created_at:timestamp without time zone',
+  'updated_at:timestamp without time zone',
+  'created_by:integer',
+  'approved_by:integer',
+  'approved_at:timestamp without time zone'
+]
+🔍 [CONTENT API] Testing simple query...
+✅ [CONTENT API] Simple query works, found 1 rows
+📋 [CONTENT API] First row: [
+  'id',
+  'content_key',
+  'content_type',
+  'category',
+  'screen_location',
+  'component_type',
+  'description',
+  'is_active',
+  'legacy_translation_key',
+  'migration_status',
+  'created_at',
+  'updated_at',
+  'created_by',
+  'updated_by'
+]
+🔍 [CONTENT API] Executing full query...
+✅ [CONTENT API] Query successful, found 0 rows
+[0mGET /api/content/navigation/en [32m200[0m 402.476 ms - 103[0m

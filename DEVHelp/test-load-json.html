@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test JSON Loading</title>
+</head>
+<body>
+    <h1>Testing JSON Loading</h1>
+    <div id="result"></div>
+    
+    <script>
+        async function testLoad() {
+            const resultDiv = document.getElementById('result');
+            
+            try {
+                // Test loading the first file
+                const response = await fetch('./youtrackReports/youTrackReports.json');
+                const data = await response.json();
+                
+                let html = '<h2>youTrackReports.json Structure:</h2>';
+                html += `<p>Top-level keys: ${Object.keys(data).join(', ')}</p>`;
+                
+                if (data.issues) {
+                    html += `<p>Has 'issues' array with ${data.issues.length} items</p>`;
+                    if (data.issues[0]) {
+                        html += `<p>First issue ID: ${data.issues[0].issue_id || data.issues[0].idReadable || data.issues[0].id}</p>`;
+                        html += `<p>First issue status: ${data.issues[0].status}</p>`;
+                    }
+                }
+                
+                // Test loading another file
+                const response2 = await fetch('./youtrackReports/youTrackReports_136-200.json');
+                const data2 = await response2.json();
+                
+                html += '<h2>youTrackReports_136-200.json Structure:</h2>';
+                html += `<p>Top-level keys: ${Object.keys(data2).slice(0, 10).join(', ')}...</p>`;
+                
+                if (data2.issues) {
+                    html += `<p>Has 'issues' array with ${data2.issues.length} items</p>`;
+                    if (data2.issues[0]) {
+                        html += `<p>First issue ID: ${data2.issues[0].idReadable || data2.issues[0].issue_id}</p>`;
+                        html += `<p>First issue status: ${data2.issues[0].status}</p>`;
+                    }
+                }
+                
+                // Test loading LK file
+                const response3 = await fetch('./youtrackReports/youTrackReports_LK.json');
+                const data3 = await response3.json();
+                
+                html += '<h2>youTrackReports_LK.json Structure:</h2>';
+                html += `<p>Top-level keys: ${Object.keys(data3).slice(0, 10).join(', ')}...</p>`;
+                
+                // Check for issue pattern keys
+                const issueKeys = Object.keys(data3).filter(key => key.match(/^(LK|OS)-\d+$/));
+                html += `<p>Found ${issueKeys.length} issue keys: ${issueKeys.slice(0, 5).join(', ')}...</p>`;
+                
+                resultDiv.innerHTML = html;
+                
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+                console.error('Error:', error);
+            }
+        }
+        
+        testLoad();
+    </script>
+</body>
+</html>

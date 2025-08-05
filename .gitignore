@@ -1,0 +1,43 @@
+dist
+node_modules
+/.idea/
+# /build/ - Allow build for production deployment
+
+# Environment variables (NEVER commit these!)
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+.env.test
+*.env
+mainapp/.env
+mainapp/.env.local
+
+# Database backups (contain sensitive data)
+backups/db/*.backup
+backups/db/*.sql
+backups/db/*.dump
+
+# Keep backup documentation and scripts
+!backups/BACKUP_INFO.md
+!backups/restore_db.sh
+!backups/README.md
+
+# Security sensitive files
+.railway-token
+*.pem
+*.key
+*.crt
+secrets/
+.secrets/
+
+# Local configuration files
+config.local.js
+config.local.json
+
+# Playwright Test Artifacts
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

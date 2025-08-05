@@ -1,0 +1,479 @@
+/* Container */
+.container {
+  background-color: #1a1b21;
+  min-height: 100vh;
+  color: #ffffff;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Header Section */
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+/* Calculation Parameters Section */
+.calculation-parameters-section {
+  margin-bottom: 32px;
+  
+  // Add some padding if needed
+  .parameters {
+    background-color: #2a2b31;
+    border-radius: 8px;
+    border: 1px solid #3a3b41;
+  }
+}
+
+.return-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid #3a3b41;
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #2a2b31;
+    border-color: #4a4b51;
+  }
+
+  &:active {
+    background-color: #3a3b41;
+  }
+}
+
+/* Bank Header */
+.bank-header {
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.bank-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.bank-logo {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1b21;
+}
+
+.logo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.bank-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.bank-action-label {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  background-color: #fbbf24;
+  color: #1a1b21;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Summary Section */
+.summary-section {
+  background-color: #2a2b31;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-label {
+  font-size: 14px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.summary-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Savings Section */
+.savings-section {
+  background-color: #2a2b31;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.savings-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.savings-label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.savings-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #10b981;
+}
+
+/* Programs Section */
+.programs-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.program-card {
+  background-color: #2a2b31;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid #3a3b41;
+  position: relative;
+}
+
+.program-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.program-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* Control Rows and Groups */
+.program-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.control-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.control-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+/* Slider Groups */
+.slider-group {
+  .control-label {
+    margin-bottom: 12px;
+  }
+}
+
+.slider-container {
+  margin-bottom: 12px;
+}
+
+.slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #3a3b41;
+  outline: none;
+  -webkit-appearance: none;
+  margin-bottom: 8px;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fbbf24;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(251, 191, 36, 0.3);
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fbbf24;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(251, 191, 36, 0.3);
+  }
+
+  &::-webkit-slider-track {
+    background: #3a3b41;
+    height: 6px;
+    border-radius: 3px;
+  }
+
+  &::-moz-range-track {
+    background: #3a3b41;
+    height: 6px;
+    border-radius: 3px;
+    border: none;
+  }
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+/* Warning Message */
+.warning-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  background-color: #fef3c7;
+  border: 1px solid #fbbf24;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 16px;
+}
+
+.warning-icon {
+  font-size: 16px;
+  color: #f59e0b;
+}
+
+.warning-text {
+  font-size: 13px;
+  color: #92400e;
+  line-height: 1.4;
+}
+
+/* Action Labels */
+.action-label {
+  position: absolute;
+  top: -8px;
+  right: 8px;
+  background-color: #3b82f6;
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  z-index: 10;
+}
+
+/* Actions Section */
+.actions-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid #3a3b41;
+}
+
+.back-button {
+  background: transparent;
+  border: 1px solid #3a3b41;
+  border-radius: 12px;
+  padding: 16px 24px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 120px;
+
+  &:hover {
+    background-color: #2a2b31;
+    border-color: #4a4b51;
+  }
+
+  &:active {
+    background-color: #3a3b41;
+  }
+}
+
+.submit-button {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #1a1b21;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 200px;
+  text-align: center;
+
+  &:hover {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2);
+  }
+
+  &:disabled {
+    background: #4b5563;
+    color: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Loading State */
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .bank-name {
+    font-size: 24px;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .control-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .actions-section {
+    flex-direction: column;
+    gap: 12px;
+
+    .back-button,
+    .submit-button {
+      width: 100%;
+      min-width: unset;
+    }
+  }
+
+  .program-card {
+    padding: 20px;
+  }
+
+  .program-title {
+    font-size: 20px;
+  }
+
+  .savings-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .bank-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+
+  .return-button {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .bank-name {
+    font-size: 20px;
+  }
+
+  .program-title {
+    font-size: 18px;
+  }
+
+  .summary-value {
+    font-size: 18px;
+  }
+
+  .savings-value {
+    font-size: 20px;
+  }
+} 

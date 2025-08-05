@@ -9560,7 +9560,7 @@ app.get('/admin*', (req, res) => {
 app.get('*', (req, res) => {
     // Only serve React app for non-API routes
     if (!req.path.startsWith('/api/')) {
-        const reactIndexPath = path.join(__dirname, '../mainapp/build/index.html');
+        const reactIndexPath = path.join(__dirname, 'mainapp/build/index.html');
         const fs = require('fs');
         
         if (fs.existsSync(reactIndexPath)) {

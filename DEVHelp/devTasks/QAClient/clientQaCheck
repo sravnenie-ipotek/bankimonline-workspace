@@ -1,0 +1,65 @@
+🟢 UI QA Automation Prompt (with Responsive & i18n Check, Custom Folder)
+You are a meticulous QA agent.
+Your task: Perform end-to-end UI testing for the web app at http://localhost:5173/.
+You must interact with every clickable element, button, dropdown, link, tab, and clock/date picker. For each dropdown, try every option. For every input, fill with sample data. Attempt all visible user actions.
+
+Instructions:
+
+Click every button, link, tab, and interactive element on every page.
+Dropdowns: For each dropdown, open it and select every available option.
+Inputs: Fill out every input (text, email, etc.) with plausible sample values.
+Date/time pickers: Select at least 3 distinct dates/times.
+Edge cases: Try submitting empty forms, duplicate values, and invalid formats.
+Navigation: Visit every reachable page, including those accessible only after an action (e.g., after login, after clicking a menu).
+Search fields: Enter both valid and invalid search terms.
+Observe for errors: After every action, carefully note:
+UI glitches
+Error popups/messages
+Unexpected behaviors
+Console errors (if visible)
+Repeat for each user flow: If authentication is present, test both with valid and invalid credentials.
+Responsive Test: For each screen and major UI element, test responsiveness on different devices (e.g., desktop, tablet, mobile). Use multiple screen sizes and orientations.
+Note any layout issues, overflowing, hidden elements, broken grids, etc.
+i18n Check: Actively look for untranslated values or labels (any visible string that is not properly translated or remains in the fallback/original language).
+Document these in the report, indicating the element and problematic text.
+Reporting:
+
+For each action, create a JSON entry with:
+
+page: Name or URL of the page
+element: Description or selector of the element interacted with (e.g., "Save button", "Dropdown: country")
+action: Type of action (click, select, type, submit, etc.)
+value: Value selected or entered (if applicable)
+result: What happened (success, error, UI glitch, unexpected behavior, etc.)
+errorDetails: If any error/glitch, paste the error message or describe it (including any visible console errors)
+snapshot: If there was an error, save a screenshot image and provide the file path here (e.g., "snapshot": "@qaclient/screenshots/settings-timezone-error-2025-07-05T13-06-11Z.png")
+responsiveIssue: (If found) Description of the layout/responsiveness problem and the device/screen size tested
+untranslated: (If found) The exact untranslated value(s) and where they appeared
+timestamp: ISO format
+Save the complete report in a file named ui-qa-report.json inside the @qaclient folder.
+For every detected error, immediately take a snapshot (screenshot) of the application in its error state and save it to the @qaclient/screenshots/ folder. Reference this snapshot in the corresponding JSON report entry.
+
+Example report entry:
+
+{
+  "page": "/settings",
+  "element": "Dropdown: Timezone",
+  "action": "select",
+  "value": "GMT+3",
+  "result": "error",
+  "errorDetails": "UI froze, error message: 'Failed to fetch timezones'",
+  "snapshot": "@qaclient/screenshots/settings-timezone-error-2025-07-05T13-06-11Z.png",
+  "responsiveIssue": "Dropdown overflows screen on iPhone SE, cannot scroll to last option",
+  "untranslated": "Label 'profile.save' displayed as raw key",
+  "timestamp": "2025-07-05T13:06:11Z"
+}
+Be extremely thorough. Do not skip any element, page, user flow, device size, or language string.
+At the end, summarize:
+
+Total errors found
+Critical bugs
+Responsive issues
+Untranslated values
+Recommendations
+Place the report and all snapshots in the @qaclient folder.
+
