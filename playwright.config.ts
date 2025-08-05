@@ -75,7 +75,7 @@ export default defineConfig({
       reuseExistingServer: !process.env.CI,
     },
     {
-      command: 'node server-db.js',
+      command: 'node server/server-db.js',
       port: 8003,
       reuseExistingServer: !process.env.CI,
     }

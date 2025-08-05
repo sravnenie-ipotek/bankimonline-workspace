@@ -28,4 +28,4 @@ WORKDIR /app
 EXPOSE 8003
 
 # Start server
-CMD ["node", "server-db.js"] 
+CMD ["node", "server/server-db.js"] 

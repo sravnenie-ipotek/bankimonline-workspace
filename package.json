@@ -18,8 +18,8 @@
     "pg": "^8.16.3"
   },
   "scripts": {
-    "start": "node server-db.js",
-    "dev": "node start-dev.js",
+    "start": "node server/server-db.js",
+    "dev": "node server/start-dev.js",
     "sync-translations": "node scripts/sync-translations.js",
     "translations": "node scripts/sync-translations.js",
     "test": "playwright test",

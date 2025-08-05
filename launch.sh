@@ -56,7 +56,7 @@ echo ""
 
 # Use the existing start-dev.js script which handles both servers
 echo "Starting API server on port 8003 and File server on port 3001..."
-node start-dev.js
+node server/start-dev.js
 
 # If the servers exit, show message
 echo ""

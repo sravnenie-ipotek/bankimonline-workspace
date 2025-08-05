@@ -22,7 +22,7 @@ For development with hot reload, run servers separately:
 
 ### Terminal 1: Start API Server
 ```bash
-node server-db.js
+node server/server-db.js
 ```
 API will run on http://localhost:8003
 
