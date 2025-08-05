@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
 // import { useNavigate } from 'react-router-dom'
 import Container from '../../components/ui/Container/Container'
 import { PartnersSwiper } from '@src/components/ui/Swiper'
@@ -9,7 +9,7 @@ import HandPointingIcon from '../../assets/icons/HandPointingIcon/HandPointingIc
 import PercentIcon from '../../assets/icons/PercentIcon/PercentIcon'
 
 const Cooperation = () => {
-  const { t } = useTranslation()
+  const { getContent } = useContentApi('cooperation')
   // const [currentPartnerIndex, setCurrentPartnerIndex] = useState(0)
   // const [visibleCount, setVisibleCount] = useState(5)
 
@@ -44,10 +44,10 @@ const Cooperation = () => {
         {/* Hero Section */}
         <section className={styles.hero}>
           <h1 className={styles.heroTitle}>
-            {t('cooperation_title')}
+            {getContent('cooperation_title')}
           </h1>
           <p className={styles.heroSubtitle}>
-            {t('cooperation_subtitle')}
+            {getContent('cooperation_subtitle')}
           </p>
           
           <div className={styles.heroActions}>
@@ -55,7 +55,7 @@ const Cooperation = () => {
               className={styles.primaryButton}
               onClick={handleRegisterClick}
             >
-              {t('register_partner_program')}
+              {getContent('register_partner_program')}
             </button>
           </div>
         </section>
@@ -63,17 +63,17 @@ const Cooperation = () => {
         {/* Marketplace Promo Section */}
         <section className={styles.marketplace}>
           <div className={styles.marketLeft}>
-            <h2 className={styles.marketTitle}>{t('marketplace_title')}</h2>
-            <p className={styles.marketDesc}>{t('marketplace_description')}</p>
+            <h2 className={styles.marketTitle}>{getContent('marketplace_title')}</h2>
+            <p className={styles.marketDesc}>{getContent('marketplace_description')}</p>
 
             <div className={styles.marketFeatures}>
               <ul>
-                <li>{t('feature_mortgage_calc')}</li>
-                <li>{t('feature_mortgage_refinance')}</li>
+                <li>{getContent('feature_mortgage_calc')}</li>
+                <li>{getContent('feature_mortgage_refinance')}</li>
               </ul>
               <ul>
-                <li>{t('feature_credit_calc')}</li>
-                <li>{t('feature_credit_refinance')}</li>
+                <li>{getContent('feature_credit_calc')}</li>
+                <li>{getContent('feature_credit_refinance')}</li>
               </ul>
             </div>
           </div>
@@ -85,7 +85,7 @@ const Cooperation = () => {
             </div>
             <button className={styles.marketCta}>
               <HandPointingIcon width={20} height={20} />
-              {t('one_click_mortgage')}
+              {getContent('one_click_mortgage')}
             </button>
           </div>
         </section>
@@ -97,19 +97,17 @@ const Cooperation = () => {
               <PercentIcon color="#FBE54D" width={24} height={24} />
             </div>
             <h2 className={styles.referralTitle}>
-              {t('referral_title', { defaultValue: 'Bring a client and get 500 ₪ reward' })}
+              {getContent('referral_title')}
             </h2>
             <p className={styles.referralDesc}>
-              {t('referral_description', {
-                defaultValue: 'Earn a commission for every client who purchases our services'
-              })}
+              {getContent('referral_description')}
             </p>
 
             <button 
               className={styles.referralButton} 
               onClick={handleRegisterClick}
             >
-              {t('register_partner_program')}
+              {getContent('register_partner_program')}
             </button>
           </div>
           <div className={styles.referralRight}>
@@ -138,13 +136,13 @@ const Cooperation = () => {
 
           <div className={styles.ctaBannerContent}>
             <h2 className={styles.ctaBannerTitle}>
-              {t('cooperation_cta_title')}
+              {getContent('cooperation_cta_title')}
             </h2>
             <button 
               className={styles.ctaBannerButton}
               onClick={handleRegisterClick}
             >
-              {t('register_partner_program')}
+              {getContent('register_partner_program')}
             </button>
           </div>
         </section>

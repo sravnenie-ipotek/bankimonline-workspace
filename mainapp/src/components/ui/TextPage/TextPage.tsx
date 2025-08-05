@@ -13,14 +13,15 @@ const cx = classNames.bind(styles)
 type TypeProps = {
   title: string
   text: string
+  htmlContent?: boolean // New prop to support HTML content
 }
-const TextPage: React.FC<TypeProps> = ({ title, text }) => {
+const TextPage: React.FC<TypeProps> = ({ title, text, htmlContent = false }) => {
   const { t, i18n } = useTranslation()
 
   const navigate = useNavigate()
 
   return (
-    <div className={cx('page')}>
+    <div className={cx('page')} data-testid="text-page">
       <Container>
         <div className={cx('page-container')}>
           <div className={cx('page-header')}>
@@ -36,7 +37,13 @@ const TextPage: React.FC<TypeProps> = ({ title, text }) => {
             </button>
             <h1 className={cx('page-header__title')}>{title}</h1>
           </div>
-          <div className={cx('page-text')}>{text}</div>
+          <div className={cx('page-text')}>
+            {htmlContent ? (
+              <div dangerouslySetInnerHTML={{ __html: text }} />
+            ) : (
+              text
+            )}
+          </div>
         </div>
       </Container>
     </div>
