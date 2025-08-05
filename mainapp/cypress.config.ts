@@ -9,7 +9,7 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:5173',
+    baseUrl: 'http://localhost:5174',
     viewportWidth: 1920,
     viewportHeight: 1080,
     video: true,
