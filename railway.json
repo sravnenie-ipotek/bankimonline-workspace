@@ -4,6 +4,6 @@
     "builder": "DOCKERFILE"
   },
   "deploy": {
-    "startCommand": "node server-db.js"
+    "startCommand": "node server/server-db.js"
   }
 } 
