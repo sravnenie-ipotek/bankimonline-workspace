@@ -24,9 +24,9 @@ const About: React.FC = () => {
   return (
     <Container>
       <div className={cx('about')}>
-        <h1 className={cx('about-title')}>{getContent('about_title', t('about_title'))}</h1>
+        <h1 className={cx('about-title')}>{getContent('about_title')}</h1>
         <div className={cx('about-desc')}>
-          {getContent('about_desc', t('about_desc'))}
+          {getContent('about_desc')}
           <svg
             width="252"
             height="130"
@@ -46,12 +46,12 @@ const About: React.FC = () => {
           </svg>
         </div>
         <div className={cx('about-how')}>
-          <h2 className={cx('about-how-it-work')}>{getContent('about_how_it_work', t('about_how_it_work'))}</h2>
+          <h2 className={cx('about-how-it-work')}>{getContent('about_how_it_work')}</h2>
           <div className={cx('about-how__wrapper')}>
             <div className={cx('about-how__wrapper-text')}>
-              {getContent('about_how_it_work_text', t('about_how_it_work_text'))}
-              <span className={cx('bankimonline')}>{getContent('bankimonline', t('bankimonline'))}</span>
-              {getContent('about_how_it_work_text_second', t('about_how_it_work_text_second'))}
+              {getContent('about_how_it_work_text')}
+              <span className={cx('bankimonline')}>{getContent('bankimonline')}</span>
+              {getContent('about_how_it_work_text_second')}
             </div>
             <div className={cx('about-how__wrapper-img')}>
               <img src="/static/about/frame-1410093763@3x.png" alt="" />
@@ -59,42 +59,42 @@ const About: React.FC = () => {
           </div>
         </div>
         <div className={cx('about-why')}>
-          <h2 className={cx('about-why__title')}>{getContent('about_why_title', t('about_why_title'))}</h2>
+          <h2 className={cx('about-why__title')}>{getContent('about_why_title')}</h2>
           <div className={cx('about-why__cards')}>
             <FeatureCard
               icon={<PlusMinusIcon />}
-              title={getContent('about_why_solve_problem_title', t('about_why_solve_problem_title'))}
-              text={getContent('about_why_solve_problem', t('about_why_solve_problem'))}
+              title={getContent('about_why_solve_problem_title')}
+              text={getContent('about_why_solve_problem')}
             />
             <FeatureCard
               icon={<BankIcon />}
-              title={getContent('about_why_bank_title', t('about_why_bank_title'))}
-              text={getContent('about_why_bank', t('about_why_bank'))}
+              title={getContent('about_why_bank_title')}
+              text={getContent('about_why_bank')}
             />
             <FeatureCard
               icon={<LightningIcon />}
-              title={getContent('about_why_mortgage_complete_title', t('about_why_mortgage_complete_title'))}
-              text={getContent('about_why_mortgage_complete', t('about_why_mortgage_complete'))}
+              title={getContent('about_why_mortgage_complete_title')}
+              text={getContent('about_why_mortgage_complete')}
             />
             <FeatureCard
               icon={<HandPointingIcon />}
-              title={getContent('about_why_simple_title', t('about_why_simple_title'))}
-              text={getContent('about_why_simple', t('about_why_simple'))}
+              title={getContent('about_why_simple_title')}
+              text={getContent('about_why_simple')}
             />
             <FeatureCard
               icon={<HandCoinsIcon />}
-              title={getContent('about_why_credit_title', t('about_why_credit_title'))}
-              text={getContent('about_why_credit', t('about_why_credit'))}
+              title={getContent('about_why_credit_title')}
+              text={getContent('about_why_credit')}
             />
             <FeatureCard
               icon={<ShieldCheckIcon size={32} color="#fff" />}
-              title={getContent('about_why_security_title', t('about_why_security_title'))}
-              text={getContent('about_why_security', t('about_why_security'))}
+              title={getContent('about_why_security_title')}
+              text={getContent('about_why_security')}
             />
             <FeatureCard
               icon={<TargetIcon />}
-              title={getContent('about_why_fast_title', t('about_why_fast_title'))}
-              text={getContent('about_why_fast', t('about_why_fast'))}
+              title={getContent('about_why_fast_title')}
+              text={getContent('about_why_fast')}
               size="full"
             />
           </div>

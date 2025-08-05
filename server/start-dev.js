@@ -4,9 +4,9 @@
  * ⚠️  DEVELOPMENT ONLY - This script is for local development only!
  * 
  * 🏗️  PRODUCTION DEPLOYMENT:
- *     - Frontend: Deploy to Vercel (serves React app + static files)  
+ *     - Frontend: Deploy to Railway (serves React app + static files)  
  *     - Backend:  Deploy to Railway (serves Node.js API + database)
- *     - See: DEVHelp/VERCEL_DEPLOYMENT_GUIDE.md for full details
+ *     - See: DEVHelp/RAILWAY_DEPLOYMENT_GUIDE.md for full details
  * 
  * 🚀  DEVELOPMENT USAGE:
  *     node start-dev.js
@@ -21,7 +21,7 @@ const path = require('path');
 
 console.log('🚀 Starting BankIM Development Environment...\n');
 console.log('⚠️  DEVELOPMENT MODE - Not for production deployment!');
-console.log('📖 For production deployment, see: DEVHelp/VERCEL_DEPLOYMENT_GUIDE.md\n');
+console.log('📖 For production deployment, see: DEVHelp/RAILWAY_DEPLOYMENT_GUIDE.md\n');
 
 // Start the API server (port 8003)
 const apiServer = spawn('node', ['server-db.js'], {
@@ -89,4 +89,4 @@ console.log('📡 API Server starting on http://localhost:8003');
 console.log('🌐 File Server starting on http://localhost:3001');
 console.log('📱 SMS Login: Mock mode (check console for OTP codes)');
 console.log('\n💡 To stop both servers, press Ctrl+C');
-console.log('🔗 Production deployment: see DEVHelp/VERCEL_DEPLOYMENT_GUIDE.md\n'); 
+console.log('🔗 Production deployment: see DEVHelp/RAILWAY_DEPLOYMENT_GUIDE.md\n'); 

@@ -44,13 +44,13 @@ TODO: BANKIMONLINE STANDALONE - PRODUCTION DEPLOYMENT CHECKLIST
    📍 CURRENT STATUS:
       ✅ CORS properly configured for production domains in server-db.js line 27
       ✅ Allows localhost for development (http://localhost:3001, http://localhost:3000)
-      ✅ Allows specific Vercel domains for production
-      ✅ Uses regex pattern for all Vercel subdomains (/https:\/\/.*\.vercel\.app$/)
+      ✅ Allows specific Railway domains for production
+✅ Uses regex pattern for all Railway subdomains (/https:\/\/.*\.railway\.app$/)
       ✅ CORS credentials enabled for authenticated requests
       ✅ Proper headers and methods configured
 
    🔧 PRODUCTION CONFIGURATION:
-      - Specific origins: ['https://bank-react-27qu39ml7-michaels-projects-8d0f6093.vercel.app', 'https://bank-dev2-standalone-txwi.vercel.app']
+      - Specific origins: ['https://your-frontend-production.railway.app', 'https://bankimonlineapi-production.up.railway.app']
       - Fallback wildcard for development: '*'
 
 5. 🔴 PLAIN TEXT PASSWORDS [CRITICAL]

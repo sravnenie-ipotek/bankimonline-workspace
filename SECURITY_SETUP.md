@@ -50,7 +50,7 @@ secrets/
 - **Railway**: Set environment variables in Railway dashboard
 - **Heroku**: Use `heroku config:set VARIABLE_NAME=value`
 - **Docker**: Use `-e` flags or docker-compose environment sections
-- **Vercel**: Set in Vercel dashboard environment variables
+- **Railway**: Set in Railway dashboard environment variables
 
 ---
 

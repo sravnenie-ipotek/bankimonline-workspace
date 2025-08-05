@@ -3,149 +3,126 @@
 ## 📋 Current Setup Summary
 
 ### **Backend Analysis** ✅
-- **Railway Laravel API**: `https://bankimonlineapi-production.up.railway.app/api/v1/`
-  - ✅ Has registration: `POST /api/v1/registration`
-  - ❌ No refinance endpoints
-- **Local Node.js API**: `http://localhost:8003/api/`
+- **Railway Node.js API**: `https://bankimonlineapi-production.up.railway.app/api/`
+  - ✅ Has registration: `POST /api/register`
   - ✅ Has refinance: `GET /api/refinance-mortgage`, `GET /api/refinance-credit`
-  - ✅ Has custom registration: `POST /api/register`
+  - ✅ Has all business logic endpoints
 
-### **Frontend Apps**
-1. **Main App** (`mainapp/`): Mortgage calculator, refinance services
-2. **Account App** (`account/`): Personal account dashboard
+### **Frontend App**
+- **Main App** (`mainapp/`): Complete banking application with mortgage calculator, refinance services, and admin panel
 
-## 🎯 Deployment Strategy: Option A (Separate Projects)
+## 🎯 Deployment Strategy: Railway-Only
 
-### **1. Deploy Account App to Vercel** 
-**Domain**: `bankim-account-production.vercel.app`
-
-```bash
-# In account/ directory
-cd account
-npm install
-npm run build
-
-# Deploy to Vercel (you'll need to do this)
-vercel --prod
-```
-
-**Configuration Files Created**:
-- ✅ `account/vercel.json` - Vercel deployment config
-- ✅ `account/.env.production` - Production environment variables
-- ✅ Fixed PostCSS TypeScript error
-- ✅ Updated homepage from `/account/` to `/`
-
-### **2. Deploy Node.js Backend to Railway**
-**Domain**: `your-node-api-production.railway.app`
+### **1. Deploy Node.js Backend to Railway** 
+**Domain**: `https://bankimonlineapi-production.up.railway.app`
 
 ```bash
-# Create new Railway project for Node.js backend
+# Deploy server code to Railway
+cd server
 railway login
 railway init
 railway up
 ```
 
 **Configuration Files Created**:
-- ✅ `railway.json` - Railway deployment config for Node.js
+- ✅ `railway.json` - Railway deployment config
+- ✅ `server/package.json` - Server dependencies
+- ✅ `server/server-db.js` - Main API server
 
-### **3. Update Main App Production URLs**
+### **2. Deploy Frontend to Railway**
+**Domain**: `https://your-frontend-production.railway.app`
+
+```bash
+# Deploy React app to Railway
+cd mainapp
+npm install
+npm run build
+railway up
+```
+
 **Configuration Files Created**:
+- ✅ `mainapp/vite.config.ts` - Build configuration
+- ✅ `mainapp/package.json` - Frontend dependencies
 - ✅ `mainapp/.env.production` - Production environment variables
-- ✅ Updated `mainapp/vite.config.js` - Environment variable support
-- ✅ Updated API files to use environment variables:
-  - `mainapp/src/services/api.ts`
-  - `mainapp/src/pages/Services/pages/RefinanceCredit/api/refinanceCredit.ts`
-  - `mainapp/src/pages/Services/pages/RefinanceMortgage/api/refinanceMortgage.ts`
-  - `mainapp/src/pages/AuthModal/pages/SignUp/SignUp.tsx`
 
 ## 🔧 Environment Variables
 
 ### **Main App** (`mainapp/.env.production`)
 ```env
-VITE_API_BASE_URL=https://bankimonlineapi-production.up.railway.app/api/v1
-VITE_NODE_API_BASE_URL=https://your-node-api-production.railway.app/api
-VITE_ACCOUNT_URL=https://bankim-account-production.vercel.app
+VITE_API_BASE_URL=https://bankimonlineapi-production.up.railway.app/api
 VITE_ENVIRONMENT=production
 ```
 
-### **Account App** (`account/.env.production`)
+### **Server** (`server/.env`)
 ```env
-VITE_API_BASE_URL=https://bankimonlineapi-production.up.railway.app/api/v1
-VITE_ENVIRONMENT=production
+DATABASE_URL=your_railway_postgresql_url
+CONTENT_DATABASE_URL=your_railway_content_db_url
+PORT=8003
+NODE_ENV=production
 ```
 
 ## 📝 Deployment Steps
 
-### **Step 1: Deploy Node.js Backend**
-1. Create new Railway project
+### **Step 1: Deploy Backend**
+1. Create new Railway project for API server
 2. Connect this repository
-3. Set root directory to `/` (contains `server-db.js`)
+3. Set root directory to `/server`
 4. Deploy using `railway.json` config
-5. **Update** `mainapp/.env.production` with actual Railway URL
+5. Set environment variables in Railway dashboard
 
-### **Step 2: Deploy Account App**
-1. Create new Vercel project
+### **Step 2: Deploy Frontend**
+1. Create new Railway project for React app
 2. Connect this repository
-3. Set root directory to `/account`
-4. Deploy using `vercel.json` config
-5. Domain will be: `bankim-account-production.vercel.app`
+3. Set root directory to `/mainapp`
+4. Set build command: `npm run build`
+5. Set output directory: `dist`
+6. Deploy
 
-### **Step 3: Update Main App**
-1. Update existing Vercel project for main app
-2. Set root directory to `/mainapp`
-3. Add production environment variables
-4. Redeploy
-
-### **Step 4: Update Laravel Backend CORS**
-Add new domains to Laravel CORS configuration:
-```php
-// In Laravel backend
-'allowed_origins' => [
-    'https://bankimstandaloneprod-git-main-michaels-projects-8d0f6093.vercel.app',
-    'https://bankim-account-production.vercel.app',
-    // ... other domains
-],
+### **Step 3: Update CORS Configuration**
+Update server CORS to allow Railway domains:
+```javascript
+// In server/server-db.js
+const corsOptions = {
+  origin: [
+    'https://your-frontend-production.railway.app',
+    'https://bankimonlineapi-production.up.railway.app'
+  ],
+  credentials: true
+};
 ```
 
 ## 🔄 API Endpoint Mapping
 
-### **Registration Flow**
-- **Development**: `localhost:8003/api/register` → `localhost:3001/`
-- **Production**: `https://bankimonlineapi-production.up.railway.app/api/v1/registration` → `https://bankim-account-production.vercel.app/`
-
-### **Refinance Services**
-- **Development**: `localhost:8003/api/refinance-*`
-- **Production**: `https://your-node-api-production.railway.app/api/refinance-*`
-
-### **Other Services**
+### **All Services**
 - **Development**: `localhost:8003/api/*`
-- **Production**: `https://bankimonlineapi-production.up.railway.app/api/v1/*`
+- **Production**: `https://bankimonlineapi-production.up.railway.app/api/*`
+
+### **Available Endpoints**
+- ✅ Registration: `POST /api/register`
+- ✅ Refinance Mortgage: `GET /api/refinance-mortgage`
+- ✅ Refinance Credit: `GET /api/refinance-credit`
+- ✅ Content API: `GET /api/content/:screen/:language`
+- ✅ Admin APIs: `POST /api/admin/*`
 
 ## ⚠️ Important Notes
 
-1. **Laravel vs Node.js**: You have TWO different backends
-   - Laravel handles most APIs (registration, banks, etc.)
-   - Node.js handles refinance calculations only
-
-2. **Registration Endpoint**: Laravel uses `/api/v1/registration`, not `/api/register`
-
-3. **CORS Configuration**: Update Laravel backend to allow new Vercel domains
-
-4. **Database**: Both backends use same Railway PostgreSQL database
+1. **Single Backend**: All APIs are now in Node.js server
+2. **Database**: Uses Railway PostgreSQL database
+3. **CORS**: Configured for Railway domains only
+4. **Environment**: All variables set in Railway dashboard
 
 ## 🎉 Final Production URLs
 
-- **Main App**: `https://bankimstandaloneprod-git-main-michaels-projects-8d0f6093.vercel.app`
-- **Account App**: `https://bankim-account-production.vercel.app`
-- **Laravel API**: `https://bankimonlineapi-production.up.railway.app/api/v1/`
-- **Node.js API**: `https://your-node-api-production.railway.app/api/`
+- **Frontend**: `https://your-frontend-production.railway.app`
+- **Backend API**: `https://bankimonlineapi-production.up.railway.app/api/`
+- **Database**: Railway PostgreSQL (managed)
 
 ## 🚀 Ready to Deploy!
 
 All configuration files are created and code is updated. You can now:
-1. Deploy the Node.js backend to Railway
-2. Deploy the account app to Vercel
-3. Update the main app with production environment variables
-4. Update Laravel CORS settings
+1. Deploy the backend to Railway
+2. Deploy the frontend to Railway
+3. Configure environment variables
+4. Update CORS settings
 
 **Everything is production-ready!** 🎯 
