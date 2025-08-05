@@ -1,0 +1,613 @@
+// SharedNavigation Component Styles
+// Based on Figma design specifications with dark theme (#1F2A37)
+
+.shared-navigation {
+  background-color: #1F2A37;
+  border-bottom: 1px solid #333535;
+  width: 100%;
+  position: relative;
+  z-index: 100;
+
+  .navigation-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+    
+    @media (max-width: 768px) {
+      padding: 0 16px;
+      height: 56px;
+    }
+  }
+
+  .navigation-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .navigation-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    @media (max-width: 768px) {
+      gap: 16px;
+    }
+  }
+}
+
+// Common Dropdown Styles
+.dropdown {
+  position: absolute;
+  top: 100%;
+  z-index: 1000;
+  min-width: 200px;
+  background: #242529;
+  border: 1px solid #333535;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+  padding: 8px 0;
+  margin-top: 8px;
+
+  &--left {
+    left: 0;
+  }
+
+  &--right {
+    right: 0;
+  }
+
+  &--center {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .dropdown-header {
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .dropdown-separator {
+    height: 1px;
+    background: #333535;
+    margin: 8px 0;
+  }
+
+  .dropdown-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #FFFFFF;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: #35373F;
+    }
+
+    &:focus {
+      outline: none;
+      background: #35373F;
+    }
+  }
+}
+
+// Icon Button Styles
+.icon-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  color: #9CA3AF;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #35373F;
+    color: #FFFFFF;
+  }
+
+  &:focus {
+    outline: none;
+    background: #35373F;
+    color: #FFFFFF;
+  }
+
+  .badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    min-width: 16px;
+    height: 16px;
+    background: #FBE54D;
+    color: #000000;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    line-height: 1;
+  }
+}
+
+// Language Selector Styles
+.language-selector {
+  position: relative;
+
+  .language-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: none;
+    border: 1px solid #333535;
+    border-radius: 6px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      border-color: #4B5563;
+      background: #35373F;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #FBE54D;
+    }
+
+    .language-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: #FFFFFF;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      color: #9CA3AF;
+    }
+  }
+
+  .language-dropdown {
+    min-width: 250px;
+    
+    .language-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      
+      .flag {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+      
+      .language-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        
+        .country {
+          font-size: 14px;
+          font-weight: 500;
+          color: #FFFFFF;
+        }
+        
+        .name {
+          font-size: 12px;
+          font-weight: 400;
+          color: #9CA3AF;
+        }
+      }
+    }
+  }
+}
+
+// Tech Support Button Styles
+.tech-support {
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+// Notifications Styles
+.notifications {
+  position: relative;
+
+  .notifications-button {
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .notifications-dropdown {
+    min-width: 400px;
+    max-width: 480px;
+    right: 0;
+    
+    @media (max-width: 768px) {
+      min-width: 320px;
+      max-width: 90vw;
+    }
+  }
+
+  .notifications-list {
+    max-height: 400px;
+    overflow-y: auto;
+    
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: #242529;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #4B5563;
+      border-radius: 2px;
+    }
+  }
+
+  .no-notifications {
+    padding: 24px 16px;
+    text-align: center;
+    color: #9CA3AF;
+    font-size: 14px;
+  }
+
+  .notification-item {
+    display: flex;
+    padding: 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #333535;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: #35373F;
+    }
+
+    &--unread {
+      background: rgba(251, 229, 77, 0.05);
+      border-left: 3px solid #FBE54D;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .notification-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 12px;
+      flex-shrink: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        background: #4B5563;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFFFFF;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+
+    .notification-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .notification-text {
+      .notification-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: #FFFFFF;
+        margin: 0 0 4px 0;
+        line-height: 1.4;
+      }
+
+      .notification-description {
+        font-size: 13px;
+        font-weight: 400;
+        color: #9CA3AF;
+        margin: 0 0 8px 0;
+        line-height: 1.4;
+      }
+
+      .notification-time {
+        display: flex;
+        gap: 8px;
+        font-size: 12px;
+        color: #6B7280;
+        
+        span {
+          &:first-child {
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .notification-action {
+      margin-top: 8px;
+      padding: 6px 12px;
+      background: #FBE54D;
+      color: #000000;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: #F3D70A;
+      }
+    }
+  }
+
+  .view-all-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 16px;
+    background: none;
+    border: none;
+    color: #FBE54D;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #F3D70A;
+    }
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
+
+// Bank Logo Styles
+.bank-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .bank-logo-image {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
+  .bank-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #FFFFFF;
+    
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+}
+
+// User Profile Styles
+.user-profile {
+  position: relative;
+
+  .profile-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background: #35373F;
+    }
+
+    &:focus {
+      outline: none;
+      background: #35373F;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .avatar-initials {
+        width: 100%;
+        height: 100%;
+        background: #4B5563;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFFFFF;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+
+    .profile-info {
+      .profile-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #FFFFFF;
+        
+        @media (max-width: 768px) {
+          display: none;
+        }
+      }
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      color: #9CA3AF;
+      
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  .profile-dropdown {
+    min-width: 200px;
+    right: 0;
+
+    .profile-header {
+      padding: 16px;
+      border-bottom: 1px solid #333535;
+
+      .profile-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #FFFFFF;
+        margin-bottom: 4px;
+      }
+
+      .profile-email {
+        font-size: 13px;
+        color: #9CA3AF;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .shared-navigation {
+    .navigation-container {
+      .navigation-right {
+        .bank-logo {
+          .bank-name {
+            display: none;
+          }
+        }
+        
+        .user-profile {
+          .profile-button {
+            .profile-info {
+              display: none;
+            }
+            
+            svg {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown {
+  animation: fadeIn 0.2s ease-out;
+}
+
+// Focus styles for accessibility
+.shared-navigation {
+  *:focus {
+    outline: 2px solid #FBE54D;
+    outline-offset: 2px;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .shared-navigation {
+    border-bottom-color: #FFFFFF;
+    
+    .dropdown {
+      border-color: #FFFFFF;
+    }
+    
+    .dropdown-item {
+      border-bottom: 1px solid #FFFFFF;
+    }
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .shared-navigation {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+} 

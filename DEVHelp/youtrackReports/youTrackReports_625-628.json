@@ -1,0 +1,247 @@
+{
+  "header": {
+    "description": "YouTrack Issues Report - OS Issues 625-628",
+    "instructions": "This file contains YouTrack issues numbered OS-625 through OS-628, extracted from analysis text files.",
+    "organization": "Issues are sorted numerically by OS number",
+    "source_files": [
+      "youTrackReports_625.txt",
+      "youTrackReports_626.txt",
+      "youTrackReports_627.txt",
+      "youTrackReports_628.txt"
+    ],
+    "total_issues": 4,
+    "issue_range": "OS-625 to OS-628",
+    "found_issues": 4,
+    "missing_issues": 0,
+    "missing_issue_numbers": [],
+    "analysis_date": "2025-01-23",
+    "analyst": "AI Assistant"
+  },
+  "issues": [
+    {
+      "idReadable": "OS-625",
+      "title": "14.4 Восстановить пароль по Email. Общая. До регистрации / Стр. 14.4. Действий 5 требует оценки до 1 марта",
+      "description": "Evaluation request for Email Password Reset - Due March 1st",
+      "status": "⚠️ PARTIALLY COMPLETE - MISSING EMAIL VALIDATION",
+      "completion_percentage": 80,
+      "actions_required": 5,
+      "actions_completed": 4,
+      "issue_id": "OS-625",
+      "original_issue_reference": "OS-351 (same as OS-220)",
+      "due_date": "March 1, 2025",
+      "analysis": {
+        "implementation_status": {
+          "email_reset_modal": "✅ IMPLEMENTED",
+          "email_input_validation": "❌ PARTIALLY IMPLEMENTED",
+          "tab_switching": "✅ IMPLEMENTED",
+          "email_validation_logic": "❌ MISSING",
+          "get_code_button": "✅ IMPLEMENTED"
+        },
+        "critical_gap": {
+          "issue": "Missing email validation in ResetPassword Component",
+          "location": "/pages/AuthModal/pages/ResetPassword/ResetPassword.tsx:23-25",
+          "current_implementation": "Only validates phoneNumber, no email validation",
+          "impact": "Users can submit invalid/empty emails without validation errors",
+          "security_risk": "Invalid email addresses can be processed"
+        },
+        "comparison": {
+          "auth_component": "✅ Has correct conditional validation based on activeTab",
+          "reset_password": "❌ Lacks conditional validation for email tab"
+        },
+        "business_impact": {
+          "user_experience": "Users can submit forms with invalid data",
+          "security": "Invalid email addresses processed by backend",
+          "consistency": "Inconsistent validation behavior across similar forms"
+        }
+      },
+      "recommended_solution": {
+        "steps": [
+          "Update ResetPassword.tsx validation schema to be conditional",
+          "Add email validation when email tab is active",
+          "Add phone validation when phone tab is active",
+          "Test both tabs to ensure proper validation",
+          "Ensure consistency with Auth component pattern"
+        ],
+        "priority": "HIGH",
+        "effort_estimate": "1-2 hours",
+        "risk": "MEDIUM (affects user data integrity)"
+      }
+    },
+    {
+      "idReadable": "OS-626",
+      "title": "14.5 Восстановить пароль. Email код. Общая. До регистрации / Стр. 14.5. Действий 5 требует оценки до 1 марта",
+      "description": "Evaluation request for Email Password Reset Code - Due March 1st",
+      "status": "⚠️ MOSTLY COMPLETE - SECURITY GAP NEEDS FIXING",
+      "completion_percentage": 85,
+      "actions_required": 5,
+      "actions_completed": 4,
+      "issue_id": "OS-626",
+      "original_issue_reference": "OS-352 (same as OS-221)",
+      "due_date": "March 1, 2025",
+      "analysis": {
+        "implementation_status": {
+          "email_code_verification": "✅ IMPLEMENTED",
+          "digit_code_input": "✅ IMPLEMENTED",
+          "email_code_resend": "❌ PARTIALLY IMPLEMENTED - No rate limiting",
+          "code_verification_api": "✅ IMPLEMENTED",
+          "navigation_flow": "✅ IMPLEMENTED"
+        },
+        "major_gap": {
+          "issue": "Missing Rate Limiting for Email Code Resend",
+          "location": "/components/ui/CodeVerification/CodeVerification.tsx:82-84",
+          "current_implementation": "Simple button without any rate limiting",
+          "expected": "60-second countdown like SMS (CodeForm.tsx:33-46)",
+          "missing_components": [
+            "useState for canResendEmail and countdown",
+            "useEffect for countdown timer",
+            "Conditional rendering for disabled state",
+            "Visual countdown display"
+          ]
+        },
+        "security_inconsistency": {
+          "sms_flow": "✅ Proper rate limiting with 60-second countdown",
+          "email_flow": "❌ No rate limiting, unlimited resend requests possible",
+          "impact": "Security vulnerability for email service abuse"
+        },
+        "evaluation_scores": {
+          "functionality": 8.5,
+          "design_fidelity": 10,
+          "code_quality": 9,
+          "performance": 7,
+          "maintainability": 9,
+          "security": 6,
+          "user_experience": 8,
+          "business_impact": 7
+        }
+      },
+      "recommended_solution": {
+        "urgent_actions": [
+          "Implement rate limiting for email code resend",
+          "Add useState for canResendEmail and countdown",
+          "Add useEffect for countdown timer (60 seconds)",
+          "Update button to show countdown state",
+          "Disable button during cooldown period"
+        ],
+        "consistency_improvements": [
+          "Align email code flow with SMS code flow UX",
+          "Use same rate limiting pattern as CodeForm.tsx",
+          "Ensure visual feedback consistency",
+          "Consider extracting rate limiting logic to custom hook"
+        ],
+        "priority": "HIGH (Security and consistency issue)",
+        "effort_estimate": "4-6 hours (implementation + testing)"
+      }
+    },
+    {
+      "idReadable": "OS-627",
+      "title": "14А. Ошибка 404. Общая. До регистрации / Стр. 14А. Действий 3 требует оценки до 1 марта",
+      "description": "Evaluation request for 404 Error Page - Due March 1st",
+      "status": "✅ PERFECTLY DONE - NO CHANGES NEEDED",
+      "completion_percentage": 100,
+      "actions_required": 3,
+      "actions_completed": 3,
+      "issue_id": "OS-627",
+      "original_issue_reference": "OS-353 (same as OS-222)",
+      "due_date": "March 1, 2025",
+      "analysis": {
+        "implementation_verification": {
+          "not_found_component": "✅ EXISTS at /mainapp/src/app/Errors/NotFound/NotFound.tsx",
+          "routing_configuration": "✅ PERFECT - /404 route and catch-all route (*) configured",
+          "header_navigation": "✅ IMPLEMENTED with logo and login functionality",
+          "logo_click_navigation": "✅ WORKING - navigates to home page",
+          "login_access": "✅ OPENS authentication modal from error page",
+          "return_to_main": "✅ AVAILABLE through multiple paths",
+          "mobile_responsive": "✅ IMPLEMENTED and tested"
+        },
+        "routing_analysis": {
+          "404_route": "✅ PERFECT: <NotFound type={'NOT_FOUND'} />",
+          "catch_all": "✅ PERFECT: Redirects to /404 for unmatched URLs",
+          "lazy_loading": "✅ IMPLEMENTED for NotFound component",
+          "separation": "✅ CLEAN separation between 404 and fallback"
+        },
+        "business_validation": {
+          "user_recovery": "✅ PERFECT - Multiple navigation options",
+          "user_engagement": "✅ EXCELLENT - Prevents frustration",
+          "brand_credibility": "✅ PROFESSIONAL error handling",
+          "resource_efficiency": "✅ EFFICIENT with lazy loading"
+        },
+        "evaluation_scores": {
+          "functionality": 10,
+          "design_fidelity": 10,
+          "code_quality": 10,
+          "performance": 10,
+          "maintainability": 10,
+          "error_handling": 10,
+          "user_experience": 10,
+          "business_impact": 10
+        }
+      },
+      "technical_details": {
+        "component_location": "/mainapp/src/app/Errors/NotFound/NotFound.tsx",
+        "routing_location": "/mainapp/src/app/AppRoutes/MainRoutes.tsx:243-244",
+        "error_type": "NOT_FOUND",
+        "navigation_options": ["Logo click", "Login button", "Header navigation"],
+        "mobile_support": "Fully responsive design",
+        "accessibility": "Complete ARIA support and semantic HTML"
+      },
+      "recommendations": "NO RECOMMENDATIONS NEEDED - Implementation is exemplary",
+      "priority": "COMPLETE - NO ACTION REQUIRED",
+      "effort_estimate": "0 hours (Perfect implementation)"
+    },
+    {
+      "idReadable": "OS-628",
+      "title": "14B. Fallback. Общая. До регистрации / Стр. 14B. Действий 3 требует оценки до 1 марта",
+      "description": "Evaluation request for Fallback Error Page - Due March 1st",
+      "status": "⚠️ MOSTLY COMPLETE - MINOR IMPROVEMENT NEEDED",
+      "completion_percentage": 95,
+      "actions_required": 3,
+      "actions_completed": 3,
+      "issue_id": "OS-628",
+      "original_issue_reference": "OS-354 (same as OS-223)",
+      "due_date": "March 1, 2025",
+      "analysis": {
+        "implementation_verification": {
+          "error_boundary": "✅ EXISTS at /mainapp/src/app/Errors/ErrorBoundary/ErrorBoundary.tsx",
+          "fallback_support": "✅ NotFound component supports FALLBACK type",
+          "crash_handling": "✅ Error boundary catches application crashes",
+          "fallback_ui": "✅ Renders through NotFound with recovery options",
+          "component_integration": "✅ Throughout app component tree"
+        },
+        "identified_gap": {
+          "issue": "Greeting Message Inconsistency",
+          "location": "/mainapp/src/app/Errors/NotFound/components/Greeting.tsx:15-16",
+          "current": "Both FALLBACK and NOT_FOUND show t('not_found_greeting')",
+          "expected": "FALLBACK should show t('fallback_greeting')",
+          "impact_level": "LOW (cosmetic/UX improvement)",
+          "user_impact": "Same message for page not found vs app crash"
+        },
+        "business_validation": {
+          "crash_handling": "✅ EXCELLENT - Prevents user data loss",
+          "graceful_degradation": "✅ GOOD - Error boundary provides fallback",
+          "recovery_options": "✅ IMPLEMENTED - Navigation available",
+          "error_logging": "✅ SOLID - For debugging and monitoring",
+          "accessibility": "✅ PERFECT - Full ARIA support",
+          "internationalization": "✅ PERFECT - Complete i18n integration",
+          "mobile_optimization": "✅ PERFECT - Mobile-optimized fallback"
+        },
+        "evaluation_scores": {
+          "functionality": 9.5,
+          "design_fidelity": 10,
+          "code_quality": 10,
+          "performance": 10,
+          "maintainability": 10,
+          "error_handling": 10,
+          "user_experience": 9.5,
+          "business_impact": 10
+        }
+      },
+      "recommendations": [
+        "Update Greeting.tsx to use different messages for FALLBACK vs NOT_FOUND",
+        "Add translation key 'fallback_greeting' to translation files",
+        "Test error boundary with different crash scenarios"
+      ],
+      "priority": "LOW (Enhancement)",
+      "effort_estimate": "1-2 hours"
+    }
+  ]
+}

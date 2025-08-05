@@ -1,0 +1,583 @@
+{
+  "metadata": {
+    "generated_at": "2025-07-24T05:35:15.397Z",
+    "total_items": 18,
+    "database": "banking_content"
+  },
+  "table_structure": [
+    {
+      "column": "id",
+      "type": "integer",
+      "max_length": null,
+      "nullable": "NO",
+      "default": "nextval('content_items_id_seq'::regclass)"
+    },
+    {
+      "column": "key",
+      "type": "character varying",
+      "max_length": 255,
+      "nullable": "NO",
+      "default": null
+    },
+    {
+      "column": "screen_location",
+      "type": "character varying",
+      "max_length": 100,
+      "nullable": "NO",
+      "default": null
+    },
+    {
+      "column": "component_type",
+      "type": "character varying",
+      "max_length": 50,
+      "nullable": "YES",
+      "default": "'text'::character varying"
+    },
+    {
+      "column": "category",
+      "type": "character varying",
+      "max_length": 100,
+      "nullable": "YES",
+      "default": "'general'::character varying"
+    },
+    {
+      "column": "status",
+      "type": "character varying",
+      "max_length": 20,
+      "nullable": "YES",
+      "default": "'active'::character varying"
+    },
+    {
+      "column": "created_at",
+      "type": "timestamp without time zone",
+      "max_length": null,
+      "nullable": "YES",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "column": "updated_at",
+      "type": "timestamp without time zone",
+      "max_length": null,
+      "nullable": "YES",
+      "default": "CURRENT_TIMESTAMP"
+    }
+  ],
+  "statistics": {
+    "by_screen_location": [
+      {
+        "screen": "navigation",
+        "count": 12
+      },
+      {
+        "screen": "about",
+        "count": 2
+      },
+      {
+        "screen": "contacts",
+        "count": 2
+      },
+      {
+        "screen": "temporary_franchise",
+        "count": 1
+      },
+      {
+        "screen": "test",
+        "count": 1
+      }
+    ],
+    "by_category": [
+      {
+        "category": "general",
+        "count": 18
+      }
+    ],
+    "by_component_type": [
+      {
+        "component": "text",
+        "count": 18
+      }
+    ],
+    "by_status": [
+      {
+        "status": "active",
+        "count": 18
+      }
+    ]
+  },
+  "content_mapping": {
+    "about": {
+      "general": [
+        {
+          "id": 14,
+          "key": "about_desc",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:45.062Z",
+          "updated_at": "2025-07-21T07:23:45.062Z"
+        },
+        {
+          "id": 13,
+          "key": "about_title",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:44.724Z",
+          "updated_at": "2025-07-21T07:23:44.724Z"
+        }
+      ]
+    },
+    "contacts": {
+      "general": [
+        {
+          "id": 16,
+          "key": "contacts_main_office",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:45.743Z",
+          "updated_at": "2025-07-21T07:23:45.743Z"
+        },
+        {
+          "id": 15,
+          "key": "contacts_title",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:45.399Z",
+          "updated_at": "2025-07-21T07:23:45.399Z"
+        }
+      ]
+    },
+    "navigation": {
+      "general": [
+        {
+          "id": 8,
+          "key": "sidebar_business",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:42.969Z",
+          "updated_at": "2025-07-21T07:23:42.969Z"
+        },
+        {
+          "id": 9,
+          "key": "sidebar_business_1",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:43.347Z",
+          "updated_at": "2025-07-21T07:23:43.347Z"
+        },
+        {
+          "id": 10,
+          "key": "sidebar_business_2",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:43.716Z",
+          "updated_at": "2025-07-21T07:23:43.716Z"
+        },
+        {
+          "id": 11,
+          "key": "sidebar_business_3",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:44.049Z",
+          "updated_at": "2025-07-21T07:23:44.049Z"
+        },
+        {
+          "id": 12,
+          "key": "sidebar_business_4",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:44.387Z",
+          "updated_at": "2025-07-21T07:23:44.387Z"
+        },
+        {
+          "id": 2,
+          "key": "sidebar_company",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:40.813Z",
+          "updated_at": "2025-07-21T08:12:55.934Z"
+        },
+        {
+          "id": 3,
+          "key": "sidebar_company_1",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:41.160Z",
+          "updated_at": "2025-07-21T08:12:56.307Z"
+        },
+        {
+          "id": 4,
+          "key": "sidebar_company_2",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:41.508Z",
+          "updated_at": "2025-07-21T08:12:56.641Z"
+        },
+        {
+          "id": 5,
+          "key": "sidebar_company_3",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:41.844Z",
+          "updated_at": "2025-07-21T08:12:57.005Z"
+        },
+        {
+          "id": 6,
+          "key": "sidebar_company_4",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:42.221Z",
+          "updated_at": "2025-07-21T08:12:57.335Z"
+        },
+        {
+          "id": 7,
+          "key": "sidebar_company_5",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:42.608Z",
+          "updated_at": "2025-07-21T08:12:57.707Z"
+        },
+        {
+          "id": 18,
+          "key": "test_key_2",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T08:12:35.929Z",
+          "updated_at": "2025-07-21T08:12:35.929Z"
+        }
+      ]
+    },
+    "temporary_franchise": {
+      "general": [
+        {
+          "id": 17,
+          "key": "franchise_main_hero_title",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:46.087Z",
+          "updated_at": "2025-07-21T07:23:46.087Z"
+        }
+      ]
+    },
+    "test": {
+      "general": [
+        {
+          "id": 1,
+          "key": "test_content",
+          "component_type": "text",
+          "status": "active",
+          "created_at": "2025-07-21T07:23:35.436Z",
+          "updated_at": "2025-07-21T07:23:35.436Z"
+        }
+      ]
+    }
+  },
+  "translation_coverage": [
+    {
+      "id": 14,
+      "key": "about_desc",
+      "screen": "about",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 13,
+      "key": "about_title",
+      "screen": "about",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 16,
+      "key": "contacts_main_office",
+      "screen": "contacts",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 15,
+      "key": "contacts_title",
+      "screen": "contacts",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 8,
+      "key": "sidebar_business",
+      "screen": "navigation",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 9,
+      "key": "sidebar_business_1",
+      "screen": "navigation",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 10,
+      "key": "sidebar_business_2",
+      "screen": "navigation",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 11,
+      "key": "sidebar_business_3",
+      "screen": "navigation",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 12,
+      "key": "sidebar_business_4",
+      "screen": "navigation",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 2,
+      "key": "sidebar_company",
+      "screen": "navigation",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 3,
+      "key": "sidebar_company_1",
+      "screen": "navigation",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 4,
+      "key": "sidebar_company_2",
+      "screen": "navigation",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 5,
+      "key": "sidebar_company_3",
+      "screen": "navigation",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 6,
+      "key": "sidebar_company_4",
+      "screen": "navigation",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 7,
+      "key": "sidebar_company_5",
+      "screen": "navigation",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 18,
+      "key": "test_key_2",
+      "screen": "navigation",
+      "translations": 0,
+      "languages": "none"
+    },
+    {
+      "id": 17,
+      "key": "franchise_main_hero_title",
+      "screen": "temporary_franchise",
+      "translations": 3,
+      "languages": "en, he, ru"
+    },
+    {
+      "id": 1,
+      "key": "test_content",
+      "screen": "test",
+      "translations": 0,
+      "languages": "none"
+    }
+  ],
+  "items": [
+    {
+      "id": 14,
+      "key": "about_desc",
+      "screen_location": "about",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:45.062Z",
+      "updated_at": "2025-07-21T07:23:45.062Z"
+    },
+    {
+      "id": 13,
+      "key": "about_title",
+      "screen_location": "about",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:44.724Z",
+      "updated_at": "2025-07-21T07:23:44.724Z"
+    },
+    {
+      "id": 16,
+      "key": "contacts_main_office",
+      "screen_location": "contacts",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:45.743Z",
+      "updated_at": "2025-07-21T07:23:45.743Z"
+    },
+    {
+      "id": 15,
+      "key": "contacts_title",
+      "screen_location": "contacts",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:45.399Z",
+      "updated_at": "2025-07-21T07:23:45.399Z"
+    },
+    {
+      "id": 8,
+      "key": "sidebar_business",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:42.969Z",
+      "updated_at": "2025-07-21T07:23:42.969Z"
+    },
+    {
+      "id": 9,
+      "key": "sidebar_business_1",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:43.347Z",
+      "updated_at": "2025-07-21T07:23:43.347Z"
+    },
+    {
+      "id": 10,
+      "key": "sidebar_business_2",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:43.716Z",
+      "updated_at": "2025-07-21T07:23:43.716Z"
+    },
+    {
+      "id": 11,
+      "key": "sidebar_business_3",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:44.049Z",
+      "updated_at": "2025-07-21T07:23:44.049Z"
+    },
+    {
+      "id": 12,
+      "key": "sidebar_business_4",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:44.387Z",
+      "updated_at": "2025-07-21T07:23:44.387Z"
+    },
+    {
+      "id": 2,
+      "key": "sidebar_company",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:40.813Z",
+      "updated_at": "2025-07-21T08:12:55.934Z"
+    },
+    {
+      "id": 3,
+      "key": "sidebar_company_1",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:41.160Z",
+      "updated_at": "2025-07-21T08:12:56.307Z"
+    },
+    {
+      "id": 4,
+      "key": "sidebar_company_2",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:41.508Z",
+      "updated_at": "2025-07-21T08:12:56.641Z"
+    },
+    {
+      "id": 5,
+      "key": "sidebar_company_3",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:41.844Z",
+      "updated_at": "2025-07-21T08:12:57.005Z"
+    },
+    {
+      "id": 6,
+      "key": "sidebar_company_4",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:42.221Z",
+      "updated_at": "2025-07-21T08:12:57.335Z"
+    },
+    {
+      "id": 7,
+      "key": "sidebar_company_5",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:42.608Z",
+      "updated_at": "2025-07-21T08:12:57.707Z"
+    },
+    {
+      "id": 18,
+      "key": "test_key_2",
+      "screen_location": "navigation",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T08:12:35.929Z",
+      "updated_at": "2025-07-21T08:12:35.929Z"
+    },
+    {
+      "id": 17,
+      "key": "franchise_main_hero_title",
+      "screen_location": "temporary_franchise",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:46.087Z",
+      "updated_at": "2025-07-21T07:23:46.087Z"
+    },
+    {
+      "id": 1,
+      "key": "test_content",
+      "screen_location": "test",
+      "component_type": "text",
+      "category": "general",
+      "status": "active",
+      "created_at": "2025-07-21T07:23:35.436Z",
+      "updated_at": "2025-07-21T07:23:35.436Z"
+    }
+  ]
+}

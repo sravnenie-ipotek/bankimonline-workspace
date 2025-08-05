@@ -1,0 +1,558 @@
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.78); // Exact color from Figma
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+/* Modal Container */
+.modal-container {
+  background-color: #2a2b31; // Exact color from Figma (Base/Inputs)
+  border-radius: 10px; // Exact radius from Figma
+  width: 100%;
+  max-width: 602px; // Desktop version width from Figma
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: modalEnter 0.3s ease-out;
+  
+  @media (max-width: 768px) {
+    max-width: 350px; // Mobile version width
+    border-radius: 10px;
+  }
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px 0 32px;
+  
+  @media (max-width: 768px) {
+    padding: 16px 24px 0 24px;
+  }
+}
+
+.modal-title {
+  font-size: 24px; // Exact size from Figma
+  font-weight: 500; // Medium weight from Figma
+  font-family: 'Roboto', sans-serif;
+  color: #FFFFFF; // Text/Primary from Figma
+  margin: 0;
+  line-height: normal;
+  
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+.close-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: transparent;
+  color: #CCCCCC;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #242529;
+    color: #FFFFFF;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Modal Content */
+.modal-content {
+  padding: 32px 32px 32px 32px; // Exact padding from Figma
+  
+  @media (max-width: 768px) {
+    padding: 24px 24px 32px 24px;
+  }
+}
+
+/* Payment Description */
+.payment-description {
+  font-size: 16px; // Exact size from Figma
+  font-weight: 400; // Regular weight from Figma
+  font-family: 'Roboto', sans-serif;
+  color: #D0D0D0; // Text/Secondary from Figma
+  line-height: 1.5;
+  margin: 0 0 32px 0;
+  text-align: left;
+  
+  @media (max-width: 768px) {
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+}
+
+/* Payment Method Section */
+.payment-method-section {
+  margin-bottom: 32px;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 24px;
+  }
+}
+
+.section-title {
+  font-size: 18px; // Exact size from Figma
+  font-weight: 500; // Medium weight from Figma
+  font-family: 'Roboto', sans-serif;
+  color: #FFFFFF; // Text/Primary from Figma
+  margin: 0 0 16px 0;
+  line-height: normal;
+  
+  @media (max-width: 768px) {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+}
+
+/* Card Selection */
+.card-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-option {
+  width: 100%;
+}
+
+.card-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px; // Exact padding from Figma
+  background-color: #35373F; // Base/Inputs Dark from Figma
+  border: 2px solid transparent;
+  border-radius: 8px; // Rounded-lg from Figma
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: #4A4D57;
+    background-color: #3A3D47;
+  }
+
+  &--selected {
+    border-color: #FBE54D; // Accent/Primary from Figma
+    background-color: rgba(251, 229, 77, 0.05);
+  }
+}
+
+.visa-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px; // Exact size from Figma
+  height: 32px; // Exact size from Figma
+  background-color: #1E3A8A; // Visa blue color
+  border-radius: 4px;
+  
+  span {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+  }
+}
+
+.card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-number {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px; // Exact size from Figma
+  font-weight: 500; // Medium weight from Figma
+  color: #FFFFFF; // Text/Primary from Figma
+  line-height: normal;
+}
+
+.card-expiry {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px; // Exact size from Figma
+  font-weight: 400; // Regular weight from Figma
+  color: #D0D0D0; // Text/Secondary from Figma
+  line-height: normal;
+}
+
+.selection-indicator {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #4A4D57;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+
+  &--selected {
+    border-color: #FBE54D;
+    background-color: #FBE54D;
+  }
+}
+
+.checkmark {
+  font-size: 14px;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1;
+}
+
+/* Add Card Button */
+.add-card-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 20px;
+  background-color: transparent;
+  border: 2px dashed #4A4D57;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #D0D0D0;
+
+  &:hover {
+    border-color: #FBE54D;
+    background-color: rgba(251, 229, 77, 0.05);
+    color: #FBE54D;
+  }
+}
+
+.plus-icon {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* Agreement Section */
+.agreement-section {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 24px;
+    gap: 12px;
+  }
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px; // Exact size from Figma
+  font-weight: 400; // Regular weight from Figma
+  color: #D0D0D0; // Text/Secondary from Figma
+  line-height: 1.4;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+
+  &:checked + .checkbox-custom {
+    background-color: #FBE54D; // Accent/Primary from Figma
+    border-color: #FBE54D;
+    
+    &::after {
+      display: block;
+    }
+  }
+}
+
+.checkbox-custom {
+  position: relative;
+  width: 20px; // Exact size from Figma
+  height: 20px; // Exact size from Figma
+  background-color: transparent;
+  border: 2px solid #4A4D57; // Base/Border from Figma
+  border-radius: 4px; // Rounded-sm from Figma
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  margin-top: 2px; // Align with text
+
+  &::after {
+    content: '';
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 10px;
+    border: solid #000000; // Dark checkmark on yellow background
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .checkbox-label:hover & {
+    border-color: #D0D0D0;
+  }
+}
+
+.checkbox-text {
+  flex: 1;
+}
+
+.agreement-link {
+  color: #FBE54D; // Accent/Primary from Figma
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #E6CE45; // Slightly darker yellow on hover
+  }
+}
+
+/* Payment Total */
+.payment-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0; // Exact padding from Figma
+  border-top: 1px solid #4A4D57; // Base/Border from Figma
+  margin-bottom: 32px;
+  
+  @media (max-width: 768px) {
+    padding: 20px 0;
+    margin-bottom: 24px;
+  }
+}
+
+.total-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px; // Exact size from Figma
+  font-weight: 500; // Medium weight from Figma
+  color: #FFFFFF; // Text/Primary from Figma
+  line-height: normal;
+  
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.total-amount {
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px; // Exact size from Figma
+  font-weight: 700; // Bold weight from Figma
+  color: #FBE54D; // Accent/Primary from Figma
+  line-height: normal;
+  
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.back-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px; // Exact padding from Figma
+  background-color: transparent;
+  border: 1px solid #4A4D57; // Base/Border from Figma
+  border-radius: 8px; // Rounded-lg from Figma
+  color: #D0D0D0; // Text/Secondary from Figma
+  font-size: 16px; // Exact size from Figma
+  font-weight: 500; // Medium weight from Figma
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+
+  &:hover {
+    border-color: #D0D0D0;
+    background-color: rgba(208, 208, 208, 0.05);
+    color: #FFFFFF;
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+}
+
+.payment-button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px; // Exact padding from Figma
+  background-color: #FBE54D; // Accent/Primary from Figma
+  border: 1px solid #FBE54D;
+  border-radius: 8px; // Rounded-lg from Figma
+  color: #161616; // Text/Dark Primary from Figma
+  font-size: 16px; // Exact size from Figma
+  font-weight: 600; // Semi-bold weight from Figma
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+
+  &:hover:not(&--disabled) {
+    background-color: #F5DC3A; // Slightly darker yellow
+    border-color: #F5DC3A;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(251, 229, 77, 0.3);
+  }
+
+  &:active:not(&--disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(251, 229, 77, 0.3);
+  }
+
+  &--disabled {
+    background-color: #4A4D57; // Base/Border from Figma
+    border-color: #4A4D57;
+    color: #848484; // Text/Disabled from Figma
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 15px;
+    min-width: unset;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 12px;
+  }
+  
+  .modal-container {
+    border-radius: 10px;
+  }
+  
+  .close-button {
+    width: 28px;
+    height: 28px;
+    font-size: 20px;
+  }
+  
+  .card-container {
+    padding: 16px;
+    gap: 12px;
+  }
+  
+  .visa-logo {
+    width: 40px;
+    height: 28px;
+    
+    span {
+      font-size: 12px;
+    }
+  }
+  
+  .selection-indicator {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .checkmark {
+    font-size: 12px;
+  }
+  
+  .add-card-button {
+    padding: 16px;
+    font-size: 15px;
+  }
+  
+  .plus-icon {
+    font-size: 18px;
+  }
+  
+  .checkbox-custom {
+    width: 18px;
+    height: 18px;
+    
+    &::after {
+      left: 5px;
+      top: 1px;
+      width: 5px;
+      height: 9px;
+    }
+  }
+  
+  .checkbox-text {
+    font-size: 13px;
+  }
+} 

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Citizenship Validation Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .step { margin: 20px 0; padding: 20px; border: 1px solid #ccc; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>Citizenship Multi-Select Validation Test</h1>
+    
+    <div class="step">
+        <h2>Test Instructions:</h2>
+        <ol>
+            <li>Navigate to <a href="http://localhost:5173/services/calculate-mortgage/2" target="_blank">http://localhost:5173/services/calculate-mortgage/2</a></li>
+            <li>Open browser console (F12) to see debug logs</li>
+            <li>Fill in First Name, Last Name, Birthday</li>
+            <li>Select "כן" (Yes) for additional citizenship</li>
+            <li>Click on citizenship dropdown</li>
+            <li>Select one or more countries</li>
+            <li>Click "החל" (Apply)</li>
+            <li>Check console for debug output</li>
+        </ol>
+    </div>
+    
+    <div class="step">
+        <h2>Expected Console Output:</h2>
+        <pre>
+Selected labels: ["קנדה", "צרפת"]
+Converted values: ["canada", "france"]
+Current form values.citizenshipsDropdown: ["canada", "france"]
+Display values: ["קנדה", "צרפת"]
+        </pre>
+    </div>
+    
+    <div class="step">
+        <h2>What to Check:</h2>
+        <ul>
+            <li class="info">Are the selected labels showing in console?</li>
+            <li class="info">Are they being converted to values correctly?</li>
+            <li class="info">Is the form value being updated?</li>
+            <li class="info">Is the validation error clearing after selection?</li>
+        </ul>
+    </div>
+    
+    <div class="step">
+        <h2>Possible Issues:</h2>
+        <ul>
+            <li class="error">If values are empty array [] - conversion issue</li>
+            <li class="error">If no console logs - component not rendering</li>
+            <li class="error">If validation persists - Formik state issue</li>
+        </ul>
+    </div>
+</body>
+</html>

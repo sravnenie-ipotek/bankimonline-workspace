@@ -1,0 +1,388 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2025-01-27",
+    "description": "Master mapping between Confluence page numbers and database screen_location values",
+    "notes": "This file serves as the authoritative source for page numbering across all banking services"
+  },
+  "mappings": [
+    {
+      "service": "mortgage",
+      "page_number": 1,
+      "confluence_title": "Mortgage Calculator - Step 1",
+      "screen_location": "mortgage_step1",
+      "shared": false
+    },
+    {
+      "service": "mortgage",
+      "page_number": 2,
+      "confluence_title": "Mortgage Calculator - Step 2 Personal Data",
+      "screen_location": "mortgage_step2",
+      "shared": false
+    },
+    {
+      "service": "mortgage",
+      "page_number": 3,
+      "confluence_title": "Mortgage Calculator - Step 3 Income Data",
+      "screen_location": "mortgage_step3",
+      "shared": false
+    },
+    {
+      "service": "mortgage",
+      "page_number": 4,
+      "confluence_title": "Mortgage Calculator - Step 4 Program Selection",
+      "screen_location": "mortgage_step4",
+      "shared": false
+    },
+    {
+      "service": "mortgage_refi",
+      "page_number": 1,
+      "confluence_title": "Refinance Mortgage - Step 1 Calculator",
+      "screen_location": "refinance_credit_1",
+      "shared": true
+    },
+    {
+      "service": "mortgage_refi",
+      "page_number": 2,
+      "confluence_title": "Refinance Mortgage - Step 2 Personal Data",
+      "screen_location": "refinance_credit_2",
+      "shared": true
+    },
+    {
+      "service": "mortgage_refi",
+      "page_number": 3,
+      "confluence_title": "Refinance Mortgage - Step 3 Income Data",
+      "screen_location": "refinance_credit_3",
+      "shared": true
+    },
+    {
+      "service": "mortgage_refi",
+      "page_number": 4,
+      "confluence_title": "Refinance Mortgage - Step 4 Program Selection",
+      "screen_location": "mortgage_step4",
+      "shared": true
+    },
+    {
+      "service": "credit",
+      "page_number": 1,
+      "confluence_title": "Credit Calculator - Step 1",
+      "screen_location": "credit_step1",
+      "shared": false
+    },
+    {
+      "service": "credit",
+      "page_number": 2,
+      "confluence_title": "Credit Calculator - Step 2 Personal Data",
+      "screen_location": "credit_step2",
+      "shared": false
+    },
+    {
+      "service": "credit",
+      "page_number": 3,
+      "confluence_title": "Credit Calculator - Step 3 Income Data",
+      "screen_location": "credit_step3",
+      "shared": false
+    },
+    {
+      "service": "credit",
+      "page_number": 4,
+      "confluence_title": "Credit Calculator - Step 4 Program Selection",
+      "screen_location": "credit_step4",
+      "shared": false
+    },
+    {
+      "service": "credit_refi",
+      "page_number": 1,
+      "confluence_title": "Refinance Credit - Step 1 Calculator",
+      "screen_location": "refinance_credit_1",
+      "shared": true
+    },
+    {
+      "service": "credit_refi",
+      "page_number": 2,
+      "confluence_title": "Refinance Credit - Step 2 Personal Data",
+      "screen_location": "refinance_credit_2",
+      "shared": true
+    },
+    {
+      "service": "credit_refi",
+      "page_number": 3,
+      "confluence_title": "Refinance Credit - Step 3 Income Data",
+      "screen_location": "refinance_credit_3",
+      "shared": true
+    },
+    {
+      "service": "credit_refi",
+      "page_number": 4,
+      "confluence_title": "Refinance Credit - Step 4 Results",
+      "screen_location": "refinance_credit_4",
+      "shared": false
+    },
+    {
+      "service": "global",
+      "page_number": 101,
+      "confluence_title": "Phone Verification",
+      "screen_location": "phone_verification",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 102,
+      "confluence_title": "SMS Code Verification",
+      "screen_location": "phone_code_verification",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 103,
+      "confluence_title": "Register by Phone",
+      "screen_location": "register_phone",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 104,
+      "confluence_title": "Register by Email",
+      "screen_location": "register_email",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 105,
+      "confluence_title": "Login Form",
+      "screen_location": "login_form",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 106,
+      "confluence_title": "Login by Email",
+      "screen_location": "login_email",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 107,
+      "confluence_title": "Login SMS Confirmation",
+      "screen_location": "login_sms_confirm",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 111,
+      "confluence_title": "Reset Password",
+      "screen_location": "reset_pwd",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 112,
+      "confluence_title": "Reset Password SMS",
+      "screen_location": "reset_pwd_sms",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 113,
+      "confluence_title": "Reset Password SMS Check",
+      "screen_location": "reset_pwd_sms_check",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 114,
+      "confluence_title": "Reset Password New",
+      "screen_location": "reset_pwd_new",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 115,
+      "confluence_title": "Reset Password Done",
+      "screen_location": "reset_pwd_done",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 116,
+      "confluence_title": "Reset Password Email",
+      "screen_location": "reset_pwd_email",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 201,
+      "confluence_title": "Loading Screen",
+      "screen_location": "loading_screen",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 404,
+      "confluence_title": "Error 404",
+      "screen_location": "error_404",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 301,
+      "confluence_title": "Privacy Policy",
+      "screen_location": "privacy_policy",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 302,
+      "confluence_title": "Terms of Use",
+      "screen_location": "terms_of_use",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 303,
+      "confluence_title": "About Page",
+      "screen_location": "about_page",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 304,
+      "confluence_title": "Contacts Page",
+      "screen_location": "contacts_page",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 305,
+      "confluence_title": "Home Page",
+      "screen_location": "home_page",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 401,
+      "confluence_title": "Sidebar Menu",
+      "screen_location": "sidebar",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 402,
+      "confluence_title": "Sidebar Submenu",
+      "screen_location": "sidebar_submenu",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 403,
+      "confluence_title": "Footer",
+      "screen_location": "footer",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 501,
+      "confluence_title": "Partner Personal Data",
+      "screen_location": "partner_personal_data",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 502,
+      "confluence_title": "Partner Income Data",
+      "screen_location": "partner_income_data",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 503,
+      "confluence_title": "Co-borrower Personal",
+      "screen_location": "co_borrower_personal",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 504,
+      "confluence_title": "Co-borrower Income",
+      "screen_location": "co_borrower_income",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 601,
+      "confluence_title": "Additional Income Source",
+      "screen_location": "additional_income_source",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 602,
+      "confluence_title": "Extra Income Source",
+      "screen_location": "extra_income_source",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 603,
+      "confluence_title": "Debt Obligations",
+      "screen_location": "debt_obligations",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 701,
+      "confluence_title": "Bank Details Description",
+      "screen_location": "bank_details_description",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 702,
+      "confluence_title": "Bank Details Conditions",
+      "screen_location": "bank_details_conditions",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 703,
+      "confluence_title": "Bank Offers Display",
+      "screen_location": "bank_offers",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 704,
+      "confluence_title": "Bank Comparison",
+      "screen_location": "bank_comparison",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 801,
+      "confluence_title": "Other Borrowers Step 1",
+      "screen_location": "other_borrowers_step1",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 802,
+      "confluence_title": "Other Borrowers Step 2",
+      "screen_location": "other_borrowers_step2",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 901,
+      "confluence_title": "Temporary Franchise",
+      "screen_location": "temporary_franchise",
+      "shared": true
+    },
+    {
+      "service": "global",
+      "page_number": 999,
+      "confluence_title": "Test Content",
+      "screen_location": "test",
+      "shared": true
+    }
+  ]
+} 

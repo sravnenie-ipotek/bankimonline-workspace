@@ -1,0 +1,876 @@
+/**
+ * Bank Worker Registration Component Styles - Figma Design Match
+ * 
+ * Matches exact Figma specifications with:
+ * - 624px form width, 1099px height
+ * - Dark theme (#1F2A37, #111928)
+ * - Specific spacing and typography
+ * - Multi-language support with RTL
+ */
+
+// Container and layout
+.container {
+  min-height: 100vh;
+  font-family: 'Arimo', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+// Page background
+.pageBackground {
+  background: transparent;
+  min-height: 100vh;
+  margin-top: 0;
+  padding: 32px 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1;
+}
+
+// Sign up form - exact Figma dimensions
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 40px 24px;
+  gap: 32px;
+  width: 624px;
+  min-height: 1099px; // Use min-height to allow for dynamic content
+  background: #1F2A37;
+  border: 1px solid #4B5563;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  z-index: 1;
+}
+
+// Title section
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 12px;
+  width: 271px;
+  height: 69px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  .mainTitle {
+    width: 147px;
+    height: 36px;
+    font-family: 'Arimo';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 150%;
+    color: #F9FAFB;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0;
+  }
+
+  .subtitle {
+    width: 271px;
+    height: 21px;
+    font-family: 'Arimo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    color: #9CA3AF;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0;
+  }
+}
+
+// Stepper Navigation
+.stepperNavigation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 32px;
+  width: 382px;
+  height: 20px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+
+  .navigation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 16px;
+    width: 382px;
+    height: 20px;
+    background: #1F2A37;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+}
+
+// Nav Item Stepper (Active)
+.navItemStepper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 6px;
+  width: 203px;
+  height: 20px;
+  border-radius: 6px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  .shape {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    gap: 10px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #FDEF94;
+    border-radius: 50px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+
+    .stepNumber {
+      width: 7px;
+      height: 15px;
+      font-family: 'Arimo';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 125%;
+      color: #FDEF94;
+      flex: none;
+      order: 0;
+      flex-grow: 0;
+    }
+  }
+
+  .stepText {
+    width: 177px;
+    height: 20px;
+    font-family: 'Arimo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 125%;
+    color: #FDEF94;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+
+  // Inactive state
+  &.inactive {
+    width: 131px;
+
+    .shape {
+      border: 1px solid #9CA3AF;
+
+      .stepNumber {
+        color: #9CA3AF;
+      }
+    }
+
+    .stepText {
+      width: 105px;
+      color: #9CA3AF;
+    }
+  }
+}
+
+// Chevron right arrow
+.chevronRight {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  color: #9CA3AF;
+}
+
+// Container with forms
+.containerWithForms {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 24px;
+  width: 576px;
+  min-height: 918px; // Use min-height to allow for dynamic content
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+}
+
+// Form rows
+.firstRow, .secondRow, .thirdRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+  width: 576px;
+  flex: none;
+  flex-grow: 0;
+}
+
+.firstRow {
+  min-height: 92px; // Updated to match inputField min-height
+  order: 0;
+}
+
+.secondRow {
+  min-height: 92px; // Updated to match inputField min-height
+  order: 2;
+}
+
+.thirdRow {
+  min-height: 92px; // Updated to match inputField min-height
+  order: 3;
+}
+
+// Line separator
+.line {
+  width: 576px;
+  height: 0px;
+  border: 1px solid #374151;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+
+// Input Field
+.inputField {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  width: 278px;
+  min-height: 92px; // Reserve space for label (21px) + input (42px) + gap (8px) + error (21px)
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+
+  .label {
+    width: 278px;
+    height: 21px;
+    font-family: 'Arimo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+  }
+
+  .input {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 16px;
+    gap: 10px;
+    width: 278px;
+    height: 42px;
+    background: #374151;
+    border: 1px solid #FCEA71;
+    border-radius: 8px;
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+    cursor: pointer;
+
+    .content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0px;
+      gap: 10px;
+      width: 246px;
+      height: 18px;
+      flex: none;
+      order: 0;
+      flex-grow: 1;
+      overflow: hidden;
+    }
+  }
+}
+
+// Input text styling
+.inputText {
+  height: 18px;
+  font-family: 'Arimo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 125%;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+  flex: 1;
+  order: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+
+  &::placeholder {
+    color: #FFFFFF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+// Email icon
+.envelope {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  color: #9CA3AF;
+}
+
+// Dropdown styling
+.dropdown {
+  position: relative;
+  width: 278px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .input {
+    cursor: pointer;
+
+    .selectedText {
+      width: 238px;
+      height: 18px;
+      font-family: 'Arimo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 125%;
+      display: flex;
+      align-items: center;
+      color: #F9FAFB;
+      flex: none;
+      order: 0;
+      align-self: stretch;
+      flex-grow: 1;
+    }
+
+    .chevronUp {
+      width: 16px;
+      height: 16px;
+      flex: none;
+      order: 1;
+      flex-grow: 0;
+      color: #9CA3AF;
+    }
+  }
+}
+
+// Dropdown Menu
+.dropdownMenu {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+  width: 278px;
+  height: 202px;
+  background: #374151;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.06), 0px 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+
+  .dropdownMenuContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    width: 276px;
+    height: 200px;
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+
+    .dropdownMenuContent {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 4px 0px;
+      width: 276px;
+      height: 200px;
+      flex: none;
+      order: 0;
+      align-self: stretch;
+      flex-grow: 0;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+  }
+}
+
+// Search section
+.searchSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 8px 12px;
+  width: 276px;
+  height: 53px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+
+  .searchInputField {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 8px;
+    width: 252px;
+    height: 37px;
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+
+    .searchInput {
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 8px 16px;
+      gap: 10px;
+      width: 252px;
+      height: 37px;
+      background: #4B5563;
+      border: 1px solid #FCEA71;
+      border-radius: 8px;
+      flex: none;
+      order: 1;
+      align-self: stretch;
+      flex-grow: 0;
+
+      .searchContent {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0px;
+        gap: 10px;
+        width: 220px;
+        height: 21px;
+        flex: none;
+        order: 0;
+        flex-grow: 1;
+
+        .searchIcon {
+          width: 16px;
+          height: 16px;
+          flex: none;
+          order: 0;
+          flex-grow: 0;
+          color: #6B7280;
+        }
+
+        .searchInputText {
+          width: 168px;
+          height: 21px;
+          font-family: 'Arimo';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 150%;
+          display: flex;
+          align-items: center;
+          color: #9CA3AF;
+          flex: none;
+          order: 1;
+          flex-grow: 1;
+          background: transparent;
+          border: none;
+          outline: none;
+
+          &::placeholder {
+            color: #9CA3AF;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Nav Link (dropdown options)
+.navLink {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  width: 276px;
+  height: 37px;
+  flex: none;
+  align-self: stretch;
+  flex-grow: 0;
+  cursor: pointer;
+
+  &:hover {
+    background: #4B5563;
+  }
+
+  .title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    margin: 0 auto;
+    width: 244px;
+    height: 21px;
+    flex: none;
+    order: 0;
+    flex-grow: 1;
+
+    .text {
+      width: 244px;
+      height: 21px;
+      font-family: 'Arimo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 150%;
+      color: #F9FAFB;
+      flex: none;
+      order: 0;
+      flex-grow: 1;
+    }
+  }
+
+  .check {
+    margin: 0 auto;
+    width: 21px;
+    height: 21px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    color: #F9FAFB;
+  }
+}
+
+// Checkbox container
+.checkboxContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
+  width: 576px;
+  min-height: 47px; // Reserve space for checkbox (18px) + gap (8px) + error (21px)
+  border-radius: 4px;
+  flex: none;
+  order: 5;
+  flex-grow: 0;
+  
+  .checkboxRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    width: 576px;
+    height: 18px;
+  }
+
+  .checkbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    width: 16px;
+    height: 16px;
+    border: 0.5px solid #4B5563;
+    border-radius: 4px;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+  }
+
+  .labelAndHelperText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 2px;
+    width: 552px;
+    height: 18px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+
+    .checkboxLabel {
+      width: 552px;
+      height: 18px;
+      font-family: 'Arimo';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 12px;
+      display: flex;
+      align-items: center;
+      color: #FFFFFF;
+      flex: none;
+      order: 0;
+      flex-grow: 0;
+      cursor: pointer;
+
+      .termsLink {
+        color: #FBE54D;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Submit Button
+.submitButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  gap: 8px;
+  width: 576px;
+  height: 41px;
+  background: #FBE54D;
+  border-radius: 8px;
+  flex: none;
+  order: 6;
+  flex-grow: 0;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background: #FDEF94;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .buttonText {
+    width: 83px;
+    height: 21px;
+    font-family: 'Arimo';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 150%;
+    color: #111928;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+  }
+}
+
+// Login Link
+.loginLink {
+  width: 162px;
+  height: 14px;
+  font-family: 'Arimo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  color: #F9FAFB;
+  flex: none;
+  order: 7;
+  flex-grow: 0;
+  cursor: pointer;
+  margin-top: 16px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Error Messages
+.errorMessage {
+  color: #ef4444;
+  font-size: 12px;
+  font-family: 'Arimo';
+  min-height: 21px; // Fixed height to prevent layout shift
+  line-height: 1.4;
+  margin-top: 4px;
+  width: 278px;
+  display: flex;
+  align-items: flex-start;
+  flex: none;
+  order: 2;
+  flex-grow: 0;
+  max-width: 576px;
+  word-wrap: break-word;
+}
+
+// Demo Notice
+.demoNotice {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #1f2a37;
+  color: #fbe54d;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid #fbe54d;
+  max-width: 300px;
+  z-index: 1000;
+  font-size: 12px;
+  line-height: 1.4;
+
+  h3 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+  }
+
+  p {
+    margin: 0 0 8px 0;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .header {
+    padding: 16px 20px;
+  }
+
+  .pageBackground {
+    padding: 16px;
+  }
+
+  .signUpForm {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    padding: 24px 16px;
+  }
+
+  .titleSection {
+    width: 100%;
+  }
+
+  .stepperNavigation {
+    width: 100%;
+  }
+
+  .containerWithForms {
+    width: 100%;
+  }
+
+  .firstRow, .secondRow, .thirdRow {
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+  }
+
+  .inputField, .dropdown {
+    width: 100%;
+  }
+
+  .line {
+    width: 100%;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+
+  .demoNotice {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-top: 20px;
+    max-width: 100%;
+  }
+}
+
+// RTL support for Hebrew
+[dir="rtl"] {
+  .signUpForm {
+    text-align: right;
+  }
+
+  .titleSection {
+    align-items: flex-end;
+  }
+
+  .stepperNavigation .navigation {
+    flex-direction: row-reverse;
+  }
+
+  .firstRow, .secondRow, .thirdRow {
+    flex-direction: row-reverse;
+  }
+
+  .inputField .input .content {
+    flex-direction: row-reverse;
+  }
+
+  .navItemStepper {
+    flex-direction: row-reverse;
+  }
+
+  .navLink {
+    flex-direction: row-reverse;
+  }
+
+  .checkboxContainer {
+    flex-direction: row-reverse;
+  }
+} 

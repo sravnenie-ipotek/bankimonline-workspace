@@ -1,0 +1,1 @@
+sync translations: npm run sync-translations
