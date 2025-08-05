@@ -9,9 +9,11 @@ This repository contains the React client-side code for the BankIM Online applic
 ```
 /var/www/bankim/
 ├── bankimonlineapi/          # Server repository
-│   ├── mainapp/             # Server application
-│   │   ├── server-db.js     # Server entry point
-│   │   └── package.json     # Server dependencies
+│   ├── server-db.js         # Server entry point (directly in repo)
+│   ├── package.json         # Server dependencies
+│   ├── mainapp/             # Additional app directory (contains React build)
+│   │   ├── build/           # React build output
+│   │   └── public/          # Static assets
 │   └── .git/                # Git repository
 └── client/                  # Client repository (this repo)
     ├── mainapp/             # React application
