@@ -1,0 +1,122 @@
+===============================================================================
+                        BANKIM PROJECT - QUICK COMMAND REFERENCE
+===============================================================================
+
+🚀 START DEVELOPMENT (Most Common):
+
+1. BACKEND SERVER (Required First):
+   PATH: /standAlone_bankim (root directory)
+   COMMAND: node server-db.js
+   → Access: http://localhost:8003
+   → Admin Panel: http://localhost:8003/admin.html
+   → Approval Check: http://localhost:8003/customer-approval-check.html
+
+2. MAIN REACT APP (Frontend):
+   PATH: /standAlone_bankim/mainapp
+   COMMANDS: 
+     cd mainapp
+     Start-Process powershell -ArgumentList "-NoExit", "-Command", "npm run dev"
+   → Access: http://localhost:5173 (or next available port: 5174, 5175, 5176, etc.)
+
+3. FULL SYSTEM (2 terminals):
+   Terminal 1 (from /standAlone_bankim): node server-db.js
+   Terminal 2 (from /standAlone_bankim/mainapp): Start-Process powershell -ArgumentList "-NoExit", "-Command", "npm run dev"
+
+===============================================================================
+
+🌐 APPLICATION ACCESS POINTS:
+
+BACKEND SERVER (localhost:8003):
+   • Admin Panel: /admin.html
+   • Customer Approval Check: /customer-approval-check.html
+   • API Endpoints: /api/*
+
+REACT FRONTEND (localhost:5173+):
+   • Main Customer Interface
+   • Modern React + TypeScript + Material-UI
+   • Auto-increments port if 5173 is busy
+
+===============================================================================
+
+🔧 SETUP (First Time Only):
+   PATH: /standAlone_bankim (root directory)
+   npm install                   # Backend dependencies
+   
+   PATH: /standAlone_bankim/mainapp
+   cd mainapp; npm install       # Frontend dependencies
+
+📦 BUILD FOR PRODUCTION:
+   PATH: /standAlone_bankim/mainapp
+   cd mainapp; npm run build
+
+🌐 PREVIEW PRODUCTION BUILD:
+   PATH: /standAlone_bankim/mainapp
+   cd mainapp; npm run preview
+
+===============================================================================
+
+📝 GIT WORKFLOW:
+   PATH: /standAlone_bankim (root directory)
+   git status                    # Check changes
+   git add .                     # Stage all files
+   git commit -m "description"   # Commit changes
+   git push                      # Push to repository
+
+🔍 TROUBLESHOOTING:
+   - PowerShell: Use ; instead of && (cd mainapp; npm run dev)
+   - React Server Not Staying Alive: Use Start-Process with -NoExit flag
+   - Port conflicts: Vite auto-increments (5173→5174→5175→etc.)
+   - Multiple React servers: Check netstat -an | findstr :517
+   - API errors: Check browser Network tab (F12)
+   - Database: Ensure PostgreSQL connection is working
+   - 401 Errors: Check authentication for admin endpoints
+
+===============================================================================
+
+📱 DEVELOPMENT URLS:
+   Backend API:     http://localhost:8003/
+   Admin Panel:     http://localhost:8003/admin.html
+   Approval Check:  http://localhost:8003/customer-approval-check.html
+   React Frontend:  http://localhost:5173/ (or 5174, 5175, 5176, etc.)
+
+🗄️ DATABASE:
+   PostgreSQL with 20+ tables including:
+   - banking_standards, banking_standards_history
+   - banks, users, applications
+   - calculation_rules, approval_matrix
+
+===============================================================================
+
+💡 QUICK LAUNCH EXAMPLES:
+
+From PowerShell in /standAlone_bankim:
+   # Start backend only
+   node server-db.js
+
+   # Start frontend (separate window that stays alive)
+   cd mainapp; Start-Process powershell -ArgumentList "-NoExit", "-Command", "npm run dev"
+
+   # Check what's running on ports
+   netstat -an | findstr :8003
+   netstat -an | findstr :517
+
+   # Kill multiple React servers if needed
+   Get-Process | Where-Object {$_.ProcessName -eq "node"} | Stop-Process
+
+===============================================================================
+
+🔄 ADMIN → MAIN APP IMPACT FLOW:
+
+1. ADMIN CHANGES BANKING STANDARDS:
+   Admin Panel → Banking Standards → Modify LTV/DTI/Credit Score limits
+
+2. DATABASE UPDATES:
+   Changes saved to 'banking_standards' table + audit history
+
+3. MAIN APP REFLECTS CHANGES:
+   Customer loan requests → API calls → Updated standards → New approval rates
+
+4. REAL-TIME IMPACT:
+   Admin changes LTV from 10% → 85% = Customer approval goes from 19% → 40%
+
+=============================================================================== 

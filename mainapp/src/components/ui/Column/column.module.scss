@@ -1,0 +1,13 @@
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 20.3125rem;
+}
+
+@media (max-width: 890px) {
+  .column {
+    width: 100%;
+  }
+}

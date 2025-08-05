@@ -1,0 +1,189 @@
+.vacanciesPage {
+  min-height: 100vh;
+  background-color: #161616;
+  color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+  padding: 40px 0;
+  
+  @media (max-width: 768px) {
+    padding: 20px 0;
+  }
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  
+  @media (max-width: 768px) {
+    padding: 0 16px;
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+  
+  @media (max-width: 768px) {
+    margin-bottom: 32px;
+  }
+}
+
+.title {
+  font-size: 56px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0 0 24px 0;
+  line-height: 1.2;
+  font-family: 'Roboto', sans-serif;
+  
+  @media (max-width: 768px) {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 28px;
+  }
+}
+
+.subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  color: #9CA3AF;
+  margin: 0;
+  line-height: 1.5;
+  max-width: 800px;
+  margin: 0 auto;
+  
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 16px;
+  }
+}
+
+.vacancyGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  
+  @media (max-width: 768px) {
+    gap: 16px;
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 80px 20px;
+  
+  @media (max-width: 768px) {
+    padding: 60px 20px;
+  }
+}
+
+.emptyText {
+  font-size: 18px;
+  color: #9CA3AF;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  
+  p {
+    margin-top: 16px;
+    color: #9CA3AF;
+    font-size: 16px;
+  }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #3F444D;
+  border-top: 3px solid #FBE54D;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background-color: #2A2A2E;
+  border: 1px solid #EF4444;
+  border-radius: 12px;
+  
+  p {
+    margin: 0 0 20px 0;
+    color: #EF4444;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+.retryButton {
+  background-color: #FBE54D;
+  color: #161616;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: #F5D916;
+    transform: translateY(-1px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.noResults {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background-color: #242529;
+  border: 1px solid #3F444D;
+  border-radius: 12px;
+  
+  p {
+    margin: 0;
+    color: #9CA3AF;
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 40px 20px;
+    
+    p {
+      font-size: 16px;
+    }
+  }
+} 

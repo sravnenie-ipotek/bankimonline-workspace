@@ -1,0 +1,1376 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankimOnline - Детальный Анализ Системы</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #0f0f23;
+            color: #e8e8e8;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: #1a1a2e;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: backgroundMove 20s linear infinite;
+        }
+        
+        @keyframes backgroundMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .nav {
+            background: #16213e;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 0;
+        }
+        
+        .nav li {
+            position: relative;
+        }
+        
+        .nav a {
+            display: block;
+            padding: 18px 30px;
+            color: #e8e8e8;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #667eea;
+            transition: width 0.3s ease;
+        }
+        
+        .nav a:hover::before,
+        .nav a.active::before {
+            width: 100%;
+        }
+        
+        .nav a:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .content {
+            padding: 50px 40px;
+        }
+        
+        .section {
+            display: none;
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #667eea;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, transparent);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #1e1e30 0%, #2a2a40 100%);
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+        
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            transition: all 0.5s ease;
+        }
+        
+        .metric-card:hover::before {
+            top: -150%;
+            left: -150%;
+        }
+        
+        .metric-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .metric-card.success .metric-value { color: #4ade80; }
+        .metric-card.warning .metric-value { color: #fbbf24; }
+        .metric-card.danger .metric-value { color: #f87171; }
+        .metric-card.info .metric-value { color: #60a5fa; }
+        
+        .metric-label {
+            font-size: 1.1rem;
+            color: #a8a8b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .analysis-section {
+            margin-top: 40px;
+        }
+        
+        .analysis-card {
+            background: #252538;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .analysis-card:hover {
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .analysis-header {
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+        
+        .analysis-header:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .analysis-header h3 {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .status-icon {
+            font-size: 1.5rem;
+        }
+        
+        .expand-icon {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+        
+        .analysis-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        .analysis-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .analysis-card.expanded .analysis-content {
+            max-height: 2000px;
+        }
+        
+        .analysis-inner {
+            padding: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feature-grid {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .feature-item {
+            background: #1a1a2e;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid;
+            transition: transform 0.2s ease;
+        }
+        
+        .feature-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .feature-item.implemented { border-left-color: #4ade80; }
+        .feature-item.partial { border-left-color: #fbbf24; }
+        .feature-item.missing { border-left-color: #f87171; }
+        .feature-item.issue { border-left-color: #a78bfa; }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .feature-description {
+            color: #a8a8b8;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .priority-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 10px;
+            text-transform: uppercase;
+        }
+        
+        .priority-critical { background: #dc2626; color: white; }
+        .priority-high { background: #f59e0b; color: white; }
+        .priority-medium { background: #3b82f6; color: white; }
+        .priority-low { background: #6b7280; color: white; }
+        
+        .progress-bar {
+            background: #2a2a40;
+            height: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .recommendations {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 40px;
+            border: 1px solid rgba(102, 126, 234, 0.3);
+        }
+        
+        .recommendations h3 {
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        .recommendations ol {
+            list-style: none;
+            counter-reset: item;
+        }
+        
+        .recommendations li {
+            counter-increment: item;
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 50px;
+            line-height: 1.8;
+        }
+        
+        .recommendations li::before {
+            content: counter(item);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .tech-item {
+            background: #2a2a40;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+        
+        .footer {
+            background: #0f0f23;
+            text-align: center;
+            padding: 30px;
+            color: #a8a8b8;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .nav ul { flex-direction: column; }
+            .nav a { padding: 15px; }
+            .content { padding: 30px 20px; }
+            .metrics-grid { grid-template-columns: 1fr; }
+            .tech-stack { grid-template-columns: 1fr; }
+        }
+        
+        .comparison-table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            background: #252538;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .comparison-table th {
+            background: #1a1a2e;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .comparison-table tr:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-badge.complete { background: #4ade80; color: #0f0f23; }
+        .status-badge.partial { background: #fbbf24; color: #0f0f23; }
+        .status-badge.missing { background: #f87171; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🏦 BankimOnline - Глубокий Анализ Системы</h1>
+            <div class="subtitle">Детальное сравнение документации и реализации</div>
+            <div style="margin-top: 20px; font-size: 0.95rem; opacity: 0.9;">
+                Дата создания: 12 июня 2025 | Версия: 2.0 | Анализ на русском языке
+            </div>
+        </header>
+        
+        <nav class="nav">
+            <ul>
+                <li><a href="#" onclick="showSection('overview')" class="active">Общий Обзор</a></li>
+                <li><a href="#" onclick="showSection('architecture')">Архитектура</a></li>
+                <li><a href="#" onclick="showSection('services')">Сервисы</a></li>
+                <li><a href="#" onclick="showSection('auth')">Аутентификация</a></li>
+                <li><a href="#" onclick="showSection('database')">База Данных</a></li>
+                <li><a href="#" onclick="showSection('frontend')">Frontend</a></li>
+                <li><a href="#" onclick="showSection('backend')">Backend</a></li>
+                <li><a href="#" onclick="showSection('critical')">Критические Проблемы</a></li>
+            </ul>
+        </nav>
+        
+        <main class="content">
+            <!-- Общий Обзор -->
+            <section id="overview" class="section active">
+                <h2>📊 Общий Обзор Системы</h2>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card success">
+                        <div class="metric-value">68%</div>
+                        <div class="metric-label">Общая Реализация</div>
+                    </div>
+                    <div class="metric-card warning">
+                        <div class="metric-value">4</div>
+                        <div class="metric-label">Основных Сервиса</div>
+                    </div>
+                    <div class="metric-card danger">
+                        <div class="metric-value">23</div>
+                        <div class="metric-label">Отсутствующих Функций</div>
+                    </div>
+                    <div class="metric-card info">
+                        <div class="metric-value">350+</div>
+                        <div class="metric-label">Клиентов в БД</div>
+                    </div>
+                </div>
+                
+                <div class="analysis-section">
+                    <h3 style="color: #667eea; margin-bottom: 30px;">🎯 Что такое BankimOnline?</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: #e8e8e8; margin-bottom: 30px;">
+                        BankimOnline - это комплексная финансовая платформа для израильского рынка, предоставляющая услуги 
+                        по расчету ипотеки и кредитов, рефинансированию, сравнению банковских предложений и подаче заявок 
+                        в банки. Система поддерживает три языка (иврит, русский, английский) и предназначена как для 
+                        конечных пользователей, так и для банковских партнеров.
+                    </p>
+                    
+                    <div class="tech-stack">
+                        <div class="tech-item">React 18 + TypeScript</div>
+                        <div class="tech-item">Node.js + Express</div>
+                        <div class="tech-item">PostgreSQL (Railway)</div>
+                        <div class="tech-item">Redux Toolkit</div>
+                        <div class="tech-item">JWT Authentication</div>
+                        <div class="tech-item">Tailwind + SCSS</div>
+                        <div class="tech-item">i18next</div>
+                        <div class="tech-item">Formik + Yup</div>
+                    </div>
+                </div>
+                
+                <div class="comparison-table" style="margin-top: 40px;">
+                    <table style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>Компонент</th>
+                                <th>Документация</th>
+                                <th>Реализация</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Калькулятор Ипотеки</strong></td>
+                                <td>Полный процесс из 4 шагов с реальными расчетами</td>
+                                <td>UI готов, расчеты - заглушки</td>
+                                <td><span class="status-badge partial">70%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Рефинансирование Ипотеки</strong></td>
+                                <td>Анализ текущей ипотеки, расчет выгоды</td>
+                                <td>Базовая структура, mock данные</td>
+                                <td><span class="status-badge partial">65%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Калькулятор Кредита</strong></td>
+                                <td>Расчет персональных кредитов</td>
+                                <td>UI структура без логики</td>
+                                <td><span class="status-badge partial">60%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Рефинансирование Кредита</strong></td>
+                                <td>Консолидация долгов</td>
+                                <td>Базовая структура</td>
+                                <td><span class="status-badge partial">60%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Личный Кабинет</strong></td>
+                                <td>Полноценная панель управления</td>
+                                <td>Только структура роутов</td>
+                                <td><span class="status-badge missing">15%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>SMS Аутентификация</strong></td>
+                                <td>Реальная отправка SMS</td>
+                                <td>Mock коды (всегда 123456)</td>
+                                <td><span class="status-badge partial">80%</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>База Данных</strong></td>
+                                <td>50+ таблиц с полной структурой</td>
+                                <td>Используется ~5 таблиц</td>
+                                <td><span class="status-badge partial">75%</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- Архитектура -->
+            <section id="architecture" class="section">
+                <h2>🏗️ Архитектурный Анализ</h2>
+                
+                <div class="analysis-section">
+                    <div class="analysis-card">
+                        <div class="analysis-header" onclick="toggleCard(this)">
+                            <h3><span class="status-icon">✅</span>Документированная Архитектура</h3>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="analysis-inner">
+                                <h4 style="color: #667eea; margin-bottom: 20px;">Согласно Документации:</h4>
+                                <div class="feature-grid">
+                                    <div class="feature-item implemented">
+                                        <div class="feature-title">Микросервисная Архитектура</div>
+                                        <div class="feature-description">
+                                            Система должна состоять из независимых сервисов: API Server, Auth Service, 
+                                            Calculation Engine, Bank Integration Service, Notification Service
+                                        </div>
+                                    </div>
+                                    <div class="feature-item implemented">
+                                        <div class="feature-title">CRM Интеграция</div>
+                                        <div class="feature-description">
+                                            Все данные форм должны автоматически загружаться в CRM-систему для 
+                                            обработки менеджерами и отслеживания статуса заявок
+                                        </div>
+                                    </div>
+                                    <div class="feature-item implemented">
+                                        <div class="feature-title">Банковские API</div>
+                                        <div class="feature-description">
+                                            Прямая интеграция с API израильских банков для получения актуальных 
+                                            ставок и подачи заявок в реальном времени
+                                        </div>
+                                    </div>
+                                    <div class="feature-item implemented">
+                                        <div class="feature-title">Очереди и Workers</div>
+                                        <div class="feature-description">
+                                            Использование Redis Queue для обработки тяжелых операций: расчеты, 
+                                            отправка документов, генерация отчетов
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-header" onclick="toggleCard(this)">
+                            <h3><span class="status-icon">⚠️</span>Фактическая Реализация</h3>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="analysis-inner">
+                                <h4 style="color: #fbbf24; margin-bottom: 20px;">Что Реализовано:</h4>
+                                <div class="feature-grid">
+                                    <div class="feature-item partial">
+                                        <div class="feature-title">Монолитное Приложение</div>
+                                        <div class="feature-description">
+                                            Вместо микросервисов - единый server-db.js файл с всеми endpoint'ами. 
+                                            Нет разделения на сервисы, все в одном процессе
+                                        </div>
+                                    </div>
+                                    <div class="feature-item missing">
+                                        <div class="feature-title">CRM Отсутствует</div>
+                                        <div class="feature-description">
+                                            Никакой CRM интеграции нет. Данные форм просто возвращаются как 
+                                            mock ответы, не сохраняются для обработки
+                                        </div>
+                                    </div>
+                                    <div class="feature-item missing">
+                                        <div class="feature-title">Mock Банковские Данные</div>
+                                        <div class="feature-description">
+                                            Вместо реальных API банков - захардкоженные данные. Все расчеты 
+                                            возвращают одинаковые тестовые значения
+                                        </div>
+                                    </div>
+                                    <div class="feature-item missing">
+                                        <div class="feature-title">Нет Очередей</div>
+                                        <div class="feature-description">
+                                            Отсутствует Redis, RabbitMQ или любая другая система очередей. 
+                                            Все операции синхронные, что создаст проблемы под нагрузкой
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="recommendations" style="margin-top: 30px;">
+                                    <h3>🔧 Архитектурные Проблемы:</h3>
+                                    <ol>
+                                        <li><strong>Масштабируемость</strong> - монолит не позволит горизонтальное масштабирование</li>
+                                        <li><strong>Отказоустойчивость</strong> - падение одного компонента обрушит всю систему</li>
+                                        <li><strong>Производительность</strong> - синхронные операции заблокируют сервер</li>
+                                        <li><strong>Безопасность</strong> - все в одном процессе увеличивает поверхность атаки</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Сервисы -->
+            <section id="services" class="section">
+                <h2>💼 Анализ Бизнес-Сервисов</h2>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card warning">
+                        <div class="metric-value">0%</div>
+                        <div class="metric-label">Реальные Расчеты</div>
+                    </div>
+                    <div class="metric-card danger">
+                        <div class="metric-value">100%</div>
+                        <div class="metric-label">Mock Данные</div>
+                    </div>
+                    <div class="metric-card info">
+                        <div class="metric-value">4/4</div>
+                        <div class="metric-label">UI Готовность</div>
+                    </div>
+                    <div class="metric-card danger">
+                        <div class="metric-value">0/15</div>
+                        <div class="metric-label">Банковские API</div>
+                    </div>
+                </div>
+                
+                <div class="analysis-section">
+                    <div class="analysis-card">
+                        <div class="analysis-header" onclick="toggleCard(this)">
+                            <h3><span class="status-icon">📋</span>Детальный Анализ Сервисов</h3>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="analysis-inner">
+                                <h4 style="color: #667eea; margin-bottom: 25px;">1. Калькулятор Ипотеки (Calculate Mortgage)</h4>
+                                
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 70%">
+                                        <div class="progress-text">70% Реализовано</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-grid" style="margin-top: 20px;">
+                                    <div class="feature-item implemented">
+                                        <div class="feature-title">✅ Что Работает:</div>
+                                        <div class="feature-description">
+                                            • 4-шаговый процесс с формами<br>
+                                            • Валидация полей через Yup<br>
+                                            • Сохранение данных в Redux<br>
+                                            • Мультиязычный интерфейс<br>
+                                            • Адаптивный дизайн
+                                        </div>
+                                    </div>
+                                    <div class="feature-item missing">
+                                        <div class="feature-title">❌ Что Отсутствует:</div>
+                                        <div class="feature-description">
+                                            • Реальные формулы расчета ипотеки<br>
+                                            • Интеграция с банковскими ставками<br>
+                                            • Учет программ поддержки<br>
+                                            • Расчет страховок и комиссий<br>
+                                            • API endpoint /api/calculate-mortgage
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h4 style="color: #667eea; margin: 40px 0 25px;">2. Рефинансирование Ипотеки</h4>
+                                
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%">
+                                        <div class="progress-text">65% Реализовано</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-grid" style="margin-top: 20px;">
+                                    <div class="feature-item partial">
+                                        <div class="feature-title">⚠️ Текущий Статус:</div>
+                                        <div class="feature-description">
+                                            • Endpoint /api/refinance-mortgage существует<br>
+                                            • Возвращает захардкоженные данные<br>
+                                            • Нет анализа существующей ипотеки<br>
+                                            • Нет расчета экономии<br>
+                                            • Отсутствует сравнение условий
+                                        </div>
+                                    </div>
+                                    <div class="feature-item issue">
+                                        <div class="feature-title">🔧 Критические Недостатки:</div>
+                                        <div class="feature-description">
+                                            • Mock расчеты вместо реальных<br>
+                                            • Нет интеграции с credit score<br>
+                                            • Отсутствует анализ штрафов<br>
+                                            • Нет timeline рефинансирования<br>
+                                            • Игнорируются налоговые аспекты
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h4 style="color: #667eea; margin: 40px 0 25px;">3. Калькулятор Кредита</h4>
+                                
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%">
+                                        <div class="progress-text">60% Реализовано</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="feature-grid" style="margin-top: 20px;">
+                                    <div class="feature-item missing">
+                                        <div class="feature-title">❌ Основные Проблемы:</div>
+                                        <div class="feature-description">
+                                            • Endpoint /api/calculate-credit отсутствует полностью<br>
+                                            • Нет расчета процентных ставок<br>
+                                            • Отсутствует проверка кредитоспособности<br>
+                                            • Нет интеграции с банковскими системами<br>
+                                            • UI готов, но backend не реализован
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-card">
+                        <div class="analysis-header" onclick="toggleCard(this)">
+                            <h3><span class="status-icon">💰</span>Финансовые Расчеты - Глубокий Анализ</h3>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="analysis-inner">
+                                <h4 style="color: #f87171; margin-bottom: 20px;">Критическая Проблема: Отсутствие Бизнес-Логики</h4>
+                                
+                                <p style="line-height: 1.8; margin-bottom: 25px;">
+                                    Согласно документации, система должна выполнять сложные финансовые расчеты, 
+                                    учитывая десятки параметров. В реальности все расчеты - это заглушки, 
+                                    возвращающие статичные значения.
+                                </p>
+                                
+                                <table class="comparison-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Ожидаемые Расчеты</th>
+                                            <th>Фактическая Реализация</th>
+                                            <th>Влияние на Бизнес</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Формула аннуитетного платежа</td>
+                                            <td>return { payment: 5000 }</td>
+                                            <td>Невозможно использовать в продакшн</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Расчет полной стоимости кредита</td>
+                                            <td>Захардкоженное значение</td>
+                                            <td>Нарушение законодательства</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Анализ кредитоспособности</td>
+                                            <td>Всегда "одобрено"</td>
+                                            <td>Риски для банков-партнеров</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Сравнение банковских предложений</td>
+                                            <td>Статичный список</td>
+                                            <td>Потеря доверия клиентов</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <div class="recommendations" style="margin-top: 30px;">
+                                    <h3>📐 Необходимые Формулы и Алгоритмы:</h3>
+                                    <ol>
+                                        <li><strong>Аннуитетный платеж</strong>: P = S × (r × (1 + r)^n) / ((1 + r)^n - 1)</li>
+                                        <li><strong>Дифференцированный платеж</strong>: P = S/n + S × r × (1 - (t-1)/n)</li>
+                                        <li><strong>Эффективная ставка</strong>: Учет всех комиссий и страховок</li>
+                                        <li><strong>LTV (Loan-to-Value)</strong>: Соотношение кредита к стоимости</li>
+                                        <li><strong>DTI (Debt-to-Income)</strong>: Долговая нагрузка</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Аутентификация -->
+            <section id="auth" class="section">
+                <h2>🔐 Система Аутентификации</h2>
+                
+                <div class="analysis-section">
+                    <div class="analysis-card">
+                        <div class="analysis-header" onclick="toggleCard(this)">
+                            <h3><span class="status-icon">🔑</span>Двойная Система Аутентификации</h3>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="analysis-inner">
+                                <h4 style="color: #667eea; margin-bottom: 25px;">Архитектурная Особенность</h4>
+                                
+                                <p style="line-height: 1.8; margin-bottom: 25px;">
+                                    Система использует две независимые системы аутентификации, что создает путаницу 
+                                    и потенциальные проблемы безопасности:
+                                </p>
+                                
+                                <div class="feature-grid">
+                                    <div class="feature-item partial">
+                                        <div class="feature-title">📱 SMS Аутентификация (Клиенты)</div>
+                                        <div class="feature-description">
+                                            <strong>Таблица:</strong> clients<br>
+                                            <strong>Endpoints:</strong> /api/sms-login, /api/sms-code-login<br>
+                                            <strong>Проблемы:</strong><br>
+                                            • Mock SMS коды (всегда 123456)<br>
+                                            • Нет интеграции с SMS провайдером<br>
+                                            • Небезопасное хранение данных<br>
+                                            • Frontend ожидает другие endpoint'ы
+                                        </div>
+                                    </div>
+                                    <div class="feature-item partial">
+                                        <div class="feature-title">📧 Email Аутентификация (Админы)</div>
+                                        <div class="feature-description">
+                                            <strong>Таблица:</strong> users<br>
+                                            <strong>Endpoints:</strong> /api/login, /api/email-code-login<br>
+                                            <strong>Проблемы:</strong><br>
+                                            • Пароли в открытом виде<br>
+                                            • Нет bcrypt хеширования<br>
+                                            • 2FA не настроена<br>
+                                            • Отсутствует rate limiting
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="recommendations" style="margin-top: 30px; background: rgba(248, 113, 113, 0.1);">
+                                    <h3 style="color: #f87171;">⚠️ Критические Уязвимости Безопасности:</h3>
+                                    <ol>
+                                        <li><strong>SQL Injection</strong> - прямая конкатенация SQL запросов</li>
+                                        <li><strong>Plaintext Passwords</strong> - пароли хранятся открытым текстом</li>
+                                        <li><strong>No Rate Limiting</strong> - возможен brute force</li>
+                                        <li><strong>Weak JWT Secret</strong> - используется 'secret' вместо случайного ключа</li>
+                                        <li><strong>No HTTPS Enforcement</strong> - данные передаются незашифрованными</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- База Данных -->
+            <section id="database" class="section">
+                <h2>🗄️ Анализ Базы Данных</h2>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card info">
+                        <div class="metric-value">50+</div>
+                        <div class="metric-label">Таблиц в Схеме</div>
+                    </div>
+                    <div class="metric-card danger">
+                        <div class="metric-value">5</div>
+                        <div class="metric-label">Используется</div>
+                    </div>
+                    <div class="metric-card warning">
+                        <div class="metric-value">90%</div>
+                        <div class="metric-label">Неиспользуемые</div>
+                    </div>
+                    <div class="metric-card danger">
+                        <div class="metric-value">0</div>
+                        <div class="metric-label">Миграций</div>
+                    </div>
+                </div>
+                
+                <div class="analysis-section">
+                    <div class="analysis-card">
+                        <div class="analysis-header" onclick="toggleCard(this)">
+                            <h3><span class="status-icon">📊</span>Схема vs Реальность</h3>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="analysis-inner">
+                                <h4 style="color: #f87171; margin-bottom: 25px;">Критическое Несоответствие Схемы</h4>
+                                
+                                <p style="line-height: 1.8; margin-bottom: 25px; padding: 20px; background: rgba(248, 113, 113, 0.1); border-radius: 10px;">
+                                    <strong>ГЛАВНАЯ ПРОБЛЕМА:</strong> Код ожидает одну структуру таблиц, 
+                                    а база данных имеет совершенно другую. Это приводит к 500 ошибкам 
+                                    при попытке регистрации и других операциях.
+                                </p>
+                                
+                                <table class="comparison-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Таблица</th>
+                                            <th>Ожидаемая Структура (Код)</th>
+                                            <th>Фактическая Структура (БД)</th>
+                                            <th>Проблема</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>clients</strong></td>
+                                            <td>first_name, last_name, email, phone</td>
+                                            <td>name, sex, education, birthday, street, house, flat, city_id...</td>
+                                            <td>Полное несоответствие полей</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>users</strong></td>
+                                            <td>name, email, password, role</td>
+                                            <td>Структура соответствует</td>
+                                            <td>Но нет поля phone</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>banks</strong></td>
+                                            <td>Используется корректно</td>
+                                            <td>15+ банков с данными</td>
+                                            <td>Работает правильно</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                
+                                <h4 style="color: #667eea; margin: 40px 0 25px;">Неиспользуемые Бизнес-Таблицы</h4>
+                                
+                                <div class="feature-grid">
+                                    <div class="feature-item missing">
+                                        <div class="feature-title">💰 Финансовые Таблицы</div>
+                                        <div class="feature-description">
+                                            • client_bills - счета клиентов<br>
+                                            • client_credits - кредитная история<br>
+                                            • client_documents - документы<br>
+                                            • client_expenses - расходы<br>
+                                            • client_incomes - доходы<br>
+                                            • client_obligations - обязательства
+                                        </div>
+                                    </div>
+                                    <div class="feature-item missing">
+                                        <div class="feature-title">🏦 Банковские Программы</div>
+                                        <div class="feature-description">
+                                            • programs - ипотечные программы<br>
+                                            • program_rates - процентные ставки<br>
+                                            • bank_branches - отделения банков<br>
+                                            • bank_requirements - требования<br>
+                                            • approval_criteria - критерии одобрения
+                                        </div>
+                                    </div>
+                                    <div class="feature-item missing">
+                                        <div class="feature-title">📋 CRM Функционал</div>
+                                        <div class="feature-description">
+                                            • applications - заявки клиентов<br>
+                                            • application_status - статусы<br>
+                                            • managers - менеджеры<br>
+                                            • tasks - задачи по заявкам<br>
+                                            • communications - переписка
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Frontend -->
+            <section id="frontend" class="section">
+                <h2>🎨 Frontend Анализ</h2>
+                
+                <div class="analysis-section">
+                    <div class="analysis-card">
+                        <div class="analysis-header" onclick="toggleCard(this)">
+                            <h3><span class="status-icon">💻</span>Архитектура Frontend</h3>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="analysis-inner">
+                                <h4 style="color: #4ade80; margin-bottom: 25px;">✅ Отличная Архитектурная База</h4>
+                                
+                                <div class="feature-grid">
+                                    <div class="feature-item implemented">
+                                        <div class="feature-title">🏗️ Современный Стек</div>
+                                        <div class="feature-description">
+                                            • React 18 с Concurrent Features<br>
+                                            • TypeScript для типобезопасности<br>
+                                            • Vite для быстрой сборки<br>
+                                            • Redux Toolkit с RTK Query<br>
+                                            • React Router v6 с lazy loading
+                                        </div>
+                                    </div>
+                                    <div class="feature-item implemented">
+                                        <div class="feature-title">🎨 UI/UX Система</div>
+                                        <div class="feature-description">
+                                            • 50+ переиспользуемых компонентов<br>
+                                            • Tailwind + SCSS модули<br>
+                                            • Полная поддержка RTL/LTR<br>
+                                            • Адаптивный дизайн<br>
+                                            • Темная/светлая темы
+                                        </div>
+                                    </div>
+                                    <div class="feature-item implemented">
+                                        <div class="feature-title">🌐 Интернационализация</div>
+                                        <div class="feature-description">
+                                            • i18next с namespace'ами<br>
+                                            • Динамическая смена языков<br>
+                                            • Поддержка иврита (RTL)<br>
+                                            • Локализация дат и чисел<br>
+                                            • Language persistence
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <h4 style="color: #f87171; margin: 40px 0 25px;">❌ Критические Проблемы Frontend</h4>
+                                
+                                <div class="feature-grid">
+                                    <div class="feature-item issue">
+                                        <div class="feature-title">🔌 API Интеграция</div>
+                                        <div class="feature-description">
+                                            <strong>Проблема:</strong> Захардкоженные localhost URL<br>
+                                            <code style="background: #2a2a40; padding: 5px 10px; border-radius: 5px; display: block; margin: 10px 0;">
+                                                baseUrl: 'http://localhost:8003/api'
+                                            </code>
+                                            <strong>Последствия:</strong><br>
+                                            • Не будет работать в production<br>
+                                            • CORS проблемы<br>
+                                            • Нет environment конфигурации
+                                        </div>
+                                    </div>
+                                    <div class="feature-item issue">
+                                        <div class="feature-title">📝 Формы и Валидация</div>
+                                        <div class="feature-description">
+                                            • Неполные Yup схемы<br>
+                                            • Отсутствует cross-field валидация<br>
+                                            • Нет проверки бизнес-правил<br>
+                                            • Формы не блокируются при отправке<br>
+                                            • Данные теряются при перезагрузке
+                                        </div>
+                                    </div>
+                                    <div class="feature-item missing">
+                                        <div class="feature-title">🏠 Личный Кабинет</div>
+                                        <div class="feature-description">
+                                            <strong>Полностью отсутствует:</strong><br>
+                                            • Dashboard пользователя<br>
+                                            • История заявок<br>
+                                            • Управление документами<br>
+                                            • Статусы обработки<br>
+                                            • Настройки профиля
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Backend -->
+            <section id="backend" class="section">
+                <h2>⚙️ Backend Анализ</h2>
+                
+                <div class="analysis-section">
+                    <div class="analysis-card">
+                        <div class="analysis-header" onclick="toggleCard(this)">
+                            <h3><span class="status-icon">🔧</span>Server Implementation</h3>
+                            <span class="expand-icon">▼</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="analysis-inner">
+                                <h4 style="color: #fbbf24; margin-bottom: 25px;">⚠️ Монолитный server-db.js</h4>
+                                
+                                <p style="line-height: 1.8; margin-bottom: 25px; padding: 20px; background: rgba(251, 191, 36, 0.1); border-radius: 10px;">
+                                    Весь backend находится в одном файле server-db.js (461 строка), 
+                                    что нарушает принципы чистой архитектуры и создает множество проблем.
+                                </p>
+                                
+                                <div class="feature-grid">
+                                    <div class="feature-item issue">
+                                        <div class="feature-title">📁 Структурные Проблемы</div>
+                                        <div class="feature-description">
+                                            • Все endpoints в одном файле<br>
+                                            • Нет разделения на слои (controller/service/repository)<br>
+                                            • Бизнес-логика смешана с роутингом<br>
+                                            • SQL запросы прямо в обработчиках<br>
+                                            • Отсутствует модульность
+                                        </div>
+                                    </div>
+                                    <div class="feature-item issue">
+                                        <div class="feature-title">🚨 Безопасность</div>
+                                        <div class="feature-description">
+                                            <code style="background: #2a2a40; padding: 10px; border-radius: 5px; display: block; margin: 10px 0; color: #f87171;">
+                                                // TODO: Implement proper password hashing with bcrypt<br>
+                                                // For now, store password as plain text
+                                            </code>
+                                            • Пароли хранятся открытым текстом<br>
+                                            • JWT secret захардкожен как 'secret'<br>
+                                            • Нет input sanitization<br>
+                                            • SQL injection возможна
+                                        </div>
+                                    </div>
+                                    <div class="feature-item missing">
+                                        <div class="feature-title">🔗 Отсутствующие Endpoints</div>
+                                        <div class="feature-description">
+                                            • <code>/api/calculate-mortgage</code><br>
+                                            • <code>/api/calculate-credit</code><br>
+                                            • <code>/api/v1/cities</code><br>
+                                            • <code>/api/v1/programs</code><br>
+                                            • <code>/api/upload</code><br>
+                                            • <code>/api/applications/*</code>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Критические Проблемы -->
+            <section id="critical" class="section">
+                <h2>🚨 Критические Проблемы и Решения</h2>
+                
+                <div class="analysis-section">
+                    <div class="recommendations" style="background: linear-gradient(135deg, rgba(248, 113, 113, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%); border: 2px solid #dc2626;">
+                        <h3 style="color: #dc2626;">🔥 КРИТИЧЕСКИЕ ПРОБЛЕМЫ (Блокируют Production)</h3>
+                        <ol style="line-height: 2.5;">
+                            <li>
+                                <strong>Несоответствие Схемы БД</strong>
+                                <span class="priority-tag priority-critical">КРИТИЧНО</span><br>
+                                <em>Проблема:</em> Таблица clients имеет другую структуру<br>
+                                <em>Решение:</em> Создать миграцию или изменить код под существующую схему
+                            </li>
+                            <li>
+                                <strong>Пароли в Открытом Виде</strong>
+                                <span class="priority-tag priority-critical">КРИТИЧНО</span><br>
+                                <em>Проблема:</em> Нарушение всех стандартов безопасности<br>
+                                <em>Решение:</em> Немедленно внедрить bcrypt хеширование
+                            </li>
+                            <li>
+                                <strong>Отсутствие Бизнес-Логики</strong>
+                                <span class="priority-tag priority-critical">КРИТИЧНО</span><br>
+                                <em>Проблема:</em> Все расчеты - заглушки<br>
+                                <em>Решение:</em> Реализовать финансовые формулы и алгоритмы
+                            </li>
+                            <li>
+                                <strong>Hardcoded API URLs</strong>
+                                <span class="priority-tag priority-critical">КРИТИЧНО</span><br>
+                                <em>Проблема:</em> localhost:8003 в production коде<br>
+                                <em>Решение:</em> Environment-based конфигурация
+                            </li>
+                        </ol>
+                    </div>
+                    
+                    <div class="recommendations" style="margin-top: 30px;">
+                        <h3>📋 План Действий по Приоритетам</h3>
+                        
+                        <h4 style="color: #dc2626; margin: 30px 0 20px;">Неделя 1: Критические Исправления</h4>
+                        <ol>
+                            <li>Исправить схему БД или адаптировать код</li>
+                            <li>Внедрить bcrypt для паролей</li>
+                            <li>Создать environment конфигурацию</li>
+                            <li>Исправить API endpoint mismatches</li>
+                        </ol>
+                        
+                        <h4 style="color: #f59e0b; margin: 30px 0 20px;">Неделя 2-3: Базовый Функционал</h4>
+                        <ol>
+                            <li>Реализовать calculate-mortgage endpoint с формулами</li>
+                            <li>Добавить calculate-credit endpoint</li>
+                            <li>Интегрировать реальные банковские данные</li>
+                            <li>Создать базовый личный кабинет</li>
+                        </ol>
+                        
+                        <h4 style="color: #3b82f6; margin: 30px 0 20px;">Месяц 2: Production Ready</h4>
+                        <ol>
+                            <li>Рефакторинг backend на микросервисы</li>
+                            <li>Внедрение очередей для расчетов</li>
+                            <li>Интеграция с банковскими API</li>
+                            <li>Система мониторинга и логирования</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="margin-top: 50px; padding: 30px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); border-radius: 15px;">
+                        <h3 style="color: #667eea; margin-bottom: 25px;">💡 Итоговая Оценка</h3>
+                        
+                        <div class="progress-bar" style="height: 40px;">
+                            <div class="progress-fill" style="width: 68%">
+                                <div class="progress-text" style="font-size: 1.2rem;">68% Готовности к Production</div>
+                            </div>
+                        </div>
+                        
+                        <p style="margin-top: 25px; line-height: 1.8; font-size: 1.1rem;">
+                            <strong>Вывод:</strong> Проект имеет отличную архитектурную основу на frontend, 
+                            работающую аутентификацию и подключенную базу данных. Однако отсутствие 
+                            бизнес-логики, проблемы безопасности и несоответствие схемы БД делают 
+                            невозможным запуск в production без серьезных доработок.
+                        </p>
+                        
+                        <p style="margin-top: 20px; line-height: 1.8;">
+                            <strong>Время до Production:</strong> При активной разработке командой из 
+                            3-4 человек - минимум 2-3 месяца для базового функционала.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="footer">
+            <p>© 2025 BankimOnline - Внутренний Отчет Анализа | Создано с помощью Claude Code</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">Конфиденциальная информация. Только для внутреннего использования.</p>
+        </footer>
+    </div>
+    
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav active state
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        function toggleCard(header) {
+            const card = header.parentElement;
+            card.classList.toggle('expanded');
+        }
+        
+        // Auto-expand first card in each section
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.analysis-card:first-child').forEach(card => {
+                card.classList.add('expanded');
+            });
+            
+            // Animate progress bars on load
+            setTimeout(() => {
+                document.querySelectorAll('.progress-fill').forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>

@@ -68,19 +68,14 @@ const server = http.createServer((req, res) => {
     filePath = '.' + pathname;
   } else if (pathname.startsWith('/locales/')) {
     // Serve locales from React app build directory
-    filePath = '../mainapp/build' + pathname;
+    filePath = './mainapp/build' + pathname;
   } else {
     // Default to React app
-    filePath = pathname === '/' ? '../mainapp/build/index.html' : '../mainapp/build' + pathname;
+    filePath = pathname === '/' ? './mainapp/build/index.html' : './mainapp/build' + pathname;
   }
   
-  // Security: prevent directory traversal (but allow ../mainapp for our specific case)
-  filePath = path.normalize(filePath);
-  if (filePath.includes('../mainapp')) {
-    // Allow this specific path for our React app
-  } else {
-    filePath = filePath.replace(/^(\.\.[\/\\])+/, '');
-  }
+  // Security: prevent directory traversal
+  filePath = path.normalize(filePath).replace(/^(\.\.[\/\\])+/, '');
   
   const extname = String(path.extname(filePath)).toLowerCase();
   const contentType = mimeTypes[extname] || 'application/octet-stream';
@@ -90,7 +85,7 @@ const server = http.createServer((req, res) => {
       if (error.code === 'ENOENT') {
         // Try to fallback to React app's index.html for client-side routing
         if (!filePath.includes('admin') && !filePath.includes('.')) {
-          fs.readFile('../mainapp/build/index.html', (err, indexContent) => {
+          fs.readFile('./mainapp/build/index.html', (err, indexContent) => {
             if (err) {
               res.writeHead(404);
               res.end('404 Not Found');

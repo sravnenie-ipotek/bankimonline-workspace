@@ -1,0 +1,26 @@
+{
+  "dropdowns": [
+    {
+      "key": "mortgage_step1_city",
+      "label": "City"
+    },
+    {
+      "key": "mortgage_step1_first",
+      "label": "Is this your first apartment?"
+    }
+  ],
+  "sample_options": {
+    "mortgage_step1_city": null
+  },
+  "sample_placeholders": {
+    "mortgage_step1_city": "Select city"
+  },
+  "sample_labels": {
+    "mortgage_step1_city": "City"
+  },
+  "performance": {
+    "total_items": 82,
+    "dropdowns_found": 38,
+    "query_time": "2025-07-30T23:18:46.087Z"
+  }
+}

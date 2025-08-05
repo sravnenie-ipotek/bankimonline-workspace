@@ -1,0 +1,21 @@
+# SELF-CONTAINED APP - MINIMAL ENVIRONMENT VARIABLES
+
+# Server Configuration (Railway auto-provides PORT)
+PORT=3000
+NODE_ENV=production
+
+# Optional: CORS Configuration (if needed)
+CORS_ALLOWED_ORIGINS=*
+
+# Optional: JWT Secret (only if your app uses JWT)
+JWT_SECRET=your-app-specific-secret-key
+
+# Optional: API Keys (add any external services your app uses)
+# STRIPE_API_KEY=sk_...
+# SENDGRID_API_KEY=SG....
+# GOOGLE_MAPS_API_KEY=AIza...
+
+# Optional: App-specific configuration
+# APP_NAME=MyApp
+# LOG_LEVEL=info
+# MAX_FILE_SIZE=10MB 

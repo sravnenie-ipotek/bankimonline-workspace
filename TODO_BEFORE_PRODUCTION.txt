@@ -1,0 +1,309 @@
+TODO: BANKIMONLINE STANDALONE - PRODUCTION DEPLOYMENT CHECKLIST
+================================================================
+
+🚨 CRITICAL SECURITY ISSUES - MUST FIX BEFORE PRODUCTION:
+========================================================
+
+1. 🔴 HARDCODED DATABASE CREDENTIALS [CRITICAL]
+   ============================================
+   📍 CURRENT ISSUE:
+      - Database URL exposed in code: server-db.js line 14
+      - Database URL exposed in code: run-multi-role-migration.js line 7
+      - Contains: postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway
+
+   🔧 PRODUCTION FIX REQUIRED:
+      - Set DATABASE_URL environment variable on production server
+      - Remove hardcoded fallback database URL from code
+      - Use only: process.env.DATABASE_URL (no fallback)
+
+2. 🔴 WEAK JWT SECRET [CRITICAL]
+   ============================
+   📍 CURRENT ISSUE:
+      - JWT secret fallback is 'secret' (server-db.js lines: 101, 178, 235, 351, 412, 2884)
+      - Extremely insecure for production
+
+   🔧 PRODUCTION FIX REQUIRED:
+      - Set JWT_SECRET environment variable with strong random key
+      - Generate: openssl rand -base64 64
+      - Remove 'secret' fallback from code
+
+3. 🔴 TEST ADMIN CREDENTIALS [CRITICAL]
+   ===================================
+   📍 CURRENT ISSUE:
+      - Default admin: test@test / test
+      - Hardcoded in: migrations/001-add-admin-columns.sql
+      - Pre-filled in: admin.html, AdminLogin.tsx
+
+   🔧 PRODUCTION FIX REQUIRED:
+      - Create secure admin user with strong password
+      - Remove test@test user from database
+      - Remove pre-filled credentials from login forms
+
+4. ✅ CORS CONFIGURATION [FIXED]
+   ==============================
+   📍 CURRENT STATUS:
+      ✅ CORS properly configured for production domains in server-db.js line 27
+      ✅ Allows localhost for development (http://localhost:3001, http://localhost:3000)
+      ✅ Allows specific Vercel domains for production
+      ✅ Uses regex pattern for all Vercel subdomains (/https:\/\/.*\.vercel\.app$/)
+      ✅ CORS credentials enabled for authenticated requests
+      ✅ Proper headers and methods configured
+
+   🔧 PRODUCTION CONFIGURATION:
+      - Specific origins: ['https://bank-react-27qu39ml7-michaels-projects-8d0f6093.vercel.app', 'https://bank-dev2-standalone-txwi.vercel.app']
+      - Fallback wildcard for development: '*'
+
+5. 🔴 PLAIN TEXT PASSWORDS [CRITICAL]
+   =================================
+   📍 CURRENT ISSUE:
+      - Registration stores passwords as plain text (server-db.js line 2870)
+      - Admin login accepts plain 'test' password (server-db.js line 394)
+
+   🔧 PRODUCTION FIX REQUIRED:
+      - Implement bcrypt password hashing
+      - Hash all existing passwords in database
+      - Update login logic to use bcrypt.compare()
+
+🔶 HARDCODED URLs - MUST UPDATE FOR PRODUCTION:
+==============================================
+
+6. 🔶 FRONTEND API ENDPOINTS [HIGH PRIORITY]
+   =========================================
+   📍 FILES TO UPDATE:
+      ✅ mainapp/src/services/api.ts (line 9): 'http://localhost:8003/api'
+      ✅ mainapp/src/pages/Services/pages/RefinanceCredit/api/refinanceCredit.ts (line 2)
+      ✅ mainapp/src/pages/Services/pages/RefinanceMortgage/api/refinanceMortgage.ts (line 2)
+      ✅ mainapp/src/pages/Services/components/BankOffers/BankOffers.tsx (line 44)
+      ✅ mainapp/src/pages/Admin/AdminLogin.tsx (line 25)
+      ✅ mainapp/src/pages/Admin/AdminDashboard.tsx (lines 29, 41)
+      ✅ mainapp/src/pages/AuthModal/pages/SignUp/SignUp.tsx (line 38)
+      ✅ mainapp/src/store/slices/adminSlice.ts (line 49)
+
+   🔧 PRODUCTION FIX:
+      - Set VITE_NODE_API_BASE_URL environment variable
+      - Update all localhost:8003 to production API URL
+
+7. 🔶 STATIC HTML FILES [HIGH PRIORITY]
+   ===================================
+   📍 FILES TO UPDATE:
+      ✅ admin.html (line 14): const API_BASE = 'http://localhost:8003';
+      ✅ customer-approval-check.html (line 280): const API_BASE = 'http://localhost:8003';
+
+   🔧 PRODUCTION FIX:
+      - Replace localhost:8003 with production API URL
+      - Consider using environment-based configuration
+
+8. 🔶 ACCOUNT REDIRECT URL [MEDIUM PRIORITY]
+   ========================================
+   📍 CURRENT ISSUE:
+      - SignUp.tsx redirects to: 'http://localhost:3001/'
+
+   🔧 PRODUCTION FIX:
+      - Set VITE_ACCOUNT_URL environment variable
+      - Update to production account URL
+
+🔧 ENVIRONMENT VARIABLES REQUIRED FOR PRODUCTION:
+===============================================
+
+9. 🔶 BACKEND ENVIRONMENT VARIABLES
+   ================================
+   📍 REQUIRED VARIABLES:
+      - DATABASE_URL=postgresql://user:pass@host:port/database
+      - JWT_SECRET=<64-character-random-string>
+      - NODE_ENV=production
+      - PORT=8003 (or production port)
+
+10. 🔶 FRONTEND ENVIRONMENT VARIABLES
+    =================================
+    📍 REQUIRED VARIABLES:
+       - VITE_NODE_API_BASE_URL=https://your-api-domain.com/api
+       - VITE_ACCOUNT_URL=https://your-account-domain.com/
+       - VITE_ENVIRONMENT=production
+
+🛡️ ADDITIONAL SECURITY MEASURES:
+===============================
+
+11. 🔶 RATE LIMITING [RECOMMENDED]
+    =============================
+    📍 CURRENT STATE: No rate limiting implemented
+    🔧 PRODUCTION RECOMMENDATION:
+       - Add express-rate-limit middleware
+       - Limit login attempts, registration, API calls
+
+12. 🔶 INPUT VALIDATION [RECOMMENDED]
+    =================================
+    📍 CURRENT STATE: Basic validation only
+    🔧 PRODUCTION RECOMMENDATION:
+       - Add comprehensive input sanitization
+       - Implement request validation middleware
+       - Add SQL injection protection
+
+13. 🔶 HTTPS ENFORCEMENT [REQUIRED]
+    ===============================
+    📍 PRODUCTION REQUIREMENT:
+       - Ensure all traffic uses HTTPS
+       - Set secure cookie flags
+       - Add HSTS headers
+
+14. 🔶 ERROR HANDLING [RECOMMENDED]
+    ===============================
+    📍 CURRENT STATE: Development error messages exposed
+    🔧 PRODUCTION FIX:
+       - Remove detailed error messages in production
+       - Implement proper error logging
+       - Use generic error responses
+
+🚀 DEPLOYMENT CONFIGURATION:
+===========================
+
+15. 🔶 DATABASE MIGRATION [REQUIRED]
+    =================================
+    📍 PRODUCTION STEPS:
+       1. Run all migration files in order:
+          - migrations/001-add-admin-columns.sql
+          - migrations/002-banking-tables.sql
+          - migrations/003-admin-configurable-standards.sql
+          - migrations/004-banking-standards-audit-history.sql
+          - migrations/005-multi-role-admin.sql
+       2. Create secure admin user (replace test@test)
+       3. Verify all tables and data
+
+16. 🔶 SSL/TLS CONFIGURATION [REQUIRED]
+    ===================================
+    📍 PRODUCTION REQUIREMENTS:
+       - Valid SSL certificate
+       - HTTPS redirect
+       - Secure headers configuration
+
+17. 🔶 MONITORING & LOGGING [RECOMMENDED]
+    =====================================
+    📍 PRODUCTION RECOMMENDATIONS:
+       - Application performance monitoring
+       - Error tracking (Sentry, etc.)
+       - Database monitoring
+       - Security audit logging
+
+📋 PRODUCTION DEPLOYMENT CHECKLIST:
+==================================
+
+BEFORE DEPLOYMENT:
+□ Remove hardcoded database URL
+□ Set strong JWT_SECRET
+□ Remove test@test admin user
+□ Configure secure CORS origins
+□ Implement password hashing
+□ Update all localhost URLs
+□ Set production environment variables
+□ Test with production-like environment
+
+DURING DEPLOYMENT:
+□ Run database migrations
+□ Create secure admin user
+□ Configure SSL/HTTPS
+□ Set up monitoring
+□ Test all endpoints
+□ Verify security headers
+
+AFTER DEPLOYMENT:
+□ Security audit
+□ Performance testing
+□ Backup verification
+□ Monitor error logs
+□ Test admin functionality
+□ Verify user registration flow
+
+🎯 PRIORITY ORDER:
+================
+1. 🔴 CRITICAL SECURITY (Items 1-5) - Fix immediately
+2. 🔶 URL Configuration (Items 6-8) - Required for functionality
+3. 🔧 Environment Setup (Items 9-10) - Required for deployment
+4. 🛡️ Additional Security (Items 11-14) - Recommended enhancements
+5. 🚀 Deployment Config (Items 15-17) - Production readiness
+
+⚠️ WARNING: DO NOT DEPLOY TO PRODUCTION WITHOUT FIXING CRITICAL SECURITY ISSUES (Items 1-5)
+
+ESTIMATED TIME TO PRODUCTION READY: 4-6 hours
+SECURITY RISK LEVEL (CURRENT): 🔴 HIGH - Multiple critical vulnerabilities
+
+-- BANKING SYSTEM DATABASE SCHEMA BACKUP
+-- Generated: 2025-01-13
+-- Database: PostgreSQL
+-- Purpose: Complete schema backup before implementing admin-configurable standards
+
+-- =====================================================
+-- EXISTING CORE TABLES
+-- =====================================================
+
+📋 PRODUCTION DEPLOYMENT CHECKLIST:
+==================================
+
+BEFORE DEPLOYMENT:
+□ Remove hardcoded database URL
+□ Set strong JWT_SECRET
+□ Remove test@test admin user
+□ Configure secure CORS origins
+□ Implement password hashing
+□ Update all localhost URLs
+□ Set production environment variables
+□ Test with production-like environment
+
+DURING DEPLOYMENT:
+□ Run database migrations
+□ Create secure admin user
+□ Configure SSL/HTTPS
+□ Set up monitoring
+□ Test all endpoints
+□ Verify security headers
+
+🔶 SMS AUTHENTICATION - DEVELOPMENT & PRODUCTION NOTES:
+=====================================================
+
+18. 🔶 SMS SERVICE INTEGRATION [PRODUCTION REQUIRED]
+    ===============================================
+    📍 CURRENT STATE: 
+       - SMS login is MOCKED for development
+       - Uses hardcoded OTP code "1234" 
+       - Located in: server-db.js lines 127-201
+       - Mock implementation in: server-simple.js lines 67-104
+
+    🔧 DEVELOPMENT (CURRENT):
+       - SMS endpoint: POST /api/sms-login (sends mock SMS)
+       - Code verification: POST /api/sms-code-login (accepts any 4-digit code)
+       - Console logs show generated OTP for testing
+       - No real SMS service integration
+
+    🔧 PRODUCTION FIX REQUIRED:
+       - Integrate real SMS service (Twilio, AWS SNS, etc.)
+       - Replace mock OTP generation with real SMS sending
+       - Implement proper OTP validation and expiration
+       - Add rate limiting for SMS requests
+       - Store OTPs securely (hashed, with expiration)
+       - Add phone number validation and formatting
+
+    📍 PRODUCTION ENVIRONMENT VARIABLES NEEDED:
+       - SMS_SERVICE_API_KEY=<your-sms-provider-api-key>
+       - SMS_SERVICE_SECRET=<your-sms-provider-secret>
+       - SMS_FROM_NUMBER=<your-verified-phone-number>
+       - OTP_EXPIRATION_MINUTES=5 (recommended)
+
+    🔧 PRODUCTION CODE CHANGES NEEDED:
+       1. Replace mock SMS sending with real SMS API calls
+       2. Implement OTP storage and validation logic
+       3. Add phone number formatting and validation
+       4. Add SMS sending error handling
+       5. Implement OTP expiration and cleanup
+
+    📱 CURRENT MOCK BEHAVIOR (FOR DEVELOPMENT):
+       - Any phone number accepted
+       - Console shows: "*** SMS CODE: [4-digit-number] ***"
+       - Any 4-digit code accepted for verification
+       - Creates user account automatically if doesn't exist
+       - Issues JWT token for authentication
+
+⚠️ DEVELOPMENT INSTRUCTIONS:
+===========================
+- For testing SMS login during development:
+  1. Enter any phone number in the app
+  2. Check server console for the generated OTP code
+  3. Enter the displayed code to complete login
+  4. System will auto-create user account if needed 

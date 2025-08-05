@@ -1,0 +1,153 @@
+"instructions": {
+  "purpose": "YouTrack issues organized by issue number for systematic development gap analysis",
+  "primary_objective": "Compare OS-... issue requirements against actual implemented features to identify development gaps",
+  
+  "mandatory_logging": {
+    "action_log": "ALWAYS write ALL moves and actions to: youTrackReports_log.txt",
+    "completion_log": "After finishing each OS-... issue, add ONLY the issue number to: youTrackReports_log.txt",
+    "figma_urls": "ALWAYS add Figma URLs to log files when writing to youTrackReports_ files"
+  },
+
+  "file_management_rules": {
+    "file_naming_pattern": "youTrackReports_[START_NUMBER]-[END_NUMBER].json",
+    "range_limit": "Each file MUST contain NO MORE than 100 OS issues",
+    "file_creation_logic": {
+      "step_1": "Check if current OS-[NUMBER] falls within existing youTrackReports_ file range",
+      "step_2": "If OS number is WITHIN range: Add to existing file",
+      "step_3": "If OS number is OUTSIDE range but file has <100 OS issues: Extend range and rename file",
+      "step_4": "If extending would exceed 100 OS limit: Create new file",
+      "examples": {
+        "extend_range": "youTrackReports_625-628.json + OS-650 → youTrackReports_625-650.json (if total ≤100)",
+        "new_file": "If youTrackReports_625-724.json exists (100 OS) + OS-750 → create youTrackReports_750-750.json"
+      }
+    },
+    "file_content_requirements": {
+      "os_data": "Complete OS issue analysis",
+      "figma_urls": "ALL Figma URLs encountered during analysis",
+      "gap_findings": "Documented development gaps",
+      "validation_results": "Business logic and design validation outcomes"
+    }
+  },
+
+  "processing_order": {
+    "multiple_issues": "If multiple OS-... issues exist, process them ONE BY ONE in the EXACT order provided by user",
+    "sequential_rule": "NEVER process multiple OS-... issues simultaneously",
+    "completion_requirement": "FULLY complete current OS-... issue before starting next one"
+  },
+
+  "figma_protocol": {
+    "priority": "VERY VERY VERY IMPORTANT: Always check for Figma URLs - this is CRITICAL",
+    "access_check": "If you CANNOT ACCESS Figma, IMMEDIATELY STOP processing",
+    "error_handling": "If Figma access error occurs, IMMEDIATELY STOP processing",
+    "url_delivery": "Send ONE Figma URL at a time (including embedded Figma URLs)",
+    "batch_rule": "DO NOT send all URLs at once - send one by one",
+    "wait_condition": "Wait for user to open Figma desktop and say 'continue'",
+    "continuation": "After user says continue, proceed to next Figma URL if more exist",
+    "completion": "Resume analysis only after ALL Figma URLs have been processed",
+    "url_storage": "Store ALL encountered Figma URLs in the corresponding youTrackReports_ file"
+  },
+
+  "gap_analysis_workflow": [
+    {
+      "step": 1,
+      "action": "LOG: Starting analysis of OS-[NUMBER]",
+      "description": "Begin processing single OS-... issue from user-provided order",
+      "file_action": "Determine target youTrackReports_ file using file_management_rules"
+    },
+    {
+      "step": 2, 
+      "action": "LOG: Reviewing requirements for OS-[NUMBER]",
+      "description": "Extract and understand original requirements and specifications"
+    },
+    {
+      "step": 3,
+      "action": "LOG: Comparing implementation vs requirements for OS-[NUMBER]",
+      "description": "Compare requirements against actual developed features"
+    },
+    {
+      "step": 4,
+      "action": "LOG: Identifying gaps for OS-[NUMBER]",
+      "description": "Document gaps between planned features and delivered functionality"
+    },
+    {
+      "step": 5,
+      "action": "LOG: Checking Figma validation for OS-[NUMBER]",
+      "description": "Cross-reference gaps with Figma designs (FOLLOW FIGMA PROTOCOL)",
+      "critical_action": "CAPTURE and STORE all Figma URLs encountered"
+    },
+    {
+      "step": 6,
+      "action": "LOG: Verifying business logic for OS-[NUMBER]",
+      "description": "Verify gaps against business logic requirements"
+    },
+    {
+      "step": 7,
+      "action": "LOG: Documenting findings for OS-[NUMBER]",
+      "description": "Document all findings for development prioritization"
+    },
+    {
+      "step": 8,
+      "action": "LOG: Updating youTrackReports file for OS-[NUMBER]",
+      "description": "Update/create youTrackReports_ file following file_management_rules",
+      "requirements": [
+        "Include complete OS analysis",
+        "Include ALL Figma URLs found",
+        "Update file range if necessary",
+        "Rename file if range extended",
+        "Create new file if 100 OS limit reached"
+      ]
+    },
+    {
+      "step": 9,
+      "action": "LOG: Completed OS-[NUMBER]",
+      "description": "Add ONLY the OS number to youTrackReports_log.txt completion log"
+    }
+  ],
+
+  "file_update_decision_matrix": {
+    "scenario_1": {
+      "condition": "OS number within existing file range AND file has <100 OS",
+      "action": "Add to existing file, no rename needed"
+    },
+    "scenario_2": {
+      "condition": "OS number outside existing file range AND total would be ≤100 OS",
+      "action": "Extend range, rename file to new range"
+    },
+    "scenario_3": {
+      "condition": "OS number outside existing file range AND total would exceed 100 OS",
+      "action": "Create new youTrackReports_[OS_NUMBER]-[OS_NUMBER].json file"
+    },
+    "scenario_4": {
+      "condition": "No existing youTrackReports_ files",
+      "action": "Create youTrackReports_[OS_NUMBER]-[OS_NUMBER].json"
+    }
+  },
+
+  "validation_sources": {
+    "figma": "Figma designs for visual and interaction requirements (HIGHEST PRIORITY - STORE ALL URLs)",
+    "business_logic": "Business logic documentation for functional specifications",
+    "youtrack": "YouTrack reports for implementation status tracking"
+  },
+
+  "error_handling": {
+    "figma_errors": "STOP immediately, send ONE URL, wait for 'continue' command",
+    "file_access_errors": "LOG error and request user assistance",
+    "data_inconsistencies": "LOG discrepancy and continue with available data",
+    "file_management_errors": "LOG file operation failure and request user guidance"
+  },
+
+  "success_criteria": {
+    "per_issue": "Each OS-... issue completely analyzed with all gaps documented",
+    "logging_complete": "All actions logged in youTrackReports_log.txt",
+    "files_updated": "Corresponding youTrackReports files updated with proper naming",
+    "figma_validated": "All Figma URLs processed successfully AND stored in files",
+    "file_integrity": "All files respect 100 OS limit and proper range naming"
+  },
+
+  "critical_reminders": {
+    "figma_storage": "NEVER lose Figma URLs - they MUST be stored in youTrackReports_ files",
+    "file_limits": "NEVER exceed 100 OS issues per youTrackReports_ file",
+    "range_accuracy": "File names MUST accurately reflect the OS number range contained",
+    "sequential_processing": "COMPLETE each OS fully before starting next one"
+  }
+}

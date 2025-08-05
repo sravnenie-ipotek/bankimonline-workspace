@@ -1,0 +1,162 @@
+[
+  {
+    "page": "Homepage",
+    "element": "Initial page load",
+    "action": "load",
+    "value": null,
+    "result": "error",
+    "errorDetails": "Multiple missing translations detected in console",
+    "untranslated": "phone_auth_tab, email_auth_tab, country_us, language_english, language_hebrew, country_russia, language_russian, currency_ils (showing as 'ILS (₪)'), currency_usd (showing as 'USD ($)'), currency_eur (showing as 'EUR (€)'), fill_form_text_tablet, get_program_text_tablet",
+    "timestamp": "2025-07-05T12:45:30Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "Property investment option text",
+    "action": "observe",
+    "value": null,
+    "result": "error",
+    "errorDetails": "Typography error in dropdown option",
+    "untranslated": "Text shows 'נכס ל השקעה' with extra space, should be 'נכס להשקעה'",
+    "timestamp": "2025-07-05T12:52:00Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "All dropdowns on mortgage calculator",
+    "action": "test",
+    "value": "All dropdown options",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T12:53:00Z"
+  },
+  {
+    "page": "/services/calculate-mortgage/1",
+    "element": "Progress steps on mobile",
+    "action": "observe",
+    "value": null,
+    "result": "error",
+    "errorDetails": "Text truncation on mobile view (375px width)",
+    "responsiveIssue": "Progress step labels are truncated on mobile showing only 'מחשבון' instead of 'מחשבון משכנתא', 'מידע' instead of 'מידע אישי', 'פרטי' instead of 'פרטי הכנסה', 'תכניות' instead of 'תכניות מימון'",
+    "timestamp": "2025-07-05T12:58:00Z"
+  },
+  {
+    "page": "Login modal (mobile)",
+    "element": "Login modal header and tabs",
+    "action": "observe",
+    "value": null,
+    "result": "error",
+    "errorDetails": "Multiple untranslated strings in login modal",
+    "untranslated": "enter_bankimonline (modal title), phone_auth_tab, email_auth_tab, no_account, register_here",
+    "timestamp": "2025-07-05T13:00:00Z"
+  },
+  {
+    "page": "/services/refinance-credit/1",
+    "element": "Credit refinance purpose dropdown",
+    "action": "test",
+    "value": "All dropdown options",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:10:00Z"
+  },
+  {
+    "page": "/cookie",
+    "element": "Cookie policy page",
+    "action": "load",
+    "value": null,
+    "result": "error",
+    "errorDetails": "Entire page content untranslated",
+    "untranslated": "cookie_title (page title), cookie_text (page content)",
+    "timestamp": "2025-07-05T13:12:00Z"
+  },
+  {
+    "page": "/terms",
+    "element": "Terms of use page",
+    "action": "load",
+    "value": null,
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:11:00Z"
+  },
+  {
+    "page": "/about",
+    "element": "About page",
+    "action": "load",
+    "value": null,
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:13:00Z"
+  },
+  {
+    "page": "/services/refinance-mortgage/1",
+    "element": "Date picker for mortgage start date",
+    "action": "select",
+    "value": "15/01/2025",
+    "result": "error",
+    "errorDetails": "Date picker month names displayed in English instead of Hebrew",
+    "untranslated": "Month names: january, february, march, april, may, june, july, august, september, october, november, december",
+    "timestamp": "2025-07-05T13:35:00Z"
+  },
+  {
+    "page": "/services/refinance-mortgage/1",
+    "element": "Video player modal",
+    "action": "click",
+    "value": null,
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:38:00Z"
+  },
+  {
+    "page": "Homepage (tablet view)",
+    "element": "Country/Language selector in header",
+    "action": "observe",
+    "value": null,
+    "result": "error",
+    "errorDetails": "Multiple untranslated strings in header country/language selector",
+    "untranslated": "sel_cntr, country_russia, language_russian, country_us, language_english, language_hebrew (displayed on Israel option)",
+    "timestamp": "2025-07-05T13:40:00Z"
+  },
+  {
+    "page": "Homepage (tablet view)",
+    "element": "Currency selector in header",
+    "action": "observe",
+    "value": null,
+    "result": "error",
+    "errorDetails": "Currency selector shows English text instead of Hebrew",
+    "untranslated": "Currency, Select Currency text labels, plus ILS (₪), USD ($), EUR (€) currency formatting",
+    "timestamp": "2025-07-05T13:41:00Z"
+  },
+  {
+    "page": "Homepage (tablet view)",
+    "element": "Responsive layout test",
+    "action": "resize",
+    "value": "768x1024",
+    "result": "success",
+    "errorDetails": null,
+    "responsiveIssue": null,
+    "timestamp": "2025-07-05T13:42:00Z"
+  },
+  {
+    "page": "Homepage (tablet view)",
+    "element": "Instagram social media link",
+    "action": "click",
+    "value": "https://instagram.com/erik_eitan2018",
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:43:00Z"
+  },
+  {
+    "page": "/banks/apoalim",
+    "element": "Bank Hapoalim partner page",
+    "action": "navigate",
+    "value": null,
+    "result": "success",
+    "errorDetails": null,
+    "untranslated": null,
+    "timestamp": "2025-07-05T13:45:00Z"
+  }
+]

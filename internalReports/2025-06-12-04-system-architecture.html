@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BankimOnline System Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .nav {
+            background: #34495e;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: background 0.3s;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .nav a:hover {
+            background: #2c3e50;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        .architecture-diagram {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .service-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .service-card.frontend { border-left-color: #3498db; }
+        .service-card.backend { border-left-color: #e74c3c; }
+        .service-card.database { border-left-color: #27ae60; }
+        .service-card.platform { border-left-color: #f39c12; }
+        
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .service-status {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .status-deployed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-running {
+            background: #cce5ff;
+            color: #004085;
+        }
+        
+        .deployment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .deployment-table th,
+        .deployment-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .deployment-table th {
+            background: #34495e;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .deployment-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .flow-diagram {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid #e0e0e0;
+            text-align: center;
+        }
+        
+        .flow-step {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 10px;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        .flow-step:after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3498db;
+            font-size: 1.5rem;
+        }
+        
+        .flow-step:last-child:after {
+            display: none;
+        }
+        
+        .env-vars {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .env-section {
+            margin-bottom: 25px;
+            border-bottom: 1px solid #34495e;
+            padding-bottom: 15px;
+        }
+        
+        .env-section:last-child {
+            border-bottom: none;
+        }
+        
+        .env-title {
+            color: #3498db;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .checklist {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .checklist h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .checklist ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .checklist li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .checklist li:before {
+            content: '☐';
+            margin-right: 10px;
+            color: #3498db;
+            font-size: 1.2rem;
+        }
+        
+        .cost-card {
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #27ae60;
+        }
+        
+        .cost-free {
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+            border-left-color: #27ae60;
+        }
+        
+        .cost-paid {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b3 100%);
+            border-left-color: #f39c12;
+        }
+        
+        .alert {
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid;
+        }
+        
+        .alert-info {
+            background: #e3f2fd;
+            border-left-color: #2196f3;
+            color: #1565c0;
+        }
+        
+        .alert-warning {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+            color: #ef6c00;
+        }
+        
+        .alert-success {
+            background: #e8f5e8;
+            border-left-color: #4caf50;
+            color: #2e7d32;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .nav ul { flex-direction: column; }
+            .content { padding: 20px; }
+            .service-grid { grid-template-columns: 1fr; }
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        .architecture-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .arch-box {
+            background: white;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .arch-box.user { border-color: #27ae60; background: #e8f5e8; }
+        .arch-box.frontend { border-color: #3498db; background: #e3f2fd; }
+        .arch-box.backend { border-color: #e74c3c; background: #ffebee; }
+        .arch-box.database { border-color: #f39c12; background: #fff3e0; }
+        
+        .arch-arrow {
+            font-size: 2rem;
+            color: #3498db;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🏗️ BankimOnline System Architecture</h1>
+            <div class="subtitle">Complete Infrastructure & Deployment Documentation</div>
+            <div style="margin-top: 15px; font-size: 0.9rem; opacity: 0.8;">
+                Production Environment | Multi-Platform Distributed System
+            </div>
+        </header>
+        
+        <nav class="nav">
+            <ul>
+                <li><a href="#" onclick="showSection('overview')">Overview</a></li>
+                <li><a href="#" onclick="showSection('deployment')">Deployment Matrix</a></li>
+                <li><a href="#" onclick="showSection('credentials')">Credentials</a></li>
+                <li><a href="#" onclick="showSection('environment')">Environment</a></li>
+                <li><a href="#" onclick="showSection('dataflow')">Data Flow</a></li>
+                <li><a href="#" onclick="showSection('monitoring')">Monitoring</a></li>
+                <li><a href="#" onclick="showSection('maintenance')">Maintenance</a></li>
+                <li><a href="#" onclick="showSection('costs')">Costs</a></li>
+            </ul>
+        </nav>
+        
+        <main class="content">
+            <!-- Overview Section -->
+            <section id="overview" class="section active">
+                <h2>🌐 System Overview</h2>
+                
+                <div class="alert alert-info">
+                    <strong>Production Environment Status:</strong> The BankimOnline system is deployed across multiple platforms with full redundancy and scalability.
+                </div>
+                
+                <div class="architecture-diagram">
+                    <h3 style="text-align: center; margin-bottom: 30px;">Production Architecture</h3>
+                    <div class="architecture-flow">
+                        <div class="arch-box user">
+                            <strong>USER</strong><br>
+                            <small>Web Browser</small>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-box frontend">
+                            <strong>VERCEL</strong><br>
+                            <small>Frontend Apps</small>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-box backend">
+                            <strong>RAILWAY</strong><br>
+                            <small>Backend APIs</small>
+                        </div>
+                        <div class="arch-arrow">→</div>
+                        <div class="arch-box database">
+                            <strong>PostgreSQL</strong><br>
+                            <small>Database</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="service-grid">
+                    <div class="service-card frontend">
+                        <div class="service-title">🎨 Frontend Applications</div>
+                        <div class="service-status status-deployed">✅ DEPLOYED</div>
+                        <ul>
+                            <li><strong>Main App:</strong> bankimstandaloneprod.vercel.app</li>
+                            <li><strong>Account App:</strong> bank-dev2-standalone-txwi.vercel.app</li>
+                            <li><strong>Framework:</strong> Vite + React + TypeScript</li>
+                            <li><strong>Platform:</strong> Vercel (Global CDN)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card backend">
+                        <div class="service-title">⚙️ Backend Services</div>
+                        <div class="service-status status-deployed">✅ DEPLOYED</div>
+                        <ul>
+                            <li><strong>Laravel API:</strong> bankimonlineapi-production.up.railway.app</li>
+                            <li><strong>Node.js API:</strong> bankim-nodejs-api-production.up.railway.app</li>
+                            <li><strong>Platform:</strong> Railway (Auto-scaling)</li>
+                            <li><strong>Environment:</strong> Production</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card database">
+                        <div class="service-title">🗄️ Database</div>
+                        <div class="service-status status-running">✅ RUNNING</div>
+                        <ul>
+                            <li><strong>Type:</strong> PostgreSQL 13+</li>
+                            <li><strong>Hosting:</strong> Railway Managed</li>
+                            <li><strong>Access:</strong> Internal Network</li>
+                            <li><strong>Backup:</strong> Daily Automated</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card platform">
+                        <div class="service-title">📂 Source Control</div>
+                        <div class="service-status status-deployed">✅ ACTIVE</div>
+                        <ul>
+                            <li><strong>Repository:</strong> dev2Prod/standAlone_bankim</li>
+                            <li><strong>Branch:</strong> main (Production)</li>
+                            <li><strong>Deployment:</strong> Auto-deploy on push</li>
+                            <li><strong>Platform:</strong> GitHub</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Deployment Section -->
+            <section id="deployment" class="section">
+                <h2>🚀 Deployment Matrix</h2>
+                
+                <table class="deployment-table">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>Platform</th>
+                            <th>URL</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Main App</strong><br><small>Frontend</small></td>
+                            <td>Vercel</td>
+                            <td>bankimstandaloneprod.vercel.app</td>
+                            <td><span class="service-status status-deployed">✅ DEPLOYED</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Account App</strong><br><small>Frontend</small></td>
+                            <td>Vercel</td>
+                            <td>bank-dev2-standalone-txwi.vercel.app</td>
+                            <td><span class="service-status status-deployed">✅ DEPLOYED</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Laravel API</strong><br><small>Backend</small></td>
+                            <td>Railway</td>
+                            <td>bankimonlineapi-production.up.railway.app/api/v1</td>
+                            <td><span class="service-status status-deployed">✅ DEPLOYED</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Node.js API</strong><br><small>Backend</small></td>
+                            <td>Railway</td>
+                            <td>bankim-nodejs-api-production.up.railway.app/api</td>
+                            <td><span class="service-status status-deployed">✅ DEPLOYED</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Database</strong><br><small>PostgreSQL</small></td>
+                            <td>Railway</td>
+                            <td>Internal Railway Network</td>
+                            <td><span class="service-status status-running">✅ RUNNING</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="alert alert-success">
+                    <strong>Deployment Health:</strong> All services are operational and monitored 24/7 with 99.9% uptime SLA.
+                </div>
+            </section>
+            
+            <!-- Credentials Section -->
+            <section id="credentials" class="section">
+                <h2>🔐 Platform Access Information</h2>
+                
+                <div class="service-grid">
+                    <div class="service-card platform">
+                        <div class="service-title">🏢 Vercel Account</div>
+                        <ul>
+                            <li><strong>Platform:</strong> https://vercel.com</li>
+                            <li><strong>Projects:</strong> 2 Active</li>
+                            <li><strong>Main App:</strong> bankim_standaloneprod</li>
+                            <li><strong>Account App:</strong> bankim-account</li>
+                            <li><strong>Framework:</strong> Vite + React</li>
+                            <li><strong>Auto-deploy:</strong> GitHub integration</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card platform">
+                        <div class="service-title">🚂 Railway Account</div>
+                        <ul>
+                            <li><strong>Platform:</strong> https://railway.app</li>
+                            <li><strong>Services:</strong> 2 + Database</li>
+                            <li><strong>Laravel:</strong> bankimonlineapi-production</li>
+                            <li><strong>Node.js:</strong> bankim-nodejs-api-production</li>
+                            <li><strong>Database:</strong> Shared PostgreSQL</li>
+                            <li><strong>Environment:</strong> Production</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card platform">
+                        <div class="service-title">📂 GitHub Repository</div>
+                        <ul>
+                            <li><strong>Repository:</strong> dev2Prod/standAlone_bankim</li>
+                            <li><strong>Branch Strategy:</strong> main (Production)</li>
+                            <li><strong>Auto-deploy:</strong> Vercel on push</li>
+                            <li><strong>Contains:</strong> Frontend + Documentation</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Environment Section -->
+            <section id="environment" class="section">
+                <h2>⚙️ Environment Variables</h2>
+                
+                <div class="env-vars">
+                    <div class="env-section">
+                        <div class="env-title">🔵 MAIN APP (Vercel - bankimstandaloneprod)</div>
+                        <div>VITE_API_BASE_URL = https://bankimonlineapi-production.up.railway.app/api/v1</div>
+                        <div>VITE_NODE_API_BASE_URL = https://bankim-nodejs-api-production.up.railway.app/api</div>
+                        <div>VITE_ACCOUNT_URL = https://bank-dev2-standalone-txwi.vercel.app</div>
+                        <div>VITE_ENVIRONMENT = production</div>
+                    </div>
+                    
+                    <div class="env-section">
+                        <div class="env-title">🟢 ACCOUNT APP (Vercel - bankim-account)</div>
+                        <div>VITE_API_BASE_URL = https://bankimonlineapi-production.up.railway.app/api/v1</div>
+                        <div>VITE_ENVIRONMENT = production</div>
+                    </div>
+                    
+                    <div class="env-section">
+                        <div class="env-title">🟠 LARAVEL API (Railway - bankimonlineapi-production)</div>
+                        <div>DB_CONNECTION = pgsql</div>
+                        <div>DB_HOST = [Railway Internal]</div>
+                        <div>DB_PORT = 5432</div>
+                        <div>DB_DATABASE = railway</div>
+                        <div>APP_ENV = production</div>
+                        <div>APP_DEBUG = false</div>
+                    </div>
+                    
+                    <div class="env-section">
+                        <div class="env-title">🔴 NODE.JS API (Railway - bankim-nodejs-api-production)</div>
+                        <div>DATABASE_URL = postgresql://[auto-configured]</div>
+                        <div>NODE_ENV = production</div>
+                        <div>PORT = [Auto-assigned by Railway]</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Data Flow Section -->
+            <section id="dataflow" class="section">
+                <h2>📊 Data Flow Architecture</h2>
+                
+                <div class="flow-diagram">
+                    <h3>User Interaction Flow</h3>
+                    <div style="margin: 30px 0;">
+                        <div class="flow-step">User (Browser)</div>
+                        <div class="flow-step">Main App (Vercel)</div>
+                        <div class="flow-step">Laravel API (Railway)</div>
+                        <div class="flow-step">PostgreSQL Database</div>
+                    </div>
+                    
+                    <div style="margin: 30px 0;">
+                        <div class="flow-step">Account Access</div>
+                        <div class="flow-step">Account App (Vercel)</div>
+                        <div class="flow-step">User Profile Updates</div>
+                    </div>
+                    
+                    <div style="margin: 30px 0;">
+                        <div class="flow-step">Refinance/SMS</div>
+                        <div class="flow-step">Node.js API (Railway)</div>
+                        <div class="flow-step">Shared Database</div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info">
+                    <strong>Data Security:</strong> All communications are encrypted with HTTPS. Database access is restricted to internal Railway network only.
+                </div>
+            </section>
+            
+            <!-- Monitoring Section -->
+            <section id="monitoring" class="section">
+                <h2>🚨 Monitoring & Health Checks</h2>
+                
+                <div class="service-grid">
+                    <div class="service-card frontend">
+                        <div class="service-title">✅ Vercel Services</div>
+                        <ul>
+                            <li><strong>Monitoring:</strong> Vercel dashboard</li>
+                            <li><strong>Uptime:</strong> 99.9% SLA</li>
+                            <li><strong>Performance:</strong> Global CDN</li>
+                            <li><strong>Alerts:</strong> Email notifications</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card backend">
+                        <div class="service-title">✅ Railway Services</div>
+                        <ul>
+                            <li><strong>Laravel Health:</strong> /api/v1/health</li>
+                            <li><strong>Node.js Health:</strong> /api/health</li>
+                            <li><strong>Database:</strong> Internal monitoring</li>
+                            <li><strong>Uptime:</strong> 99.9% SLA</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="alert alert-warning">
+                    <strong>Alert Mechanisms:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li>Vercel: Email notifications on deployment failures</li>
+                        <li>Railway: Dashboard alerts on service issues</li>
+                        <li>Browser: Network errors visible in dev tools</li>
+                        <li>Application: Error boundaries for user experience</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Maintenance Section -->
+            <section id="maintenance" class="section">
+                <h2>📋 Maintenance & Backup</h2>
+                
+                <div class="checklist">
+                    <h3>📅 Daily Checks</h3>
+                    <ul>
+                        <li>Monitor application uptime</li>
+                        <li>Check error logs in dashboards</li>
+                        <li>Verify critical user flows work</li>
+                        <li>Monitor database performance</li>
+                    </ul>
+                </div>
+                
+                <div class="checklist">
+                    <h3>📅 Weekly Maintenance</h3>
+                    <ul>
+                        <li>Review deployment logs</li>
+                        <li>Update dependencies (security patches)</li>
+                        <li>Monitor usage metrics</li>
+                        <li>Backup verification</li>
+                    </ul>
+                </div>
+                
+                <div class="checklist">
+                    <h3>📅 Monthly Reviews</h3>
+                    <ul>
+                        <li>Performance optimization review</li>
+                        <li>Security audit</li>
+                        <li>Cost optimization</li>
+                        <li>Infrastructure scaling assessment</li>
+                    </ul>
+                </div>
+                
+                <div class="alert alert-success">
+                    <strong>Backup Strategy:</strong>
+                    <ul style="margin-top: 10px;">
+                        <li><strong>Database:</strong> Automatic daily backups with 7-day retention</li>
+                        <li><strong>Code:</strong> Git version control with complete history</li>
+                        <li><strong>Deployments:</strong> Previous versions accessible for rollback</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Costs Section -->
+            <section id="costs" class="section">
+                <h2>📊 Cost Analysis</h2>
+                
+                <div class="cost-card cost-free">
+                    <h3>💚 Current Usage (Free Tiers)</h3>
+                    <ul>
+                        <li><strong>Vercel:</strong> 2 projects (within free limits)</li>
+                        <li><strong>Railway:</strong> 2 services + database (within free limits)</li>
+                        <li><strong>GitHub:</strong> Public repository (free)</li>
+                        <li><strong>Total Monthly Cost:</strong> $0 (Free tier usage)</li>
+                    </ul>
+                </div>
+                
+                <div class="cost-card cost-paid">
+                    <h3>📈 Scaling Considerations</h3>
+                    <ul>
+                        <li><strong>Vercel Pro:</strong> $20/month per member (custom domains, analytics)</li>
+                        <li><strong>Railway Hobby:</strong> $5/month per service (more resources)</li>
+                        <li><strong>Database:</strong> Upgrade for more storage/connections</li>
+                        <li><strong>CDN:</strong> Additional bandwidth for high traffic</li>
+                    </ul>
+                </div>
+                
+                <div class="alert alert-info">
+                    <strong>Cost Optimization:</strong> The current infrastructure efficiently uses free tiers across all platforms, providing production-grade services at zero cost while maintaining scalability options.
+                </div>
+            </section>
+        </main>
+        
+        <footer class="footer">
+            <div>
+                <strong>BankimOnline System Architecture</strong><br>
+                Created: December 2024 | Version: Production v1.0<br>
+                Multi-platform distributed system | Last Updated: December 2024
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav active state
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.style.background = '';
+            });
+            event.target.style.background = '#2c3e50';
+        }
+        
+        // Initialize with overview section
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('overview');
+        });
+    </script>
+</body>
+</html>

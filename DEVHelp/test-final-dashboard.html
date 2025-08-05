@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Final Dashboard Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .success { color: green; }
+        .error { color: red; }
+        .warning { color: orange; }
+    </style>
+</head>
+<body>
+    <h1>Final Dashboard Test</h1>
+    <div id="result"></div>
+    
+    <script>
+        async function testDashboard() {
+            const resultDiv = document.getElementById('result');
+            let html = '<h2>Testing Dashboard Data Loading...</h2>';
+            
+            try {
+                // Test the actual dashboard loading logic
+                const knownFiles = [
+                    'youtrackReports/youTrackReports.json',
+                    'youtrackReports/youTrackReports_136-200.json',
+                    'youtrackReports/youTrackReports_200-300.json',
+                    'youtrackReports/youTrackReports_300-400.json',
+                    'youtrackReports/youTrackReports_400-500.json',
+                    'youtrackReports/youTrackReports_500-600.json',
+                    'youtrackReports/youTrackReports_600-628.json',
+                    'youtrackReports/youTrackReports_LK.json'
+                ];
+                
+                let totalIssues = 0;
+                let fileResults = [];
+                
+                for (const filePath of knownFiles) {
+                    try {
+                        const response = await fetch(`./${filePath}`);
+                        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                        
+                        const data = await response.json();
+                        let reports = [];
+                        
+                        // Same parsing logic as dashboard
+                        if (data.issues && Array.isArray(data.issues)) {
+                            reports = data.issues.map(issue => ({
+                                id: issue.issue_id || issue.idReadable || issue.id,
+                                ...issue
+                            }));
+                        }
+                        
+                        // Check for individual issue keys
+                        Object.keys(data).forEach(key => {
+                            if (key.match(/^(LK|OS|DOC|REP)-\d+$/)) {
+                                const issue = data[key];
+                                if (typeof issue === 'object' && issue !== null) {
+                                    reports.push({
+                                        id: key,
+                                        ...issue
+                                    });
+                                }
+                            }
+                        });
+                        
+                        totalIssues += reports.length;
+                        fileResults.push({
+                            file: filePath,
+                            count: reports.length,
+                            status: 'success'
+                        });
+                        
+                    } catch (error) {
+                        fileResults.push({
+                            file: filePath,
+                            count: 0,
+                            status: 'error',
+                            error: error.message
+                        });
+                    }
+                }
+                
+                html += '<h3>File Loading Results:</h3><ul>';
+                fileResults.forEach(result => {
+                    const className = result.status === 'success' ? 'success' : 'error';
+                    html += `<li class="${className}">${result.file}: ${result.count} issues ${result.error ? `(Error: ${result.error})` : ''}</li>`;
+                });
+                html += '</ul>';
+                
+                html += `<h3 class="success">Total Issues Found: ${totalIssues}</h3>`;
+                
+                if (totalIssues > 0) {
+                    html += '<p class="success">✅ Dashboard should be working correctly!</p>';
+                    html += '<p>Visit <a href="/youtrack-reports-dashboard.html">YouTrack Dashboard</a> to see the results.</p>';
+                } else {
+                    html += '<p class="error">❌ No issues found - something is wrong!</p>';
+                }
+                
+            } catch (error) {
+                html += `<p class="error">Error: ${error.message}</p>`;
+            }
+            
+            resultDiv.innerHTML = html;
+        }
+        
+        testDashboard();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+export { MainBorrowerPersonalDataPage } from './MainBorrowerPersonalDataPage'

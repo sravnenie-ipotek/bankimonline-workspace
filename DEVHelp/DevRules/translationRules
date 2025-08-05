@@ -1,0 +1,561 @@
+must add translation to proper language file to @/translations  folder
+1. Understand the Context and Purpose
+Before translating, analyze the surrounding UI, code comments, business logic, and user flow.
+Identify the target audience (e.g., end-users, admin, legal, compliance, etc.).
+If the text is part of a legal document, notice, policy, or agreement, recognize the legal intent and implications.
+2. Produce Lawyer-Level Translation
+Translate using formal, unambiguous legal language. Avoid colloquialisms, contractions, or vague terms.
+Replicate the structure and tone of legal documents—prefer clarity, completeness, and precision.
+Use jurisdiction-appropriate legal terms (e.g., Israeli law, EU law) if relevant.
+3. Stay True to the Source and Avoid Over-Localization
+Do not add, omit, or reinterpret information. Translate the meaning as-is, preserving all nuances and obligations.
+Maintain any references to laws, articles, or clauses exactly.
+4. Check for Contextual Fit
+Ensure the translation fits the specific place in the UI or flow (e.g., form field, tooltip, dialog).
+Adapt for gender, number, and formality where appropriate (as per the project's language style guide).
+5. Preserve Variable Interpolation and Markup
+Maintain all code variables/placeholders (e.g., {username}, %date%, {{amount}}) exactly as in the source.
+Never break string formatting, HTML tags, or placeholders.
+If the source uses ICU message format or similar, preserve it exactly.
+6. Legal Consistency and Compliance
+Use consistent terminology across all legal texts in the project.
+Reference existing project translations for recurring legal terms or phrases to ensure consistency.
+Always check if there are approved legal glossaries or translation memory—reuse those terms.
+7. Clarity, Brevity, and No Machine-Literal Translation
+Avoid word-for-word, machine-like translation. Ensure the output is natural, but legally precise.
+If a phrase cannot be translated directly, rewrite it to preserve the legal intent.
+8. Testing and QA
+Ensure the translation renders correctly in the frontend (no broken formatting, cutoff text, or misaligned placeholders).
+Test the translation in all relevant UI components (responsive, different user roles, etc.).
+9. Database-Driven Content Management for Dropdowns
+When encountering dropdown components with hardcoded values, ALWAYS migrate them to the database:
+- Insert all dropdown options into the `content_items` table with `component_type = 'option'`
+  - Use sequential numbering: `_option_1`, `_option_2`, `_option_3`, etc.
+- Create translations for all languages (EN/HE/RU) in `content_translations` table
+- Update components to use `useContentApi()` and `getContent()` instead of hardcoded arrays
+- Comment out old translation keys in JSON files with `__MIGRATED_` prefix
+- NEVER leave hardcoded dropdown values in components
+
+Example dropdown migration:
+```javascript
+// ❌ WRONG - Hardcoded values
+const options = [
+  { value: 'option_1', label: 'Hardcoded Text' },
+  { value: 'option_2', label: 'Another Hardcoded Text' }
+];
+
+// ✅ CORRECT - Database-driven
+const options = [
+  { value: 'option_1', label: getContent('field_name_option_1', 'field_name_option_1') },
+  { value: 'option_2', label: getContent('field_name_option_2', 'field_name_option_2') }
+];
+```
+
+10. Screen Location Naming Conventions
+⚠️ **CRITICAL**: Always reference `SystemAnalyse/procceessesPagesInDB.md` for the authoritative screen location naming conventions. This file MUST be consulted before creating any new content_items entries.
+
+All screen locations in the `content_items` table MUST follow specific naming patterns for consistency:
+
+- **Process-Specific Prefixes**: Always use the process name as prefix
+  - Mortgage calculator: `mortgage_step1`, `mortgage_step2`, `mortgage_step3`, `mortgage_step4`
+  - Credit calculator:  `credit_step1`, `credit_step2`, `credit_step3`, `credit_step4`
+  - Refinance mortgage: `refinance_credit_1`, `refinance_credit_2`, `refinance_credit_3`, `mortgage_step4`
+  - Refinance credit:   `refinance_credit_1`, `refinance_credit_2`, `refinance_credit_3`, `refinance_credit_4`
+
+- **Menu and Navigation**:
+  - Sidebar menu: `sidebar`
+  - Footer: `footer`
+
+- **Sub-Section Naming**: For multi-section steps, append a clear suffix
+  - Headers:        `credit_step3_header`
+  - Personal info:  `credit_step3_personal_info`
+  - Employment:     `credit_step4_employment`
+  - Income:         `credit_step4_income`
+
+- **NEVER use generic names** like `step3_header`, `form_section`, `page_content`
+- **Consistency Rule**: Follow the exact patterns in the database documentation (`SystemAnalyse/procceessesPagesInDB.md`).
+
+**⚠️ CRITICAL: Screen Location Precision Requirements**
+**MANDATORY**: Before creating any content_items entries, ALWAYS check `SystemAnalyse/procceessesPagesInDB.md` for the exact screen_location values to use.
+
+The `screen_location` field in `content_items` MUST be an EXACT match to what the frontend passes to `useContentApi()`:
+
+- **Exact Match Required**: The `screen_location` value MUST match the parameter passed to `useContentApi('screen_location')`
+- **No Variations Allowed**: Even small differences like `mortgage_calculation` vs `calculate_mortgage_1` will cause content to NOT load
+- **Case Sensitive**: `mortgage_step1` ≠ `Mortgage_Step1` ≠ `MORTGAGE_STEP1`
+- **Frontend Dependency**: Always check the React component code to see what `screen_location` is being used
+
+**Examples of Precise Matching:**
+```typescript
+// ✅ CORRECT - Frontend component uses 'mortgage_calculation'
+const { getContent } = useContentApi('mortgage_calculation')
+// Database must have: screen_location = 'mortgage_calculation'
+
+// ❌ WRONG - Mismatch will cause content not to load
+// Frontend: useContentApi('mortgage_calculation')
+// Database: screen_location = 'calculate_mortgage_1'  // ❌ NO MATCH!
+```
+
+**Verification Steps:**
+1. **Check Frontend Code**: Search for `useContentApi('...')` calls in React components
+2. **Match Exactly**: Ensure database `screen_location` matches the parameter exactly
+3. **Test API**: Verify `/api/content/{screen_location}/{language}` returns data
+4. **Update Documentation**: Document any new screen_location values used
+
+Content Key Naming Patterns:
+- **Field Labels**: `{process}_{field_name}` (e.g., `calculate_credit_education`)
+- **Placeholders**: `{process}_{field_name}_ph` (e.g., `calculate_credit_education_ph`)
+- **Options**: `{process}_{field_name}_option_{number}` (e.g., `calculate_credit_education_option_1`)
+- **Buttons**: `{process}_{step}_button_type` (e.g., `calculate_credit_step2_next_button`)
+- **Titles**: `{process}_{step}_title` (e.g., `calculate_credit_step2_title`)
+
+Screen Location Categories by Process:
+```yaml
+mortgage_calculator:
+  - mortgage_step1, mortgage_step2, mortgage_step3, mortgage_step4
+  
+credit_calculator:
+  - calculate_credit_1, calculate_credit_2
+  - calculate_credit_3_header, calculate_credit_3_personal_info
+  - calculate_credit_4_header, calculate_credit_4_employment, calculate_credit_4_income
+  
+refinance_calculator:
+  - refinance_step1, refinance_step2, refinance_step3, refinance_step4
+```
+
+11. Migration Guidelines and Database Schema
+When migrating content from translation.json files to the database:
+
+Database Tables:
+- **content_items**: Stores content metadata and structure
+  - `content_key`: Unique identifier following naming patterns above
+  - `component_type`: 'field_label', 'placeholder', 'option', 'button', 'title', 'text'
+  - `category`: Logical grouping (e.g., 'personal_details', 'income_details', 'navigation')
+  - `screen_location`: Page/step identifier following naming conventions
+  - `is_active`: Boolean flag for content availability
+  - `legacy_translation_key`: Reference to original translation.json key
+
+- **content_translations**: Stores actual translated content
+  - `content_item_id`: References content_items.id
+  - `language_code`: 'en', 'he', 'ru'
+  - `content_value`: The actual translated text
+  - `status`: 'approved', 'draft', 'review', 'archived'
+
+Migration Process:
+1. **Analyze existing translation keys** for patterns and groupings
+2. **Create content_items entries** with proper naming conventions
+3. **Insert translations** for all three languages (EN/HE/RU)
+4. **Update components** to use database content via API
+5. **Comment out migrated keys** in translation.json with `__MIGRATED_` prefix
+6. **Test all language variations** and UI components
+7. **Document screen locations** in this file for future reference
+
+Example Migration SQL:
+```sql
+-- Insert content item
+INSERT INTO content_items (content_key, component_type, category, screen_location, legacy_translation_key)
+VALUES ('calculate_credit_education', 'field_label', 'personal_details', 'calculate_credit_2', 'calculate_credit_education');
+
+-- Insert translations
+INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+SELECT id, 'en', 'Education Level', 'approved' FROM content_items WHERE content_key = 'calculate_credit_education';
+```
+
+12. Confidentiality and Compliance
+Never leak, store, or transmit translation content outside approved systems.
+Handle all legal content as confidential.
+
+13. Duplicate Prevention & Process-Specific Translations
+Every **content_key + screen_location** pair **MUST be unique** in `content_items` across the entire system. Re-using the same `content_key` for different processes (mortgage vs credit vs refinance) is **FORBIDDEN**, even if the UI text looks identical.
+
+- **Process Isolation**: Each process maintains its own namespace. Example for **step 4 (results page)** which is common across all calculators:
+  - Mortgage:     `mortgage_step4_result_title`
+  - Credit:       `calculate_credit_4_result_title`
+  - Refinance:    `refinance_step4_result_title`
+  - Refinance-Credit: `refinance_credit_4_result_title`
+
+- **Editing Independence**: Editors MUST be able to update text for one process without affecting the others. Never share a single translation row across processes.
+
+- **Database Constraint**: Enforce a composite **UNIQUE(content_key, screen_location)** index (already present) AND follow naming conventions so keys never collide.
+
+- **Migration Checklist**:
+  1. Scan existing `content_items` for duplicate `content_key` values across different `screen_location`s.
+  2. If found, split into process-specific keys using the naming scheme above.
+  3. Add translations for all three languages (EN/HE/RU).
+  4. Verify with:
+     ```sql
+     SELECT content_key, ARRAY_AGG(DISTINCT screen_location) AS screens
+     FROM content_items
+     GROUP BY content_key
+     HAVING COUNT(DISTINCT screen_location) > 1;
+     ```
+  5. QA: Load each step in the frontend and ensure text can be edited independently per process.
+
+- **CI Guard**: Add automated lint / SQL check that fails the pipeline if a new PR introduces a duplicate `content_key` for a different `screen_location`.
+
+This section makes the translation system **bullet-proof** against accidental key re-use and guarantees full editorial flexibility for every calculator process.
+
+13. Dropdown Database Convention
+**Reference**: Always check `SystemAnalyse/procceessesPagesInDB.md` for correct screen_location values before implementing dropdown migrations.
+
+When migrating dropdown components to the database, follow this exact structure:
+
+**Database Structure for Dropdowns:**
+All dropdown components consist of multiple related entries in `content_items`, linked by the **screen_location** field:
+
+1. **Field Label** (component_type = 'field_label')
+   - Pattern: `{process}_{field_name}`
+   - Example: `calculate_credit_education`
+
+2. **Placeholder** (component_type = 'placeholder') 
+   - Pattern: `{process}_{field_name}_ph`
+   - Example: `calculate_credit_education_ph`
+
+3. **Options** (component_type = 'option')
+   - Pattern: `{process}_{field_name}_option_{number}`
+   - Sequential numbering: `_option_1`, `_option_2`, `_option_3`, etc.
+   - Examples: `calculate_credit_education_option_1`, `calculate_credit_education_option_2`
+
+**Step Association via screen_location:**
+All dropdown components for the same step share the same `screen_location` value:
+
+```sql
+-- All education dropdown components belong to step 2
+INSERT INTO content_items (content_key, component_type, screen_location, category, ...)
+VALUES 
+('calculate_credit_education', 'field_label', 'calculate_credit_2', 'personal_details', ...),
+('calculate_credit_education_ph', 'placeholder', 'calculate_credit_2', 'personal_details', ...),
+('calculate_credit_education_option_1', 'option', 'calculate_credit_2', 'personal_details', ...),
+('calculate_credit_education_option_2', 'option', 'calculate_credit_2', 'personal_details', ...),
+('calculate_credit_education_option_3', 'option', 'calculate_credit_2', 'personal_details', ...);
+```
+
+**Frontend Grouping Logic:**
+The frontend uses `useContentApi('screen_location')` to fetch ALL content for a step, then filters by content_key patterns to group dropdown components together.
+
+**Migration Requirements:**
+- NEVER mix dropdown components across different screen_locations
+- ALL options for a dropdown MUST use sequential numbering starting from 1
+- Field name MUST be consistent across label, placeholder, and all options
+- Use appropriate category values ('personal_details', 'income_details', 'loan_parameters', etc.)
+
+14. Frontend and Translation.json Updates During Migration
+**CRITICAL**: When migrating content from translation.json to the database, ALWAYS update both the frontend components AND the translation.json files to maintain system integrity.
+
+**Complete Migration Process:**
+
+**Step 1: Database Migration**
+```sql
+-- Insert content items
+INSERT INTO content_items (content_key, component_type, screen_location, category, is_active)
+VALUES 
+('calculate_credit_education', 'field_label', 'calculate_credit_2', 'personal_details', true),
+('calculate_credit_education_ph', 'placeholder', 'calculate_credit_2', 'personal_details', true),
+('calculate_credit_education_option_1', 'option', 'calculate_credit_2', 'personal_details', true);
+
+-- Insert translations for all languages
+INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+SELECT id, 'en', 'Education Level', 'approved' FROM content_items WHERE content_key = 'calculate_credit_education';
+INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+SELECT id, 'he', 'רמת השכלה', 'approved' FROM content_items WHERE content_key = 'calculate_credit_education';
+INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+SELECT id, 'ru', 'Уровень образования', 'approved' FROM content_items WHERE content_key = 'calculate_credit_education';
+```
+
+**Step 2: Frontend Component Update**
+```typescript
+// ❌ BEFORE - Using translation.json
+import { useTranslation } from 'react-i18next';
+
+const CreditForm = () => {
+  const { t } = useTranslation();
+  
+  const educationOptions = [
+    { value: 'high_school', label: t('calculate_credit_education_option_1') },
+    { value: 'bachelor', label: t('calculate_credit_education_option_2') },
+    { value: 'master', label: t('calculate_credit_education_option_3') }
+  ];
+
+  return (
+    <select>
+      <option value="">{t('calculate_credit_education_ph')}</option>
+      {educationOptions.map(option => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  );
+};
+
+// ✅ AFTER - Using database via useContentApi
+import { useContentApi } from '@/hooks/useContentApi';
+
+const CreditForm = () => {
+  const { getContent } = useContentApi('calculate_credit_2');
+  
+  const educationOptions = [
+    { value: 'high_school', label: getContent('calculate_credit_education_option_1', 'High School') },
+    { value: 'bachelor', label: getContent('calculate_credit_education_option_2', 'Bachelor Degree') },
+    { value: 'master', label: getContent('calculate_credit_education_option_3', 'Master Degree') }
+  ];
+
+  return (
+    <div>
+      <label>{getContent('calculate_credit_education', 'Education Level')}</label>
+      <select>
+        <option value="">{getContent('calculate_credit_education_ph', 'Select education level')}</option>
+        {educationOptions.map(option => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+```
+
+**Step 3: Translation.json File Updates**
+Mark migrated keys with `__MIGRATED_` prefix and reference information:
+
+```json
+// translations/en.json
+{
+  "__MIGRATED_calculate_credit_education": "MIGRATED to database - screen_location: calculate_credit_2, content_key: calculate_credit_education",
+  "__MIGRATED_calculate_credit_education_ph": "MIGRATED to database - screen_location: calculate_credit_2, content_key: calculate_credit_education_ph", 
+  "__MIGRATED_calculate_credit_education_option_1": "MIGRATED to database - screen_location: calculate_credit_2, content_key: calculate_credit_education_option_1",
+  "__MIGRATED_calculate_credit_education_option_2": "MIGRATED to database - screen_location: calculate_credit_2, content_key: calculate_credit_education_option_2",
+  "__MIGRATED_calculate_credit_education_option_3": "MIGRATED to database - screen_location: calculate_credit_2, content_key: calculate_credit_education_option_3",
+  
+  "other_active_key": "Still active translation",
+  "another_key": "Another active translation"
+}
+```
+
+**Step 4: Import Statement Updates**
+```typescript
+// Remove translation imports where no longer needed
+// ❌ Remove if no longer using translation.json for this component
+import { useTranslation } from 'react-i18next';
+
+// ✅ Add database content API import
+import { useContentApi } from '@/hooks/useContentApi';
+```
+
+**Step 5: Verification Checklist**
+1. **Database Check**: Verify content exists with correct screen_location
+   ```sql
+   SELECT * FROM content_items WHERE screen_location = 'calculate_credit_2' AND content_key LIKE 'calculate_credit_education%';
+   ```
+
+2. **API Test**: Confirm API endpoint returns data
+   ```bash
+   curl http://localhost:8003/api/content/calculate_credit_2/en
+   ```
+
+3. **Frontend Test**: Load the page and verify content displays correctly
+4. **Language Test**: Switch languages and confirm translations work
+5. **Fallback Test**: Verify fallback values display if database content missing
+
+**Step 6: Documentation Update**
+```markdown
+## Migration Log
+- Date: 2024-01-XX
+- Component: CreditForm education dropdown
+- Screen Location: calculate_credit_2
+- Migrated Keys: calculate_credit_education, calculate_credit_education_ph, calculate_credit_education_option_1-3
+- Status: ✅ Complete
+```
+
+**NEVER Skip Frontend Updates:**
+- Always update components to use `useContentApi()` instead of `useTranslation()`
+- Always mark migrated keys in translation.json files
+- Always test both database content and fallback scenarios
+- Always verify all three languages (EN/HE/RU) work correctly
+
+**Common Migration Mistakes to Avoid:**
+1. ❌ Migrating to database but leaving frontend using `useTranslation()`
+2. ❌ Not marking migrated keys in translation.json
+3. ❌ Forgetting to add fallback values in `getContent()` calls
+4. ❌ Not testing all language variants
+5. ❌ Missing screen_location parameter in `useContentApi()`
+6. ❌ Using wrong screen_location name that doesn't match database
+
+15. Duplicate Prevention - Pre-Migration Checks
+**MANDATORY**: Before starting any migration, ALWAYS run duplicate prevention checks to ensure data integrity and avoid conflicts.
+
+**Pre-Migration Duplicate Check Process:**
+
+**Step 1: Check Existing Content Keys**
+```sql
+-- Query to find existing content_keys that might conflict
+SELECT content_key, screen_location, COUNT(*) as count
+FROM content_items 
+WHERE content_key LIKE 'target_process_%'  -- Replace with your process prefix
+GROUP BY content_key, screen_location
+ORDER BY content_key;
+```
+
+**Step 2: Check for Cross-Process Key Conflicts**
+```sql
+-- Find content_keys used across multiple screen_locations (potential conflicts)
+SELECT content_key, ARRAY_AGG(DISTINCT screen_location) AS screen_locations, COUNT(DISTINCT screen_location) as location_count
+FROM content_items
+GROUP BY content_key
+HAVING COUNT(DISTINCT screen_location) > 1
+ORDER BY content_key;
+```
+
+**Step 3: Validate Against Translation.json**
+```javascript
+// Script template for checking translation.json keys against database
+const existingKeys = await client.query(
+    `SELECT content_key FROM content_items WHERE content_key LIKE 'process_prefix_%'`
+);
+const existingKeySet = new Set(existingKeys.rows.map(row => row.content_key));
+
+// Check each key to migrate
+keysToMigrate.forEach(key => {
+    if (existingKeySet.has(key.content_key)) {
+        console.log(`⚠️  DUPLICATE DETECTED: ${key.content_key} already exists in database`);
+        // STOP MIGRATION - investigate conflict
+    }
+});
+```
+
+**Step 4: Screen Location Validation**
+```sql
+-- Verify screen_location follows naming conventions
+SELECT DISTINCT screen_location 
+FROM content_items 
+WHERE screen_location NOT LIKE 'mortgage_step%' 
+  AND screen_location NOT LIKE 'credit_step%'
+  AND screen_location NOT LIKE 'refinance_credit_%'
+  AND screen_location NOT IN ('sidebar', 'footer', 'about_page', 'contacts_page', 'bank_offers')
+ORDER BY screen_location;
+```
+
+**Pre-Migration Checklist:**
+- [ ] Run duplicate key detection queries
+- [ ] Verify screen_location naming conventions
+- [ ] Check translation.json for key conflicts
+- [ ] Validate process isolation (no shared content_keys across processes)
+- [ ] Confirm target screen_locations exist or follow conventions
+- [ ] Review `SystemAnalyse/procceessesPagesInDB.md` for naming rules
+
+**Migration Blocking Conditions:**
+- ❌ ANY duplicate content_key found in database
+- ❌ Screen_location doesn't follow documented conventions
+- ❌ Process isolation violated (same content_key across different processes)
+- ❌ Translation.json keys already marked as `__MIGRATED_`
+
+**Resolution Actions:**
+1. **Duplicate Keys**: Rename keys with process-specific prefixes
+2. **Wrong Screen Location**: Update to follow documented conventions
+3. **Process Conflicts**: Create separate content_keys for each process
+4. **Already Migrated**: Skip or update existing entries
+
+16. Post-Migration Translation.json Updates
+**MANDATORY**: After successful database migration, ALWAYS update translation.json files to maintain system integrity and fallback functionality.
+
+**Post-Migration Update Process:**
+
+**Step 1: Verify Database Migration Success**
+```sql
+-- Confirm all migrated keys exist in database
+SELECT content_key, screen_location, component_type 
+FROM content_items 
+WHERE content_key IN ('key1', 'key2', 'key3', ...) -- List of migrated keys
+ORDER BY content_key;
+
+-- Confirm all translations exist
+SELECT ci.content_key, ct.language_code, ct.content_value
+FROM content_items ci
+JOIN content_translations ct ON ci.id = ct.content_item_id
+WHERE ci.content_key IN ('key1', 'key2', 'key3', ...)
+ORDER BY ci.content_key, ct.language_code;
+```
+
+**Step 2: Update Translation.json Files - All Languages**
+```javascript
+// Automated script template for marking migrated keys
+const languages = ['en', 'he', 'ru'];
+const migratedKeys = ['key1', 'key2', 'key3']; // List of successfully migrated keys
+
+for (const lang of languages) {
+    const filePath = `locales/${lang}/translation.json`;
+    const translations = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    let markedCount = 0;
+
+    for (const key of migratedKeys) {
+        if (translations[key] && !translations[`__MIGRATED_${key}`]) {
+            // Mark as migrated (preserve original for fallback)
+            translations[`__MIGRATED_${key}`] = translations[key];
+            markedCount++;
+            console.log(`✅ MARKED: ${key} → __MIGRATED_${key} in ${lang}`);
+        }
+    }
+
+    if (markedCount > 0) {
+        // Save updated file
+        fs.writeFileSync(filePath, JSON.stringify(translations, null, 2), 'utf8');
+        console.log(`💾 SAVED: ${markedCount} keys marked in ${lang}/translation.json`);
+    }
+}
+```
+
+**Step 3: Verification and Testing**
+```bash
+# 1. Verify migration marking worked
+grep -c "__MIGRATED_target_key" locales/*/translation.json
+
+# 2. Test API endpoints
+curl "http://localhost:8003/api/content/screen_location/en"
+curl "http://localhost:8003/api/content/screen_location/he" 
+curl "http://localhost:8003/api/content/screen_location/ru"
+
+# 3. Test fallback functionality (with database disabled)
+# Verify translation.json keys still work when database is unavailable
+```
+
+**Step 4: Documentation Updates**
+```markdown
+## Migration Completion Record
+- **Date**: YYYY-MM-DD
+- **Process**: Process Name (e.g., Credit Calculator)
+- **Keys Migrated**: X keys
+- **Screen Locations**: location1, location2, location3
+- **Languages Updated**: EN, HE, RU
+- **Translation.json Status**: ✅ All keys marked with __MIGRATED_
+- **Database Verification**: ✅ All content_items and content_translations created
+- **API Testing**: ✅ All endpoints returning correct content
+- **Fallback Testing**: ✅ Translation.json fallbacks working
+```
+
+**Post-Migration Validation Checklist:**
+- [ ] All migrated keys exist in database with correct screen_locations
+- [ ] All 3 languages have complete translations in database  
+- [ ] All translation.json files updated with `__MIGRATED_` prefixes
+- [ ] Original translation.json keys preserved as fallbacks
+- [ ] API endpoints return migrated content correctly
+- [ ] Frontend components load content from database
+- [ ] Fallback mechanism works when database unavailable
+- [ ] All languages switch correctly in frontend
+- [ ] No duplicate content_keys in database
+- [ ] Migration documentation completed
+
+**Rollback Procedures (If Issues Found):**
+1. **Database Rollback**: Remove migrated content_items and content_translations
+2. **Translation.json Rollback**: Remove `__MIGRATED_` prefixed keys
+3. **Frontend Rollback**: Revert components to use `useTranslation()`
+4. **Investigation**: Analyze and fix issues before re-attempting migration
+
+**Success Indicators:**
+- ✅ Database contains all migrated content with proper structure
+- ✅ Translation.json files properly marked but maintain fallback capability  
+- ✅ Frontend displays content from database correctly
+- ✅ All languages work consistently
+- ✅ System gracefully handles database failures via translation.json fallbacks
+
+**CRITICAL**: Never consider a migration complete until ALL post-migration steps are verified and documented. The translation.json update is NOT optional - it's essential for system reliability and migration tracking.
