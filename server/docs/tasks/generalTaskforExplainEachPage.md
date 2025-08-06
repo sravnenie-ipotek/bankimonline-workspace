@@ -17,6 +17,7 @@ Document all pages identified in the routing structure, including:
 - **Special Pages / Специальные страницы**: Registration, AuthModal, Admin, PersonalCabinet, etc.
 - **Legal Pages / Правовые страницы**: PrivacyPolicy, Terms, Cookie, Refund
 - **Business Pages / Бизнес-страницы**: TendersForBrokers, TendersForLawyers, Vacancies, etc.
+- **Navigation Components / Компоненты навигации**: Sidebar, Header, Footer, MobileMenu, etc.
 
 ## **Documentation Structure for Each Page / Структура документации для каждой страницы**
 
@@ -121,6 +122,148 @@ import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 // - Component structure / Структура компонента
 ```
 
+## **Example: Sidebar Menu Documentation / Пример: Документация бокового меню**
+
+### **1. Page Overview**
+- **Page Name**: Sidebar Navigation Menu
+- **Route Path**: Global component (appears on all pages)
+- **Purpose**: Main navigation sidebar with company and business sections, providing access to all major site sections
+- **Target Audience**: All website visitors, business partners, brokers, lawyers
+- **Access Level**: Public (visible on all pages)
+
+### **2. Technology Stack**
+- **Frontend Framework**: React 18+ with TypeScript
+- **State Management**: Local useState hooks for menu states
+- **Styling**: SCSS modules with classnames/bind
+- **Routing**: React Router v6 with Link components
+- **Content Management**: Database-first content system with useContentApi hook
+- **Internationalization**: react-i18next with Hebrew RTL support
+- **UI Components**: SidebarClosed, SubSidebar, SocialMedia
+- **Testing**: Cypress E2E tests
+
+### **3. Key Dependencies & Imports**
+```typescript
+import React from 'react'
+import classNames from 'classnames/bind'
+import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { useContentApi } from '@src/hooks/useContentApi'
+import { useMenuItems, useBusinessMenuItems } from '@components/layout/Sidebar/hooks/sidebar.ts'
+import SubSidebar from '@components/layout/Sidebar/SubSidebar/SubSidebar.tsx'
+import SocialMedia from '@components/layout/Sidebar/SocialMedia/SocialMedia.tsx'
+import styles from './sidebarClose.module.scss'
+```
+
+### **4. Database-First Content System Integration**
+- **Content Key**: `'sidebar'`
+- **Content Structure**: Company and business menu items with Hebrew translations
+- **Fallback Strategy**: Cache → Database → File system
+- **Loading States**: Loading indicator for API calls, fallback to translation system
+
+### **5. State Management**
+- **Redux Slices**: None (local state only)
+- **Local State**: Menu visibility states (isOpen, isSubMenuOpen, isBusinessSubMenuOpen)
+- **Global State**: i18n language state, current route for active highlighting
+
+### **6. User Actions & Interactions**
+- **Action Count**: 12 documented user actions
+- **Key Interactions**: Menu toggle, submenu navigation, link clicks
+- **Event Handlers**: handleToggleSidebar, handleCompanySubmenu, handleBusinessSubmenu
+- **Navigation**: Global navigation to all major site sections
+
+### **7. Component Architecture**
+- **Main Component**: SidebarClosed with menu sections
+- **Child Components**: SubSidebar, SocialMedia, NavigationList
+- **Layout Components**: Container integration, Header integration
+- **Modal Components**: SubSidebar acts as modal overlay
+
+### **8. Styling & Responsive Design**
+- **SCSS Module**: sidebarClose.module.scss with dark theme
+- **Responsive Breakpoints**: Mobile (hidden), Tablet (collapsible), Desktop (always visible)
+- **Theme Integration**: Dark background with white text, yellow headers
+- **Animation**: Slide transitions, submenu animations, hover effects
+
+### **9. Error Handling & Edge Cases**
+- **Error Boundaries**: Content API errors fallback to translation system
+- **Loading States**: Loading indicator for API calls, skeleton loading for menu items
+- **Empty States**: Default text fallbacks, empty menu sections
+- **Validation**: Route validation, content validation
+
+### **10. Testing Strategy**
+- **Cypress Tests**: Sidebar open/close, navigation clicks, submenu interactions
+- **Unit Tests**: Component testing, hook testing, navigation testing
+- **Integration Tests**: Content API tests, i18n integration tests
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support
+
+### **11. Performance Considerations**
+- **Code Splitting**: Lazy loading for submenu components
+- **Bundle Size**: ~8KB main component, ~5KB submenu components
+- **Caching**: Browser cache for API responses, component memoization
+- **Optimization**: Menu memoization, debounced click handlers, conditional rendering
+
+### **12. Internationalization (i18n)**
+- **Translation Keys**: sidebar_company, sidebar_business, sidebar_company_1-5, sidebar_business_1-4
+- **Language Support**: English, Russian, Hebrew
+- **RTL Support**: Hebrew right-to-left text direction, RTL-aware components
+- **Cultural Considerations**: Hebrew-specific menu organization, RTL text flow
+
+### **13. Integration Points**
+- **API Endpoints**: GET /api/content/sidebar/{language}
+- **External Services**: Social media links, analytics tracking
+- **Analytics**: Menu interactions, navigation clicks, user journey analysis
+- **SEO**: No direct SEO impact (client-side navigation)
+
+### **14. Development Notes**
+- **Known Issues**: Hidden on mobile devices, RTL layout issues, content loading race conditions
+- **Technical Debt**: Extract menu logic, improve TypeScript types, optimize re-renders
+- **Future Enhancements**: Mobile menu, search integration, customizable menu items
+- **Migration Notes**: Phase 12 migration complete, Content API fully integrated
+
+### **15. Code Examples**
+```typescript
+// Content API Usage
+const { getContent, loading, error } = useContentApi('sidebar')
+const companyTitle = getContent('sidebar_company', t('sidebar_company'))
+
+// State Management
+const [isOpen, setIsOpen] = useState(false)
+const [isSubMenuOpen, setIsSubMenuOpen] = useState(false)
+const handleToggleSidebar = () => setIsOpen(!isOpen)
+
+// Event Handlers
+const handleCompanySubmenu = () => {
+  setIsSubMenuOpen(true)
+  setIsBusinessSubMenuOpen(false)
+}
+
+// Component Structure
+const SidebarClosed: React.FC<PropTypes> = ({ onClick, isOpen }) => {
+  const menuItems = useMenuItems()
+  const { t } = useTranslation()
+  
+  return (
+    <div className={cx('nav_container', { nav_container_expanded: isOpen })}>
+      <nav>
+        <section className={cx('nav_wrapper')}>
+          <ul className={cx('nav_inner')}>
+            <h3 className={cx('title')}>{t('sidebar_company')}</h3>
+            {menuItems.map((item) => (
+              <li key={item.title} className={cx('menu_item')}>
+                <Link to={item.path!} onClick={handleCloseMenus}>
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </nav>
+      <SubSidebar />
+      <SocialMedia />
+    </div>
+  )
+}
+```
+
 ## **Documentation Format / Формат документации**
 Create individual `.md` files for each page in a `docs/pages/` directory with the following naming convention:
 
@@ -129,6 +272,7 @@ Create individual `.md` files for each page in a `docs/pages/` directory with th
 - `home-page.md`
 - `about-page.md`
 - `contacts-page.md`
+- `sidebar-menu.md`
 - etc. / и т.д.
 
 ## **Quality Standards / Стандарты качества**
