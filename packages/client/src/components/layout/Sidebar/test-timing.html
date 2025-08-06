@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sidebar Translation Timing Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .test-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 3px;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .loading { background: #fff3cd; color: #856404; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background: #f0f0f0;
+        }
+        .log {
+            background: #f8f9fa;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 3px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .log-entry {
+            margin: 2px 0;
+        }
+        .log-time {
+            color: #666;
+        }
+        .log-error {
+            color: #dc3545;
+        }
+        .log-success {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sidebar Translation Timing Test</h1>
+    
+    <div class="test-container">
+        <h2>Test Configuration</h2>
+        <div>
+            <label>Language: 
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="he">Hebrew</option>
+                    <option value="ru">Russian</option>
+                </select>
+            </label>
+            <button id="runTest">Run Test</button>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>API Response Time</h2>
+        <div id="apiStatus" class="status loading">Not tested yet</div>
+        <div id="apiTiming"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>Translation Keys Test</h2>
+        <table id="translationTable">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Expected Value</th>
+                    <th>API Value</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="translationResults"></tbody>
+        </table>
+    </div>
+
+    <div class="test-container">
+        <h2>Timing Analysis</h2>
+        <div id="timingAnalysis"></div>
+    </div>
+
+    <div class="test-container">
+        <h2>Test Log</h2>
+        <div id="testLog" class="log"></div>
+    </div>
+
+    <script>
+        const expectedTranslations = {
+            en: {
+                'sidebar_company': 'Company',
+                'sidebar_company_1': 'Our services',
+                'sidebar_company_2': 'About',
+                'sidebar_company_3': 'Jobs',
+                'sidebar_company_4': 'Contact',
+                'sidebar_business': 'Business',
+                'sidebar_business_1': 'Partner financial institutions',
+                'sidebar_business_2': 'Partner program',
+                'sidebar_business_3': 'Broker franchise',
+                'sidebar_business_4': 'Lawyer partner program'
+            },
+            he: {
+                'sidebar_company': 'חברה',
+                'sidebar_company_1': 'השירותים שלנו',
+                'sidebar_company_2': 'אודות',
+                'sidebar_company_3': 'משרות',
+                'sidebar_company_4': 'צור קשר',
+                'sidebar_business': 'עסקים',
+                'sidebar_business_1': 'מוסדות פיננסיים שותפים',
+                'sidebar_business_2': 'תכנית שותפים',
+                'sidebar_business_3': 'זיכיון לברוקרים',
+                'sidebar_business_4': 'תוכנית שותפים לעורכי דין'
+            },
+            ru: {
+                'sidebar_company': 'Компания',
+                'sidebar_company_1': 'Наши услуги',
+                'sidebar_company_2': 'О нас',
+                'sidebar_company_3': 'Вакансии',
+                'sidebar_company_4': 'Связаться с нами',
+                'sidebar_business': 'Бизнес',
+                'sidebar_business_1': 'Финансовые учреждения-партнеры',
+                'sidebar_business_2': 'Партнерская программа',
+                'sidebar_business_3': 'Франшиза для брокеров',
+                'sidebar_business_4': 'Партнерская программа для юристов'
+            }
+        };
+
+        let testStartTime;
+        const logEntries = [];
+
+        function log(message, type = 'info') {
+            const timestamp = Date.now() - testStartTime;
+            const entry = {
+                time: timestamp,
+                message,
+                type
+            };
+            logEntries.push(entry);
+            
+            const logDiv = document.getElementById('testLog');
+            const logEntry = document.createElement('div');
+            logEntry.className = 'log-entry';
+            logEntry.innerHTML = `<span class="log-time">[${timestamp}ms]</span> <span class="log-${type}">${message}</span>`;
+            logDiv.appendChild(logEntry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        async function testAPI(language) {
+            log(`Starting API test for language: ${language}`);
+            const startTime = Date.now();
+            
+            try {
+                const response = await fetch(`http://localhost:8003/api/content/sidebar/${language}`);
+                const endTime = Date.now();
+                const duration = endTime - startTime;
+                
+                log(`API response received in ${duration}ms`, 'success');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                return {
+                    success: true,
+                    duration,
+                    data,
+                    contentCount: data.content_count || 0
+                };
+            } catch (error) {
+                log(`API error: ${error.message}`, 'error');
+                return {
+                    success: false,
+                    error: error.message,
+                    duration: Date.now() - startTime
+                };
+            }
+        }
+
+        async function runTest() {
+            testStartTime = Date.now();
+            logEntries.length = 0;
+            document.getElementById('testLog').innerHTML = '';
+            
+            const language = document.getElementById('languageSelect').value;
+            log(`Test started for language: ${language}`);
+            
+            // Update API status
+            const apiStatusDiv = document.getElementById('apiStatus');
+            apiStatusDiv.className = 'status loading';
+            apiStatusDiv.textContent = 'Testing API...';
+            
+            // Test API
+            const apiResult = await testAPI(language);
+            
+            // Update API status
+            if (apiResult.success) {
+                apiStatusDiv.className = 'status success';
+                apiStatusDiv.textContent = `API working - ${apiResult.contentCount} translations loaded in ${apiResult.duration}ms`;
+                document.getElementById('apiTiming').textContent = `Response time: ${apiResult.duration}ms`;
+            } else {
+                apiStatusDiv.className = 'status error';
+                apiStatusDiv.textContent = `API failed: ${apiResult.error}`;
+            }
+            
+            // Test translations
+            if (apiResult.success && apiResult.data.content) {
+                const tbody = document.getElementById('translationResults');
+                tbody.innerHTML = '';
+                
+                const expected = expectedTranslations[language];
+                
+                for (const [key, expectedValue] of Object.entries(expected)) {
+                    const apiValue = apiResult.data.content[key]?.value || 'NOT FOUND';
+                    const matches = apiValue === expectedValue;
+                    
+                    const row = tbody.insertRow();
+                    row.innerHTML = `
+                        <td>${key}</td>
+                        <td>${expectedValue}</td>
+                        <td>${apiValue}</td>
+                        <td class="${matches ? 'success' : 'error'}">${matches ? '✓' : '✗'}</td>
+                    `;
+                    
+                    if (!matches) {
+                        log(`Translation mismatch for ${key}: expected "${expectedValue}", got "${apiValue}"`, 'error');
+                    }
+                }
+            }
+            
+            // Timing analysis
+            const timingDiv = document.getElementById('timingAnalysis');
+            timingDiv.innerHTML = `
+                <h3>Performance Summary</h3>
+                <ul>
+                    <li>API Response Time: ${apiResult.duration}ms</li>
+                    <li>Total Test Duration: ${Date.now() - testStartTime}ms</li>
+                    <li>Content Count: ${apiResult.contentCount}</li>
+                </ul>
+                
+                <h3>Recommendations</h3>
+                <ul>
+                    ${apiResult.duration > 1000 ? '<li class="error">API response is slow (>1s). Consider caching or optimization.</li>' : '<li class="success">API response time is good.</li>'}
+                    ${apiResult.contentCount === 0 ? '<li class="error">No content returned from API. Check database content.</li>' : ''}
+                    ${apiResult.contentCount < 10 ? '<li class="error">Low content count. Some translations may be missing.</li>' : ''}
+                </ul>
+            `;
+            
+            // Simulate multiple rapid requests
+            log('Starting rapid request test...');
+            const rapidResults = [];
+            for (let i = 0; i < 5; i++) {
+                const start = Date.now();
+                const result = await testAPI(language);
+                rapidResults.push(result.duration);
+                log(`Rapid request ${i + 1}: ${result.duration}ms`);
+            }
+            
+            const avgTime = rapidResults.reduce((a, b) => a + b, 0) / rapidResults.length;
+            log(`Average response time for 5 requests: ${avgTime.toFixed(2)}ms`, 'info');
+            
+            log('Test completed', 'success');
+        }
+
+        document.getElementById('runTest').addEventListener('click', runTest);
+        
+        // Run initial test on load
+        window.addEventListener('load', () => {
+            setTimeout(runTest, 500);
+        });
+    </script>
+</body>
+</html>

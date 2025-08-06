@@ -1,0 +1,31 @@
+.tabs {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  text-align: left;
+  margin-top: 16px;
+  @apply text-textTheme-disabled;
+  font-size: 1rem;
+  @media screen and (max-width: 400px) {
+    font-size: 0.75rem;
+  }
+}
+.itemTab {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  gap: 0.63rem;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: center;
+  padding: 0.88rem 0;
+  @apply border-solid border-b border-base-secondaryDefaultButton;
+}
+
+.itemTab.active {
+  @apply text-accent-primary border-solid border-b-2 border-accent-primary;
+}
