@@ -1,0 +1,81 @@
+import { createSlice } from '@reduxjs/toolkit'
+
+import { LoginFormTypes } from '../pages/Modals/LoginModal/LoginForm/LoginForm'
+
+type RegistrationDataTypes = {
+  code: string
+  mobile_number: string
+  email: string
+  nameSurname: string
+}
+
+type LoginSlice = {
+  activeModal:
+    | 'login'
+    | 'code'
+    | 'signUp'
+    | 'auth'
+    | 'reset'
+    | 'codeAuth'
+    | 'codeSignUp'
+    | 'newPassword'
+    | 'codeNewPassword'
+    | 'success'
+    | 'phoneVerification'
+  registrationData: RegistrationDataTypes
+  loginData: LoginFormTypes
+  isLogin: boolean
+  activeTab: 'phone' | 'email'
+}
+
+const loginSlice = createSlice({
+  name: 'login',
+  initialState: {
+    activeModal: 'login',
+    loginData: {},
+    registrationData: {},
+    isLogin: false,
+    activeTab: 'phone',
+  } as LoginSlice,
+  reducers: {
+    setActiveModal: (state, action) => {
+      state.activeModal = action.payload
+    },
+    setActiveTab: (state, action) => {
+      state.activeTab = action.payload
+    },
+    updateLoginData: (state, action) => {
+      state.loginData = {
+        ...state.loginData,
+        ...action.payload,
+      }
+      state.activeModal = 'code'
+    },
+    initializeUserData: (state, action) => {
+      state.loginData = {
+        ...state.loginData,
+        ...action.payload,
+      }
+    },
+    updateRegistrationData: (state, action) => {
+      state.registrationData = {
+        ...state.registrationData,
+        ...action.payload,
+      }
+    },
+    setIsLogin: (state) => {
+      state.isLogin = true
+    },
+  },
+})
+
+export const {
+  setActiveModal,
+  updateLoginData,
+  initializeUserData,
+  setIsLogin,
+  setActiveTab,
+  updateRegistrationData,
+} = loginSlice.actions
+
+export default loginSlice.reducer

@@ -1,0 +1,34 @@
+.personal-cabinet {
+  min-height: 100vh;
+  background-color: #161616;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  
+  /* Ensure full viewport coverage */
+  width: 100%;
+  position: relative;
+}
+
+/* Dark theme color variables for consistency */
+:root {
+  --lk-bg-primary: #161616;
+  --lk-bg-secondary: #242529;
+  --lk-bg-tertiary: #35373f;
+  --lk-accent-primary: #fbe54d;
+  --lk-text-primary: #ffffff;
+  --lk-text-secondary: #d0d0d0;
+  --lk-text-disabled: #848484;
+  --lk-border-primary: #333535;
+  --lk-border-secondary: #3f444d;
+}
+
+/* Global dark theme overrides for Personal Cabinet */
+.personal-cabinet {
+  * {
+    box-sizing: border-box;
+  }
+  
+  /* Override any light theme colors */
+  background: var(--lk-bg-primary) !important;
+  color: var(--lk-text-primary) !important;
+} 

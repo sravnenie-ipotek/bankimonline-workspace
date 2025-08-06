@@ -1,0 +1,321 @@
+@import '../../../personalCabinet.module.scss';
+
+.modal-container {
+  .ant-modal-content {
+    background: var(--lk-bg-secondary) !important;
+    border: 1px solid var(--lk-border-primary) !important;
+    border-radius: 12px !important;
+    max-width: 600px !important;
+    width: 90% !important;
+  }
+
+  .ant-modal-header {
+    background: transparent !important;
+    border-bottom: none !important;
+    padding: 0 !important;
+  }
+
+  .ant-modal-body {
+    padding: 0 !important;
+  }
+
+  .ant-modal-close {
+    display: none !important;
+  }
+}
+
+.modal-content {
+  padding: 2rem;
+  color: var(--lk-text-primary);
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  max-width: 600px;
+  width: 100%;
+}
+
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: var(--lk-text-secondary);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  z-index: 10;
+
+  &:hover {
+    background: var(--lk-bg-tertiary);
+    color: var(--lk-text-primary);
+  }
+
+  &:focus {
+    outline: none;
+    background: var(--lk-bg-tertiary);
+    color: var(--lk-text-primary);
+  }
+}
+
+.modal-header {
+  margin-bottom: 2rem;
+  padding-right: 3rem; // Space for close button
+}
+
+.modal-title {
+  font-size: 1.5rem; // 24px
+  font-weight: 500;
+  color: var(--lk-text-primary);
+  margin: 0;
+  line-height: 1.3;
+  text-align: left;
+  font-family: 'Roboto', sans-serif;
+}
+
+.co-borrowers-list {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.co-borrower-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: var(--lk-bg-tertiary);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+
+  &:hover {
+    background: var(--lk-bg-quaternary);
+    border-color: var(--lk-border-secondary);
+  }
+
+  &.selected {
+    background: rgba(251, 229, 77, 0.1);
+    border-color: #fbe54d;
+    
+    .co-borrower-name {
+      color: var(--lk-text-primary);
+    }
+  }
+
+  &:focus-within {
+    outline: none;
+    border-color: #fbe54d;
+    box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2);
+  }
+}
+
+.co-borrower-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.co-borrower-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--lk-text-primary);
+  line-height: 1.4;
+}
+
+.co-borrower-phone {
+  font-size: 0.875rem;
+  color: var(--lk-text-secondary);
+  line-height: 1.3;
+}
+
+.checkbox-container {
+  margin-left: 1rem;
+}
+
+.checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--lk-border-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  transition: all 0.2s ease;
+  color: #000;
+
+  &.checked {
+    background: #fbe54d;
+    border-color: #fbe54d;
+    color: #000;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: stretch;
+  width: 100%;
+}
+
+.continue-button,
+.skip-button {
+  flex: 1;
+  height: 48px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.4);
+  }
+}
+
+.continue-button {
+  background: #fbe54d;
+  color: #000;
+
+  &:hover:not(:disabled) {
+    background: #f9e033;
+  }
+
+  &:active:not(:disabled) {
+    background: #f7dc1a;
+  }
+
+  &:disabled {
+    background: var(--lk-bg-tertiary);
+    color: var(--lk-text-secondary);
+    cursor: not-allowed;
+    transform: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+.skip-button {
+  background: transparent;
+  color: var(--lk-text-primary);
+  border: 1px solid var(--lk-border-primary);
+
+  &:hover {
+    background: var(--lk-bg-tertiary);
+    border-color: var(--lk-border-secondary);
+  }
+
+  &:active {
+    background: var(--lk-bg-quaternary);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.375rem; // 22px
+    padding-right: 2.5rem;
+  }
+
+  .co-borrower-card {
+    padding: 1rem 1.25rem;
+  }
+
+  .co-borrower-name {
+    font-size: 0.9375rem; // 15px
+  }
+
+  .co-borrower-phone {
+    font-size: 0.8125rem; // 13px
+  }
+
+  .button-group {
+    gap: 0.75rem;
+  }
+
+  .continue-button,
+  .skip-button {
+    height: 44px;
+    font-size: 0.9375rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1rem;
+  }
+
+  .modal-title {
+    font-size: 1.25rem; // 20px
+    padding-right: 2rem;
+  }
+
+  .close-button {
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 1.75rem;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .co-borrower-card {
+    padding: 0.875rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .checkbox-container {
+    margin-left: 0;
+    align-self: flex-end;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .continue-button,
+  .skip-button {
+    width: 100%;
+    height: 48px;
+  }
+} 

@@ -1,35 +1,62 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { SUPPORTED_LANGUAGES, type SupportedLanguage } from '@bankimonline/shared'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 interface LanguageState {
-  currentLanguage: SupportedLanguage
-  availableLanguages: readonly SupportedLanguage[]
-  isRTL: boolean
+  currentFont: string
+  direction: 'ltr' | 'rtl'
+  language: string
 }
 
+// Get language from localStorage or default to 'he' (Hebrew)
+const getInitialLanguage = (): string => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('language') || 'he'
+  }
+  return 'he'
+}
+
+const getInitialFont = (language: string): string => {
+  if (language === 'he') return 'font-he'
+  return 'font-ru'
+}
+
+const getInitialDirection = (language: string): 'ltr' | 'rtl' => {
+  if (language === 'he') return 'rtl'
+  return 'ltr'
+}
+
+const initialLanguage = getInitialLanguage()
+
 const initialState: LanguageState = {
-  currentLanguage: 'he', // Default to Hebrew
-  availableLanguages: SUPPORTED_LANGUAGES,
-  isRTL: true, // Hebrew is RTL by default
+  currentFont: getInitialFont(initialLanguage),
+  direction: getInitialDirection(initialLanguage),
+  language: initialLanguage,
 }
 
 const languageSlice = createSlice({
   name: 'language',
   initialState,
   reducers: {
-    setLanguage: (state, action: PayloadAction<SupportedLanguage>) => {
-      state.currentLanguage = action.payload
-      state.isRTL = action.payload === 'he'
-    },
-    toggleLanguage: (state) => {
-      // Simple language toggle for development
-      const currentIndex = state.availableLanguages.indexOf(state.currentLanguage)
-      const nextIndex = (currentIndex + 1) % state.availableLanguages.length
-      state.currentLanguage = state.availableLanguages[nextIndex]
-      state.isRTL = state.currentLanguage === 'he'
+    changeLanguage: (state, action: PayloadAction<string>) => {
+      state.language = action.payload
+      
+      // Save to localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('language', action.payload)
+      }
+      
+      if (action.payload === 'ru') {
+        state.currentFont = 'font-ru'
+        state.direction = 'ltr'
+      } else if (action.payload === 'he') {
+        state.currentFont = 'font-he'
+        state.direction = 'rtl'
+      } else if (action.payload === 'en') {
+        state.currentFont = 'font-ru' // Use same font as Russian for English
+        state.direction = 'ltr'
+      }
     },
   },
 })
 
-export const { setLanguage, toggleLanguage } = languageSlice.actions
+export const { changeLanguage } = languageSlice.actions
 export default languageSlice.reducer

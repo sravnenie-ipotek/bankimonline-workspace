@@ -1,0 +1,51 @@
+.wrapper {
+  justify-content: space-between;
+  direction: ltr !important;
+  
+  html[dir="rtl"] & {
+    direction: ltr !important;
+    flex-direction: row !important;
+  }
+}
+.error {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 140%;
+  @apply font-ru font-normal text-2xs text-warning-validation;
+  
+  html[dir="rtl"] & {
+    direction: rtl;
+    text-align: right;
+  }
+}
+
+.itemCode {
+  border-radius: 16px;
+  border: 1px solid #35373f;
+  background: #35373f;
+
+  text-align: center;
+  color: #fff;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: normal;
+  direction: ltr !important;
+  unicode-bidi: embed !important;
+
+  height: 6.5rem;
+  width: 6.75rem !important;
+  @media screen and (max-width: 600px) {
+    width: 4.1875rem !important;
+    height: 4.125rem;
+  }
+  @media screen and (max-width: 389px) {
+    width: 3rem !important;
+    height: 3rem;
+  }
+  
+  html[dir="rtl"] & {
+    direction: ltr !important;
+    text-align: center !important;
+    unicode-bidi: embed !important;
+  }
+}
