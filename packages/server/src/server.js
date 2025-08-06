@@ -23,12 +23,20 @@ const contentCache = new NodeCache({
 
 // Main database connection (Core Database)
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:lqqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway'
+    connectionString: process.env.DATABASE_URL || (() => {
+        console.error('🚨 DATABASE_URL environment variable is required');
+        console.error('📋 Please copy .env.example to .env and configure your database credentials');
+        process.exit(1);
+    })()
 });
 
 // Content database connection (SECOND database for content/translations)
 const contentPool = new Pool({
-    connectionString: process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway'
+    connectionString: process.env.CONTENT_DATABASE_URL || (() => {
+        console.error('🚨 CONTENT_DATABASE_URL environment variable is required');
+        console.error('📋 Please copy .env.example to .env and configure your database credentials');
+        process.exit(1);
+    })()
 });
 
 // Test main database connection
