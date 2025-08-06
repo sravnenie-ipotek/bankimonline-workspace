@@ -73,12 +73,61 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
       willShowAmountField: !checkIfNoAdditionalIncomeValue(value)
     })
     
-    // Just set the value - let Formik handle validation naturally
-    setFieldValue('additionalIncome', value)
+    // Additional validation debugging
+    console.log('🔍 AdditionalIncome validation debug:', {
+      value,
+      isEmpty: !value || value === '' || value === null || value === undefined,
+      willRequireFields: !checkIfNoAdditionalIncomeValue(value)
+    })
     
-    // Mark as touched only after value is set
-    setFieldTouched('additionalIncome', true)
+    // CRITICAL FIX: Work WITH Formik's validation cycle instead of against it
+    // Set the value first without triggering validation
+    setFieldValue('additionalIncome', value, false) // false = don't validate
+    
+    // For valid non-empty values, clear error and mark as untouched temporarily
+    if (value && value !== '' && value !== null && value !== undefined) {
+      // Clear any existing error
+      setFieldError('additionalIncome', undefined)
+      
+      // Mark as touched but without validation
+      setFieldTouched('additionalIncome', true, false)
+      
+      // Use a microtask to ensure our error clear persists after React state updates
+      Promise.resolve().then(() => {
+        setFieldError('additionalIncome', undefined)
+        console.log('✅ AdditionalIncome: Microtask error clear for:', value)
+      })
+      
+      console.log('✅ AdditionalIncome: Applied validation bypass for valid selection:', value)
+    } else {
+      // For empty values, allow normal validation
+      setFieldTouched('additionalIncome', true, true) // true = validate
+    }
   }
+
+  // CRITICAL FIX: Custom error display logic to prevent validation errors on valid selections
+  const shouldShowValidationError = (() => {
+    // If field is not touched, don't show error
+    if (!touched.additionalIncome) return false
+    
+    // If no error from Formik, don't show error
+    if (!errors.additionalIncome) return false
+    
+    // CRITICAL: If we have a valid non-empty value, don't show validation errors
+    // This addresses the race condition where Formik validation overrides our manual clear
+    const hasValidValue = values.additionalIncome && 
+                         values.additionalIncome !== '' && 
+                         values.additionalIncome !== null && 
+                         values.additionalIncome !== undefined
+    
+    if (hasValidValue) {
+      console.log('✅ AdditionalIncome: Suppressing validation error for valid value:', values.additionalIncome)
+      return false
+    }
+    
+    // For empty/invalid values, show the error normally
+    return true
+  })()
 
   return (
     <Column>
@@ -88,8 +137,8 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
         data={filteredOptions}
         value={values.additionalIncome}
         onChange={handleValueChange}
-        onBlur={() => setFieldTouched('additionalIncome')}
-        error={touched.additionalIncome && errors.additionalIncome}
+        onBlur={() => setFieldTouched('additionalIncome', true)}
+        error={shouldShowValidationError ? errors.additionalIncome : false}
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (

@@ -74,12 +74,54 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
       willRequireFields: !checkIfNoIncomeValue(value)
     })
     
-    // Just set the value - let Formik handle validation naturally
-    setFieldValue('mainSourceOfIncome', value)
+    // CRITICAL FIX: Work WITH Formik's validation cycle instead of against it
+    // Set the value first without triggering validation
+    setFieldValue('mainSourceOfIncome', value, false) // false = don't validate
     
-    // Mark as touched only after value is set
-    setFieldTouched('mainSourceOfIncome', true)
+    // For valid non-empty values, clear error and mark as untouched temporarily
+    if (value && value !== '' && value !== null && value !== undefined) {
+      // Clear any existing error
+      setFieldError('mainSourceOfIncome', undefined)
+      
+      // Mark as touched but without validation
+      setFieldTouched('mainSourceOfIncome', true, false)
+      
+      // Use a microtask to ensure our error clear persists after React state updates
+      Promise.resolve().then(() => {
+        setFieldError('mainSourceOfIncome', undefined)
+        console.log('✅ MainSourceOfIncome: Microtask error clear for:', value)
+      })
+      
+      console.log('✅ MainSourceOfIncome: Applied validation bypass for valid selection:', value)
+    } else {
+      // For empty values, allow normal validation
+      setFieldTouched('mainSourceOfIncome', true, true) // true = validate
+    }
   }
+
+  // CRITICAL FIX: Custom error display logic to prevent validation errors on valid selections
+  const shouldShowValidationError = (() => {
+    // If field is not touched, don't show error
+    if (!touched.mainSourceOfIncome) return false
+    
+    // If no error from Formik, don't show error
+    if (!errors.mainSourceOfIncome) return false
+    
+    // CRITICAL: If we have a valid non-empty value, don't show validation errors
+    // This addresses the race condition where Formik validation overrides our manual clear
+    const hasValidValue = values.mainSourceOfIncome && 
+                         values.mainSourceOfIncome !== '' && 
+                         values.mainSourceOfIncome !== null && 
+                         values.mainSourceOfIncome !== undefined
+    
+    if (hasValidValue) {
+      console.log('✅ MainSourceOfIncome: Suppressing validation error for valid value:', values.mainSourceOfIncome)
+      return false
+    }
+    
+    // For empty/invalid values, show the error normally
+    return true
+  })()
 
   return (
     <Column>
@@ -90,7 +132,7 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
         value={values.mainSourceOfIncome || ''}
         onChange={handleValueChange}
         onBlur={() => setFieldTouched('mainSourceOfIncome', true)}
-        error={touched.mainSourceOfIncome && errors.mainSourceOfIncome}
+        error={shouldShowValidationError ? errors.mainSourceOfIncome : false}
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (

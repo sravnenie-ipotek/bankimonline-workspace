@@ -43,6 +43,9 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const { direction } = useAppSelector((state: RootState) => state.language)
 
+  // Use isDisabled for both styling and functionality if disabled is not explicitly set
+  const shouldBeDisabled = disabled !== undefined ? disabled : isDisabled
+
   const buttonClasses = {
     [variant]: true, // Добавление css-класса, соответствующего выбранному variant
     [styles.button]: true, // Добавление базового css-класса кнопки
@@ -56,7 +59,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       className={cx(buttonClasses, className, { isDisabled: isDisabled })} // Генерация классов с использованием classNames и добавление
       // дополнительных классов из пропсов
-      disabled={disabled} // Заблокирована ли кнопка
+      disabled={shouldBeDisabled} // Заблокирована ли кнопка
       type={type} // Тип кнопки
       {...(rest as ButtonProps)} // Распространение остальных пропсов на кнопку
     >

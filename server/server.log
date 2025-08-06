@@ -1,0 +1,179 @@
+🔒 CORS Configuration:
+📝 CORS_ALLOWED_ORIGINS env var: Not set
+🌐 Resolved CORS origins: [
+  'http://localhost:3001',
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
+  'http://localhost:8003',
+  'https://bankdev2standalone-production.up.railway.app',
+  'https://bankim-nodejs-api-production.up.railway.app'
+]
+🚀 Database API Server Started
+📡 http://localhost:8003
+📧 Email login: POST /api/login
+📧 Email 2FA: POST /api/email-code-login
+📱 SMS login: POST /api/sms-login & /api/sms-code-login
+👤 Registration: POST /api/register
+🏙️ Cities: GET /api/get-cities?lang=xx
+🏠 Refinance mortgage: POST /api/refinance-mortgage
+💳 Refinance credit: POST /api/refinance-credit
+🔐 Admin login: POST /api/admin/login
+📊 Admin stats: GET /api/admin/stats
+🏦 Admin banks: GET /api/admin/banks
+🏪 Compare banks: POST /api/customer/compare-banks
+📝 Submit application: POST /api/customer/submit-application
+📋 Check status: GET /api/applications/:id/status
+🔧 Admin applications: GET /api/admin/applications
+📊 Admin app details: GET /api/admin/applications/:id
+✏️ Update app status: PUT /api/admin/applications/:id/status
+
+🏢 PHASE 2: Bank Worker Registration System
+📨 Send invitation: POST /api/bank-worker/invite
+📝 Get registration form: GET /api/bank-worker/register/:token
+✅ Complete registration: POST /api/bank-worker/register
+📊 Check status: GET /api/bank-worker/status/:id
+📋 Admin invitations: GET /api/admin/invitations
+⏳ Admin approval queue: GET /api/admin/approval-queue
+✅ Approve worker: POST /api/admin/approve/:id
+❌ Reject worker: POST /api/admin/reject/:id
+
+❌ Main Database connection failed: password authentication failed for user "postgres"
+✅ Content Database connected: 2025-08-06T18:30:39.127Z
+✅ test-content table deleted successfully (if it existed)
+⚡ Cache MISS for content_sms_code_verification_he_all - querying database
+[0mGET /api/content/sms_code_verification/he [32m200[0m 408.298 ms - 852[0m
+⚡ Cache MISS for content_mortgage_step1_he_all - querying database
+[0mGET /api/content/mortgage_step1/he [32m200[0m 83.445 ms - 8084[0m
+⚡ Cache MISS for content_mortgage_calculation_he_all - querying database
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 80.414 ms - 3570[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step1_he - querying database
+🔍 Executing query for screen: mortgage_step1, language: he
+📊 Query returned 42 rows
+📊 Processing 42 rows for mortgage_step1/he
+🔍 Processing: app.mortgage.form.calculate_mortgage_city (dropdown_container)
+🔍 Processing: app.mortgage.form.calculate_mortgage_first (dropdown_container)
+🔍 Processing: app.mortgage.form.calculate_mortgage_first_ph (placeholder)
+🔍 Processing: app.mortgage.form.calculate_mortgage_initial_fee (dropdown_container)
+🔍 Processing: app.mortgage.form.calculate_mortgage_initial_payment (dropdown_container)
+🔍 Processing: app.mortgage.form.calculate_mortgage_period (dropdown_container)
+🔍 Processing: app.mortgage.form.calculate_mortgage_price (dropdown_container)
+🔍 Processing: app.mortgage.form.calculate_mortgage_property_ownership (dropdown_container)
+🔍 Processing: app.mortgage.form.calculate_mortgage_property_ownership_ph (placeholder)
+🔍 Processing: app.mortgage.form.calculate_mortgage_type (dropdown_container)
+🔍 Processing: app.mortgage.form.calculate_mortgage_type_ph (placeholder)
+🔍 Processing: app.mortgage.form.calculate_mortgage_when (dropdown_container)
+🔍 Processing: app.mortgage.form.calculate_mortgage_when_3_to_6_months (dropdown_option)
+🔍 Processing: app.mortgage.form.calculate_mortgage_when_6_to_12_months (dropdown_option)
+🔍 Processing: app.mortgage.form.calculate_mortgage_when_more_than_12_months (dropdown_option)
+🔍 Processing: app.mortgage.form.calculate_mortgage_when_next_3_months (dropdown_option)
+🔍 Processing: app.mortgage.form.calculate_mortgage_when_options_ph (placeholder)
+🔍 Processing: app.mortgage.step1.dropdown.property_ownership (dropdown_container)
+🔍 Processing: mortgage_step1.field.city (label)
+🔍 Processing: mortgage_step1.field.city_ph (placeholder)
+🔍 Processing: mortgage_step1.field.first_home (dropdown_container)
+🔍 Processing: mortgage_step1.field.first_home_investment (dropdown_option)
+🔍 Processing: mortgage_step1.field.first_home_no_additional_property (dropdown_option)
+🔍 Processing: mortgage_step1.field.first_home_ph (placeholder)
+🔍 Processing: mortgage_step1.field.first_home_yes_first_home (dropdown_option)
+🔍 Processing: mortgage_step1.field.property_ownership (dropdown_container)
+🔍 Processing: mortgage_step1.field.property_ownership_has_property (dropdown_option)
+🔍 Processing: mortgage_step1.field.property_ownership_no_property (dropdown_option)
+🔍 Processing: mortgage_step1.field.property_ownership_ph (placeholder)
+🔍 Processing: mortgage_step1.field.property_ownership_selling_property (dropdown_option)
+🔍 Processing: mortgage_step1.field.type (dropdown_container)
+🔍 Processing: mortgage_step1.field.type_fixed_rate (dropdown_option)
+🔍 Processing: mortgage_step1.field.type_mixed_rate (dropdown_option)
+🔍 Processing: mortgage_step1.field.type_not_sure (dropdown_option)
+🔍 Processing: mortgage_step1.field.type_ph (placeholder)
+🔍 Processing: mortgage_step1.field.type_variable_rate (dropdown_option)
+🔍 Processing: mortgage_step1.field.when_needed (dropdown_container)
+🔍 Processing: mortgage_step1.field.when_needed_3_to_6_months (dropdown_option)
+🔍 Processing: mortgage_step1.field.when_needed_6_to_12_months (dropdown_option)
+🔍 Processing: mortgage_step1.field.when_needed_over_12_months (dropdown_option)
+🔍 Processing: mortgage_step1.field.when_needed_ph (placeholder)
+🔍 Processing: mortgage_step1.field.when_needed_within_3_months (dropdown_option)
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 85.249 ms - 4046[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 1.727 ms - 8083[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 1.386 ms - 4045[0m
+[CITIES] Request for language: he
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.956 ms - 851[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.502 ms - 8083[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.218 ms - 851[0m
+✅ Cache HIT for content_mortgage_calculation_he_all
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.420 ms - 3569[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.258 ms - 8083[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.382 ms - 4045[0m
+[CITIES] Request for language: he
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.859 ms - 851[0m
+✅ Cache HIT for content_mortgage_calculation_he_all
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.189 ms - 3569[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.232 ms - 8083[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.158 ms - 851[0m
+Error fetching cities from database: error: password authentication failed for user "postgres"
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:2530:24 {
+  length: 104,
+  severity: 'FATAL',
+  code: '28P01',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'auth.c',
+  line: '323',
+  routine: 'auth_failed'
+}
+🔄 Using i18n fallback cities data due to database connection issue
+[0mGET /api/get-cities?lang=he [32m200[0m 416.297 ms - 1091[0m
+Error fetching cities from database: error: password authentication failed for user "postgres"
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:2530:24 {
+  length: 104,
+  severity: 'FATAL',
+  code: '28P01',
+  detail: undefined,
+  hint: undefined,
+  position: undefined,
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'auth.c',
+  line: '323',
+  routine: 'auth_failed'
+}
+🔄 Using i18n fallback cities data due to database connection issue
+[0mGET /api/get-cities?lang=he [32m200[0m 447.629 ms - 1091[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.254 ms - 851[0m
+✅ Cache HIT for content_mortgage_step1_he_all
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.277 ms - 8083[0m
+✅ Cache HIT for content_mortgage_calculation_he_all
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.157 ms - 3569[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step1_he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.232 ms - 4045[0m

@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 const getApiBaseUrl = () => {
   // Check if we're running on localhost (development)
   if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    return 'http://localhost:8004/api'
+    return 'http://localhost:8003/api'
   }
   
   // In production, use environment variable or fallback to Railway production API

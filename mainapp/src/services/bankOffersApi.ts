@@ -81,7 +81,7 @@ const getApiBaseUrl = () => {
   return import.meta.env.VITE_NODE_API_BASE_URL || 
          (import.meta.env.PROD ? 
            'https://bankdev2standalone-production.up.railway.app/api' : 
-           'http://localhost:8004/api')
+           'http://localhost:8003/api')
 }
 
 // Fetch bank offers from API
@@ -206,14 +206,39 @@ export const transformUserDataToRequest = (
   console.log('   parameters.monthlyIncome:', parameters?.monthlyIncome)
   console.log('   Final monthlyIncome:', monthlyIncome)
   
+  // Handle different service types for amount calculation
+  let amount = 0
+  let property_value = 0
+  
+  if (isCredit) {
+    amount = parameters.loanAmount || 0
+    property_value = 0
+  } else if (serviceType === 'refinance-mortgage') {
+    // For refinance mortgage, use mortgage balance as amount
+    amount = parameters.mortgageBalance || 0
+    property_value = parameters.priceOfEstate || 0
+  } else {
+    // For regular mortgage
+    amount = (parameters.priceOfEstate && parameters.initialFee 
+      ? parameters.priceOfEstate - parameters.initialFee 
+      : parameters.priceOfEstate * 0.5) // Default 50% loan if no initial fee
+    property_value = parameters.priceOfEstate || 0
+  }
+  
+  console.log('🏠 [TRANSFORM-DATA] Amount Calculation:')
+  console.log('   Service Type:', serviceType)
+  console.log('   Is Credit:', isCredit)
+  console.log('   parameters.mortgageBalance:', parameters?.mortgageBalance)
+  console.log('   parameters.priceOfEstate:', parameters?.priceOfEstate)
+  console.log('   parameters.loanAmount:', parameters?.loanAmount)
+  console.log('   parameters.initialFee:', parameters?.initialFee)
+  console.log('   Final amount:', amount)
+  console.log('   Final property_value:', property_value)
+  
   const requestPayload = {
     loan_type: isCredit ? 'credit' : 'mortgage',
-    amount: isCredit 
-      ? parameters.loanAmount 
-      : (parameters.priceOfEstate && parameters.initialFee 
-          ? parameters.priceOfEstate - parameters.initialFee 
-          : parameters.priceOfEstate * 0.5), // Default 50% loan if no initial fee - should be calculated based on property ownership LTV
-    property_value: isCredit ? 0 : (parameters.priceOfEstate || 0), // No default - should be provided by user
+    amount: amount,
+    property_value: property_value,
     monthly_income: monthlyIncome,
     
     // Use real birth date and employment start date for calculation
