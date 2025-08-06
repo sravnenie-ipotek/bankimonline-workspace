@@ -2399,7 +2399,11 @@ app.post('/api/bank-employee/register', async (req, res) => {
         // Generate registration token
         const registrationToken = jwt.sign(
             { email: corporateEmail, timestamp: Date.now() },
-            process.env.JWT_SECRET || 'bank-employee-secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
 
@@ -3660,7 +3664,11 @@ app.post('/api/login', async (req, res) => {
         // Generate JWT
         const token = jwt.sign(
             { id: user.id, email: user.email, role: user.role, name: user.name },
-            process.env.JWT_SECRET || 'secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
         
@@ -3737,7 +3745,11 @@ app.post('/api/auth-verify', async (req, res) => {
         
         const token = jwt.sign(
             { id: client.id, phone: client.phone, type: 'client' },
-            process.env.JWT_SECRET || 'secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
         
@@ -3863,7 +3875,11 @@ app.post('/api/email-code-login', async (req, res) => {
         // Generate JWT token
         const token = jwt.sign(
             { id: user.id, email: user.email, role: user.role, name: user.name },
-            process.env.JWT_SECRET || 'secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
         
@@ -4076,7 +4092,11 @@ const requireAdmin = (req, res, next) => {
     const token = authHeader.substring(7);
     
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || (() => {
+            console.error('🚨 JWT_SECRET environment variable is required');
+            console.error('📋 Generate secure key: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
+            process.exit(1);
+        })());
         
         if (!decoded.role || !decoded.is_staff) {
             return res.status(403).json({ status: 'error', message: 'Admin privileges required' });
@@ -4137,7 +4157,11 @@ app.post('/api/admin/login', async (req, res) => {
                 name: `${admin.first_name} ${admin.last_name}`,
                 is_staff: true
             },
-            process.env.JWT_SECRET || 'secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
         
@@ -5684,7 +5708,11 @@ app.post('/api/bank-worker/invite', requireAdmin, async (req, res) => {
         // Generate invitation token
         const invitationToken = jwt.sign(
             { email, bankId, branchId, invitedBy: adminId, type: 'invitation' },
-            process.env.JWT_SECRET || 'bank-worker-invitation-secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '7d' } // 7 days to complete registration
         );
 
@@ -5738,7 +5766,11 @@ app.get('/api/bank-worker/register/:token', async (req, res) => {
         // Verify and decode invitation token
         let decodedToken;
         try {
-            decodedToken = jwt.verify(token, process.env.JWT_SECRET || 'bank-worker-invitation-secret');
+            decodedToken = jwt.verify(token, process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })());
         } catch (err) {
             return res.status(401).json({
                 status: 'error',
@@ -5827,7 +5859,11 @@ app.post('/api/bank-worker/register', async (req, res) => {
         // Verify invitation token
         let decodedToken;
         try {
-            decodedToken = jwt.verify(invitationToken, process.env.JWT_SECRET || 'bank-worker-invitation-secret');
+            decodedToken = jwt.verify(invitationToken, process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })());
         } catch (err) {
             return res.status(401).json({
                 status: 'error',
@@ -8546,7 +8582,11 @@ app.post('/api/register', async (req, res) => {
         // Generate JWT token for immediate login
         const token = jwt.sign(
             { id: newClient.id, phone: newClient.phone, email: newClient.email, type: 'client' },
-            process.env.JWT_SECRET || 'secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e "console.log(require(\'crypto\').randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
         
