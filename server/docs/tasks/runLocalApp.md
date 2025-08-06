@@ -1,88 +1,99 @@
-# <� BankimOnline Local Development Guide
+# 🏦 BankimOnline Local Development Guide
 
-**Complete guide for running BankimOnline locally with Railway tunnel database connections**
+**Complete guide for running BankimOnline locally with SSH tunnel database connections**
 
 ---
 
-## =� **Prerequisites**
+## 🚀 **Prerequisites**
 
 ### Required Tools
 - **Node.js** (v18+ recommended)
-- **Railway CLI** - `npm install -g @railway/cli`
+- **SSH client** with access to server (root@185.253.72.80)
 - **Git** access to repositories
+- **psql** (optional, for database testing)
 
 ### Required Access
-- **Railway project access** for database connections
+- **SSH access** to server at 185.253.72.80
 - **Environment files** configured correctly
 
 ---
 
-## =' **Step 1: Railway Tunnel Setup**
+## 🔧 **Step 1: SSH Tunnel Setup**
 
-### **Login to Railway**
-```bash
-# Login to Railway (opens browser)
-railway login
-
-# Verify login
-railway whoami
-```
-
-### **Connect to Railway Database**
+### **Start SSH Database Tunnels**
 ```bash
 # Navigate to your project directory
 cd /Users/michaelmishayev/Projects/bankDev2_standalone
 
-# Connect to Railway project (if not already linked)
-railway link
-
-# Start Railway tunnel (CRITICAL FOR DATABASE ACCESS)
-railway connect --service postgres
+# Start SSH tunnels using the provided script
+./scripts/start-ssh-tunnels.sh start
 ```
 
-** This creates secure tunnel to Railway PostgreSQL database**
-- **Creates local tunnel**: Railway DB � localhost:5432
-- **Maintains connection**: Keep this terminal open during development
-- **Automatic reconnection**: Railway CLI handles disconnections
+**✅ This creates secure SSH tunnels to Railway PostgreSQL databases**
+- **Content Database tunnel**: localhost:5432 → shortline.proxy.rlwy.net:33452
+- **Main Database tunnel**: localhost:5433 → maglev.proxy.rlwy.net:43809
+- **Maintains connection**: Tunnels run in background with auto-reconnection
+- **Enhanced Security**: SSH + TLS encryption (double layer)
+
+### **Alternative Manual Setup**
+If you prefer manual control:
+```bash
+# Terminal 1: Content Database tunnel
+ssh -L 5432:shortline.proxy.rlwy.net:33452 root@185.253.72.80 -N
+
+# Terminal 2: Main Database tunnel  
+ssh -L 5433:maglev.proxy.rlwy.net:43809 root@185.253.72.80 -N
+```
+
+### **Verify Tunnel Status**
+```bash
+# Check tunnel status
+./scripts/start-ssh-tunnels.sh status
+
+# Should show both tunnels running
+```
 
 ---
 
-## =� **Step 2: Environment Configuration**
+## 🗄️ **Step 2: Environment Configuration**
 
 ### **Verify Database Configuration**
-Your `.env` files should already be configured with Railway tunnel endpoints:
+Your `.env` files should now be configured with SSH tunnel localhost connections:
 
 ```bash
 # Check server environment
 cat packages/server/.env
 
-# Should show Railway tunnel connections:
-# DATABASE_URL=postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway
-# CONTENT_DATABASE_URL=postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway
+# Should show SSH tunnel localhost connections:
+# DATABASE_URL=postgresql://postgres:lqqPEzvVbSCviTybKqMbzJkYvOUetJjt@localhost:5433/railway
+# CONTENT_DATABASE_URL=postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@localhost:5432/railway
 ```
 
-### **Development vs Production Environment**
+### **SSH Tunnel Architecture**
 ```bash
-# Development (current setup)
+# Development (SSH tunnel setup)
 NODE_ENV=development
-PORT=8004
+PORT=8003
 
-# Railway Database Tunnels (already configured)
-DATABASE_URL=postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway
-CONTENT_DATABASE_URL=postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway
+# SSH Tunnel Database Connections
+DATABASE_URL=postgresql://postgres:lqqPEzvVbSCviTybKqMbzJkYvOUetJjt@localhost:5433/railway
+CONTENT_DATABASE_URL=postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@localhost:5432/railway
 ```
 
 ---
 
-## =� **Step 3: Start Development Servers**
+## 🖥️ **Step 3: Start Development Servers**
 
 ### **Option A: Start Both Servers (Recommended)**
 ```bash
+# Ensure SSH tunnels are running first
+./scripts/start-ssh-tunnels.sh status
+
 # From project root
 npm run dev
 
 # This starts:
-# - Backend API server on port 8004
+# - Backend API server on port 8003
 # - Frontend dev server on port 5173 (auto-detected)
 ```
 
@@ -95,8 +106,8 @@ cd packages/server
 # OR use root-level command
 npm run server:dev
 
-# Server starts on: http://localhost:8004
-# API endpoints: http://localhost:8004/api/*
+# Server starts on: http://localhost:8003
+# API endpoints: http://localhost:8003/api/*
 ```
 
 #### **Start Frontend Development Server**
@@ -107,17 +118,17 @@ cd mainapp
 npm run client:dev
 
 # Frontend starts on: http://localhost:5173 (or next available port)
-# Proxies API calls to: http://localhost:8004
+# Proxies API calls to: http://localhost:8003
 ```
 
 ---
 
-## = **Step 4: Verify Connections**
+## 🔗 **Step 4: Verify Connections**
 
-### **Test Railway Database Connection**
+### **Test SSH Tunnel Database Connections**
 ```bash
 # Test API health (includes database status)
-curl http://localhost:8004/api/health
+curl http://localhost:8003/api/health
 
 # Should return:
 # {
@@ -129,6 +140,15 @@ curl http://localhost:8004/api/health
 # }
 ```
 
+### **Test Database Connectivity Directly**
+```bash
+# Test Content Database (via SSH tunnel)
+PGPASSWORD="SuFkUevgonaZFXJiJeczFiXYTlICHVJL" psql -h localhost -p 5432 -U postgres -d railway -c "SELECT NOW();"
+
+# Test Main Database (via SSH tunnel) 
+PGPASSWORD="lqqPEzvVbSCviTybKqMbzJkYvOUetJjt" psql -h localhost -p 5433 -U postgres -d railway -c "SELECT NOW();"
+```
+
 ### **Test Frontend Application**
 ```bash
 # Test frontend
@@ -137,58 +157,58 @@ curl http://localhost:5173
 # Should return: HTML with React app content
 ```
 
-### **Verify Database Tables**
+### **Verify API Endpoints**
 ```bash
 # Test database queries
-curl "http://localhost:8004/api/v1/banks"
+curl "http://localhost:8003/api/v1/banks"
 
 # Test content system
-curl "http://localhost:8004/api/content/home_page/en"
+curl "http://localhost:8003/api/content/home_page/en"
 ```
 
 ---
 
-## < **Access URLs**
+## 🌐 **Access URLs**
 
 ### **Local Development URLs**
 - **Frontend Application**: http://localhost:5173
-- **Backend API**: http://localhost:8004
-- **API Health Check**: http://localhost:8004/api/health
-- **Banks API**: http://localhost:8004/api/v1/banks
-- **Content API**: http://localhost:8004/api/content/{screen}/{language}
+- **Backend API**: http://localhost:8003
+- **API Health Check**: http://localhost:8003/api/health
+- **Banks API**: http://localhost:8003/api/v1/banks
+- **Content API**: http://localhost:8003/api/content/{screen}/{language}
 
 ### **API Endpoints Examples**
 ```bash
 # Banking data
-GET http://localhost:8004/api/v1/banks
-GET http://localhost:8004/api/v1/cities  
-GET http://localhost:8004/api/v1/params
+GET http://localhost:8003/api/v1/banks
+GET http://localhost:8003/api/v1/cities  
+GET http://localhost:8003/api/v1/params
 
 # Content management
-GET http://localhost:8004/api/content/home_page/en
-GET http://localhost:8004/api/content/mortgage_calculator/he
-GET http://localhost:8004/api/content/credit_calculator/ru
+GET http://localhost:8003/api/content/home_page/en
+GET http://localhost:8003/api/content/mortgage_calculator/he
+GET http://localhost:8003/api/content/credit_calculator/ru
 
 # Authentication
-POST http://localhost:8004/api/sms-login
-POST http://localhost:8004/api/sms-code-login
+POST http://localhost:8003/api/sms-login
+POST http://localhost:8003/api/sms-code-login
 ```
 
 ---
 
-## =� **Development Workflow**
+## 🛠️ **Development Workflow**
 
 ### **Daily Development Routine**
 ```bash
-# 1. Start Railway tunnel (in separate terminal)
-railway connect --service postgres
+# 1. Start SSH tunnels
+./scripts/start-ssh-tunnels.sh start
 
 # 2. Start development servers
 npm run dev
 
 # 3. Open browser
 # Frontend: http://localhost:5173
-# API: http://localhost:8004/api/health
+# API: http://localhost:8003/api/health
 ```
 
 ### **Working with Database Changes**
@@ -204,54 +224,62 @@ npm run migrate:status
 ### **Hot Reloading**
 - **Frontend**: Vite provides instant hot reloading
 - **Backend**: Nodemon restarts server on file changes
-- **Database**: Railway tunnel maintains persistent connection
+- **Database**: SSH tunnels maintain persistent connection
 
 ---
 
-## =� **Troubleshooting**
+## 🚨 **Troubleshooting**
 
-### **Railway Tunnel Issues**
+### **SSH Tunnel Issues**
 ```bash
 # Problem: Database connection failed
-# Solution 1: Restart Railway tunnel
-railway connect --service postgres
+# Solution 1: Restart SSH tunnels
+./scripts/start-ssh-tunnels.sh restart
 
-# Solution 2: Re-login to Railway
-railway logout
-railway login
-railway connect --service postgres
+# Solution 2: Check tunnel status
+./scripts/start-ssh-tunnels.sh status
 
-# Solution 3: Check Railway project connection
-railway status
+# Solution 3: Stop and start manually
+./scripts/start-ssh-tunnels.sh stop
+./scripts/start-ssh-tunnels.sh start
+
+# Solution 4: Check SSH connectivity
+ssh root@185.253.72.80 "echo 'SSH connection working'"
 ```
 
 ### **Port Conflicts**
 ```bash
 # Problem: Port already in use
 # Check what's using ports
-lsof -ti:8004  # Backend port
+lsof -ti:8003  # Backend port
 lsof -ti:5173  # Frontend port
+lsof -ti:5432  # Content DB tunnel
+lsof -ti:5433  # Main DB tunnel
 
 # Kill processes if needed
-kill $(lsof -ti:8004)
+kill $(lsof -ti:8003)
 kill $(lsof -ti:5173)
 
-# Restart development
+# Restart tunnels and development
+./scripts/start-ssh-tunnels.sh restart
 npm run dev
 ```
 
 ### **Database Connection Errors**
 ```bash
-# Check Railway connection status
-railway status
+# Check SSH tunnel status
+./scripts/start-ssh-tunnels.sh status
 
 # Test database connectivity
-curl http://localhost:8004/api/health
+curl http://localhost:8003/api/health
+
+# Test direct database connection
+PGPASSWORD="SuFkUevgonaZFXJiJeczFiXYTlICHVJL" psql -h localhost -p 5432 -U postgres -d railway -c "SELECT NOW();"
 
 # Check server logs
 cd packages/server
 npm run dev
-# Look for: " Main Database connected" and " Content Database connected"
+# Look for: "✅ Main Database connected" and "✅ Content Database connected"
 ```
 
 ### **Frontend Build Issues**
@@ -269,27 +297,31 @@ npm run client:dev
 
 ---
 
-## = **Railway Database Security**
+## 🔒 **SSH Tunnel Security Benefits**
 
-### **Railway Tunnel Benefits**
-- **Encrypted Connection**: Railway tunnel uses SSL/TLS
-- **Access Control**: Requires Railway authentication
-- **Network Isolation**: Database not directly exposed
-- **Automatic Reconnection**: Railway CLI handles connection drops
+### **Enhanced Security Architecture**
+- **Double Encryption**: SSH tunnel + TLS database connections
+- **Access Control**: Requires SSH key authentication
+- **Network Isolation**: Databases not directly exposed to internet
+- **Audit Trail**: SSH connection logging and monitoring
+- **Banking-Grade Security**: Meets enterprise security requirements
 
 ### **Connection Architecture**
 ```
-Local App � Railway CLI Tunnel � Railway Proxy � PostgreSQL Database
-     �              �                    �              �
-localhost:8004  railway connect   *.proxy.rlwy.net  Railway DB
+Local App → SSH Tunnel → Railway Proxy → PostgreSQL Database
+     ↓           ↓             ↓              ↓
+localhost:8003  SSH Server  *.proxy.rlwy.net  Railway DB
 ```
 
 ---
 
-## >� **Testing Setup**
+## 🧪 **Testing Setup**
 
 ### **Running Tests**
 ```bash
+# Ensure SSH tunnels are running
+./scripts/start-ssh-tunnels.sh status
+
 # Run all tests
 npm run test:all
 
@@ -308,28 +340,28 @@ npm run test
 NODE_ENV=test npm run server:dev
 
 # Verify test database (if configured)
-curl http://localhost:8004/api/health
+curl http://localhost:8003/api/health
 ```
 
 ---
 
-## =� **Development Monitoring**
+## 📊 **Development Monitoring**
 
 ### **Watch for Success Indicators**
 
-**1. Railway Tunnel Connection:**
+**1. SSH Tunnel Connection:**
 ```bash
-railway connect --service postgres
-# Should show: "Connected to postgres service"
+./scripts/start-ssh-tunnels.sh status
+# Should show: "✅ All SSH tunnels established successfully!"
 ```
 
 **2. Server Startup:**
 ```bash
 npm run server:dev
 # Should show: 
-#  Main Database connected: [timestamp]
-#  Content Database connected: [timestamp]  
-# =� Server running on port 8004
+# ✅ Main Database connected: [timestamp]
+# ✅ Content Database connected: [timestamp]  
+# 🚀 Server running on port 8003
 ```
 
 **3. Frontend Startup:**
@@ -349,16 +381,16 @@ npm run client:dev
   "contentDatabase": "connected", 
   "environment": "development",
   "corsEnabled": true,
-  "port": 8004
+  "port": 8003
 }
 ```
 
 ---
 
-## � **Performance Tips**
+## ⚡ **Performance Tips**
 
 ### **Optimize Development Experience**
-- **Keep Railway tunnel open** in dedicated terminal
+- **Keep SSH tunnels running** in background (managed by script)
 - **Use browser dev tools** for frontend debugging
 - **Monitor server logs** for backend issues
 - **Use PM2** for production-like local testing (optional)
@@ -366,44 +398,47 @@ npm run client:dev
 ### **Database Performance**
 - **NodeCache enabled** for content endpoints (5-minute TTL)
 - **Connection pooling** handles multiple requests
-- **Railway proxy** provides automatic load balancing
+- **SSH tunnel compression** enabled for better performance
 
 ---
 
-## <� **Quick Commands Reference**
+## 🎯 **Quick Commands Reference**
 
 ```bash
-# Start everything
-railway connect --service postgres &  # Keep tunnel open
-npm run dev                           # Start both servers
+# SSH Tunnel Management
+./scripts/start-ssh-tunnels.sh start    # Start tunnels
+./scripts/start-ssh-tunnels.sh stop     # Stop tunnels
+./scripts/start-ssh-tunnels.sh status   # Check status
+./scripts/start-ssh-tunnels.sh restart  # Restart tunnels
 
-# Individual components
-npm run server:dev                    # Backend only  
-npm run client:dev                    # Frontend only
+# Development
+npm run dev                             # Start both servers
+npm run server:dev                      # Backend only  
+npm run client:dev                      # Frontend only
 
 # Testing
-npm run test:all                      # All tests
-curl http://localhost:8004/api/health # Health check
-curl http://localhost:5173            # Frontend check
+npm run test:all                        # All tests
+curl http://localhost:8003/api/health   # Health check
+curl http://localhost:5173              # Frontend check
 
 # Troubleshooting  
-railway status                        # Railway connection
-lsof -ti:8004                        # Check port usage
-pm2 status                           # PM2 processes (if used)
+lsof -ti:8003                          # Check port usage
+ps aux | grep "ssh -L"                 # Check SSH tunnels
 ```
 
 ---
 
-## <� **Success Checklist**
+## 🎉 **Success Checklist**
 
 When everything is working correctly:
 
--  **Railway tunnel connected** and authenticated
--  **Backend server running** on port 8004
--  **Frontend dev server running** on port 5173
--  **Database connections active** (main + content)
--  **API endpoints responding** with proper data
--  **Frontend loading** with hot reloading enabled
--  **Cross-origin requests working** between frontend and backend
+- ✅ **SSH tunnels established** (both content and main database)
+- ✅ **Backend server running** on port 8003
+- ✅ **Frontend dev server running** on port 5173
+- ✅ **Database connections active** (main + content via SSH tunnels)
+- ✅ **API endpoints responding** with proper data
+- ✅ **Frontend loading** with hot reloading enabled
+- ✅ **Cross-origin requests working** between frontend and backend
+- ✅ **Enhanced security** with SSH + TLS encryption
 
-**=� You're ready for BankimOnline development with Railway database connectivity!**
+**🚀 You're ready for secure BankimOnline development with SSH tunnel database connectivity!**
