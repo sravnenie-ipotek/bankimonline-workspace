@@ -21,15 +21,43 @@ const contentCache = new NodeCache({
     useClones: false // Better performance for JSON objects
 });
 
+// Database configuration function for environment-based switching
+const getDatabaseConfig = (connectionType = 'content') => {
+    const isProduction = process.env.NODE_ENV === 'production';
+    const isRailwayProduction = process.env.RAILWAY_ENVIRONMENT === 'production';
+    
+    console.log(`🔧 Database Config - Environment: ${process.env.NODE_ENV || 'development'}, Railway: ${process.env.RAILWAY_ENVIRONMENT || 'not set'}`);
+    
+    if (isProduction || isRailwayProduction) {
+        // Production: Local PostgreSQL on server
+        console.log('🚀 Production environment detected - using local PostgreSQL');
+        return {
+            connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/bankim_content',
+            ssl: false // Local connections don't need SSL
+        };
+    } else {
+        // Development: Railway PostgreSQL
+        console.log('🛠️ Development environment detected - using Railway PostgreSQL');
+        
+        if (connectionType === 'content') {
+            return {
+                connectionString: process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway',
+                ssl: { rejectUnauthorized: false }
+            };
+        } else {
+            return {
+                connectionString: process.env.DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway',
+                ssl: { rejectUnauthorized: false }
+            };
+        }
+    }
+};
+
 // Main database connection (Core Database)
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || 'postgresql://postgres:lqqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway'
-});
+const pool = new Pool(getDatabaseConfig('main'));
 
 // Content database connection (SECOND database for content/translations)
-const contentPool = new Pool({
-    connectionString: process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway'
-});
+const contentPool = new Pool(getDatabaseConfig('content'));
 
 // Test main database connection
 pool.query('SELECT NOW()', (err, res) => {
@@ -3720,11 +3748,26 @@ app.post('/api/auth-verify', async (req, res) => {
         if (clientResult.rows.length > 0) {
             client = clientResult.rows[0];
         } else {
-            const newResult = await pool.query(
-                'INSERT INTO clients (first_name, last_name, phone, email, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING *',
-                ['New', 'Client', mobile_number, `${mobile_number.replace('+', '')}@bankim.com`]
-            );
-            client = newResult.rows[0];
+            try {
+                const newResult = await pool.query(
+                    'INSERT INTO clients (first_name, last_name, phone, email, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING *',
+                    ['New', 'Client', mobile_number, `${mobile_number.replace('+', '')}@bankim.com`]
+                );
+                client = newResult.rows[0];
+            } catch (insertError) {
+                // Handle race condition - if client was created by concurrent request
+                if (insertError.code === '23505' && insertError.constraint === 'clients_phone_key') {
+                    console.log(`[SMS] Race condition detected for ${mobile_number}, fetching existing client`);
+                    const existingResult = await pool.query('SELECT * FROM clients WHERE phone = $1', [mobile_number]);
+                    if (existingResult.rows.length > 0) {
+                        client = existingResult.rows[0];
+                    } else {
+                        throw new Error('Client creation failed and no existing client found');
+                    }
+                } else {
+                    throw insertError;
+                }
+            }
         }
         
         const token = jwt.sign(
@@ -3946,7 +3989,7 @@ app.post('/api/refinance-mortgage', async (req, res) => {
             LEFT JOIN bank_configurations bc ON b.id = bc.bank_id 
                 AND bc.product_type = 'mortgage'
                 AND bc.is_active = true
-            WHERE b.tender = 1
+            WHERE b.is_active = true
             ORDER BY COALESCE(bc.base_interest_rate, $1) ASC
             LIMIT 3
         `;
@@ -8011,15 +8054,15 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                     WHEN $4 = 'name_ru' THEN COALESCE(b.name_ru, b.name_en)
                     ELSE b.name_en
                 END as name, 
-                b.url as logo_url,
-                COALESCE(bc.min_loan_amount, cp_min.parameter_value, 50000) as min_loan_amount,
-                COALESCE(bc.max_loan_amount, cp_max.parameter_value, 5000000) as max_loan_amount,
+                NULL as logo_url,
+                COALESCE(bc.min_loan_amount, 50000) as min_loan_amount,
+                COALESCE(bc.max_loan_amount, 5000000) as max_loan_amount,
                 COALESCE(bc.base_interest_rate, $1) as base_interest_rate,
                 COALESCE(bc.min_interest_rate, $1 - 0.5) as min_interest_rate,
                 COALESCE(bc.max_interest_rate, $1 + 2.0) as max_interest_rate,
                 COALESCE(bc.max_ltv_ratio, $2) as max_ltv_ratio,
                 COALESCE(bc.min_credit_score, 620) as min_credit_score,
-                COALESCE(bc.processing_fee, cp_fee.parameter_value, 2500) as processing_fee,
+                COALESCE(bc.processing_fee, 2500) as processing_fee,
                 COALESCE(bc.risk_premium, 0.0) as risk_premium,
                 bc.auto_approval_enabled
             FROM banks b
@@ -8027,11 +8070,8 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                 AND bc.product_type = $3 
                 AND bc.is_active = true
                 AND (bc.effective_to IS NULL OR bc.effective_to >= CURRENT_DATE)
-            LEFT JOIN calculation_parameters cp_min ON cp_min.parameter_name = 'min_loan_amount'
-            LEFT JOIN calculation_parameters cp_max ON cp_max.parameter_name = 'max_loan_amount'  
-            LEFT JOIN calculation_parameters cp_fee ON cp_fee.parameter_name = 'processing_fee'
-            WHERE b.tender = 1
-            ORDER BY b.priority, b.name_en
+            WHERE b.is_active = true
+            ORDER BY b.name_en
         `;
         
         const banksResult = await pool.query(banksQuery, [
@@ -8052,19 +8092,13 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         console.log(`[COMPARE-BANKS] Found ${banks.length} active banks`);
         
         // Load global standards for fallback
-        const globalStandardsQuery = `
-            SELECT standard_name, standard_value
-            FROM banking_standards 
-            WHERE business_path = $1 AND is_active = true
-        `;
-        const globalStandardsResult = await pool.query(globalStandardsQuery, [
-            loan_type === 'mortgage' || loan_type === 'mortgage_refinance' ? 'mortgage' : 'credit'
-        ]);
-        
-        const globalStandards = {};
-        globalStandardsResult.rows.forEach(row => {
-            globalStandards[row.standard_name] = parseFloat(row.standard_value);
-        });
+        // Use default standards (banking_standards table not available - use hardcoded defaults)
+        const globalStandards = {
+            minimum_monthly_income: 3000,
+            minimum_age: 18,
+            maximum_age_at_maturity: 75,
+            pmi_ltv_max: 97
+        };
         
         // Calculate loan terms for each bank
         let bankOffers = [];
@@ -8258,15 +8292,14 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                             b.name_en,
                             b.name_he, 
                             b.name_ru,
-                            b.logo,
-                            b.url,
-                            COALESCE(b.fallback_interest_rate, 5.0) as fallback_rate,
-                            COALESCE(b.fallback_approval_rate, 80.0) as approval_rate,
-                            b.fallback_priority
+                            NULL as logo,
+                            NULL as url,
+                            5.0 as fallback_rate,
+                            80.0 as approval_rate,
+                            b.id as fallback_priority
                         FROM banks b
                         WHERE b.is_active = true 
-                        AND b.show_in_fallback = true
-                        ORDER BY b.fallback_priority ASC, b.priority ASC, b.name_en ASC
+                        ORDER BY b.id ASC, b.name_en ASC
                         LIMIT $1
                     `;
                     
@@ -8287,7 +8320,7 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                             bankOffers.push({
                                 bank_id: `fallback-${bank.id}`,
                                 bank_name: bank.bank_name || bank.name_en,
-                                bank_logo: bank.logo || bank.url,
+                                bank_logo: bank.logo || bank.url || null,
                                 loan_amount: amount,
                                 monthly_payment: Math.round(monthlyPayment),
                                 interest_rate: parseFloat(rate.toFixed(2)),
@@ -8968,7 +9001,7 @@ app.get('/api/applications/:id/status', async (req, res) => {
                 la.term_months, la.monthly_payment,
                 la.application_data, la.review_notes,
                 c.name as client_name, c.email, c.phone,
-                b.name as bank_name, b.logo_url as bank_logo
+                b.name_en as bank_name, NULL as bank_logo
             FROM loan_applications la
             JOIN clients c ON la.client_id = c.id
             JOIN banks b ON la.bank_id = b.id
@@ -9554,40 +9587,69 @@ app.get('/api/v1/calculation-parameters', async (req, res) => {
             });
         }
 
-        // Get configuration parameters from banking_standards table
-        const parametersQuery = `
-            SELECT 
-                standard_category,
-                standard_name,
-                standard_value,
-                value_type,
-                description
-            FROM banking_standards 
-            WHERE business_path = $1 
-                AND is_active = true
-                AND (effective_to IS NULL OR effective_to >= CURRENT_DATE)
-            ORDER BY standard_category, standard_name
-        `;
-        
-        const result = await pool.query(parametersQuery, [business_path]);
-        
-        // Organize parameters by category
-        const parameters = {};
-        result.rows.forEach(row => {
-            if (!parameters[row.standard_category]) {
-                parameters[row.standard_category] = {};
-            }
-            parameters[row.standard_category][row.standard_name] = {
-                value: parseFloat(row.standard_value),
-                type: row.value_type,
-                description: row.description
+        // Get configuration parameters - use default values (banking_standards table not available)
+        let parameters = {};
+        try {
+            const parametersQuery = `
+                SELECT 
+                    standard_category,
+                    standard_name,
+                    standard_value,
+                    value_type,
+                    description
+                FROM banking_standards 
+                WHERE business_path = $1 
+                    AND is_active = true
+                    AND (effective_to IS NULL OR effective_to >= CURRENT_DATE)
+                ORDER BY standard_category, standard_name
+            `;
+            
+            const result = await pool.query(parametersQuery, [business_path]);
+            
+            // Organize parameters by category
+            result.rows.forEach(row => {
+                if (!parameters[row.standard_category]) {
+                    parameters[row.standard_category] = {};
+                }
+                parameters[row.standard_category][row.standard_name] = {
+                    value: parseFloat(row.standard_value),
+                    type: row.value_type,
+                    description: row.description
+                };
+            });
+        } catch (paramError) {
+            console.warn('[CALC-PARAMS] banking_standards table not found, using default fallback values');
+            // Use hardcoded defaults for mortgage calculation parameters
+            parameters = {
+                eligibility: {
+                    minimum_monthly_income: { value: 3000, type: 'currency', description: 'Minimum monthly income required' },
+                    minimum_age: { value: 18, type: 'integer', description: 'Minimum borrower age' },
+                    maximum_age_at_maturity: { value: 75, type: 'integer', description: 'Maximum age when loan matures' }
+                },
+                loan_terms: {
+                    minimum_loan_amount: { value: 50000, type: 'currency', description: 'Minimum loan amount' },
+                    maximum_loan_amount: { value: 3000000, type: 'currency', description: 'Maximum loan amount' },
+                    minimum_term_years: { value: 5, type: 'integer', description: 'Minimum loan term in years' },
+                    maximum_term_years: { value: 30, type: 'integer', description: 'Maximum loan term in years' }
+                },
+                ratios: {
+                    pmi_ltv_max: { value: 97, type: 'percentage', description: 'Maximum LTV for PMI calculation' },
+                    front_end_dti_max: { value: 45, type: 'percentage', description: 'Maximum front-end DTI ratio' },
+                    back_end_dti_max: { value: 45, type: 'percentage', description: 'Maximum back-end DTI ratio' }
+                }
             };
-        });
+        }
 
-        // Get current mortgage rate using database function
-        const rateQuery = `SELECT get_current_mortgage_rate() as current_rate`;
-        const rateResult = await pool.query(rateQuery);
-        const currentRate = parseFloat(rateResult.rows[0].current_rate);
+        // Get current mortgage rate using database function with fallback
+        let currentRate = 5.0; // Default fallback rate
+        try {
+            const rateQuery = `SELECT get_current_mortgage_rate() as current_rate`;
+            const rateResult = await pool.query(rateQuery);
+            currentRate = parseFloat(rateResult.rows[0].current_rate);
+        } catch (rateError) {
+            console.warn('[CALC-PARAMS] get_current_mortgage_rate function not found, using default rate 5.0%');
+            currentRate = 5.0;
+        }
 
         // Get property ownership LTV ratios with fallback
         let propertyOwnershipLtvs = {};

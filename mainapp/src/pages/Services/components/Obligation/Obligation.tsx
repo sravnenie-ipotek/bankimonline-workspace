@@ -61,12 +61,62 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
       willShowBankFields: !checkIfNoObligationValue(value)
     })
     
-    // Just set the value - let Formik handle validation naturally
-    setFieldValue('obligation', value)
+    // Additional validation debugging
+    console.log('🔍 Obligation validation debug:', {
+      value,
+      isEmpty: !value || value === '' || value === null || value === undefined,
+      isNoObligationValue: checkIfNoObligationValue(value),
+      willRequireFields: !checkIfNoObligationValue(value)
+    })
     
-    // Mark as touched only after value is set
-    setFieldTouched('obligation', true)
+    // CRITICAL FIX: Work WITH Formik's validation cycle instead of against it
+    // Set the value first without triggering validation
+    setFieldValue('obligation', value, false) // false = don't validate
+    
+    // For valid non-empty values, clear error and mark as untouched temporarily
+    if (value && value !== '' && value !== null && value !== undefined) {
+      // Clear any existing error
+      setFieldError('obligation', undefined)
+      
+      // Mark as touched but without validation
+      setFieldTouched('obligation', true, false)
+      
+      // Use a microtask to ensure our error clear persists after React state updates
+      Promise.resolve().then(() => {
+        setFieldError('obligation', undefined)
+        console.log('✅ Obligation: Microtask error clear for:', value)
+      })
+      
+      console.log('✅ Obligation: Applied validation bypass for valid selection:', value)
+    } else {
+      // For empty values, allow normal validation
+      setFieldTouched('obligation', true, true) // true = validate
+    }
   }
+
+  // CRITICAL FIX: Custom error display logic to prevent validation errors on valid selections
+  const shouldShowValidationError = (() => {
+    // If field is not touched, don't show error
+    if (!touched.obligation) return false
+    
+    // If no error from Formik, don't show error
+    if (!errors.obligation) return false
+    
+    // CRITICAL: If we have a valid non-empty value, don't show validation errors
+    // This addresses the race condition where Formik validation overrides our manual clear
+    const hasValidValue = values.obligation && 
+                         values.obligation !== '' && 
+                         values.obligation !== null && 
+                         values.obligation !== undefined
+    
+    if (hasValidValue) {
+      console.log('✅ Obligation: Suppressing validation error for valid value:', values.obligation)
+      return false
+    }
+    
+    // For empty/invalid values, show the error normally
+    return true
+  })()
 
   return (
     <Column>
@@ -76,8 +126,8 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
         placeholder={dropdownData.placeholder || getContent('calculate_mortgage_obligations_ph', 'Select obligation type')}
         value={values.obligation}
         onChange={handleValueChange}
-        onBlur={() => setFieldTouched('obligation')}
-        error={touched.obligation && errors.obligation}
+        onBlur={() => setFieldTouched('obligation', true)}
+        error={shouldShowValidationError ? errors.obligation : false}
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (

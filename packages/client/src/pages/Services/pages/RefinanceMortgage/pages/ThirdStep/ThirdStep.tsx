@@ -10,7 +10,7 @@ import { updateRefinanceMortgageData } from '@src/pages/Services/slices/refinanc
 
 import { DoubleButtons } from '../../../../components/DoubleButtons'
 import ThirdStepForm from './ThirdStepForm/ThirdStepForm'
-import { validationSchema } from './constants'
+import { getValidationSchema } from './constants'
 
 const ThirdStep = () => {
   const dispatch = useAppDispatch()
@@ -40,7 +40,7 @@ const ThirdStep = () => {
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
+        validationSchema={getValidationSchema()}
         validateOnMount={true}
         onSubmit={(values) => {
           dispatch(updateRefinanceMortgageData(values))

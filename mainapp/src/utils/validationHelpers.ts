@@ -7,7 +7,7 @@ const validationCache = new Map<string, Record<string, string>>();
 const getApiBaseUrl = (): string => {
   // Check if we're running on localhost (development)
   if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-    return 'http://localhost:8004/api'
+    return 'http://localhost:8003/api'
   }
   
   // In production, use environment variable or fallback to Railway production
