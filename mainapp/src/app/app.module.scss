@@ -1,6 +1,5 @@
 .app {
-  background-color: theme("colors.base.primary");
-  color: theme("colors.textTheme.primary");
+  @apply bg-base-primary text-textTheme-primary;
   min-height: 100vh;
   width: 100%;
 }

@@ -1629,5 +1629,49 @@
   "__MIGRATED_calculate_mortgage_period_units_max": "MIGRATED to database - screen_location: refinance_credit_1, content_key: calculate_mortgage_period_units_max",
   "__MIGRATED_calculate_mortgage_period_units_min": "MIGRATED to database - screen_location: refinance_credit_1, content_key: calculate_mortgage_period_units_min",
   "__MIGRATED_date_ph": "MIGRATED to database - screen_location: refinance_credit_1, content_key: date_ph",
-  "__MIGRATED_calculate_mortgage_first_ph": "MIGRATED to database - screen_location: refinance_credit_1, content_key: calculate_mortgage_first_ph"
+  "__MIGRATED_calculate_mortgage_first_ph": "MIGRATED to database - screen_location: refinance_credit_1, content_key: calculate_mortgage_first_ph",
+  "cities": {
+    "tel_aviv": "תל אביב",
+    "jerusalem": "ירושלים",
+    "haifa": "חיפה",
+    "beer_sheva": "באר שבע",
+    "netanya": "נתניה",
+    "ashdod": "אשדוד",
+    "petah_tikva": "פתח תקווה",
+    "rishon_lezion": "ראשון לציון",
+    "holon": "חולון",
+    "bat_yam": "בת ים",
+    "ramat_gan": "רמת גן",
+    "herzliya": "הרצליה",
+    "kfar_saba": "כפר סבא",
+    "raanana": "רעננה",
+    "modiin": "מודיעין",
+    "rehovot": "רחובות",
+    "nes_ziona": "נס ציונה",
+    "yavne": "יבנה",
+    "ashkelon": "אשקלון",
+    "kfar_yona": "כפר יונה"
+  },
+  "regions": {
+    "central": "מחוז המרכז",
+    "tel_aviv": "מחוז תל אביב",
+    "jerusalem": "מחוז ירושלים",
+    "haifa": "מחוז חיפה",
+    "south": "מחוז הדרום",
+    "north": "מחוז הצפון"
+  },
+  "professions": {
+    "engineer": "מהנדס",
+    "doctor": "רופא",
+    "teacher": "מורה",
+    "lawyer": "עורך דין",
+    "accountant": "רואה חשבון",
+    "manager": "מנהל",
+    "sales": "נציג מכירות",
+    "developer": "מפתח תוכנה",
+    "nurse": "אחות",
+    "dentist": "רופא שיניים",
+    "architect": "אדריכל",
+    "designer": "מעצב"
+  }
 }

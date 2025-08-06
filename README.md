@@ -4,6 +4,23 @@
 
 This is the **single development environment** where all teams collaborate on the Bankimonline banking platform. All development happens here, with automated deployment to specialized repositories.
 
+## ⚠️ **IMPORTANT: Always Use Push/Pull Guide**
+
+**Before making any pushes, ALWAYS consult the comprehensive developer guide:**
+- 📖 **[Push and Pull Logic Guide](server/docs/pushAndPullLogic.md)** - Complete workflow instructions
+- 🔄 **Dual-push commands** handle both workspace and deployment repositories
+- 🛡️ **Security-first approach** with proper JWT handling
+- 🧪 **Testing requirements** before deployment
+- 🚨 **Emergency procedures** for rollbacks and troubleshooting
+
+**Quick Reference:**
+```bash
+npm run push-client     # Push client changes
+npm run push-server     # Push server changes  
+npm run push-shared     # Push shared changes
+npm run push-all        # Push all changes
+```
+
 ## 📦 Repository Architecture
 
 **Hybrid 4-Repository System**:
@@ -107,7 +124,17 @@ bankimonline-workspace/
 2. **Test locally** - Use `npm run dev:all` for full-stack development
 3. **Build and validate** - Run `npm run build:all` and `npm run test:all`
 4. **Commit changes** - Standard git workflow in workspace
-5. **Deploy** - Use dual-push commands to deploy to specialized repositories
+5. **📖 CONSULT PUSH GUIDE** - **ALWAYS** read [Push and Pull Logic Guide](server/docs/pushAndPullLogic.md) before pushing
+6. **Deploy** - Use dual-push commands to deploy to specialized repositories
+
+### ⚠️ **Critical Push Requirements**
+
+**Before ANY push operation, you MUST:**
+- ✅ Read the complete [Push and Pull Logic Guide](server/docs/pushAndPullLogic.md)
+- ✅ Run `npm run test:all` to verify all tests pass
+- ✅ Run `npm run build:all` to ensure builds succeed
+- ✅ Check for security issues (no hardcoded secrets)
+- ✅ Use appropriate dual-push command based on changes made
 
 ### Team Collaboration
 
@@ -165,6 +192,8 @@ const MyComponent = () => {
 
 Each deployment updates both the workspace and the target repository:
 
+**📖 ALWAYS consult [Push and Pull Logic Guide](server/docs/pushAndPullLogic.md) before using these commands:**
+
 ```bash
 # Deploy client changes
 npm run push-client
@@ -177,6 +206,10 @@ npm run push-server
 # Deploy shared changes
 npm run push-shared  
 # → Pushes to workspace + bankimonline-shared
+
+# Deploy all changes
+npm run push-all
+# → Pushes to workspace + all deployment repositories
 ```
 
 ### Deployment Targets
@@ -234,6 +267,25 @@ npm run push-shared
 - Hot reload: <200ms
 - Full build: <30 seconds
 - Test suite: <2 minutes
+
+## 🚨 **CRITICAL REMINDER**
+
+**Before ANY push operation, you MUST read the complete guide:**
+📖 **[Push and Pull Logic Guide](server/docs/pushAndPullLogic.md)**
+
+This guide contains:
+- ✅ Step-by-step push/pull workflows
+- ✅ Security requirements and JWT handling
+- ✅ Testing and validation procedures
+- ✅ Troubleshooting and emergency procedures
+- ✅ Team collaboration patterns
+- ✅ Branch management strategies
+
+**Failure to follow the guide may result in:**
+- 🔒 Security vulnerabilities
+- 🚫 Deployment failures
+- 🔄 Repository synchronization issues
+- 🧪 Broken test suites
 
 ---
 
