@@ -1,0 +1,273 @@
+.co-borrower-personal-data-page {
+  width: 100%;
+  height: 100%;
+  background-color: #161616;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  
+  .content {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    border-bottom: 1px solid #333535;
+    
+    .borrower-name {
+      font-size: 48px;
+      font-weight: 500;
+      color: #ffffff;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+    
+    .back-to-cabinet {
+      background-color: #35373f;
+      border: 1px solid #3f444d;
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Roboto', sans-serif;
+      
+      &:hover {
+        background-color: #3f444d;
+        border-color: #4a4f59;
+      }
+      
+      &:focus {
+        outline: none;
+        border-color: #fbe54d;
+        box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2);
+      }
+    }
+  }
+  
+  /* Override FormContainer styles for dark theme */
+  :global(.form-container) {
+    background-color: #242529 !important;
+    border: 1px solid #333535 !important;
+    border-radius: 12px !important;
+    padding: 30px !important;
+    margin: 0 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+  
+  /* Row and column styling */
+  :global(.row) {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 20px !important;
+    margin-bottom: 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  :global(.column) {
+    flex: 1 !important;
+    min-width: 250px !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    
+    /* Ensure form inputs don't overflow */
+    input, select, textarea {
+      width: 100% !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      background-color: #35373f !important;
+      border: 1px solid #3f444d !important;
+      color: #ffffff !important;
+      padding: 12px !important;
+      border-radius: 6px !important;
+      
+      &::placeholder {
+        color: #848484 !important;
+      }
+      
+      &:focus {
+        border-color: #fbe54d !important;
+        outline: none !important;
+        box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.1) !important;
+      }
+    }
+  }
+  
+  /* Form caption styling */
+  :global(.form-caption) {
+    background-color: transparent !important;
+    border: 1px dashed #46a08f !important;
+    color: #ffffff !important;
+    padding: 15px 24px !important;
+    border-radius: 8px !important;
+    margin-bottom: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    
+    svg {
+      color: #46a08f !important;
+    }
+  }
+  
+  /* Info component styling */
+  :global(.info) {
+    color: #848484 !important;
+    font-size: 14px !important;
+    margin-top: 20px !important;
+    text-align: center !important;
+  }
+  
+  /* Navigation buttons styling to match Figma Actions #24 & #25 */
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    gap: 20px;
+    
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  .back-button {
+    padding: 12px 32px;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #666;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-family: 'Roboto', sans-serif;
+    min-width: 120px;
+    
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: #999;
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: #fbe54d;
+      box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2);
+    }
+  }
+
+  .save-button {
+    padding: 12px 32px;
+    background-color: #fbe54d;
+    color: #000000;
+    border: 1px solid #fbe54d;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-family: 'Roboto', sans-serif;
+    min-width: 140px;
+    
+    &:hover {
+      background-color: #e6d145;
+      border-color: #e6d145;
+    }
+    
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.3);
+    }
+    
+    &:disabled {
+      background-color: #666;
+      color: #999;
+      border-color: #666;
+      cursor: not-allowed;
+    }
+  }
+
+  /* Button styling */
+  button {
+    font-family: 'Roboto', sans-serif !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    padding: 14px 32px !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    border: none !important;
+    min-height: 48px !important;
+    
+    &[type="submit"] {
+      background-color: #fbe54d !important;
+      color: #161616 !important;
+      
+      &:hover {
+        background-color: #f9e036 !important;
+      }
+      
+      &:focus {
+        outline: none !important;
+        box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.3) !important;
+      }
+    }
+    
+    &[type="button"] {
+      background-color: transparent !important;
+      color: #ffffff !important;
+      border: 1px solid #3f444d !important;
+      
+      &:hover {
+        background-color: #35373f !important;
+        border-color: #4a4f59 !important;
+      }
+      
+      &:focus {
+        outline: none !important;
+        border-color: #fbe54d !important;
+        box-shadow: 0 0 0 2px rgba(251, 229, 77, 0.2) !important;
+      }
+    }
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .content {
+      padding: 15px;
+    }
+    
+    .header {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+      
+      .borrower-name {
+        font-size: 24px;
+      }
+    }
+    
+    :global(.form-container) {
+      padding: 20px !important;
+    }
+    
+    button {
+      width: 100% !important;
+      margin-bottom: 10px !important;
+    }
+  }
+} 

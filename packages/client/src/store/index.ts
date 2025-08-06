@@ -1,55 +1,151 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
   PURGE,
   REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
 } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-// Import slices (to be added as services are migrated)
-import languageSlice from './slices/languageSlice'
+import { configureStore } from '@reduxjs/toolkit'
+import modalSliceReducer from '@src/pages/Services/slices/modalSlice.ts'
+import refinanceCredit from '@src/pages/Services/slices/refinanceCredit.ts'
+import { api } from '@src/services/api.ts'
+import authReducer from '@src/store/slices/authSlice.ts'
+import dialogReducer from '@src/store/slices/dialogSlice.ts'
+import currencyReducer from '@src/store/slices/currencySlice.ts'
 
-// Root reducer
-const rootReducer = combineReducers({
-  language: languageSlice,
-  // Additional slices will be added here as services are migrated:
-  // auth: authSlice,
-  // mortgage: mortgageSlice,
-  // credit: creditSlice,
-  // etc.
-})
+import activeFieldReducer from '../pages/Services/slices/activeField.ts'
+import borrowersPersonalDataReducer from '../pages/Services/slices/borrowersPersonalDataSlice.ts'
+import borrowersReducer from '../pages/Services/slices/borrowersSlice.ts'
+import creditReducer from '../pages/Services/slices/calculateCreditSlice.ts'
+import mortgageReducer from '../pages/Services/slices/calculateMortgageSlice.ts'
+import filterReducer from '../pages/Services/slices/filterSlice.ts'
+import loginReducer from '../pages/Services/slices/loginSlice.ts'
+import otherBorrowersReducer from '../pages/Services/slices/otherBorrowersSlice.ts'
+import refinanceMortgageReducer from '../pages/Services/slices/refinanceMortgageSlice.ts'
+import languageReducer from './slices/languageSlice'
+import windowSizeReducer from './slices/windowSizeSlice'
 
-// Persist configuration
 const persistConfig = {
-  key: 'bankimonline-client',
+  key: 'calculateMortgage',
   storage,
-  whitelist: [
-    'language',
-    // Add other slices to persist as they are migrated
-  ],
 }
 
-const persistedReducer = persistReducer(persistConfig, rootReducer)
+const persistedMortgageReducer = persistReducer(persistConfig, mortgageReducer)
 
-// Configure store
-export const store = configureStore({
-  reducer: persistedReducer,
+const refinanceMortgagePersistConfig = {
+  key: 'refinanceMortgage',
+  storage,
+}
+
+const persistedRefinanceMortgageReducer = persistReducer(
+  refinanceMortgagePersistConfig,
+  refinanceMortgageReducer
+)
+
+const persistCreditConfig = {
+  key: 'calculateCredit',
+  storage,
+}
+
+const persistedCreditReducer = persistReducer(
+  persistCreditConfig,
+  creditReducer
+)
+
+const refinanceCreditPersistConfig = {
+  key: 'refinanceCredit',
+  storage,
+}
+
+const persistedRefinanceCreditReducer = persistReducer(
+  refinanceCreditPersistConfig,
+  refinanceCredit
+)
+
+const borrowersPersonalDataPersistConfig = {
+  key: 'borrowersPersonalData',
+  storage,
+}
+
+const persistedBorrowersPersonalDataReducer = persistReducer(
+  borrowersPersonalDataPersistConfig,
+  borrowersPersonalDataReducer
+)
+
+const otherBorrowersConfig = {
+  key: 'otherBorrowers',
+  storage,
+}
+
+const persistedOtherBorrowersReducer = persistReducer(
+  otherBorrowersConfig,
+  otherBorrowersReducer
+)
+
+const borrowersPersistConfig = {
+  key: 'borrowers',
+  storage,
+}
+
+const persistedBorrowersReducer = persistReducer(
+  borrowersPersistConfig,
+  borrowersReducer
+)
+
+const loginPersistConfig = {
+  key: 'login',
+  storage,
+}
+
+const persistedLoginReducer = persistReducer(loginPersistConfig, loginReducer)
+
+const languagePersistConfig = {
+  key: 'lang',
+  storage,
+}
+
+const persistedLanguageReducer = persistReducer(
+  languagePersistConfig,
+  languageReducer
+)
+
+const store = configureStore({
+  reducer: {
+    [api.reducerPath]: api.reducer,
+    language: persistedLanguageReducer,
+    windowSize: windowSizeReducer,
+    auth: authReducer,
+    login: persistedLoginReducer,
+    dialog: dialogReducer,
+    currency: currencyReducer,
+    mortgage: persistedMortgageReducer,
+    refinanceMortgage: persistedRefinanceMortgageReducer,
+    refinanceCredit: persistedRefinanceCreditReducer,
+    credit: persistedCreditReducer,
+    borrowers: persistedBorrowersReducer,
+    otherBorrowers: persistedOtherBorrowersReducer,
+    borrowersPersonalData: persistedBorrowersPersonalDataReducer,
+    filter: filterReducer,
+    modalSlice: modalSliceReducer,
+    activeField: activeFieldReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredPaths: ['dialog'],
       },
-    }),
-  devTools: process.env.NODE_ENV !== 'production',
+    }).concat(api.middleware),
 })
 
-export const persistor = persistStore(store)
+const persistor = persistStore(store)
 
-// Export types
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
+
+export { store, persistor }

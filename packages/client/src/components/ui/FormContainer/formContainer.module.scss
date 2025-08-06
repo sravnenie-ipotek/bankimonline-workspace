@@ -1,0 +1,10 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: flex-start;
+  
+  @media screen and (max-width: 890px) {
+    padding-bottom: 8rem;
+  }
+}

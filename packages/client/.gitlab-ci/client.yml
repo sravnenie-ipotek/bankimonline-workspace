@@ -1,0 +1,92 @@
+.cache: &client_cache
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - client/.npm
+
+.client-job:
+  variables:
+    NODE_ENV: production
+  before_script:
+    - cd client && npm i --production=false --cache .npm --prefer-offline
+  cache:
+    <<: *client_cache
+    policy: pull
+
+
+build-client-job:
+  stage: build
+  extends: .client-job
+  script:
+    - CI=true npm run build
+  cache:
+    <<: *client_cache
+
+
+test-client-unit-job:
+  stage: test
+  extends: .client-job
+  script:
+    - CI=true npm test
+
+
+.pages_deploy_job:
+  extends: .client-job
+  stage: deploy
+  script:
+    - |
+        sed -i '5i\  "homepage": "'"$HOMEPAGE"'",' ./package.json
+    - CI=true npm run build
+    - rm -rf public
+    - mv build public
+    - mv public ../public
+
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - public
+
+  variables:
+    HOMEPAGE: ""
+
+
+review app:
+  extends: .pages_deploy_job
+
+  variables:
+    HOMEPAGE: "/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/public"
+
+  except:
+    - main
+
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    url: "https://$CI_PROJECT_NAMESPACE.gitlab.io/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/public/index.html"
+    auto_stop_in: 1 week
+
+
+stop review app:
+  stage: deploy
+  image: alpine
+
+  script: echo "stop review app for $CI_COMMIT_REF_NAME"
+
+  environment:
+    name: review/$CI_COMMIT_REF_SLUG
+    action: stop
+
+  rules:
+    - when: never
+
+
+pages:
+  extends: .pages_deploy_job
+
+  variables:
+    HOMEPAGE: "/$CI_PROJECT_NAME"
+
+  only:
+    - main
+
+  environment:
+    name: pages
+    url: $CI_PAGES_URL

@@ -1,0 +1,47 @@
+{
+  "issues": [
+    {
+      "id": "OS-94",
+      "title": "Russian translation issue",
+      "description": "Russian translation issue - all features working",
+      "status": "✅ done",
+      "priority": "medium",
+      "assignee": "dev-team",
+      "created_date": "2025-06-20",
+      "updated_date": "2025-06-21",
+      "last_check_date": "2025-06-21T12:00:00",
+      "resolution": "Russian translation issue fixed, all features working properly"
+    },
+    {
+      "id": "OS-96",
+      "title": "Sticky button issue",
+      "description": "Sticky button positioning issue on mobile devices",
+      "status": "✅ done",
+      "priority": "high",
+      "assignee": "dev-team",
+      "created_date": "2025-06-20",
+      "updated_date": "2025-06-21",
+      "last_check_date": "2025-06-21T12:00:00",
+      "resolution": "Sticky button issue fixed - now using position: fixed on mobile"
+    },
+    {
+      "id": "OS-97",
+      "title": "Phone verification actions implementation",
+      "description": "Implementation of all 8 actions for phone verification with validation and country codes",
+      "status": "✅ done",
+      "priority": "high",
+      "assignee": "dev-team",
+      "created_date": "2025-06-20",
+      "updated_date": "2025-06-21",
+      "last_check_date": "2025-06-21T12:00:00",
+      "resolution": "All 8 actions now properly implemented with validation and country codes"
+    }
+  ],
+  "summary": {
+    "total_issues": 3,
+    "completed": 3,
+    "in_progress": 0,
+    "open": 0,
+    "last_update": "2025-06-21T12:00:00"
+  }
+}

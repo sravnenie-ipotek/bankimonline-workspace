@@ -1,0 +1,99 @@
+.mortgage-data {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  &-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__text {
+      font-size: 1.9375rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    &__button {
+      display: flex;
+      width: 15.5625rem;
+      padding: 0.75rem 1rem;
+      align-items: center;
+      border-radius: 0.5rem;
+      border: 1px solid #333535;
+      gap: 1.3rem;
+      justify-content: flex-end;
+    }
+  }
+  &-form {
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+    
+    &__items {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      width: 100%;
+    }
+    &__item-delete-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: -1rem;
+      margin-bottom: 1rem;
+    }
+    &__item-delete-button {
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid theme("colors.base.secondaryDefaultButton");
+      border-radius: 0.5rem;
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 44px;
+      min-height: 44px;
+      
+      &:hover {
+        background: rgba(231, 97, 67, 0.1);
+        border-color: theme("colors.warning.validation");
+      }
+      
+      svg {
+        width: 20px;
+        height: 20px;
+        color: theme("colors.warning.validation");
+      }
+    }
+    &__add {
+      margin-top: 0;
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+    }
+  }
+}
+
+// RTL Support
+[dir="rtl"] {
+  .mortgage-data {
+    &-title {
+      &__button {
+        flex-direction: row-reverse;
+      }
+    }
+    &-form {
+      &__item-delete-wrapper {
+        justify-content: flex-start;
+      }
+    }
+  }
+}
+
+.button-left__icon {
+  display: flex;
+  gap: 0.4rem;
+}

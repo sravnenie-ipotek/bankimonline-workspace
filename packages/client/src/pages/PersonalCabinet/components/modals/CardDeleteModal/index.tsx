@@ -1,0 +1,1 @@
+export { CardDeleteModal, default } from './CardDeleteModal' 

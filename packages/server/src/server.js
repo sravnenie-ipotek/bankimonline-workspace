@@ -2537,11 +2537,47 @@ app.get('/api/get-cities', async (req, res) => {
         });
     } catch (err) {
         console.error('Error fetching cities from database:', err);
-        res.status(500).json({ 
-            status: 'error', 
-            message: 'Internal server error while fetching cities',
-            language: selectedLang
-        });
+        console.log('🔄 Using i18n fallback cities data due to database connection issue');
+        
+        // Load translation file for fallback
+        const translationPath = path.join(__dirname, '../mainapp/public/locales', selectedLang, 'translation.json');
+        
+        try {
+            const translationData = JSON.parse(fs.readFileSync(translationPath, 'utf8'));
+            const citiesData = translationData.cities || {};
+            
+            // Convert cities object to array format expected by frontend
+            const citiesArray = Object.entries(citiesData).map(([key, name], index) => ({
+                id: index + 1,
+                value: key,
+                name: name
+            }));
+            
+            res.json({
+                status: 'success',
+                data: citiesArray,
+                language: selectedLang,
+                total: citiesArray.length,
+                is_fallback: true
+            });
+        } catch (translationErr) {
+            console.error('Error loading translation file:', translationErr);
+            
+            // Ultimate fallback if translation file fails
+            const ultimateFallback = [
+                { id: 1, value: 'tel_aviv', name: 'Tel Aviv' },
+                { id: 2, value: 'jerusalem', name: 'Jerusalem' },
+                { id: 3, value: 'haifa', name: 'Haifa' }
+            ];
+            
+            res.json({
+                status: 'success',
+                data: ultimateFallback,
+                language: selectedLang,
+                total: ultimateFallback.length,
+                is_fallback: true
+            });
+        }
     }
 });
 
@@ -2566,11 +2602,46 @@ app.get('/api/get-regions', async (req, res) => {
         });
     } catch (err) {
         console.error('Error fetching regions from database:', err);
-        res.status(500).json({ 
-            status: 'error', 
-            message: 'Internal server error while fetching regions',
-            language: selectedLang
-        });
+        console.log('🔄 Using i18n fallback regions data due to database connection issue');
+        
+        // Load translation file for fallback
+        const translationPath = path.join(__dirname, '../mainapp/public/locales', selectedLang, 'translation.json');
+        
+        try {
+            const translationData = JSON.parse(fs.readFileSync(translationPath, 'utf8'));
+            const regionsData = translationData.regions || {};
+            
+            // Convert regions object to array format expected by frontend
+            const regionsArray = Object.entries(regionsData).map(([key, name], index) => ({
+                id: index + 1,
+                key: key,
+                name: name
+            }));
+            
+            res.json({
+                status: 'success',
+                data: regionsArray,
+                language: selectedLang,
+                total: regionsArray.length,
+                is_fallback: true
+            });
+        } catch (translationErr) {
+            console.error('Error loading translation file:', translationErr);
+            
+            // Ultimate fallback if translation file fails
+            const ultimateFallback = [
+                { id: 1, key: 'central', name: 'Central District' },
+                { id: 2, key: 'tel_aviv', name: 'Tel Aviv District' }
+            ];
+            
+            res.json({
+                status: 'success',
+                data: ultimateFallback,
+                language: selectedLang,
+                total: ultimateFallback.length,
+                is_fallback: true
+            });
+        }
     }
 });
 
@@ -2605,11 +2676,54 @@ app.get('/api/get-professions', async (req, res) => {
         });
     } catch (err) {
         console.error('Error fetching professions from database:', err);
-        res.status(500).json({ 
-            status: 'error', 
-            message: 'Internal server error while fetching professions',
-            language: selectedLang
-        });
+        console.log('🔄 Using i18n fallback professions data due to database connection issue');
+        
+        // Load translation file for fallback
+        const translationPath = path.join(__dirname, '../mainapp/public/locales', selectedLang, 'translation.json');
+        
+        try {
+            const translationData = JSON.parse(fs.readFileSync(translationPath, 'utf8'));
+            const professionsData = translationData.professions || {};
+            
+            // Convert professions object to array format expected by frontend
+            let professionsArray = Object.entries(professionsData).map(([key, name], index) => ({
+                id: index + 1,
+                key: key,
+                name: name,
+                category: 'general' // Default category for i18n fallback
+            }));
+            
+            // Filter by category if specified
+            if (category) {
+                professionsArray = professionsArray.filter(profession => profession.category === category);
+            }
+            
+            res.json({
+                status: 'success',
+                data: professionsArray,
+                language: selectedLang,
+                category: category,
+                total: professionsArray.length,
+                is_fallback: true
+            });
+        } catch (translationErr) {
+            console.error('Error loading translation file:', translationErr);
+            
+            // Ultimate fallback if translation file fails
+            const ultimateFallback = [
+                { id: 1, key: 'engineer', name: 'Engineer', category: 'technical' },
+                { id: 2, key: 'doctor', name: 'Doctor', category: 'medical' }
+            ];
+            
+            res.json({
+                status: 'success',
+                data: ultimateFallback,
+                language: selectedLang,
+                category: category,
+                total: ultimateFallback.length,
+                is_fallback: true
+            });
+        }
     }
 });
 
@@ -9560,7 +9674,7 @@ app.get('/admin*', (req, res) => {
 app.get('*', (req, res) => {
     // Only serve React app for non-API routes
     if (!req.path.startsWith('/api/')) {
-        const reactIndexPath = path.join(__dirname, 'mainapp/build/index.html');
+        const reactIndexPath = path.join(__dirname, '../mainapp/build/index.html');
         const fs = require('fs');
         
         if (fs.existsSync(reactIndexPath)) {
