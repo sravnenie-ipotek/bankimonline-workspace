@@ -1,10 +1,10 @@
-# =€ Push and Pull Logic Guide for Developers
+# =ï¿½ Push and Pull Logic Guide for Developers
 
 This guide explains how to push code changes and pull updates using the Bankimonline hybrid 4-repository architecture.
 
 ---
 
-## =Ë **OVERVIEW**
+## =ï¿½ **OVERVIEW**
 
 **Architecture**: Hybrid Development Monorepo + Deployment Multi-repos
 - **Development**: All work happens in `bankimonline-workspace`
@@ -24,7 +24,8 @@ npm run push-server     # Push server changes to workspace + api repos
 npm run push-shared     # Push shared changes to workspace + shared repos
 
 # Push all changes at once
-npm run push-all        # Push all changes to workspace + all deployment repos
+
+       # Push all changes to workspace + all deployment repos
 
 # Traditional workspace-only push
 git push origin main    # Push only to workspace (use for work-in-progress)
@@ -94,12 +95,12 @@ The dual-push script will show you the results:
 ```bash
  Pushed to workspace: bankimonline-workspace
  Pushed to deployment: bankimonline-web  
-=€ Deployment pipeline triggered automatically
+=ï¿½ Deployment pipeline triggered automatically
 ```
 
 ---
 
-## =å **PULLING CODE CHANGES**
+## =ï¿½ **PULLING CODE CHANGES**
 
 ### **Quick Reference - Pull Commands**
 
@@ -309,7 +310,7 @@ npm run test:all
 
 ---
 
-## =¨ **TROUBLESHOOTING**
+## =ï¿½ **TROUBLESHOOTING**
 
 ### **Common Push Issues**
 
@@ -386,7 +387,7 @@ npm run migrate:status
 
 ---
 
-## =Ê **MONITORING YOUR PUSHES**
+## =ï¿½ **MONITORING YOUR PUSHES**
 
 ### **Deployment Status**
 
@@ -425,7 +426,7 @@ Monitor GitHub Actions in each deployment repository:
 
 ---
 
-## =Ë **CHECKLISTS**
+## =ï¿½ **CHECKLISTS**
 
 ### **Before Pushing Checklist**
 
@@ -454,7 +455,7 @@ Monitor GitHub Actions in each deployment repository:
 
 ---
 
-## <˜ **EMERGENCY PROCEDURES**
+## <ï¿½ **EMERGENCY PROCEDURES**
 
 ### **Immediate Rollback (Production Issue)**
 
@@ -492,7 +493,7 @@ npm run build:all
 
 ---
 
-## =Þ **GETTING HELP**
+## =ï¿½ **GETTING HELP**
 
 ### **Quick Help Commands**
 
