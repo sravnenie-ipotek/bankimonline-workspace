@@ -16,6 +16,7 @@
     "@types/sass": "^1.45.0",
     "@typescript-eslint/parser": "^6.7.5",
     "axios": "^1.1.2",
+    "check-more-types": "^2.24.0",
     "classnames": "^2.3.2",
     "date-fns": "^2.30.0",
     "formik": "^2.4.5",
