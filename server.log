@@ -1,0 +1,1468 @@
+🔧 Database Config - Environment: development, Railway: not set
+🛠️ Development environment detected - using Railway PostgreSQL
+🔧 Database Config - Environment: development, Railway: not set
+🛠️ Development environment detected - using Railway PostgreSQL
+🔒 CORS Configuration:
+📝 CORS_ALLOWED_ORIGINS env var: Not set
+🌐 Resolved CORS origins: [
+  'http://localhost:3001',
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
+  'http://localhost:8003',
+  'https://bankdev2standalone-production.up.railway.app',
+  'https://bankim-nodejs-api-production.up.railway.app'
+]
+🚀 Database API Server Started
+📡 http://localhost:8003
+📧 Email login: POST /api/login
+📧 Email 2FA: POST /api/email-code-login
+📱 SMS login: POST /api/sms-login & /api/sms-code-login
+👤 Registration: POST /api/register
+🏙️ Cities: GET /api/get-cities?lang=xx
+🏠 Refinance mortgage: POST /api/refinance-mortgage
+💳 Refinance credit: POST /api/refinance-credit
+🔐 Admin login: POST /api/admin/login
+📊 Admin stats: GET /api/admin/stats
+🏦 Admin banks: GET /api/admin/banks
+🏪 Compare banks: POST /api/customer/compare-banks
+📝 Submit application: POST /api/customer/submit-application
+📋 Check status: GET /api/applications/:id/status
+🔧 Admin applications: GET /api/admin/applications
+📊 Admin app details: GET /api/admin/applications/:id
+✏️ Update app status: PUT /api/admin/applications/:id/status
+
+🏢 PHASE 2: Bank Worker Registration System
+📨 Send invitation: POST /api/bank-worker/invite
+📝 Get registration form: GET /api/bank-worker/register/:token
+✅ Complete registration: POST /api/bank-worker/register
+📊 Check status: GET /api/bank-worker/status/:id
+📋 Admin invitations: GET /api/admin/invitations
+⏳ Admin approval queue: GET /api/admin/approval-queue
+✅ Approve worker: POST /api/admin/approve/:id
+❌ Reject worker: POST /api/admin/reject/:id
+
+✅ Main Database connected: 2025-08-06T22:49:13.253Z
+✅ Content Database connected: 2025-08-06T22:49:13.395Z
+✅ test-content table deleted successfully (if it existed)
+[0mGET /api/v1/status [33m404[0m 2.595 ms - 34[0m
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+[0mGET /api/content/validation_errors/he [32m200[0m 926.040 ms - 7045[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.337 ms - 7044[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.245 ms - -[0m
+⚡ Cache MISS for content_sms_code_verification_he_all - querying database
+⚡ Cache MISS for content_refinance_step1_he_all - querying database
+⚡ Dropdown cache MISS for dropdowns_refinance_step1_he - querying database
+🔍 Executing query for screen: refinance_step1, language: he
+⚡ Dropdown cache MISS for dropdowns_refinance_step1_he - querying database
+🔍 Executing query for screen: refinance_step1, language: he
+[0mGET /api/content/sms_code_verification/he [32m200[0m 87.491 ms - 852[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.279 ms - 851[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.243 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.157 ms - -[0m
+📊 Query returned 30 rows
+📊 Processing 30 rows for refinance_step1/he
+🔍 Processing: app.refinance.step1.balance_label (label)
+🔍 Processing: app.refinance.step1.current_bank_label (label)
+🔍 Processing: app.refinance.step1.desired_period_label (label)
+🔍 Processing: app.refinance.step1.monthly_payment_label (label)
+🔍 Processing: app.refinance.step1.property_type_label (label)
+🔍 Processing: app.refinance.step1.property_value_label (label)
+🔍 Processing: app.refinance.step1.registered_label (label)
+🔍 Processing: app.refinance.step1.start_date_label (label)
+🔍 Processing: app.refinance.step1.why_label (label)
+🔍 Processing: refinance_step1_bank_discount (option)
+🔍 Processing: refinance_step1_bank_hapoalim (option)
+🔍 Processing: refinance_step1_bank_leumi (option)
+🔍 Processing: refinance_step1_bank_massad (option)
+🔍 Processing: refinance_step1_program_fixed_interest (option)
+🔍 Processing: refinance_step1_program_mixed_interest (option)
+🔍 Processing: refinance_step1_program_other (option)
+🔍 Processing: refinance_step1_program_prime_interest (option)
+🔍 Processing: refinance_step1_program_variable_interest (option)
+🔍 Processing: refinance_step1_property_type_apartment (option)
+🔍 Processing: refinance_step1_property_type_commercial (option)
+🔍 Processing: refinance_step1_property_type_land (option)
+🔍 Processing: refinance_step1_property_type_other (option)
+🔍 Processing: refinance_step1_property_type_private_house (option)
+🔍 Processing: refinance_step1_registration_land (option)
+🔍 Processing: refinance_step1_registration_no_not_registered (option)
+🔍 Processing: refinance_step1_why_cash_out_refinance (option)
+🔍 Processing: refinance_step1_why_consolidate_debts (option)
+🔍 Processing: refinance_step1_why_lower_interest_rate (option)
+🔍 Processing: refinance_step1_why_reduce_monthly_payment (option)
+🔍 Processing: refinance_step1_why_shorten_mortgage_term (option)
+[0mGET /api/dropdowns/refinance_step1/he [32m200[0m 673.933 ms - 1921[0m
+📊 Query returned 30 rows
+📊 Processing 30 rows for refinance_step1/he
+🔍 Processing: app.refinance.step1.balance_label (label)
+🔍 Processing: app.refinance.step1.current_bank_label (label)
+🔍 Processing: app.refinance.step1.desired_period_label (label)
+🔍 Processing: app.refinance.step1.monthly_payment_label (label)
+🔍 Processing: app.refinance.step1.property_type_label (label)
+🔍 Processing: app.refinance.step1.property_value_label (label)
+🔍 Processing: app.refinance.step1.registered_label (label)
+🔍 Processing: app.refinance.step1.start_date_label (label)
+🔍 Processing: app.refinance.step1.why_label (label)
+🔍 Processing: refinance_step1_bank_discount (option)
+🔍 Processing: refinance_step1_bank_hapoalim (option)
+🔍 Processing: refinance_step1_bank_leumi (option)
+🔍 Processing: refinance_step1_bank_massad (option)
+🔍 Processing: refinance_step1_program_fixed_interest (option)
+🔍 Processing: refinance_step1_program_mixed_interest (option)
+🔍 Processing: refinance_step1_program_other (option)
+🔍 Processing: refinance_step1_program_prime_interest (option)
+🔍 Processing: refinance_step1_program_variable_interest (option)
+🔍 Processing: refinance_step1_property_type_apartment (option)
+🔍 Processing: refinance_step1_property_type_commercial (option)
+🔍 Processing: refinance_step1_property_type_land (option)
+🔍 Processing: refinance_step1_property_type_other (option)
+🔍 Processing: refinance_step1_property_type_private_house (option)
+🔍 Processing: refinance_step1_registration_land (option)
+🔍 Processing: refinance_step1_registration_no_not_registered (option)
+🔍 Processing: refinance_step1_why_cash_out_refinance (option)
+🔍 Processing: refinance_step1_why_consolidate_debts (option)
+🔍 Processing: refinance_step1_why_lower_interest_rate (option)
+🔍 Processing: refinance_step1_why_reduce_monthly_payment (option)
+🔍 Processing: refinance_step1_why_shorten_mortgage_term (option)
+[0mGET /api/dropdowns/refinance_step1/he [32m200[0m 703.180 ms - 1921[0m
+[0mGET /api/content/refinance_step1/he [32m200[0m 713.675 ms - 6012[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [32m200[0m 0.474 ms - 6011[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.373 ms - -[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.354 ms - -[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1747.315 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1661.905 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1767.143 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1488.880 ms - 1304[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.458 ms - 7044[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.284 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.432 ms - -[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [32m200[0m 0.339 ms - 6011[0m
+✅ Dropdown cache HIT for dropdowns_refinance_step1_he
+[0mGET /api/dropdowns/refinance_step1/he [32m200[0m 0.621 ms - 1920[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.327 ms - 851[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.405 ms - -[0m
+✅ Dropdown cache HIT for dropdowns_refinance_step1_he
+[0mGET /api/dropdowns/refinance_step1/he [36m304[0m 0.219 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.301 ms - -[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.147 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.390 ms - -[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.169 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.153 ms - -[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1610.923 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1799.977 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1756.100 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1642.348 ms - 1304[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.949 ms - 7044[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.424 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.231 ms - 851[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.176 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.335 ms - -[0m
+⚡ Cache MISS for content_sidebar_he_all - querying database
+[0mGET /api/content/sidebar/he [32m200[0m 797.160 ms - 3878[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [32m200[0m 2.030 ms - 3877[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.529 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.312 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.322 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.234 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.201 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.246 ms - -[0m
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_mortgage_step4_he_all - querying database
+⚡ Cache MISS for content_mortgage_step4_he_all - querying database
+⚡ Cache MISS for content_mortgage_step4_he_all - querying database
+⚡ Cache MISS for content_bank_offers_he_all - querying database
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: null,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1754521617063_8ywavrcp4'
+}
+⚡ Dropdown cache MISS for dropdowns_mortgage_step4_he - querying database
+🔍 Executing query for screen: mortgage_step4, language: he
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 2.393 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: null,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1754521617066_ct8yb2t4x'
+}
+⚡ Cache MISS for content_sms_code_verification_he_all - querying database
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 1.544 ms - 2946[0m
+⚡ Cache MISS for content_mortgage_step4_he_all - querying database
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: null,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1754521617079_p2op8zj0a'
+}
+[0mGET /api/content/validation_errors/he [32m200[0m 716.566 ms - 7045[0m
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.331 ms - 2946[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 807.105 ms - 7045[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 713.794 ms - 7045[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 668.406 ms - 175[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 695.167 ms - 852[0m
+⚡ Cache MISS for content_mortgage_step4_he_all - querying database
+[0mGET /api/content/mortgage_step4/he [32m200[0m 723.729 ms - 4504[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 723.608 ms - 4504[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step4_he - querying database
+🔍 Executing query for screen: mortgage_step4, language: he
+⚡ Cache MISS for content_bank_offers_he_all - querying database
+[0mGET /api/content/mortgage_step4/he [32m200[0m 85.564 ms - 4504[0m
+✅ Cache HIT for content_mortgage_step4_he_all
+[0mGET /api/content/mortgage_step4/he [32m200[0m 0.271 ms - 4503[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.217 ms - 851[0m
+📊 Query returned 10 rows
+📊 Processing 10 rows for mortgage_step4/he
+🔍 Processing: app.mortgage.step4.mortgage_monthly (label)
+🔍 Processing: app.mortgage.step4.mortgage_total (label)
+🔍 Processing: app.mortgage.step4.mortgage_total_return (label)
+🔍 Processing: app.mortgage.step4.parameters_cost (label)
+🔍 Processing: app.mortgage.step4.parameters_initial (label)
+🔍 Processing: app.mortgage.step4.parameters_period (label)
+🔍 Processing: mortgage_step4_filter_all_mortgage_programs (option)
+🔍 Processing: mortgage_step4_filter_fixed_rate_mortgages (option)
+🔍 Processing: mortgage_step4_filter_prime_rate_mortgages (option)
+🔍 Processing: mortgage_step4_filter_variable_rate_mortgages (option)
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 96.097 ms - 1341[0m
+[0mGET /api/content/bank_offers/he [32m200[0m 96.149 ms - 739[0m
+📊 Query returned 10 rows
+📊 Processing 10 rows for mortgage_step4/he
+🔍 Processing: app.mortgage.step4.mortgage_monthly (label)
+🔍 Processing: app.mortgage.step4.mortgage_total (label)
+🔍 Processing: app.mortgage.step4.mortgage_total_return (label)
+🔍 Processing: app.mortgage.step4.parameters_cost (label)
+🔍 Processing: app.mortgage.step4.parameters_initial (label)
+🔍 Processing: app.mortgage.step4.parameters_period (label)
+🔍 Processing: mortgage_step4_filter_all_mortgage_programs (option)
+🔍 Processing: mortgage_step4_filter_fixed_rate_mortgages (option)
+🔍 Processing: mortgage_step4_filter_prime_rate_mortgages (option)
+🔍 Processing: mortgage_step4_filter_variable_rate_mortgages (option)
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 823.074 ms - 1341[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 817.746 ms - 4504[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 843.807 ms - 4504[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 829.450 ms - 175[0m
+[0mGET /api/content/bank_offers/he [32m200[0m 849.465 ms - 739[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 1121.177 ms - 175[0m
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_refinance_step1_he_all - querying database
+⚡ Dropdown cache MISS for dropdowns_refinance_step1_he - querying database
+🔍 Executing query for screen: refinance_step1, language: he
+⚡ Cache MISS for content_sms_code_verification_he_all - querying database
+⚡ Dropdown cache MISS for dropdowns_refinance_step1_he - querying database
+🔍 Executing query for screen: refinance_step1, language: he
+[0mGET /api/content/validation_errors/he [32m200[0m 1889.428 ms - 7045[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.995 ms - 7044[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.405 ms - -[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+[0mGET /api/content/refinance_step1/he [32m200[0m 2396.594 ms - 6012[0m
+📊 Query returned 30 rows
+📊 Processing 30 rows for refinance_step1/he
+🔍 Processing: app.refinance.step1.balance_label (label)
+🔍 Processing: app.refinance.step1.current_bank_label (label)
+🔍 Processing: app.refinance.step1.desired_period_label (label)
+🔍 Processing: app.refinance.step1.monthly_payment_label (label)
+🔍 Processing: app.refinance.step1.property_type_label (label)
+🔍 Processing: app.refinance.step1.property_value_label (label)
+🔍 Processing: app.refinance.step1.registered_label (label)
+🔍 Processing: app.refinance.step1.start_date_label (label)
+🔍 Processing: app.refinance.step1.why_label (label)
+🔍 Processing: refinance_step1_bank_discount (option)
+🔍 Processing: refinance_step1_bank_hapoalim (option)
+🔍 Processing: refinance_step1_bank_leumi (option)
+🔍 Processing: refinance_step1_bank_massad (option)
+🔍 Processing: refinance_step1_program_fixed_interest (option)
+🔍 Processing: refinance_step1_program_mixed_interest (option)
+🔍 Processing: refinance_step1_program_other (option)
+🔍 Processing: refinance_step1_program_prime_interest (option)
+🔍 Processing: refinance_step1_program_variable_interest (option)
+🔍 Processing: refinance_step1_property_type_apartment (option)
+🔍 Processing: refinance_step1_property_type_commercial (option)
+🔍 Processing: refinance_step1_property_type_land (option)
+🔍 Processing: refinance_step1_property_type_other (option)
+🔍 Processing: refinance_step1_property_type_private_house (option)
+🔍 Processing: refinance_step1_registration_land (option)
+🔍 Processing: refinance_step1_registration_no_not_registered (option)
+🔍 Processing: refinance_step1_why_cash_out_refinance (option)
+🔍 Processing: refinance_step1_why_consolidate_debts (option)
+🔍 Processing: refinance_step1_why_lower_interest_rate (option)
+🔍 Processing: refinance_step1_why_reduce_monthly_payment (option)
+🔍 Processing: refinance_step1_why_shorten_mortgage_term (option)
+[0mGET /api/dropdowns/refinance_step1/he [32m200[0m 2389.188 ms - 1921[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [32m200[0m 0.447 ms - 6011[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.300 ms - -[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.452 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 2610.616 ms - 852[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.278 ms - 851[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.226 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.232 ms - -[0m
+📊 Query returned 30 rows
+📊 Processing 30 rows for refinance_step1/he
+🔍 Processing: app.refinance.step1.balance_label (label)
+🔍 Processing: app.refinance.step1.current_bank_label (label)
+🔍 Processing: app.refinance.step1.desired_period_label (label)
+🔍 Processing: app.refinance.step1.monthly_payment_label (label)
+🔍 Processing: app.refinance.step1.property_type_label (label)
+🔍 Processing: app.refinance.step1.property_value_label (label)
+🔍 Processing: app.refinance.step1.registered_label (label)
+🔍 Processing: app.refinance.step1.start_date_label (label)
+🔍 Processing: app.refinance.step1.why_label (label)
+🔍 Processing: refinance_step1_bank_discount (option)
+🔍 Processing: refinance_step1_bank_hapoalim (option)
+🔍 Processing: refinance_step1_bank_leumi (option)
+🔍 Processing: refinance_step1_bank_massad (option)
+🔍 Processing: refinance_step1_program_fixed_interest (option)
+🔍 Processing: refinance_step1_program_mixed_interest (option)
+🔍 Processing: refinance_step1_program_other (option)
+🔍 Processing: refinance_step1_program_prime_interest (option)
+🔍 Processing: refinance_step1_program_variable_interest (option)
+🔍 Processing: refinance_step1_property_type_apartment (option)
+🔍 Processing: refinance_step1_property_type_commercial (option)
+🔍 Processing: refinance_step1_property_type_land (option)
+🔍 Processing: refinance_step1_property_type_other (option)
+🔍 Processing: refinance_step1_property_type_private_house (option)
+🔍 Processing: refinance_step1_registration_land (option)
+🔍 Processing: refinance_step1_registration_no_not_registered (option)
+🔍 Processing: refinance_step1_why_cash_out_refinance (option)
+🔍 Processing: refinance_step1_why_consolidate_debts (option)
+🔍 Processing: refinance_step1_why_lower_interest_rate (option)
+🔍 Processing: refinance_step1_why_reduce_monthly_payment (option)
+🔍 Processing: refinance_step1_why_shorten_mortgage_term (option)
+[0mGET /api/dropdowns/refinance_step1/he [32m200[0m 2797.711 ms - 1921[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 4565.068 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 4661.224 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 4916.238 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 4965.078 ms - 1304[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.367 ms - 7044[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.238 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.283 ms - -[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [32m200[0m 0.580 ms - 6011[0m
+✅ Dropdown cache HIT for dropdowns_refinance_step1_he
+[0mGET /api/dropdowns/refinance_step1/he [32m200[0m 0.448 ms - 1920[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.218 ms - 851[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.259 ms - -[0m
+✅ Dropdown cache HIT for dropdowns_refinance_step1_he
+[0mGET /api/dropdowns/refinance_step1/he [36m304[0m 0.145 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.176 ms - -[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.347 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.255 ms - -[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.143 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.185 ms - -[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [0m-[0m - ms - -[0m
+Property ownership options table not found, using fallback values
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.277 ms - 7044[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.204 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.402 ms - -[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [32m200[0m 0.348 ms - 6011[0m
+✅ Dropdown cache HIT for dropdowns_refinance_step1_he
+[0mGET /api/dropdowns/refinance_step1/he [32m200[0m 0.340 ms - 1920[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.291 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.363 ms - 851[0m
+✅ Dropdown cache HIT for dropdowns_refinance_step1_he
+[0mGET /api/dropdowns/refinance_step1/he [36m304[0m 0.213 ms - -[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.197 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.436 ms - -[0m
+✅ Cache HIT for content_refinance_step1_he_all
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.214 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.147 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.226 ms - -[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 5110.923 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 4246.167 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 4134.005 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 3475.991 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 3094.708 ms - 1304[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 3211.166 ms - 1304[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 0,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'test_session'
+}
+[0mPOST /api/customer/compare-banks [33m400[0m 742.687 ms - 175[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 0,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1754522287987_xevwnyl3y'
+}
+⚡ Cache MISS for content_bank_offers_he_all - querying database
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.390 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 0,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1754522287993_t152xq3wg'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.266 ms - 2946[0m
+[0mGET /api/content/bank_offers/he [32m200[0m 709.844 ms - 739[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 718.873 ms - 175[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 740.427 ms - 175[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 200000,
+  property_value: 1000000,
+  property_ownership: 'no_property',
+  session_id: 'test_session'
+}
+[COMPARE-BANKS] Using configurable base rate: 5
+[COMPARE-BANKS] Using language: he, name field: name_he
+[COMPARE-BANKS] Found 5 active banks
+[COMPARE-BANKS] Processing Bank 1 (בנק אפועלים)
+[COMPARE-BANKS] Bank 1 specific standards: {
+  standard_ltv_max: '76 (bank_specific)',
+  minimum_credit_score: '625 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 1: LTV 20.0% ≤ Bank Max 76% ✓
+[COMPARE-BANKS] Bank 1: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 1: Base rate input: "4.600" → Parsed: 4.6
+[RATE CALC] Error calculating bank 1 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 1: Using fallback rate 4.6%
+[COMPARE-BANKS] Bank 1 (בנק אפועלים): Base rate 4.6% → Final rate 4.600%
+[COMPARE-BANKS] Bank 1: Starting calculation with rate 4.6%
+[COMPARE-BANKS] Bank 1: Calculation result: { decision: 'approved', monthlyPayment: 1025, error: undefined }
+[COMPARE-BANKS] Bank 1: APPROVED - Added to offers (Rate: 4.600%, Payment: 1025)
+[COMPARE-BANKS] Processing Bank 2 (בנק הפועלים)
+[COMPARE-BANKS] Bank 2 specific standards: {
+  standard_ltv_max: '80 (bank_specific)',
+  minimum_credit_score: '650 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 2: LTV 20.0% ≤ Bank Max 80% ✓
+[COMPARE-BANKS] Bank 2: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 2: Base rate input: "3.750" → Parsed: 3.75
+[RATE CALC] Error calculating bank 2 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 2: Using fallback rate 3.75%
+[COMPARE-BANKS] Bank 2 (בנק הפועלים): Base rate 3.75% → Final rate 3.750%
+[COMPARE-BANKS] Bank 2: Starting calculation with rate 3.75%
+[COMPARE-BANKS] Bank 2: Calculation result: { decision: 'approved', monthlyPayment: 926, error: undefined }
+[COMPARE-BANKS] Bank 2: APPROVED - Added to offers (Rate: 3.750%, Payment: 926)
+[COMPARE-BANKS] Processing Bank 3 (בנק לאומי)
+[COMPARE-BANKS] Bank 3 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '600 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 3: LTV 20.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 3: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 3: Base rate input: "4.250" → Parsed: 4.25
+[RATE CALC] Error calculating bank 3 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 3: Using fallback rate 4.25%
+[COMPARE-BANKS] Bank 3 (בנק לאומי): Base rate 4.25% → Final rate 4.250%
+[COMPARE-BANKS] Bank 3: Starting calculation with rate 4.25%
+[COMPARE-BANKS] Bank 3: Calculation result: { decision: 'approved', monthlyPayment: 984, error: undefined }
+[COMPARE-BANKS] Bank 3: APPROVED - Added to offers (Rate: 4.250%, Payment: 984)
+[COMPARE-BANKS] Processing Bank 4 (בנק דיסקונט)
+[COMPARE-BANKS] Bank 4 specific standards: {
+  standard_ltv_max: '75 (bank_specific)',
+  minimum_credit_score: '640 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 4: LTV 20.0% ≤ Bank Max 75% ✓
+[COMPARE-BANKS] Bank 4: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 4: Base rate input: "3.900" → Parsed: 3.9
+[RATE CALC] Error calculating bank 4 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 4: Using fallback rate 3.9%
+[COMPARE-BANKS] Bank 4 (בנק דיסקונט): Base rate 3.9% → Final rate 3.900%
+[COMPARE-BANKS] Bank 4: Starting calculation with rate 3.9%
+[COMPARE-BANKS] Bank 4: Calculation result: { decision: 'approved', monthlyPayment: 943, error: undefined }
+[COMPARE-BANKS] Bank 4: APPROVED - Added to offers (Rate: 3.900%, Payment: 943)
+[COMPARE-BANKS] Processing Bank 5 (בנק בינלאומי ראשון)
+[COMPARE-BANKS] Bank 5 specific standards: {
+  standard_ltv_max: '78 (bank_specific)',
+  minimum_credit_score: '630 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 5: LTV 20.0% ≤ Bank Max 78% ✓
+[COMPARE-BANKS] Bank 5: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 5: Base rate input: "3.600" → Parsed: 3.6
+[RATE CALC] Error calculating bank 5 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 5: Using fallback rate 3.6%
+[COMPARE-BANKS] Bank 5 (בנק בינלאומי ראשון): Base rate 3.6% → Final rate 3.600%
+[COMPARE-BANKS] Bank 5: Starting calculation with rate 3.6%
+[COMPARE-BANKS] Bank 5: Calculation result: { decision: 'approved', monthlyPayment: 909, error: undefined }
+[COMPARE-BANKS] Bank 5: APPROVED - Added to offers (Rate: 3.600%, Payment: 909)
+[COMPARE-BANKS] Returning 5 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 4431.009 ms - 1639[0m
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+[0mGET /api/content/validation_errors/he [32m200[0m 952.204 ms - 7045[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 0,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1754522901037_nsiwcv8ff'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.271 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 0,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1754522901040_icpm8mulr'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.229 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 0,
+  property_value: 0,
+  property_ownership: 'no_property',
+  session_id: 'sess_1754522901053_amhx6lbkn'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.249 ms - 2946[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 1037.993 ms - 7045[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 1307.340 ms - 7045[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 956.076 ms - 175[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 942.860 ms - 175[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 1914.715 ms - 175[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 1.303 ms - 7044[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 1.506 ms - 7044[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.818 ms - 7044[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 4590.295 ms - 1304[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 4598.045 ms - 1304[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 4600.482 ms - 1304[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 5304.841 ms - 1304[0m
+[SMS] Verify 1111 for +972344443243
+[SMS] Verify 1111 for +972344443243
+[0mPOST /api/auth-verify [32m200[0m 1139.187 ms - 354[0m
+[0mPOST /api/auth-verify [32m200[0m 1424.251 ms - 354[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 200000,
+  property_value: 1000000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1754522974287_r124ua9sw'
+}
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 200000,
+  property_value: 1000000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1754522974290_bw0t4pukf'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.385 ms - 2946[0m
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.464 ms - 2946[0m
+[COMPARE-BANKS] Request received: {
+  loan_type: 'mortgage',
+  amount: 200000,
+  property_value: 1000000,
+  property_ownership: 'no_property',
+  session_id: 'sess_1754522974297_3ee67s4wg'
+}
+[MORTGAGE-PROGRAMS] Fetching mortgage programs
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.151 ms - 2946[0m
+[COMPARE-BANKS] Using configurable base rate: 5
+[COMPARE-BANKS] Using language: he, name field: name_he
+[COMPARE-BANKS] Using configurable base rate: 5
+[COMPARE-BANKS] Using language: he, name field: name_he
+[COMPARE-BANKS] Using configurable base rate: 5
+[COMPARE-BANKS] Using language: he, name field: name_he
+[COMPARE-BANKS] Found 5 active banks
+[COMPARE-BANKS] Processing Bank 1 (בנק אפועלים)
+[COMPARE-BANKS] Bank 1 specific standards: {
+  standard_ltv_max: '76 (bank_specific)',
+  minimum_credit_score: '625 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 1: LTV 20.0% ≤ Bank Max 76% ✓
+[COMPARE-BANKS] Bank 1: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 1: Base rate input: "4.600" → Parsed: 4.6
+[COMPARE-BANKS] Found 5 active banks
+[COMPARE-BANKS] Processing Bank 1 (בנק אפועלים)
+[COMPARE-BANKS] Bank 1 specific standards: {
+  standard_ltv_max: '76 (bank_specific)',
+  minimum_credit_score: '625 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 1: LTV 20.0% ≤ Bank Max 76% ✓
+[COMPARE-BANKS] Bank 1: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 1: Base rate input: "4.600" → Parsed: 4.6
+[COMPARE-BANKS] Found 5 active banks
+[COMPARE-BANKS] Processing Bank 1 (בנק אפועלים)
+[COMPARE-BANKS] Bank 1 specific standards: {
+  standard_ltv_max: '76 (bank_specific)',
+  minimum_credit_score: '625 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 1: LTV 20.0% ≤ Bank Max 76% ✓
+[COMPARE-BANKS] Bank 1: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 1: Base rate input: "4.600" → Parsed: 4.6
+[RATE CALC] Error calculating bank 1 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 1: Using fallback rate 4.6%
+[COMPARE-BANKS] Bank 1 (בנק אפועלים): Base rate 4.6% → Final rate 4.600%
+[COMPARE-BANKS] Bank 1: Starting calculation with rate 4.6%
+[COMPARE-BANKS] Bank 1: Calculation result: { decision: 'approved', monthlyPayment: 1025, error: undefined }
+[COMPARE-BANKS] Bank 1: APPROVED - Added to offers (Rate: 4.600%, Payment: 1025)
+[COMPARE-BANKS] Processing Bank 2 (בנק הפועלים)
+[COMPARE-BANKS] Bank 2 specific standards: {
+  standard_ltv_max: '80 (bank_specific)',
+  minimum_credit_score: '650 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 2: LTV 20.0% ≤ Bank Max 80% ✓
+[COMPARE-BANKS] Bank 2: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 2: Base rate input: "3.750" → Parsed: 3.75
+[RATE CALC] Error calculating bank 1 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 1: Using fallback rate 4.6%
+[COMPARE-BANKS] Bank 1 (בנק אפועלים): Base rate 4.6% → Final rate 4.600%
+[COMPARE-BANKS] Bank 1: Starting calculation with rate 4.6%
+[COMPARE-BANKS] Bank 1: Calculation result: { decision: 'approved', monthlyPayment: 1025, error: undefined }
+[COMPARE-BANKS] Bank 1: APPROVED - Added to offers (Rate: 4.600%, Payment: 1025)
+[COMPARE-BANKS] Processing Bank 2 (בנק הפועלים)
+[COMPARE-BANKS] Bank 2 specific standards: {
+  standard_ltv_max: '80 (bank_specific)',
+  minimum_credit_score: '650 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 2: LTV 20.0% ≤ Bank Max 80% ✓
+[COMPARE-BANKS] Bank 2: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 2: Base rate input: "3.750" → Parsed: 3.75
+[RATE CALC] Error calculating bank 1 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 1: Using fallback rate 4.6%
+[COMPARE-BANKS] Bank 1 (בנק אפועלים): Base rate 4.6% → Final rate 4.600%
+[COMPARE-BANKS] Bank 1: Starting calculation with rate 4.6%
+[COMPARE-BANKS] Bank 1: Calculation result: { decision: 'approved', monthlyPayment: 1025, error: undefined }
+[COMPARE-BANKS] Bank 1: APPROVED - Added to offers (Rate: 4.600%, Payment: 1025)
+[COMPARE-BANKS] Processing Bank 2 (בנק הפועלים)
+[COMPARE-BANKS] Bank 2 specific standards: {
+  standard_ltv_max: '80 (bank_specific)',
+  minimum_credit_score: '650 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 2: LTV 20.0% ≤ Bank Max 80% ✓
+[COMPARE-BANKS] Bank 2: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 2: Base rate input: "3.750" → Parsed: 3.75
+[RATE CALC] Error calculating bank 2 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 2: Using fallback rate 3.75%
+[COMPARE-BANKS] Bank 2 (בנק הפועלים): Base rate 3.75% → Final rate 3.750%
+[COMPARE-BANKS] Bank 2: Starting calculation with rate 3.75%
+[COMPARE-BANKS] Bank 2: Calculation result: { decision: 'approved', monthlyPayment: 926, error: undefined }
+[COMPARE-BANKS] Bank 2: APPROVED - Added to offers (Rate: 3.750%, Payment: 926)
+[COMPARE-BANKS] Processing Bank 3 (בנק לאומי)
+[COMPARE-BANKS] Bank 3 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '600 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 3: LTV 20.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 3: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 3: Base rate input: "4.250" → Parsed: 4.25
+[RATE CALC] Error calculating bank 2 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 2: Using fallback rate 3.75%
+[COMPARE-BANKS] Bank 2 (בנק הפועלים): Base rate 3.75% → Final rate 3.750%
+[COMPARE-BANKS] Bank 2: Starting calculation with rate 3.75%
+[COMPARE-BANKS] Bank 2: Calculation result: { decision: 'approved', monthlyPayment: 926, error: undefined }
+[COMPARE-BANKS] Bank 2: APPROVED - Added to offers (Rate: 3.750%, Payment: 926)
+[COMPARE-BANKS] Processing Bank 3 (בנק לאומי)
+[COMPARE-BANKS] Bank 3 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '600 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 3: LTV 20.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 3: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 3: Base rate input: "4.250" → Parsed: 4.25
+[RATE CALC] Error calculating bank 2 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 2: Using fallback rate 3.75%
+[COMPARE-BANKS] Bank 2 (בנק הפועלים): Base rate 3.75% → Final rate 3.750%
+[COMPARE-BANKS] Bank 2: Starting calculation with rate 3.75%
+[COMPARE-BANKS] Bank 2: Calculation result: { decision: 'approved', monthlyPayment: 926, error: undefined }
+[COMPARE-BANKS] Bank 2: APPROVED - Added to offers (Rate: 3.750%, Payment: 926)
+[COMPARE-BANKS] Processing Bank 3 (בנק לאומי)
+[COMPARE-BANKS] Bank 3 specific standards: {
+  standard_ltv_max: '70 (bank_specific)',
+  minimum_credit_score: '600 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 3: LTV 20.0% ≤ Bank Max 70% ✓
+[COMPARE-BANKS] Bank 3: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 3: Base rate input: "4.250" → Parsed: 4.25
+[RATE CALC] Error calculating bank 3 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 3: Using fallback rate 4.25%
+[COMPARE-BANKS] Bank 3 (בנק לאומי): Base rate 4.25% → Final rate 4.250%
+[COMPARE-BANKS] Bank 3: Starting calculation with rate 4.25%
+[COMPARE-BANKS] Bank 3: Calculation result: { decision: 'approved', monthlyPayment: 984, error: undefined }
+[COMPARE-BANKS] Bank 3: APPROVED - Added to offers (Rate: 4.250%, Payment: 984)
+[COMPARE-BANKS] Processing Bank 4 (בנק דיסקונט)
+[COMPARE-BANKS] Bank 4 specific standards: {
+  standard_ltv_max: '75 (bank_specific)',
+  minimum_credit_score: '640 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 4: LTV 20.0% ≤ Bank Max 75% ✓
+[COMPARE-BANKS] Bank 4: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 4: Base rate input: "3.900" → Parsed: 3.9
+[RATE CALC] Error calculating bank 3 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 3: Using fallback rate 4.25%
+[COMPARE-BANKS] Bank 3 (בנק לאומי): Base rate 4.25% → Final rate 4.250%
+[COMPARE-BANKS] Bank 3: Starting calculation with rate 4.25%
+[COMPARE-BANKS] Bank 3: Calculation result: { decision: 'approved', monthlyPayment: 984, error: undefined }
+[COMPARE-BANKS] Bank 3: APPROVED - Added to offers (Rate: 4.250%, Payment: 984)
+[COMPARE-BANKS] Processing Bank 4 (בנק דיסקונט)
+[COMPARE-BANKS] Bank 4 specific standards: {
+  standard_ltv_max: '75 (bank_specific)',
+  minimum_credit_score: '640 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 4: LTV 20.0% ≤ Bank Max 75% ✓
+[COMPARE-BANKS] Bank 4: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 4: Base rate input: "3.900" → Parsed: 3.9
+[RATE CALC] Error calculating bank 3 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 3: Using fallback rate 4.25%
+[COMPARE-BANKS] Bank 3 (בנק לאומי): Base rate 4.25% → Final rate 4.250%
+[COMPARE-BANKS] Bank 3: Starting calculation with rate 4.25%
+[COMPARE-BANKS] Bank 3: Calculation result: { decision: 'approved', monthlyPayment: 984, error: undefined }
+[COMPARE-BANKS] Bank 3: APPROVED - Added to offers (Rate: 4.250%, Payment: 984)
+[COMPARE-BANKS] Processing Bank 4 (בנק דיסקונט)
+[COMPARE-BANKS] Bank 4 specific standards: {
+  standard_ltv_max: '75 (bank_specific)',
+  minimum_credit_score: '640 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 4: LTV 20.0% ≤ Bank Max 75% ✓
+[COMPARE-BANKS] Bank 4: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 4: Base rate input: "3.900" → Parsed: 3.9
+[RATE CALC] Error calculating bank 4 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 4: Using fallback rate 3.9%
+[COMPARE-BANKS] Bank 4 (בנק דיסקונט): Base rate 3.9% → Final rate 3.900%
+[COMPARE-BANKS] Bank 4: Starting calculation with rate 3.9%
+[COMPARE-BANKS] Bank 4: Calculation result: { decision: 'approved', monthlyPayment: 943, error: undefined }
+[COMPARE-BANKS] Bank 4: APPROVED - Added to offers (Rate: 3.900%, Payment: 943)
+[COMPARE-BANKS] Processing Bank 5 (בנק בינלאומי ראשון)
+[COMPARE-BANKS] Bank 5 specific standards: {
+  standard_ltv_max: '78 (bank_specific)',
+  minimum_credit_score: '630 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 5: LTV 20.0% ≤ Bank Max 78% ✓
+[COMPARE-BANKS] Bank 5: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 5: Base rate input: "3.600" → Parsed: 3.6
+[RATE CALC] Error calculating bank 4 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 4: Using fallback rate 3.9%
+[COMPARE-BANKS] Bank 4 (בנק דיסקונט): Base rate 3.9% → Final rate 3.900%
+[COMPARE-BANKS] Bank 4: Starting calculation with rate 3.9%
+[COMPARE-BANKS] Bank 4: Calculation result: { decision: 'approved', monthlyPayment: 943, error: undefined }
+[COMPARE-BANKS] Bank 4: APPROVED - Added to offers (Rate: 3.900%, Payment: 943)
+[COMPARE-BANKS] Processing Bank 5 (בנק בינלאומי ראשון)
+[COMPARE-BANKS] Bank 5 specific standards: {
+  standard_ltv_max: '78 (bank_specific)',
+  minimum_credit_score: '630 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 5: LTV 20.0% ≤ Bank Max 78% ✓
+[COMPARE-BANKS] Bank 5: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 5: Base rate input: "3.600" → Parsed: 3.6
+[RATE CALC] Error calculating bank 4 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 4: Using fallback rate 3.9%
+[COMPARE-BANKS] Bank 4 (בנק דיסקונט): Base rate 3.9% → Final rate 3.900%
+[COMPARE-BANKS] Bank 4: Starting calculation with rate 3.9%
+[COMPARE-BANKS] Bank 4: Calculation result: { decision: 'approved', monthlyPayment: 943, error: undefined }
+[COMPARE-BANKS] Bank 4: APPROVED - Added to offers (Rate: 3.900%, Payment: 943)
+[COMPARE-BANKS] Processing Bank 5 (בנק בינלאומי ראשון)
+[COMPARE-BANKS] Bank 5 specific standards: {
+  standard_ltv_max: '78 (bank_specific)',
+  minimum_credit_score: '630 (bank_specific)',
+  front_end_dti_max: '45 (bank_specific)',
+  back_end_dti_max: '45 (bank_specific)',
+  minimum_monthly_income: '3000 (bank_specific)',
+  minimum_age: '18 (bank_specific)',
+  maximum_age_at_maturity: '75 (bank_specific)',
+  pmi_ltv_max: '97 (bank_specific)'
+}
+[COMPARE-BANKS] Bank 5: LTV 20.0% ≤ Bank Max 78% ✓
+[COMPARE-BANKS] Bank 5: PASSED bank-specific eligibility checks
+[COMPARE-BANKS] Bank 5: Base rate input: "3.600" → Parsed: 3.6
+[RATE CALC] Error calculating bank 5 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 5: Using fallback rate 3.6%
+[COMPARE-BANKS] Bank 5 (בנק בינלאומי ראשון): Base rate 3.6% → Final rate 3.600%
+[COMPARE-BANKS] Bank 5: Starting calculation with rate 3.6%
+[COMPARE-BANKS] Bank 5: Calculation result: { decision: 'approved', monthlyPayment: 909, error: undefined }
+[COMPARE-BANKS] Bank 5: APPROVED - Added to offers (Rate: 3.600%, Payment: 909)
+[COMPARE-BANKS] Returning 5 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 5067.683 ms - 1640[0m
+[RATE CALC] Error calculating bank 5 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 5: Using fallback rate 3.6%
+[COMPARE-BANKS] Bank 5 (בנק בינלאומי ראשון): Base rate 3.6% → Final rate 3.600%
+[COMPARE-BANKS] Bank 5: Starting calculation with rate 3.6%
+[COMPARE-BANKS] Bank 5: Calculation result: { decision: 'approved', monthlyPayment: 909, error: undefined }
+[COMPARE-BANKS] Bank 5: APPROVED - Added to offers (Rate: 3.600%, Payment: 909)
+[COMPARE-BANKS] Returning 5 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 5245.298 ms - 1640[0m
+[RATE CALC] Error calculating bank 5 rate: error: relation "interest_rate_rules" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async calculateBankSpecificRate (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:7744:29)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:8187:42 {
+  length: 119,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '108',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+[RATE CALC] Bank 5: Using fallback rate 3.6%
+[COMPARE-BANKS] Bank 5 (בנק בינלאומי ראשון): Base rate 3.6% → Final rate 3.600%
+[COMPARE-BANKS] Bank 5: Starting calculation with rate 3.6%
+[COMPARE-BANKS] Bank 5: Calculation result: { decision: 'approved', monthlyPayment: 909, error: undefined }
+[COMPARE-BANKS] Bank 5: APPROVED - Added to offers (Rate: 3.600%, Payment: 909)
+[COMPARE-BANKS] Returning 5 bank offers
+[0mPOST /api/customer/compare-banks [32m200[0m 5253.899 ms - 1640[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=credit [32m200[0m 6216.975 ms - 1302[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=credit [32m200[0m 6514.449 ms - 1302[0m

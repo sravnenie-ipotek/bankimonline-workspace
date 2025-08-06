@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind'
 import { useFormikContext } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
@@ -14,7 +14,12 @@ const DoubleButtons: React.FC = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
-  const { handleSubmit, isValid } = useFormikContext()
+  const { handleSubmit, isValid, errors, values } = useFormikContext()
+
+  // Debug logging
+  useEffect(() => {
+    console.log('🔍 DoubleButtons Debug:', { isValid, errors, values })
+  }, [isValid, errors, values])
 
   return (
     <div className={cx('doubleButtons')}>
