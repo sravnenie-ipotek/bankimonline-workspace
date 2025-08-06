@@ -17,7 +17,7 @@ Document all pages identified in the routing structure, including:
 - **Special Pages / Специальные страницы**: Registration, AuthModal, Admin, PersonalCabinet, etc.
 - **Legal Pages / Правовые страницы**: PrivacyPolicy, Terms, Cookie, Refund
 - **Business Pages / Бизнес-страницы**: TendersForBrokers, TendersForLawyers, Vacancies, etc.
-- **Navigation Components / Компоненты навигации**: Sidebar, Header, Footer, MobileMenu, etc.
+- **Navigation Components / Компоненты навигации**: Sidebar, Header, Footer, MobileMenu, SubSidebar, etc.
 
 ## **Documentation Structure for Each Page / Структура документации для каждой страницы**
 
@@ -264,6 +264,144 @@ const SidebarClosed: React.FC<PropTypes> = ({ onClick, isOpen }) => {
 }
 ```
 
+## **Example: SubSidebar Menu Documentation / Пример: Документация подменю**
+
+### **1. Page Overview**
+- **Page Name**: SubSidebar Navigation Menu
+- **Route Path**: Submenu overlay (appears over main sidebar)
+- **Purpose**: Detailed submenu navigation for financial services, providing access to specific calculation and banking services
+- **Target Audience**: All website visitors using the sidebar navigation
+- **Access Level**: Public (visible when main sidebar is open)
+
+### **2. Technology Stack**
+- **Frontend Framework**: React 18+ with TypeScript
+- **State Management**: Props-based (controlled by parent)
+- **Styling**: SCSS modules with classnames/bind
+- **Routing**: React Router v6 with Link components
+- **Content Management**: Database-first content system with useContentApi hook
+- **Internationalization**: react-i18next with Hebrew RTL support
+- **UI Components**: SubSidebar only
+- **Testing**: Cypress E2E tests
+
+### **3. Key Dependencies & Imports**
+```typescript
+import classNames from 'classnames/bind'
+import { FC } from 'react'
+import { Link } from 'react-router-dom'
+import { IMenuItem } from '@components/layout/Sidebar/types/menuItem.ts'
+import styles from './SubSidebar.module.scss'
+```
+
+### **4. Database-First Content System Integration**
+- **Content Key**: `'sidebar'`
+- **Content Structure**: Financial services and banking menu items with translations
+- **Fallback Strategy**: Cache → Database → File system
+- **Loading States**: Loading indicator for API calls, fallback to translation system
+
+### **5. State Management**
+- **Redux Slices**: None (props-based component)
+- **Local State**: None (controlled by parent)
+- **Global State**: i18n language state, current route for navigation
+
+### **6. User Actions & Interactions**
+- **Action Count**: 4 documented user actions
+- **Key Interactions**: Submenu navigation, link clicks, menu close
+- **Event Handlers**: handleNavigation, onCloseMainMenu callback
+- **Navigation**: Direct navigation to specific service pages
+
+### **7. Component Architecture**
+- **Main Component**: SubSidebar with navigation list
+- **Child Components**: None (self-contained)
+- **Layout Components**: Absolute positioned overlay
+- **Modal Components**: Self as modal overlay
+
+### **8. Styling & Responsive Design**
+- **SCSS Module**: SubSidebar.module.scss with dark theme
+- **Responsive Breakpoints**: Fixed positioning overlay (not responsive)
+- **Theme Integration**: Dark background with white text, blue accents
+- **Animation**: Slide transitions (0.5s ease-in-out), opacity animations
+
+### **9. Error Handling & Edge Cases**
+- **Error Boundaries**: Content API errors fallback to translation system
+- **Loading States**: Loading indicator for API calls, skeleton loading for menu items
+- **Empty States**: Default text fallbacks, empty menu sections
+- **Validation**: Route validation, content validation
+
+### **10. Testing Strategy**
+- **Cypress Tests**: Submenu open/close, navigation clicks, menu interactions
+- **Unit Tests**: Component testing, hook testing, navigation testing
+- **Integration Tests**: Content API tests, i18n integration tests
+- **Accessibility**: ARIA labels, keyboard navigation, screen reader support
+
+### **11. Performance Considerations**
+- **Code Splitting**: No lazy loading (small component)
+- **Bundle Size**: ~3KB component, shared dependencies
+- **Caching**: Browser cache for API responses, component memoization
+- **Optimization**: Menu memoization, direct click handlers, conditional rendering
+
+### **12. Internationalization (i18n)**
+- **Translation Keys**: sidebar_sub_calculate_mortgage, sidebar_sub_refinance_mortgage, sidebar_sub_calculate_credit, sidebar_sub_refinance_credit
+- **Language Support**: English, Russian, Hebrew
+- **RTL Support**: Hebrew right-to-left positioning, RTL-aware components
+- **Cultural Considerations**: Language-specific menu organization, RTL text flow
+
+### **13. Integration Points**
+- **API Endpoints**: GET /api/content/sidebar/{language}
+- **External Services**: No external APIs (self-contained)
+- **Analytics**: Menu interactions, navigation clicks, user journey analysis
+- **SEO**: No direct SEO impact (client-side navigation)
+
+### **14. Development Notes**
+- **Known Issues**: Not responsive on mobile devices, RTL positioning issues, content loading race conditions
+- **Technical Debt**: Extract menu logic, improve TypeScript types, optimize re-renders
+- **Future Enhancements**: Mobile menu, search integration, customizable menu items
+- **Migration Notes**: Phase 12 migration complete, Content API fully integrated
+
+### **15. Code Examples**
+```typescript
+// Content API Usage
+const { getContent, loading, error } = useContentApi('sidebar')
+const mortgageTitle = getContent('sidebar_sub_calculate_mortgage', t('sidebar_sub_calculate_mortgage'))
+
+// Props-based State Management
+const SubSidebar: FC<PropTypes> = ({
+  items,
+  isOpen,
+  isOpenMainMenu,
+  onCloseMainMenu,
+}) => {
+  // Component implementation
+}
+
+// Event Handlers
+const handleNavigation = (path: string) => {
+  navigate(path)
+  onCloseMainMenu()
+}
+
+// Component Structure
+const SubSidebar: FC<PropTypes> = ({
+  items,
+  isOpen,
+  isOpenMainMenu,
+  onCloseMainMenu,
+}) => {
+  return (
+    <nav className={cx('container', { container_open: isOpen && isOpenMainMenu })}>
+      <ul className={cx('list')}>
+        {items.map((item) => (
+          <li key={item.title} className={cx('item')}>
+            <Link to={item.path!} onClick={onCloseMainMenu}>
+              {item.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+}
+```
+
 ## **Documentation Format / Формат документации**
 Create individual `.md` files for each page in a `docs/pages/` directory with the following naming convention:
 
@@ -273,6 +411,7 @@ Create individual `.md` files for each page in a `docs/pages/` directory with th
 - `about-page.md`
 - `contacts-page.md`
 - `sidebar-menu.md`
+- `subsidebar-menu.md`
 - etc. / и т.д.
 
 ## **Quality Standards / Стандарты качества**
