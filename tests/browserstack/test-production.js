@@ -24,7 +24,7 @@ const capabilities = {
 };
 
 // Use your production URL instead of localhost
-const BASE_URL = 'https://bankdev2-standalone-production.up.railway.app';
+const BASE_URL = 'https://bankimonline.com';
 
 (async function main() {
   console.log('🚀 Starting BrowserStack Production Test...');

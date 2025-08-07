@@ -31,18 +31,27 @@ fi
 echo ""
 echo "🔄 Pushing to repositories..."
 
-# Push to main repository (origin)
-echo "📤 Pushing to main repository (bankDev2_standalone)..."
-git push origin main
+# Push to workspace repository (origin)
+echo "📤 Pushing to workspace repository (bankimonline-workspace)..."
+git push workspace main
 if [ $? -eq 0 ]; then
-    echo "✅ Successfully pushed to main repository"
+    echo "✅ Successfully pushed to workspace repository"
 else
-    echo "❌ Failed to push to main repository"
+    echo "❌ Failed to push to workspace repository"
 fi
 
-# Push to API repository (bankimonlineapi)
-echo "📤 Pushing to API repository (bankimonlineapi)..."
-git push bankimonlineapi main
+# Push to web repository 
+echo "📤 Pushing to web repository (bankimonline-web)..."
+git push web main
+if [ $? -eq 0 ]; then
+    echo "✅ Successfully pushed to web repository"
+else
+    echo "❌ Failed to push to web repository"
+fi
+
+# Push to API repository
+echo "📤 Pushing to API repository (bankimonline-api)..."
+git push api main
 if [ $? -eq 0 ]; then
     echo "✅ Successfully pushed to API repository"
 else
@@ -50,7 +59,7 @@ else
 fi
 
 # Push to shared documents repository
-echo "📤 Pushing to shared documents repository (bankimonline_shared)..."
+echo "📤 Pushing to shared documents repository (bankimonline-shared)..."
 git push shared main
 if [ $? -eq 0 ]; then
     echo "✅ Successfully pushed to shared documents repository"
@@ -62,8 +71,9 @@ echo ""
 echo "🎉 Push operation completed!"
 echo ""
 echo "📊 Repository Status:"
-echo "🏠 Main: https://github.com/MichaelMishaev/bankDev2_standalone"
-echo "🔧 API: https://github.com/MichaelMishaev/bankimonlineapi"
-echo "📚 Shared: https://github.com/MichaelMishaev/bankimonline_shared"
+echo "🏠 Workspace: https://github.com/sravnenie-ipotek/bankimonline-workspace"
+echo "🌐 Web: https://github.com/sravnenie-ipotek/bankimonline-web"
+echo "🔧 API: https://github.com/sravnenie-ipotek/bankimonline-api"
+echo "📚 Shared: https://github.com/sravnenie-ipotek/bankimonline-shared"
 echo ""
 echo "💡 To check status: git remote -v"

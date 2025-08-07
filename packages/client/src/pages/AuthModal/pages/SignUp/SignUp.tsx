@@ -48,7 +48,7 @@ const SignUp = () => {
     }
     
     // If we're on Railway production, stay on the same domain
-    if (window.location.hostname.includes('railway.app')) {
+    if (window.location.hostname.includes('bankimonline.com')) {
       return window.location.origin + '/'
     }
     

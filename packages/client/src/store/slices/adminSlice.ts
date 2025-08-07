@@ -47,7 +47,7 @@ const initialState: AdminState = {
 };
 
 // API base URL
-const API_BASE_URL = 'https://bankdev2standalone-production.up.railway.app/api';
+const API_BASE_URL = 'https://bankimonline.com/api';
 
 /**
  * Admin Login Async Thunk

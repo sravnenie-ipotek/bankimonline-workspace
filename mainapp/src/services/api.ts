@@ -7,8 +7,8 @@ const getApiBaseUrl = () => {
     return 'http://localhost:8003/api'
   }
   
-  // In production, use environment variable or fallback to Railway production API
-  return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankimonlineapi-production.up.railway.app/api'
+  // In production, use environment variable or fallback to production API
+  return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankimonline.com/api'
 }
 
 export const api = createApi({
