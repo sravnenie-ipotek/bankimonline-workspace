@@ -80,7 +80,7 @@ const calculateAge = (birthDate: string | number): number => {
 const getApiBaseUrl = () => {
   return import.meta.env.VITE_NODE_API_BASE_URL || 
          (import.meta.env.PROD ? 
-           'https://bankdev2standalone-production.up.railway.app/api' : 
+           'https://bankimonline.com/api' : 
            'http://localhost:8003/api')
 }
 

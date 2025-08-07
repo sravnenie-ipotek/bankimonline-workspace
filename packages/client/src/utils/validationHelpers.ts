@@ -11,7 +11,7 @@ const getApiBaseUrl = (): string => {
   }
   
   // In production, use environment variable or fallback to Railway production
-  return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankdev2standalone-production.up.railway.app/api'
+  return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankimonline.com/api'
 }
 
 /**

@@ -1,6 +1,6 @@
 const refinanceMortgage = async (data: any) => {
   // Get API base URL from environment variables
-  const baseUrl = import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankdev2standalone-production.up.railway.app/api'
+  const baseUrl = import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankimonline.com/api'
   const url = `${baseUrl}/refinance-mortgage`
 
   try {

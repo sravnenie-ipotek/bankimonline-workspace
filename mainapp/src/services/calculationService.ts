@@ -22,7 +22,7 @@ class CalculationService {
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
       return 'http://localhost:8003/api'
     }
-    return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankdev2standalone-production.up.railway.app/api'
+    return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankimonline.com/api'
   }
 
   /**

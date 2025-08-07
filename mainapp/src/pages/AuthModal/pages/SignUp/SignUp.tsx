@@ -47,8 +47,8 @@ const SignUp = () => {
       return import.meta.env.VITE_ACCOUNT_URL
     }
     
-    // If we're on Railway production, stay on the same domain
-    if (window.location.hostname.includes('railway.app')) {
+    // If we're on production domain, stay on the same domain
+    if (window.location.hostname.includes('bankimonline.com')) {
       return window.location.origin + '/'
     }
     
