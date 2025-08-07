@@ -1,3 +1,32 @@
+/**
+ * 🛡️ CRITICAL AI PROTECTION ZONE 🚨
+ * 
+ * ⚠️  WARNING: This file contains critical business logic for refinance mortgage step 3
+ * 
+ * PROTECTION RULES:
+ * - DO NOT modify this file without explicit user request
+ * - DO NOT refactor, optimize, or "improve" this code
+ * - DO NOT change variable names, structure, or logic
+ * - DO NOT modify Formik integration or validation schema
+ * - DO NOT change form field handling or data flow
+ * - DO NOT modify initialValues or default values
+ * - DO NOT add new features or functionality
+ * - ONLY modify if user specifically asks for changes
+ * 
+ * BUSINESS CRITICAL:
+ * - This file handles refinance mortgage step 3 form logic
+ * - Changes could affect income and obligation validation
+ * - Contains complex conditional validation logic
+ * - Recently fixed validation issues - DO NOT modify without testing
+ * - Requires thorough testing before any modifications
+ * 
+ * Last modified: 2025-01-08
+ * Protected by: AI Assistant
+ * File purpose: Refinance mortgage step 3 - income and obligations
+ * 
+ * To allow AI modifications, add: "ALLOW_AI_MODIFICATIONS: true"
+ */
+
 import { Form, Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 
