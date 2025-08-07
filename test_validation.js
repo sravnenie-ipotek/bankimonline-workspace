@@ -80,3 +80,4 @@ Expected behavior:
 if (typeof window !== 'undefined') {
   window.testValidation = testValidation;
 }
+

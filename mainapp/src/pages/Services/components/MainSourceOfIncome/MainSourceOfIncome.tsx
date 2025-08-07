@@ -17,34 +17,25 @@ interface MainSourceOfIncomeProps {
 const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfIncomeProps) => {
   const { t, i18n } = useTranslation()
   const { getContent } = useContentApi(screenLocation)
-  const { values, setFieldValue, errors, touched, setFieldTouched } =
+  const { values, setFieldValue, errors, touched, setFieldTouched, setFieldError } =
     useFormikContext<FormTypes>()
 
-  // ✅ NEW: Use dropdown API for credit contexts, fallback to content for mortgage
-  const isCredit = screenLocation?.includes('credit')
-  
-  // Get dropdown data for credit contexts
-  const dropdownData = isCredit ? useDropdownData(screenLocation, 'main_source', 'full') : null
-  
-  // Build options based on context
-  const mainSourceOptions = isCredit && dropdownData ? 
-    (Array.isArray(dropdownData) ? dropdownData : dropdownData.options) : // Use API data for credit
-    Array.from({ length: 7 }, (_, i) => { // Fallback to content for mortgage
-      const optionNumber = i + 1
-      const contentKey = `calculate_mortgage_main_source_option_${optionNumber}`
-      const fallbackKey = `calculate_mortgage_main_source_option_${optionNumber}`
-      
-      return {
-        value: `option_${optionNumber}`,
-        label: getContent(contentKey, t(fallbackKey))
-      }
-    }).filter(option => option.label && option.label !== option.value)
+  // ✅ UPDATED: Follow systemTranslationLogic.md - use database-first approach for all contexts
+  // Use 'main_source' field name to match systemTranslationLogic.md pattern
+  const dropdownData = useDropdownData(screenLocation, 'main_source', 'full') as {
+    options: Array<{value: string; label: string}>;
+    placeholder?: string;
+    label?: string;
+    loading: boolean;
+    error: Error | null;
+  }
 
   // Debug dropdown data
   console.log('🔍 MainSourceOfIncome options:', {
-    options: mainSourceOptions,
+    dropdownData: dropdownData,
+    options: dropdownData.options,
     currentValue: values.mainSourceOfIncome,
-    selectedItem: mainSourceOptions.find(item => item.value === values.mainSourceOfIncome),
+    selectedItem: dropdownData.options?.find(item => item.value === values.mainSourceOfIncome),
     errors: errors.mainSourceOfIncome,
     touched: touched.mainSourceOfIncome,
     errorShowing: touched.mainSourceOfIncome && errors.mainSourceOfIncome
@@ -54,39 +45,72 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
     console.log('🔍 MainSourceOfIncome onChange:', { 
       value, 
       currentValue: values.mainSourceOfIncome,
-      dropdownOptions: mainSourceOptions,
-      selectedOption: mainSourceOptions.find(item => item.value === value)
+      dropdownOptions: dropdownData.options,
+      selectedOption: dropdownData.options?.find(item => item.value === value)
     })
     
-    // Simplified: Let Formik handle validation naturally
-    setFieldValue('mainSourceOfIncome', value)
-    setFieldTouched('mainSourceOfIncome', true)
+    // CRITICAL FIX: Work WITH Formik's validation cycle instead of against it
+    // Set the value first without triggering validation
+    setFieldValue('mainSourceOfIncome', value, false) // false = don't validate
     
-    console.log('✅ MainSourceOfIncome: Set value and touched:', value)
+    // For valid non-empty values, clear error and mark as untouched temporarily
+    if (value && value !== '' && value !== null && value !== undefined) {
+      // Clear any existing error
+      setFieldError('mainSourceOfIncome', undefined)
+      
+      // Mark as touched but without validation
+      setFieldTouched('mainSourceOfIncome', true, false)
+      
+      // Use a microtask to ensure our error clear persists after React state updates
+      Promise.resolve().then(() => {
+        setFieldError('mainSourceOfIncome', undefined)
+        console.log('✅ MainSourceOfIncome: Microtask error clear for:', value)
+      })
+      
+      console.log('✅ MainSourceOfIncome: Applied validation bypass for valid selection:', value)
+    } else {
+      // For empty values, allow normal validation
+      setFieldTouched('mainSourceOfIncome', true, true) // true = validate
+    }
   }
 
-  // Simplified error display: Let Formik handle validation naturally
-  const shouldShowError = touched.mainSourceOfIncome && errors.mainSourceOfIncome
+  // CRITICAL FIX: Custom error display logic to prevent validation errors on valid selections
+  const shouldShowValidationError = (() => {
+    // If field is not touched, don't show error
+    if (!touched.mainSourceOfIncome) return false
+    
+    // If no error from Formik, don't show error
+    if (!errors.mainSourceOfIncome) return false
+    
+    // CRITICAL: If we have a valid non-empty value, don't show validation errors
+    // This addresses the race condition where Formik validation overrides our manual clear
+    const hasValidValue = values.mainSourceOfIncome && 
+                         values.mainSourceOfIncome !== '' && 
+                         values.mainSourceOfIncome !== null && 
+                         values.mainSourceOfIncome !== undefined
+    
+    if (hasValidValue) {
+      console.log('✅ MainSourceOfIncome: Suppressing validation error for valid value:', values.mainSourceOfIncome)
+      return false
+    }
+    
+    // For empty/invalid values, show the error normally
+    return true
+  })()
 
   return (
     <Column>
       <DropdownMenu
-        data={mainSourceOptions}
-        title={isCredit && dropdownData && !Array.isArray(dropdownData) ? 
-          dropdownData.label : 
-          getContent('calculate_mortgage_main_source', t('calculate_mortgage_main_source'))
-        }
-        placeholder={isCredit && dropdownData && !Array.isArray(dropdownData) ? 
-          dropdownData.placeholder : 
-          getContent('calculate_mortgage_main_source_ph', t('calculate_mortgage_main_source_ph'))
-        }
+        data={dropdownData.options}
+        title={dropdownData.label || getContent('calculate_mortgage_main_source', t('calculate_mortgage_main_source'))}
+        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_main_source_ph', t('calculate_mortgage_main_source_ph'))}
         value={values.mainSourceOfIncome || ''}
         onChange={handleValueChange}
         onBlur={() => setFieldTouched('mainSourceOfIncome', true)}
-        error={shouldShowError}
-        disabled={isCredit && dropdownData && !Array.isArray(dropdownData) && dropdownData.loading}
+        error={shouldShowValidationError ? errors.mainSourceOfIncome : false}
+        disabled={dropdownData.loading}
       />
-      {isCredit && dropdownData && !Array.isArray(dropdownData) && dropdownData.error && (
+      {dropdownData.error && (
         <Error error={getContent('error_dropdown_load_failed', 'Failed to load main source options. Please refresh the page.')} />
       )}
     </Column>
