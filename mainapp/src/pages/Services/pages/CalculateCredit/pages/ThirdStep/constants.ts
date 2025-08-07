@@ -9,29 +9,29 @@ export const getValidationSchema = () => Yup.object().shape({
     (value) => value !== null && value !== undefined && value !== ''
   ),
   monthlyIncome: Yup.number().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !['5', '6'].includes(value), // Not student or unemployed (API values)
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
   startDate: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !['5', '6'].includes(value), // Not student or unemployed (API values)
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),
   fieldOfActivity: Yup.string().when('mainSourceOfIncome', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value),
+      value !== null && value !== undefined && value !== '' && !['5', '6'].includes(value),
     then: (shema) =>
       shema.required(getValidationErrorSync('error_select_field_of_activity', 'Please select field of activity')),
     otherwise: (shema) => shema.notRequired(),
   }),
   profession: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !['5', '6'].includes(value), // Not student or unemployed (API values)
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
   companyName: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value), // Not unemployed or no income
+    is: (value: string) => !['5', '6'].includes(value), // Not student or unemployed (API values)
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
@@ -44,7 +44,7 @@ export const getValidationSchema = () => Yup.object().shape({
   ),
   additionalIncomeAmount: Yup.number().when('additionalIncome', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== '1', // API value for "No additional income"
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
@@ -53,19 +53,19 @@ export const getValidationSchema = () => Yup.object().shape({
   ),
   bank: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== '1', // API value for "No obligations"
     then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
     otherwise: (shema) => shema.notRequired(),
   }),
   monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== '1', // API value for "No obligations"
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
   endDate: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+      value !== null && value !== undefined && value !== '' && value !== '1', // API value for "No obligations"
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),
