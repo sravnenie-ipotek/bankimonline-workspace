@@ -26,8 +26,8 @@ const ThirdStep = () => {
     fieldOfActivity: savedValue.fieldOfActivity || '',
     profession: savedValue.profession || '',
     companyName: savedValue.companyName || '',
-    // For required dropdowns, use empty string to force user selection
-    additionalIncome: savedValue.additionalIncome || '',
+    // Default to option_1 (no additional income) which is the most common case
+    additionalIncome: savedValue.additionalIncome || 'option_1',
     additionalIncomeAmount: savedValue.additionalIncomeAmount || null,
     obligation: savedValue.obligation || '',
     bank: savedValue.bank || '',
