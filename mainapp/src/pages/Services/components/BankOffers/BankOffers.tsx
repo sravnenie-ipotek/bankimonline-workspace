@@ -264,11 +264,11 @@ const BankOffers = () => {
   }
 
   if (loading) {
-    return <div className={cx('container')}>Loading bank offers...</div>
+    return <div className={cx('container')}>{getContent('loading_bank_offers', 'Loading bank offers...')}</div>
   }
 
   if (error) {
-    return <div className={cx('container')}>Error: {error}</div>
+    return <div className={cx('container')}>{getContent('bank_offers_error', 'Error: ')}{error}</div>
   }
 
   return (
