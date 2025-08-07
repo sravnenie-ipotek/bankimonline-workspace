@@ -36,19 +36,27 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   // FIXED: Use 'obligations' to match API-generated key (mortgage_step3_obligations)
   const dropdownData = useDropdownData(screenLocation, 'obligations', 'full')
 
+  // Handle both DropdownData object and DropdownOption[] array
+  const isDropdownDataObject = 'loading' in dropdownData
+  const dropdownOptions = isDropdownDataObject ? dropdownData.options : dropdownData
+  const isLoading = isDropdownDataObject ? dropdownData.loading : false
+  const hasError = isDropdownDataObject ? dropdownData.error : null
+  const dropdownLabel = isDropdownDataObject ? dropdownData.label : null
+  const dropdownPlaceholder = isDropdownDataObject ? dropdownData.placeholder : null
+
   // Phase 4: Handle loading and error states
-  if (dropdownData.loading) {
+  if (isLoading) {
     console.log('🔄 Loading obligations dropdown options...')
   }
 
-  if (dropdownData.error) {
-    console.warn('❌ Obligations dropdown error:', dropdownData.error)
+  if (hasError) {
+    console.warn('❌ Obligations dropdown error:', hasError)
   }
 
   // Debug obligation values
   console.log('🔍 Obligation debug:', {
     currentValue: values.obligation,
-    options: dropdownData.options,
+    options: dropdownOptions,
     isNoObligationValue: checkIfNoObligationValue(values.obligation),
     errors: errors.obligation,
     touched: touched.obligation
@@ -72,19 +80,31 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   // Simplified error display: Let Formik handle validation naturally
   const shouldShowError = touched.obligation && errors.obligation
 
+  // Determine if we're in other-borrowers context by checking the URL
+  const isOtherBorrowersContext = window.location.pathname.includes('other-borrowers')
+  
+  // Use different content keys for other-borrowers context
+  const title = isOtherBorrowersContext 
+    ? getContent('other_borrowers_obligation_title', 'האם יש לכם התחייבות כספיתקיימת?')
+    : dropdownLabel || getContent('calculate_mortgage_debt_types', 'Existing obligations')
+  
+  const placeholder = isOtherBorrowersContext
+    ? getContent('other_borrowers_obligation_placeholder', 'בחר התחייבות')
+    : dropdownPlaceholder || getContent('calculate_mortgage_debt_types_ph', 'Do you have existing debts or obligations?')
+
   return (
     <Column>
       <DropdownMenu
-        title={dropdownData.label || getContent('calculate_mortgage_debt_types', 'Existing obligations')}
-        data={dropdownData.options}
-        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_debt_types_ph', 'Do you have existing debts or obligations?')}
+        title={title}
+        data={dropdownOptions}
+        placeholder={placeholder}
         value={values.obligation}
         onChange={handleValueChange}
         onBlur={() => setFieldTouched('obligation', true)}
         error={shouldShowError}
-        disabled={dropdownData.loading}
+        disabled={isLoading}
       />
-      {dropdownData.error && (
+      {hasError && (
         <Error error={getContent('error_dropdown_load_failed', 'Failed to load obligations options. Please refresh the page.')} />
       )}
     </Column>
