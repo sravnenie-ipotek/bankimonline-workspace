@@ -114,10 +114,10 @@ const FirstStepForm = () => {
   }, [i18n.language])
 
   // Phase 4: Get dropdown data from database instead of hardcoded arrays
-  // Fixed: Use correct API keys that match the backend response
+  // Use standardized keys that match production data structure
   const whenNeededProps = getDropdownProps('when_needed')  // API key: mortgage_step1_when_needed
   const typeProps = getDropdownProps('type')               // API key: mortgage_step1_type ✅ (already works)
-  const firstHomeProps = getDropdownProps('first_home')    // API key: mortgage_step1_first_home  
+  const firstHomeProps = getDropdownProps('first_home')    // API key: mortgage_step1_first_home
   const propertyOwnershipProps = getDropdownProps('property_ownership')
 
   // Phase 4: Show loading state for dropdowns while fetching from API
