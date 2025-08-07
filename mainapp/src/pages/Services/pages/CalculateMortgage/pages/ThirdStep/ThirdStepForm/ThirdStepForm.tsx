@@ -96,6 +96,76 @@ const ThirdStepForm = () => {
 
   const userData = useAppSelector((state) => state.login.loginData)
 
+  // FIX: Map dropdown option values to componentsByIncomeSource keys
+  const getIncomeSourceKey = (optionValue: string): string => {
+    const mapping: { [key: string]: string } = {
+      // New semantic values from database-first approach
+      'employee': 'employee',
+      'selfemployed': 'selfemployed',
+      'pension': 'pension',
+      'student': 'student',
+      'unemployed': 'unemployed',
+      'unpaid_leave': 'unpaid_leave',
+      'other': 'other',
+      // Legacy numeric values
+      '1': 'employee',        // Employee
+      '2': 'selfemployed',    // Self-employed  
+      '3': 'selfemployed',    // Business owner (similar to self-employed)
+      '4': 'pension',         // Pension
+      '5': 'student',         // Student
+      '6': 'unemployed',      // Unemployed
+      '7': 'other',           // Other
+      // Legacy option format
+      'option_1': 'employee',
+      'option_2': 'selfemployed',
+      'option_3': 'selfemployed',
+      'option_4': 'pension',
+      'option_5': 'student',
+      'option_6': 'unemployed',
+      'option_7': 'other'
+    }
+    return mapping[optionValue] || ''
+  }
+
+  const incomeSourceKey = getIncomeSourceKey(mainSourceOfIncome)
+
+  // FIX: Map dropdown option values to componentsByObligation keys
+  const getObligationKey = (optionValue: string): string => {
+    const mapping: { [key: string]: string } = {
+      // New semantic values from database-first approach
+      'no_obligations': '',         // No obligations (no additional fields)
+      'bank_loan': 'bank_loan',     // Bank loan (הלוואה בנקאית)
+      'consumer_credit': 'consumer_credit', // Consumer credit
+      'credit_card': 'credit_card', // Credit card debt
+      'other': 'other',             // Other obligations
+      // Legacy numeric values
+      '1': '',                // No obligations (no additional fields)
+      '2': 'bank_loan',       // Bank loan (הלוואה בנקאית)
+      '3': 'credit_card',     // Credit card debt
+      '4': 'consumer_credit', // Consumer credit
+      '5': 'other',           // Other obligations
+      // Legacy option format
+      'option_1': '',
+      'option_2': 'bank_loan',    // Bank loan (הלוואה בנקאית)
+      'option_3': 'credit_card',
+      'option_4': 'consumer_credit',
+      'option_5': 'other'
+    }
+    return mapping[optionValue] || ''
+  }
+
+  const obligationKey = getObligationKey(obligation)
+
+  // Debug: Log mapping results
+  console.log('🔍 Mortgage ThirdStep mapping debug:', {
+    mainSourceOfIncome,
+    incomeSourceKey,
+    willShowIncomeComponents: !!incomeSourceKey,
+    obligation,
+    obligationKey,
+    willShowObligationComponents: !!obligationKey
+  })
+
   const openSourceOfIncome = () => {
     dispatch(updateMortgageData(values))
     dispatch(createSourceOfIncomeModal())
@@ -176,8 +246,8 @@ const ThirdStepForm = () => {
 
       <Row>
         <MainSourceOfIncome />
-        {componentsByIncomeSource[mainSourceOfIncome] &&
-          componentsByIncomeSource[mainSourceOfIncome].map(
+        {componentsByIncomeSource[incomeSourceKey] &&
+          componentsByIncomeSource[incomeSourceKey].map(
             (Component, index) => (
               <React.Fragment key={index}>{Component}</React.Fragment>
             )
@@ -243,8 +313,8 @@ const ThirdStepForm = () => {
 
       <Row>
         <Obligation />
-        {componentsByObligation[obligation] &&
-          componentsByObligation[obligation].map((Component, index) => (
+        {componentsByObligation[obligationKey] &&
+          componentsByObligation[obligationKey].map((Component, index) => (
             <React.Fragment key={index}>{Component}</React.Fragment>
           ))}
         <Column />

@@ -130,21 +130,30 @@ const ThirdStepForm = () => {
 
   const obligationKey = getObligationKey(obligation)
 
-  // Debug: Log income source mapping
-  console.log('🔍 Credit Step 3 - Income Source Mapping:', {
-    originalValue: mainSourceOfIncome,
-    mappedKey: incomeSourceKey,
-    hasComponents: !!componentsByIncomeSource[incomeSourceKey],
-    availableKeys: Object.keys(componentsByIncomeSource)
+  // Debug: Enhanced logging for troubleshooting - ALWAYS LOG
+  console.log('🔍 Credit Step 3 - ENHANCED DEBUG:', {
+    formValues: { mainSourceOfIncome, obligation },
+    incomeMapping: {
+      originalValue: mainSourceOfIncome,
+      mappedKey: incomeSourceKey,
+      hasComponents: !!componentsByIncomeSource[incomeSourceKey],
+      componentsCount: componentsByIncomeSource[incomeSourceKey]?.length || 0,
+      availableKeys: Object.keys(componentsByIncomeSource)
+    },
+    obligationMapping: {
+      originalValue: obligation,
+      mappedKey: obligationKey,
+      hasComponents: !!componentsByObligation[obligationKey],
+      componentsCount: componentsByObligation[obligationKey]?.length || 0,
+      availableKeys: Object.keys(componentsByObligation)
+    },
+    shouldShowIncomeComponents: !!(mainSourceOfIncome && componentsByIncomeSource[incomeSourceKey]),
+    shouldShowObligationComponents: !!(obligation && componentsByObligation[obligationKey])
   })
-
-  // Debug: Log obligation mapping
-  console.log('🔍 Credit Step 3 - Obligation Mapping:', {
-    originalValue: obligation,
-    mappedKey: obligationKey,
-    hasComponents: !!componentsByObligation[obligationKey],
-    availableKeys: Object.keys(componentsByObligation)
-  })
+  
+  console.log('🚨 FORM RENDERING DEBUG - ThirdStepForm is mounting/updating')
+  console.log('🚨 VALUES:', { mainSourceOfIncome, obligation })
+  console.log('🚨 MAPPED KEYS:', { incomeSourceKey, obligationKey })
 
   const dispatch = useAppDispatch()
 
@@ -274,6 +283,11 @@ const ThirdStepForm = () => {
 
       <Row>
         <MainSourceOfIncome screenLocation="calculate_credit_3" />
+        {/* DEBUG: Add visual indicator for conditional logic */}
+        <div style={{ color: 'red', padding: '10px', border: '1px solid red', margin: '10px' }}>
+          DEBUG: mainSourceOfIncome="{mainSourceOfIncome}", mappedKey="{incomeSourceKey}", 
+          hasComponents={componentsByIncomeSource[incomeSourceKey] ? 'YES' : 'NO'}
+        </div>
         {componentsByIncomeSource[incomeSourceKey] &&
           componentsByIncomeSource[incomeSourceKey].map(
             (Component, index) => (
@@ -340,6 +354,11 @@ const ThirdStepForm = () => {
 
       <Row>
         <Obligation screenLocation="calculate_credit_3" />
+        {/* DEBUG: Add visual indicator for obligation conditional logic */}
+        <div style={{ color: 'blue', padding: '10px', border: '1px solid blue', margin: '10px' }}>
+          DEBUG: obligation="{obligation}", mappedKey="{obligationKey}", 
+          hasComponents={componentsByObligation[obligationKey] ? 'YES' : 'NO'}
+        </div>
         {componentsByObligation[obligationKey] &&
           componentsByObligation[obligationKey].map((Component, index) => (
             <React.Fragment key={index}>{Component}</React.Fragment>
