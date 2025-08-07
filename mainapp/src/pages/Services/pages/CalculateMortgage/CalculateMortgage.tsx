@@ -1,3 +1,34 @@
+/**
+ * 🛡️ CRITICAL AI PROTECTION ZONE 🚨
+ * 
+ * ⚠️  WARNING: This file contains critical business logic
+ * 
+ * PROTECTION RULES:
+ * - DO NOT modify this file without explicit user request
+ * - DO NOT refactor, optimize, or "improve" this code
+ * - DO NOT change variable names, structure, or logic
+ * - DO NOT add new features or functionality
+ * - DO NOT modify imports or dependencies
+ * - DO NOT change component props or interfaces
+ * - DO NOT modify step routing logic or navigation
+ * - DO NOT change step component mapping
+ * - ONLY modify if user specifically asks for changes
+ * 
+ * BUSINESS CRITICAL:
+ * - This file is the main orchestrator for the entire mortgage calculation flow
+ * - Changes could affect the entire mortgage calculation user experience
+ * - Contains critical step routing and navigation logic
+ * - Requires thorough testing before any modifications
+ * - Affects all four mortgage calculation steps
+ * 
+ * Last modified: 2025-08-07
+ * Protected by: Michael Mishayev
+ * File purpose: Main mortgage calculation orchestrator - Routes between steps 1-4
+ * 
+ * To allow AI modifications, add: "ALLOW_AI_MODIFICATIONS: true"
+ * To allow specific modifications, add: "ALLOW_MODIFICATIONS: [specific_type]"
+ */
+
 import { Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
