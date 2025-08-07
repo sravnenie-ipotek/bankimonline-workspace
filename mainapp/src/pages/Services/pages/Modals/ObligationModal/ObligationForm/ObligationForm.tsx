@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Button } from '@src/components/ui/ButtonUI'
 import { Column } from '@src/components/ui/Column'
 import { useAppDispatch } from '@src/hooks/store.ts'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { Obligation } from '@src/pages/Services/components/Obligation'
 import { componentsByObligation } from '@src/pages/Services/constants/componentsByObligation'
 import { closeModal } from '@src/pages/Services/slices/modalSlice.ts'
@@ -15,19 +16,49 @@ import styles from './obligationForm.module.scss'
 const cx = classNames.bind(styles)
 const ObligationForm = () => {
   const { t, i18n } = useTranslation()
-  const { handleSubmit, isValid, values } =
+  const { getContent } = useContentApi('common')
+  const { handleSubmit, isValid, values, errors } =
     useFormikContext<ObligationModalTypes>()
 
   const dispatch = useAppDispatch()
 
   const { obligation } = values
+
+  // Map dropdown option values to componentsByObligation keys
+  const getObligationKey = (optionValue: string): string => {
+    const mapping: { [key: string]: string } = {
+      '1': '',                    // No obligations - no additional components
+      '2': 'bank_loan',           // Bank loan
+      '3': 'credit_card',         // Credit card debt
+      '4': 'other'                // Other obligations
+    }
+    return mapping[optionValue] || ''
+  }
+
+  const obligationKey = getObligationKey(obligation)
+
+  // Debug: Log obligation mapping and form state
+  console.log('🔍 Obligation Modal - Mapping:', {
+    originalValue: obligation,
+    mappedKey: obligationKey,
+    hasComponents: !!componentsByObligation[obligationKey],
+    availableKeys: Object.keys(componentsByObligation)
+  })
+
+  console.log('🔍 Obligation Modal - Form State:', {
+    isValid,
+    values,
+    errors,
+    obligation: obligation
+  })
+
   return (
     <>
       <div className={cx('modal')}>
         <div className={cx('container')}>
-          <Obligation />
-          {componentsByObligation[obligation] &&
-            componentsByObligation[obligation].map((Component, index) => (
+          <Obligation screenLocation="calculate_credit_3" />
+          {componentsByObligation[obligationKey] &&
+            componentsByObligation[obligationKey].map((Component, index) => (
               <div className={cx('component')} key={index}>
                 {Component}
               </div>
@@ -38,10 +69,10 @@ const ObligationForm = () => {
           <div className={cx('buttons')}>
             <Button
               variant="modalBase"
-              type="submit"
+              type="button"
               onClick={() => dispatch(closeModal())}
             >
-              {t('button_back')}
+              {getContent('button_back') || (i18n.language === 'he' ? 'חזור' : i18n.language === 'ru' ? 'Назад' : 'Back')}
             </Button>
             <Button
               type="submit"
@@ -49,7 +80,7 @@ const ObligationForm = () => {
               onClick={handleSubmit as () => void}
               size="full"
             >
-              {t('button_next_save')}
+              {getContent('button_next_save') || (i18n.language === 'he' ? 'שמור והמשך' : i18n.language === 'ru' ? 'Сохранить и продолжить' : 'Save and Continue')}
             </Button>
           </div>
         </div>

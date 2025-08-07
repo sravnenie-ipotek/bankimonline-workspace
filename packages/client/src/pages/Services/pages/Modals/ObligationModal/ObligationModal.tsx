@@ -46,24 +46,29 @@ const ObligationModal = () => {
     obligation: Yup.string().required(getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')),
     bank: Yup.string().when('obligation', {
       is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value !== 'no_obligations',
+        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require bank
       then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
       otherwise: (shema) => shema.notRequired(),
     }),
     monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
       is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value !== 'no_obligations',
+        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require monthly payment
       then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
       otherwise: (shema) => shema.notRequired(),
     }),
-    endDate: Yup.string().required(getValidationErrorSync('error_date', 'Please select a date')),
+    endDate: Yup.date().when('obligation', {
+      is: (value: string) =>
+        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require end date
+      then: (shema) => shema.required(getValidationErrorSync('error_date', 'Please select a date')),
+      otherwise: (shema) => shema.notRequired(),
+    }),
   })
 
   return (
     <Modal
       isVisible={isOpen}
       onCancel={handleClose}
-      title={`${getContent('obligation_modal_title', 'Obligation')} ${modalId + 1}`}
+      title={`${getContent('obligation_modal_title', t('obligation_modal_title'))} ${modalId + 1}`}
     >
       <Formik
         initialValues={initialValues}

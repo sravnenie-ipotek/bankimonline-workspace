@@ -1,0 +1,140 @@
+# BrowserStack Configuration for BankiMonline Mortgage Calculator Testing
+# Professional QA Automation Suite
+
+# Authentication
+userName: qabankimonline@gmail.com
+accessKey: 1sPgh89g81AybDayLQtz
+
+# Framework configuration
+framework: mocha
+parallelsPerPlatform: 3
+maxParallel: 5
+
+# Build configuration
+buildName: BankiMonline-MortgageCalculator-E2E
+buildIdentifier: ${BUILD_NUMBER:-manual-${GITHUB_SHA:-local}}
+projectName: BankiMonline Banking Platform
+buildTag: mortgage-calculator-automation-v1.0
+
+# Test configuration
+testPath: ./tests/
+testObservability: true
+retryFailedTests: 2
+debug: true
+
+# Platform configurations for comprehensive cross-browser testing
+platforms:
+  # Desktop Browsers - Latest Versions
+  - os: Windows
+    osVersion: 11
+    browserName: Chrome
+    browserVersion: latest
+    bstack:options:
+      debug: true
+      console: errors
+      networkLogs: true
+      video: true
+      screenshots: true
+      resolution: 1920x1080
+      seleniumVersion: 4.15.0
+      networkProfile: high-speed
+
+  - os: Windows  
+    osVersion: 10
+    browserName: Firefox
+    browserVersion: latest
+    bstack:options:
+      debug: true
+      console: errors
+      networkLogs: true
+      video: true
+      screenshots: true
+      resolution: 1920x1080
+
+  - os: OS X
+    osVersion: Ventura
+    browserName: Safari
+    browserVersion: latest
+    bstack:options:
+      debug: true
+      console: errors
+      networkLogs: true
+      video: true
+      screenshots: true
+      resolution: 1920x1080
+
+  - os: Windows
+    osVersion: 11
+    browserName: Edge
+    browserVersion: latest
+    bstack:options:
+      debug: true
+      console: errors
+      networkLogs: true
+      video: true
+      screenshots: true
+      resolution: 1920x1080
+
+  # Mobile Devices - Modern iOS and Android
+  - deviceName: iPhone 14 Pro
+    platformName: iOS
+    platformVersion: 16
+    browserName: Safari
+    bstack:options:
+      debug: true
+      console: errors
+      networkLogs: true
+      video: true
+      screenshots: true
+      realMobile: true
+      deviceOrientation: portrait
+      networkProfile: 4g
+
+  - deviceName: Samsung Galaxy S23
+    platformName: android
+    platformVersion: 13.0
+    browserName: chrome
+    bstack:options:
+      debug: true
+      console: errors
+      networkLogs: true
+      video: true
+      screenshots: true
+      realMobile: true
+      deviceOrientation: portrait
+      networkProfile: 4g
+
+  - deviceName: iPad Pro 12.9 2022
+    platformName: iOS
+    platformVersion: 16
+    browserName: Safari
+    bstack:options:
+      debug: true
+      console: errors
+      networkLogs: true
+      video: true
+      screenshots: true
+      realMobile: true
+      deviceOrientation: portrait
+
+# Test environment settings
+environments:
+  - name: local
+    url: http://localhost:5173
+  - name: staging  
+    url: https://staging.bankimonline.com
+  - name: production
+    url: https://admin.bankimonline.com
+
+# Timeout settings
+connectionTimeout: 90
+idleTimeout: 300
+acceptSslCerts: true
+
+# Local testing configuration (for localhost testing)
+local: false
+localIdentifier: ${BROWSERSTACK_LOCAL_IDENTIFIER:-default}
+
+# Performance monitoring
+performanceLogs: true
+timezone: UTC

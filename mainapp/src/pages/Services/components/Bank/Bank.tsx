@@ -1,7 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { useContentApi } from '@src/hooks/useContentApi'
-import { useDropdownData } from '@src/hooks/useDropdownData'
 
 import { Column } from '@components/ui/Column'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
@@ -13,49 +12,45 @@ interface BankProps {
   screenLocation?: string
 }
 
-const Bank = ({ screenLocation = 'mortgage_step3' }: BankProps) => {
+const Bank = ({ screenLocation = 'calculate_credit_3' }: BankProps) => {
   const { t, i18n } = useTranslation()
-  const { getContent } = useContentApi(screenLocation)
   const { getContent: getCommonContent } = useContentApi('common')
   const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<FormTypes>()
 
-  // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  const dropdownData = useDropdownData(screenLocation, 'bank', 'full')
-
-  // Phase 4: Handle loading and error states
-  if (dropdownData.loading) {
-    console.log('🔄 Loading bank dropdown options...')
-  }
-
-  if (dropdownData.error) {
-    console.warn('❌ Bank dropdown error:', dropdownData.error)
-  }
-
   // Use obligation-specific content when in obligation context
-  const isObligationContext = screenLocation === 'mortgage_step3' && values.obligation
+  const isObligationContext = screenLocation === 'calculate_credit_3' && values.obligation
+  
+  // Since there's no bank dropdown data in database, use common translations
   const title = isObligationContext 
     ? getCommonContent('obligation_bank_title', 'Bank Lender')
-    : (dropdownData.label || getContent('calculate_mortgage_bank', t('calculate_mortgage_bank')))
+    : getCommonContent('bank_title', 'Bank')
+  
   const placeholder = isObligationContext
     ? getCommonContent('obligation_bank_placeholder', 'Select bank')
-    : (dropdownData.placeholder || getContent('calculate_mortgage_bank_ph', t('calculate_mortgage_bank')))
+    : getCommonContent('bank_placeholder', 'Select bank')
+
+  // Create a simple bank options array since no database data exists
+  const bankOptions = [
+    { value: '1', label: getCommonContent('bank_option_1', 'Bank Hapoalim') },
+    { value: '2', label: getCommonContent('bank_option_2', 'Bank Leumi') },
+    { value: '3', label: getCommonContent('bank_option_3', 'Bank Discount') },
+    { value: '4', label: getCommonContent('bank_option_4', 'Bank Mizrahi') },
+    { value: '5', label: getCommonContent('bank_option_5', 'Other Bank') }
+  ]
 
   return (
     <Column>
       <DropdownMenu
         title={title}
         placeholder={placeholder}
-        data={dropdownData.options}
+        data={bankOptions}
         value={values.bank}
         onChange={(value) => setFieldValue('bank', value)}
         onBlur={() => setFieldTouched('bank')}
         error={touched.bank && errors.bank}
-        disabled={dropdownData.loading}
+        disabled={false}
       />
-      {dropdownData.error && (
-        <Error error={getContent('error_dropdown_load_failed', 'Failed to load bank options. Please refresh the page.')} />
-      )}
     </Column>
   )
 }
