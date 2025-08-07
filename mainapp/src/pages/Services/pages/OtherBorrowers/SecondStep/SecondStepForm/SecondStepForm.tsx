@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { AdditionalIncome } from '@src/pages/Services/components/AdditionalIncome'
 import { AdditionalIncomeAmount } from '@src/pages/Services/components/AdditionalIncomeAmount'
 import { MainSourceOfIncome } from '@src/pages/Services/components/MainSourceOfIncome'
-import { Obligation } from '@src/pages/Services/components/Obligation'
+import { OtherBorrowersObligation } from '@src/pages/Services/components/OtherBorrowersObligation'
 import { componentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource'
 import { componentsByObligation } from '@src/pages/Services/constants/componentsByObligation'
 import {
@@ -177,7 +177,7 @@ const SecondStepForm = () => {
       <Divider />
 
       <Row>
-        <Obligation />
+        <OtherBorrowersObligation />
         {componentsByObligation[obligation] &&
           componentsByObligation[obligation].map((Component, index) => (
             <React.Fragment key={index}>{Component}</React.Fragment>
