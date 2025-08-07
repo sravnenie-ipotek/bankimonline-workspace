@@ -29,7 +29,8 @@ const ThirdStep = () => {
     // Default to option_1 (no additional income) which is the most common case
     additionalIncome: savedValue.additionalIncome || 'option_1',
     additionalIncomeAmount: savedValue.additionalIncomeAmount || null,
-    obligation: savedValue.obligation || '',
+    // Default to option_1 (no obligations) which is the most common case
+    obligation: savedValue.obligation || 'option_1',
     bank: savedValue.bank || '',
     monthlyPaymentForAnotherBank:
       savedValue.monthlyPaymentForAnotherBank || null,
