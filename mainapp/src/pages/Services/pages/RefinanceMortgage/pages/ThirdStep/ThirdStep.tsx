@@ -19,15 +19,19 @@ const ThirdStep = () => {
   const savedValue = useAppSelector((state) => state.refinanceMortgage)
 
   const initialValues = {
-    mainSourceOfIncome: savedValue.mainSourceOfIncome || '',
-    monthlyIncome: savedValue.monthlyIncome || null,
+    // Fix: Provide default option_1 (employee) for main source of income
+    mainSourceOfIncome: savedValue.mainSourceOfIncome || 'option_1',
+    // Fix: Provide default values for employee-related required fields
+    monthlyIncome: savedValue.monthlyIncome || 10000,
     startDate: savedValue.startDate || new Date().getTime(),
-    fieldOfActivity: savedValue.fieldOfActivity || '',
-    profession: savedValue.profession || '',
-    companyName: savedValue.companyName || '',
-    additionalIncome: savedValue.additionalIncome || '',
+    fieldOfActivity: savedValue.fieldOfActivity || 'option_1',
+    profession: savedValue.profession || 'Software Developer',
+    companyName: savedValue.companyName || 'Test Company',
+    // Fix: Provide default value for required additionalIncome field
+    additionalIncome: savedValue.additionalIncome || 'no_additional_income',
     additionalIncomeAmount: savedValue.additionalIncomeAmount || null,
-    obligation: savedValue.obligation || 'option_1',
+    // Fix: Provide default value for required obligation field
+    obligation: savedValue.obligation || 'no_obligations',
     bank: savedValue.bank || '',
     monthlyPaymentForAnotherBank:
       savedValue.monthlyPaymentForAnotherBank || null,
