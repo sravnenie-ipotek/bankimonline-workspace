@@ -15,7 +15,13 @@ interface ObligationProps {
 
 const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   const { t, i18n } = useTranslation()
-  const { getContent } = useContentApi(screenLocation)
+  
+  // Determine if we're in other-borrowers context by checking the URL
+  const isOtherBorrowersContext = window.location.pathname.includes('other-borrowers')
+  
+  // Use the correct screen location for content loading
+  const contentScreenLocation = isOtherBorrowersContext ? 'other_borrowers' : screenLocation
+  const { getContent } = useContentApi(contentScreenLocation)
   const { values, setFieldValue, touched, errors, setFieldTouched } =
     useFormikContext<FormTypes>()
 
@@ -79,9 +85,6 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
 
   // Simplified error display: Let Formik handle validation naturally
   const shouldShowError = touched.obligation && errors.obligation
-
-  // Determine if we're in other-borrowers context by checking the URL
-  const isOtherBorrowersContext = window.location.pathname.includes('other-borrowers')
   
   // Use different content keys for other-borrowers context
   const title = isOtherBorrowersContext 
