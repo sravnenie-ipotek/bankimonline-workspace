@@ -1,6 +1,7 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { useContentApi } from '@src/hooks/useContentApi'
+import { useDropdownData } from '@src/hooks/useDropdownData'
 
 
 import { Column } from '@components/ui/Column'
@@ -34,17 +35,29 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
     )
   }
 
-  // ✅ CORRECT Database-First approach: Build options from loaded content
-  const mainSourceOptions = Array.from({ length: 7 }, (_, i) => {
-    const optionNumber = i + 1
-    const contentKey = `calculate_mortgage_main_source_option_${optionNumber}`
-    const fallbackKey = `calculate_mortgage_main_source_option_${optionNumber}`
-    
-    return {
-      value: `option_${optionNumber}`,
-      label: getContent(contentKey, t(fallbackKey))
-    }
-  }).filter(option => option.label && option.label !== option.value) // Filter out missing options
+  // ✅ UPDATED: Follow systemTranslationLogic.md - use database-first approach for all contexts
+  // Use 'source' field name to match API key (calculate_credit_3_source)
+  const dropdownData = useDropdownData(screenLocation, 'source', 'full') as {
+    options: Array<{value: string; label: string}>;
+    placeholder?: string;
+    label?: string;
+    loading: boolean;
+    error: Error | null;
+  }
+
+  // Keep fallback for mortgage contexts that might not have database dropdown data
+  const mainSourceOptions = (screenLocation?.includes('credit') && dropdownData?.options?.length > 0) 
+    ? dropdownData.options 
+    : Array.from({ length: 7 }, (_, i) => {
+        const optionNumber = i + 1
+        const contentKey = `calculate_mortgage_main_source_option_${optionNumber}`
+        const fallbackKey = `calculate_mortgage_main_source_option_${optionNumber}`
+        
+        return {
+          value: `option_${optionNumber}`,
+          label: getContent(contentKey, t(fallbackKey))
+        }
+      }).filter(option => option.label && option.label !== option.value) // Filter out missing options
 
   // Debug dropdown data
   console.log('🔍 MainSourceOfIncome options:', {
@@ -83,13 +96,17 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
     <Column>
       <DropdownMenu
         data={mainSourceOptions}
-        title={getContent('calculate_mortgage_main_source', t('calculate_mortgage_main_source'))}
-        placeholder={getContent('calculate_mortgage_main_source_ph', t('calculate_mortgage_main_source_ph'))}
+        title={(screenLocation?.includes('credit') && dropdownData?.label) ? dropdownData.label : getContent('calculate_mortgage_main_source', t('calculate_mortgage_main_source'))}
+        placeholder={(screenLocation?.includes('credit') && dropdownData?.placeholder) ? dropdownData.placeholder : getContent('calculate_mortgage_main_source_ph', t('calculate_mortgage_main_source_ph'))}
         value={values.mainSourceOfIncome || ''}
         onChange={handleValueChange}
         onBlur={() => setFieldTouched('mainSourceOfIncome', true)}
         error={touched.mainSourceOfIncome && errors.mainSourceOfIncome}
+        disabled={screenLocation?.includes('credit') && dropdownData?.loading}
       />
+      {screenLocation?.includes('credit') && dropdownData?.error && (
+        <Error error={getContent('error_dropdown_load_failed', 'Failed to load main source options. Please refresh the page.')} />
+      )}
     </Column>
   )
 }
