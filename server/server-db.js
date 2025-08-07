@@ -119,7 +119,7 @@ const getCorsOrigins = () => {
         return process.env.CORS_ALLOWED_ORIGINS.split(',').map(url => url.trim());
     }
     
-    // Default origins for development and Railway deployment
+    // Default origins for development and production deployment
     return [
         'http://localhost:3001',
         'http://localhost:3000',
@@ -127,9 +127,8 @@ const getCorsOrigins = () => {
         'http://localhost:5174', // Vite dev server (alternative port)
         'http://localhost:5175', // Vite dev server (another alternative port)
         'http://localhost:8003',
-        // Railway domains
-        'https://bankdev2standalone-production.up.railway.app',
-        'https://bankim-nodejs-api-production.up.railway.app'
+        // Production domains
+        'https://bankimonline.com'
     ];
 };
 

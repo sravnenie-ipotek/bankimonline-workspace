@@ -107,9 +107,8 @@ const getCorsOrigins = () => {
         'http://localhost:5174', // Vite dev server (alternative port)
         'http://localhost:5175', // Vite dev server (another alternative port)
         'http://localhost:8003',
-        // Railway domains
-        'https://bankdev2standalone-production.up.railway.app',
-        'https://bankim-nodejs-api-production.up.railway.app'
+        // Production domain
+        'https://bankimonline.com'
     ];
 };
 

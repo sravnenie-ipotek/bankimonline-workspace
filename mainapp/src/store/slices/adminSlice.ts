@@ -47,7 +47,14 @@ const initialState: AdminState = {
 };
 
 // API base URL
-const API_BASE_URL = 'https://bankdev2standalone-production.up.railway.app/api';
+const getApiBaseUrl = () => {
+  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+    return 'http://localhost:8003/api'
+  }
+  return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankimonline.com/api'
+}
+
+const API_BASE_URL = getApiBaseUrl();
 
 /**
  * Admin Login Async Thunk
