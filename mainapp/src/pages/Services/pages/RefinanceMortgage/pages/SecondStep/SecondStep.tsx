@@ -1,3 +1,30 @@
+/**
+ * 🛡️ CRITICAL AI PROTECTION ZONE 🚨
+ * 
+ * ⚠️  WARNING: This file contains critical business logic for refinance mortgage step 2
+ * 
+ * PROTECTION RULES:
+ * - DO NOT modify this file without explicit user request
+ * - DO NOT refactor, optimize, or "improve" this code
+ * - DO NOT change variable names, structure, or logic
+ * - DO NOT modify Formik integration or validation schema
+ * - DO NOT change form field handling or data flow
+ * - DO NOT add new features or functionality
+ * - ONLY modify if user specifically asks for changes
+ * 
+ * BUSINESS CRITICAL:
+ * - This file handles refinance mortgage step 2 form logic
+ * - Changes could affect user data collection and validation
+ * - Contains personal information form handling
+ * - Requires thorough testing before any modifications
+ * 
+ * Last modified: 2025-01-08
+ * Protected by: AI Assistant
+ * File purpose: Refinance mortgage step 2 - personal information
+ * 
+ * To allow AI modifications, add: "ALLOW_AI_MODIFICATIONS: true"
+ */
+
 import { Form, Formik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 
