@@ -1,0 +1,21 @@
+1. Start your development server:
+  # In a new terminal window, navigate to your project root:
+  cd /Users/michaelmishayev/Projects/bankDev2_standalone
+
+  # Start the development server:
+  npm run dev
+  # OR
+  cd mainapp && npm run dev
+
+  2. Once the server is running, run the test again:
+  # In the browserstack directory:
+  node test.js
+
+  3. View results on BrowserStack:
+  - Go to: https://automate.browserstack.com/
+  - Login with: qabankimonline@gmail.com
+  - Look for build: "E2E-BankimOnline-Calculator"
+  - Even the failed test run should show up in your dashboard!
+
+  The test is now ready to work - you just need your local development server running
+  on port 5173! 🚀

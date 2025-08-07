@@ -81,7 +81,7 @@ const getApiBaseUrl = () => {
   return import.meta.env.VITE_NODE_API_BASE_URL || 
          (import.meta.env.PROD ? 
            'https://bankdev2standalone-production.up.railway.app/api' : 
-           'http://localhost:8004/api')
+           '/api')
 }
 
 // Fetch bank offers from API

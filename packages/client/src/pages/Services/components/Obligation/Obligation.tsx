@@ -33,7 +33,8 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   }
 
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  const dropdownData = useDropdownData(screenLocation, 'obligations', 'full')
+  // FIXED: Use 'types' to match API key shortening (calculate_credit_3_types)
+  const dropdownData = useDropdownData(screenLocation, 'types', 'full')
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {

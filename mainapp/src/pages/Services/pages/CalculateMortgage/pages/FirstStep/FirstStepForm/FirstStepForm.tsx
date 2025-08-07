@@ -61,7 +61,7 @@ const FirstStepForm = () => {
       try {
         setIsLoadingLtvRatios(true)
         const apiBaseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-          ? 'http://localhost:8004/api' 
+          ? '/api' 
           : import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankdev2standalone-production.up.railway.app/api'
         const response = await fetch(`${apiBaseUrl}/v1/calculation-parameters?business_path=mortgage`)
         const data = await response.json()

@@ -342,7 +342,12 @@ export const useContentApi = (screenLocation: string) => {
       'refinance_step2_title': ['calculate_mortgage_step2_title'],
       
       // Refinance Step 3 mappings
-      'refinance_step3_title': ['calculate_mortgage_step3_title']
+      'refinance_step3_title': ['calculate_mortgage_step3_title'],
+      
+      // Credit Step 3 mappings
+      'calculate_credit_step3_title': ['app.credit.step3.title', 'credit_step3_title', 'calculate_mortgage_step3_title'],
+      'calculate_credit_source_of_income': ['app.credit.step3.source_of_income', 'main_income_source'],
+      'calculate_credit_add_place_to_work': ['app.credit.step3.add_workplace', 'add_place_to_work']
     };
     
     // Try specific mappings first
