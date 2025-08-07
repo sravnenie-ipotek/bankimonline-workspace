@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 
@@ -19,9 +19,16 @@ const CalculateCredit = () => {
 
   const isLogin = useAppSelector((state) => state.login.isLogin)
 
+  // Fix: Move navigation to useEffect to avoid updating router during render
+  useEffect(() => {
+    if (!isLogin && stepNumber !== '1') {
+      navigate('/services/calculate-credit/1')
+    }
+  }, [isLogin, stepNumber, navigate])
+
+  // Show loader while redirecting
   if (!isLogin && stepNumber !== '1') {
-    navigate('/services/calculate-credit/1')
-    return
+    return <Loader />
   }
 
   const data = [
