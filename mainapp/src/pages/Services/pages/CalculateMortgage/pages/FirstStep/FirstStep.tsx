@@ -1,3 +1,34 @@
+/**
+ * 🛡️ CRITICAL AI PROTECTION ZONE 🚨
+ * 
+ * ⚠️  WARNING: This file contains critical business logic
+ * 
+ * PROTECTION RULES:
+ * - DO NOT modify this file without explicit user request
+ * - DO NOT refactor, optimize, or "improve" this code
+ * - DO NOT change variable names, structure, or logic
+ * - DO NOT add new features or functionality
+ * - DO NOT modify imports or dependencies
+ * - DO NOT change component props or interfaces
+ * - DO NOT modify validation schema or business rules
+ * - DO NOT change form field names or validation logic
+ * - ONLY modify if user specifically asks for changes
+ * 
+ * BUSINESS CRITICAL:
+ * - This file handles mortgage calculation step 1 form logic
+ * - Changes could affect mortgage calculation accuracy and user experience
+ * - Contains critical validation rules for property value, initial payment, etc.
+ * - Requires thorough testing before any modifications
+ * - Affects the entire mortgage calculation flow
+ * 
+ * Last modified: 2025-08-07
+ * Protected by: Michael Mishayev
+ * File purpose: Mortgage calculation step 1 - Property details and initial parameters
+ * 
+ * To allow AI modifications, add: "ALLOW_AI_MODIFICATIONS: true"
+ * To allow specific modifications, add: "ALLOW_MODIFICATIONS: [specific_type]"
+ */
+
 import { Form, Formik } from 'formik'
 import i18next from 'i18next'
 import { getValidationErrorSync } from '@src/utils/validationHelpers'
