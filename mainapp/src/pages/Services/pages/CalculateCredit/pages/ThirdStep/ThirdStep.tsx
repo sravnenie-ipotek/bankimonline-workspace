@@ -1,4 +1,6 @@
 import { Form, Formik } from 'formik'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 
 import { Container } from '@components/ui/Container'
@@ -7,33 +9,51 @@ import { AdditionalIncomeModal } from '@src/pages/Services/pages/Modals/Addition
 import { ObligationModal } from '@src/pages/Services/pages/Modals/ObligationModal'
 import { SourceOfIncomeModal } from '@src/pages/Services/pages/Modals/SourceOfIncomeModal'
 import { updateCreditData } from '@src/pages/Services/slices/calculateCreditSlice.ts'
+import { preloadValidationErrors } from '@src/utils/validationHelpers'
 
 import { DoubleButtons } from '../../../../components/DoubleButtons'
 import ThirdStepForm from './ThirdStepForm/ThirdStepForm'
-import { validationSchema } from './constants'
+import { getValidationSchema } from './constants'
 
 const ThirdStep = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const { i18n } = useTranslation()
+  const [validationSchema, setValidationSchema] = useState(() => getValidationSchema())
 
   const savedValue = useAppSelector((state) => state.credit)
+
+  // Preload validation errors and regenerate schema when component mounts or language changes
+  useEffect(() => {
+    const initializeValidation = async () => {
+      console.log('🔄 ThirdStep: Preloading validation errors for language:', i18n.language)
+      await preloadValidationErrors()
+      
+      // Regenerate validation schema after errors are loaded
+      const newSchema = getValidationSchema()
+      setValidationSchema(newSchema)
+      console.log('✅ ThirdStep: Validation schema updated for language:', i18n.language)
+    }
+    
+    initializeValidation()
+  }, [i18n.language]) // Regenerate when language changes
 
   const initialValues = {
     mainSourceOfIncome: savedValue.mainSourceOfIncome || '',
     monthlyIncome: savedValue.monthlyIncome || null,
-    startDate: savedValue.startDate || new Date().getTime(),
+    startDate: savedValue.startDate || new Date().toISOString().split('T')[0], // Use YYYY-MM-DD format
     fieldOfActivity: savedValue.fieldOfActivity || '',
     profession: savedValue.profession || '',
     companyName: savedValue.companyName || '',
     additionalIncome: savedValue.additionalIncome || '',
     additionalIncomeAmount: savedValue.additionalIncomeAmount || null,
-    obligation: savedValue.obligation || 'option_1',
+    obligation: savedValue.obligation || '1', // Default to "No obligations" (API value)
     bank: savedValue.bank || '',
     monthlyPaymentForAnotherBank:
       savedValue.monthlyPaymentForAnotherBank || null,
-    endDate: savedValue.endDate || new Date().getTime(),
+    endDate: savedValue.endDate || new Date().toISOString().split('T')[0], // Use YYYY-MM-DD format
     amountIncomeCurrentYear: savedValue?.amountIncomeCurrentYear || null,
-    noIncome: savedValue.noIncome || new Date().getTime(),
+    noIncome: savedValue.noIncome || new Date().toISOString().split('T')[0], // Use YYYY-MM-DD format
   }
 
   return (

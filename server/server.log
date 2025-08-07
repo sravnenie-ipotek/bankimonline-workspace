@@ -1,29 +1,10 @@
-
-> bankim-server@1.0.0 dev
-> node start-dev.js
-
-🚀 Starting BankIM Development Environment...
-
-⚠️  DEVELOPMENT MODE - Not for production deployment!
-📖 For production deployment, see: DEVHelp/RAILWAY_DEPLOYMENT_GUIDE.md
-
-📡 API Server starting on http://localhost:8003
-🌐 File Server starting on http://localhost:3001
-📱 SMS Login: Mock mode (check console for OTP codes)
-
-💡 To stop both servers, press Ctrl+C
-🔗 Production deployment: see DEVHelp/RAILWAY_DEPLOYMENT_GUIDE.md
-
-[FILE-3001] File server running at http://localhost:3001/
-[FILE-3001] Customer approval check at http://localhost:3001/customer-approval-check
-Main app at http://localhost:3001/
-[API-8003] 🔧 Database Config - Environment: development, Railway: not set
-[API-8003] 🛠️ Development environment detected - using Railway PostgreSQL
-[API-8003] 🔧 Database Config - Environment: development, Railway: not set
-[API-8003] 🛠️ Development environment detected - using Railway PostgreSQL
-[API-8003] 🔒 CORS Configuration:
-[API-8003] 📝 CORS_ALLOWED_ORIGINS env var: Not set
-[API-8003] 🌐 Resolved CORS origins: [
+🔧 Database Config - Environment: development, Railway: not set
+🛠️ Development environment detected - using Railway PostgreSQL
+🔧 Database Config - Environment: development, Railway: not set
+🛠️ Development environment detected - using Railway PostgreSQL
+🔒 CORS Configuration:
+📝 CORS_ALLOWED_ORIGINS env var: Not set
+🌐 Resolved CORS origins: [
   'http://localhost:3001',
   'http://localhost:3000',
   'http://localhost:5173',
@@ -33,850 +14,482 @@ Main app at http://localhost:3001/
   'https://bankdev2standalone-production.up.railway.app',
   'https://bankim-nodejs-api-production.up.railway.app'
 ]
-[API-8003] 🚀 Database API Server Started
-[API-8003] 📡 http://localhost:8003
+🚀 Database API Server Started
+📡 http://localhost:8003
 📧 Email login: POST /api/login
 📧 Email 2FA: POST /api/email-code-login
 📱 SMS login: POST /api/sms-login & /api/sms-code-login
-[API-8003] 👤 Registration: POST /api/register
+👤 Registration: POST /api/register
 🏙️ Cities: GET /api/get-cities?lang=xx
 🏠 Refinance mortgage: POST /api/refinance-mortgage
 💳 Refinance credit: POST /api/refinance-credit
 🔐 Admin login: POST /api/admin/login
 📊 Admin stats: GET /api/admin/stats
 🏦 Admin banks: GET /api/admin/banks
-[API-8003] 🏪 Compare banks: POST /api/customer/compare-banks
+🏪 Compare banks: POST /api/customer/compare-banks
 📝 Submit application: POST /api/customer/submit-application
-[API-8003] 📋 Check status: GET /api/applications/:id/status
-[API-8003] 🔧 Admin applications: GET /api/admin/applications
+📋 Check status: GET /api/applications/:id/status
+🔧 Admin applications: GET /api/admin/applications
 📊 Admin app details: GET /api/admin/applications/:id
 ✏️ Update app status: PUT /api/admin/applications/:id/status
-[API-8003] 🏢 PHASE 2: Bank Worker Registration System
+
+🏢 PHASE 2: Bank Worker Registration System
 📨 Send invitation: POST /api/bank-worker/invite
 📝 Get registration form: GET /api/bank-worker/register/:token
 ✅ Complete registration: POST /api/bank-worker/register
 📊 Check status: GET /api/bank-worker/status/:id
-[API-8003] 📋 Admin invitations: GET /api/admin/invitations
-[API-8003] ⏳ Admin approval queue: GET /api/admin/approval-queue
+📋 Admin invitations: GET /api/admin/invitations
+⏳ Admin approval queue: GET /api/admin/approval-queue
 ✅ Approve worker: POST /api/admin/approve/:id
 ❌ Reject worker: POST /api/admin/reject/:id
-[API-8003] ✅ Content Database connected: 2025-08-07T04:11:01.955Z
-[API-8003] ✅ Main Database connected: 2025-08-07T04:11:01.982Z
-[API-8003] ✅ test-content table deleted successfully (if it existed)
-[API-8003] ⚡ Dropdown cache MISS for dropdowns_calculate_credit_3_he - querying database
-[API-8003] 🔍 Executing query for screen: calculate_credit_3, language: he
-[API-8003] 📊 Query returned 25 rows
-[API-8003] 📊 Processing 25 rows for calculate_credit_3/he
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types (label)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_2 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_ph (placeholder)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional (label)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_2 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_3 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_4 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_6 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_ph (placeholder)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source (label)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_2 (option)
-🔍 Processing: calculate_credit_3_main_source_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_4 (option)
-🔍 Processing: calculate_credit_3_main_source_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_6 (option)
-🔍 Processing: calculate_credit_3_main_source_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_ph (placeholder)
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 91.161 ms - 1838[0m
-[API-8003] ⚡ Cache MISS for content_validation_errors_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_validation_errors_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_validation_errors_he_all - querying database
-[API-8003] [0mGET /api/content/validation_errors/he [32m200[0m 617.591 ms - 7203[0m
-[API-8003] [0mGET /api/content/validation_errors/he [32m200[0m 613.688 ms - 7203[0m
-[API-8003] [0mGET /api/content/validation_errors/he [32m200[0m 859.481 ms - 7203[0m
-[API-8003] ⚡ Cache MISS for content_common_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_common_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_calculate_credit_3_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_calculate_credit_3_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_sms_code_verification_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_sms_code_verification_he_all - querying database
-[API-8003] [0mGET /api/content/common/he [32m200[0m 75.649 ms - 1287[0m
-[API-8003] [0mGET /api/content/common/he [32m200[0m 76.133 ms - 1287[0m
-[API-8003] ⚡ Dropdown cache MISS for dropdowns_calculate_credit_3_he - querying database
-[API-8003] 🔍 Executing query for screen: calculate_credit_3, language: he
-[API-8003] ⚡ Dropdown cache MISS for dropdowns_calculate_credit_3_he - querying database
-[API-8003] 🔍 Executing query for screen: calculate_credit_3, language: he
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 79.794 ms - 4609[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.399 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.349 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.456 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.317 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.266 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.334 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.576 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.496 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.201 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.202 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.153 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.244 ms - 4608[0m
-[API-8003] 📊 Query returned 25 rows
-[API-8003] 📊 Processing 25 rows for calculate_credit_3/he
-🔍 Processing: calculate_credit_3_debt_types (label)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_1 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_2 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_3 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_5 (option)
-🔍 Processing: calculate_credit_3_debt_types_ph (placeholder)
-🔍 Processing: calculate_credit_3_has_additional (label)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_2 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_3 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_5 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_6 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_7 (option)
-🔍 Processing: calculate_credit_3_has_additional_ph (placeholder)
-🔍 Processing: calculate_credit_3_main_source (label)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_1 (option)
-🔍 Processing: calculate_credit_3_main_source_option_2 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_3 (option)
-🔍 Processing: calculate_credit_3_main_source_option_4 (option)
-🔍 Processing: calculate_credit_3_main_source_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_6 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_7 (option)
-🔍 Processing: calculate_credit_3_main_source_ph (placeholder)
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 75.798 ms - 1838[0m
-[API-8003] 📊 Query returned 25 rows
-📊 Processing 25 rows for calculate_credit_3/he
-🔍 Processing: calculate_credit_3_debt_types (label)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_1 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_2 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_3 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_4 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_ph (placeholder)
-🔍 Processing: calculate_credit_3_has_additional (label)
-🔍 Processing: calculate_credit_3_has_additional_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_2 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_4 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_5 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_6 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_ph (placeholder)
-🔍 Processing: calculate_credit_3_main_source (label)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_1 (option)
-🔍 Processing: calculate_credit_3_main_source_option_2 (option)
-🔍 Processing: calculate_credit_3_main_source_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_4 (option)
-🔍 Processing: calculate_credit_3_main_source_option_5 (option)
-🔍 Processing: calculate_credit_3_main_source_option_6 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_7 (option)
-🔍 Processing: calculate_credit_3_main_source_ph (placeholder)
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 77.218 ms - 1838[0m
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 617.587 ms - 4609[0m
-[API-8003] [0mGET /api/content/sms_code_verification/he [32m200[0m 659.590 ms - 852[0m
-[API-8003] [0mGET /api/content/sms_code_verification/he [32m200[0m 662.931 ms - 852[0m
-[API-8003] ✅ Cache HIT for content_validation_errors_he_all
-[API-8003] [0mGET /api/content/validation_errors/he [32m200[0m 1.080 ms - 7202[0m
-[API-8003] ✅ Cache HIT for content_validation_errors_he_all
-[API-8003] [0mGET /api/content/validation_errors/he [32m200[0m 1.742 ms - 7202[0m
-[API-8003] ✅ Cache HIT for content_validation_errors_he_all
-[API-8003] [0mGET /api/content/validation_errors/he [32m200[0m 0.447 ms - 7202[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 1.645 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 2.282 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 1.728 ms - 4608[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 1.927 ms - 1837[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 1.852 ms - 1837[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 1.641 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.296 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.436 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.139 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_sms_code_verification_he_all
-[API-8003] [0mGET /api/content/sms_code_verification/he [32m200[0m 0.131 ms - 851[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.151 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.221 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.780 ms - 4608[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.846 ms - 1837[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.977 ms - 1837[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 1.065 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.306 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.296 ms - 4608[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.426 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_sms_code_verification_he_all
-[API-8003] [0mGET /api/content/sms_code_verification/he [32m200[0m 0.480 ms - 851[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.216 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.242 ms - 1286[0m
-[API-8003] ⚡ Cache MISS for content_mortgage_step1_en_all - querying database
-[API-8003] [0mGET /api/content/mortgage_step1/en [32m200[0m 681.368 ms - 7692[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.262 ms - 1837[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.334 ms - 1837[0m
-[API-8003] ⚡ Dropdown cache MISS for dropdowns_calculate_credit_3_he - querying database
-🔍 Executing query for screen: calculate_credit_3, language: he
-[API-8003] 📊 Query returned 40 rows
-[API-8003] 📊 Processing 40 rows for calculate_credit_3/he
-🔍 Processing: calculate_credit_3_debt_types (label)
-🔍 Processing: calculate_credit_3_debt_types_option_1 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_2 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_3 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_4 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_5 (option)
-🔍 Processing: calculate_credit_3_debt_types_ph (placeholder)
-🔍 Processing: calculate_credit_3_field_of_activity (label)
-🔍 Processing: calculate_credit_3_field_of_activity_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_10 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_11 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_12 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_13 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_2 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_3 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_4 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_6 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_7 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_8 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_9 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_ph (placeholder)
-🔍 Processing: calculate_credit_3_has_additional (label)
-🔍 Processing: calculate_credit_3_has_additional_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_2 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_4 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_5 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_6 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_7 (option)
-🔍 Processing: calculate_credit_3_has_additional_ph (placeholder)
-🔍 Processing: calculate_credit_3_main_source (label)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_1 (option)
-🔍 Processing: calculate_credit_3_main_source_option_2 (option)
-🔍 Processing: calculate_credit_3_main_source_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_4 (option)
-🔍 Processing: calculate_credit_3_main_source_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_6 (option)
-🔍 Processing: calculate_credit_3_main_source_option_7 (option)
-🔍 Processing: calculate_credit_3_main_source_ph (placeholder)
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 653.305 ms - 2732[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.296 ms - 2731[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.281 ms - 2731[0m
-[API-8003] [0mGET /api/clear-content-cache [33m404[0m 1.474 ms - 34[0m
-[API-8003] [0mGET /api/admin/clear-cache [33m404[0m 1.407 ms - 34[0m
-[API-8003] 🗑️ Content cache cleared
-[API-8003] [0mPOST /api/cache/clear [32m200[0m 0.208 ms - 46[0m
-[API-8003] ⚡ Dropdown cache MISS for dropdowns_calculate_credit_3_he - querying database
-[API-8003] 🔍 Executing query for screen: calculate_credit_3, language: he
-[API-8003] 📊 Query returned 62 rows
-[API-8003] 📊 Processing 62 rows for calculate_credit_3/he
-🔍 Processing: calculate_credit_3_activity (label)
-🔍 Processing: calculate_credit_3_activity_option_1 (option)
-🔍 Processing: calculate_credit_3_activity_option_10 (option)
-🔍 Processing: calculate_credit_3_activity_option_11 (option)
-🔍 Processing: calculate_credit_3_activity_option_12 (option)
-🔍 Processing: calculate_credit_3_activity_option_13 (option)
-🔍 Processing: calculate_credit_3_activity_option_2 (option)
-🔍 Processing: calculate_credit_3_activity_option_3 (option)
-🔍 Processing: calculate_credit_3_activity_option_4 (option)
-🔍 Processing: calculate_credit_3_activity_option_5 (option)
-🔍 Processing: calculate_credit_3_activity_option_6 (option)
-🔍 Processing: calculate_credit_3_activity_option_7 (option)
-🔍 Processing: calculate_credit_3_activity_option_8 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_activity_option_9 (option)
-🔍 Processing: calculate_credit_3_activity_ph (placeholder)
-🔍 Processing: calculate_credit_3_debt_types (label)
-🔍 Processing: calculate_credit_3_debt_types_option_1 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_2 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_3 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_4 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_ph (placeholder)
-🔍 Processing: calculate_credit_3_field_of_activity (label)
-🔍 Processing: calculate_credit_3_field_of_activity_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_10 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_11 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_12 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_13 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_2 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_3 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_5 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_6 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_7 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_8 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_9 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_ph (placeholder)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional (label)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_2 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_3 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_4 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_5 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_6 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_7 (option)
-🔍 Processing: calculate_credit_3_has_additional_ph (placeholder)
-🔍 Processing: calculate_credit_3_main_source (label)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_1 (option)
-🔍 Processing: calculate_credit_3_main_source_option_2 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_3 (option)
-🔍 Processing: calculate_credit_3_main_source_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_5 (option)
-🔍 Processing: calculate_credit_3_main_source_option_6 (option)
-🔍 Processing: calculate_credit_3_main_source_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_ph (placeholder)
-🔍 Processing: calculate_credit_3_types (label)
-🔍 Processing: calculate_credit_3_types_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_types_option_2 (option)
-🔍 Processing: calculate_credit_3_types_option_3 (option)
-🔍 Processing: calculate_credit_3_types_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_types_option_5 (option)
-🔍 Processing: calculate_credit_3_types_ph (placeholder)
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 654.570 ms - 3652[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.252 ms - 3651[0m
-[API-8003] ⚡ Cache MISS for content_calculate_credit_3_he_all - querying database
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.369 ms - 3651[0m
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 663.429 ms - 10699[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.261 ms - 10698[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.319 ms - 3651[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.263 ms - 3651[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.246 ms - 3651[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.259 ms - 3651[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.272 ms - 3651[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.246 ms - 3651[0m
-[API-8003] ✅ Dropdown cache HIT for dropdowns_calculate_credit_3_he
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 0.303 ms - 3651[0m
-[API-8003] ⚡ Cache MISS for content_validation_errors_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_validation_errors_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_validation_errors_he_all - querying database
-[API-8003] [0mGET /api/content/validation_errors/he [32m200[0m 1426.302 ms - 7203[0m
-[API-8003] [0mGET /api/content/validation_errors/he [32m200[0m 1428.849 ms - 7203[0m
-[API-8003] ⚡ Cache MISS for content_calculate_credit_3_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_calculate_credit_3_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_calculate_credit_3_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_calculate_credit_3_he_all - querying database
-[API-8003] ⚡ Dropdown cache MISS for dropdowns_calculate_credit_3_he - querying database
-[API-8003] 🔍 Executing query for screen: calculate_credit_3, language: he
-[API-8003] ⚡ Cache MISS for content_calculate_credit_3_he_all - querying database
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 291.345 ms - 10699[0m
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 295.338 ms - 10699[0m
-[API-8003] ⚡ Cache MISS for content_common_he_all - querying database
-[API-8003] ⚡ Cache MISS for content_common_he_all - querying database
-[API-8003] [0mGET /api/content/validation_errors/he [32m200[0m 1442.515 ms - 7203[0m
-[API-8003] [0mGET /api/content/common/he [32m200[0m 169.692 ms - 1287[0m
-[API-8003] [0mGET /api/content/common/he [32m200[0m 172.371 ms - 1287[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.411 ms - 1286[0m
-[API-8003] ⚡ Cache MISS for content_sms_code_verification_he_all - querying database
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.799 ms - 10698[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.317 ms - 10698[0m
-[API-8003] ⚡ Dropdown cache MISS for dropdowns_calculate_credit_3_he - querying database
-[API-8003] 🔍 Executing query for screen: calculate_credit_3, language: he
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.251 ms - 10698[0m
-[API-8003] ⚡ Dropdown cache MISS for dropdowns_calculate_credit_3_he - querying database
-[API-8003] 🔍 Executing query for screen: calculate_credit_3, language: he
-[API-8003] 📊 Query returned 62 rows
-[API-8003] 📊 Processing 62 rows for calculate_credit_3/he
-🔍 Processing: calculate_credit_3_activity (label)
-🔍 Processing: calculate_credit_3_activity_option_1 (option)
-🔍 Processing: calculate_credit_3_activity_option_10 (option)
-🔍 Processing: calculate_credit_3_activity_option_11 (option)
-🔍 Processing: calculate_credit_3_activity_option_12 (option)
-🔍 Processing: calculate_credit_3_activity_option_13 (option)
-🔍 Processing: calculate_credit_3_activity_option_2 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_activity_option_3 (option)
-🔍 Processing: calculate_credit_3_activity_option_4 (option)
-🔍 Processing: calculate_credit_3_activity_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_activity_option_6 (option)
-🔍 Processing: calculate_credit_3_activity_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_activity_option_8 (option)
-🔍 Processing: calculate_credit_3_activity_option_9 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_activity_ph (placeholder)
-🔍 Processing: calculate_credit_3_debt_types (label)
-🔍 Processing: calculate_credit_3_debt_types_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_2 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_ph (placeholder)
-🔍 Processing: calculate_credit_3_field_of_activity (label)
-🔍 Processing: calculate_credit_3_field_of_activity_option_1 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_10 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_11 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_12 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_13 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_2 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_4 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_6 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_8 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_9 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_ph (placeholder)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional (label)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_1 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_2 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_3 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_5 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_6 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_ph (placeholder)
-🔍 Processing: calculate_credit_3_main_source (label)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_1 (option)
-🔍 Processing: calculate_credit_3_main_source_option_2 (option)
-🔍 Processing: calculate_credit_3_main_source_option_3 (option)
-🔍 Processing: calculate_credit_3_main_source_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_5 (option)
-🔍 Processing: calculate_credit_3_main_source_option_6 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_ph (placeholder)
-🔍 Processing: calculate_credit_3_types (label)
-🔍 Processing: calculate_credit_3_types_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_types_option_2 (option)
-🔍 Processing: calculate_credit_3_types_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_types_option_4 (option)
-🔍 Processing: calculate_credit_3_types_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_types_ph (placeholder)
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 161.757 ms - 3652[0m
-[API-8003] 📊 Query returned 62 rows
-[API-8003] 📊 Processing 62 rows for calculate_credit_3/he
-🔍 Processing: calculate_credit_3_activity (label)
-🔍 Processing: calculate_credit_3_activity_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_activity_option_10 (option)
-🔍 Processing: calculate_credit_3_activity_option_11 (option)
-🔍 Processing: calculate_credit_3_activity_option_12 (option)
-🔍 Processing: calculate_credit_3_activity_option_13 (option)
-🔍 Processing: calculate_credit_3_activity_option_2 (option)
-🔍 Processing: calculate_credit_3_activity_option_3 (option)
-🔍 Processing: calculate_credit_3_activity_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_activity_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_activity_option_6 (option)
-🔍 Processing: calculate_credit_3_activity_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_activity_option_8 (option)
-🔍 Processing: calculate_credit_3_activity_option_9 (option)
-🔍 Processing: calculate_credit_3_activity_ph (placeholder)
-🔍 Processing: calculate_credit_3_debt_types (label)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_1 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_2 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_3 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types_option_5 (option)
-🔍 Processing: calculate_credit_3_debt_types_ph (placeholder)
-🔍 Processing: calculate_credit_3_field_of_activity (label)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_1 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_10 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_11 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_12 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_13 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_2 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_4 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_6 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_8 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_9 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_ph (placeholder)
-🔍 Processing: calculate_credit_3_has_additional (label)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_1 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_2 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_3 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_5 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_6 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_7 (option)
-🔍 Processing: calculate_credit_3_has_additional_ph (placeholder)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source (label)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_2 (option)
-🔍 Processing: calculate_credit_3_main_source_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_4 (option)
-🔍 Processing: calculate_credit_3_main_source_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_6 (option)
-🔍 Processing: calculate_credit_3_main_source_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_ph (placeholder)
-🔍 Processing: calculate_credit_3_types (label)
-[API-8003] 🔍 Processing: calculate_credit_3_types_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_types_option_2 (option)
-🔍 Processing: calculate_credit_3_types_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_types_option_4 (option)
-🔍 Processing: calculate_credit_3_types_option_5 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_types_ph (placeholder)
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 162.553 ms - 3652[0m
-[API-8003] [0mGET /api/content/sms_code_verification/he [32m200[0m 172.820 ms - 852[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.448 ms - 10698[0m
-[API-8003] ✅ Cache HIT for content_calculate_credit_3_he_all
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 0.494 ms - 10698[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.214 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.256 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_common_he_all
-[API-8003] [0mGET /api/content/common/he [32m200[0m 0.296 ms - 1286[0m
-[API-8003] ✅ Cache HIT for content_sms_code_verification_he_all
-[API-8003] [0mGET /api/content/sms_code_verification/he [32m200[0m 0.415 ms - 851[0m
-[API-8003] 📊 Query returned 62 rows
-[API-8003] 📊 Processing 62 rows for calculate_credit_3/he
-🔍 Processing: calculate_credit_3_activity (label)
-🔍 Processing: calculate_credit_3_activity_option_1 (option)
-🔍 Processing: calculate_credit_3_activity_option_10 (option)
-🔍 Processing: calculate_credit_3_activity_option_11 (option)
-🔍 Processing: calculate_credit_3_activity_option_12 (option)
-🔍 Processing: calculate_credit_3_activity_option_13 (option)
-🔍 Processing: calculate_credit_3_activity_option_2 (option)
-🔍 Processing: calculate_credit_3_activity_option_3 (option)
-🔍 Processing: calculate_credit_3_activity_option_4 (option)
-🔍 Processing: calculate_credit_3_activity_option_5 (option)
-🔍 Processing: calculate_credit_3_activity_option_6 (option)
-🔍 Processing: calculate_credit_3_activity_option_7 (option)
-🔍 Processing: calculate_credit_3_activity_option_8 (option)
-🔍 Processing: calculate_credit_3_activity_option_9 (option)
-🔍 Processing: calculate_credit_3_activity_ph (placeholder)
-[API-8003] 🔍 Processing: calculate_credit_3_debt_types (label)
-🔍 Processing: calculate_credit_3_debt_types_option_1 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_2 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_3 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_4 (option)
-🔍 Processing: calculate_credit_3_debt_types_option_5 (option)
-🔍 Processing: calculate_credit_3_debt_types_ph (placeholder)
-🔍 Processing: calculate_credit_3_field_of_activity (label)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_1 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_10 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_11 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_12 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_13 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_2 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_3 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_4 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_5 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_6 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_7 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_field_of_activity_option_8 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_option_9 (option)
-🔍 Processing: calculate_credit_3_field_of_activity_ph (placeholder)
-🔍 Processing: calculate_credit_3_has_additional (label)
-🔍 Processing: calculate_credit_3_has_additional_option_1 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_2 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_3 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_has_additional_option_5 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_6 (option)
-🔍 Processing: calculate_credit_3_has_additional_option_7 (option)
-🔍 Processing: calculate_credit_3_has_additional_ph (placeholder)
-🔍 Processing: calculate_credit_3_main_source (label)
-[API-8003] 🔍 Processing: calculate_credit_3_main_source_option_1 (option)
-🔍 Processing: calculate_credit_3_main_source_option_2 (option)
-🔍 Processing: calculate_credit_3_main_source_option_3 (option)
-🔍 Processing: calculate_credit_3_main_source_option_4 (option)
-🔍 Processing: calculate_credit_3_main_source_option_5 (option)
-🔍 Processing: calculate_credit_3_main_source_option_6 (option)
-🔍 Processing: calculate_credit_3_main_source_option_7 (option)
-🔍 Processing: calculate_credit_3_main_source_ph (placeholder)
-[API-8003] 🔍 Processing: calculate_credit_3_types (label)
-🔍 Processing: calculate_credit_3_types_option_1 (option)
-🔍 Processing: calculate_credit_3_types_option_2 (option)
-🔍 Processing: calculate_credit_3_types_option_3 (option)
-🔍 Processing: calculate_credit_3_types_option_4 (option)
-[API-8003] 🔍 Processing: calculate_credit_3_types_option_5 (option)
-🔍 Processing: calculate_credit_3_types_ph (placeholder)
-[API-8003] [0mGET /api/dropdowns/calculate_credit_3/he [32m200[0m 1334.218 ms - 3652[0m
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 1337.299 ms - 10699[0m
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 1325.931 ms - 10699[0m
-[API-8003] [0mGET /api/content/calculate_credit_3/he [32m200[0m 1350.000 ms - 10699[0m
-[API-8003] ERROR: node:events:502
-      throw er; // Unhandled 'error' event
-      ^
 
-<ref *1> Error: read EADDRNOTAVAIL
-    at TLSWrap.onStreamRead (node:internal/stream_base_commons:218:20)
-Emitted 'error' event on BoundPool instance at:
-    at Client.idleListener (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:62:10)
-    at Client.emit (node:events:524:28)
-    at Client._handleErrorEvent (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:350:10)
-    at Connection.emit (node:events:524:28)
-    at TLSSocket.reportStreamError (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:57:12)
-    at TLSSocket.emit (node:events:524:28)
-    at emitErrorNT (node:internal/streams/destroy:169:8)
-    at emitErrorCloseNT (node:internal/streams/destroy:128:3)
-    at process.processTicksAndRejections (node:internal/process/task_queues:82:21) {
-  errno: -49,
-  code: 'EADDRNOTAVAIL',
-  syscall: 'read',
-  client: Client {
-    _events: [Object: null prototype] { error: [Function (anonymous)] },
-    _eventsCount: 1,
-    _maxListeners: undefined,
-    connectionParameters: ConnectionParameters {
-      user: 'postgres',
-      database: 'railway',
-      port: 33452,
-      host: 'shortline.proxy.rlwy.net',
-      binary: false,
-      options: undefined,
-      ssl: { rejectUnauthorized: false },
-      client_encoding: '',
-      replication: undefined,
-      isDomainSocket: false,
-      application_name: undefined,
-      fallback_application_name: undefined,
-      statement_timeout: false,
-      lock_timeout: false,
-      idle_in_transaction_session_timeout: false,
-      query_timeout: false,
-      connect_timeout: 0
-    },
-    user: 'postgres',
-    database: 'railway',
-    port: 33452,
-    host: 'shortline.proxy.rlwy.net',
-    replication: undefined,
-    _Promise: [Function: Promise],
-    _types: TypeOverrides {
-      _types: {
-        getTypeParser: [Function: getTypeParser],
-        setTypeParser: [Function: setTypeParser],
-        arrayParser: { create: [Function: create] },
-        builtins: {
-          BOOL: 16,
-          BYTEA: 17,
-          CHAR: 18,
-          INT8: 20,
-          INT2: 21,
-          INT4: 23,
-          REGPROC: 24,
-          TEXT: 25,
-          OID: 26,
-          TID: 27,
-          XID: 28,
-          CID: 29,
-          JSON: 114,
-          XML: 142,
-          PG_NODE_TREE: 194,
-          SMGR: 210,
-          PATH: 602,
-          POLYGON: 604,
-          CIDR: 650,
-          FLOAT4: 700,
-          FLOAT8: 701,
-          ABSTIME: 702,
-          RELTIME: 703,
-          TINTERVAL: 704,
-          CIRCLE: 718,
-          MACADDR8: 774,
-          MONEY: 790,
-          MACADDR: 829,
-          INET: 869,
-          ACLITEM: 1033,
-          BPCHAR: 1042,
-          VARCHAR: 1043,
-          DATE: 1082,
-          TIME: 1083,
-          TIMESTAMP: 1114,
-          TIMESTAMPTZ: 1184,
-          INTERVAL: 1186,
-          TIMETZ: 1266,
-          BIT: 1560,
-          VARBIT: 1562,
-          NUMERIC: 1700,
-          REFCURSOR: 1790,
-          REGPROCEDURE: 2202,
-          REGOPER: 2203,
-          REGOPERATOR: 2204,
-          REGCLASS: 2205,
-          REGTYPE: 2206,
-          UUID: 2950,
-          TXID_SNAPSHOT: 2970,
-          PG_LSN: 3220,
-          PG_NDISTINCT: 3361,
-          PG_DEPENDENCIES: 3402,
-          TSVECTOR: 3614,
-          TSQUERY: 3615,
-          GTSVECTOR: 3642,
-          REGCONFIG: 3734,
-          REGDICTIONARY: 3769,
-          JSONB: 3802,
-          REGNAMESPACE: 4089,
-          REGROLE: 4096
-        }
-      },
-      text: {},
-      binary: {}
-    },
-    _ending: true,
-    _ended: false,
-    _connecting: false,
-    _connected: true,
-    _connectionError: false,
-    _queryable: false,
-    enableChannelBinding: false,
-    connection: Connection {
-      _events: [Object: null prototype] {
-        newListener: [Function (anonymous)],
-        connect: [Function (anonymous)],
-        sslconnect: [Function (anonymous)],
-        authenticationCleartextPassword: [Function: bound _handleAuthCleartextPassword],
-        authenticationMD5Password: [Function: bound _handleAuthMD5Password],
-        authenticationSASL: [Function: bound _handleAuthSASL],
-        authenticationSASLContinue: [Function: bound _handleAuthSASLContinue] AsyncFunction,
-        authenticationSASLFinal: [Function: bound _handleAuthSASLFinal],
-        backendKeyData: [Function: bound _handleBackendKeyData],
-        error: [Function: bound _handleErrorEvent],
-        errorMessage: [Function: bound _handleErrorMessage],
-        readyForQuery: [Function: bound _handleReadyForQuery],
-        notice: [Function: bound _handleNotice],
-        rowDescription: [Function: bound _handleRowDescription],
-        dataRow: [Function: bound _handleDataRow],
-        portalSuspended: [Function: bound _handlePortalSuspended],
-        emptyQuery: [Function: bound _handleEmptyQuery],
-        commandComplete: [Function: bound _handleCommandComplete],
-        parseComplete: [Function: bound _handleParseComplete],
-        copyInResponse: [Function: bound _handleCopyInResponse],
-        copyData: [Function: bound _handleCopyData],
-        notification: [Function: bound _handleNotification],
-        end: [
-          [Function: bound onceWrapper] {
-            listener: [Function (anonymous)]
-          },
-          [Function: bound onceWrapper] {
-            listener: [Function (anonymous)]
-          },
-          [Function: bound onceWrapper] {
-            listener: [Function (anonymous)]
-          }
-        ]
-      },
-      _eventsCount: 23,
-      _maxListeners: undefined,
-      stream: <ref *2> TLSSocket {
-        _tlsOptions: {
-          allowHalfOpen: undefined,
-          pipe: false,
-          secureContext: SecureContext { context: SecureContext {} },
-          isServer: false,
-          requestCert: true,
-          rejectUnauthorized: false,
-          session: undefined,
-          ALPNProtocols: undefined,
-          requestOCSP: undefined,
-          enableTrace: undefined,
-          pskCallback: undefined,
-          highWaterMark: undefined,
-          onread: undefined,
-          signal: undefined
-        },
-        _secureEstablished: true,
-        _securePending: false,
-        _newSessionPending: false,
-        _controlReleased: true,
-        secureConnecting: false,
-        _SNICallback: null,
-        servername: 'shortline.proxy.rlwy.net',
-        alpnProtocol: false,
-        authorized: false,
-        authorizationError: 'SELF_SIGNED_CERT_IN_CHAIN',
-        encrypted: true,
-        _events: [Object: null prototype] {
-          close: [Function: onSocketCloseDestroySSL],
-          end: [ [Function: onReadableStreamEnd], [Function (anonymous)] ],
-          error: [Function: reportStreamError],
-          newListener: [ [Function: keylogNewListener], [Function: newListener] ],
-          secure: [Function: onConnectSecure],
-          data: [Function (anonymous)]
-        },
-        _eventsCount: 6,
-        connecting: false,
-        _hadError: false,
-        _parent: Socket {
-          connecting: false,
-          _hadError: false,
-          _parent: null,
-          _host: 'shortline.proxy.rlwy.net',
-          _closeAfterHandlingError: false,
-          _events: {
-            close: [Array],
-            error: [Array],
-            prefinish: undefined,
-            finish: undefined,
-            drain: undefined,
-            data: undefined,
-            end: [Function: onReadableStreamEnd],
-            readable: undefined,
-            connect: [Function]
-          },
-          _readableState: ReadableState {
-            highWaterMark: 16384,
-            buffer: [],
-            bufferIndex: 0,
-            length: 0,
-            pipes: [],
-            awaitDrainWriters: null,
-            [Symbol(kState)]: 60303732
-          },
-          _writableState: WritableState {
-            highWaterMark: 16384,
-            length: 0,
-            corked: 0,
-            onwrite: [Function: bound onwrite],
-            writelen: 0,
-            bufferedIndex: 0,
-            pendingcb: 0,
-            [Symbol(kState)]: 17564020,
-            [Symbol(kBufferedValue)]: null,
-            [Symbol(kWriteCbValue)]: null
-          },
-          allowHalfOpen
-[API-8003] Server exited with code 1
-🔴 API Server crashed! Restarting...
+✅ Main Database connected: 2025-08-07T08:46:56.646Z
+✅ Content Database connected: 2025-08-07T08:46:56.764Z
+✅ test-content table deleted successfully (if it existed)
+[SMS] Verify 1234 for 972544123456
+[0mPOST /api/auth-verify [32m200[0m 1391.500 ms - 354[0m
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_calculate_credit_1_he_all - querying database
+[0mGET /api/content/validation_errors/he [32m200[0m 963.451 ms - 7203[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 964.608 ms - 7203[0m
+[CITIES] Request for language: he
+[0mGET /api/content/validation_errors/he [32m200[0m 994.769 ms - 7203[0m
+⚡ Cache MISS for content_sms_code_verification_he_all - querying database
+[0mGET /api/content/sms_code_verification/he [32m200[0m 153.249 ms - 852[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.831 ms - 851[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+[0mGET /api/content/calculate_credit_1/he [32m200[0m 987.692 ms - 126[0m
+✅ Cache HIT for content_calculate_credit_1_he_all
+[0mGET /api/content/calculate_credit_1/he [32m200[0m 0.644 ms - 125[0m
+[CITIES] Request for language: he
+Error fetching cities from database: error: relation "cities" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:2558:24 {
+  length: 105,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '47',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+🔄 Using i18n fallback cities data due to database connection issue
+[0mGET /api/get-cities?lang=he [32m200[0m 1094.957 ms - 1091[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Error fetching cities from database: error: relation "cities" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:2558:24 {
+  length: 105,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '47',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+🔄 Using i18n fallback cities data due to database connection issue
+[0mGET /api/get-cities?lang=he [32m200[0m 1279.283 ms - 1091[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.541 ms - 851[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.510 ms - 851[0m
+⚡ Cache MISS for content_mortgage_step2_he_all - querying database
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=credit [32m200[0m 2393.450 ms - 1302[0m
+⚡ Cache MISS for content_mortgage_step2_he_all - querying database
+[0mGET /api/content/mortgage_step2/he [32m200[0m 245.208 ms - 17450[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.367 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.689 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.456 ms - 17449[0m
+⚡ Cache MISS for content_calculate_credit_2_he_all - querying database
+[0mGET /api/content/mortgage_step2/he [32m200[0m 186.010 ms - 17450[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.391 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.420 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.332 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.309 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.322 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.386 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.285 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.293 ms - 17449[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step2_he - querying database
+🔍 Executing query for screen: mortgage_step2, language: he
+[0mGET /api/content/calculate_credit_2/he [32m200[0m 125.539 ms - 126[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.409 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.434 ms - 17449[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step2_he - querying database
+🔍 Executing query for screen: mortgage_step2, language: he
+📊 Query returned 73 rows
+📊 Processing 73 rows for mortgage_step2/he
+🔍 Processing: app.mortgage.step2.birth_date (label)
+🔍 Processing: app.mortgage.step2.borrowers_count (label)
+🔍 Processing: app.mortgage.step2.borrowers_placeholder (placeholder)
+🔍 Processing: app.mortgage.step2.children_count (label)
+🔍 Processing: app.mortgage.step2.children_under_18 (label)
+🔍 Processing: app.mortgage.step2.citizenship (label)
+🔍 Processing: app.mortgage.step2.citizenship_ph (placeholder)
+🔍 Processing: app.mortgage.step2.education (label)
+🔍 Processing: app.mortgage.step2.education_ph (placeholder)
+🔍 Processing: app.mortgage.step2.family_status (label)
+🔍 Processing: app.mortgage.step2.family_status_ph (placeholder)
+🔍 Processing: app.mortgage.step2.foreign_resident (label)
+🔍 Processing: app.mortgage.step2.medical_insurance (label)
+🔍 Processing: app.mortgage.step2.name_surname (label)
+🔍 Processing: app.mortgage.step2.name_surname_ph (placeholder)
+🔍 Processing: app.mortgage.step2.partner_mortgage_participation (label)
+🔍 Processing: app.mortgage.step2.public_person (label)
+🔍 Processing: app.mortgage.step2.search (placeholder)
+🔍 Processing: app.mortgage.step2.tax_obligations (label)
+🔍 Processing: calculate_mortgage_citizenship_canada (option)
+🔍 Processing: calculate_mortgage_citizenship_france (option)
+🔍 Processing: calculate_mortgage_citizenship_germany (option)
+🔍 Processing: calculate_mortgage_citizenship_israel (option)
+🔍 Processing: calculate_mortgage_citizenship_other (option)
+🔍 Processing: calculate_mortgage_citizenship_russia (option)
+🔍 Processing: calculate_mortgage_citizenship_ukraine (option)
+🔍 Processing: calculate_mortgage_citizenship_united_kingdom (option)
+🔍 Processing: calculate_mortgage_citizenship_united_states (option)
+🔍 Processing: mortgage_calculation.field.citizenship_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.education_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.family_status_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.name_surname_ph (placeholder)
+🔍 Processing: mortgage_step2_education (label)
+🔍 Processing: mortgage_step2_education_ph (placeholder)
+🔍 Processing: mortgage_step2.field.birth_date (dropdown_container)
+🔍 Processing: mortgage_step2.field.borrowers (dropdown_container)
+🔍 Processing: mortgage_step2.field.children18 (dropdown_container)
+🔍 Processing: mortgage_step2.field.citizenship (dropdown_container)
+🔍 Processing: mortgage_step2.field.citizenship_canada (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_france (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_germany (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_israel (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_other (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_ph (placeholder)
+🔍 Processing: mortgage_step2.field.citizenship_russia (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_ukraine (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_united_kingdom (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_united_states (dropdown_option)
+🔍 Processing: mortgage_step2.field.education (dropdown_container)
+🔍 Processing: mortgage_step2.field.education_bachelors (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_doctorate (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_full_high_school_diploma (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_masters (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_no_high_school_diploma (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_partial_high_school_diploma (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_ph (placeholder)
+🔍 Processing: mortgage_step2.field.education_postsecondary_education (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status (dropdown_container)
+🔍 Processing: mortgage_step2.field.family_status_commonlaw_partner (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status_divorced (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status_married (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status_other (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status_ph (placeholder)
+🔍 Processing: mortgage_step2.field.family_status_single (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status_widowed (dropdown_option)
+🔍 Processing: mortgage_step2.field.how_much_childrens (dropdown_container)
+🔍 Processing: mortgage_step2.field.is_foreigner (dropdown_container)
+🔍 Processing: mortgage_step2.field.is_medinsurance (dropdown_container)
+🔍 Processing: mortgage_step2.field.is_public (dropdown_container)
+🔍 Processing: mortgage_step2.field.name_surname (dropdown_container)
+🔍 Processing: mortgage_step2.field.name_surname_ph (placeholder)
+🔍 Processing: mortgage_step2.field.partner_pay_mortgage (dropdown_container)
+🔍 Processing: mortgage_step2.field.tax (dropdown_container)
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 184.316 ms - 8322[0m
+✅ Cache HIT for content_calculate_credit_2_he_all
+[0mGET /api/content/calculate_credit_2/he [32m200[0m 0.482 ms - 125[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.337 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.502 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.489 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.386 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.355 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.375 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.329 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.354 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.321 ms - 17449[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+📊 Query returned 73 rows
+📊 Processing 73 rows for mortgage_step2/he
+🔍 Processing: app.mortgage.step2.birth_date (label)
+🔍 Processing: app.mortgage.step2.borrowers_count (label)
+🔍 Processing: app.mortgage.step2.borrowers_placeholder (placeholder)
+🔍 Processing: app.mortgage.step2.children_count (label)
+🔍 Processing: app.mortgage.step2.children_under_18 (label)
+🔍 Processing: app.mortgage.step2.citizenship (label)
+🔍 Processing: app.mortgage.step2.citizenship_ph (placeholder)
+🔍 Processing: app.mortgage.step2.education (label)
+🔍 Processing: app.mortgage.step2.education_ph (placeholder)
+🔍 Processing: app.mortgage.step2.family_status (label)
+🔍 Processing: app.mortgage.step2.family_status_ph (placeholder)
+🔍 Processing: app.mortgage.step2.foreign_resident (label)
+🔍 Processing: app.mortgage.step2.medical_insurance (label)
+🔍 Processing: app.mortgage.step2.name_surname (label)
+🔍 Processing: app.mortgage.step2.name_surname_ph (placeholder)
+🔍 Processing: app.mortgage.step2.partner_mortgage_participation (label)
+🔍 Processing: app.mortgage.step2.public_person (label)
+🔍 Processing: app.mortgage.step2.search (placeholder)
+🔍 Processing: app.mortgage.step2.tax_obligations (label)
+🔍 Processing: calculate_mortgage_citizenship_canada (option)
+🔍 Processing: calculate_mortgage_citizenship_france (option)
+🔍 Processing: calculate_mortgage_citizenship_germany (option)
+🔍 Processing: calculate_mortgage_citizenship_israel (option)
+🔍 Processing: calculate_mortgage_citizenship_other (option)
+🔍 Processing: calculate_mortgage_citizenship_russia (option)
+🔍 Processing: calculate_mortgage_citizenship_ukraine (option)
+🔍 Processing: calculate_mortgage_citizenship_united_kingdom (option)
+🔍 Processing: calculate_mortgage_citizenship_united_states (option)
+🔍 Processing: mortgage_calculation.field.citizenship_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.education_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.family_status_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.name_surname_ph (placeholder)
+🔍 Processing: mortgage_step2_education (label)
+🔍 Processing: mortgage_step2_education_ph (placeholder)
+🔍 Processing: mortgage_step2.field.birth_date (dropdown_container)
+🔍 Processing: mortgage_step2.field.borrowers (dropdown_container)
+🔍 Processing: mortgage_step2.field.children18 (dropdown_container)
+🔍 Processing: mortgage_step2.field.citizenship (dropdown_container)
+🔍 Processing: mortgage_step2.field.citizenship_canada (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_france (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_germany (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_israel (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_other (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_ph (placeholder)
+🔍 Processing: mortgage_step2.field.citizenship_russia (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_ukraine (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_united_kingdom (dropdown_option)
+🔍 Processing: mortgage_step2.field.citizenship_united_states (dropdown_option)
+🔍 Processing: mortgage_step2.field.education (dropdown_container)
+🔍 Processing: mortgage_step2.field.education_bachelors (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_doctorate (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_full_high_school_diploma (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_masters (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_no_high_school_diploma (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_partial_high_school_diploma (dropdown_option)
+🔍 Processing: mortgage_step2.field.education_ph (placeholder)
+🔍 Processing: mortgage_step2.field.education_postsecondary_education (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status (dropdown_container)
+🔍 Processing: mortgage_step2.field.family_status_commonlaw_partner (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status_divorced (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status_married (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status_other (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status_ph (placeholder)
+🔍 Processing: mortgage_step2.field.family_status_single (dropdown_option)
+🔍 Processing: mortgage_step2.field.family_status_widowed (dropdown_option)
+🔍 Processing: mortgage_step2.field.how_much_childrens (dropdown_container)
+🔍 Processing: mortgage_step2.field.is_foreigner (dropdown_container)
+🔍 Processing: mortgage_step2.field.is_medinsurance (dropdown_container)
+🔍 Processing: mortgage_step2.field.is_public (dropdown_container)
+🔍 Processing: mortgage_step2.field.name_surname (dropdown_container)
+🔍 Processing: mortgage_step2.field.name_surname_ph (placeholder)
+🔍 Processing: mortgage_step2.field.partner_pay_mortgage (dropdown_container)
+🔍 Processing: mortgage_step2.field.tax (dropdown_container)
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 144.203 ms - 8322[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 2518.710 ms - 1304[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=credit [32m200[0m 2535.556 ms - 1302[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 2555.415 ms - 1304[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.405 ms - 7202[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.468 ms - 7202[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.277 ms - 7202[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.238 ms - 851[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.375 ms - 851[0m
+✅ Cache HIT for content_calculate_credit_1_he_all
+[0mGET /api/content/calculate_credit_1/he [32m200[0m 0.343 ms - 125[0m
+[CITIES] Request for language: he
+[CITIES] Request for language: he
+✅ Cache HIT for content_calculate_credit_1_he_all
+[0mGET /api/content/calculate_credit_1/he [32m200[0m 0.209 ms - 125[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Error fetching cities from database: error: relation "cities" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:2558:24 {
+  length: 105,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '47',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+🔄 Using i18n fallback cities data due to database connection issue
+[0mGET /api/get-cities?lang=he [32m200[0m 1122.947 ms - 1091[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.476 ms - 851[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.445 ms - 851[0m
+[CALC-PARAMS] banking_standards table not found, using default fallback values
+Error fetching cities from database: error: relation "cities" does not exist
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:2558:24 {
+  length: 105,
+  severity: 'ERROR',
+  code: '42P01',
+  detail: undefined,
+  hint: undefined,
+  position: '47',
+  internalPosition: undefined,
+  internalQuery: undefined,
+  where: undefined,
+  schema: undefined,
+  table: undefined,
+  column: undefined,
+  dataType: undefined,
+  constraint: undefined,
+  file: 'parse_relation.c',
+  line: '1449',
+  routine: 'parserOpenTable'
+}
+🔄 Using i18n fallback cities data due to database connection issue
+[0mGET /api/get-cities?lang=he [32m200[0m 1219.816 ms - 1091[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 2244.816 ms - 1304[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=credit [32m200[0m 2342.533 ms - 1302[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 2342.603 ms - 1304[0m
+Property ownership options table not found, using fallback values
+[0mGET /api/v1/calculation-parameters?business_path=credit [32m200[0m 2358.504 ms - 1302[0m
+⚡ Cache MISS for content_sms_verification_he_all - querying database
+⚡ Cache MISS for content_sms_verification_he_all - querying database
+[0mGET /api/content/sms_verification/he [32m200[0m 1131.576 ms - 1913[0m
+[0mGET /api/content/sms_verification/he [32m200[0m 1134.267 ms - 1913[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.365 ms - 851[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.191 ms - 851[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.354 ms - 851[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.381 ms - 851[0m
+[SMS] Verify 1111 for +972345565334
+[SMS] Verify 1111 for +972345565334
+[0mPOST /api/auth-verify [32m200[0m 1405.138 ms - 356[0m
+[SMS] Race condition detected for +972345565334, fetching existing client
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.501 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.790 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 2.239 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.327 ms - 17449[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.780 ms - 8321[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.756 ms - 8321[0m
+✅ Cache HIT for content_calculate_credit_2_he_all
+[0mGET /api/content/calculate_credit_2/he [32m200[0m 0.435 ms - 125[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.403 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.286 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.307 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.513 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.368 ms - 17449[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.340 ms - 8321[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.263 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.267 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.388 ms - 17449[0m
+✅ Dropdown cache HIT for dropdowns_mortgage_step2_he
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 0.220 ms - 8321[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.297 ms - 17449[0m
+✅ Cache HIT for content_calculate_credit_2_he_all
+[0mGET /api/content/calculate_credit_2/he [32m200[0m 0.100 ms - 125[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.195 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.313 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.218 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.339 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.203 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.380 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.383 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.268 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.440 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.536 ms - 17449[0m
+✅ Cache HIT for content_mortgage_step2_he_all
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.196 ms - 17449[0m
+[0mPOST /api/auth-verify [32m200[0m 1514.319 ms - 356[0m

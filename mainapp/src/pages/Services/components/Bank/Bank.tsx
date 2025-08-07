@@ -30,7 +30,7 @@ const Bank = ({ screenLocation = 'calculate_credit_3' }: BankProps) => {
     ? getCommonContent('obligation_bank_placeholder', 'Select bank')
     : getCommonContent('bank_placeholder', 'Select bank')
 
-  // Create a simple bank options array since no database data exists
+  // Get bank options from database with Hebrew translations
   const bankOptions = [
     { value: '1', label: getCommonContent('bank_option_1', 'Bank Hapoalim') },
     { value: '2', label: getCommonContent('bank_option_2', 'Bank Leumi') },
@@ -38,6 +38,13 @@ const Bank = ({ screenLocation = 'calculate_credit_3' }: BankProps) => {
     { value: '4', label: getCommonContent('bank_option_4', 'Bank Mizrahi') },
     { value: '5', label: getCommonContent('bank_option_5', 'Other Bank') }
   ]
+
+  console.log('🔍 Bank options debug:', {
+    options: bankOptions,
+    language: i18n.language,
+    currentValue: values.bank,
+    selectedBank: bankOptions.find(bank => bank.value === values.bank)
+  })
 
   return (
     <Column>

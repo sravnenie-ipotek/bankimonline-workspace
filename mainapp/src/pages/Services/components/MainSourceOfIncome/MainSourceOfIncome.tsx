@@ -17,23 +17,8 @@ interface MainSourceOfIncomeProps {
 const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfIncomeProps) => {
   const { t, i18n } = useTranslation()
   const { getContent } = useContentApi(screenLocation)
-  const { values, setFieldValue, errors, touched, setFieldTouched, setFieldError } =
+  const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<FormTypes>()
-
-  // Helper function to check if a value indicates "no income" or "unemployed"
-  const checkIfNoIncomeValue = (value: string): boolean => {
-    if (!value) return false
-    const lowerValue = value.toLowerCase()
-    return (
-      lowerValue.includes('unemployed') ||
-      lowerValue.includes('no_income') || 
-      lowerValue.includes('no income') ||
-      lowerValue.includes('option_5') ||
-      lowerValue.includes('option_6') ||
-      lowerValue.includes('main_source_income_option_5') ||
-      lowerValue.includes('main_source_income_option_6')
-    )
-  }
 
   // ✅ NEW: Use dropdown API for credit contexts, fallback to content for mortgage
   const isCredit = screenLocation?.includes('credit')
@@ -73,62 +58,15 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
       selectedOption: mainSourceOptions.find(item => item.value === value)
     })
     
-    // Additional validation debugging
-    console.log('🔍 MainSourceOfIncome validation debug:', {
-      value,
-      isEmpty: !value || value === '' || value === null || value === undefined,
-      isNoIncomeValue: checkIfNoIncomeValue(value),
-      willRequireFields: !checkIfNoIncomeValue(value)
-    })
+    // Simplified: Let Formik handle validation naturally
+    setFieldValue('mainSourceOfIncome', value)
+    setFieldTouched('mainSourceOfIncome', true)
     
-    // CRITICAL FIX: Work WITH Formik's validation cycle instead of against it
-    // Set the value first without triggering validation
-    setFieldValue('mainSourceOfIncome', value, false) // false = don't validate
-    
-    // For valid non-empty values, clear error and mark as untouched temporarily
-    if (value && value !== '' && value !== null && value !== undefined) {
-      // Clear any existing error
-      setFieldError('mainSourceOfIncome', undefined)
-      
-      // Mark as touched but without validation
-      setFieldTouched('mainSourceOfIncome', true, false)
-      
-      // Use a microtask to ensure our error clear persists after React state updates
-      Promise.resolve().then(() => {
-        setFieldError('mainSourceOfIncome', undefined)
-        console.log('✅ MainSourceOfIncome: Microtask error clear for:', value)
-      })
-      
-      console.log('✅ MainSourceOfIncome: Applied validation bypass for valid selection:', value)
-    } else {
-      // For empty values, allow normal validation
-      setFieldTouched('mainSourceOfIncome', true, true) // true = validate
-    }
+    console.log('✅ MainSourceOfIncome: Set value and touched:', value)
   }
 
-  // CRITICAL FIX: Custom error display logic to prevent validation errors on valid selections
-  const shouldShowValidationError = (() => {
-    // If field is not touched, don't show error
-    if (!touched.mainSourceOfIncome) return false
-    
-    // If no error from Formik, don't show error
-    if (!errors.mainSourceOfIncome) return false
-    
-    // CRITICAL: If we have a valid non-empty value, don't show validation errors
-    // This addresses the race condition where Formik validation overrides our manual clear
-    const hasValidValue = values.mainSourceOfIncome && 
-                         values.mainSourceOfIncome !== '' && 
-                         values.mainSourceOfIncome !== null && 
-                         values.mainSourceOfIncome !== undefined
-    
-    if (hasValidValue) {
-      console.log('✅ MainSourceOfIncome: Suppressing validation error for valid value:', values.mainSourceOfIncome)
-      return false
-    }
-    
-    // For empty/invalid values, show the error normally
-    return true
-  })()
+  // Simplified error display: Let Formik handle validation naturally
+  const shouldShowError = touched.mainSourceOfIncome && errors.mainSourceOfIncome
 
   return (
     <Column>
@@ -145,7 +83,7 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
         value={values.mainSourceOfIncome || ''}
         onChange={handleValueChange}
         onBlur={() => setFieldTouched('mainSourceOfIncome', true)}
-        error={shouldShowValidationError ? errors.mainSourceOfIncome : false}
+        error={shouldShowError}
         disabled={isCredit && dropdownData && !Array.isArray(dropdownData) && dropdownData.loading}
       />
       {isCredit && dropdownData && !Array.isArray(dropdownData) && dropdownData.error && (

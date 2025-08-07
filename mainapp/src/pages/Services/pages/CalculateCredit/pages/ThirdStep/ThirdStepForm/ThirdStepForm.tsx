@@ -47,25 +47,88 @@ const ThirdStepForm = () => {
   const { getContent } = useContentApi('calculate_credit_3')
   const navigate = useNavigate()
 
-  const { values } = useFormikContext<FormTypes>()
+  const { values, errors, isValid, touched } = useFormikContext<FormTypes>()
 
   const { mainSourceOfIncome, additionalIncome, obligation } = values
+
+  // Comprehensive form debugging
+  React.useEffect(() => {
+    console.log('🔍 ThirdStepForm Debug:', {
+      isValid,
+      values,
+      errors,
+      touched,
+      mainSourceOfIncome,
+      additionalIncome,
+      obligation
+    })
+    
+    // Log specific field validation status
+    const requiredFields = ['mainSourceOfIncome', 'additionalIncome', 'obligation']
+    requiredFields.forEach(field => {
+      console.log(`Field ${field}:`, {
+        value: values[field],
+        error: errors[field],
+        touched: touched[field]
+      })
+    })
+    
+    // If main source of income requires additional fields
+    if (mainSourceOfIncome && !['5', '6'].includes(mainSourceOfIncome)) {
+      const conditionalFields = ['monthlyIncome', 'startDate', 'fieldOfActivity', 'profession', 'companyName']
+      conditionalFields.forEach(field => {
+        console.log(`Conditional Field ${field}:`, {
+          value: values[field],
+          error: errors[field],
+          touched: touched[field]
+        })
+      })
+    }
+  }, [values, errors, isValid, touched, mainSourceOfIncome, additionalIncome, obligation])
 
   // Map dropdown option values to componentsByIncomeSource keys
   const getIncomeSourceKey = (optionValue: string): string => {
     const mapping: { [key: string]: string } = {
-      'option_1': 'employee',        // Employee
-      'option_2': 'selfemployed',    // Self-employed  
-      'option_3': 'selfemployed',    // Business owner (similar to self-employed)
-      'option_4': 'pension',         // Pension
-      'option_5': 'student',         // Student
-      'option_6': 'unemployed',      // Unemployed
-      'option_7': 'other'            // Other
+      '1': 'employee',        // Employee
+      '2': 'selfemployed',    // Self-employed  
+      '3': 'selfemployed',    // Business owner (similar to self-employed)
+      '4': 'pension',         // Pension
+      '5': 'student',         // Student
+      '6': 'unemployed',      // Unemployed
+      '7': 'other',           // Other
+      // Keep backward compatibility with old option format
+      'option_1': 'employee',
+      'option_2': 'selfemployed',
+      'option_3': 'selfemployed',
+      'option_4': 'pension',
+      'option_5': 'student',
+      'option_6': 'unemployed',
+      'option_7': 'other'
     }
     return mapping[optionValue] || ''
   }
 
   const incomeSourceKey = getIncomeSourceKey(mainSourceOfIncome)
+
+  // Map dropdown option values to componentsByObligation keys
+  const getObligationKey = (optionValue: string): string => {
+    const mapping: { [key: string]: string } = {
+      '1': '',                // No obligations (no additional fields)
+      '2': 'bank_loan',       // Bank loan (הלוואה בנקאית)
+      '3': 'credit_card',     // Credit card debt
+      '4': 'consumer_credit', // Consumer credit
+      '5': 'other',           // Other obligations
+      // Keep backward compatibility with old option format
+      'option_1': '',
+      'option_2': 'bank_loan',    // Bank loan (הלוואה בנקאית)
+      'option_3': 'credit_card',
+      'option_4': 'consumer_credit',
+      'option_5': 'other'
+    }
+    return mapping[optionValue] || ''
+  }
+
+  const obligationKey = getObligationKey(obligation)
 
   // Debug: Log income source mapping
   console.log('🔍 Credit Step 3 - Income Source Mapping:', {
@@ -73,6 +136,14 @@ const ThirdStepForm = () => {
     mappedKey: incomeSourceKey,
     hasComponents: !!componentsByIncomeSource[incomeSourceKey],
     availableKeys: Object.keys(componentsByIncomeSource)
+  })
+
+  // Debug: Log obligation mapping
+  console.log('🔍 Credit Step 3 - Obligation Mapping:', {
+    originalValue: obligation,
+    mappedKey: obligationKey,
+    hasComponents: !!componentsByObligation[obligationKey],
+    availableKeys: Object.keys(componentsByObligation)
   })
 
   const dispatch = useAppDispatch()
@@ -166,6 +237,34 @@ const ThirdStepForm = () => {
 
   return (
     <FormContainer>
+      {/* Debug validation button */}
+      <div style={{ 
+        background: '#ff6b6b', 
+        color: 'white', 
+        padding: '10px', 
+        margin: '10px 0', 
+        borderRadius: '5px',
+        fontFamily: 'monospace'
+      }}>
+        <h4>🐛 DEBUG INFO:</h4>
+        <p>Form Valid: {isValid ? '✅ YES' : '❌ NO'}</p>
+        <p>Main Income: {values.mainSourceOfIncome || '(empty)'}</p>
+        <p>Additional Income: {values.additionalIncome || '(empty)'}</p>
+        <p>Obligation: {values.obligation || '(empty)'}</p>
+        <button 
+          type="button"
+          style={{ background: 'white', color: 'black', padding: '5px', borderRadius: '3px', border: 'none' }}
+          onClick={() => {
+            console.log('🔍 MANUAL VALIDATION CHECK:');
+            console.log('Values:', values);
+            console.log('Errors:', errors);
+            console.log('Touched:', touched);
+            console.log('Form Valid:', isValid);
+          }}
+        >
+          Log Validation State
+        </button>
+      </div>
       <FormCaption title={getContent('calculate_credit_step3_title', t('credit_step3_title'))} />
 
       <UserProfileCard
@@ -241,14 +340,14 @@ const ThirdStepForm = () => {
 
       <Row>
         <Obligation screenLocation="calculate_credit_3" />
-        {componentsByObligation[obligation] &&
-          componentsByObligation[obligation].map((Component, index) => (
+        {componentsByObligation[obligationKey] &&
+          componentsByObligation[obligationKey].map((Component, index) => (
             <React.Fragment key={index}>{Component}</React.Fragment>
           ))}
         <Column />
       </Row>
 
-      {obligation && obligation !== 'option_1' && (
+      {obligation && obligationKey && (
         <Row>
           <Column>
             {obligationValues.map((item) => (
