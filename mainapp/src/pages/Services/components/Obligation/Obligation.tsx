@@ -85,12 +85,12 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   
   // Use different content keys for other-borrowers context
   const title = isOtherBorrowersContext 
-    ? getContent('other_borrowers_obligation_title', 'האם יש לכם התחייבות כספיתקיימת?')
-    : dropdownLabel || getContent('calculate_mortgage_debt_types', 'Existing obligations')
+    ? getContent('other_borrowers_obligation_title', 'other_borrowers_obligation_title')
+    : dropdownLabel || getContent('calculate_mortgage_debt_types', 'calculate_mortgage_debt_types')
   
   const placeholder = isOtherBorrowersContext
-    ? getContent('other_borrowers_obligation_placeholder', 'בחר התחייבות')
-    : dropdownPlaceholder || getContent('calculate_mortgage_debt_types_ph', 'Do you have existing debts or obligations?')
+    ? getContent('other_borrowers_obligation_placeholder', 'other_borrowers_obligation_placeholder')
+    : dropdownPlaceholder || getContent('calculate_mortgage_debt_types_ph', 'calculate_mortgage_debt_types_ph')
 
   return (
     <Column>
