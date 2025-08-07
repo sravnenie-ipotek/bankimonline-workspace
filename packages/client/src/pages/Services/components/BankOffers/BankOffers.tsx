@@ -264,19 +264,19 @@ const BankOffers = () => {
   }
 
   if (loading) {
-    return <div className={cx('container')}>{getContent('loading_bank_offers', 'Loading bank offers...')}</div>
+    return <div className={cx('container')}>{getContent('loading_bank_offers', t('loading_bank_offers'))}</div>
   }
 
   if (error) {
-    return <div className={cx('container')}>{getContent('bank_offers_error', 'Error: ')}{error}</div>
+    return <div className={cx('container')}>{getContent('bank_offers_error', t('bank_offers_error'))}{error}</div>
   }
 
   return (
     <div className={cx('container')}>
       {banks.length === 0 ? (
         <div className={cx('no-offers')}>
-          <h3>{getContent('no_bank_offers_available', 'No Bank Offers Available')}</h3>
-          <p>{getContent('no_offers_message', 'No bank offers match your profile. Try adjusting your parameters.')}</p>
+          <h3>{getContent('no_bank_offers_available', t('no_bank_offers_available'))}</h3>
+          <p>{getContent('no_offers_message', t('no_offers_message'))}</p>
         </div>
       ) : (
         banks.map((bank, index) => (
