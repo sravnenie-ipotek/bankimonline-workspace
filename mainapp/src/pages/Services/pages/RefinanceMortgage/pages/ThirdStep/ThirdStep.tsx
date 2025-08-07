@@ -27,8 +27,8 @@ const ThirdStep = () => {
     fieldOfActivity: savedValue.fieldOfActivity || 'option_1',
     profession: savedValue.profession || 'Software Developer',
     companyName: savedValue.companyName || 'Test Company',
-    // Fix: Provide default value for required additionalIncome field
-    additionalIncome: savedValue.additionalIncome || 'no_additional_income',
+    // Fix: Provide default value for required additionalIncome field (option_1 = no additional income)
+    additionalIncome: savedValue.additionalIncome || 'option_1',
     additionalIncomeAmount: savedValue.additionalIncomeAmount || null,
     // Fix: Provide default value for required obligation field
     obligation: savedValue.obligation || 'no_obligations',

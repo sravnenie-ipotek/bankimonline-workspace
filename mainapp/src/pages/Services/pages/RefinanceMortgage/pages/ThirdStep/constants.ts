@@ -40,7 +40,7 @@ export const getValidationSchema = () => Yup.object().shape({
   ),
   additionalIncomeAmount: Yup.number().when('additionalIncome', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'no_additional_income',
+      value !== null && value !== undefined && value !== '' && value !== 'option_1' && value !== 'no_additional_income',
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
