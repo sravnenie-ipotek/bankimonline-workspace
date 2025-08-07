@@ -19,25 +19,23 @@ const ThirdStep = () => {
   const savedValue = useAppSelector((state) => state.refinanceMortgage)
 
   const initialValues = {
-    // Fix: Provide default option_1 (employee) for main source of income
-    mainSourceOfIncome: savedValue.mainSourceOfIncome || 'option_1',
-    // Fix: Provide default values for employee-related required fields
-    monthlyIncome: savedValue.monthlyIncome || 10000,
-    startDate: savedValue.startDate || new Date().getTime(),
-    fieldOfActivity: savedValue.fieldOfActivity || 'option_1',
-    profession: savedValue.profession || 'Software Developer',
-    companyName: savedValue.companyName || 'Test Company',
-    // Fix: Provide default value for required additionalIncome field (option_1 = no additional income)
-    additionalIncome: savedValue.additionalIncome || 'option_1',
+    // Only use saved values, no defaults to ensure user must fill the form
+    mainSourceOfIncome: savedValue.mainSourceOfIncome || '',
+    monthlyIncome: savedValue.monthlyIncome || null,
+    startDate: savedValue.startDate || null,
+    fieldOfActivity: savedValue.fieldOfActivity || '',
+    profession: savedValue.profession || '',
+    companyName: savedValue.companyName || '',
+    // For required dropdowns, use empty string to force user selection
+    additionalIncome: savedValue.additionalIncome || '',
     additionalIncomeAmount: savedValue.additionalIncomeAmount || null,
-    // Fix: Provide default value for required obligation field
-    obligation: savedValue.obligation || 'no_obligations',
+    obligation: savedValue.obligation || '',
     bank: savedValue.bank || '',
     monthlyPaymentForAnotherBank:
       savedValue.monthlyPaymentForAnotherBank || null,
-    endDate: savedValue.endDate || new Date().getTime(),
+    endDate: savedValue.endDate || null,
     amountIncomeCurrentYear: savedValue?.amountIncomeCurrentYear || null,
-    noIncome: savedValue.noIncome || new Date().getTime(),
+    noIncome: savedValue.noIncome || null,
   }
 
   return (
