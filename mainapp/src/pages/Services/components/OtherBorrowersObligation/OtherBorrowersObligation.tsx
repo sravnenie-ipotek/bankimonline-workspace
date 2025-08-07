@@ -9,11 +9,11 @@ import { Error } from '@components/ui/Error'
 
 import { FormTypes } from '../../types/formTypes'
 
-interface ObligationProps {
+interface OtherBorrowersObligationProps {
   screenLocation?: string
 }
 
-const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
+const OtherBorrowersObligation = ({ screenLocation = 'other_borrowers' }: OtherBorrowersObligationProps) => {
   const { t, i18n } = useTranslation()
   const { getContent } = useContentApi(screenLocation)
   const { values, setFieldValue, touched, errors, setFieldTouched } =
@@ -25,15 +25,14 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
     const lowerValue = value.toLowerCase()
     return (
       lowerValue === 'option_1' ||
-      lowerValue === 'no_obligations' ||           // CRITICAL FIX: Database value (plural)
-      lowerValue.includes('no_obligation') ||      // Legacy patterns
+      lowerValue === 'no_obligations' ||
+      lowerValue.includes('no_obligation') ||
       lowerValue.includes('no obligation') ||
       lowerValue.includes('none')
     )
   }
 
-  // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  // FIXED: Use 'obligations' to match API-generated key (mortgage_step3_obligations)
+  // Use database-driven dropdown data for other-borrowers
   const dropdownData = useDropdownData(screenLocation, 'obligations', 'full')
 
   // Handle both DropdownData object and DropdownOption[] array
@@ -41,55 +40,43 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   const dropdownOptions = isDropdownDataObject ? dropdownData.options : dropdownData
   const isLoading = isDropdownDataObject ? dropdownData.loading : false
   const hasError = isDropdownDataObject ? dropdownData.error : null
-  const dropdownLabel = isDropdownDataObject ? dropdownData.label : null
-  const dropdownPlaceholder = isDropdownDataObject ? dropdownData.placeholder : null
-
-  // Phase 4: Handle loading and error states
-  if (isLoading) {
-    console.log('🔄 Loading obligations dropdown options...')
-  }
-
-  if (hasError) {
-    console.warn('❌ Obligations dropdown error:', hasError)
-  }
 
   // Debug obligation values
-  console.log('🔍 Obligation debug:', {
+  console.log('🔍 OtherBorrowersObligation debug:', {
     currentValue: values.obligation,
     options: dropdownOptions,
     isNoObligationValue: checkIfNoObligationValue(values.obligation),
     errors: errors.obligation,
-    touched: touched.obligation
+    touched: touched.obligation,
+    screenLocation
   })
 
   const handleValueChange = (value: string) => {
-    console.log('🔍 Obligation onChange:', { 
+    console.log('🔍 OtherBorrowersObligation onChange:', { 
       value,
       currentValue: values.obligation,
       isNoObligationValue: checkIfNoObligationValue(value),
       willShowBankFields: !checkIfNoObligationValue(value)
     })
     
-    // Simplified: Let Formik handle validation naturally
     setFieldValue('obligation', value)
     setFieldTouched('obligation', true)
-    
-    console.log('✅ Obligation: Set value and touched:', value)
   }
 
-  // Simplified error display: Let Formik handle validation naturally
-  const shouldShowError = touched.obligation && errors.obligation
+  // Use other-borrowers specific content keys
+  const title = getContent('other_borrowers_obligation_title', 'other_borrowers_obligation_title')
+  const placeholder = getContent('other_borrowers_obligation_placeholder', 'other_borrowers_obligation_placeholder')
 
   return (
     <Column>
       <DropdownMenu
-        title={dropdownLabel || getContent('calculate_mortgage_debt_types', 'Existing obligations')}
+        title={title}
         data={dropdownOptions}
-        placeholder={dropdownPlaceholder || getContent('calculate_mortgage_debt_types_ph', 'Do you have existing debts or obligations?')}
+        placeholder={placeholder}
         value={values.obligation}
         onChange={handleValueChange}
         onBlur={() => setFieldTouched('obligation', true)}
-        error={shouldShowError}
+        error={touched.obligation && errors.obligation}
         disabled={isLoading}
       />
       {hasError && (
@@ -99,4 +86,4 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   )
 }
 
-export default Obligation
+export default OtherBorrowersObligation
