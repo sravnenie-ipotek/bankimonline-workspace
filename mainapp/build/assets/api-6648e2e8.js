@@ -1,1 +1,0 @@
-import{i}from"./i18n-vendor-aaeace9f.js";import{e as t}from"./index-b93eac91.js";const s=t.injectEndpoints({endpoints:e=>({getCities:e.query({query:()=>`/get-cities?lang=${i.language}`})})}),{useGetCitiesQuery:r}=s;export{r as u};
