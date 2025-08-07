@@ -36,6 +36,8 @@ const CreditData = () => {
   const [creditData, setCreditData] = useState<CreditDataTypes[]>([])
   const [idToDelete, setIdToDelete] = useState<number | null>(null)
   const { values, setFieldValue, errors, touched, setFieldTouched } = useFormikContext<RefinanceCreditTypes>()
+  // Extract only string error for creditData to avoid generic 'An error occurred'
+  const creditDataError = typeof (errors as any).creditData === 'string' ? (errors as any).creditData as string : undefined
   const [opened, { open, close }] = useDisclosure(false)
   const { isDesktop, isTablet, isMobile } = useWindowResize()
 
@@ -63,6 +65,8 @@ const CreditData = () => {
     }
 
     setFieldValue('creditData', [...creditData, newData])
+    // Reset touched state for creditData to prevent immediate validation popups
+    setFieldTouched('creditData', false, false)
   }
 
   const openModalWithId = (id: number) => {
@@ -113,7 +117,7 @@ const CreditData = () => {
                           setFieldValue('creditData', updatedData)
                         }}
                         onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
+                        error={touched.creditData && creditDataError}
                       />
                     </Column>
                     <Column>
@@ -127,7 +131,7 @@ const CreditData = () => {
                         }}
                         value={item.amount}
                         onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
+                        error={touched.creditData && creditDataError}
                       />
                     </Column>
                     <Column>
@@ -141,7 +145,7 @@ const CreditData = () => {
                         }}
                         value={item.monthlyPayment}
                         onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
+                        error={touched.creditData && creditDataError}
                       />
                     </Column>
                   </Row>
@@ -158,7 +162,7 @@ const CreditData = () => {
                           setFieldValue('creditData', updatedData)
                         }}
                         onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
+                        error={touched.creditData && creditDataError}
                       />
                     </Column>
                     <Column>
@@ -173,7 +177,7 @@ const CreditData = () => {
                           setFieldValue('creditData', updatedData)
                         }}
                         onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
+                        error={touched.creditData && creditDataError}
                       />
                     </Column>
                     {shouldShowEarlyRepayment && (
@@ -188,7 +192,7 @@ const CreditData = () => {
                           }}
                           value={item.earlyRepayment}
                           onBlur={() => setFieldTouched('creditData')}
-                          error={touched.creditData && errors.creditData}
+                          error={touched.creditData && creditDataError}
                         />
                       </Column>
                     )}
@@ -234,7 +238,7 @@ const CreditData = () => {
                           setFieldValue('creditData', updatedData)
                         }}
                         onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
+                        error={touched.creditData && creditDataError}
                       />
                     </Column>
                     <Column>
@@ -248,7 +252,7 @@ const CreditData = () => {
                         }}
                         value={item.amount}
                         onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
+                        error={touched.creditData && creditDataError}
                       />
                     </Column>
                     <Column>
@@ -262,7 +266,7 @@ const CreditData = () => {
                         }}
                         value={item.monthlyPayment}
                         onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
+                        error={touched.creditData && creditDataError}
                       />
                     </Column>
                     <Column>
@@ -277,7 +281,7 @@ const CreditData = () => {
                           setFieldValue('creditData', updatedData)
                         }}
                         onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
+                        error={touched.creditData && creditDataError}
                       />
                     </Column>
                     <Column>
@@ -292,7 +296,7 @@ const CreditData = () => {
                           setFieldValue('creditData', updatedData)
                         }}
                         onBlur={() => setFieldTouched('creditData')}
-                        error={touched.creditData && errors.creditData}
+                        error={touched.creditData && creditDataError}
                       />
                     </Column>
                     {shouldShowEarlyRepayment && (
@@ -307,7 +311,7 @@ const CreditData = () => {
                           }}
                           value={item.earlyRepayment}
                           onBlur={() => setFieldTouched('creditData')}
-                          error={touched.creditData && errors.creditData}
+                          error={touched.creditData && creditDataError}
                         />
                       </Column>
                     )}
