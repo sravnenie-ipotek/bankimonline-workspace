@@ -1,6 +1,14 @@
 import * as Yup from 'yup'
 import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
+// Helper function to get validation error message using database-first approach
+// Following systemTranslationLogic.md pattern
+const getValidationMessage = (key: string, fallback: string) => {
+  // This will be enhanced to use useContentApi approach when validation system is updated
+  // For now, maintain current functionality while fixing validation logic
+  return getValidationErrorSync(key, fallback)
+}
+
 // Dynamic validation schema that gets validation errors from database at runtime
 export const getValidationSchema = () => Yup.object().shape({
   mainSourceOfIncome: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')).test(
@@ -45,23 +53,23 @@ export const getValidationSchema = () => Yup.object().shape({
     otherwise: (shema) => shema.notRequired(),
   }),
   obligation: Yup.string().required(
-    getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')
+    getValidationMessage('error_select_one_of_the_options', 'Please select one of the options')
   ),
   bank: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'no_obligations',
+      value !== null && value !== undefined && value !== '' && value !== 'option_1' && value !== 'no_obligations',
     then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
     otherwise: (shema) => shema.notRequired(),
   }),
   monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'no_obligations',
+      value !== null && value !== undefined && value !== '' && value !== 'option_1' && value !== 'no_obligations',
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
   endDate: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'no_obligations',
+      value !== null && value !== undefined && value !== '' && value !== 'option_1' && value !== 'no_obligations',
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),
