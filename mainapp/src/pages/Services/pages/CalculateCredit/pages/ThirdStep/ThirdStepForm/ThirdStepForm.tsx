@@ -41,6 +41,19 @@ import {
 import { FormTypes } from '@src/pages/Services/types/formTypes'
 import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
 
+// Helper function to check if a value indicates "no additional income"
+const isNoAdditionalIncomeValue = (value: string): boolean => {
+  if (!value) return false
+  const lowerValue = value.toLowerCase()
+  return (
+    lowerValue === 'option_1' ||
+    lowerValue === '1' ||
+    lowerValue.includes('no_additional') ||
+    lowerValue.includes('no additional') ||
+    lowerValue.includes('none')
+  )
+}
+
 // Компонент расчета ипотеки - 3 шаг
 const ThirdStepForm = () => {
   const { t, i18n } = useTranslation()
@@ -246,34 +259,7 @@ const ThirdStepForm = () => {
 
   return (
     <FormContainer>
-      {/* Debug validation button */}
-      <div style={{ 
-        background: '#ff6b6b', 
-        color: 'white', 
-        padding: '10px', 
-        margin: '10px 0', 
-        borderRadius: '5px',
-        fontFamily: 'monospace'
-      }}>
-        <h4>🐛 DEBUG INFO:</h4>
-        <p>Form Valid: {isValid ? '✅ YES' : '❌ NO'}</p>
-        <p>Main Income: {values.mainSourceOfIncome || '(empty)'}</p>
-        <p>Additional Income: {values.additionalIncome || '(empty)'}</p>
-        <p>Obligation: {values.obligation || '(empty)'}</p>
-        <button 
-          type="button"
-          style={{ background: 'white', color: 'black', padding: '5px', borderRadius: '3px', border: 'none' }}
-          onClick={() => {
-            console.log('🔍 MANUAL VALIDATION CHECK:');
-            console.log('Values:', values);
-            console.log('Errors:', errors);
-            console.log('Touched:', touched);
-            console.log('Form Valid:', isValid);
-          }}
-        >
-          Log Validation State
-        </button>
-      </div>
+
       <FormCaption title={getContent('calculate_credit_step3_title', t('credit_step3_title'))} />
 
       <UserProfileCard
@@ -283,11 +269,6 @@ const ThirdStepForm = () => {
 
       <Row>
         <MainSourceOfIncome screenLocation="calculate_credit_3" />
-        {/* DEBUG: Add visual indicator for conditional logic */}
-        <div style={{ color: 'red', padding: '10px', border: '1px solid red', margin: '10px' }}>
-          DEBUG: mainSourceOfIncome="{mainSourceOfIncome}", mappedKey="{incomeSourceKey}", 
-          hasComponents={componentsByIncomeSource[incomeSourceKey] ? 'YES' : 'NO'}
-        </div>
         {componentsByIncomeSource[incomeSourceKey] &&
           componentsByIncomeSource[incomeSourceKey].map(
             (Component, index) => (
@@ -322,13 +303,13 @@ const ThirdStepForm = () => {
 
       <Row>
         <AdditionalIncome screenLocation="calculate_credit_3" />
-        {additionalIncome && additionalIncome !== 'option_1' && (
+        {additionalIncome && !isNoAdditionalIncomeValue(additionalIncome) && (
           <AdditionalIncomeAmount />
         )}
         <Column />
       </Row>
 
-      {additionalIncome && additionalIncome !== 'option_1' && (
+      {additionalIncome && !isNoAdditionalIncomeValue(additionalIncome) && (
         <Row>
           <Column>
             {additionalIncomeValues.map((item) => (
@@ -354,11 +335,6 @@ const ThirdStepForm = () => {
 
       <Row>
         <Obligation screenLocation="calculate_credit_3" />
-        {/* DEBUG: Add visual indicator for obligation conditional logic */}
-        <div style={{ color: 'blue', padding: '10px', border: '1px solid blue', margin: '10px' }}>
-          DEBUG: obligation="{obligation}", mappedKey="{obligationKey}", 
-          hasComponents={componentsByObligation[obligationKey] ? 'YES' : 'NO'}
-        </div>
         {componentsByObligation[obligationKey] &&
           componentsByObligation[obligationKey].map((Component, index) => (
             <React.Fragment key={index}>{Component}</React.Fragment>
