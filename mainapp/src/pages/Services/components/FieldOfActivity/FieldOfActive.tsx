@@ -8,13 +8,18 @@ import { useDropdownData } from '@src/hooks/useDropdownData'
 
 import { FormTypes } from '../../types/formTypes'
 
-const FieldOfActivity = () => {
-  const { getContent } = useContentApi('mortgage_step3')
+interface FieldOfActivityProps {
+  screenLocation?: string
+}
+
+const FieldOfActivity = ({ screenLocation = 'calculate_credit_3' }: FieldOfActivityProps) => {
+  const { getContent } = useContentApi(screenLocation)
   const { values, setFieldValue, errors, setFieldTouched, touched } =
     useFormikContext<FormTypes>()
 
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  const dropdownData = useDropdownData('mortgage_step3', 'field_of_activity', 'full')
+  // FIXED: Use 'activity' to match API key shortening (calculate_credit_3_activity)
+  const dropdownData = useDropdownData(screenLocation, 'activity', 'full')
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
@@ -29,8 +34,8 @@ const FieldOfActivity = () => {
     <Column>
       <DropdownMenu
         data={dropdownData.options}
-        title={dropdownData.label || getContent('field_of_activity_label', 'Field of Activity')}
-        placeholder={dropdownData.placeholder || getContent('field_of_activity_placeholder', 'Select field of activity')}
+        title={dropdownData.label || getContent('calculate_mortgage_field_of_activity', 'Field of Activity')}
+        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_field_of_activity_ph', 'Select field of activity')}
         searchable
         searchPlaceholder={getContent('search', 'Search...')}
         value={values.fieldOfActivity}

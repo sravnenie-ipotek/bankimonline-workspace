@@ -1,7 +1,7 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { useContentApi } from '@src/hooks/useContentApi'
-import { useDropdownData } from '@src/hooks/useDropdownData'
+
 
 import { Column } from '@components/ui/Column'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
@@ -34,25 +34,23 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
     )
   }
 
-  // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  const dropdownData = useDropdownData(screenLocation, 'main_source', 'full') as any
-
-  // Phase 4: Handle loading and error states
-  if (dropdownData.loading) {
-    console.log('🔄 Loading main source of income dropdown options...')
-  }
-
-  if (dropdownData.error) {
-    console.warn('❌ Main source of income dropdown error:', dropdownData.error)
-  }
+  // ✅ CORRECT Database-First approach: Build options from loaded content
+  const mainSourceOptions = Array.from({ length: 7 }, (_, i) => {
+    const optionNumber = i + 1
+    const contentKey = `calculate_mortgage_main_source_option_${optionNumber}`
+    const fallbackKey = `calculate_mortgage_main_source_option_${optionNumber}`
+    
+    return {
+      value: `option_${optionNumber}`,
+      label: getContent(contentKey, t(fallbackKey))
+    }
+  }).filter(option => option.label && option.label !== option.value) // Filter out missing options
 
   // Debug dropdown data
-  console.log('🔍 MainSourceOfIncome dropdown data:', {
-    options: dropdownData.options,
-    placeholder: dropdownData.placeholder,
-    label: dropdownData.label,
+  console.log('🔍 MainSourceOfIncome options:', {
+    options: mainSourceOptions,
     currentValue: values.mainSourceOfIncome,
-    selectedItem: dropdownData.options.find(item => item.value === values.mainSourceOfIncome),
+    selectedItem: mainSourceOptions.find(item => item.value === values.mainSourceOfIncome),
     errors: errors.mainSourceOfIncome,
     touched: touched.mainSourceOfIncome,
     errorShowing: touched.mainSourceOfIncome && errors.mainSourceOfIncome
@@ -62,8 +60,8 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
     console.log('🔍 MainSourceOfIncome onChange:', { 
       value, 
       currentValue: values.mainSourceOfIncome,
-      dropdownOptions: dropdownData.options,
-      selectedOption: dropdownData.options.find(item => item.value === value)
+      dropdownOptions: mainSourceOptions,
+      selectedOption: mainSourceOptions.find(item => item.value === value)
     })
     
     // Additional validation debugging
@@ -84,18 +82,14 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
   return (
     <Column>
       <DropdownMenu
-        data={dropdownData.options || []}
-        title={dropdownData.label || getContent('calculate_mortgage_main_source', 'calculate_mortgage_main_source')}
-        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_main_source_ph', 'calculate_mortgage_main_source_ph')}
+        data={mainSourceOptions}
+        title={getContent('calculate_mortgage_main_source', t('calculate_mortgage_main_source'))}
+        placeholder={getContent('calculate_mortgage_main_source_ph', t('calculate_mortgage_main_source_ph'))}
         value={values.mainSourceOfIncome || ''}
         onChange={handleValueChange}
         onBlur={() => setFieldTouched('mainSourceOfIncome', true)}
         error={touched.mainSourceOfIncome && errors.mainSourceOfIncome}
-        disabled={dropdownData.loading}
       />
-      {dropdownData.error && (
-        <Error error={getContent('error_dropdown_load_failed', 'Failed to load main source of income options. Please refresh the page.')} />
-      )}
     </Column>
   )
 }

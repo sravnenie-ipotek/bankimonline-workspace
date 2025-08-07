@@ -51,6 +51,30 @@ const ThirdStepForm = () => {
 
   const { mainSourceOfIncome, additionalIncome, obligation } = values
 
+  // Map dropdown option values to componentsByIncomeSource keys
+  const getIncomeSourceKey = (optionValue: string): string => {
+    const mapping: { [key: string]: string } = {
+      'option_1': 'employee',        // Employee
+      'option_2': 'selfemployed',    // Self-employed  
+      'option_3': 'selfemployed',    // Business owner (similar to self-employed)
+      'option_4': 'pension',         // Pension
+      'option_5': 'student',         // Student
+      'option_6': 'unemployed',      // Unemployed
+      'option_7': 'other'            // Other
+    }
+    return mapping[optionValue] || ''
+  }
+
+  const incomeSourceKey = getIncomeSourceKey(mainSourceOfIncome)
+
+  // Debug: Log income source mapping
+  console.log('🔍 Credit Step 3 - Income Source Mapping:', {
+    originalValue: mainSourceOfIncome,
+    mappedKey: incomeSourceKey,
+    hasComponents: !!componentsByIncomeSource[incomeSourceKey],
+    availableKeys: Object.keys(componentsByIncomeSource)
+  })
+
   const dispatch = useAppDispatch()
 
   const sourceOfIncomeValues = useAppSelector(
@@ -151,8 +175,8 @@ const ThirdStepForm = () => {
 
       <Row>
         <MainSourceOfIncome screenLocation="calculate_credit_3" />
-        {componentsByIncomeSource[mainSourceOfIncome] &&
-          componentsByIncomeSource[mainSourceOfIncome].map(
+        {componentsByIncomeSource[incomeSourceKey] &&
+          componentsByIncomeSource[incomeSourceKey].map(
             (Component, index) => (
               <React.Fragment key={index}>{Component}</React.Fragment>
             )

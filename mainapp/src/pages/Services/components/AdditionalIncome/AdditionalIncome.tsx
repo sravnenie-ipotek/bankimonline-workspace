@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useContentApi } from '@src/hooks/useContentApi'
 import { useDropdownData } from '@src/hooks/useDropdownData'
 
+
 import { Column } from '@components/ui/Column'
 import AddInc from '@components/ui/ContextButtons/AddInc/AddInc.tsx'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
@@ -34,30 +35,38 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
     )
   }
 
-  // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  const dropdownData = useDropdownData(screenLocation, 'additional_income', 'full')
+  // ✅ NEW: Use dropdown API for credit contexts, fallback to content for mortgage
+  const isCredit = screenLocation?.includes('credit')
+  
+  // Get dropdown data for credit contexts
+  const dropdownData = isCredit ? useDropdownData(screenLocation, 'has_additional', 'full') : null
+  
+  // Build options based on context
+  const additionalIncomeOptions = isCredit && dropdownData ? 
+    dropdownData.options : // Use API data for credit
+    Array.from({ length: 7 }, (_, i) => { // Fallback to content for mortgage
+      const optionNumber = i + 1
+      const contentKey = `calculate_mortgage_has_additional_option_${optionNumber}`
+      const fallbackKey = `calculate_mortgage_has_additional_option_${optionNumber}`
+      
+      return {
+        value: `option_${optionNumber}`,
+        label: getContent(contentKey, t(fallbackKey))
+      }
+    }).filter(option => option.label && option.label !== option.value)
   
   // Filter out "No Additional Income" option when used in modal context
   const filteredOptions = excludeNoIncome 
-    ? dropdownData.options.filter(option => 
+    ? additionalIncomeOptions.filter(option => 
         !checkIfNoAdditionalIncomeValue(option.value) && 
         option.value !== 'no_additional_income'
       )
-    : dropdownData.options
-
-  // Phase 4: Handle loading and error states
-  if (dropdownData.loading) {
-    console.log('🔄 Loading additional income dropdown options...')
-  }
-
-  if (dropdownData.error) {
-    console.warn('❌ Additional income dropdown error:', dropdownData.error)
-  }
+    : additionalIncomeOptions
 
   // Debug additional income values
   console.log('🔍 AdditionalIncome debug:', {
     currentValue: values.additionalIncome,
-    originalOptions: dropdownData.options,
+    originalOptions: additionalIncomeOptions,
     filteredOptions: filteredOptions,
     excludeNoIncome: excludeNoIncome,
     isNoAdditionalIncomeValue: checkIfNoAdditionalIncomeValue(values.additionalIncome),
@@ -132,16 +141,22 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
   return (
     <Column>
       <DropdownMenu
-        title={dropdownData.label || getContent('calculate_mortgage_has_additional', 'calculate_mortgage_has_additional')}
-        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_has_additional_ph', 'calculate_mortgage_has_additional_ph')}
+        title={isCredit && dropdownData ? 
+          dropdownData.label : 
+          getContent('calculate_mortgage_has_additional', t('calculate_mortgage_has_additional'))
+        }
+        placeholder={isCredit && dropdownData ? 
+          dropdownData.placeholder : 
+          getContent('calculate_mortgage_has_additional_ph', t('calculate_mortgage_has_additional_ph'))
+        }
         data={filteredOptions}
         value={values.additionalIncome}
         onChange={handleValueChange}
         onBlur={() => setFieldTouched('additionalIncome', true)}
         error={shouldShowValidationError ? errors.additionalIncome : false}
-        disabled={dropdownData.loading}
+        disabled={isCredit && dropdownData?.loading}
       />
-      {dropdownData.error && (
+      {isCredit && dropdownData?.error && (
         <Error error={getContent('error_dropdown_load_failed', 'Failed to load additional income options. Please refresh the page.')} />
       )}
       <AddInc />

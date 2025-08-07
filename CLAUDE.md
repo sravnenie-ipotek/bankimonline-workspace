@@ -34,8 +34,8 @@ npm run push:shared   # Shared documents
 npm run dev
 
 # Alternative: start servers individually
-node server-db.js  # API server only
-node serve.js      # Static file server only
+node server/server-db.js  # API server only (correct path)
+node server/serve.js      # Static file server only
 ```
 
 ### Frontend Development
@@ -43,6 +43,46 @@ node serve.js      # Static file server only
 cd mainapp
 npm run dev  # Starts on port 5173 with API proxy to 8003
 ```
+
+## CRITICAL BUG PREVENTION
+
+### Persistent Browser Cache Issues
+**ISSUE**: Browser may cache old JavaScript that references incorrect API ports (8004 instead of 8003) or undefined variables like `dropdownData`.
+
+**SYMPTOMS**:
+- Console errors: `GET http://localhost:8004/api/v1/calculation-parameters net::ERR_CONNECTION_REFUSED`
+- React errors: `ReferenceError: dropdownData is not defined`
+- Components showing "undefined" instead of API data
+
+**EMERGENCY CACHE CLEARING PROCEDURE**:
+```bash
+# From mainapp directory:
+cd mainapp
+rm -rf .vite dist build node_modules/.cache
+npm run build
+
+# Kill all running processes:
+pkill -f "vite" && pkill -f "server-db.js" && pkill -f "serve.js"
+
+# Restart servers:
+cd .. && node server/server-db.js &  # API server on 8003
+cd mainapp && npm run dev            # Frontend on 5173
+```
+
+**ROOT CAUSE**: Vite's aggressive caching can persist incorrect API endpoints and missing imports even after code fixes.
+
+**PREVENTION**:
+- Always verify API calls use `/api` proxy (NOT `localhost:8004` or `localhost:8003`)
+- Always import required hooks: `import { useDropdownData } from '@src/hooks/useDropdownData'`
+- Always test in incognito mode after major changes
+- Use `--force` flag for npm commands if cache issues persist
+
+**DEBUGGING CHECKLIST**:
+1. **Check API Server**: `lsof -i :8003` should show node process
+2. **Check Frontend**: `lsof -i :5173` should show vite process  
+3. **Test API Manually**: `curl http://localhost:8003/api/v1/calculation-parameters?business_path=mortgage`
+4. **Browser Console**: Look for 8004 errors or `dropdownData is not defined`
+5. **Incognito Test**: Always test fixes in private browsing mode
 
 ## Development Commands
 

@@ -20,7 +20,7 @@ class CalculationService {
    */
   private getApiBaseUrl(): string {
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      return 'http://localhost:8004/api'
+      return '/api'
     }
     return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankdev2standalone-production.up.railway.app/api'
   }
