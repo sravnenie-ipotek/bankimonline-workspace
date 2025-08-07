@@ -14,6 +14,31 @@ import { getValidationErrorSync, preloadValidationErrors } from '@src/utils/vali
 
 import { ObligationForm } from './ObligationForm'
 
+// Define validation schema function at top level (gets hoisted)
+function getValidationSchema() {
+  return Yup.object().shape({
+    obligation: Yup.string().required(getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')),
+    bank: Yup.string().when('obligation', {
+      is: (value: string) =>
+        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require bank
+      then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
+      otherwise: (shema) => shema.notRequired(),
+    }),
+    monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
+      is: (value: string) =>
+        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require monthly payment
+      then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
+      otherwise: (shema) => shema.notRequired(),
+    }),
+    endDate: Yup.string().when('obligation', {
+      is: (value: string) =>
+        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require end date
+      then: (shema) => shema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
+      otherwise: (shema) => shema.notRequired(),
+    }),
+  })
+}
+
 const ObligationModal = () => {
   const { t, i18n } = useTranslation()
   const { getContent } = useContentApi('common')
@@ -35,29 +60,6 @@ const ObligationModal = () => {
     
     initializeValidation()
   }, [i18n.language]) // Regenerate when language changes
-
-  // Dynamic validation schema function
-  const getValidationSchema = () => Yup.object().shape({
-    obligation: Yup.string().required(getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')),
-    bank: Yup.string().when('obligation', {
-      is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require bank
-      then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
-      otherwise: (shema) => shema.notRequired(),
-    }),
-    monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
-      is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require monthly payment
-      then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
-      otherwise: (shema) => shema.notRequired(),
-    }),
-    endDate: Yup.string().when('obligation', {
-      is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require end date
-      then: (shema) => shema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
-      otherwise: (shema) => shema.notRequired(),
-    }),
-  })
 
   const isOpen = useAppSelector((state) => state.modalSlice.isOpenObligation)
   const id = useAppSelector((state) => state.modalSlice.currentId)

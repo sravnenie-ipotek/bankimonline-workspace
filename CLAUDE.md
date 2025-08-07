@@ -38,6 +38,27 @@ node server/server-db.js  # API server only (correct path)
 node server/serve.js      # Static file server only
 ```
 
+### Port Configuration Issues
+⚠️ **CRITICAL**: The frontend Cypress config uses port 5174, while package.json dev scripts expect port 5173. This can cause proxy issues.
+
+**Current port mapping**:
+- Backend API: 8003 (server/server-db.js)
+- Frontend dev: 5173 (Vite default)
+- Frontend Cypress: 5174 (cypress.config.ts)
+- File server: 3001 (server/serve.js)
+
+**Quick fix for port conflicts**:
+```bash
+# Check what's running on ports
+lsof -i :5173
+lsof -i :5174
+lsof -i :8003
+
+# Kill processes if needed
+pkill -f "vite"
+pkill -f "server-db.js"
+```
+
 ### Frontend Development
 ```bash
 cd mainapp
@@ -185,11 +206,34 @@ docker build -t bankdev .
 docker run -p 8003:8003 bankdev
 ```
 
-### Database Migrations
+### Database Migrations & Content Management
 ```bash
 # Run migrations (check migrations/ directory for SQL files)
 # Files are numbered sequentially (001-xxx.sql)
 # Recent migrations include content management system setup
+
+# Content management system migration
+node mainapp/migrations/migrate_sidebar_menu_content.js
+
+# Database health checks
+node test-railway-simple.js
+node check-db-structure.js
+
+# Content migration utilities
+node mainapp/create_content_items_schema.js
+node mainapp/analyze-content-migration.js
+```
+
+### Key Migration Files & Scripts
+```bash
+# Recent important migrations
+server/migrations/202501_fix_credit_step3_dropdowns.sql
+server/migrations/202501_fix_dropdown_field_names.sql
+
+# Content analysis and migration tools
+mainapp/analyze-mortgage-content.js
+mainapp/analyze-via-api.js
+mainapp/check_content_items_schema.js
 ```
 
 ## Architecture Overview
@@ -472,7 +516,7 @@ Frontend environment variables:
 ### Testing Configuration
 
 #### Cypress Setup (Frontend Testing)
-- Base URL: http://localhost:5173
+- Base URL: http://localhost:5174 (⚠️ Note: Different from Vite dev server port 5173)
 - API URL: http://localhost:8003
 - Default viewport: 1920x1080
 - Test data configured in cypress.config.ts
@@ -480,6 +524,8 @@ Frontend environment variables:
 - Support for E2E and component testing
 - Translation testing with screenshot capabilities
 - Retry configuration: 2 retries in run mode
+- Database tasks available for content validation
+- Timestamped screenshot folders for better organization
 
 #### Playwright Setup (Backend/Integration Testing)
 - Base URL: http://localhost:5173 (configured in playwright.config.ts)
@@ -577,6 +623,41 @@ This project includes MCP (Model Context Protocol) server configuration for enha
 ### MCP Configuration
 The `.mcp.json` file contains server configurations for development workflow automation.
 
+## Content Management & Migration Strategy
+
+### Database Content System
+The project is actively transitioning from static translation files to a dynamic database-backed content management system:
+
+#### Content Tables Structure
+- `content_items` - Core content metadata (keys, categories, screen locations)
+- `content_translations` - Multi-language content (en/he/ru)
+- `content_pages`, `content_sections` - Hierarchical content organization
+
+#### Migration Status
+- **Phase 1**: Database schema and API setup ✅
+- **Phase 2**: Content migration from JSON files 🟡 (In Progress)
+- **Phase 3**: API integration for dropdowns 🟡 (In Progress)
+- **Phase 4**: Frontend component updates 📋 (Planned)
+- **Phase 5**: E2E testing and validation 📋 (Planned)
+
+#### Content Key Patterns
+- Screen-based: `app.mortgage.step1.title`
+- Dropdown options: `app.mortgage.property_ownership.option_1`
+- Form validation: `validation.required_field`
+- General UI: `common.buttons.continue`
+
+### Migration Utilities
+```bash
+# Content analysis and migration
+node mainapp/analyze-content-migration.js
+node mainapp/analyze-mortgage-content.js
+node mainapp/check_content_items_schema.js
+
+# Database content validation
+node mainapp/test-content-tables.js
+node mainapp/test-all-dropdown-apis.js
+```
+
 ## Development Workflow Best Practices
 
 ### Git Workflow
@@ -595,3 +676,66 @@ The `.mcp.json` file contains server configurations for development workflow aut
 - Redux state persistence for user experience
 - API response caching implemented via RTK Query
 - Lazy loading for route-based code splitting
+
+## Debugging & Troubleshooting
+
+### Common Issues & Solutions
+
+#### Port Conflicts
+```bash
+# Kill all development processes
+./kill-ports.sh
+# Or use specific npm scripts
+npm run kill-ports:all
+npm run kill-ports:node
+npm run kill-ports:process
+```
+
+#### Database Connection Issues
+```bash
+# Test database connectivity
+node test-railway-simple.js
+node check-db-structure.js
+
+# Content database validation
+node mainapp/test-content-tables.js
+```
+
+#### Translation & Content Issues
+```bash
+# Sync translations between frontend and backend
+npm run sync-translations
+
+# Validate translation structure
+node mainapp/check_hebrew_validation.js
+node mainapp/check_validation_translations.js
+
+# Content key validation
+node mainapp/verify_contacts_phase10_keys.js
+node mainapp/verify_franchise_keys.js
+```
+
+#### API & Dropdown Issues
+```bash
+# Test all dropdown APIs
+node mainapp/test-all-dropdown-apis.js
+
+# Debug specific API endpoints
+curl http://localhost:8003/api/v1/calculation-parameters?business_path=mortgage
+curl http://localhost:8003/api/v1/dropdowns
+```
+
+### Comprehensive Testing Suites
+The project includes extensive testing infrastructure:
+
+#### Phase Testing
+- `cypress/e2e/phase_1_automation/` - Content migration validation
+- `cypress/e2e/phase_5_e2e/` - Full E2E workflow testing
+- `tests/browserstack/` - Cross-browser testing with BrowserStack
+
+#### Specialized Test Categories
+- Mortgage calculator comprehensive flows
+- Translation and RTL validation
+- Dropdown functionality and API integration
+- State management and persistence testing
+- Form validation across all steps

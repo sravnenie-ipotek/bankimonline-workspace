@@ -33,8 +33,8 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   }
 
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  // FIXED: Use 'types' to match API key shortening (calculate_credit_3_types)
-  const dropdownData = useDropdownData(screenLocation, 'types', 'full')
+  // FIXED: Use 'obligations' to match API-generated key (mortgage_step3_obligations)
+  const dropdownData = useDropdownData(screenLocation, 'obligations', 'full')
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
@@ -75,9 +75,9 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
   return (
     <Column>
       <DropdownMenu
-        title={dropdownData.label || getContent('calculate_credit_debt_types', 'Existing obligations')}
+        title={dropdownData.label || getContent('calculate_mortgage_debt_types', 'Existing obligations')}
         data={dropdownData.options}
-        placeholder={dropdownData.placeholder || getContent('calculate_credit_debt_types_ph', 'Do you have existing debts or obligations?')}
+        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_debt_types_ph', 'Do you have existing debts or obligations?')}
         value={values.obligation}
         onChange={handleValueChange}
         onBlur={() => setFieldTouched('obligation', true)}
