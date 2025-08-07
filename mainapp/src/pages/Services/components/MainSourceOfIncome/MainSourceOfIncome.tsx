@@ -21,8 +21,8 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
     useFormikContext<FormTypes>()
 
   // ✅ UPDATED: Follow systemTranslationLogic.md - use database-first approach for all contexts
-  // Use 'main_source' field name to match systemTranslationLogic.md pattern
-  const dropdownData = useDropdownData(screenLocation, 'main_source', 'full') as {
+  // Use 'source' field name to match API key (calculate_credit_3_source)
+  const dropdownData = useDropdownData(screenLocation, 'source', 'full') as {
     options: Array<{value: string; label: string}>;
     placeholder?: string;
     label?: string;

@@ -24,10 +24,7 @@ export const componentsByIncomeSource: ComponentsByIncomeSource = {
   ],
   pension: [
     <MonthlyIncome key="MonthlyIncome4" />,
-    <StartDate key="StartDate4" />,
-    <FieldOfActivity key="FieldOfActivity4" />,
-    <CompanyName key="CompanyName4" />,
-    <Profession key="Profession4" />,
+    <Column key="column" />,
   ],
   unemployed: [<NoIncome key="NoIncome5" />, <Column key="column" />],
   unpaid_leave: [<NoIncome key="NoIncome6" />, <Column key="column" />],
