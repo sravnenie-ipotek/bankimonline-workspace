@@ -354,13 +354,39 @@ export const useAllDropdowns = (screenLocation: string) => {
    */
   const getDropdownProps = (fieldName: string) => {
     if (!data) return { options: [], placeholder: undefined, label: undefined };
-    
+
     const dropdownKey = `${screenLocation}_${fieldName}`;
-    return {
-      options: data.options?.[dropdownKey] || [],
-      placeholder: data.placeholders?.[dropdownKey],
-      label: data.labels?.[dropdownKey]
+
+    // Support synonym field names (prod/dev naming drift)
+    const FIELD_SYNONYMS: Record<string, string[]> = {
+      when_needed: ['when'],
+      when: ['when_needed'],
+      first_home: ['first'],
+      first: ['first_home']
     };
+
+    let options = data.options?.[dropdownKey] || [];
+    let placeholder = data.placeholders?.[dropdownKey];
+    let label = data.labels?.[dropdownKey];
+
+    if (options.length === 0 || (!placeholder && !label)) {
+      const altFields = FIELD_SYNONYMS[fieldName] || [];
+      for (const alt of altFields) {
+        const altKey = `${screenLocation}_${alt}`;
+        if (options.length === 0) {
+          options = data.options?.[altKey] || [];
+        }
+        if (!placeholder) {
+          placeholder = data.placeholders?.[altKey] || placeholder;
+        }
+        if (!label) {
+          label = data.labels?.[altKey] || label;
+        }
+        if (options.length > 0 && (placeholder || label)) break;
+      }
+    }
+
+    return { options, placeholder, label };
   };
 
   return {
