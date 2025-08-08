@@ -1192,6 +1192,49 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 }
             }
 
+            // Pattern 1.7: app.refinance.step1.{field} (label/option)
+            // Examples: app.refinance.step1.why_option_1, app.refinance.step1.property_type_label
+            if (!fieldName) {
+                // Option like why_option_1
+                match = row.content_key.match(/^app\.refinance\.step1\.([^.]+?)_option_\d+$/);
+                if (match) {
+                    fieldName = match[1];
+                } else {
+                    // Label like property_type_label
+                    match = row.content_key.match(/^app\.refinance\.step1\.([^.]+?)_label$/);
+                    if (match) {
+                        fieldName = match[1];
+                    } else {
+                        // Base container (rare)
+                        match = row.content_key.match(/^app\.refinance\.step1\.([^.]+)$/);
+                        if (match) {
+                            fieldName = match[1];
+                        }
+                    }
+                }
+            }
+
+            // Pattern 1.8: calculate_credit_{field} (handles placeholders, options, and labels)
+            if (!fieldName) {
+                // Placeholder: calculate_credit_family_status_ph
+                match = row.content_key.match(/^calculate_credit_([^_]+(?:_[^_]+)*)_ph$/);
+                if (match) {
+                    fieldName = match[1];
+                } else if (row.content_key.includes('_option_')) {
+                    // Option: calculate_credit_family_status_option_1
+                    match = row.content_key.match(/^calculate_credit_([^_]+(?:_[^_]+)*)_option_\d+$/);
+                    if (match) {
+                        fieldName = match[1];
+                    }
+                } else {
+                    // Base container label: calculate_credit_family_status
+                    match = row.content_key.match(/^calculate_credit_([^_]+(?:_[^_]+)*)$/);
+                    if (match) {
+                        fieldName = match[1];
+                    }
+                }
+            }
+
             // Pattern 2: app.mortgage.form.calculate_mortgage_{fieldname} (handles both container and options)
             // FIXED: Properly group placeholders and options under base field name
             if (!fieldName) {
