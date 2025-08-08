@@ -155,11 +155,46 @@ export const useDropdownData = (
       const dropdownKey = `${screenLocation}_${fieldName}`;
       const placeholderKey = `${dropdownKey}_ph`;
       const labelKey = `${dropdownKey}_label`;
-      
+
+      // Field synonym support (prod/dev naming variations)
+      const FIELD_SYNONYMS: Record<string, string[]> = {
+        when_needed: ['when'],
+        when: ['when_needed'],
+        first_home: ['first'],
+        first: ['first_home']
+      };
+
+      // Primary values
+      let options = apiData.options?.[dropdownKey] || [];
+      let placeholder = apiData.placeholders?.[placeholderKey] || apiData.placeholders?.[dropdownKey];
+      let label = apiData.labels?.[labelKey] || apiData.labels?.[dropdownKey];
+
+      // If primary empty, try synonyms
+      if (options.length === 0 || (!placeholder && !label)) {
+        const altFields = FIELD_SYNONYMS[fieldName] || [];
+        for (const alt of altFields) {
+          const altKey = `${screenLocation}_${alt}`;
+          const altPlaceholderKey = `${altKey}_ph`;
+          const altLabelKey = `${altKey}_label`;
+
+          if (options.length === 0) {
+            options = apiData.options?.[altKey] || [];
+          }
+          if (!placeholder) {
+            placeholder = apiData.placeholders?.[altPlaceholderKey] || apiData.placeholders?.[altKey] || placeholder;
+          }
+          if (!label) {
+            label = apiData.labels?.[altLabelKey] || apiData.labels?.[altKey] || label;
+          }
+
+          if (options.length > 0 && (placeholder || label)) break;
+        }
+      }
+
       const result: DropdownData = {
-        options: apiData.options?.[dropdownKey] || [],
-        placeholder: apiData.placeholders?.[placeholderKey] || apiData.placeholders?.[dropdownKey],
-        label: apiData.labels?.[labelKey] || apiData.labels?.[dropdownKey],
+        options,
+        placeholder,
+        label,
         loading: false,
         error: null
       };
