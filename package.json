@@ -54,7 +54,7 @@
     "validate-packages": "node tools/dual-push.js validate",
     "push:all": "./push-to-all-repos.sh",
     "push:workspace": "git push workspace main",
-    "push:web": "git push web main", 
+    "push:web": "git push web main",
     "push:api": "git push api main",
     "push:shared": "git push shared main",
     "push:client": "./push-client.sh",
@@ -66,8 +66,8 @@
     "@playwright/test": "^1.54.1",
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
+    "concurrently": "^7.6.0",
     "eslint-plugin-react": "^7.37.5",
-    "node-fetch": "^2.7.0",
-    "concurrently": "^7.6.0"
+    "node-fetch": "^2.7.0"
   }
 }
