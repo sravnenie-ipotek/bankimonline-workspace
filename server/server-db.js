@@ -1489,6 +1489,28 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 }
             }
         });
+
+        // Alias fix for production: expose citizenship options under an additional key
+        // This avoids frontend exclusions while keeping DB-first API intact
+        try {
+            const mainCitizenshipKey = `${screen}_citizenship`;
+            const aliasCitizenshipKey = `${screen}_citizenship_countries`;
+            if (screen === 'mortgage_step2' && response.options[mainCitizenshipKey]) {
+                // Copy options
+                response.options[aliasCitizenshipKey] = response.options[mainCitizenshipKey];
+                // Copy labels/placeholders when available
+                if (response.labels && response.labels[mainCitizenshipKey]) {
+                    response.labels[aliasCitizenshipKey] = response.labels[mainCitizenshipKey];
+                }
+                if (response.placeholders && response.placeholders[mainCitizenshipKey]) {
+                    response.placeholders[aliasCitizenshipKey] = response.placeholders[mainCitizenshipKey];
+                }
+                // Ensure alias appears in dropdowns list
+                response.dropdowns.push({ key: aliasCitizenshipKey, label: response.labels?.[aliasCitizenshipKey] || 'citizenship countries' });
+            }
+        } catch (aliasErr) {
+            console.warn('Citizenship alias mapping warning:', aliasErr?.message || aliasErr);
+        }
         
         // Add performance metadata
         response.performance = {
