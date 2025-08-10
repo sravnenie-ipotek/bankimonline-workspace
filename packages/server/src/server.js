@@ -1404,6 +1404,24 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 }
             }
         });
+
+        // Alias fix for production: expose citizenship options under an additional key
+        try {
+            const mainCitizenshipKey = `${screen}_citizenship`;
+            const aliasCitizenshipKey = `${screen}_citizenship_countries`;
+            if (screen === 'mortgage_step2' && response.options[mainCitizenshipKey]) {
+                response.options[aliasCitizenshipKey] = response.options[mainCitizenshipKey];
+                if (response.labels && response.labels[mainCitizenshipKey]) {
+                    response.labels[aliasCitizenshipKey] = response.labels[mainCitizenshipKey];
+                }
+                if (response.placeholders && response.placeholders[mainCitizenshipKey]) {
+                    response.placeholders[aliasCitizenshipKey] = response.placeholders[mainCitizenshipKey];
+                }
+                response.dropdowns.push({ key: aliasCitizenshipKey, label: response.labels?.[aliasCitizenshipKey] || 'citizenship countries' });
+            }
+        } catch (aliasErr) {
+            console.warn('Citizenship alias mapping warning:', aliasErr?.message || aliasErr);
+        }
         
         // Add performance metadata
         response.performance = {
@@ -2538,7 +2556,8 @@ app.get('/api/get-cities', async (req, res) => {
 
     try {
         const query = `SELECT id, key as value, ${nameColumn} as name FROM cities ORDER BY ${nameColumn}`;
-        const result = await pool.query(query);
+        // Use content database for cities
+        const result = await contentPool.query(query);
         
         res.json({
             status: 'success',
