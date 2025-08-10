@@ -1150,6 +1150,28 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 }
             }
             
+            // Pattern 1.5: mortgage_stepN_{fieldname} (handles both container and options)
+            // Supports keys like: mortgage_step1_when_needed, mortgage_step1_when_needed_option_1, mortgage_step1_when_needed_ph
+            if (!fieldName) {
+                // Placeholder pattern (support both _ph and _options_ph)
+                match = row.content_key.match(/^mortgage_step\d+_([^_]+(?:_[^_]+)*)_(?:options_)?ph$/);
+                if (match) {
+                    fieldName = match[1];
+                } else if (row.content_key.includes('_option_') || row.content_key.includes('_options_')) {
+                    // Option pattern (support _option_N and _options_N)
+                    match = row.content_key.match(/^mortgage_step\d+_([^_]+(?:_[^_]+)*)_(?:option|options)_\d+$/);
+                    if (match) {
+                        fieldName = match[1];
+                    }
+                } else {
+                    // Base container label
+                    match = row.content_key.match(/^mortgage_step\d+_([^_]+(?:_[^_]+)*)$/);
+                    if (match) {
+                        fieldName = match[1];
+                    }
+                }
+            }
+
             // Pattern 2: app.mortgage.form.calculate_mortgage_{fieldname} (handles both container and options)
             // FIXED: Properly group placeholders and options under base field name
             if (!fieldName) {
