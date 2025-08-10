@@ -1419,6 +1419,28 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 }
                 response.dropdowns.push({ key: aliasCitizenshipKey, label: response.labels?.[aliasCitizenshipKey] || 'citizenship countries' });
             }
+
+            // Step 1 aliases: when_needed/first_home ↔ when/first (non-breaking copies)
+            if (screen === 'mortgage_step1') {
+                const aliasPairs = [
+                    { source: 'when', alias: 'when_needed' },
+                    { source: 'first', alias: 'first_home' }
+                ];
+                for (const { source, alias } of aliasPairs) {
+                    const sourceKey = `${screen}_${source}`;
+                    const aliasKey = `${screen}_${alias}`;
+                    if (response.options[sourceKey] && !response.options[aliasKey]) {
+                        response.options[aliasKey] = response.options[sourceKey];
+                        if (response.labels && response.labels[sourceKey]) {
+                            response.labels[aliasKey] = response.labels[sourceKey];
+                        }
+                        if (response.placeholders && response.placeholders[sourceKey]) {
+                            response.placeholders[aliasKey] = response.placeholders[sourceKey];
+                        }
+                        response.dropdowns.push({ key: aliasKey, label: response.labels?.[aliasKey] || alias.replace(/_/g, ' ') });
+                    }
+                }
+            }
         } catch (aliasErr) {
             console.warn('Citizenship alias mapping warning:', aliasErr?.message || aliasErr);
         }
