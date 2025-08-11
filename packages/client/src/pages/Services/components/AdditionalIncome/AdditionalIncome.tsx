@@ -71,11 +71,11 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
       willShowAmountField: !checkIfNoAdditionalIncomeValue(value)
     })
     
-    // Just set the value - let Formik handle validation naturally
-    setFieldValue('additionalIncome', value)
+    // Set value and validate immediately to clear initial required error
+    setFieldValue('additionalIncome', value, true)
     
-    // Mark as touched only after value is set
-    setFieldTouched('additionalIncome', true)
+    // Mark as touched without triggering another validation cycle
+    setFieldTouched('additionalIncome', true, false)
   }
 
   return (
@@ -86,7 +86,7 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
         data={filteredOptions}
         value={values.additionalIncome}
         onChange={handleValueChange}
-        onBlur={() => setFieldTouched('additionalIncome', true)}
+        onBlur={() => setFieldTouched('additionalIncome', true, true)}
         error={touched.additionalIncome && errors.additionalIncome}
       />
       <AddInc />

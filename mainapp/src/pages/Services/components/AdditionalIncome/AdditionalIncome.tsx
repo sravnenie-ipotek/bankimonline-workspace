@@ -39,7 +39,7 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
   const isCredit = screenLocation?.includes('credit')
   
   // Get dropdown data for credit contexts
-  const dropdownData = isCredit ? useDropdownData(screenLocation, 'additional', 'full') : null
+  const dropdownData = isCredit ? useDropdownData(screenLocation, 'additional_income', 'full') : null
   
   // Build options based on context
   const additionalIncomeOptions = isCredit && dropdownData ? 

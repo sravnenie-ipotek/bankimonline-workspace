@@ -21,8 +21,8 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
     useFormikContext<FormTypes>()
 
   // ✅ UPDATED: Follow systemTranslationLogic.md - use database-first approach for all contexts
-  // Use 'source' field name to match API key (calculate_credit_3_source)
-  const dropdownData = useDropdownData(screenLocation, 'source', 'full') as {
+  // Use 'main_source' field name to match API key (mortgage_step3_main_source)
+  const dropdownData = useDropdownData(screenLocation, 'main_source', 'full') as {
     options: Array<{value: string; label: string}>;
     placeholder?: string;
     label?: string;
@@ -49,29 +49,11 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
       selectedOption: dropdownData.options?.find(item => item.value === value)
     })
     
-    // CRITICAL FIX: Work WITH Formik's validation cycle instead of against it
-    // Set the value first without triggering validation
-    setFieldValue('mainSourceOfIncome', value, false) // false = don't validate
-    
-    // For valid non-empty values, clear error and mark as untouched temporarily
-    if (value && value !== '' && value !== null && value !== undefined) {
-      // Clear any existing error
-      setFieldError('mainSourceOfIncome', undefined)
-      
-      // Mark as touched but without validation
-      setFieldTouched('mainSourceOfIncome', true, false)
-      
-      // Use a microtask to ensure our error clear persists after React state updates
-      Promise.resolve().then(() => {
-        setFieldError('mainSourceOfIncome', undefined)
-        console.log('✅ MainSourceOfIncome: Microtask error clear for:', value)
-      })
-      
-      console.log('✅ MainSourceOfIncome: Applied validation bypass for valid selection:', value)
-    } else {
-      // For empty values, allow normal validation
-      setFieldTouched('mainSourceOfIncome', true, true) // true = validate
-    }
+    // Prefer validating immediately on selection to clear initial required error
+    setFieldValue('mainSourceOfIncome', value, true)
+
+    // Mark as touched without triggering another validation cycle
+    setFieldTouched('mainSourceOfIncome', true, false)
   }
 
   // CRITICAL FIX: Custom error display logic to prevent validation errors on valid selections
@@ -106,7 +88,7 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
         placeholder={dropdownData.placeholder || getContent('calculate_mortgage_main_source_ph', t('calculate_mortgage_main_source_ph'))}
         value={values.mainSourceOfIncome || ''}
         onChange={handleValueChange}
-        onBlur={() => setFieldTouched('mainSourceOfIncome', true)}
+        onBlur={() => setFieldTouched('mainSourceOfIncome', true, true)}
         error={shouldShowValidationError ? errors.mainSourceOfIncome : false}
         disabled={dropdownData.loading}
       />

@@ -1,4 +1,5 @@
 import { useFormikContext } from 'formik'
+import { useLocation } from 'react-router-dom'
 
 import { Column } from '@components/ui/Column'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
@@ -12,14 +13,30 @@ interface FieldOfActivityProps {
   screenLocation?: string
 }
 
-const FieldOfActivity = ({ screenLocation = 'calculate_credit_3' }: FieldOfActivityProps) => {
-  const { getContent } = useContentApi(screenLocation)
+const FieldOfActivity = ({ screenLocation }: FieldOfActivityProps) => {
+  const location = useLocation()
+  // Resolve screen location by priority: prop → route → credit default
+  const resolvedScreenLocation = screenLocation
+    ? screenLocation
+    : location.pathname.includes('calculate-mortgage')
+    ? 'mortgage_step3'
+    : location.pathname.includes('refinance-mortgage')
+    ? 'refinance_mortgage_3'
+    : 'calculate_credit_3'
+
+  const { getContent } = useContentApi(resolvedScreenLocation)
   const { values, setFieldValue, errors, setFieldTouched, touched } =
     useFormikContext<FormTypes>()
 
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
   // FIXED: Use 'activity' to match API key shortening (calculate_credit_3_activity)
-  const dropdownData = useDropdownData(screenLocation, 'activity', 'full')
+  const dropdownData = useDropdownData(resolvedScreenLocation, 'activity', 'full') as {
+    options: Array<{ value: string; label: string }>
+    placeholder?: string
+    label?: string
+    loading: boolean
+    error: Error | null
+  }
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
@@ -39,8 +56,12 @@ const FieldOfActivity = ({ screenLocation = 'calculate_credit_3' }: FieldOfActiv
         searchable
         searchPlaceholder={getContent('search', 'Search...')}
         value={values.fieldOfActivity}
-        onChange={(value) => setFieldValue('fieldOfActivity', value)}
-        onBlur={() => setFieldTouched('fieldOfActivity')}
+        onChange={(value) => {
+          // Validate immediately to clear initial required error
+          setFieldValue('fieldOfActivity', value, true)
+          setFieldTouched('fieldOfActivity', true, false)
+        }}
+        onBlur={() => setFieldTouched('fieldOfActivity', true, true)}
         error={touched.fieldOfActivity && errors.fieldOfActivity}
         disabled={dropdownData.loading}
       />

@@ -110,12 +110,38 @@ const SecondStepForm = () => {
 
       <Row>
         <MainSourceOfIncome screenLocation="mortgage_step3" />
-        {componentsByIncomeSource[mainSourceOfIncome] &&
-          componentsByIncomeSource[mainSourceOfIncome].map(
-            (Component, index) => (
-              <React.Fragment key={index}>{Component}</React.Fragment>
-            )
-          )}
+        {/* Map legacy and semantic values to componentsByIncomeSource keys */}
+        {(() => {
+          const incomeMapping: { [key: string]: string } = {
+            employee: 'employee',
+            selfemployed: 'selfemployed',
+            pension: 'pension',
+            student: 'student',
+            unemployed: 'unemployed',
+            unpaid_leave: 'unpaid_leave',
+            other: 'other',
+            '1': 'employee',
+            '2': 'selfemployed',
+            '3': 'selfemployed',
+            '4': 'pension',
+            '5': 'student',
+            '6': 'unemployed',
+            '7': 'other',
+            option_1: 'employee',
+            option_2: 'selfemployed',
+            option_3: 'selfemployed',
+            option_4: 'pension',
+            option_5: 'student',
+            option_6: 'unemployed',
+            option_7: 'other',
+          }
+          const incomeKey = incomeMapping[String(mainSourceOfIncome)] || ''
+          return incomeKey && componentsByIncomeSource[incomeKey]
+            ? componentsByIncomeSource[incomeKey].map((Component, index) => (
+                <React.Fragment key={index}>{Component}</React.Fragment>
+              ))
+            : null
+        })()}
         <Column />
       </Row>
       <Row>
@@ -178,10 +204,32 @@ const SecondStepForm = () => {
 
       <Row>
         <Obligation />
-        {componentsByObligation[obligation] &&
-          componentsByObligation[obligation].map((Component, index) => (
-            <React.Fragment key={index}>{Component}</React.Fragment>
-          ))}
+        {/* Map legacy and semantic values to componentsByObligation keys */}
+        {(() => {
+          const obligationMapping: { [key: string]: string } = {
+            no_obligations: '',
+            bank_loan: 'bank_loan',
+            consumer_credit: 'consumer_credit',
+            credit_card: 'credit_card',
+            other: 'other',
+            '1': '',
+            '2': 'bank_loan',
+            '3': 'credit_card',
+            '4': 'consumer_credit',
+            '5': 'other',
+            option_1: '',
+            option_2: 'bank_loan',
+            option_3: 'credit_card',
+            option_4: 'consumer_credit',
+            option_5: 'other',
+          }
+          const obligationKey = obligationMapping[String(obligation)] || ''
+          return obligationKey && componentsByObligation[obligationKey]
+            ? componentsByObligation[obligationKey].map((Component, index) => (
+                <React.Fragment key={index}>{Component}</React.Fragment>
+              ))
+            : null
+        })()}
         <Column />
       </Row>
 

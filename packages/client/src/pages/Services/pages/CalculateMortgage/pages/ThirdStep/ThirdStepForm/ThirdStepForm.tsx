@@ -176,12 +176,38 @@ const ThirdStepForm = () => {
 
       <Row>
         <MainSourceOfIncome />
-        {componentsByIncomeSource[mainSourceOfIncome] &&
-          componentsByIncomeSource[mainSourceOfIncome].map(
-            (Component, index) => (
-              <React.Fragment key={index}>{Component}</React.Fragment>
-            )
-          )}
+        {/* Map legacy/semantic values to componentsByIncomeSource keys so fields always appear */}
+        {(() => {
+          const mapping: { [key: string]: string } = {
+            employee: 'employee',
+            selfemployed: 'selfemployed',
+            pension: 'pension',
+            student: 'student',
+            unemployed: 'unemployed',
+            unpaid_leave: 'unpaid_leave',
+            other: 'other',
+            '1': 'employee',
+            '2': 'selfemployed',
+            '3': 'selfemployed',
+            '4': 'pension',
+            '5': 'student',
+            '6': 'unemployed',
+            '7': 'other',
+            option_1: 'employee',
+            option_2: 'selfemployed',
+            option_3: 'selfemployed',
+            option_4: 'pension',
+            option_5: 'student',
+            option_6: 'unemployed',
+            option_7: 'other',
+          }
+          const incomeKey = mapping[String(mainSourceOfIncome)] || ''
+          return incomeKey && componentsByIncomeSource[incomeKey]
+            ? componentsByIncomeSource[incomeKey].map((Component, index) => (
+                <React.Fragment key={index}>{Component}</React.Fragment>
+              ))
+            : null
+        })()}
       </Row>
       <Row>
         <Column>
