@@ -40,13 +40,15 @@ const getDatabaseConfig = (connectionType = 'content') => {
         console.log('🛠️ Development environment detected - using Railway PostgreSQL');
         
         if (connectionType === 'content') {
+            // Content database: shortline (bankim_content) - Contains CMS content, translations, dropdowns
             return {
                 connectionString: process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway',
                 ssl: { rejectUnauthorized: false }
             };
         } else {
+            // Main database: maglev (bankim_core) - Contains user data, authentication, client information
             return {
-                connectionString: process.env.DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway',
+                connectionString: process.env.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway',
                 ssl: { rejectUnauthorized: false }
             };
         }

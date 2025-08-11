@@ -1,0 +1,706 @@
+## System Architecture Overview (read first)
+
+This project uses a hybrid architecture that separates day‑to‑day development from production deployment, and a runtime architecture optimized for fast, localized content delivery.
+
+- Repositories (hybrid model)
+  - DEV‑ONLY monorepo: `bankimonline-workspace` (all code: client, server, shared)
+  - Deployment repos (synced via dual‑push/git subtree):
+    - Client: `bankimonline-web`
+    - Server: `bankimonline-api`
+    - Shared package: `bankimonline-shared`
+
+- Runtime layers
+  - Client: React SPA (i18next), JSON translations for baseline, DB‑first content for dynamic copy
+  - Server: Express API with NodeCache; serves content, dropdowns, auth, bank comparison, admin APIs
+  - Databases: PostgreSQL (core DB) + PostgreSQL (content DB for translations/content)
+  - Dev static/proxy server (port 3001) proxies `/api/*` to API (port 8003)
+
+```
+Browser → React SPA → /api → Express API → PostgreSQL (core)
+                               └──────→ PostgreSQL (content) + NodeCache
+```
+
+- Content model (DB‑first)
+  - All dropdowns, labels, placeholders come from the content DB
+  - Server shapes DB rows into structured payloads; client renders via hooks
+  - Keeps copy/localization live without redeploys; JSON i18n remains fallback for static keys
+
+- Git & delivery
+  - Develop only in the monorepo; feature branches per developer
+  - On merge to `main`, use dual‑push scripts to sync each package to its deployment repo
+  - CI/CD runs per deployment repo for fast, independent releases
+
+- Security & environment
+  - JWT for admin endpoints, CORS with env‑based origins, `.env` controls DB URLs and server ports
+  - Standard ports: API 8003, dev static/proxy 3001
+
+The rest of this document dives into the server internals (entry points, middleware, databases, caching, APIs), Git/GitHub logic and scripts, and a deep dive on our dropdowns/content system.
+
+## Server Architecture (@server)
+
+This document describes the backend architecture of the Bankimonline application: stack, entry points, middleware, databases and configuration, caching, static serving, and the main REST APIs (content, dropdowns, auth, bank comparison, admin, bank-worker, uploads). Includes ASCII diagrams of critical flows.
+
+---
+
+## Tech Stack (Server)
+
+- Node.js 20
+- Express 4
+- PostgreSQL (`pg` Pool) – dual database architecture (core + content)
+- JWT (`jsonwebtoken`) – auth for admin/client flows
+- Multer – file uploads (vacancy resumes)
+- CORS – environment-based origins
+- NodeCache – in-memory caching for content/dropdowns
+- Morgan – request logging
+
+---
+
+## Entry Points & Processes
+
+- Primary API server (development/production):
+  - `server/server-db.js` (root entry used by `npm start`)
+  - `packages/server/src/server.js` (production-optimized variant)
+
+- Static file server + API proxy for local development:
+  - `server/serve.js` or `packages/server/src/serve.js` (port 3001)
+  - Proxies `/api/*` to API server (port 8003)
+
+```ascii
+Dev Processes
+
+ ┌──────────────────┐           ┌──────────────────┐
+ │ Static Server    │:3001  →   │ API Server       │:8003
+ │ serve.js         │  proxy    │ server-db.js     │  Express
+ └──────────────────┘  /api/*   └──────────────────┘
+         │                           │
+         ▼                           ▼
+   React build, JS,            PostgreSQL (Pool)
+   CSS, locales                ├─ main DB (pool)
+                               └─ content DB (contentPool)
+```
+
+---
+
+## Middleware Pipeline
+
+- `cors(corsOptions)` – origins resolved via env `CORS_ALLOWED_ORIGINS` or allow-all in Railway/production
+- `express.json()` – JSON body parsing
+- `express.urlencoded({ extended: true })` – form bodies
+- `morgan('dev')` – request logging
+
+Static serving in packaged server:
+
+- `express.static(path.join(__dirname, 'mainapp/build'))` – React build
+- `express.static(__dirname)` – root static assets (e.g., `admin.html`)
+
+Multer uploads:
+
+- Uploads stored under `__dirname/uploads` with size/type validation
+
+---
+
+## CORS Configuration
+
+```ascii
+getCorsOrigins():
+  if NODE_ENV=production or RAILWAY_ENVIRONMENT=production → return true (allow all)
+  else if CORS_ALLOWED_ORIGINS env set:
+    - if "*" → return true
+    - else parse comma list → [origins]
+  else → return true (development default)
+```
+
+`credentials: false`, methods: GET/POST/PUT/DELETE/OPTIONS.
+
+---
+
+## Database Architecture
+
+Dual PostgreSQL pools:
+
+- `pool` – Core database (users, banking data, applications, calculations)
+- `contentPool` – Content/Translations database (screen-based content items + translations)
+
+Environment-based configuration:
+
+- Development: Railway PostgreSQL with SSL `{ rejectUnauthorized: false }`
+- Production: Local PostgreSQL on server, `ssl: false`
+
+Key variables: `DATABASE_URL`, `CONTENT_DATABASE_URL`, `NODE_ENV`, `RAILWAY_ENVIRONMENT`.
+
+```ascii
+Express → Pool (main)       Express → Pool (content)
+   |                             |
+   |                             └─ Tables: content_items, content_translations
+   └─ Tables: clients,          
+      applications, banks,
+      banking_standards, ...
+```
+
+---
+
+## Caching Layer (NodeCache)
+
+- In-memory cache with 5-min TTL, 60s check period, no cloning for performance
+- Used for:
+  - `/api/content/:screen/:language` responses
+  - `/api/dropdowns/:screen/:language` responses
+- Management endpoints:
+  - `GET /api/content/cache/stats`
+  - `DELETE /api/content/cache/clear`
+
+```ascii
+Content/Dropdown Request
+  │
+  ├─ Cache HIT → return JSON (<1ms)
+  └─ Cache MISS → query content DB → transform → set cache → return
+```
+
+---
+
+## Static Serving & Dev Proxy
+
+Production (packaged server):
+
+- Serves React build directly from `mainapp/build/`
+- Serves static admin/debug assets from `__dirname`
+
+Development (`serve.js`, port 3001):
+
+- Serves files and proxies `/api/*` to `localhost:8003`
+- Special handling for `customer-approval-check.html` and `/locales/*`
+
+```ascii
+Browser → http://localhost:3001
+   ├─ /api/* → proxy → http://localhost:8003
+   ├─ /locales/* → ./mainapp/build/locales/*
+   └─ /* → ./mainapp/build/index.html (SPA fallback)
+```
+
+---
+
+## API Overview (Selected)
+
+### Content Management (Database-First)
+
+- `GET /api/content/:screen/:language?type={component_type}`
+  - Cache-first; returns `{ status, content: { key: { value, type, category } } }`
+  - Optional `type` filters specific component categories
+
+- `GET /api/content/:key/:language`
+  - Single content item lookup with fallback to English
+
+Flow:
+
+```ascii
+Client (useContentApi) → GET /api/content/{screen}/{lang}
+   │ (NodeCache)   
+   ├─ HIT → JSON
+   └─ MISS → contentPool.query(screen, lang)
+              → transform rows to { key → { value, type, ... } }
+              → cache set → JSON
+```
+
+### Dropdowns API
+
+- `GET /api/dropdowns/:screen/:language`
+  - Returns structured dropdowns with `dropdowns[]`, `options{}`, `placeholders{}`, `labels{}`
+  - Backed by content DB; caches 5 min; groups by `content_key` conventions
+
+Flow:
+
+```ascii
+Client useDropdownData(screen, field)
+  → GET /api/dropdowns/{screen}/{lang}
+    → cache? else DB → group & structure → JSON
+  → pick {options, placeholder, label} by field key
+```
+
+### Authentication
+
+- `POST /api/login` – Admin email/password login → issues JWT
+- `POST /api/email-code-login` – Email code verification → issues JWT
+- `POST /api/auth-mobile`, `/api/auth-password`, `/api/auth-verify` – Customer mobile flows (SMS)
+- `POST /api/register` – Registration endpoint
+
+Admin JWT middleware:
+
+```ascii
+requireAdmin(req, res, next):
+  - Read Authorization: Bearer <token>
+  - jwt.verify(token, JWT_SECRET)
+  - Inject req.admin = { id, role, ... }
+  - next() or 401
+```
+
+### Banking – Bank Comparison
+
+- `POST /api/customer/compare-banks`
+  - Input: `loan_type`, `amount`, `property_value`, `monthly_income`, `age` or `birth_date`, `employment_years` or `employment_start_date`, `monthly_expenses`, `property_ownership`, `session_id`, optional `credit_score`
+  - Computes derived values (age, employment years, etc.) if dates provided
+  - Queries database-driven standards/configs (no hardcoding)
+  - Returns `data.bank_offers` list for client UI
+
+Flow:
+
+```ascii
+Client transformUserDataToRequest → POST /api/customer/compare-banks
+  → validate & derive values (age, employment_years)
+  → query configs/standards per bank
+  → compute offers → respond { data: { bank_offers } }
+```
+
+### Applications
+
+- `POST /api/customer/submit-application` – submit loan application
+- `GET /api/applications/:id/status` – status checks
+
+### Admin APIs (JWT-protected)
+
+- Auth: `POST /api/admin/login`, `GET /api/admin/profile`
+- Banks CRUD & configs: `/api/admin/banks`, `/config`, `/stats`, `/fallback-config`
+- Banking standards: list, query, update, history
+- Applications: list, details, update status, stats
+- Users: list, details, update, delete
+- Calculations: `POST /api/admin/calculate-mortgage|credit`
+
+### Bank Worker Registration (Phase 2)
+
+- `POST /api/bank-worker/invite` – admin invites worker; JWT-protected, creates invitation token
+- `GET /api/bank-worker/register/:token` – fetch form by token
+- `POST /api/bank-worker/register` – complete registration
+- `GET /api/bank-worker/status/:id` – check status
+
+---
+
+## File Uploads (Vacancies)
+
+- Endpoint: `POST /api/vacancies/:id/apply` with `uploadFile.single('resume')`
+- Limits: 5MB; types: `pdf|doc|docx`
+- Stored as `uploads/resume-<timestamp>-<rnd>.ext`; path recorded in DB
+
+```ascii
+FormData(resume) → multer.diskStorage → /uploads
+  → validate type/size → insert application + file path into DB
+```
+
+---
+
+## Internationalization on Server
+
+- Content and dropdowns APIs require `:language` param (`he`, `ru`, `en`)
+- Client also sends `Accept-Language` (e.g., for bank offers) – server may use for logs/selection
+- Content layer supports fallback to English in single-item endpoint
+
+---
+
+## Environment & Ports
+
+- API: `PORT=8003` (default)
+- Static server (dev): `3001` (proxies `/api/*` → 8003)
+- Required env:
+  - `DATABASE_URL`, `CONTENT_DATABASE_URL`
+  - `JWT_SECRET`
+  - `CORS_ALLOWED_ORIGINS` (comma separated or `*`)
+  - `NODE_ENV`, `RAILWAY_ENVIRONMENT`
+
+---
+
+## Operational Logs (on start)
+
+On boot the server logs base URLs and key endpoints (login, compare-banks, admin endpoints), aiding discovery and smoke checks.
+
+---
+
+## Troubleshooting
+
+- 401 on admin endpoints: verify `Authorization: Bearer <JWT>` and `JWT_SECRET`
+- 500 on content/dropdowns: confirm content DB connectivity and schema; check cache miss logs
+- Stale content: `DELETE /api/content/cache/clear`
+- CORS errors: check `CORS_ALLOWED_ORIGINS` and production allow-all logic
+- File upload errors: verify file type and size; ensure `uploads/` exists
+
+---
+
+## Quick Reference
+
+```http
+GET    /api/content/:screen/:language[?type=dropdown]
+GET    /api/dropdowns/:screen/:language
+GET    /api/content/cache/stats
+DELETE /api/content/cache/clear
+
+POST   /api/login
+POST   /api/email-code-login
+POST   /api/auth-mobile
+POST   /api/auth-password
+POST   /api/auth-verify
+POST   /api/register
+
+POST   /api/customer/compare-banks
+POST   /api/customer/submit-application
+GET    /api/applications/:id/status
+
+POST   /api/bank-worker/invite        (admin, JWT)
+GET    /api/bank-worker/register/:token
+POST   /api/bank-worker/register
+GET    /api/bank-worker/status/:id
+
+POST   /api/vacancies/:id/apply       (multipart/form-data)
+```
+
+Keep this document updated when adding major endpoints or changing data flows/caching.
+
+
+
+
+---
+
+## Git Repositories and Workflow (Full URLs)
+
+This project uses a 4-repository hybrid model: one primary development monorepo (dev-only) and three deployment repositories kept in sync via dual-push (git subtree).
+
+### Repository Topology
+
+```
+bankimonline-workspace (DEV-ONLY, primary development monorepo)
+      ├─packages/client   ──▶ bankimonline-web     (client deploy repo)
+      ├─packages/server   ──▶ bankimonline-api     (server deploy repo)
+      └─packages/shared   ──▶ bankimonline-shared  (shared package repo)
+```
+
+### Full Repository URLs
+
+- Primary Development Repository (DEV-ONLY)
+  - Name: bankimonline-workspace
+  - URL: `git@github.com:sravnenie-ipotek/bankimonline-workspace.git`
+  - Purpose: Single source of truth for ALL development (client, server, shared, tools). Do not deploy from here directly.
+
+- Deployment Repositories
+  - Client deploy (React):
+    - Name: bankimonline-web
+    - URL: `git@github.com:sravnenie-ipotek/bankimonline-web.git`
+    - Purpose: Production-optimized frontend. Receives code via subtree from `packages/client`. CI/CD deploys to hosting.
+  - Server deploy (Node API):
+    - Name: bankimonline-api
+    - URL: `git@github.com:sravnenie-ipotek/bankimonline-api.git`
+    - Purpose: Production API. Receives code via subtree from `packages/server`. CI/CD deploys to Railway/servers.
+  - Shared package:
+    - Name: bankimonline-shared
+    - URL: `git@github.com:sravnenie-ipotek/bankimonline-shared.git`
+    - Purpose: NPM package for shared types/schemas/constants. Receives code via subtree from `packages/shared` and is published to GitHub Packages.
+
+### The DEV-ONLY Monorepo (bankimonline-workspace)
+
+- What it contains:
+  - `packages/client` – React app (source)
+  - `packages/server` – Node.js API (source)
+  - `packages/shared` – shared TS types/schemas/constants (source)
+  - `tools/dual-push.js` – dual-push automation
+  - E2E tests, scripts, CI workflows
+- Why DEV-ONLY:
+  - All day-to-day development happens here; feature branches, PRs, code reviews.
+  - Deployment repos are updated exclusively via the dual-push process to keep production code clean and minimal.
+  - Direct commits to deployment repos are discouraged to avoid drift.
+
+### Dual-Push Workflow (How repos connect)
+
+- Commands (run from the workspace root):
+  - `npm run push-client` → sync `packages/client` → `bankimonline-web`
+  - `npm run push-server` → sync `packages/server` → `bankimonline-api`
+  - `npm run push-shared` → sync `packages/shared` → `bankimonline-shared`
+  - `npm run push-all` → sync all three
+
+ASCII overview:
+
+```
+Dev change in workspace
+   ├─ client  ── dual-push ──▶ bankimonline-web   (build/deploy)
+   ├─ server  ── dual-push ──▶ bankimonline-api   (build/deploy)
+   └─ shared  ── dual-push ──▶ bankimonline-shared (publish)
+```
+
+### Responsibilities
+
+- bankimonline-workspace (DEV-ONLY): Entire team; feature development, PRs, integration, tests.
+- bankimonline-web: Frontend team; deployment config, environment setup; no direct feature dev.
+- bankimonline-api: Backend team; deployment config, migrations, environment; no direct feature dev.
+- bankimonline-shared: Fullstack team; semver, package publishing; used by both client and server.
+
+Notes:
+- Use the workspace for all changes; then dual-push to update deployment repos.
+- CI/CD runs independently in each deployment repo for faster releases.
+
+### GitHub Logic and Scripts (from Push and Pull Logic)
+
+- Core principle: Develop only in `bankimonline-workspace` (DEV-ONLY). Use dual-push to sync each package into its deployment repo.
+
+- NPM scripts (root `package.json`):
+  ```bash
+  npm run push-client   # node tools/dual-push.js client
+  npm run push-server   # node tools/dual-push.js server
+  npm run push-shared   # node tools/dual-push.js shared
+  npm run push-all      # node tools/dual-push.js all
+  npm run validate-packages  # validate structure
+  ```
+
+- Dual-push script `tools/dual-push.js` (excerpt):
+  ```js
+  const REPO_MAPPINGS = {
+    client: 'git@github.com:sravnenie-ipotek/bankimonline-web.git',
+    server: 'git@github.com:sravnenie-ipotek/bankimonline-api.git',
+    shared: 'git@github.com:sravnenie-ipotek/bankimonline-shared.git'
+  }
+  const PACKAGE_PATHS = {
+    client: 'packages/client',
+    server: 'packages/server',
+    shared: 'packages/shared'
+  }
+  // Step 1: push to workspace
+  git push origin <currentBranch>
+  // Step 2: push subtree to deployment repo
+  git subtree push --prefix=<packagePath> <repoUrl> <currentBranch>
+  ```
+
+- Recommended push workflow:
+  - If only client changed: `npm run push-client`
+  - If only server changed: `npm run push-server`
+  - If shared types changed: `npm run push-shared`
+  - If multiple packages changed: `npm run push-all`
+
+- Workspace-only push (no deployment) for WIP: `git push origin main`
+
+- Pull workflow (developers):
+  ```bash
+  git pull origin main
+  npm install
+  npm run build:all
+  ```
+
+- Troubleshooting (from `server/docs/pushAndPullLogic.md`):
+  - If dual-push fails, validate packages: `npm run validate-packages`
+  - Manual subtree (fallback):
+    ```bash
+    git subtree push --prefix=packages/client git@github.com:sravnenie-ipotek/bankimonline-web.git main
+    git subtree push --prefix=packages/server git@github.com:sravnenie-ipotek/bankimonline-api.git main
+    git subtree push --prefix=packages/shared git@github.com:sravnenie-ipotek/bankimonline-shared.git main
+    ```
+
+- CI/CD pointers:
+  - Web Actions: https://github.com/sravnenie-ipotek/bankimonline-web/actions
+  - API Actions: https://github.com/sravnenie-ipotek/bankimonline-api/actions
+  - Shared Actions: https://github.com/sravnenie-ipotek/bankimonline-shared/actions
+
+
+---
+
+## Dropdowns Logic – Detailed
+
+This section explains the dropdowns system end to end: database expectations, server shaping, caching, aliasing/backward-compatibility, and client consumption.
+
+### Database model and keys
+
+- Tables: `content_items` (structure) and `content_translations` (localized values)
+- Required fields used by API:
+  - `content_items.screen_location` – e.g., `mortgage_step1`
+  - `content_items.component_type` in: `dropdown_container`, `dropdown_option` or `option`, `placeholder`, `label`
+  - `content_items.content_key` – hierarchical key used for grouping (see patterns below)
+  - `content_translations.language_code`, `content_translations.content_value`, `status='approved'`
+
+Naming patterns the server supports (examples):
+
+- Simple step pattern: `mortgage_step1_when_needed`, `mortgage_step1_when_needed_option_1`, `mortgage_step1_when_needed_ph`
+- App-form pattern: `app.mortgage.form.calculate_mortgage_main_source_option_1`, `..._ph`, base label without suffix
+- Field namespace pattern: `mortgage_calculation.field.property_ownership_has_property`
+- Refinance patterns: `refinance_step1_why_lower_interest_rate`, `refinance_step2_education_bachelors`, with `..._ph` placeholders
+
+Content authors should keep to these patterns so the field extractor can group options under the same dropdown field.
+
+### Server endpoint and shaping
+
+- Endpoint: `GET /api/dropdowns/:screen/:language`
+- Query filters: screen by `screen_location`, language and `status='approved'`, and `component_type` ∈ {container, option, placeholder, label}
+- Response shape:
+
+```json
+{
+  "status": "success",
+  "screen_location": "mortgage_step1",
+  "language_code": "he",
+  "dropdowns": [ { "key": "mortgage_step1_when_needed", "label": "..." } ],
+  "options": { "mortgage_step1_when_needed": [ { "value": "within_3_months", "label": "..." } ] },
+  "placeholders": { "mortgage_step1_when_needed": "..." },
+  "labels": { "mortgage_step1_when_needed": "..." },
+  "cached": true,
+  "performance": { "total_items": 42, "dropdowns_found": 8, "query_time": "ISO" }
+}
+```
+
+Shaping pipeline (server):
+
+```
+rows (content_key, component_type, content_value)
+  → extract fieldName via regex patterns (see below)
+  → dropdownKey = `${screen}_${fieldName}`
+  → group into dropdownMap[fieldName]
+     - container/label → set label
+     - placeholder     → set placeholder
+     - option/option_* → push {value, label}
+  → build response:
+     - dropdowns: keys with options>0 or label present
+     - options/placeholders/labels indexed by dropdownKey
+```
+
+### Field extraction heuristics (regex highlights)
+
+- Supports multiple families of keys. Simplified overview of what the extractor matches:
+  - `^[^.]*\.field\.([^.]+)` → field namespace family (e.g., `mortgage_calculation.field.property_ownership_*`)
+  - `^mortgage_step\d+_([^_]+(?:_[^_]+)*)` → simple step family (handles base, `_option_N`, `_options_N`, `_ph`)
+  - `calculate_mortgage_([^_]+(?:_[^_]+)*)` → app-form family (base/`_option_N`/`_ph`)
+  - `^refinance_step(\d+)_([^_]+(?:_[^_]+)*)` → refinance families (step1/step2)
+  - Fallbacks extract last segment or replace separators with underscores
+
+Option value extraction covers many suffixes (e.g., `selling_property`, `within_3_months`, `apartment`, `fixed_rate`, `single`, `bachelors`, `employee`, `no_additional_income`, `no_obligations`, bank names, etc.). Special cases collapse `0_no_additional_income`/`1_no_additional_income` → `no_additional_income`, and `0_no_obligations` → `no_obligations`.
+
+### Aliases and backward compatibility
+
+- Citizenship alias (prod convenience):
+  - If `screen === 'mortgage_step2'` and `${screen}_citizenship` exists, also expose `${screen}_citizenship_countries` with the same options/labels/placeholders.
+- Step 1 synonyms (non-breaking copies):
+  - If options exist under `${screen}_when`, also mirror to `${screen}_when_needed` (and vice versa on client)
+  - If options exist under `${screen}_first`, also mirror to `${screen}_first_home`
+
+These ensure legacy/prod key names continue working while the content is standardized.
+
+### Caching and invalidation
+
+- NodeCache key: `dropdowns_${screen}_${language}` (5 min TTL)
+- Endpoints:
+  - `GET /api/content/cache/stats` – see keys/sizes
+  - `DELETE /api/content/cache/clear` – flush cache (affects content and dropdown caches)
+
+Server flow:
+
+```
+GET /api/dropdowns/:screen/:language
+  ├─ cache HIT → return
+  └─ cache MISS → query DB → shape → set cache → return
+```
+
+### Client consumption
+
+- Hook: `useDropdownData(screenLocation, fieldName)`
+  - URL: `/api/dropdowns/${screenLocation}/${language}`
+  - Client TTL cache key: `dropdown_${screenLocation}_${language}`
+  - AbortControllers prevent overlapping requests
+  - Key derivation on client:
+    - `dropdownKey = ${screen}_${field}`
+    - `placeholderKey = ${dropdownKey}_ph` (server already flattens to map by dropdownKey)
+    - `labelKey = ${dropdownKey}_label` (server already flattens)
+  - Synonyms: tries `when_needed ↔ when`, `first_home ↔ first` if primary is empty
+  - Returns: `{ options, placeholder, label, loading, error }`
+
+Bulk: `useAllDropdowns(screenLocation)` fetches once and returns the full structured payload (same client cache and abort behavior).
+
+### Example
+
+Given rows:
+
+```
+screen_location = mortgage_step1
+content_key  = mortgage_step1_when_needed_option_1
+component_type = dropdown_option
+content_value   = "Within 3 months"
+
+content_key  = mortgage_step1_when_needed_ph
+component_type = placeholder
+content_value   = "When do you need the mortgage?"
+```
+
+Server produces:
+
+```json
+{
+  "dropdowns": [ { "key": "mortgage_step1_when_needed", "label": "when needed" } ],
+  "options": { "mortgage_step1_when_needed": [ { "value": "option_1", "label": "Within 3 months" } ] },
+  "placeholders": { "mortgage_step1_when_needed": "When do you need the mortgage?" },
+  "labels": { "mortgage_step1_when_needed": "when needed" }
+}
+```
+
+Notes:
+- Option `value` will be derived from the suffix; in this example it may normalize to `within_3_months` if the key encodes the semantic value; otherwise it falls back to the last segment.
+- The server only adds entries to `dropdowns` if a dropdown has options or at least a label.
+
+### DB‑First Principle (Why and How)
+
+- Source of truth: All dropdown options, labels, and placeholders live in the database (not in code).
+- Server code contains only shaping/regex logic; it never hardcodes option lists.
+- Benefits: Live content updates without redeploys, language coverage in DB, consistent behavior across client and admin.
+- Contract: If a dropdown appears empty, the fix is to add/approve DB translations for the matching `content_key` family.
+
+### Naming Conventions (Authoring Guide)
+
+- Prefer one of the supported families for `content_key` under a given `screen_location`:
+  - Simple step family: `mortgage_step1_{field}`, `mortgage_step1_{field}_option_1`, `mortgage_step1_{field}_ph`
+  - App-form family: `app.mortgage.form.calculate_mortgage_{field}`, `..._{field}_option_1`, `..._{field}_ph`
+  - Field namespace family: `mortgage_calculation.field.{field}` and `mortgage_calculation.field.{field}_{value}`
+  - Refinance families: `refinance_step1_{field}`, `refinance_step2_{field}`, with `_option_`/semantic suffixes and `_ph`
+- Component types:
+  - `dropdown_container` or `label`: dropdown label text
+  - `placeholder`: input placeholder text
+  - `dropdown_option` or `option`: option item; value inferred from the key suffix
+- Semantic suffixes: use meaningful identifiers like `within_3_months`, `fixed_rate`, `apartment`, `single`, `bachelors`, `employee`.
+
+### End‑to‑End Flow
+
+```
+DB rows (approved, is_active)
+  → /api/dropdowns/:screen/:lang
+      → NodeCache (5 min)
+      → regex grouping → {dropdowns, options, placeholders, labels}
+  → Client hooks
+      → in‑memory TTL cache
+      → useDropdownData(screen, field) → {options, placeholder, label}
+```
+
+### Editorial Workflow (Adding/Changing a Dropdown)
+
+1) Identify screen: e.g., `mortgage_step1`.
+2) Choose a field name: e.g., `when_needed`.
+3) Create items in `content_items` for container/label, placeholder, and each option using one naming family:
+   - `mortgage_step1_when_needed` (container/label)
+   - `mortgage_step1_when_needed_ph` (placeholder)
+   - `mortgage_step1_when_needed_option_1`, `_option_2`, ... (options)
+4) Add translations in `content_translations` for `he`, `ru`, `en` with `status='approved'`.
+5) Clear cache (optional during QA): `DELETE /api/content/cache/clear`.
+6) Verify: `GET /api/dropdowns/mortgage_step1/he` includes the new field.
+
+Notes:
+- If your team previously used legacy names (`when`, `first`), aliases mirror them to `when_needed`, `first_home` (Step 1) on the server.
+- For citizenship on Step 2, `${screen}_citizenship_countries` is auto‑exposed in addition to `${screen}_citizenship`.
+
+### Fallbacks and Empty States
+
+- Dropdowns do not fall back to JSON i18n; if DB has no approved values, client receives empty arrays/undefined and should gracefully handle it.
+- Synonyms on the client (`when_needed ↔ when`, `first_home ↔ first`) reduce the chance of an empty UI when DB key variants exist.
+
+### Performance & Reliability
+
+- Server cache: 5‑minute NodeCache per screen+language; reduces DB load and stabilizes latency.
+- Client cache: short‑lived in‑memory TTL keyed by screen+language; prevents redundant requests during navigation.
+- Abortable fetches: client cancels prior requests on language/screen changes.
+
+### Testing & Debugging
+
+- Inspect API quickly:
+  - `GET /api/dropdowns/mortgage_step1/he`
+  - `GET /api/content/cache/stats` then `DELETE /api/content/cache/clear`
+- Validate specific field presence and options; check that `options["{screen}_{field}"]` is non‑empty.
+- If empty, confirm DB rows: `screen_location`, `component_type`, `content_key` pattern, `status='approved'`, `is_active=true`.
+
+### Migration & Backfills
+
+- For missing legacy dropdowns after DB recreation, use targeted backfills (e.g., a one‑off script to insert `content_items`/`content_translations`).
+- Maintain semantic option suffixes to keep client values stable across languages.
+
