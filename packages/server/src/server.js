@@ -4,7 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const { Pool } = require('pg');
+const { createPool } = require('../config/database-core');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
@@ -22,22 +22,10 @@ const contentCache = new NodeCache({
 });
 
 // Main database connection (Core Database)
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL || (() => {
-        console.error('🚨 DATABASE_URL environment variable is required');
-        console.error('📋 Please copy .env.example to .env and configure your database credentials');
-        process.exit(1);
-    })()
-});
+const pool = createPool('main');
 
 // Content database connection (SECOND database for content/translations)
-const contentPool = new Pool({
-    connectionString: process.env.CONTENT_DATABASE_URL || (() => {
-        console.error('🚨 CONTENT_DATABASE_URL environment variable is required');
-        console.error('📋 Please copy .env.example to .env and configure your database credentials');
-        process.exit(1);
-    })()
-});
+const contentPool = createPool('content');
 
 // Test main database connection
 pool.query('SELECT NOW()', (err, res) => {

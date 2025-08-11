@@ -1,0 +1,416 @@
+## Client Architecture (@client)
+
+This document describes the client-side architecture of the Bankimonline application: stack, directory structure, routing, state management, API/services, translations (including RTL), and key methods. It covers both `mainapp/` (feature-complete development app) and `packages/client/` (production-optimized client synchronized for deployment).
+
+---
+
+## Tech Stack (Client)
+
+- React 18 + TypeScript
+- React Router v6 (SPA routing)
+- Redux Toolkit + Redux Persist + typed hooks
+- RTK Query (API client) and custom `fetch`/`axios` services
+- i18next + i18next-http-backend (he/en/ru) with runtime JSON loading
+- SCSS Modules + global SCSS; `classnames/bind`
+- Vite build (packages/client), equivalent setup in `mainapp`
+
+---
+
+## Entry Points and Boot
+
+- `mainapp/index.html` and `packages/client/index.html` define `<div id="root">` and load Google Fonts. Default `lang=he` and `dir=rtl`.
+- `mainapp/src/index.tsx` and `packages/client/src/index.tsx` mount React and wrap providers.
+
+```ts
+// packages/client/src/index.tsx
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <I18nextProvider i18n={i18n}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </I18nextProvider>
+  </React.StrictMode>
+)
+```
+
+- `App` lazy-loads routes, sets document `dir`/`lang`, listens for window resize, and loads translations before rendering content.
+
+---
+
+## High-Level Architecture
+
+```
++---------------------- Browser ----------------------+
+|                                                      |
+|  index.html  →  index.tsx  →  <App/> (providers)     |
+|                        |                             |
+|                        v                             |
+|                 <MainRoutes/>                        |
+|                        |                             |
+|  Components  ↔  Redux Store  ↔  RTK Query  ↔  API    |
+|       |             |               |                |
+|   i18next      Persisted Slices   Services           |
+|       |             |               |                |
+|   JSON / DB Content API      Fetch/Axios             |
+|                                                      |
+|   Document dir/lang controlled by current language   |
++------------------------------------------------------+
+```
+
+---
+
+## Directory Structure (client app)
+
+Key client directories (paths shown for `mainapp/`; `packages/client/` mirrors a subset):
+
+- `mainapp/src/app/`
+  - `App.tsx` – initializes i18n, sets document `dir`, renders routes and global dialogs
+  - `AppRoutes/` – route definitions (`MainRoutes.tsx`)
+  - `Errors/` – error boundary and error pages
+- `mainapp/src/pages/` – page screens grouped by feature
+  - `Services/` – mortgage/credit flows, multi-step forms, components, slices
+  - `About`, `Terms`, `Vacancies`, `PersonalCabinet`, etc.
+- `mainapp/src/components/` – layout, UI primitives, shared header/navigation
+- `mainapp/src/hooks/` – `useContentApi`, `useDropdownData`, `useClickOut`, typed `store` hooks
+- `mainapp/src/services/` – API clients (RTK Query base + fetch/axios modules)
+- `mainapp/src/store/` – Redux store and slices
+- `mainapp/src/utils/` – helpers, validation locale loading
+- `mainapp/src/assets/` – icons and images
+- `public/` – static assets, locales JSON, admin static JS (`i18n.js`, `role-manager.js`)
+
+---
+
+## Routing
+
+- Router is defined in `AppRoutes/MainRoutes.tsx` with `BrowserRouter`, `Routes`, `Route`, `Navigate`, and heavy `lazy()` usage for code-splitting.
+
+Route tree (abridged):
+
+```
+/
+├─ /services
+│  ├─ (index) → ServicesOverview
+│  ├─ calculate-mortgage/:stepNumber → CalculateMortgage (wizard)
+│  ├─ refinance-mortgage/:stepNumber → RefinanceMortgage (wizard)
+│  ├─ calculate-credit → redirects to /calculate-credit/1
+│  ├─ calculate-credit/:stepNumber → CalculateCredit (wizard)
+│  ├─ borrowers-personal-data/:stepNumber → BorrowersPersonalData
+│  ├─ other-borrowers/:stepNumber → OtherBorrowers
+│  └─ application-submitted → ApplicationSubmitted
+│
+├─ /personal-cabinet (and nested: settings, questionnaire, documents, etc.)
+├─ /bank-partner (register/status/login)
+├─ /bank-worker  (register/:token, status/:id, demo)
+├─ /admin        (login, dashboard, bank-workers)
+├─ /about, /terms, /contacts, /privacy-policy, /refund
+├─ /view/:id
+├─ /side-navigation-demo
+└─ 404 handling → /404
+```
+
+Loader components are provided via `<Suspense fallback={<Loader/>}>` and notifications via `react-toastify`.
+
+---
+
+## State Management
+
+- Store: `mainapp/src/store/index.ts` (mirrored in `packages/client/src/store/index.ts`)
+- Toolkit slices cover authentication, dialogs, currency, window size, and the multi-step service flows.
+- Persistence: critical calculators and user slices are persisted to `localStorage` via `redux-persist`.
+
+Persisted slices (key → reducer):
+
+- `calculateMortgage` → `mortgage`
+- `refinanceMortgage` → `refinanceMortgage`
+- `calculateCredit` → `credit`
+- `refinanceCredit` → `refinanceCredit`
+- `borrowers`, `otherBorrowers`, `borrowersPersonalData` → related user data
+- `login` → login session and flags
+- `language` → selected language and direction
+
+Typed hooks:
+
+```ts
+// usage
+const dispatch = useAppDispatch()
+const { language, direction } = useAppSelector((s) => s.language)
+```
+
+Window size is tracked via a debounced listener in `App.tsx` updating `windowSize` slice.
+
+---
+
+## Services and API Layer
+
+### RTK Query Base
+
+`services/api.ts` defines a shared `createApi` with environment-aware `baseUrl`:
+
+```ts
+export const api = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: getApiBaseUrl() }),
+  tagTypes: [],
+  endpoints: () => ({}),
+})
+```
+
+`getApiBaseUrl()` resolves to `/api` locally and production URL in deploys. In `mainapp` dev it may target `http://localhost:8003/api` for local servers.
+
+### Custom Services
+
+- `services/bankOffersApi.ts`
+  - `fetchBankOffers(requestPayload): Promise<BankOffer[]>` – posts to `/customer/compare-banks`; sets `Accept-Language` from i18n (`he-IL`, `ru-RU`, `en-US`).
+
+- `hooks/useDropdownData.ts`
+  - `useDropdownData(screenLocation, fieldName)` – fetches and caches dropdown metadata from `/api/dropdowns/{screen}/{lang}` with abortable requests; returns `options`, `placeholder`, `label` for the specific field.
+
+- `services/bankWorkerApi.ts` (axios)
+  - Axios instance with base URL and interceptors for admin token on `/admin/*` endpoints.
+
+Data flow (example: bank offers):
+
+```
+User Input → Redux slices → transformUserDataToRequest() → fetchBankOffers()
+  → POST /api/customer/compare-banks → Response → Component renders offers
+```
+
+---
+
+## Translations and RTL
+
+### i18next (React app)
+
+- Initialization: `src/utils/i18n/index.ts`
+  - `lng` from `localStorage('language')` (default `he`)
+  - `fallbackLng: 'he'`
+  - `backend.loadPath: /locales/{{lng}}/translation.json?v=timestamp` to avoid caching
+  - `preload: ['he','en','ru']`, `react.useSuspense: false`
+  - Debug logs and missing key handler (returns key)
+
+- Language change updates:
+  - `i18n.changeLanguage(code)` then sets `document.documentElement.dir` to `rtl` for `he`, otherwise `ltr`; also sets `lang` attribute.
+  - Language selection components persist both `admin_language` and `language` keys in `localStorage` to keep admin tools consistent.
+
+- App boot ensures translations are loaded before rendering main content and initializes form validation locale.
+
+Key methods:
+
+```ts
+// get current translation
+const { t } = useTranslation()
+t('calculate_mortgage_title')
+
+// programmatically change language
+await i18n.changeLanguage('ru')
+
+// update document direction immediately after change
+document.documentElement.dir = i18n.language === 'he' ? 'rtl' : 'ltr'
+```
+
+### Database-First Content with JSON Fallback
+
+- Many screens use `useContentApi(screenKey)` to fetch DB-managed content via `/api/content/{screen}/{lang}` with server cache and component cache.
+- `getContent(key, fallback?)` returns DB content when available; otherwise falls back to i18n JSON via `t(key)`.
+- See `server/docs/systemTranslationLogic.md` for detailed flow and caching layers.
+
+Flow (abridged):
+
+``n
+Component → useContentApi(screen)
+  → GET /api/content/screen/lang (server cache → DB) → component cache
+  → getContent(key) returns DB value, or t(key) JSON fallback
+
+``
+
+### Static/admin pages i18n
+
+- `public/js/i18n.js` provides a DOM-based `I18nManager` for static/admin pages.
+- On `DOMContentLoaded`, it loads JSON translations, sets `document.dir` and `lang`, updates `[data-i18n]` nodes, and wires role-based UI via `public/js/role-manager.js`.
+
+---
+
+## UI and Layout
+
+- `components/layout` contains shells such as `Layout`, `RegistrationLayout`, `Dialog`, `Loader`, navigation, and language selectors.
+- `components/ui` contains primitives and controls.
+- Styles use SCSS modules with `classnames/bind` to compose BEM-like classnames and dynamic font/direction classes from state.
+
+---
+
+## Key Methods and Utilities (Catalog)
+
+Translations:
+
+```ts
+useTranslation(): { t, i18n }
+i18n.changeLanguage(lang: 'he' | 'en' | 'ru'): Promise<void>
+```
+
+Content API:
+
+```ts
+// useContentApi(screen: string)
+getContent(key: string, fallbackKey?: string): string
+```
+
+Dropdown Data:
+
+```ts
+useDropdownData(screen: string, field: string)
+  → { options, placeholder, label, loading, error }
+```
+
+Bank Offers:
+
+```ts
+fetchBankOffers(request: BankOfferRequest): Promise<BankOffer[]>
+```
+
+Store Hooks:
+
+```ts
+useAppDispatch(): AppDispatch
+useAppSelector<T>(selector: (s: RootState) => T): T
+```
+
+Window Size:
+
+```ts
+updateWindowSize({ width, height }) // dispatch on resize (debounced)
+```
+
+---
+
+## State Shape (Selected)
+
+```
+state = {
+  api: { ... },           // RTK Query cache
+  language: { language: 'he' | 'ru' | 'en', direction: 'rtl' | 'ltr', currentFont: string },
+  windowSize: { width, height },
+  auth: { ... },
+  login: { isLogin, userData, ... },
+  currency: { currency },
+  mortgage: { ... },
+  refinanceMortgage: { ... },
+  credit: { ... },
+  refinanceCredit: { ... },
+  borrowers: { ... },
+  otherBorrowers: { ... },
+  borrowersPersonalData: { ... },
+  filter: { mortgageType, ... },
+  dialog: { ... },
+  modalSlice: { ... },
+  activeField: { ... }
+}
+```
+
+---
+
+## Component Data Flow (Example)
+
+```
+User → Form Components (Services/*)
+  → dispatch slice updates (calculateMortgage/...)
+  → select state + transformUserDataToRequest()
+  → fetchBankOffers() (Accept-Language based on i18n.language)
+  → render offers list
+```
+
+---
+
+## ASCII Diagram: App Boot
+
+```
+index.html
+   │
+   └─ index.tsx
+        ├─ <I18nextProvider>
+        └─ <Provider store>
+             └─ <App>
+                 ├─ init translations (await)
+                 ├─ set document.dir/lang
+                 ├─ init validation locale
+                 └─ <MainRoutes/>
+                        └─ lazy pages (Suspense + Loader)
+```
+
+---
+
+## Multiple Client Trees
+
+- `mainapp/` – primary, feature-rich application used for development, tests (`cypress/`), and full flows.
+- `packages/client/` – production-optimized client synchronized for deployment. It mirrors the core app (`src/app`, `src/pages`, `src/services`, `src/store`, `public/locales`, etc.) with lighter dev tooling.
+
+Practical note: When changing translations or shared logic, ensure both trees are updated or rely on the central translation sync pipeline described in `translations/README.md`.
+
+---
+
+## Environment and Configuration
+
+- API base URL resolution differs between trees to support local vs production:
+  - `mainapp` development may target `http://localhost:8003/api`
+  - `packages/client` uses `/api` locally and production domain in deploy
+- The `<base href="/">` in `index.html` ensures router compatibility with deep links.
+
+---
+
+## How to Add a New Page
+
+1) Create the page component under `src/pages/MyFeature/MyFeature.tsx`.
+2) Register the route in `src/app/AppRoutes/MainRoutes.tsx` using `lazy(() => import(...))`.
+3) Add translations to `translations/{he,en,ru}.json` and sync to `public/locales/`.
+4) If server-driven content is needed, add a new screen key and consume via `useContentApi('my_feature')` with `getContent()` fallbacks.
+
+---
+
+## How to Add/Change Translations
+
+- Preferred: edit master files in `translations/` and run the sync process described in `translations/README.md`.
+- For runtime-only changes, update `public/locales/{lng}/translation.json` and ensure cache busting via the `?v=` query is retained.
+- Validate RTL/LTR impact and ensure `document.dir` changes properly for `he`.
+
+---
+
+## Security and Roles (Client UI)
+
+- Static/admin pages use `public/js/role-manager.js` and `public/js/i18n.js` to adjust UI by `userRole` and show/hide elements via data attributes.
+- React app relies on standard state slices and (when present) tokens in local storage; protected pages should check auth slice before render.
+
+---
+
+## Troubleshooting Tips
+
+- If translations seem stale, verify the `?v=timestamp` on JSON paths and `localStorage('language')`.
+- If direction is wrong, confirm `document.documentElement.dir` updates on language change.
+- If dropdowns show empty, check `/api/dropdowns/{screen}/{lang}` responses and cache keys in `useDropdownData`.
+- If offers do not load, inspect `fetchBankOffers` logs and `Accept-Language` header mapping.
+
+---
+
+## Quick Reference (Methods)
+
+```ts
+// i18n
+useTranslation(); i18n.changeLanguage('he'|'ru'|'en'); i18n.t(key)
+
+// Content
+useContentApi(screen).getContent(key, fallback?)
+
+// Dropdowns
+useDropdownData(screen, field) → { options, placeholder, label }
+
+// Services
+fetchBankOffers(payload): Promise<BankOffer[]>
+
+// Store hooks
+useAppDispatch(); useAppSelector(sel)
+```
+
+---
+
+This document is the single reference for client-side architecture in this repository. Update it when adding major features, routes, or data flows.
+
+

@@ -9,6 +9,48 @@
 
 const { Pool } = require('pg');
 
+// Helper: decide SSL based on env, URL hints, and host
+const decideSslForConnection = (connectionString, { isProd } = { isProd: false }) => {
+    // Production on dedicated server: no SSL for local connections (kept by caller)
+    if (isProd) return false;
+
+    const pgSslMode = (process.env.PGSSLMODE || '').toLowerCase();
+    if (pgSslMode === 'disable') return false;
+    if (pgSslMode === 'require') return { rejectUnauthorized: false };
+
+    try {
+        const url = new URL(connectionString);
+        const host = (url.hostname || '').toLowerCase();
+        const params = new URLSearchParams(url.search || '');
+        const sslmode = (params.get('sslmode') || '').toLowerCase();
+
+        if (sslmode === 'disable') return false;
+        if (sslmode === 'require') return { rejectUnauthorized: false };
+
+        // Heuristic: local hosts typically don't have SSL enabled
+        const isLocal = host === 'localhost' || host === '127.0.0.1';
+        if (isLocal) return false;
+
+        // Default for remote dev DBs (Railway/Neon/etc.): use SSL
+        return { rejectUnauthorized: false };
+    } catch (e) {
+        // If URL parsing fails, default to SSL on for safety in dev
+        return { rejectUnauthorized: false };
+    }
+};
+
+// Helper: sanitize URL for logging (mask credentials)
+const sanitizeUrlForLog = (connectionString) => {
+    try {
+        const url = new URL(connectionString);
+        if (url.username) url.username = '***';
+        if (url.password) url.password = '***';
+        return url.toString();
+    } catch (e) {
+        return '<invalid-connection-string>';
+    }
+};
+
 /**
  * Get database configuration based on environment
  * @param {string} connectionType - 'content' or 'main'
@@ -23,29 +65,38 @@ const getDatabaseConfig = (connectionType = 'content') => {
     if (isProduction || isRailwayProduction) {
         // Production: Local PostgreSQL on server
         console.log('🚀 Production environment detected - using local PostgreSQL');
-        return {
-            connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/bankim_content',
+        const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/bankim_content';
+        const config = {
+            connectionString,
             ssl: false, // Local connections don't need SSL
-            max: 20, // Maximum number of connections in pool
-            idleTimeoutMillis: 30000, // Close idle connections after 30 seconds
-            connectionTimeoutMillis: 2000 // Return an error after 2 seconds if connection could not be established
+            max: 20,
+            idleTimeoutMillis: 30000,
+            connectionTimeoutMillis: 2000
         };
+        console.log(`🧩 DB target (${connectionType}):`, sanitizeUrlForLog(connectionString), '| SSL: off');
+        return config;
     } else {
-        // Development: Railway PostgreSQL
+        // Development: Railway PostgreSQL or developer-provided URLs
         console.log('🛠️ Development environment detected - using Railway PostgreSQL');
-        
+
         if (connectionType === 'content') {
+            const connectionString = process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:hNmqRehjTLTuTGysRIYrvPPaQBDrmNQA@yamanote.proxy.rlwy.net:53119/railway';
+            const ssl = decideSslForConnection(connectionString, { isProd: false });
+            console.log(`🧩 DB target (content):`, sanitizeUrlForLog(connectionString), `| SSL: ${ssl ? 'on' : 'off'}`);
             return {
-                connectionString: process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:hNmqRehjTLTuTGysRIYrvPPaQBDrmNQA@yamanote.proxy.rlwy.net:53119/railway',
-                ssl: { rejectUnauthorized: false },
-                max: 10, // Smaller pool for development
+                connectionString,
+                ssl,
+                max: 10,
                 idleTimeoutMillis: 30000,
-                connectionTimeoutMillis: 5000 // Longer timeout for remote connections
+                connectionTimeoutMillis: 5000
             };
         } else {
+            const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:lqqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway';
+            const ssl = decideSslForConnection(connectionString, { isProd: false });
+            console.log(`🧩 DB target (main):`, sanitizeUrlForLog(connectionString), `| SSL: ${ssl ? 'on' : 'off'}`);
             return {
-                connectionString: process.env.DATABASE_URL || 'postgresql://postgres:lqqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway',
-                ssl: { rejectUnauthorized: false },
+                connectionString,
+                ssl,
                 max: 10,
                 idleTimeoutMillis: 30000,
                 connectionTimeoutMillis: 5000
