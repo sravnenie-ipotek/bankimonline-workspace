@@ -85,11 +85,11 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
       willRequireFields: !checkIfNoIncomeValue(value)
     })
     
-    // Just set the value - let Formik handle validation naturally
-    setFieldValue('mainSourceOfIncome', value)
+    // Set value and validate immediately to clear any initial required error
+    setFieldValue('mainSourceOfIncome', value, true)
     
-    // Mark as touched only after value is set
-    setFieldTouched('mainSourceOfIncome', true)
+    // Mark as touched without triggering another validation cycle
+    setFieldTouched('mainSourceOfIncome', true, false)
   }
 
   return (
@@ -100,7 +100,7 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
         placeholder={(screenLocation?.includes('credit') && dropdownData?.placeholder) ? dropdownData.placeholder : getContent('calculate_mortgage_main_source_ph', t('calculate_mortgage_main_source_ph'))}
         value={values.mainSourceOfIncome || ''}
         onChange={handleValueChange}
-        onBlur={() => setFieldTouched('mainSourceOfIncome', true)}
+        onBlur={() => setFieldTouched('mainSourceOfIncome', true, true)}
         error={touched.mainSourceOfIncome && errors.mainSourceOfIncome}
         disabled={screenLocation?.includes('credit') && dropdownData?.loading}
       />
