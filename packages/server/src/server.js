@@ -2050,7 +2050,7 @@ app.post('/api/customer/calculate-payment', async (req, res) => {
                 calculate_annuity_payment($1, get_current_mortgage_rate(), $2) as monthly_payment
         `;
         
-        const result = await pool.query(query, [loan_amount, term_years]);
+        const result = await contentPool.query(query, [loan_amount, term_years]);
         const calculation = result.rows[0];
         
         // Get LTV ratio if property ownership provided
@@ -3973,7 +3973,7 @@ app.post('/api/refinance-mortgage', async (req, res) => {
         
         // Get current mortgage rate from database
         const baseRateQuery = `SELECT get_current_mortgage_rate() as current_rate`;
-        const baseRateResult = await pool.query(baseRateQuery);
+        const baseRateResult = await contentPool.query(baseRateQuery);
         const currentRate = parseFloat(baseRateResult.rows[0].current_rate);
         
         // Get refinance-specific savings percentage from banking_standards
@@ -5416,7 +5416,7 @@ app.get('/api/admin/calculations', requireAdmin, async (req, res) => {
         
         // Set database-driven defaults (no more hardcoded values)
         try {
-            const currentMortgageRate = await pool.query('SELECT get_current_mortgage_rate() as rate');
+            const currentMortgageRate = await contentPool.query('SELECT get_current_mortgage_rate() as rate');
             calculations.calc_mortgage_default_rate = parseFloat(currentMortgageRate.rows[0].rate);
         } catch (e) {
             console.warn('Could not fetch current mortgage rate, using fallback');
@@ -8080,7 +8080,7 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         
         // Get configurable interest rate from banking_standards
         const baseRateQuery = `SELECT get_current_mortgage_rate() as base_rate`;
-        const baseRateResult = await pool.query(baseRateQuery);
+        const baseRateResult = await contentPool.query(baseRateQuery);
         const configurable_base_rate = parseFloat(baseRateResult.rows[0].base_rate);
         
         console.log('[COMPARE-BANKS] Using configurable base rate:', configurable_base_rate);
@@ -9684,7 +9684,7 @@ app.get('/api/v1/calculation-parameters', async (req, res) => {
 
         // Get current mortgage rate using database function
         const rateQuery = `SELECT get_current_mortgage_rate() as current_rate`;
-        const rateResult = await pool.query(rateQuery);
+        const rateResult = await contentPool.query(rateQuery);
         const currentRate = parseFloat(rateResult.rows[0].current_rate);
 
         // Get property ownership LTV ratios with fallback
