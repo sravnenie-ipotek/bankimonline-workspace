@@ -11,14 +11,14 @@ export const componentsByIncomeSource: ComponentsByIncomeSource = {
   employee: [
     <MonthlyIncome key="MonthlyIncome1" />,
     <StartDate key="StartDate1" />,
-    <FieldOfActivity key="FieldOfActivity1" />,
+    <FieldOfActivity key="FieldOfActivity1" screenLocation="mortgage_step3" />,
     <CompanyName key="CompanyName1" />,
     <Profession key="Profession1" />,
   ],
   selfemployed: [
     <MonthlyIncome key="MonthlyIncome2" />,
     <StartDate key="StartDate2" />,
-    <FieldOfActivity key="FieldOfActivity2" />,
+    <FieldOfActivity key="FieldOfActivity2" screenLocation="mortgage_step3" />,
     <CompanyName key="CompanyName2" />,
     <Profession key="Profession2" />,
   ],

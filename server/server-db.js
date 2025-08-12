@@ -3825,6 +3825,37 @@ app.post('/api/auth-verify', async (req, res) => {
     const { code, mobile_number } = req.body;
     
     console.log(`[SMS] Verify ${code} for ${mobile_number}`);
+
+    // Mock mode for local development or automated tests
+    // Triggers if:
+    // - env MOCK_SMS_AUTH=true, or
+    // - query param ?mock=1, or
+    // - special code '0000' (explicit mock code)
+    try {
+        const shouldMock = (process.env.MOCK_SMS_AUTH === 'true') || (req.query && req.query.mock === '1') || code === '0000';
+        if (shouldMock) {
+            const token = jwt.sign(
+                { id: 1, phone: mobile_number || '+972500000000', type: 'client', mock: true },
+                process.env.JWT_SECRET || 'secret',
+                { expiresIn: '24h' }
+            );
+            return res.json({
+                status: 'success',
+                message: 'Login successful (mock)',
+                data: {
+                    token,
+                    user: {
+                        id: 1,
+                        name: 'Mock User',
+                        phone: mobile_number || '+972500000000',
+                        email: `${(mobile_number || '+972500000000').replace('+', '')}@mock.local`
+                    }
+                }
+            });
+        }
+    } catch (mockErr) {
+        console.warn('Mock auth-verify failed to generate token:', mockErr);
+    }
     
     if (!code || !mobile_number || code.length !== 4) {
         return res.status(400).json({ status: 'error', message: 'Invalid code' });

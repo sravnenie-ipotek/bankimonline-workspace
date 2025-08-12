@@ -6,8 +6,8 @@
 
 ## 🏗️ **ACTUAL CURRENT ARCHITECTURE**
 
-**Architecture**: Hybrid Single Repository + Multi-Remote Deployment
-- **Primary Development Repository**: `bankDev2_standalone` (origin remote)
+**Architecture**: Monorepo with Specialized Distribution Repositories
+- **Primary Monorepo**: `bankimonline-workspace` (workspace remote)
 - **Frontend Application**: `mainapp/` React application (port 5173)
 - **Backend Server**: `server/server-db.js` (port 8003)
 - **Database**: Railway PostgreSQL dual-database (maglev + shortline)
@@ -15,11 +15,10 @@
 - **Git Workflow**: Multi-remote pushing to specialized repositories
 
 **Key Repositories**:
-- **origin**: `MichaelMishaev/bankDev2_standalone` (main development)
-- **workspace**: `sravnenie-ipotek/bankimonline-workspace`
-- **web**: `sravnenie-ipotek/bankimonline-web`
-- **api**: `sravnenie-ipotek/bankimonline-api`
-- **shared**: `sravnenie-ipotek/bankimonline-shared`
+- **workspace**: `sravnenie-ipotek/bankimonline-workspace` (main monorepo)
+- **web**: `sravnenie-ipotek/bankimonline-web` (frontend deployment)
+- **api**: `sravnenie-ipotek/bankimonline-api` (backend deployment)
+- **shared**: `sravnenie-ipotek/bankimonline-shared` (documentation)
 
 ---
 
@@ -54,8 +53,7 @@ bankDev2_standalone/
 npm run push:all "Your commit message"
 
 # Individual repository pushes
-git push origin main        # Main development repository only
-git push workspace main     # Workspace repository
+git push workspace main     # Main monorepo repository
 git push web main          # Web deployment repository
 git push api main          # API deployment repository
 git push shared main       # Shared documentation
@@ -111,10 +109,10 @@ git commit -m "docs: update API documentation for content system"
 npm run push:all "feat: add new mortgage calculator feature"
 ```
 
-**Option B: Development-Only Push**
+**Option B: Individual Repository Push**
 ```bash
-# Push only to main development repository
-git push origin main
+# Push only to specific repositories
+git push workspace main    # Main monorepo only
 ```
 
 **Option C: Specific Repository Deployment**
@@ -147,8 +145,8 @@ The push scripts will show detailed results:
 ### **Quick Reference - Pull Commands**
 
 ```bash
-# Pull latest changes from main development repository
-git pull origin main
+# Pull latest changes from main monorepo
+git pull workspace main
 
 # Fresh environment setup (after major changes)
 npm install
@@ -166,11 +164,11 @@ npm run dev                # Starts both backend and file server
 # Navigate to project root
 cd bankDev2_standalone/
 
-# Pull latest changes from main development repository
-git pull origin main
+# Pull latest changes from main monorepo
+git pull workspace main
 
 # If you have local changes, use rebase
-git pull --rebase origin main
+git pull --rebase workspace main
 ```
 
 #### **2. Update Dependencies and Build**
@@ -214,7 +212,7 @@ git commit
 #### **Start of Development Session**
 ```bash
 # Pull latest changes
-git pull origin main
+git pull workspace main
 
 # Install any new dependencies
 npm install
@@ -244,11 +242,11 @@ cd mainapp && npm run test  # Run frontend tests
 git add .
 git commit -m "feat: implement new feature"
 
-# For work-in-progress (development only)
-git push origin main
-
 # For deployment-ready changes
 ./push-to-all-repos.sh "feat: implement new feature"
+
+# Or push to specific repository only
+git push workspace main
 ```
 
 ### **Feature Branch Workflow**
@@ -262,7 +260,7 @@ git checkout -b feature/new-calculator
 # Edit files in mainapp/ and server/
 
 # Push feature branch for collaboration
-git push origin feature/new-calculator
+git push workspace feature/new-calculator
 ```
 
 #### **Merging Feature Branch**
@@ -271,7 +269,7 @@ git push origin feature/new-calculator
 git checkout main
 
 # Pull latest changes
-git pull origin main
+git pull workspace main
 
 # Merge feature branch
 git merge feature/new-calculator
@@ -281,7 +279,7 @@ git merge feature/new-calculator
 
 # Clean up
 git branch -d feature/new-calculator
-git push origin --delete feature/new-calculator
+git push workspace --delete feature/new-calculator
 ```
 
 ---
@@ -483,7 +481,7 @@ git remote -v
 ssh -T git@github.com
 
 # 3. Pull latest changes first
-git pull origin main
+git pull workspace main
 
 # 4. Try push again
 ./push-to-all-repos.sh "your commit message"
@@ -508,7 +506,7 @@ rm -rf .vite dist node_modules/.cache
 ## 📋 **CHECKLISTS**
 
 ### **Before Every Deployment Checklist**
-- [ ] Latest changes pulled: `git pull origin main`
+- [ ] Latest changes pulled: `git pull workspace main`
 - [ ] Dependencies updated: `npm install && cd mainapp && npm install`
 - [ ] All tests pass: `npm test && cd mainapp && npm run test`
 - [ ] Frontend builds successfully: `cd mainapp && npm run build`
@@ -600,7 +598,7 @@ npm --version
 
 ### **Emergency Contacts**
 - **Railway Issues**: Use Railway dashboard support
-- **GitHub Issues**: Create issue in MichaelMishaev/bankDev2_standalone
+- **GitHub Issues**: Create issue in sravnenie-ipotek/bankimonline-workspace
 - **Code Review**: Use pull requests for major changes
 
 ---
