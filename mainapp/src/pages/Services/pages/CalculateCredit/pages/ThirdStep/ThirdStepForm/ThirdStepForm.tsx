@@ -99,49 +99,34 @@ const ThirdStepForm = () => {
     }
   }, [values, errors, isValid, touched, mainSourceOfIncome, additionalIncome, obligation])
 
-  // Map dropdown option values to componentsByIncomeSource keys
+  // 🚨 CRITICAL REGRESSION FIX: Credit API still uses numeric values
+  // While other screens use semantic values, calculate_credit_3 returns "1", "2", "3"
+  // This causes componentsByIncomeSource lookup to fail (expects "employee", "selfemployed")
   const getIncomeSourceKey = (optionValue: string): string => {
-    const mapping: { [key: string]: string } = {
+    // If already semantic, return as-is (future-proofing for when API is fixed)
+    if (optionValue && !optionValue.match(/^\d+$/)) {
+      return optionValue
+    }
+    
+    // Numeric-to-semantic mapping for calculate_credit_3 API
+    const numericMapping: { [key: string]: string } = {
       '1': 'employee',        // Employee
-      '2': 'selfemployed',    // Self-employed  
-      '3': 'selfemployed',    // Business owner (similar to self-employed)
+      '2': 'selfemployed',    // Self-employed
+      '3': 'selfemployed',    // Business owner (treat as self-employed)
       '4': 'pension',         // Pension
       '5': 'student',         // Student
       '6': 'unemployed',      // Unemployed
-      '7': 'other',           // Other
-      // Keep backward compatibility with old option format
-      'option_1': 'employee',
-      'option_2': 'selfemployed',
-      'option_3': 'selfemployed',
-      'option_4': 'pension',
-      'option_5': 'student',
-      'option_6': 'unemployed',
-      'option_7': 'other'
+      '7': 'other'            // Other
     }
-    return mapping[optionValue] || ''
+    return numericMapping[optionValue] || ''
   }
 
   const incomeSourceKey = getIncomeSourceKey(mainSourceOfIncome)
 
-  // Map dropdown option values to componentsByObligation keys
-  const getObligationKey = (optionValue: string): string => {
-    const mapping: { [key: string]: string } = {
-      '1': '',                // No obligations (no additional fields)
-      '2': 'bank_loan',       // Bank loan (הלוואה בנקאית)
-      '3': 'credit_card',     // Credit card debt
-      '4': 'consumer_credit', // Consumer credit
-      '5': 'other',           // Other obligations
-      // Keep backward compatibility with old option format
-      'option_1': '',
-      'option_2': 'bank_loan',    // Bank loan (הלוואה בנקאית)
-      'option_3': 'credit_card',
-      'option_4': 'consumer_credit',
-      'option_5': 'other'
-    }
-    return mapping[optionValue] || ''
-  }
-
-  const obligationKey = getObligationKey(obligation)
+  // ✅ STANDARDIZED: Direct database-driven obligation key  
+  // Database returns semantic values directly (bank_loan, credit_card, etc.)
+  // No mapping needed - use database values as-is per architecture docs
+  const obligationKey = obligation === 'no_obligations' ? '' : obligation || ''
 
   // Debug: Enhanced logging for troubleshooting - ALWAYS LOG
   console.log('🔍 Credit Step 3 - ENHANCED DEBUG:', {

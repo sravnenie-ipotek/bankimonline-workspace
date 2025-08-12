@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 import { useContentApi } from '@src/hooks/useContentApi'
 import { useDropdownData } from '@src/hooks/useDropdownData'
 
@@ -14,15 +15,28 @@ interface MainSourceOfIncomeProps {
   screenLocation?: string
 }
 
-const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfIncomeProps) => {
-  const { t, i18n } = useTranslation()
-  const { getContent } = useContentApi(screenLocation)
-  const { values, setFieldValue, errors, touched, setFieldTouched, setFieldError } =
+const MainSourceOfIncome = ({ screenLocation }: MainSourceOfIncomeProps) => {
+  const location = useLocation()
+  const resolvedScreenLocation = screenLocation
+    ? screenLocation
+    : location.pathname.includes('calculate-mortgage')
+    ? 'mortgage_step3'
+    : location.pathname.includes('refinance-mortgage')
+    ? 'refinance_step3'
+    : location.pathname.includes('other-borrowers')
+    ? 'other_borrowers_step2'
+    : 'calculate_credit_3'
+    
+  // Debug logging for validation
+  console.log(`🔍 MainSourceOfIncome: URL=${location.pathname}, resolved screen location=${resolvedScreenLocation}`)
+  const { t } = useTranslation()
+  const { getContent } = useContentApi(resolvedScreenLocation)
+  const { values, setFieldValue, errors, touched, setFieldTouched } =
     useFormikContext<FormTypes>()
 
   // ✅ UPDATED: Follow systemTranslationLogic.md - use database-first approach for all contexts
   // Use 'main_source' field name to match API key (mortgage_step3_main_source)
-  const dropdownData = useDropdownData(screenLocation, 'main_source', 'full') as {
+  const dropdownData = useDropdownData(resolvedScreenLocation, 'main_source', 'full') as {
     options: Array<{value: string; label: string}>;
     placeholder?: string;
     label?: string;

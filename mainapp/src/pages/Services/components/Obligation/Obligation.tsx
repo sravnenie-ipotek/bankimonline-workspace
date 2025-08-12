@@ -1,5 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 import { useContentApi } from '@src/hooks/useContentApi'
 import { useDropdownData } from '@src/hooks/useDropdownData'
 
@@ -13,9 +14,19 @@ interface ObligationProps {
   screenLocation?: string
 }
 
-const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
-  const { t, i18n } = useTranslation()
-  const { getContent } = useContentApi(screenLocation)
+const Obligation = ({ screenLocation }: ObligationProps) => {
+  const location = useLocation()
+  const resolvedScreenLocation = screenLocation
+    ? screenLocation
+    : location.pathname.includes('calculate-mortgage')
+    ? 'mortgage_step3'
+    : location.pathname.includes('refinance-mortgage')
+    ? 'refinance_step3'
+    : location.pathname.includes('other-borrowers')
+    ? 'other_borrowers_step2'
+    : 'calculate_credit_3'
+  const { t } = useTranslation()
+  const { getContent } = useContentApi(resolvedScreenLocation)
   const { values, setFieldValue, touched, errors, setFieldTouched } =
     useFormikContext<FormTypes>()
 
@@ -34,7 +45,7 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
 
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
   // FIXED: Use 'obligations' to match API-generated key (mortgage_step3_obligations)
-  const dropdownData = useDropdownData(screenLocation, 'obligations', 'full')
+  const dropdownData = useDropdownData(resolvedScreenLocation, 'obligations', 'full')
   
 
   // Handle both DropdownData object and DropdownOption[] array

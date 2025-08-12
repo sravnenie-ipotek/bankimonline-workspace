@@ -38,7 +38,7 @@ interface OtherBorrowersObligationProps {
   screenLocation?: string
 }
 
-const OtherBorrowersObligation = ({ screenLocation = 'other_borrowers' }: OtherBorrowersObligationProps) => {
+const OtherBorrowersObligation = ({ screenLocation = 'other_borrowers_step2' }: OtherBorrowersObligationProps) => {
   const { t, i18n } = useTranslation()
   const { getContent } = useContentApi(screenLocation)
   const { values, setFieldValue, touched, errors, setFieldTouched, setFieldError } =

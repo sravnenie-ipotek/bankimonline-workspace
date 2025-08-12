@@ -108,6 +108,55 @@ NODE_ENV=development
 RAILWAY_ENVIRONMENT=development
 ```
 
+### 🏠 Local Development Configuration
+
+For local development with migrated Railway databases:
+
+```bash
+# Local Database Configuration (.env.local)
+DATABASE_URL=postgresql://michaelmishayev@localhost:5432/bankim_core
+CONTENT_DATABASE_URL=postgresql://michaelmishayev@localhost:5432/bankim_content
+MANAGEMENT_DATABASE_URL=postgresql://michaelmishayev@localhost:5432/bankim_management
+NODE_ENV=development
+```
+
+#### Local Database Setup Commands:
+
+```bash
+# 1. Ensure PostgreSQL 16 is running
+brew services start postgresql@16
+
+# 2. Create local databases (if not exists)
+createdb bankim_core
+createdb bankim_content  
+createdb bankim_management
+
+# 3. Migrate from Railway (one-time setup)
+# Run the migration script: ./migrate-railway-to-local-final.sh
+
+# 4. Use local environment
+cp .env.local .env
+# OR
+source .env.local && npm start
+```
+
+#### Local Database Connection Details:
+
+| Database | Local Name | Port | Username | Purpose |
+|----------|------------|------|----------|---------|
+| **maglev** | `bankim_core` | 5432 | michaelmishayev | Production user data (226 users) |
+| **shortline** | `bankim_content` | 5432 | michaelmishayev | CMS content + functions |
+| **yamanote** | `bankim_management` | 5432 | michaelmishayev | Admin/management system |
+
+#### pgAdmin Local Connection:
+
+- **Host**: localhost
+- **Port**: 5432
+- **Username**: michaelmishayev
+- **Password**: (leave empty)
+- **Maintenance Database**: postgres
+- **Databases**: bankim_core, bankim_content, bankim_management
+
 ### 🔐 Security Best Practices
 
 1. **Never commit `.env` files** to git repositories
@@ -199,6 +248,47 @@ Based on the Railway architecture analysis:
 3. **Evaluate maglev usage** - currently used as DATABASE_URL fallback
 4. **Implement dual-connection pattern** in application code
 
+### 🏠 Local Development Migration
+
+#### Railway to Local Migration Process:
+
+```bash
+# 1. Prerequisites
+brew install postgresql@16
+brew services start postgresql@16
+
+# 2. Create local databases
+createdb bankim_core
+createdb bankim_content
+createdb bankim_management
+
+# 3. Run migration script
+./migrate-railway-to-local-final.sh
+
+# 4. Verify migration
+psql -d bankim_core -c "\dt" | head -10
+psql -d bankim_content -c "\dt" | head -10
+psql -d bankim_management -c "\dt" | head -10
+```
+
+#### Switching Between Railway and Local:
+
+```bash
+# Use Railway (production)
+cp .env.railway .env
+# OR
+export DATABASE_URL="postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway"
+export CONTENT_DATABASE_URL="postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway"
+export MANAGEMENT_DATABASE_URL="postgresql://postgres:hNmqRehjTLTuTGysRIYrvPPaQBDrmNQA@yamanote.proxy.rlwy.net:53119/railway"
+
+# Use Local (development)
+cp .env.local .env
+# OR
+export DATABASE_URL="postgresql://michaelmishayev@localhost:5432/bankim_core"
+export CONTENT_DATABASE_URL="postgresql://michaelmishayev@localhost:5432/bankim_content"
+export MANAGEMENT_DATABASE_URL="postgresql://michaelmishayev@localhost:5432/bankim_management"
+```
+
 ## Troubleshooting
 
 ### 🔍 Common Issues & Solutions
@@ -245,6 +335,39 @@ pool.query('SELECT NOW() as time, current_database() as db')
 lsof -ti:8003 | xargs kill -9
 ```
 
+#### Issue: Local database connection fails
+**Solution**: Check PostgreSQL service and database existence
+
+```bash
+# Check if PostgreSQL is running
+brew services list | grep postgresql
+
+# Start PostgreSQL if not running
+brew services start postgresql@16
+
+# Check if databases exist
+psql -l | grep bankim
+
+# Create databases if missing
+createdb bankim_core
+createdb bankim_content
+createdb bankim_management
+```
+
+#### Issue: Local database version mismatch
+**Solution**: Ensure PostgreSQL 16 is installed and linked
+
+```bash
+# Check PostgreSQL version
+pg_dump --version
+
+# If version is 14, upgrade to 16
+brew unlink postgresql@14
+brew link postgresql@16 --force
+echo 'export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
 ### 🧪 Database Connection Testing
 
 Test both databases to ensure proper connectivity:
@@ -255,6 +378,43 @@ node -e "console.log('Testing shortline (bankim_content)...'); require('./fix-da
 
 # Test management database (yamanote)  
 node -e "console.log('Testing yamanote (bankim_management)...'); /* Add yamanote test */"
+```
+
+#### Local Database Testing:
+
+```bash
+# Test local core database (bankim_core)
+psql -d bankim_core -c "SELECT COUNT(*) as user_count FROM clients;"
+
+# Test local content database (bankim_content)
+psql -d bankim_content -c "SELECT COUNT(*) as content_count FROM content_items;"
+
+# Test local management database (bankim_management)
+psql -d bankim_management -c "SELECT COUNT(*) as config_count FROM bank_configurations;"
+
+# Test Node.js connection to local databases
+node -e "
+const { Pool } = require('pg');
+const corePool = new Pool({ connectionString: 'postgresql://michaelmishayev@localhost:5432/bankim_core' });
+const contentPool = new Pool({ connectionString: 'postgresql://michaelmishayev@localhost:5432/bankim_content' });
+const managementPool = new Pool({ connectionString: 'postgresql://michaelmishayev@localhost:5432/bankim_management' });
+
+Promise.all([
+  corePool.query('SELECT COUNT(*) FROM clients'),
+  contentPool.query('SELECT COUNT(*) FROM content_items'),
+  managementPool.query('SELECT COUNT(*) FROM bank_configurations')
+]).then(results => {
+  console.log('✅ Local DBs connected:');
+  console.log('  Core:', results[0].rows[0].count, 'clients');
+  console.log('  Content:', results[1].rows[0].count, 'content items');
+  console.log('  Management:', results[2].rows[0].count, 'configs');
+}).catch(err => console.error('❌ Local DB error:', err.message))
+.finally(() => {
+  corePool.end();
+  contentPool.end();
+  managementPool.end();
+});
+"
 ```
 
 ## Performance Optimization

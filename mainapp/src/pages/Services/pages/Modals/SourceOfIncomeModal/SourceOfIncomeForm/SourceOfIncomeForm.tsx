@@ -23,6 +23,22 @@ const SourceOfIncomeForm = () => {
 
   const { mainSourceOfIncome } = values
 
+  // ✅ STANDARDIZED: Direct database-driven income source key
+  // Database returns semantic values directly (employee, selfemployed, pension, etc.)
+  // No mapping needed - use database values as-is per architecture docs
+  const incomeSourceKey = mainSourceOfIncome || ''
+
+  // Debug current selection and mapping
+  React.useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log('🔎 SourceOfIncomeModal mapping:', {
+      rawValue: mainSourceOfIncome,
+      incomeSourceKey,
+      availableKeys: Object.keys(componentsByIncomeSource),
+      willRender: !!componentsByIncomeSource[incomeSourceKey],
+    })
+  }, [mainSourceOfIncome, incomeSourceKey])
+
   const dispatch = useAppDispatch()
 
   // Debug validation state
@@ -50,8 +66,8 @@ const SourceOfIncomeForm = () => {
           <div className={cx('component')}>
             <MainSourceOfIncome />
           </div>
-          {componentsByIncomeSource[mainSourceOfIncome] &&
-            componentsByIncomeSource[mainSourceOfIncome].map(
+          {componentsByIncomeSource[incomeSourceKey] &&
+            componentsByIncomeSource[incomeSourceKey].map(
               (Component, index) => (
                 <div className={cx('component')} key={index}>
                   {Component}

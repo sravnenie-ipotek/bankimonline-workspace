@@ -76,35 +76,47 @@ const App = () => {
         // Wait for i18n to be initialized first
         if (!i18n.isInitialized) {
           await new Promise((resolve) => {
-            i18n.on('initialized', resolve)
+            const timeout = setTimeout(() => {
+              console.log('⚠️ i18n initialization timeout, continuing anyway...')
+              resolve(void 0)
+            }, 3000) // Max 3 second wait
+            
+            i18n.on('initialized', () => {
+              clearTimeout(timeout)
+              resolve(void 0)
+            })
           })
         }
         
         // Change language and wait for resources to load
         await i18n.changeLanguage(language)
         
-        // Verify translations are actually loaded
-        const testTranslation = i18n.t('fill_form', { lng: language })
-        console.log('🧪 Test translation for "fill_form":', testTranslation)
+        // Check if resources are loaded for current language
+        const hasResources = i18n.hasResourceBundle(language, 'translation')
+        console.log('🔍 Resources available for', language, ':', hasResources)
         
-        if (testTranslation === 'fill_form') {
-          console.log('⚠️ Translations not loaded yet, retrying...')
-          // Try to reload resources
-          await i18n.reloadResources(language)
-          await new Promise(resolve => setTimeout(resolve, 500)) // Wait a bit more
+        if (!hasResources) {
+          console.log('⚠️ No resources found, trying to load...')
+          try {
+            await i18n.loadLanguages(language)
+            await new Promise(resolve => setTimeout(resolve, 1000)) // Wait for load
+          } catch (loadError) {
+            console.warn('❌ Failed to load language resources:', loadError)
+          }
         }
         
+        // Always set translations as loaded after reasonable attempts
         setTranslationsLoaded(true)
         document.documentElement.setAttribute('dir', direction)
         document.documentElement.setAttribute('lang', language)
-        console.log('✅ Translations loaded for language:', language)
+        console.log('✅ Continuing with translations for language:', language)
         
         // Initialize validation language listener
         initializeValidationLanguageListener()
         console.log('✅ Validation language listener initialized')
       } catch (error) {
         console.error('❌ Error loading translations:', error)
-        setTranslationsLoaded(true) // Continue anyway
+        setTranslationsLoaded(true) // Always continue to prevent infinite loading
       }
     }
 
