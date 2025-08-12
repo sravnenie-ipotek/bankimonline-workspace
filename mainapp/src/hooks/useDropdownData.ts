@@ -152,14 +152,39 @@ export const useDropdownData = (
       }
 
       // Extract data for specific field
-      const dropdownKey = `${screenLocation}_${fieldName}`;
-      const placeholderKey = `${dropdownKey}_ph`;
-      const labelKey = `${dropdownKey}_label`;
-      
+      let dropdownKey = `${screenLocation}_${fieldName}`;
+      let placeholderKey = `${dropdownKey}_ph`;
+      let labelKey = `${dropdownKey}_label`;
+
+      // Primary read
+      let options = apiData.options?.[dropdownKey] || [];
+      let placeholder = apiData.placeholders?.[placeholderKey] || apiData.placeholders?.[dropdownKey];
+      let label = apiData.labels?.[labelKey] || apiData.labels?.[dropdownKey];
+
+      // Backward-compat fallback for historical key names
+      // Example: 'field_of_activity' ⇄ 'activity'
+      if (options.length === 0) {
+        const legacyFieldName = fieldName === 'field_of_activity' ? 'activity' : fieldName === 'activity' ? 'field_of_activity' : null;
+        if (legacyFieldName) {
+          const legacyKey = `${screenLocation}_${legacyFieldName}`;
+          const legacyPlaceholderKey = `${legacyKey}_ph`;
+          const legacyLabelKey = `${legacyKey}_label`;
+          const legacyOptions = apiData.options?.[legacyKey] || [];
+          if (legacyOptions.length > 0) {
+            dropdownKey = legacyKey;
+            placeholderKey = legacyPlaceholderKey;
+            labelKey = legacyLabelKey;
+            options = legacyOptions;
+            placeholder = apiData.placeholders?.[legacyPlaceholderKey] || apiData.placeholders?.[legacyKey];
+            label = apiData.labels?.[legacyLabelKey] || apiData.labels?.[legacyKey];
+          }
+        }
+      }
+
       const result: DropdownData = {
-        options: apiData.options?.[dropdownKey] || [],
-        placeholder: apiData.placeholders?.[placeholderKey] || apiData.placeholders?.[dropdownKey],
-        label: apiData.labels?.[labelKey] || apiData.labels?.[dropdownKey],
+        options,
+        placeholder,
+        label,
         loading: false,
         error: null
       };
