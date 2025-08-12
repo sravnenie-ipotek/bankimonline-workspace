@@ -23,54 +23,10 @@ const SourceOfIncomeForm = () => {
 
   const { mainSourceOfIncome } = values
 
-  // Map dropdown value (which might include full content keys) to a canonical key
-  const getIncomeSourceKey = (optionValue: string): string => {
-    const mapping: { [key: string]: string } = {
-      // Direct semantic values
-      employee: 'employee',
-      selfemployed: 'selfemployed',
-      pension: 'pension',
-      student: 'student',
-      unemployed: 'unemployed',
-      unpaid_leave: 'unpaid_leave',
-      other: 'other',
-      // Legacy numerics
-      '1': 'employee',
-      '2': 'selfemployed',
-      '3': 'selfemployed',
-      '4': 'pension',
-      '5': 'student',
-      '6': 'unemployed',
-      '7': 'other',
-      // Legacy option format
-      option_1: 'employee',
-      option_2: 'selfemployed',
-      option_3: 'selfemployed',
-      option_4: 'pension',
-      option_5: 'student',
-      option_6: 'unemployed',
-      option_7: 'other',
-    }
-
-    // Exact match first
-    if (mapping[optionValue]) return mapping[optionValue]
-
-    // Fallback: detect substring (handles values like 'mortgage_step3_main_source_employee')
-    const lower = optionValue.toLowerCase()
-
-    if (lower.includes('employee')) return 'employee'
-    if (lower.includes('selfemployed') || lower.includes('self_employed') || lower.includes('self-employed')) return 'selfemployed'
-    if (lower.includes('pension')) return 'pension'
-    if (lower.includes('student')) return 'student'
-    if (lower.includes('unemployed')) return 'unemployed'
-    if (lower.includes('unpaid_leave') || lower.includes('unpaid') || lower.includes('leave')) return 'unpaid_leave'
-    if (lower.includes('other')) return 'other'
-
-    // If nothing matched, return empty string so nothing renders (safe fallback)
-    return ''
-  }
-
-  const incomeSourceKey = getIncomeSourceKey(mainSourceOfIncome)
+  // ✅ STANDARDIZED: Direct database-driven income source key
+  // Database returns semantic values directly (employee, selfemployed, pension, etc.)
+  // No mapping needed - use database values as-is per architecture docs
+  const incomeSourceKey = mainSourceOfIncome || ''
 
   // Debug current selection and mapping
   React.useEffect(() => {

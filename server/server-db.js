@@ -1457,6 +1457,67 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                             optionValue = 'no_obligations';
                         }
                         
+                        // 🚨 CREDIT CALCULATOR FIX: Map numeric values to semantic values
+                        // This fixes the critical business issue where credit calculator dropdowns
+                        // return numeric values but frontend expects semantic values
+                        if (fieldName === 'main_source' || fieldName === '3_main_source') {
+                            const semanticMapping = {
+                                '1': 'employee',
+                                '2': 'selfemployed', 
+                                '3': 'selfemployed', // Business owner treated as self-employed
+                                '4': 'pension',
+                                '5': 'student',
+                                '6': 'unemployed',
+                                '7': 'other'
+                            };
+                            if (semanticMapping[optionValue]) {
+                                optionValue = semanticMapping[optionValue];
+                            }
+                        } else if (fieldName === 'has_additional' || fieldName === '3_has_additional') {
+                            const semanticMapping = {
+                                '1': 'no_additional_income',
+                                '2': 'additional_salary',
+                                '3': 'additional_work',
+                                '4': 'investment_income',
+                                '5': 'property_rental_income',
+                                '6': 'pension_benefits',
+                                '7': 'other_income'
+                            };
+                            if (semanticMapping[optionValue]) {
+                                optionValue = semanticMapping[optionValue];
+                            }
+                        } else if (fieldName === 'debt_types' || fieldName === 'types' || fieldName === '3_debt_types' || fieldName === '3_types') {
+                            const semanticMapping = {
+                                '1': 'no_obligations',
+                                '2': 'credit_card',
+                                '3': 'bank_loan', 
+                                '4': 'consumer_credit',
+                                '5': 'other_obligations'
+                            };
+                            if (semanticMapping[optionValue]) {
+                                optionValue = semanticMapping[optionValue];
+                            }
+                        } else if (fieldName === 'field_of_activity' || fieldName === 'activity' || fieldName === '3_field_of_activity' || fieldName === '3_activity') {
+                            const semanticMapping = {
+                                '1': 'technology',
+                                '2': 'healthcare',
+                                '3': 'education',
+                                '4': 'finance',
+                                '5': 'real_estate',
+                                '6': 'construction',
+                                '7': 'retail',
+                                '8': 'manufacturing',
+                                '9': 'government',
+                                '10': 'transport',
+                                '11': 'consulting',
+                                '12': 'entertainment',
+                                '13': 'other'
+                            };
+                            if (semanticMapping[optionValue]) {
+                                optionValue = semanticMapping[optionValue];
+                            }
+                        }
+                        
                         dropdown.options.push({
                             value: optionValue,
                             label: row.content_value

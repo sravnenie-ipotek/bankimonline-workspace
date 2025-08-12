@@ -66,6 +66,8 @@
     "@playwright/test": "^1.54.1",
     "@typescript-eslint/eslint-plugin": "^8.36.0",
     "@typescript-eslint/parser": "^8.36.0",
+    "axios": "^1.11.0",
+    "chalk": "^5.5.0",
     "concurrently": "^7.6.0",
     "eslint-plugin-react": "^7.37.5",
     "node-fetch": "^2.7.0"
