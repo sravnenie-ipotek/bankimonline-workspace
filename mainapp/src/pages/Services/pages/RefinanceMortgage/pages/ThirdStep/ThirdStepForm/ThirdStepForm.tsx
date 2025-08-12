@@ -43,7 +43,7 @@ import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
 
 // Компонент расчета ипотеки - 3 шаг
 const ThirdStepForm = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const { getContent } = useContentApi('refinance_step3')
   const navigate = useNavigate()
 
@@ -70,6 +70,19 @@ const ThirdStepForm = () => {
   )
 
   const userData = useAppSelector((state) => state.login.loginData)
+
+  // Direct mapping: dropdown values match componentsByIncomeSource keys exactly
+  const incomeSourceKey = mainSourceOfIncome || ''
+
+  // Debug logging for conditional field rendering
+  console.log('🔍 RefinanceMortgage ThirdStepForm debug:', {
+    mainSourceOfIncome,
+    incomeSourceKey,
+    componentsByIncomeSource,
+    hasComponent: !!componentsByIncomeSource[incomeSourceKey],
+    componentKeys: Object.keys(componentsByIncomeSource),
+    allFormValues: values
+  })
 
   const openSourceOfIncome = () => {
     dispatch(updateRefinanceMortgageData(values))
@@ -150,8 +163,8 @@ const ThirdStepForm = () => {
 
       <Row>
         <MainSourceOfIncome />
-        {componentsByIncomeSource[mainSourceOfIncome] &&
-          componentsByIncomeSource[mainSourceOfIncome].map(
+        {componentsByIncomeSource[incomeSourceKey] &&
+          componentsByIncomeSource[incomeSourceKey].map(
             (Component, index) => (
               <React.Fragment key={index}>{Component}</React.Fragment>
             )

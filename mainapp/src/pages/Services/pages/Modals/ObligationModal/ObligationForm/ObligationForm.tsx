@@ -24,18 +24,10 @@ const ObligationForm = () => {
 
   const { obligation } = values
 
-  // Map dropdown option values to componentsByObligation keys
-  const getObligationKey = (optionValue: string): string => {
-    const mapping: { [key: string]: string } = {
-      '1': '',                    // No obligations - no additional components
-      '2': 'bank_loan',           // Bank loan
-      '3': 'credit_card',         // Credit card debt
-      '4': 'other'                // Other obligations
-    }
-    return mapping[optionValue] || ''
-  }
-
-  const obligationKey = getObligationKey(obligation)
+  // ✅ STANDARDIZED: Direct database-driven obligation key  
+  // Database returns semantic values directly (bank_loan, credit_card, etc.)
+  // No mapping needed - use database values as-is per architecture docs
+  const obligationKey = obligation === 'no_obligations' ? '' : obligation || ''
 
   // Debug: Log obligation mapping and form state
   console.log('🔍 Obligation Modal - Mapping:', {

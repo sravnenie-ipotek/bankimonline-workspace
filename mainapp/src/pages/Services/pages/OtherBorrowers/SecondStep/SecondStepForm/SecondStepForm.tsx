@@ -34,7 +34,7 @@ import {
 import { FormTypes } from '@src/pages/Services/types/formTypes'
 
 const SecondStepForm = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const { getContent } = useContentApi('other_borrowers_step2')
 
   const [searchParams] = useSearchParams()
@@ -48,6 +48,19 @@ const SecondStepForm = () => {
   const { mainSourceOfIncome, additionalIncome, obligation } = values
 
   const dispatch = useAppDispatch()
+
+  // Direct mapping: dropdown values match componentsByIncomeSource keys exactly
+  const incomeSourceKey = mainSourceOfIncome || ''
+
+  // Debug logging for conditional field rendering
+  console.log('🔍 OtherBorrowers SecondStepForm debug:', {
+    mainSourceOfIncome,
+    incomeSourceKey,
+    componentsByIncomeSource,
+    hasComponent: !!componentsByIncomeSource[incomeSourceKey],
+    componentKeys: Object.keys(componentsByIncomeSource),
+    allFormValues: values
+  })
 
   const sourceOfIncomeValues = useAppSelector(
     (state) =>
@@ -109,9 +122,9 @@ const SecondStepForm = () => {
       <FormCaption title={`${getContent('app.other_borrowers.step2.borrowers_income_title', 'Borrower\'s Income')}#${pageId}`} />
 
       <Row>
-        <MainSourceOfIncome screenLocation="mortgage_step3" />
-        {componentsByIncomeSource[mainSourceOfIncome] &&
-          componentsByIncomeSource[mainSourceOfIncome].map(
+        <MainSourceOfIncome />
+        {componentsByIncomeSource[incomeSourceKey] &&
+          componentsByIncomeSource[incomeSourceKey].map(
             (Component, index) => (
               <React.Fragment key={index}>{Component}</React.Fragment>
             )
