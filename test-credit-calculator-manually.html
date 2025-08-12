@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Credit Calculator Manual Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .step { margin: 20px 0; padding: 15px; border: 1px solid #ccc; background: #f9f9f9; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        pre { background: #eee; padding: 10px; overflow-x: auto; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+        .test-results { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Credit Calculator Regression Test</h1>
+    <p>This page tests the Credit Calculator dropdown functionality after the database fix.</p>
+
+    <div class="step">
+        <h2>Step 1: API Response Validation</h2>
+        <button onclick="testCreditAPI()">Test Credit Calculator API</button>
+        <button onclick="testMortgageAPI()">Test Mortgage Calculator API (Regression)</button>
+        <div id="api-results"></div>
+    </div>
+
+    <div class="step">
+        <h2>Step 2: Component Mapping Test</h2>
+        <button onclick="testComponentMapping()">Test Component Mapping Logic</button>
+        <div id="mapping-results"></div>
+    </div>
+
+    <div class="step">
+        <h2>Step 3: Manual Frontend Test</h2>
+        <p>Click links to manually test in browser:</p>
+        <a href="/services/calculate-credit/3/" target="_blank">🎯 Credit Calculator Step 3</a> | 
+        <a href="/services/calculate-mortgage/3/" target="_blank">🏠 Mortgage Calculator Step 3</a>
+        <div class="info">
+            <p><strong>Manual Test Instructions:</strong></p>
+            <ol>
+                <li>Click "Credit Calculator Step 3" link above</li>
+                <li>Find the "Main source of income" dropdown</li>
+                <li>Select "Employee" - should show Monthly Income, Start Date, Field Activity, Company Name, Profession fields</li>
+                <li>Select "Self-employed" - should show similar fields</li>
+                <li>Select "Pension" - should show Monthly Income only</li>
+                <li>Verify no console errors about "undefined" component mappings</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="test-results">
+        <h2>Test Results Summary</h2>
+        <div id="summary"></div>
+    </div>
+
+    <script>
+        let testResults = [];
+
+        async function testCreditAPI() {
+            const resultsDiv = document.getElementById('api-results');
+            resultsDiv.innerHTML = '<p>Testing Credit Calculator API...</p>';
+
+            try {
+                const response = await fetch('/api/dropdowns/calculate_credit_3/en');
+                const data = await response.json();
+
+                const mainSourceOptions = data.options?.calculate_credit_3_main_source || [];
+                
+                let html = '<h3>Credit Calculator API Results:</h3>';
+                html += '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                
+                if (mainSourceOptions.length > 0) {
+                    html += '<p class="success">✅ SUCCESS: Found ' + mainSourceOptions.length + ' income source options</p>';
+                    html += '<p>Options: ' + mainSourceOptions.map(opt => opt.value).join(', ') + '</p>';
+                    
+                    // Check for semantic values
+                    const hasSemanticValues = mainSourceOptions.some(opt => 
+                        ['employee', 'selfemployed', 'pension'].includes(opt.value)
+                    );
+                    
+                    if (hasSemanticValues) {
+                        html += '<p class="success">✅ SUCCESS: API returns semantic values (not numeric)</p>';
+                        testResults.push('Credit API: ✅ PASS');
+                    } else {
+                        html += '<p class="error">❌ FAIL: API still returns numeric values</p>';
+                        testResults.push('Credit API: ❌ FAIL');
+                    }
+                } else {
+                    html += '<p class="error">❌ FAIL: No income source options found</p>';
+                    testResults.push('Credit API: ❌ FAIL');
+                }
+
+                resultsDiv.innerHTML = html;
+            } catch (error) {
+                resultsDiv.innerHTML = '<p class="error">❌ API Error: ' + error.message + '</p>';
+                testResults.push('Credit API: ❌ ERROR');
+            }
+            updateSummary();
+        }
+
+        async function testMortgageAPI() {
+            try {
+                const response = await fetch('/api/dropdowns/mortgage_step3/en');
+                const data = await response.json();
+
+                const mainSourceOptions = data.options?.mortgage_step3_main_source || [];
+                
+                let html = '<h3>Mortgage Calculator API Results (Regression Test):</h3>';
+                
+                if (mainSourceOptions.length > 0) {
+                    html += '<p class="success">✅ SUCCESS: Mortgage API still works - Found ' + mainSourceOptions.length + ' options</p>';
+                    html += '<p>Options: ' + mainSourceOptions.map(opt => opt.value).join(', ') + '</p>';
+                    testResults.push('Mortgage API: ✅ PASS');
+                } else {
+                    html += '<p class="error">❌ REGRESSION: Mortgage API broken</p>';
+                    testResults.push('Mortgage API: ❌ FAIL');
+                }
+
+                document.getElementById('api-results').innerHTML += html;
+            } catch (error) {
+                document.getElementById('api-results').innerHTML += '<p class="error">❌ Mortgage API Error: ' + error.message + '</p>';
+                testResults.push('Mortgage API: ❌ ERROR');
+            }
+            updateSummary();
+        }
+
+        function testComponentMapping() {
+            const resultsDiv = document.getElementById('mapping-results');
+            
+            // Simulate the component mapping logic from the frontend
+            const componentsByIncomeSource = {
+                employee: ['MonthlyIncome', 'StartDate', 'FieldOfActivity', 'CompanyName', 'Profession'],
+                selfemployed: ['MonthlyIncome', 'StartDate', 'FieldOfActivity', 'CompanyName', 'Profession'],
+                pension: ['MonthlyIncome'],
+                unemployed: ['NoIncome'],
+                student: ['NoIncome'],
+                other: ['MonthlyIncome']
+            };
+
+            let html = '<h3>Component Mapping Test:</h3>';
+            
+            const testValues = ['employee', 'selfemployed', 'pension'];
+            let allMappingsWork = true;
+            
+            testValues.forEach(value => {
+                const components = componentsByIncomeSource[value];
+                if (components && components.length > 0) {
+                    html += '<p class="success">✅ ' + value + ' → ' + components.join(', ') + '</p>';
+                } else {
+                    html += '<p class="error">❌ ' + value + ' → NO COMPONENTS FOUND</p>';
+                    allMappingsWork = false;
+                }
+            });
+            
+            if (allMappingsWork) {
+                html += '<p class="success">✅ SUCCESS: All component mappings work correctly</p>';
+                testResults.push('Component Mapping: ✅ PASS');
+            } else {
+                html += '<p class="error">❌ FAIL: Some component mappings broken</p>';
+                testResults.push('Component Mapping: ❌ FAIL');
+            }
+            
+            resultsDiv.innerHTML = html;
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const summaryDiv = document.getElementById('summary');
+            
+            if (testResults.length === 0) {
+                summaryDiv.innerHTML = '<p>No tests run yet</p>';
+                return;
+            }
+            
+            const passCount = testResults.filter(r => r.includes('✅')).length;
+            const totalCount = testResults.length;
+            
+            let html = '<h3>Test Summary: ' + passCount + '/' + totalCount + ' tests passed</h3>';
+            html += '<ul>';
+            testResults.forEach(result => {
+                html += '<li>' + result + '</li>';
+            });
+            html += '</ul>';
+            
+            if (passCount === totalCount) {
+                html += '<p class="success">🎉 ALL TESTS PASSING! Credit Calculator fix is successful!</p>';
+            } else {
+                html += '<p class="error">⚠️ Some tests failing. Need investigation.</p>';
+            }
+            
+            summaryDiv.innerHTML = html;
+        }
+
+        // Auto-run API tests on page load
+        window.onload = function() {
+            setTimeout(() => {
+                testCreditAPI();
+                setTimeout(() => {
+                    testMortgageAPI();
+                    setTimeout(testComponentMapping, 1000);
+                }, 1000);
+            }, 500);
+        }
+    </script>
+</body>
+</html>

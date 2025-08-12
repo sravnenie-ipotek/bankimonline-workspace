@@ -1,7 +1,8 @@
 import * as Yup from 'yup'
 import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
-// Helper function to check if a value indicates "no income", "unemployed", or "other"
+// Helper function to check if a value indicates a case where employment details are NOT required
+// Covers: unemployed, unpaid leave, student, other, pension
 const isNoIncomeValue = (value: string): boolean => {
   if (!value) return false
   const lowerValue = value.toLowerCase()
@@ -11,10 +12,13 @@ const isNoIncomeValue = (value: string): boolean => {
     lowerValue.includes('no income') ||
     lowerValue.includes('option_5') ||
     lowerValue.includes('option_6') ||
+    lowerValue.includes('option_4') ||
     lowerValue === 'app.mortgage.step3.main_source_income_option_5' ||
     lowerValue === 'app.mortgage.step3.main_source_income_option_6' ||
+    lowerValue === 'app.mortgage.step3.main_source_income_option_4' ||
     lowerValue === 'other' ||
-    lowerValue === 'unpaid_leave'
+    lowerValue === 'unpaid_leave' ||
+    lowerValue.includes('pension') // pensioner case
   )
 }
 
@@ -56,9 +60,9 @@ export const validationSchema = Yup.object().shape({
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
-  startDate: Yup.string().when('mainSourceOfIncome', {
+  startDate: Yup.mixed().when('mainSourceOfIncome', {
     is: (value: string) => !isNoIncomeValue(value), // Not unemployed or no income
-    then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
+    then: (schema) => (schema as Yup.MixedSchema).required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),
   fieldOfActivity: Yup.string().when('mainSourceOfIncome', {
@@ -106,10 +110,10 @@ export const validationSchema = Yup.object().shape({
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
-  endDate: Yup.string().when('obligation', {
+  endDate: Yup.mixed().when('obligation', {
     is: (value: string) =>
       value !== null && value !== undefined && value !== '' && !isNoObligationValue(value),
-    then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
+    then: (schema) => (schema as Yup.MixedSchema).required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),
 })
