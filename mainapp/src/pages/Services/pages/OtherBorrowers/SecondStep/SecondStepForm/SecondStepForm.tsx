@@ -34,7 +34,7 @@ import {
 import { FormTypes } from '@src/pages/Services/types/formTypes'
 
 const SecondStepForm = () => {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const { getContent } = useContentApi('other_borrowers_step2')
 
   const [searchParams] = useSearchParams()
@@ -49,50 +49,8 @@ const SecondStepForm = () => {
 
   const dispatch = useAppDispatch()
 
-  // FIX: Map dropdown option values to componentsByIncomeSource keys
-  // Following systemTranslationLogic.md - handle dropdown value mapping properly
-  const getIncomeSourceKey = (optionValue: string): string => {
-    const mapping: { [key: string]: string } = {
-      employee: 'employee',
-      selfemployed: 'selfemployed',
-      pension: 'pension',
-      student: 'student',
-      unemployed: 'unemployed',
-      unpaid_leave: 'unpaid_leave',
-      other: 'other',
-      // Legacy numeric values
-      '1': 'employee',
-      '2': 'selfemployed',
-      '3': 'selfemployed',
-      '4': 'pension',
-      '5': 'student',
-      '6': 'unemployed',
-      '7': 'other',
-      // Legacy option
-      option_1: 'employee',
-      option_2: 'selfemployed',
-      option_3: 'selfemployed',
-      option_4: 'pension',
-      option_5: 'student',
-      option_6: 'unemployed',
-      option_7: 'other',
-    }
-
-    if (mapping[optionValue]) return mapping[optionValue]
-
-    const lower = optionValue.toLowerCase()
-    if (lower.includes('employee')) return 'employee'
-    if (lower.includes('selfemployed') || lower.includes('self_employed') || lower.includes('self-employed')) return 'selfemployed'
-    if (lower.includes('pension')) return 'pension'
-    if (lower.includes('student')) return 'student'
-    if (lower.includes('unemployed')) return 'unemployed'
-    if (lower.includes('unpaid_leave') || lower.includes('unpaid') || lower.includes('leave')) return 'unpaid_leave'
-    if (lower.includes('other')) return 'other'
-
-    return ''
-  }
-
-  const incomeSourceKey = getIncomeSourceKey(mainSourceOfIncome)
+  // Direct mapping: dropdown values match componentsByIncomeSource keys exactly
+  const incomeSourceKey = mainSourceOfIncome || ''
 
   // Debug logging for conditional field rendering
   console.log('🔍 OtherBorrowers SecondStepForm debug:', {
@@ -164,7 +122,7 @@ const SecondStepForm = () => {
       <FormCaption title={`${getContent('app.other_borrowers.step2.borrowers_income_title', 'Borrower\'s Income')}#${pageId}`} />
 
       <Row>
-        <MainSourceOfIncome screenLocation="mortgage_step3" />
+        <MainSourceOfIncome />
         {componentsByIncomeSource[incomeSourceKey] &&
           componentsByIncomeSource[incomeSourceKey].map(
             (Component, index) => (
