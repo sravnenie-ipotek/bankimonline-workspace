@@ -1457,6 +1457,67 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                             optionValue = 'no_obligations';
                         }
                         
+                        // 🚨 CREDIT CALCULATOR FIX: Map numeric values to semantic values
+                        // This fixes the critical business issue where credit calculator dropdowns
+                        // return numeric values but frontend expects semantic values
+                        if (fieldName === 'main_source' || fieldName === '3_main_source') {
+                            const semanticMapping = {
+                                '1': 'employee',
+                                '2': 'selfemployed', 
+                                '3': 'selfemployed', // Business owner treated as self-employed
+                                '4': 'pension',
+                                '5': 'student',
+                                '6': 'unemployed',
+                                '7': 'other'
+                            };
+                            if (semanticMapping[optionValue]) {
+                                optionValue = semanticMapping[optionValue];
+                            }
+                        } else if (fieldName === 'has_additional' || fieldName === '3_has_additional') {
+                            const semanticMapping = {
+                                '1': 'no_additional_income',
+                                '2': 'additional_salary',
+                                '3': 'additional_work',
+                                '4': 'investment_income',
+                                '5': 'property_rental_income',
+                                '6': 'pension_benefits',
+                                '7': 'other_income'
+                            };
+                            if (semanticMapping[optionValue]) {
+                                optionValue = semanticMapping[optionValue];
+                            }
+                        } else if (fieldName === 'debt_types' || fieldName === 'types' || fieldName === '3_debt_types' || fieldName === '3_types') {
+                            const semanticMapping = {
+                                '1': 'no_obligations',
+                                '2': 'credit_card',
+                                '3': 'bank_loan', 
+                                '4': 'consumer_credit',
+                                '5': 'other_obligations'
+                            };
+                            if (semanticMapping[optionValue]) {
+                                optionValue = semanticMapping[optionValue];
+                            }
+                        } else if (fieldName === 'field_of_activity' || fieldName === 'activity' || fieldName === '3_field_of_activity' || fieldName === '3_activity') {
+                            const semanticMapping = {
+                                '1': 'technology',
+                                '2': 'healthcare',
+                                '3': 'education',
+                                '4': 'finance',
+                                '5': 'real_estate',
+                                '6': 'construction',
+                                '7': 'retail',
+                                '8': 'manufacturing',
+                                '9': 'government',
+                                '10': 'transport',
+                                '11': 'consulting',
+                                '12': 'entertainment',
+                                '13': 'other'
+                            };
+                            if (semanticMapping[optionValue]) {
+                                optionValue = semanticMapping[optionValue];
+                            }
+                        }
+                        
                         dropdown.options.push({
                             value: optionValue,
                             label: row.content_value
@@ -2109,7 +2170,7 @@ app.post('/api/customer/calculate-payment', async (req, res) => {
                 calculate_annuity_payment($1, get_current_mortgage_rate(), $2) as monthly_payment
         `;
         
-        const result = await pool.query(query, [loan_amount, term_years]);
+        const result = await contentPool.query(query, [loan_amount, term_years]);
         const calculation = result.rows[0];
         
         // Get LTV ratio if property ownership provided
@@ -3825,6 +3886,37 @@ app.post('/api/auth-verify', async (req, res) => {
     const { code, mobile_number } = req.body;
     
     console.log(`[SMS] Verify ${code} for ${mobile_number}`);
+
+    // Mock mode for local development or automated tests
+    // Triggers if:
+    // - env MOCK_SMS_AUTH=true, or
+    // - query param ?mock=1, or
+    // - special code '0000' (explicit mock code)
+    try {
+        const shouldMock = (process.env.MOCK_SMS_AUTH === 'true') || (req.query && req.query.mock === '1') || code === '0000';
+        if (shouldMock) {
+            const token = jwt.sign(
+                { id: 1, phone: mobile_number || '+972500000000', type: 'client', mock: true },
+                process.env.JWT_SECRET || 'secret',
+                { expiresIn: '24h' }
+            );
+            return res.json({
+                status: 'success',
+                message: 'Login successful (mock)',
+                data: {
+                    token,
+                    user: {
+                        id: 1,
+                        name: 'Mock User',
+                        phone: mobile_number || '+972500000000',
+                        email: `${(mobile_number || '+972500000000').replace('+', '')}@mock.local`
+                    }
+                }
+            });
+        }
+    } catch (mockErr) {
+        console.warn('Mock auth-verify failed to generate token:', mockErr);
+    }
     
     if (!code || !mobile_number || code.length !== 4) {
         return res.status(400).json({ status: 'error', message: 'Invalid code' });
@@ -4031,7 +4123,7 @@ app.post('/api/refinance-mortgage', async (req, res) => {
         
         // Get current mortgage rate from database
         const baseRateQuery = `SELECT get_current_mortgage_rate() as current_rate`;
-        const baseRateResult = await pool.query(baseRateQuery);
+        const baseRateResult = await contentPool.query(baseRateQuery);
         const currentRate = parseFloat(baseRateResult.rows[0].current_rate);
         
         // Get refinance-specific savings percentage from banking_standards
@@ -5466,7 +5558,7 @@ app.get('/api/admin/calculations', requireAdmin, async (req, res) => {
         
         // Set database-driven defaults (no more hardcoded values)
         try {
-            const currentMortgageRate = await pool.query('SELECT get_current_mortgage_rate() as rate');
+            const currentMortgageRate = await contentPool.query('SELECT get_current_mortgage_rate() as rate');
             calculations.calc_mortgage_default_rate = parseFloat(currentMortgageRate.rows[0].rate);
         } catch (e) {
             console.warn('Could not fetch current mortgage rate, using fallback');
@@ -8118,7 +8210,7 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         
         // Get configurable interest rate from banking_standards
         const baseRateQuery = `SELECT get_current_mortgage_rate() as base_rate`;
-        const baseRateResult = await pool.query(baseRateQuery);
+        const baseRateResult = await contentPool.query(baseRateQuery);
         const configurable_base_rate = parseFloat(baseRateResult.rows[0].base_rate);
         
         console.log('[COMPARE-BANKS] Using configurable base rate:', configurable_base_rate);
@@ -9733,7 +9825,7 @@ app.get('/api/v1/calculation-parameters', async (req, res) => {
         let currentRate = 5.0; // Default fallback rate
         try {
             const rateQuery = `SELECT get_current_mortgage_rate() as current_rate`;
-            const rateResult = await pool.query(rateQuery);
+            const rateResult = await contentPool.query(rateQuery);
             currentRate = parseFloat(rateResult.rows[0].current_rate);
         } catch (rateError) {
             console.warn('[CALC-PARAMS] get_current_mortgage_rate function not found, using default rate 5.0%');

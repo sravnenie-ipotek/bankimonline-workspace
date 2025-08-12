@@ -28,8 +28,17 @@ const FieldOfActivity = ({ screenLocation }: FieldOfActivityProps) => {
     useFormikContext<FormTypes>()
 
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  // FIXED: Use 'activity' to match API key shortening (calculate_credit_3_activity)
-  const dropdownData = useDropdownData(resolvedScreenLocation, 'activity', 'full')
+  // FIXED: Use 'field_of_activity' to match correct API key (mortgage_step3_field_of_activity)
+  const dropdownData = useDropdownData(resolvedScreenLocation, 'field_of_activity', 'full') as {
+    options: Array<{value: string; label: string}>;
+    placeholder?: string;
+    label?: string;
+    loading: boolean;
+    error: Error | null;
+  }
+
+  // Field of Activity component correctly configured for dropdown data
+  // Uses screenLocation prop when provided, otherwise auto-detects from URL path
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
