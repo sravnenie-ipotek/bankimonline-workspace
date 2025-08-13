@@ -54,3 +54,4 @@ EOF
 echo "🎉 Migration complete! Use .env.local for local development."
 echo "📁 SQL files saved: ~/maglev.sql, ~/shortline.sql, ~/yamanote.sql"
 
+

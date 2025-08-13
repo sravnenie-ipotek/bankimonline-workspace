@@ -24,7 +24,7 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
     ? 'refinance_step3'
     : location.pathname.includes('other-borrowers')
     ? 'other_borrowers_step2'
-    : 'calculate_credit_3'
+    : 'credit_step3'
   const { t } = useTranslation()
   const { getContent } = useContentApi(resolvedScreenLocation)
   const { values, setFieldValue, touched, errors, setFieldTouched } =
@@ -44,7 +44,7 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
   }
 
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  // FIXED: Use 'obligations' to match API-generated key (mortgage_step3_obligations)
+  // FIXED: Use 'obligations' to match API-generated key (credit_step3_obligations)
   const dropdownData = useDropdownData(resolvedScreenLocation, 'obligations', 'full')
   
 
@@ -95,9 +95,9 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
   return (
     <Column>
       <DropdownMenu
-        title={dropdownLabel || getContent('calculate_mortgage_debt_types', 'Existing obligations')}
+        title={dropdownLabel || getContent('calculate_credit_existing_debts', 'חובות קיימים')}
         data={dropdownOptions}
-        placeholder={dropdownPlaceholder || getContent('calculate_mortgage_debt_types_ph', 'Do you have existing debts or obligations?')}
+        placeholder={dropdownPlaceholder || getContent('calculate_credit_existing_debts_ph', 'האם יש לך חובות או התחייבויות קיימים?')}
         value={values.obligation}
         onChange={handleValueChange}
         onBlur={() => setFieldTouched('obligation', true)}
@@ -105,7 +105,7 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
         disabled={isLoading}
       />
       {hasError && (
-        <Error error={getContent('error_dropdown_load_failed', 'Failed to load obligations options. Please refresh the page.')} />
+        <Error error={getContent('error_dropdown_load_failed', 'טעינת אפשרויות החובות נכשלה. אנא רענן את הדף.')} />
       )}
     </Column>
   )

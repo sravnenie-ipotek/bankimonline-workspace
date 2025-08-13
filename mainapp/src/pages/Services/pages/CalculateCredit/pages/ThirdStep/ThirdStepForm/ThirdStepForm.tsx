@@ -18,7 +18,7 @@ import { AdditionalIncome } from '@src/pages/Services/components/AdditionalIncom
 import { AdditionalIncomeAmount } from '@src/pages/Services/components/AdditionalIncomeAmount'
 import { MainSourceOfIncome } from '@src/pages/Services/components/MainSourceOfIncome'
 import { Obligation } from '@src/pages/Services/components/Obligation'
-import { componentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource'
+import { getComponentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource'
 import { componentsByObligation } from '@src/pages/Services/constants/componentsByObligation'
 import {
   deleteAdditionalIncomeModal,
@@ -57,7 +57,7 @@ const isNoAdditionalIncomeValue = (value: string): boolean => {
 // Компонент расчета ипотеки - 3 шаг
 const ThirdStepForm = () => {
   const { t, i18n } = useTranslation()
-  const { getContent } = useContentApi('calculate_credit_3')
+  const { getContent } = useContentApi('credit_step3')
   const navigate = useNavigate()
 
   const { values, errors, isValid, touched } = useFormikContext<FormTypes>()
@@ -123,12 +123,36 @@ const ThirdStepForm = () => {
 
   const incomeSourceKey = getIncomeSourceKey(mainSourceOfIncome)
 
-  // ✅ STANDARDIZED: Direct database-driven obligation key  
-  // Database returns semantic values directly (bank_loan, credit_card, etc.)
-  // No mapping needed - use database values as-is per architecture docs
-  const obligationKey = obligation === 'no_obligations' ? '' : obligation || ''
+  // ✅ FIXED: Obligations need numeric-to-semantic mapping like income sources
+  // Credit API returns numeric values ("1", "2", "3") but componentsByObligation expects semantic keys
+  const getObligationKey = (optionValue: string): string => {
+    // Handle no obligations case
+    if (!optionValue || optionValue === '5' || optionValue === 'no_obligations') {
+      return ''
+    }
+    
+    // If already semantic, return as-is (future-proofing)
+    if (optionValue && !optionValue.match(/^\d+$/)) {
+      return optionValue
+    }
+    
+    // Numeric-to-semantic mapping for credit_step3 API
+    const numericMapping: { [key: string]: string } = {
+      '1': 'bank_loan',       // משכנתא (Mortgage) → bank_loan
+      '2': 'consumer_credit', // הלוואה אישית (Personal loan) → consumer_credit
+      '3': 'credit_card',     // חוב כרטיס אשראי (Credit card debt) → credit_card
+      '4': 'other',           // הלוואת רכב (Car loan) → other
+      // '5' is handled above as no obligations
+    }
+    return numericMapping[optionValue] || ''
+  }
+  
+  const obligationKey = getObligationKey(obligation)
 
   // Debug: Enhanced logging for troubleshooting - ALWAYS LOG
+  // Get components with proper screenLocation for credit_step3
+  const componentsByIncomeSource = getComponentsByIncomeSource('credit_step3')
+  
   console.log('🔍 Credit Step 3 - ENHANCED DEBUG:', {
     formValues: { mainSourceOfIncome, obligation },
     incomeMapping: {
@@ -245,7 +269,7 @@ const ThirdStepForm = () => {
   return (
     <FormContainer>
 
-      <FormCaption title={getContent('calculate_credit_step3_title', t('credit_step3_title'))} />
+      <FormCaption title={getContent('calculate_credit_step3_title', 'פרטי הכנסה ופיננסיים')} />
 
       <UserProfileCard
         name={userData?.nameSurname}
@@ -253,7 +277,7 @@ const ThirdStepForm = () => {
       />
 
       <Row>
-        <MainSourceOfIncome screenLocation="calculate_credit_3" />
+        <MainSourceOfIncome screenLocation="credit_step3" />
         {componentsByIncomeSource[incomeSourceKey] &&
           componentsByIncomeSource[incomeSourceKey].map(
             (Component, index) => (
@@ -287,7 +311,7 @@ const ThirdStepForm = () => {
       <Divider />
 
       <Row>
-        <AdditionalIncome screenLocation="calculate_credit_3" />
+        <AdditionalIncome screenLocation="credit_step3" />
         {additionalIncome && !isNoAdditionalIncomeValue(additionalIncome) && (
           <AdditionalIncomeAmount />
         )}
@@ -319,7 +343,7 @@ const ThirdStepForm = () => {
       <Divider />
 
       <Row>
-        <Obligation screenLocation="calculate_credit_3" />
+        <Obligation screenLocation="credit_step3" />
         {componentsByObligation[obligationKey] &&
           componentsByObligation[obligationKey].map((Component, index) => (
             <React.Fragment key={index}>{Component}</React.Fragment>

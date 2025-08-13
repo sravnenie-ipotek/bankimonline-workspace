@@ -25,7 +25,7 @@ const MainSourceOfIncome = ({ screenLocation }: MainSourceOfIncomeProps) => {
     ? 'refinance_step3'
     : location.pathname.includes('other-borrowers')
     ? 'other_borrowers_step2'
-    : 'calculate_credit_3'
+    : 'credit_step3'
     
   // Debug logging for validation
   console.log(`🔍 MainSourceOfIncome: URL=${location.pathname}, resolved screen location=${resolvedScreenLocation}`)
@@ -35,7 +35,7 @@ const MainSourceOfIncome = ({ screenLocation }: MainSourceOfIncomeProps) => {
     useFormikContext<FormTypes>()
 
   // ✅ UPDATED: Follow systemTranslationLogic.md - use database-first approach for all contexts
-  // Use 'main_source' field name to match API key (mortgage_step3_main_source)
+  // Use 'main_source_income' field name to match API key (credit_step3_main_source_income)
   const dropdownData = useDropdownData(resolvedScreenLocation, 'main_source', 'full') as {
     options: Array<{value: string; label: string}>;
     placeholder?: string;
@@ -98,8 +98,8 @@ const MainSourceOfIncome = ({ screenLocation }: MainSourceOfIncomeProps) => {
     <Column>
       <DropdownMenu
         data={dropdownData.options}
-        title={dropdownData.label || getContent('calculate_mortgage_main_source', t('calculate_mortgage_main_source'))}
-        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_main_source_ph', t('calculate_mortgage_main_source_ph'))}
+        title={dropdownData.label || getContent('calculate_credit_main_source', 'מקור הכנסה עיקרי')}
+        placeholder={dropdownData.placeholder || getContent('calculate_credit_main_source_ph', 'בחר מקור הכנסה עיקרי')}
         value={values.mainSourceOfIncome || ''}
         onChange={handleValueChange}
         onBlur={() => setFieldTouched('mainSourceOfIncome', true, true)}
@@ -107,7 +107,7 @@ const MainSourceOfIncome = ({ screenLocation }: MainSourceOfIncomeProps) => {
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (
-        <Error error={getContent('error_dropdown_load_failed', 'Failed to load main source options. Please refresh the page.')} />
+        <Error error={getContent('error_dropdown_load_failed', 'טעינת אפשרויות מקור ההכנסה נכשלה. אנא רענן את הדף.')} />
       )}
     </Column>
   )
