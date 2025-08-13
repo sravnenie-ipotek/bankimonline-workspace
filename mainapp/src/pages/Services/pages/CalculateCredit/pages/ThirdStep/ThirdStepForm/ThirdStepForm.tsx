@@ -278,12 +278,25 @@ const ThirdStepForm = () => {
 
       <Row>
         <MainSourceOfIncome screenLocation="credit_step3" />
-        {componentsByIncomeSource[incomeSourceKey] &&
-          componentsByIncomeSource[incomeSourceKey].map(
-            (Component, index) => (
-              <React.Fragment key={index}>{Component}</React.Fragment>
-            )
-          )}
+        {(() => {
+          console.log('🔍 Credit Step 3 - PRODUCTION DEBUGGING:', {
+            rawMainSourceOfIncome: mainSourceOfIncome,
+            mappedIncomeSourceKey: incomeSourceKey,
+            hasComponentsForMapped: !!componentsByIncomeSource[incomeSourceKey],
+            hasComponentsForRaw: !!componentsByIncomeSource[mainSourceOfIncome],
+            availableKeys: Object.keys(componentsByIncomeSource),
+            componentCountForMapped: componentsByIncomeSource[incomeSourceKey]?.length || 0,
+            componentCountForRaw: componentsByIncomeSource[mainSourceOfIncome]?.length || 0,
+            mappingFunction: 'getIncomeSourceKey working?',
+            isNumeric: mainSourceOfIncome?.match(/^\d+$/),
+            shouldShowComponents: !!(incomeSourceKey && componentsByIncomeSource[incomeSourceKey])
+          });
+
+          const components = componentsByIncomeSource[incomeSourceKey];
+          return components?.map((Component, index) => (
+            <React.Fragment key={index}>{Component}</React.Fragment>
+          ));
+        })()}
         <Column />
       </Row>
       <Row>
@@ -344,10 +357,23 @@ const ThirdStepForm = () => {
 
       <Row>
         <Obligation screenLocation="credit_step3" />
-        {componentsByObligation[obligationKey] &&
-          componentsByObligation[obligationKey].map((Component, index) => (
+        {(() => {
+          console.log('🔍 Credit Step 3 - OBLIGATION DEBUGGING:', {
+            rawObligation: obligation,
+            mappedObligationKey: obligationKey,
+            hasComponentsForMapped: !!componentsByObligation[obligationKey],
+            hasComponentsForRaw: !!componentsByObligation[obligation],
+            availableObligationKeys: Object.keys(componentsByObligation),
+            componentCountForMapped: componentsByObligation[obligationKey]?.length || 0,
+            componentCountForRaw: componentsByObligation[obligation]?.length || 0,
+            shouldShowObligationComponents: !!(obligationKey && componentsByObligation[obligationKey])
+          });
+
+          const components = componentsByObligation[obligationKey];
+          return components?.map((Component, index) => (
             <React.Fragment key={index}>{Component}</React.Fragment>
-          ))}
+          ));
+        })()}
         <Column />
       </Row>
 
