@@ -145,12 +145,25 @@ The push scripts will show detailed results:
 ### **Quick Reference - Pull Commands**
 
 ```bash
-# Pull latest changes from main monorepo
-git pull workspace main
+# Pull from all repositories at once (RECOMMENDED)
+./pull-from-all-repos.sh
+npm run pull:all
+
+# Pull from individual repositories
+git pull workspace main    # Main monorepo (most important)
+git pull web main          # Web deployment repository
+git pull api main          # API deployment repository  
+git pull shared main       # Shared documentation
+
+# Using npm scripts for individual pulls
+npm run pull:workspace     # Pull from workspace only
+npm run pull:web          # Pull from web repository
+npm run pull:api          # Pull from API repository
+npm run pull:shared       # Pull from shared repository
 
 # Fresh environment setup (after major changes)
 npm install
-cd mainapp && npm install
+npm install --prefix mainapp
 npm run build:all
 
 # Start development environment
