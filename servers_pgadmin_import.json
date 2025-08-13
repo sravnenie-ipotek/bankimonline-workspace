@@ -1,0 +1,37 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "Railway DB 1",
+      "Group": "Railway",
+      "Host": "shortline.proxy.rlwy.net",
+      "Port": 33452,
+      "MaintenanceDB": "railway",
+      "Username": "postgres",
+      "SSLMode": "require",
+      "SavePwd": 1,
+      "Comment": "Imported via setup_pgadmin_railway.sh"
+    },
+    "2": {
+      "Name": "Railway DB 2",
+      "Group": "Railway",
+      "Host": "maglev.proxy.rlwy.net",
+      "Port": 43809,
+      "MaintenanceDB": "railway",
+      "Username": "postgres",
+      "SSLMode": "require",
+      "SavePwd": 1,
+      "Comment": "Imported via setup_pgadmin_railway.sh"
+    },
+    "3": {
+      "Name": "Railway DB 3",
+      "Group": "Railway",
+      "Host": "yamanote.proxy.rlwy.net",
+      "Port": 53119,
+      "MaintenanceDB": "railway",
+      "Username": "postgres",
+      "SSLMode": "require",
+      "SavePwd": 1,
+      "Comment": "Imported via setup_pgadmin_railway.sh"
+    }
+  }
+}

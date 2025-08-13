@@ -20,7 +20,9 @@ const FieldOfActivity = ({ screenLocation }: FieldOfActivityProps) => {
     : location.pathname.includes('calculate-mortgage')
     ? 'mortgage_step3'
     : location.pathname.includes('refinance-mortgage')
-    ? 'refinance_mortgage_3'
+    ? 'refinance_step3'
+    : location.pathname.includes('other-borrowers')
+    ? 'other_borrowers_step2'
     : 'calculate_credit_3'
 
   const { getContent } = useContentApi(resolvedScreenLocation)

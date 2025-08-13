@@ -1,0 +1,445 @@
+🔧 Database Config - Environment: development, Railway: not set
+🛠️ Development environment detected - using Railway PostgreSQL
+🔧 Database Config - Environment: development, Railway: not set
+🛠️ Development environment detected - using Railway PostgreSQL
+🔒 CORS Configuration:
+📝 CORS_ALLOWED_ORIGINS env var: Not set
+🌐 Resolved CORS origins: [
+  'http://localhost:3001',
+  'http://localhost:3000',
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
+  'http://localhost:8003',
+  'https://bankimonline.com'
+]
+🚀 Database API Server Started
+📡 http://localhost:8003
+📧 Email login: POST /api/login
+📧 Email 2FA: POST /api/email-code-login
+📱 SMS login: POST /api/sms-login & /api/sms-code-login
+👤 Registration: POST /api/register
+🏙️ Cities: GET /api/get-cities?lang=xx
+🏠 Refinance mortgage: POST /api/refinance-mortgage
+💳 Refinance credit: POST /api/refinance-credit
+🔐 Admin login: POST /api/admin/login
+📊 Admin stats: GET /api/admin/stats
+🏦 Admin banks: GET /api/admin/banks
+🏪 Compare banks: POST /api/customer/compare-banks
+📝 Submit application: POST /api/customer/submit-application
+📋 Check status: GET /api/applications/:id/status
+🔧 Admin applications: GET /api/admin/applications
+📊 Admin app details: GET /api/admin/applications/:id
+✏️ Update app status: PUT /api/admin/applications/:id/status
+
+🏢 PHASE 2: Bank Worker Registration System
+📨 Send invitation: POST /api/bank-worker/invite
+📝 Get registration form: GET /api/bank-worker/register/:token
+✅ Complete registration: POST /api/bank-worker/register
+📊 Check status: GET /api/bank-worker/status/:id
+📋 Admin invitations: GET /api/admin/invitations
+⏳ Admin approval queue: GET /api/admin/approval-queue
+✅ Approve worker: POST /api/admin/approve/:id
+❌ Reject worker: POST /api/admin/reject/:id
+
+✅ Content Database connected: 2025-08-13T06:19:47.596Z
+✅ test-content table deleted successfully (if it existed)
+✅ Main Database connected: 2025-08-13T06:19:47.995Z
+⚡ Dropdown cache MISS for dropdowns_other_borrowers_step2_he - querying database
+🔍 Executing query for screen: other_borrowers_step2, language: he
+📊 Query returned 33 rows
+📊 Processing 33 rows for other_borrowers_step2/he
+🔍 Processing: app.other_borrowers.step2.source_of_income_label (label)
+🔍 Processing: other_borrowers_obligation_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_agriculture (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_construction (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_consulting (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_education (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_entertainment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_finance (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_government (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_healthcare (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_label (label)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_manufacturing (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_real_estate (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_retail (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_technology (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_transport (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.main_source_employee (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_pension (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.main_source_selfemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_student (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unpaid_leave (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.obligations_bank_loan (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_consumer_credit (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_credit_card (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_no_obligations (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_placeholder (placeholder)
+[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 932.950 ms - 2805[0m
+✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_he
+[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 0.694 ms - 2804[0m
+✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_he
+[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 0.310 ms - 2804[0m
+⚡ Dropdown cache MISS for dropdowns_other_borrowers_step2_en - querying database
+🔍 Executing query for screen: other_borrowers_step2, language: en
+📊 Query returned 32 rows
+📊 Processing 32 rows for other_borrowers_step2/en
+🔍 Processing: app.other_borrowers.step2.source_of_income_label (label)
+🔍 Processing: other_borrowers_obligation_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_agriculture (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_construction (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_consulting (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_education (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_entertainment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_finance (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_government (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_healthcare (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_label (label)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_manufacturing (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_real_estate (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_retail (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_technology (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_transport (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.main_source_employee (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_pension (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.main_source_selfemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_student (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unpaid_leave (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.obligations_bank_loan (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_consumer_credit (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_credit_card (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_no_obligations (dropdown_option)
+[0mGET /api/dropdowns/other_borrowers_step2/en [32m200[0m 853.578 ms - 2482[0m
+⚡ Dropdown cache MISS for dropdowns_other_borrowers_step2_ru - querying database
+🔍 Executing query for screen: other_borrowers_step2, language: ru
+📊 Query returned 32 rows
+📊 Processing 32 rows for other_borrowers_step2/ru
+🔍 Processing: app.other_borrowers.step2.source_of_income_label (label)
+🔍 Processing: other_borrowers_obligation_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_agriculture (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_construction (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_consulting (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_education (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_entertainment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_finance (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_government (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_healthcare (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_label (label)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_manufacturing (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_real_estate (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_retail (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_technology (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_transport (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.main_source_employee (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_pension (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.main_source_selfemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_student (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unpaid_leave (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.obligations_bank_loan (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_consumer_credit (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_credit_card (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_no_obligations (dropdown_option)
+[0mGET /api/dropdowns/other_borrowers_step2/ru [32m200[0m 157.384 ms - 3276[0m
+✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_he
+[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 0.272 ms - 2804[0m
+✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_he
+[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 0.156 ms - 2804[0m
+✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_en
+[0mGET /api/dropdowns/other_borrowers_step2/en [32m200[0m 0.177 ms - 2481[0m
+✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_ru
+[0mGET /api/dropdowns/other_borrowers_step2/ru [32m200[0m 0.187 ms - 3275[0m
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+[0mGET /api/content/validation_errors/he [32m200[0m 1140.010 ms - 7203[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.470 ms - 7202[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.333 ms - 7202[0m
+⚡ Cache MISS for content_validation_errors_en_all - querying database
+[0mGET /api/content/validation_errors/en [32m200[0m 1144.982 ms - 6957[0m
+⚡ Cache MISS for content_validation_errors_ru_all - querying database
+[0mGET /api/content/validation_errors/ru [32m200[0m 123.925 ms - 8381[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.262 ms - 7202[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.377 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.506 ms - -[0m
+⚡ Cache MISS for content_sidebar_he_all - querying database
+⚡ Cache MISS for content_sms_code_verification_he_all - querying database
+[0mGET /api/content/sms_code_verification/he [32m200[0m 866.159 ms - 852[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.245 ms - 851[0m
+[0mGET /api/content/sidebar/he [32m200[0m 983.658 ms - 3878[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [32m200[0m 0.277 ms - 3877[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.282 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.279 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.220 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.223 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.288 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.239 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.311 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.252 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.324 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.335 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.407 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.166 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.156 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.429 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.376 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.326 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.231 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.248 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.254 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.342 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.285 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.270 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.368 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.325 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.292 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.216 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.225 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.229 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.214 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.252 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.284 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.229 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.570 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.275 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.266 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.218 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.123 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.146 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.317 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.216 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.158 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.161 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.157 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.170 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.217 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.310 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.153 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.349 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.340 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.369 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.190 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.264 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.239 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.202 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.161 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.142 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.440 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.227 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.297 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.183 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.371 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.303 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.106 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.215 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.118 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.223 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.170 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.222 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.199 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.308 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.184 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.307 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.192 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.321 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.270 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.290 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.243 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.148 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.205 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.226 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.204 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.289 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.185 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.226 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.483 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.216 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.332 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.235 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.293 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.242 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.177 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.266 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.241 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.220 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.178 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.190 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.179 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.278 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.196 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.262 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.321 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.310 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.456 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.299 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.275 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.206 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.160 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.195 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.266 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.215 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.347 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.249 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [36m304[0m 0.311 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.220 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.243 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.349 ms - -[0m
+✅ Cache HIT for content_sms_code_verification_he_all
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.213 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.148 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.180 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.274 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.251 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.193 ms - -[0m
+✅ Cache HIT for content_sidebar_he_all
+[0mGET /api/content/sidebar/he [36m304[0m 0.171 ms - -[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 1.113 ms - 7202[0m
+✅ Cache HIT for content_validation_errors_he_all
+[0mGET /api/content/validation_errors/he [32m200[0m 0.260 ms - 7202[0m

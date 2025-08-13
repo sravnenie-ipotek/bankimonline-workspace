@@ -48,7 +48,7 @@ const ObligationForm = () => {
     <>
       <div className={cx('modal')}>
         <div className={cx('container')}>
-          <Obligation screenLocation="calculate_credit_3" />
+          <Obligation />
           {componentsByObligation[obligationKey] &&
             componentsByObligation[obligationKey].map((Component, index) => (
               <div className={cx('component')} key={index}>

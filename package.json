@@ -59,7 +59,12 @@
     "push:shared": "git push shared main",
     "push:client": "./push-client.sh",
     "push:server": "./push-server.sh",
-    "push:smart": "./smart-push.sh"
+    "push:smart": "./smart-push.sh",
+    "pull:all": "./pull-from-all-repos.sh",
+    "pull:workspace": "git pull workspace main",
+    "pull:web": "git pull web main",
+    "pull:api": "git pull api main",
+    "pull:shared": "git pull shared main"
   },
   "devDependencies": {
     "@playwright/mcp": "^0.0.29",

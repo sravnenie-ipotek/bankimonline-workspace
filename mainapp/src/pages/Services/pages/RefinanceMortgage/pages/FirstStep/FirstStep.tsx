@@ -94,13 +94,14 @@ export const getValidationSchema = () => Yup.object().shape({
   monthlyPayment: Yup.number()
     .positive(getValidationErrorSync('error_mortgage_payment_positive', 'Monthly payment must be positive'))
     .required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
+  // Backward-compatible validation matching dropdown API values per docs
   decreaseMortgage: Yup.string().when('whyRefinancingMortgage', {
-    is: 'option_2',
+    is: (v: string) => (v || '').toLowerCase() === 'reduce_monthly_payment' || (v || '').toLowerCase() === 'option_2',
     then: (shema) => shema.required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
     otherwise: (shema) => shema.notRequired(),
   }),
   increaseMortgage: Yup.string().when('whyRefinancingMortgage', {
-    is: 'option_5',
+    is: (v: string) => (v || '').toLowerCase() === 'consolidate_debts' || (v || '').toLowerCase() === 'option_5',
     then: (shema) => shema.required(getValidationErrorSync('error_required_to_fill_out', 'This field is required')),
     otherwise: (shema) => shema.notRequired(),
   }),

@@ -157,7 +157,7 @@ const SecondStepForm = () => {
       <Divider />
 
       <Row>
-        <AdditionalIncome />
+        <AdditionalIncome screenLocation="other_borrowers_step2" />
         {additionalIncome && additionalIncome !== 'option_1' && additionalIncome !== '1' && additionalIncome !== 'no_additional_income' && (
           <AdditionalIncomeAmount />
         )}
