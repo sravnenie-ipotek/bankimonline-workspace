@@ -42,15 +42,24 @@
 ✅ Approve worker: POST /api/admin/approve/:id
 ❌ Reject worker: POST /api/admin/reject/:id
 
-✅ Content Database connected: 2025-08-13T06:19:47.596Z
+✅ Main Database connected: 2025-08-13T12:05:14.321Z
+✅ Content Database connected: 2025-08-13T12:05:15.184Z
 ✅ test-content table deleted successfully (if it existed)
-✅ Main Database connected: 2025-08-13T06:19:47.995Z
 ⚡ Dropdown cache MISS for dropdowns_other_borrowers_step2_he - querying database
 🔍 Executing query for screen: other_borrowers_step2, language: he
-📊 Query returned 33 rows
-📊 Processing 33 rows for other_borrowers_step2/he
+📊 Query returned 63 rows
+📊 Processing 63 rows for other_borrowers_step2/he
 🔍 Processing: app.other_borrowers.step2.source_of_income_label (label)
 🔍 Processing: other_borrowers_obligation_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2_additional_income_label (label)
+🔍 Processing: other_borrowers_step2_additional_income_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.additional_income_0_no_additional_income (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_additional_salary (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_additional_work (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_investment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_pension (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_property_rental_income (dropdown_option)
 🔍 Processing: other_borrowers_step2.field.field_of_activity_agriculture (dropdown_option)
 🔍 Processing: other_borrowers_step2.field.field_of_activity_construction (dropdown_option)
 🔍 Processing: other_borrowers_step2.field.field_of_activity_consulting (dropdown_option)
@@ -82,364 +91,459 @@
 🔍 Processing: other_borrowers_step2.field.obligations_credit_card (dropdown_option)
 🔍 Processing: other_borrowers_step2.field.obligations_no_obligations (dropdown_option)
 🔍 Processing: other_borrowers_step2.field.obligations_placeholder (placeholder)
-[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 932.950 ms - 2805[0m
+🔍 Processing: other_borrowers_step2.field.professional_sphere_agriculture (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_construction (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_consulting (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_education (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_entertainment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_finance (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_government (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_healthcare (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_label (label)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_manufacturing (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_real_estate (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_retail (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_technology (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_transport (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_1 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_2 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_3 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_4 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_5 (dropdown_option)
+[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 156.539 ms - 4842[0m
 ✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_he
-[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 0.694 ms - 2804[0m
-✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_he
-[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 0.310 ms - 2804[0m
-⚡ Dropdown cache MISS for dropdowns_other_borrowers_step2_en - querying database
-🔍 Executing query for screen: other_borrowers_step2, language: en
-📊 Query returned 32 rows
-📊 Processing 32 rows for other_borrowers_step2/en
-🔍 Processing: app.other_borrowers.step2.source_of_income_label (label)
-🔍 Processing: other_borrowers_obligation_placeholder (placeholder)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_agriculture (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_construction (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_consulting (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_education (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_entertainment (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_finance (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_government (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_healthcare (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_label (label)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_manufacturing (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_other (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_ph (placeholder)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_real_estate (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_retail (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_technology (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_transport (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source (dropdown_container)
-🔍 Processing: other_borrowers_step2.field.main_source_employee (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_other (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_pension (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_placeholder (placeholder)
-🔍 Processing: other_borrowers_step2.field.main_source_selfemployed (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_student (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_unemployed (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_unpaid_leave (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.obligations (dropdown_container)
-🔍 Processing: other_borrowers_step2.field.obligations_bank_loan (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.obligations_consumer_credit (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.obligations_credit_card (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.obligations_no_obligations (dropdown_option)
-[0mGET /api/dropdowns/other_borrowers_step2/en [32m200[0m 853.578 ms - 2482[0m
-⚡ Dropdown cache MISS for dropdowns_other_borrowers_step2_ru - querying database
-🔍 Executing query for screen: other_borrowers_step2, language: ru
-📊 Query returned 32 rows
-📊 Processing 32 rows for other_borrowers_step2/ru
-🔍 Processing: app.other_borrowers.step2.source_of_income_label (label)
-🔍 Processing: other_borrowers_obligation_placeholder (placeholder)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_agriculture (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_construction (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_consulting (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_education (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_entertainment (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_finance (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_government (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_healthcare (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_label (label)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_manufacturing (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_other (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_ph (placeholder)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_real_estate (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_retail (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_technology (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.field_of_activity_transport (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source (dropdown_container)
-🔍 Processing: other_borrowers_step2.field.main_source_employee (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_other (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_pension (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_placeholder (placeholder)
-🔍 Processing: other_borrowers_step2.field.main_source_selfemployed (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_student (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_unemployed (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.main_source_unpaid_leave (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.obligations (dropdown_container)
-🔍 Processing: other_borrowers_step2.field.obligations_bank_loan (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.obligations_consumer_credit (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.obligations_credit_card (dropdown_option)
-🔍 Processing: other_borrowers_step2.field.obligations_no_obligations (dropdown_option)
-[0mGET /api/dropdowns/other_borrowers_step2/ru [32m200[0m 157.384 ms - 3276[0m
-✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_he
-[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 0.272 ms - 2804[0m
-✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_he
-[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 0.156 ms - 2804[0m
-✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_en
-[0mGET /api/dropdowns/other_borrowers_step2/en [32m200[0m 0.177 ms - 2481[0m
-✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_ru
-[0mGET /api/dropdowns/other_borrowers_step2/ru [32m200[0m 0.187 ms - 3275[0m
+[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 0.722 ms - 4841[0m
 ⚡ Cache MISS for content_validation_errors_he_all - querying database
-[0mGET /api/content/validation_errors/he [32m200[0m 1140.010 ms - 7203[0m
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_other_borrowers_step2_he_all - querying database
+⚡ Cache MISS for content_other_borrowers_step2_he_all - querying database
+⚡ Dropdown cache MISS for dropdowns_other_borrowers_step2_he - querying database
+🔍 Executing query for screen: other_borrowers_step2, language: he
+⚡ Dropdown cache MISS for dropdowns_other_borrowers_step2_he - querying database
+🔍 Executing query for screen: other_borrowers_step2, language: he
+⚡ Dropdown cache MISS for dropdowns_mortgage_step3_he - querying database
+🔍 Executing query for screen: mortgage_step3, language: he
+⚡ Cache MISS for content_other_borrowers_step2_he_all - querying database
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_validation_errors_he_all - querying database
+⚡ Cache MISS for content_common_he_all - querying database
+⚡ Cache MISS for content_other_borrowers_step2_he_all - querying database
+⚡ Cache MISS for content_common_he_all - querying database
+[0mGET /api/content/validation_errors/he [32m200[0m 828.249 ms - 7203[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 837.566 ms - 7203[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 738.783 ms - 7203[0m
 ✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [32m200[0m 0.470 ms - 7202[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [32m200[0m 0.333 ms - 7202[0m
-⚡ Cache MISS for content_validation_errors_en_all - querying database
-[0mGET /api/content/validation_errors/en [32m200[0m 1144.982 ms - 6957[0m
-⚡ Cache MISS for content_validation_errors_ru_all - querying database
-[0mGET /api/content/validation_errors/ru [32m200[0m 123.925 ms - 8381[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [32m200[0m 0.262 ms - 7202[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.377 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.506 ms - -[0m
-⚡ Cache MISS for content_sidebar_he_all - querying database
+[0mGET /api/content/validation_errors/he [32m200[0m 1.380 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 626.759 ms - 7203[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 636.084 ms - 7203[0m
+[0mGET /api/content/other_borrowers_step2/he [32m200[0m 640.459 ms - 12148[0m
+[0mGET /api/content/common/he [32m200[0m 633.825 ms - 2068[0m
+✅ Cache HIT for content_common_he_all
+[0mGET /api/content/common/he [32m200[0m 0.442 ms - 2067[0m
 ⚡ Cache MISS for content_sms_code_verification_he_all - querying database
-[0mGET /api/content/sms_code_verification/he [32m200[0m 866.159 ms - 852[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [32m200[0m 0.245 ms - 851[0m
-[0mGET /api/content/sidebar/he [32m200[0m 983.658 ms - 3878[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [32m200[0m 0.277 ms - 3877[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.282 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.279 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.220 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.223 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.288 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.239 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.311 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.252 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.324 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.335 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.407 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.166 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.156 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.429 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.376 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.326 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.231 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.248 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.254 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.342 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.285 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.270 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.368 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.325 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.292 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.216 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.225 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.229 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.214 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.252 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.284 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.229 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.570 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.275 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.266 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.218 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.123 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.146 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.317 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.216 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.158 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.161 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.157 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.170 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.217 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.310 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.153 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.349 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.340 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.369 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.190 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.264 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.239 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.202 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.161 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.142 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.440 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.227 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.297 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.183 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.371 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.303 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.106 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.215 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.118 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.223 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.170 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.222 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.199 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.308 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.184 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.307 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.192 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.321 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.270 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.290 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.243 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.148 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.205 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.226 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.204 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.289 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.185 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.226 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.483 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.216 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.332 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.235 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.293 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.242 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.177 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.266 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.241 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.220 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.178 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.190 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.179 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.278 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.196 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.262 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.321 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.310 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.456 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.299 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.275 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.206 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.160 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.195 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.266 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.215 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.347 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.249 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [36m304[0m 0.311 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.220 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.243 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.349 ms - -[0m
-✅ Cache HIT for content_sms_code_verification_he_all
-[0mGET /api/content/sms_code_verification/he [36m304[0m 0.213 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.148 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.180 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.274 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.251 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.193 ms - -[0m
-✅ Cache HIT for content_sidebar_he_all
-[0mGET /api/content/sidebar/he [36m304[0m 0.171 ms - -[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [32m200[0m 1.113 ms - 7202[0m
-✅ Cache HIT for content_validation_errors_he_all
-[0mGET /api/content/validation_errors/he [32m200[0m 0.260 ms - 7202[0m
+✅ Cache HIT for content_other_borrowers_step2_he_all
+[0mGET /api/content/other_borrowers_step2/he [32m200[0m 0.433 ms - 12147[0m
+⚡ Dropdown cache MISS for dropdowns_other_borrowers_step2_he - querying database
+🔍 Executing query for screen: other_borrowers_step2, language: he
+📊 Query returned 63 rows
+📊 Processing 63 rows for other_borrowers_step2/he
+🔍 Processing: app.other_borrowers.step2.source_of_income_label (label)
+🔍 Processing: other_borrowers_obligation_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2_additional_income_label (label)
+🔍 Processing: other_borrowers_step2_additional_income_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.additional_income_0_no_additional_income (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_additional_salary (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_additional_work (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_investment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_pension (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_property_rental_income (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_agriculture (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_construction (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_consulting (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_education (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_entertainment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_finance (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_government (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_healthcare (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_label (label)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_manufacturing (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_real_estate (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_retail (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_technology (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_transport (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.main_source_employee (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_pension (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.main_source_selfemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_student (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unpaid_leave (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.obligations_bank_loan (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_consumer_credit (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_credit_card (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_no_obligations (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_agriculture (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_construction (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_consulting (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_education (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_entertainment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_finance (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_government (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_healthcare (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_label (label)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_manufacturing (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_real_estate (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_retail (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_technology (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_transport (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_1 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_2 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_3 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_4 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_5 (dropdown_option)
+[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 710.340 ms - 4842[0m
+[0mGET /api/content/other_borrowers_step2/he [32m200[0m 713.937 ms - 12148[0m
+✅ Cache HIT for content_other_borrowers_step2_he_all
+[0mGET /api/content/other_borrowers_step2/he [32m200[0m 0.419 ms - 12147[0m
+⚡ Dropdown cache MISS for dropdowns_mortgage_step3_he - querying database
+🔍 Executing query for screen: mortgage_step3, language: he
+[0mGET /api/content/other_borrowers_step2/he [32m200[0m 717.989 ms - 12148[0m
+✅ Dropdown cache HIT for dropdowns_other_borrowers_step2_he
+[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 0.363 ms - 4841[0m
+✅ Cache HIT for content_other_borrowers_step2_he_all
+[0mGET /api/content/other_borrowers_step2/he [32m200[0m 0.440 ms - 12147[0m
+✅ Cache HIT for content_other_borrowers_step2_he_all
+[0mGET /api/content/other_borrowers_step2/he [32m200[0m 0.604 ms - 12147[0m
+✅ Cache HIT for content_common_he_all
+[0mGET /api/content/common/he [32m200[0m 0.311 ms - 2067[0m
+✅ Cache HIT for content_common_he_all
+[0mGET /api/content/common/he [32m200[0m 0.202 ms - 2067[0m
+⚡ Cache MISS for content_sms_code_verification_he_all - querying database
+[0mGET /api/content/common/he [32m200[0m 797.724 ms - 2068[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 162.517 ms - 852[0m
+📊 Query returned 63 rows
+📊 Processing 63 rows for other_borrowers_step2/he
+🔍 Processing: app.other_borrowers.step2.source_of_income_label (label)
+🔍 Processing: other_borrowers_obligation_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2_additional_income_label (label)
+🔍 Processing: other_borrowers_step2_additional_income_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.additional_income_0_no_additional_income (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_additional_salary (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_additional_work (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_investment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_pension (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_property_rental_income (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_agriculture (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_construction (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_consulting (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_education (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_entertainment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_finance (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_government (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_healthcare (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_label (label)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_manufacturing (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_real_estate (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_retail (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_technology (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_transport (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.main_source_employee (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_pension (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.main_source_selfemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_student (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unpaid_leave (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.obligations_bank_loan (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_consumer_credit (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_credit_card (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_no_obligations (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_agriculture (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_construction (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_consulting (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_education (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_entertainment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_finance (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_government (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_healthcare (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_label (label)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_manufacturing (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_real_estate (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_retail (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_technology (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_transport (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_1 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_2 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_3 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_4 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_5 (dropdown_option)
+[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 161.544 ms - 4842[0m
+✅ Cache HIT for content_common_he_all
+[0mGET /api/content/common/he [32m200[0m 1.099 ms - 2067[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 825.778 ms - 7203[0m
+📊 Query returned 85 rows
+📊 Processing 85 rows for mortgage_step3/he
+🔍 Processing: additional_source_of_income (label)
+🔍 Processing: app.mortgage.step3.additional_income (label)
+🔍 Processing: app.mortgage.step3.additional_income_ph (placeholder)
+🔍 Processing: app.mortgage.step3.additional_source_of_income (label)
+🔍 Processing: app.mortgage.step3.borrower (label)
+🔍 Processing: app.mortgage.step3.company_name (label)
+🔍 Processing: app.mortgage.step3.field_activity (label)
+🔍 Processing: app.mortgage.step3.main_source_income (label)
+🔍 Processing: app.mortgage.step3.main_source_income_ph (placeholder)
+🔍 Processing: app.mortgage.step3.monthly_income (label)
+🔍 Processing: app.mortgage.step3.monthly_income_ph (placeholder)
+🔍 Processing: app.mortgage.step3.obligation (label)
+🔍 Processing: app.mortgage.step3.obligations (label)
+🔍 Processing: app.mortgage.step3.obligations.option_1 (dropdown_option)
+🔍 Processing: app.mortgage.step3.obligations.option_2 (dropdown_option)
+🔍 Processing: app.mortgage.step3.obligations.option_3 (dropdown_option)
+🔍 Processing: app.mortgage.step3.obligations.option_4 (dropdown_option)
+🔍 Processing: app.mortgage.step3.obligations_ph (placeholder)
+🔍 Processing: app.mortgage.step3.profession (label)
+🔍 Processing: app.mortgage.step3.profession_ph (placeholder)
+🔍 Processing: app.mortgage.step3.source_of_income (label)
+🔍 Processing: app.mortgage.step3.start_date (label)
+🔍 Processing: borrower (label)
+🔍 Processing: calculate_mortgage_sfere (label)
+🔍 Processing: mortgage_calculation.field.debt_types_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.has_additional_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.main_source_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.monthly_income_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.profession_ph (placeholder)
+🔍 Processing: mortgage_step3_additional_income_label (label)
+🔍 Processing: mortgage_step3_additional_income_ph (placeholder)
+🔍 Processing: mortgage_step3_bank_container (dropdown_container)
+🔍 Processing: mortgage_step3_bank_discount (option)
+🔍 Processing: mortgage_step3_bank_hapoalim (option)
+🔍 Processing: mortgage_step3_bank_leumi (option)
+🔍 Processing: mortgage_step3_bank_massad (option)
+🔍 Processing: mortgage_step3.field.additional_income_0_no_additional_income (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_additional_salary (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_additional_work (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_investment (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_other (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_pension (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_property_rental_income (dropdown_option)
+🔍 Processing: mortgage_step3.field.bank (dropdown_container)
+🔍 Processing: mortgage_step3.field.bank_discount (dropdown_option)
+🔍 Processing: mortgage_step3.field.bank_hapoalim (dropdown_option)
+🔍 Processing: mortgage_step3.field.bank_leumi (dropdown_option)
+🔍 Processing: mortgage_step3.field.bank_massad (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_agriculture (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_construction (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_consulting (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_education (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_entertainment (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_finance (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_government (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_healthcare (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_label (label)
+🔍 Processing: mortgage_step3.field.field_of_activity_manufacturing (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_other (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_ph (placeholder)
+🔍 Processing: mortgage_step3.field.field_of_activity_real_estate (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_retail (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_technology (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_transport (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_employee (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_other (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_pension (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_selfemployed (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_student (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_unemployed (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_unpaid_leave (dropdown_option)
+🔍 Processing: mortgage_step3.field.obligations_0_no_obligations (dropdown_option)
+🔍 Processing: mortgage_step3.field.obligations_bank_loan (dropdown_option)
+🔍 Processing: mortgage_step3.field.obligations_consumer_credit (dropdown_option)
+🔍 Processing: mortgage_step3.field.obligations_credit_card (dropdown_option)
+🔍 Processing: mortgage_step3.field.obligations_other (dropdown_option)
+🔍 Processing: mortgage_step3_obligation_container (dropdown_container)
+🔍 Processing: mortgage_step3_obligation_discount (option)
+🔍 Processing: mortgage_step3_obligation_hapoalim (option)
+🔍 Processing: mortgage_step3_obligation_leumi (option)
+🔍 Processing: mortgage_step3_obligation_mizrahi (option)
+🔍 Processing: mortgage_step3_obligation_other (option)
+🔍 Processing: obligation (label)
+🔍 Processing: search (placeholder)
+🔍 Processing: source_of_income (label)
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 112.668 ms - 7124[0m
+📊 Query returned 63 rows
+📊 Processing 63 rows for other_borrowers_step2/he
+🔍 Processing: app.other_borrowers.step2.source_of_income_label (label)
+🔍 Processing: other_borrowers_obligation_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2_additional_income_label (label)
+🔍 Processing: other_borrowers_step2_additional_income_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.additional_income_0_no_additional_income (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_additional_salary (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_additional_work (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_investment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_pension (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.additional_income_property_rental_income (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_agriculture (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_construction (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_consulting (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_education (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_entertainment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_finance (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_government (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_healthcare (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_label (label)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_manufacturing (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_real_estate (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_retail (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_technology (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.field_of_activity_transport (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.main_source_employee (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_pension (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.main_source_selfemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_student (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unemployed (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.main_source_unpaid_leave (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations (dropdown_container)
+🔍 Processing: other_borrowers_step2.field.obligations_bank_loan (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_consumer_credit (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_credit_card (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_no_obligations (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.obligations_placeholder (placeholder)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_agriculture (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_construction (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_consulting (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_education (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_entertainment (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_finance (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_government (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_healthcare (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_label (label)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_manufacturing (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_other (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_ph (placeholder)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_real_estate (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_retail (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_technology (dropdown_option)
+🔍 Processing: other_borrowers_step2.field.professional_sphere_transport (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_1 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_2 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_3 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_4 (dropdown_option)
+🔍 Processing: other_borrowers_step2_obligations_option_5 (dropdown_option)
+[0mGET /api/dropdowns/other_borrowers_step2/he [32m200[0m 840.317 ms - 4842[0m
+📊 Query returned 85 rows
+📊 Processing 85 rows for mortgage_step3/he
+🔍 Processing: additional_source_of_income (label)
+🔍 Processing: app.mortgage.step3.additional_income (label)
+🔍 Processing: app.mortgage.step3.additional_income_ph (placeholder)
+🔍 Processing: app.mortgage.step3.additional_source_of_income (label)
+🔍 Processing: app.mortgage.step3.borrower (label)
+🔍 Processing: app.mortgage.step3.company_name (label)
+🔍 Processing: app.mortgage.step3.field_activity (label)
+🔍 Processing: app.mortgage.step3.main_source_income (label)
+🔍 Processing: app.mortgage.step3.main_source_income_ph (placeholder)
+🔍 Processing: app.mortgage.step3.monthly_income (label)
+🔍 Processing: app.mortgage.step3.monthly_income_ph (placeholder)
+🔍 Processing: app.mortgage.step3.obligation (label)
+🔍 Processing: app.mortgage.step3.obligations (label)
+🔍 Processing: app.mortgage.step3.obligations.option_1 (dropdown_option)
+🔍 Processing: app.mortgage.step3.obligations.option_2 (dropdown_option)
+🔍 Processing: app.mortgage.step3.obligations.option_3 (dropdown_option)
+🔍 Processing: app.mortgage.step3.obligations.option_4 (dropdown_option)
+🔍 Processing: app.mortgage.step3.obligations_ph (placeholder)
+🔍 Processing: app.mortgage.step3.profession (label)
+🔍 Processing: app.mortgage.step3.profession_ph (placeholder)
+🔍 Processing: app.mortgage.step3.source_of_income (label)
+🔍 Processing: app.mortgage.step3.start_date (label)
+🔍 Processing: borrower (label)
+🔍 Processing: calculate_mortgage_sfere (label)
+🔍 Processing: mortgage_calculation.field.debt_types_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.has_additional_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.main_source_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.monthly_income_ph (placeholder)
+🔍 Processing: mortgage_calculation.field.profession_ph (placeholder)
+🔍 Processing: mortgage_step3_additional_income_label (label)
+🔍 Processing: mortgage_step3_additional_income_ph (placeholder)
+🔍 Processing: mortgage_step3_bank_container (dropdown_container)
+🔍 Processing: mortgage_step3_bank_discount (option)
+🔍 Processing: mortgage_step3_bank_hapoalim (option)
+🔍 Processing: mortgage_step3_bank_leumi (option)
+🔍 Processing: mortgage_step3_bank_massad (option)
+🔍 Processing: mortgage_step3.field.additional_income_0_no_additional_income (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_additional_salary (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_additional_work (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_investment (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_other (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_pension (dropdown_option)
+🔍 Processing: mortgage_step3.field.additional_income_property_rental_income (dropdown_option)
+🔍 Processing: mortgage_step3.field.bank (dropdown_container)
+🔍 Processing: mortgage_step3.field.bank_discount (dropdown_option)
+🔍 Processing: mortgage_step3.field.bank_hapoalim (dropdown_option)
+🔍 Processing: mortgage_step3.field.bank_leumi (dropdown_option)
+🔍 Processing: mortgage_step3.field.bank_massad (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_agriculture (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_construction (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_consulting (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_education (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_entertainment (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_finance (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_government (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_healthcare (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_label (label)
+🔍 Processing: mortgage_step3.field.field_of_activity_manufacturing (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_other (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_ph (placeholder)
+🔍 Processing: mortgage_step3.field.field_of_activity_real_estate (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_retail (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_technology (dropdown_option)
+🔍 Processing: mortgage_step3.field.field_of_activity_transport (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_employee (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_other (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_pension (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_selfemployed (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_student (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_unemployed (dropdown_option)
+🔍 Processing: mortgage_step3.field.main_source_unpaid_leave (dropdown_option)
+🔍 Processing: mortgage_step3.field.obligations_0_no_obligations (dropdown_option)
+🔍 Processing: mortgage_step3.field.obligations_bank_loan (dropdown_option)
+🔍 Processing: mortgage_step3.field.obligations_consumer_credit (dropdown_option)
+🔍 Processing: mortgage_step3.field.obligations_credit_card (dropdown_option)
+🔍 Processing: mortgage_step3.field.obligations_other (dropdown_option)
+🔍 Processing: mortgage_step3_obligation_container (dropdown_container)
+🔍 Processing: mortgage_step3_obligation_discount (option)
+🔍 Processing: mortgage_step3_obligation_hapoalim (option)
+🔍 Processing: mortgage_step3_obligation_leumi (option)
+🔍 Processing: mortgage_step3_obligation_mizrahi (option)
+🔍 Processing: mortgage_step3_obligation_other (option)
+🔍 Processing: obligation (label)
+🔍 Processing: search (placeholder)
+🔍 Processing: source_of_income (label)
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 842.057 ms - 7124[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 170.975 ms - 852[0m
+[0mGET /api/content/other_borrowers_step2/he [32m200[0m 935.641 ms - 12148[0m

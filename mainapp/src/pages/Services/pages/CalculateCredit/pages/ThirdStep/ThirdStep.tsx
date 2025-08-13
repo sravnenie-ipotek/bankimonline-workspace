@@ -45,9 +45,9 @@ const ThirdStep = () => {
     fieldOfActivity: savedValue.fieldOfActivity || '',
     profession: savedValue.profession || '',
     companyName: savedValue.companyName || '',
-    additionalIncome: savedValue.additionalIncome || '',
+    additionalIncome: savedValue.additionalIncome || 'no_additional_income', // Default to "No additional income" (API value)
     additionalIncomeAmount: savedValue.additionalIncomeAmount || null,
-    obligation: savedValue.obligation || '1', // Default to "No obligations" (API value)
+    obligation: savedValue.obligation || 'no_obligations', // Default to "No obligations" (API value)
     bank: savedValue.bank || '',
     monthlyPaymentForAnotherBank:
       savedValue.monthlyPaymentForAnotherBank || null,

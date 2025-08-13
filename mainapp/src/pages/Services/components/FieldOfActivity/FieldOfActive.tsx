@@ -23,15 +23,16 @@ const FieldOfActivity = ({ screenLocation }: FieldOfActivityProps) => {
     ? 'refinance_step3'
     : location.pathname.includes('other-borrowers')
     ? 'other_borrowers_step2'
-    : 'calculate_credit_3'
+    : 'credit_step3'
 
   const { getContent } = useContentApi(resolvedScreenLocation)
   const { values, setFieldValue, errors, setFieldTouched, touched } =
     useFormikContext<FormTypes>()
 
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  // FIXED: Use 'field_of_activity' to match correct API key (mortgage_step3_field_of_activity)
-  const dropdownData = useDropdownData(resolvedScreenLocation, 'field_of_activity', 'full') as {
+  // FIXED: Use 'field_of_activity' for other_borrowers_step2, 'professional_sphere' for credit_step3
+  const fieldName = resolvedScreenLocation === 'other_borrowers_step2' ? 'field_of_activity' : 'professional_sphere'
+  const dropdownData = useDropdownData(resolvedScreenLocation, fieldName, 'full') as {
     options: Array<{value: string; label: string}>;
     placeholder?: string;
     label?: string;
@@ -55,8 +56,8 @@ const FieldOfActivity = ({ screenLocation }: FieldOfActivityProps) => {
     <Column>
       <DropdownMenu
         data={dropdownData.options}
-        title={dropdownData.label || getContent('calculate_mortgage_field_of_activity', 'Field of Activity')}
-        placeholder={dropdownData.placeholder || getContent('calculate_mortgage_field_of_activity_ph', 'Select field of activity')}
+        title={dropdownData.label || getContent('calculate_credit_professional_sphere', 'תחום מקצועי')}
+        placeholder={dropdownData.placeholder || getContent('calculate_credit_professional_sphere_ph', 'בחר תחום מקצועי')}
         searchable
         searchPlaceholder={getContent('search', 'Search...')}
         value={values.fieldOfActivity}
@@ -69,7 +70,7 @@ const FieldOfActivity = ({ screenLocation }: FieldOfActivityProps) => {
         disabled={dropdownData.loading}
       />
       {dropdownData.error && (
-        <Error error={getContent('error_dropdown_load_failed', 'Failed to load field of activity options. Please refresh the page.')} />
+        <Error error={getContent('error_dropdown_load_failed', 'טעינת אפשרויות התחום המקצועי נכשלה. אנא רענן את הדף.')} />
       )}
     </Column>
   )

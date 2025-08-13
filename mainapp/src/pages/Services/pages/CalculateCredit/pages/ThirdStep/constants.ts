@@ -44,7 +44,7 @@ export const getValidationSchema = () => Yup.object().shape({
   ),
   additionalIncomeAmount: Yup.number().when('additionalIncome', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== '1', // API value for "No additional income"
+      value !== null && value !== undefined && value !== '' && value !== 'no_additional_income', // API value for "No additional income"
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
@@ -53,19 +53,19 @@ export const getValidationSchema = () => Yup.object().shape({
   ),
   bank: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== '1', // API value for "No obligations"
+      value !== null && value !== undefined && value !== '' && value !== 'no_obligations', // API value for "No obligations"
     then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
     otherwise: (shema) => shema.notRequired(),
   }),
   monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== '1', // API value for "No obligations"
+      value !== null && value !== undefined && value !== '' && value !== 'no_obligations', // API value for "No obligations"
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
   endDate: Yup.string().when('obligation', {
     is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== '1', // API value for "No obligations"
+      value !== null && value !== undefined && value !== '' && value !== 'no_obligations', // API value for "No obligations"
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),

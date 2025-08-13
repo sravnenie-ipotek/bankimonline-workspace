@@ -24,10 +24,31 @@ const ObligationForm = () => {
 
   const { obligation } = values
 
-  // ✅ STANDARDIZED: Direct database-driven obligation key  
-  // Database returns semantic values directly (bank_loan, credit_card, etc.)
-  // No mapping needed - use database values as-is per architecture docs
-  const obligationKey = obligation === 'no_obligations' ? '' : obligation || ''
+  // ✅ FIXED: Obligations need numeric-to-semantic mapping like income sources
+  // Credit API returns numeric values ("1", "2", "3") but componentsByObligation expects semantic keys
+  const getObligationKey = (optionValue: string): string => {
+    // Handle no obligations case
+    if (!optionValue || optionValue === '5' || optionValue === 'no_obligations') {
+      return ''
+    }
+    
+    // If already semantic, return as-is (future-proofing)
+    if (optionValue && !optionValue.match(/^\d+$/)) {
+      return optionValue
+    }
+    
+    // Numeric-to-semantic mapping for credit_step3 API
+    const numericMapping: { [key: string]: string } = {
+      '1': 'bank_loan',       // משכנתא (Mortgage) → bank_loan
+      '2': 'consumer_credit', // הלוואה אישית (Personal loan) → consumer_credit
+      '3': 'credit_card',     // חוב כרטיס אשראי (Credit card debt) → credit_card
+      '4': 'other',           // הלוואת רכב (Car loan) → other
+      // '5' is handled above as no obligations
+    }
+    return numericMapping[optionValue] || ''
+  }
+  
+  const obligationKey = getObligationKey(obligation)
 
   // Debug: Log obligation mapping and form state
   console.log('🔍 Obligation Modal - Mapping:', {

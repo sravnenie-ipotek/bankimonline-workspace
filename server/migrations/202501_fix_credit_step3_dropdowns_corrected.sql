@@ -1,4 +1,4 @@
--- Fix Credit Step 3 Dropdown Issues
+-- Fix Credit Step 3 Dropdown Issues (Corrected Version)
 -- Date: 2025-01-13
 -- Author: Claude Code Specialist  
 -- Purpose: Add missing professional field dropdown, fix field mappings, and resolve UI issues
@@ -13,7 +13,16 @@ BEGIN;
 -- This ensures consistency between screens and avoids duplication
 
 -- First, add the missing field_of_activity dropdown for credit_step3
-INSERT INTO content_items (content_key, component_type, screen_location, category, is_active, created_at, updated_at)
+INSERT INTO content_items (
+    content_key, 
+    component_type, 
+    screen_location, 
+    category, 
+    is_active, 
+    created_at, 
+    updated_at,
+    migration_status
+)
 SELECT 
     REPLACE(content_key, 'mortgage_step3', 'credit_step3') as content_key,
     component_type,
@@ -21,7 +30,8 @@ SELECT
     category,
     is_active,
     NOW() as created_at,
-    NOW() as updated_at
+    NOW() as updated_at,
+    'migrate_20250113' as migration_status
 FROM content_items 
 WHERE screen_location = 'mortgage_step3' 
 AND content_key LIKE '%field_of_activity%'
@@ -32,7 +42,14 @@ AND NOT EXISTS (
 );
 
 -- Copy translations for the new content items
-INSERT INTO content_translations (content_item_id, language_code, content_value, status, created_at, updated_at)
+INSERT INTO content_translations (
+    content_item_id, 
+    language_code, 
+    content_value, 
+    status, 
+    created_at, 
+    updated_at
+)
 SELECT 
     ci_new.id as content_item_id,
     ct.language_code,
@@ -60,7 +77,16 @@ AND NOT EXISTS (
 -- Add alias content items with professional_sphere key that point to the same translations
 
 -- Create professional_sphere aliases for field_of_activity content
-INSERT INTO content_items (content_key, component_type, screen_location, category, is_active, created_at, updated_at)
+INSERT INTO content_items (
+    content_key, 
+    component_type, 
+    screen_location, 
+    category, 
+    is_active, 
+    created_at, 
+    updated_at,
+    migration_status
+)
 SELECT 
     REPLACE(content_key, 'field_of_activity', 'professional_sphere') as content_key,
     component_type,
@@ -68,7 +94,8 @@ SELECT
     category,
     is_active,
     NOW() as created_at,
-    NOW() as updated_at
+    NOW() as updated_at,
+    'alias_20250113' as migration_status
 FROM content_items 
 WHERE screen_location = 'credit_step3' 
 AND content_key LIKE '%field_of_activity%'
@@ -79,7 +106,14 @@ AND NOT EXISTS (
 );
 
 -- Copy translations to professional_sphere aliases
-INSERT INTO content_translations (content_item_id, language_code, content_value, status, created_at, updated_at)
+INSERT INTO content_translations (
+    content_item_id, 
+    language_code, 
+    content_value, 
+    status, 
+    created_at, 
+    updated_at
+)
 SELECT 
     ci_new.id as content_item_id,
     ct.language_code,
@@ -100,33 +134,23 @@ AND NOT EXISTS (
 );
 
 -- =========================================
--- 3. Fix Additional Income Default Option Order
--- =========================================
-
--- Update additional income options to ensure "no additional income" is first
--- Find the "no_additional_income" option and give it the lowest sort_order
-UPDATE content_items 
-SET sort_order = (
-    SELECT MIN(sort_order) - 10
-    FROM content_items ci2
-    WHERE ci2.screen_location = 'credit_step3' 
-    AND ci2.content_key LIKE '%additional_income%'
-    AND ci2.component_type IN ('option', 'dropdown_option')
-)
-WHERE screen_location = 'credit_step3' 
-AND content_key LIKE '%additional_income%'
-AND content_key LIKE '%no_additional_income%'
-AND component_type IN ('option', 'dropdown_option');
-
--- =========================================
--- 4. Fix API Field Name Mapping for existing_debts vs obligations
+-- 3. Fix API Field Name Mapping for existing_debts vs obligations
 -- =========================================
 
 -- The Obligation component looks for 'existing_debts' but API returns 'obligations'
 -- Add existing_debts aliases for obligations content
 
 -- Create existing_debts aliases for obligations content
-INSERT INTO content_items (content_key, component_type, screen_location, category, is_active, created_at, updated_at)
+INSERT INTO content_items (
+    content_key, 
+    component_type, 
+    screen_location, 
+    category, 
+    is_active, 
+    created_at, 
+    updated_at,
+    migration_status
+)
 SELECT 
     REPLACE(content_key, 'obligations', 'existing_debts') as content_key,
     component_type,
@@ -134,7 +158,8 @@ SELECT
     category,
     is_active,
     NOW() as created_at,
-    NOW() as updated_at
+    NOW() as updated_at,
+    'alias_20250113' as migration_status
 FROM content_items 
 WHERE screen_location = 'credit_step3' 
 AND content_key LIKE '%obligations%'
@@ -145,7 +170,14 @@ AND NOT EXISTS (
 );
 
 -- Copy translations to existing_debts aliases
-INSERT INTO content_translations (content_item_id, language_code, content_value, status, created_at, updated_at)
+INSERT INTO content_translations (
+    content_item_id, 
+    language_code, 
+    content_value, 
+    status, 
+    created_at, 
+    updated_at
+)
 SELECT 
     ci_new.id as content_item_id,
     ct.language_code,
@@ -166,7 +198,7 @@ AND NOT EXISTS (
 );
 
 -- =========================================
--- 5. Verification Queries
+-- 4. Verification Queries
 -- =========================================
 
 -- Show credit_step3 dropdown summary
@@ -183,22 +215,10 @@ FROM content_items
 WHERE screen_location = 'credit_step3' 
 AND component_type IN ('dropdown', 'option', 'placeholder', 'label', 'dropdown_container', 'dropdown_option');
 
--- Show additional income option ordering (should have no_additional_income first)
-SELECT 
-    content_key,
-    component_type,
-    sort_order
-FROM content_items 
-WHERE screen_location = 'credit_step3' 
-AND content_key LIKE '%additional_income%'
-AND component_type IN ('option', 'dropdown_option')
-ORDER BY sort_order
-LIMIT 5;
-
 COMMIT;
 
 -- Report completion
 SELECT 
     'Migration completed successfully' as status,
-    'Added missing professional field dropdown, fixed field name mappings, and improved option ordering' as details,
+    'Added missing professional field dropdown and fixed field name mappings' as details,
     NOW() as completed_at;
