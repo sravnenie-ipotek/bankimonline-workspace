@@ -45,6 +45,13 @@ const FirstStepForm = () => {
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<RefinanceMortgageTypes>()
 
+  // Backward-compatible checks for refinance purpose values per dropdown API
+  const selectedWhy = (values.whyRefinancingMortgage || '').toLowerCase()
+  const showDecrease =
+    selectedWhy === 'reduce_monthly_payment' || selectedWhy === 'option_2'
+  const showIncrease =
+    selectedWhy === 'consolidate_debts' || selectedWhy === 'option_5'
+
   // Phase 4: Show loading state for dropdowns while fetching from API
   if (dropdownsLoading) {
     console.log('🔄 Loading dropdown data for refinance_step1...')
@@ -232,7 +239,7 @@ const FirstStepForm = () => {
               <Error error={errors.startDate} />
             )}
           </Column>
-          {values.whyRefinancingMortgage === 'option_2' && (
+          {showDecrease && (
             <Column>
               <FormattedInput
                 handleChange={(value) =>
@@ -250,7 +257,7 @@ const FirstStepForm = () => {
               )}
             </Column>
           )}
-          {values.whyRefinancingMortgage === 'option_5' && (
+          {showIncrease && (
             <Column>
               <FormattedInput
                 handleChange={(value) =>
@@ -312,8 +319,8 @@ const FirstStepForm = () => {
               handleChange={(value) => {
                 dispatch(setActiveField('monthlyPayment'))
                 setFieldValue('monthlyPayment', value)
+                setFieldTouched('monthlyPayment')
               }}
-              onBlur={() => setFieldTouched('monthlyPayment')}
             />
             <IncreasePayment />
             {touched.monthlyPayment && errors.monthlyPayment && <Error error={errors.monthlyPayment} />}

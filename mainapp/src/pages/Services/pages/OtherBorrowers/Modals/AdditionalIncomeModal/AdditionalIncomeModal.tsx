@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik'
-import i18next from 'i18next'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import * as Yup from 'yup'
@@ -11,6 +11,7 @@ import { closeModal } from '@src/pages/Services/slices/modalSlice.ts'
 import { updateAdditionalIncomeModal } from '@src/pages/Services/slices/otherBorrowersSlice'
 import { AdditionalIncomeModalTypes } from '@src/pages/Services/types/formTypes'
 import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
+import { getValidationErrorSync, reloadValidationErrors } from '@src/utils/validationHelpers'
 
 import { AdditionalIncomeForm } from './AdditionalIncomeForm'
 
@@ -19,6 +20,11 @@ const AdditionalIncomeModal = () => {
   const { getContent } = useContentApi('common')
 
   const dispatch = useAppDispatch()
+
+  // Reload validation errors when language changes
+  useEffect(() => {
+    reloadValidationErrors()
+  }, [i18n.language])
 
   const [searchParams] = useSearchParams()
 
@@ -53,17 +59,19 @@ const AdditionalIncomeModal = () => {
 
   const validationSchema = Yup.object().shape({
     additionalIncome: Yup.string().required(
-      t('error_select_one_of_the_options')
+      getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')
     ).test(
       'not-empty',
-      t('error_select_one_of_the_options'),
+      getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options'),
       (value) => value !== null && value !== undefined && value !== ''
     ),
     additionalIncomeAmount: Yup.number().when('additionalIncome', {
-      is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value !== 'option_1',
-      then: (shema) => shema.required(i18next.t('error_fill_field')),
-      otherwise: (shema) => shema.notRequired(),
+      is: (value: string) => {
+        // Only require amount for actual additional income, not for "no_additional_income"
+        return value && value !== 'no_additional_income'
+      },
+      then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
+      otherwise: (schema) => schema.notRequired(),
     }),
   })
 

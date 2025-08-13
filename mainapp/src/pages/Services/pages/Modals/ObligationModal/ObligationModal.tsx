@@ -19,20 +19,26 @@ function getValidationSchema() {
   return Yup.object().shape({
     obligation: Yup.string().required(getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')),
     bank: Yup.string().when('obligation', {
-      is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require bank
+      is: (value: string) => {
+        // Only require bank for actual financial obligations, not for "no_obligations" or "other"
+        return value && value !== 'no_obligations' && value !== 'other'
+      },
       then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
       otherwise: (shema) => shema.notRequired(),
     }),
     monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
-      is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require monthly payment
+      is: (value: string) => {
+        // Only require monthly payment for actual financial obligations, not for "no_obligations" or "other"
+        return value && value !== 'no_obligations' && value !== 'other'
+      },
       then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
       otherwise: (shema) => shema.notRequired(),
     }),
     endDate: Yup.string().when('obligation', {
-      is: (value: string) =>
-        value !== null && value !== undefined && value !== '' && value !== '1', // If NOT "no obligations", require end date
+      is: (value: string) => {
+        // Only require end date for actual financial obligations, not for "no_obligations" or "other"
+        return value && value !== 'no_obligations' && value !== 'other'
+      },
       then: (shema) => shema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
       otherwise: (shema) => shema.notRequired(),
     }),
