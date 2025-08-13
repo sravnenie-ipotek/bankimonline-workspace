@@ -264,7 +264,7 @@ const FirstStepForm = () => {
                   setFieldValue('increaseMortgage', value)
                 }
                 name="PriceOfEstate"
-                title={t('mortgage_refinance_increase')}
+                title={getContent('mortgage_refinance_increase', t('mortgage_refinance_increase'))}
                 value={values.increaseMortgage}
                 placeholder="1,000,000"
                 onBlur={() => setFieldTouched('increaseMortgage')}

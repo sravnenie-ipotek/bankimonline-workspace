@@ -43,13 +43,13 @@ const getDatabaseConfig = (connectionType = 'content') => {
             // Content database: shortline (bankim_content) - Contains CMS content, translations, dropdowns
             return {
                 connectionString: process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway',
-                ssl: { rejectUnauthorized: false }
+                ssl: false // Railway doesn't require SSL for proxy connections
             };
         } else {
             // Main database: maglev (bankim_core) - Contains user data, authentication, client information
             return {
                 connectionString: process.env.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway',
-                ssl: { rejectUnauthorized: false }
+                ssl: false // Railway doesn't require SSL for proxy connections
             };
         }
     }
@@ -3937,11 +3937,19 @@ app.post('/api/auth-verify', async (req, res) => {
                 client = newResult.rows[0];
             } catch (insertError) {
                 // Handle race condition - if client was created by concurrent request
-                if (insertError.code === '23505' && insertError.constraint === 'clients_phone_key') {
-                    console.log(`[SMS] Race condition detected for ${mobile_number}, fetching existing client`);
-                    const existingResult = await pool.query('SELECT * FROM clients WHERE phone = $1', [mobile_number]);
+                if (insertError.code === '23505' && (insertError.constraint === 'clients_phone_key' || insertError.constraint === 'clients_email_unique')) {
+                    console.log(`[SMS] Duplicate constraint detected for ${mobile_number} (${insertError.constraint}), fetching existing client`);
+                    // Try to find existing client by phone OR email
+                    const email = `${mobile_number.replace('+', '')}@bankim.com`;
+                    const existingResult = await pool.query('SELECT * FROM clients WHERE phone = $1 OR email = $2', [mobile_number, email]);
                     if (existingResult.rows.length > 0) {
                         client = existingResult.rows[0];
+                        // Update the phone number if it's different (in case we found by email)
+                        if (client.phone !== mobile_number) {
+                            console.log(`[SMS] Updating phone number for existing client from ${client.phone} to ${mobile_number}`);
+                            await pool.query('UPDATE clients SET phone = $1, updated_at = NOW() WHERE id = $2', [mobile_number, client.id]);
+                            client.phone = mobile_number;
+                        }
                     } else {
                         throw new Error('Client creation failed and no existing client found');
                     }
