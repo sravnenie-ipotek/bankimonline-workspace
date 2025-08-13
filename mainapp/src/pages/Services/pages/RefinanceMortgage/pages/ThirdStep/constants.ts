@@ -17,29 +17,28 @@ export const getValidationSchema = () => Yup.object().shape({
     (value) => value !== null && value !== undefined && value !== ''
   ),
   monthlyIncome: Yup.number().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value),
+    is: (value: string) => ['employee', 'selfemployed', 'pension', 'student', 'other'].includes(value),
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
   startDate: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value),
+    is: (value: string) => ['employee', 'selfemployed'].includes(value),
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),
   fieldOfActivity: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value),
+    is: (value: string) => ['employee', 'selfemployed'].includes(value),
     then: (shema) =>
       shema.required(getValidationErrorSync('error_select_field_of_activity', 'Please select field of activity')),
     otherwise: (shema) => shema.notRequired(),
   }),
   profession: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value),
+    is: (value: string) => ['employee', 'selfemployed'].includes(value),
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),
   companyName: Yup.string().when('mainSourceOfIncome', {
-    is: (value: string) => !['app.mortgage.step3.main_source_income_option_5', 'app.mortgage.step3.main_source_income_option_6'].includes(value),
+    is: (value: string) => ['employee', 'selfemployed'].includes(value),
     then: (schema) => schema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (schema) => schema.notRequired(),
   }),

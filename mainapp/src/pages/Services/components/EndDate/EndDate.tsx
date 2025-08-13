@@ -18,7 +18,7 @@ const EndDate = () => {
         title={getContent('obligation_end_date_title', 'Obligation End Date')}
         value={values.endDate}
         onChange={(value) => setFieldValue('endDate', value)}
-        placeholder="ДД / ММ / ГГ"
+        placeholder={getContent('date_placeholder', t('date_ph'))}
         error={errors.endDate}
       />
       {errors.endDate && <Error error={errors.endDate as string} />}

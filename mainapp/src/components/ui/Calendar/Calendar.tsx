@@ -66,6 +66,8 @@ const Calendar: React.FC<PropTypes> = ({
   const handleDateChange = (date: Date | null) => {
     const dateString = date ? date.toISOString().split('T')[0] : null
     onChange(dateString)
+    // Auto-close calendar when date is selected
+    setCalendarOpen(false)
   }
 
   const handleDateOpen = () => {

@@ -101,13 +101,23 @@ const MortgageData = () => {
               icon={<WarningOctagonIcon size={24} color="#E76143" />}
             >
               <p>
-                {t('error_balance', {
-                  fullBalance: values?.mortgageBalance?.toLocaleString('en-US'),
-                  sumBalance: sumBalance.toLocaleString('en-US'),
-                  notEnoughBalance: (
-                    values.mortgageBalance! - sumBalance
-                  ).toLocaleString('en-US'),
-                })}
+                {(() => {
+                  const fullBalance = values?.mortgageBalance?.toLocaleString('en-US') || '0';
+                  const sumBalanceFormatted = sumBalance.toLocaleString('en-US');
+                  const notEnoughBalance = (values.mortgageBalance! - sumBalance).toLocaleString('en-US');
+                  
+                  const errorMessage = getContent('error_balance', t('error_balance', {
+                    fullBalance,
+                    sumBalance: sumBalanceFormatted,
+                    notEnoughBalance,
+                  }));
+                  
+                  // Replace interpolation variables in the database content
+                  return errorMessage
+                    .replace(/\{\{fullBalance\}\}/g, fullBalance)
+                    .replace(/\{\{sumBalance\}\}/g, sumBalanceFormatted)
+                    .replace(/\{\{notEnoughBalance\}\}/g, notEnoughBalance);
+                })()}
               </p>
             </AlertWarning>
           )}
@@ -129,13 +139,14 @@ const MortgageData = () => {
                       data={data}
                       placeholder={t('calculate_mortgage_first_ph')}
                       value={item.program}
-                      onChange={(value) =>
+                      onChange={(value) => {
                         setFieldValue(
                           `mortgageData.${item.id - 1}.program`,
                           value
                         )
-                      }
-                      onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.program`)}
+                        // Set field as touched AFTER value is set to prevent premature validation
+                        setTimeout(() => setFieldTouched(`mortgageData.${item.id - 1}.program`, true), 0)
+                      }}
                       error={touched.mortgageData?.[item.id - 1]?.program && errors.mortgageData?.[item.id - 1]?.program}
                     />
                   </div>
@@ -221,13 +232,14 @@ const MortgageData = () => {
                         data={data}
                         placeholder={t('calculate_mortgage_first_ph')}
                         value={item.program}
-                        onChange={(value) =>
+                        onChange={(value) => {
                           setFieldValue(
                             `mortgageData.${item.id - 1}.program`,
                             value
                           )
-                        }
-                        onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.program`)}
+                          // Set field as touched AFTER value is set to prevent premature validation
+                          setTimeout(() => setFieldTouched(`mortgageData.${item.id - 1}.program`, true), 0)
+                        }}
                         error={touched.mortgageData?.[item.id - 1]?.program && errors.mortgageData?.[item.id - 1]?.program}
                       />
                     </Column>
@@ -316,13 +328,14 @@ const MortgageData = () => {
                         data={data}
                         placeholder={t('calculate_mortgage_first_ph')}
                         value={item.program}
-                        onChange={(value) =>
+                        onChange={(value) => {
                           setFieldValue(
                             `mortgageData.${item.id - 1}.program`,
                             value
                           )
-                        }
-                        onBlur={() => setFieldTouched(`mortgageData.${item.id - 1}.program`)}
+                          // Set field as touched AFTER value is set to prevent premature validation
+                          setTimeout(() => setFieldTouched(`mortgageData.${item.id - 1}.program`, true), 0)
+                        }}
                         error={touched.mortgageData?.[item.id - 1]?.program && errors.mortgageData?.[item.id - 1]?.program}
                       />
                     </Column>
