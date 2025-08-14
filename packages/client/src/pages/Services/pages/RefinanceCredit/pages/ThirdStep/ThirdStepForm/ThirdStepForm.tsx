@@ -17,14 +17,14 @@ import { AdditionalIncome } from '@src/pages/Services/components/AdditionalIncom
 import { AdditionalIncomeAmount } from '@src/pages/Services/components/AdditionalIncomeAmount'
 import { MainSourceOfIncome } from '@src/pages/Services/components/MainSourceOfIncome'
 import { Obligation } from '@src/pages/Services/components/Obligation'
-import { componentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource.tsx'
+import { getComponentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource.tsx'
 import { componentsByObligation } from '@src/pages/Services/constants/componentsByObligation.tsx'
 import {
   deleteAdditionalIncomeModal,
   deleteObligationModal,
   deleteSourceOfIncomeModal,
 } from '@src/pages/Services/slices/borrowersSlice.ts'
-import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice.ts'
+import { updateRefinanceCreditData } from '@src/pages/Services/slices/refinanceCredit.ts'
 import {
   createAdditionalIncomeModal,
   createObligationModal,
@@ -39,6 +39,20 @@ import {
 } from '@src/pages/Services/slices/otherBorrowersSlice'
 import { FormTypes } from '@src/pages/Services/types/formTypes'
 import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
+
+// Helper function to check if a value indicates "no additional income"
+const isNoAdditionalIncomeValue = (value: string): boolean => {
+  if (!value) return false
+  const lowerValue = value.toLowerCase()
+  return (
+    lowerValue === 'option_1' ||
+    lowerValue === '1' ||
+    lowerValue === 'no_additional_income' ||
+    lowerValue.includes('no_additional') ||
+    lowerValue.includes('no additional') ||
+    lowerValue.includes('none')
+  )
+}
 
 // Компонент расчета ипотеки - 3 шаг
 const ThirdStepForm = () => {
@@ -69,18 +83,21 @@ const ThirdStepForm = () => {
 
   const userData = useAppSelector((state) => state.login.loginData)
 
+  // 🎯 CRITICAL: Use screen-specific components for refinance-credit step 3
+  const componentsByIncomeSource = getComponentsByIncomeSource('refinance_step3')
+
   const openSourceOfIncome = () => {
-    dispatch(updateMortgageData(values))
+    dispatch(updateRefinanceCreditData(values))
     dispatch(createSourceOfIncomeModal())
   }
 
   const openAdditionalIncome = () => {
-    dispatch(updateMortgageData(values))
+    dispatch(updateRefinanceCreditData(values))
     dispatch(createAdditionalIncomeModal())
   }
 
   const openObligation = () => {
-    dispatch(updateMortgageData(values))
+    dispatch(updateRefinanceCreditData(values))
     dispatch(createObligationModal())
   }
 
@@ -182,13 +199,13 @@ const ThirdStepForm = () => {
 
       <Row>
         <AdditionalIncome />
-        {additionalIncome && additionalIncome !== 'option_1' && (
+        {additionalIncome && !isNoAdditionalIncomeValue(additionalIncome) && (
           <AdditionalIncomeAmount />
         )}
         <Column />
       </Row>
 
-      {additionalIncome && additionalIncome !== 'option_1' && (
+      {additionalIncome && !isNoAdditionalIncomeValue(additionalIncome) && (
         <Row>
           <Column>
             {additionalIncomeValues.map((item) => (

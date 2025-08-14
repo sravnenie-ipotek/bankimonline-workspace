@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Container } from '@components/ui/Container'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store'
-import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice.ts'
+import { updateRefinanceCreditData } from '@src/pages/Services/slices/refinanceCredit.ts'
 
 import { DoubleButtons } from '../../../../components/DoubleButtons'
 import { SecondStepForm } from './SecondStepForm'
@@ -13,7 +13,7 @@ const SecondStep = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const savedValues = useAppSelector((state) => state.mortgage)
+  const savedValues = useAppSelector((state) => state.refinanceCredit)
   const loginData = useAppSelector((state) => state.login.loginData)
 
   const initialValues = {
@@ -43,8 +43,8 @@ const SecondStep = () => {
       validationSchema={validationSchema}
       validateOnMount={true}
       onSubmit={(values) => {
-        dispatch(updateMortgageData(values))
-        navigate('/services/calculate-mortgage/3')
+        dispatch(updateRefinanceCreditData(values))
+        navigate('/services/refinance-credit/3')
       }}
     >
       <Form>

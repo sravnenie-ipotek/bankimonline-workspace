@@ -123,7 +123,7 @@ const Calendar: React.FC<PropTypes> = ({
       >
         {/* Использование библиотеки react-datepicker для отображения календаря */}
         <DatePicker
-          minDate={blockPastDates ? new Date() : undefined}
+          minDate={blockPastDates ? new Date(new Date().setHours(0, 0, 0, 0)) : undefined}
           maxDate={
             isMaxAge
               ? new Date(new Date().setFullYear(new Date().getFullYear() - 18))

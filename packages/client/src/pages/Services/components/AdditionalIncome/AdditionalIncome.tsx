@@ -1,6 +1,7 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { useContentApi } from '@src/hooks/useContentApi'
+import { useDropdownData } from '@src/hooks/useDropdownData'
 
 import { Column } from '@components/ui/Column'
 import AddInc from '@components/ui/ContextButtons/AddInc/AddInc.tsx'
@@ -33,16 +34,14 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
     )
   }
 
-  // Use database-driven content approach (consistent with system translation logic)
-  const additionalIncomeOptions = [
-    { value: 'option_1', label: getContent('calculate_mortgage_has_additional_option_1', t('calculate_mortgage_has_additional_option_1')) },
-    { value: 'option_2', label: getContent('calculate_mortgage_has_additional_option_2', t('calculate_mortgage_has_additional_option_2')) },
-    { value: 'option_3', label: getContent('calculate_mortgage_has_additional_option_3', t('calculate_mortgage_has_additional_option_3')) },
-    { value: 'option_4', label: getContent('calculate_mortgage_has_additional_option_4', t('calculate_mortgage_has_additional_option_4')) },
-    { value: 'option_5', label: getContent('calculate_mortgage_has_additional_option_5', t('calculate_mortgage_has_additional_option_5')) },
-    { value: 'option_6', label: getContent('calculate_mortgage_has_additional_option_6', t('calculate_mortgage_has_additional_option_6')) },
-    { value: 'option_7', label: getContent('calculate_mortgage_has_additional_option_7', t('calculate_mortgage_has_additional_option_7')) }
-  ]
+  // ✅ FIXED: Use dropdown API for all screen contexts (mortgage, credit, refinance)
+  // This ensures consistent data source and eliminates content key mapping issues
+  const isCredit = screenLocation?.includes('credit')
+  const isRefinance = screenLocation?.includes('refinance')
+  const dropdownData = useDropdownData(screenLocation, 'additional_income', 'full')
+  
+  // Build options from dropdown API for all contexts
+  const additionalIncomeOptions = dropdownData?.options || []
   
   // Filter out "No Additional Income" option when used in modal context
   const filteredOptions = excludeNoIncome 

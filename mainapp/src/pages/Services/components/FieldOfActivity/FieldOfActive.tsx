@@ -29,9 +29,19 @@ const FieldOfActivity = ({ screenLocation }: FieldOfActivityProps) => {
   const { values, setFieldValue, errors, setFieldTouched, touched } =
     useFormikContext<FormTypes>()
 
-  // Phase 4: Use database-driven dropdown data instead of hardcoded array
-  // FIXED: Use 'field_of_activity' for other_borrowers_step2, 'professional_sphere' for credit_step3
-  const fieldName = resolvedScreenLocation === 'other_borrowers_step2' ? 'field_of_activity' : 'professional_sphere'
+  // Phase 4: Use database-driven dropdown data instead of hardcoded array  
+  // SCREEN INDEPENDENCE: Each screen uses the field name that exists in its API data
+  // mortgage_step3 → field_of_activity (14 options), credit_step3 → professional_sphere (14 options)
+  // This ensures NO cross-screen contamination - each screen is independent
+  const getFieldNameForScreen = (screenLocation: string): string => {
+    if (screenLocation === 'other_borrowers_step2') return 'field_of_activity'
+    if (screenLocation === 'mortgage_step3') return 'field_of_activity'
+    if (screenLocation === 'refinance_step3') return 'field_of_activity' 
+    return 'professional_sphere' // credit_step3 and others
+  }
+  
+  const fieldName = getFieldNameForScreen(resolvedScreenLocation)
+
   const dropdownData = useDropdownData(resolvedScreenLocation, fieldName, 'full') as {
     options: Array<{value: string; label: string}>;
     placeholder?: string;
