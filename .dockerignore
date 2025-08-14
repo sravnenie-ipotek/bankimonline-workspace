@@ -12,8 +12,8 @@ yarn-error.log*
 .env.production.local
 mainapp/node_modules
 mainapp/.cache
-mainapp/build
-mainapp/dist
+# mainapp/build
+# mainapp/dist
 *.log
 .DS_Store
 .vscode
