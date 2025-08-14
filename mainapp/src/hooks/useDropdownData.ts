@@ -171,6 +171,7 @@ export const useDropdownData = (
           const legacyLabelKey = `${legacyKey}_label`;
           const legacyOptions = apiData.options?.[legacyKey] || [];
           if (legacyOptions.length > 0) {
+            console.log(`🔄 Using fallback mapping: ${fieldName} → ${legacyFieldName} for ${screenLocation}`);
             dropdownKey = legacyKey;
             placeholderKey = legacyPlaceholderKey;
             labelKey = legacyLabelKey;

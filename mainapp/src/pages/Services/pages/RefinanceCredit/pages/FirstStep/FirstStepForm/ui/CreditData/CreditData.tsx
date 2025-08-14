@@ -178,6 +178,8 @@ const CreditData = () => {
                         }}
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && creditDataError}
+                        blockPastDates={true}
+                        allowFuture={true}
                       />
                     </Column>
                     {shouldShowEarlyRepayment && (
@@ -297,6 +299,8 @@ const CreditData = () => {
                         }}
                         onBlur={() => setFieldTouched('creditData')}
                         error={touched.creditData && creditDataError}
+                        blockPastDates={true}
+                        allowFuture={true}
                       />
                     </Column>
                     {shouldShowEarlyRepayment && (

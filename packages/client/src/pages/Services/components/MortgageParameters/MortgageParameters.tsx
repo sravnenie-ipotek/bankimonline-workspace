@@ -38,6 +38,22 @@ const MortgageParameters: React.FC<TypeProps> = ({
   const numericCredit = credit !== undefined && credit !== null ? Number(credit) : undefined
   const numericPeriod = period !== undefined && period !== null ? Number(period) : undefined
 
+  // Dynamic navigation based on current service context
+  const getEditNavigationPath = () => {
+    switch (serviceType) {
+      case 'mortgage':
+        return '/services/calculate-mortgage/1'
+      case 'credit':
+        return '/services/calculate-credit/1'
+      case 'refinance-mortgage':
+        return '/services/refinance-mortgage/1'
+      case 'refinance-credit':
+        return '/services/refinance-credit/1'
+      default:
+        return '/services/calculate-mortgage/1' // fallback
+    }
+  }
+
   const formattedCost = numericCost !== undefined ? numericCost.toLocaleString('en-US') : undefined
   const formattedInitialPayment = numericInitialPayment !== undefined ? numericInitialPayment.toLocaleString('en-US') : undefined
   const formattedCredit = numericCredit !== undefined ? numericCredit.toLocaleString('en-US') : undefined
@@ -51,7 +67,7 @@ const MortgageParameters: React.FC<TypeProps> = ({
             {getContent('calculate_mortgage_parameters', 'calculate_mortgage_parameters')}
           </p>
           <SliderHorizontalIcon
-            onClick={onEditClick || (() => navigate('/services/calculate-mortgage/1'))}
+            onClick={onEditClick || (() => navigate(getEditNavigationPath()))}
             className={cx('parameters-title__icon')}
           />
         </div>

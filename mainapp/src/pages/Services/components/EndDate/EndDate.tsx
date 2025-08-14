@@ -20,6 +20,7 @@ const EndDate = () => {
         onChange={(value) => setFieldValue('endDate', value)}
         placeholder={getContent('date_placeholder', t('date_ph'))}
         error={errors.endDate}
+        blockPastDates={true}
       />
       {errors.endDate && <Error error={errors.endDate as string} />}
     </Column>

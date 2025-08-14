@@ -35,26 +35,14 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
     )
   }
 
-  // ✅ NEW: Use dropdown API for credit and refinance contexts, fallback to content for mortgage
+  // ✅ FIXED: Use dropdown API for all screen contexts (mortgage, credit, refinance)
+  // This ensures consistent data source and eliminates content key mapping issues
   const isCredit = screenLocation?.includes('credit')
   const isRefinance = screenLocation?.includes('refinance')
+  const dropdownData = useDropdownData(screenLocation, 'additional_income', 'full')
   
-  // Get dropdown data for credit and refinance contexts
-  const dropdownData = (isCredit || isRefinance) ? useDropdownData(screenLocation, 'additional_income', 'full') : null
-  
-  // Build options based on context
-  const additionalIncomeOptions = (isCredit || isRefinance) && dropdownData ? 
-    dropdownData.options : // Use API data for credit and refinance
-    Array.from({ length: 7 }, (_, i) => { // Fallback to content for mortgage
-      const optionNumber = i + 1
-      const contentKey = `calculate_mortgage_has_additional_option_${optionNumber}`
-      const fallbackKey = `calculate_mortgage_has_additional_option_${optionNumber}`
-      
-      return {
-        value: `option_${optionNumber}`,
-        label: getContent(contentKey, t(fallbackKey))
-      }
-    }).filter(option => option.label && option.label !== option.value)
+  // Build options from dropdown API for all contexts
+  const additionalIncomeOptions = dropdownData?.options || []
   
   // Filter out "No Additional Income" option when used in modal context
   const filteredOptions = excludeNoIncome 

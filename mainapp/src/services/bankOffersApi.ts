@@ -213,6 +213,14 @@ export const transformUserDataToRequest = (
   if (isCredit) {
     amount = parameters.loanAmount || 0
     property_value = 0
+  } else if (serviceType === 'refinance-credit') {
+    // For refinance credit, sum all creditData amounts
+    const creditData = parameters.creditData || []
+    amount = creditData.reduce((total: number, credit: any) => {
+      const creditAmount = credit.amount || 0
+      return total + creditAmount
+    }, 0)
+    property_value = 0
   } else if (serviceType === 'refinance-mortgage') {
     // For refinance mortgage, use mortgage balance as amount
     amount = parameters.mortgageBalance || 0
@@ -232,6 +240,13 @@ export const transformUserDataToRequest = (
   console.log('   parameters.priceOfEstate:', parameters?.priceOfEstate)
   console.log('   parameters.loanAmount:', parameters?.loanAmount)
   console.log('   parameters.initialFee:', parameters?.initialFee)
+  if (serviceType === 'refinance-credit') {
+    console.log('   parameters.creditData:', parameters?.creditData)
+    console.log('   creditData.length:', parameters?.creditData?.length || 0)
+    parameters?.creditData?.forEach((credit: any, index: number) => {
+      console.log(`   creditData[${index}].amount:`, credit?.amount)
+    })
+  }
   console.log('   Final amount:', amount)
   console.log('   Final property_value:', property_value)
   

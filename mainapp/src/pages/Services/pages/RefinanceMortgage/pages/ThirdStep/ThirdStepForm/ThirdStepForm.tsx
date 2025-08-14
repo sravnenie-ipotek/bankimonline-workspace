@@ -18,7 +18,7 @@ import { AdditionalIncome } from '@src/pages/Services/components/AdditionalIncom
 import { AdditionalIncomeAmount } from '@src/pages/Services/components/AdditionalIncomeAmount'
 import { MainSourceOfIncome } from '@src/pages/Services/components/MainSourceOfIncome'
 import { Obligation } from '@src/pages/Services/components/Obligation'
-import { componentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource.tsx'
+import { getComponentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource.tsx'
 import { componentsByObligation } from '@src/pages/Services/constants/componentsByObligation.tsx'
 import {
   deleteAdditionalIncomeModal,
@@ -48,6 +48,10 @@ const ThirdStepForm = () => {
   const navigate = useNavigate()
 
   const { values } = useFormikContext<FormTypes>()
+  
+  // ✅ FIXED: Use screen-specific components to ensure proper dropdown API calls
+  // This ensures FieldOfActivity calls /api/dropdowns/refinance_step3/he instead of /api/dropdowns/auto-detect/he
+  const componentsByIncomeSource = getComponentsByIncomeSource('refinance_step3')
 
   const { mainSourceOfIncome, additionalIncome, obligation } = values
 

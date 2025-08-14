@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@src/hooks/store'
 import { AdditionalIncomeModal } from '@src/pages/Services/pages/Modals/AdditionalIncomeModal'
 import { ObligationModal } from '@src/pages/Services/pages/Modals/ObligationModal'
 import { SourceOfIncomeModal } from '@src/pages/Services/pages/Modals/SourceOfIncomeModal'
-import { updateMortgageData } from '@src/pages/Services/slices/calculateMortgageSlice.ts'
+import { updateRefinanceCreditData } from '@src/pages/Services/slices/refinanceCredit.ts'
 
 import { DoubleButtons } from '../../../../components/DoubleButtons'
 import ThirdStepForm from './ThirdStepForm/ThirdStepForm'
@@ -16,7 +16,7 @@ const ThirdStep = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const savedValue = useAppSelector((state) => state.mortgage)
+  const savedValue = useAppSelector((state) => state.refinanceCredit)
 
   const initialValues = {
     mainSourceOfIncome: savedValue.mainSourceOfIncome || '',
@@ -43,8 +43,8 @@ const ThirdStep = () => {
         validationSchema={validationSchema}
         validateOnMount={true}
         onSubmit={(values) => {
-          dispatch(updateMortgageData(values))
-          navigate('/services/calculate-mortgage/4')
+          dispatch(updateRefinanceCreditData(values))
+          navigate('/services/refinance-credit/4')
         }}
       >
         <Form>
