@@ -29,7 +29,7 @@
 .modal-content {
   padding: 2rem;
   color: var(--lk-text-primary);
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -196,7 +196,7 @@
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 500;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   transition: all 0.3s ease;
   display: flex;
   align-items: center;

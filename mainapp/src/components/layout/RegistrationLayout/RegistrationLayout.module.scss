@@ -6,7 +6,7 @@
 
 .registrationLayout {
   min-height: 100vh;
-  font-family: 'Arimo', Arial, sans-serif;
+  /* Font inherited from language-specific CSS */
   background: #0F172A;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@
       color: #FBE54D;
       font-size: 24px;
       font-weight: 600;
-      font-family: 'Arimo', Arial, sans-serif;
+  /* Font inherited from language-specific CSS */
       text-decoration: none;
       
       @media (max-width: 768px) {

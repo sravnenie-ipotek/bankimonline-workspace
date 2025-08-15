@@ -89,7 +89,7 @@
 
 .logo-text,
 .logo-text-default {
-  font-family: 'Arimo', 'Arial', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-weight: 600;
   font-size: 16px;
   line-height: 1.5;
@@ -212,7 +212,7 @@
 }
 
 .nav-item-label {
-  font-family: 'Arimo', 'Arial', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;

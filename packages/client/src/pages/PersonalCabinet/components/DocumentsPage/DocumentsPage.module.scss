@@ -4,7 +4,7 @@
   min-height: 100vh;
   background: var(--lk-bg-primary);
   color: var(--lk-text-primary);
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
 }
 
 .content {
@@ -274,7 +274,7 @@
   font-weight: 600;
   color: var(--lk-text-primary);
   margin: 0 0 1.5rem 0;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
 }
 
 .documents-grid {
@@ -327,7 +327,7 @@
   font-weight: 500;
   color: var(--lk-text-primary);
   margin: 0 0 0.25rem 0;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -337,7 +337,7 @@
   font-size: 0.75rem;
   color: var(--lk-text-secondary);
   margin: 0;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
 }
 
 .document-actions {

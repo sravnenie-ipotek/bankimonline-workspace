@@ -18,7 +18,7 @@
         font-weight: 500;
         color: #ffffff;
         margin: 0;
-        font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
       }
 
       .back-to-cabinet {
@@ -30,7 +30,7 @@
         cursor: pointer;
         font-size: 16px;
         font-weight: 500;
-        font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
         transition: all 0.2s ease;
 
         &:hover {
@@ -76,7 +76,7 @@
     border-radius: 8px !important;
     padding: 12px 16px !important;
     font-size: 16px !important;
-    font-family: 'Roboto', sans-serif !important;
+  /* Font inherited from language-specific CSS */
     transition: all 0.2s ease !important;
     
     &::placeholder {
@@ -99,7 +99,7 @@
     color: #ffffff !important;
     font-size: 16px !important;
     font-weight: 500 !important;
-    font-family: 'Roboto', sans-serif !important;
+  /* Font inherited from language-specific CSS */
     margin-bottom: 12px !important;
     display: block !important;
   }
@@ -113,7 +113,7 @@
     border-radius: 8px !important;
     font-size: 16px !important;
     font-weight: 500 !important;
-    font-family: 'Roboto', sans-serif !important;
+  /* Font inherited from language-specific CSS */
     cursor: pointer !important;
     transition: all 0.2s ease !important;
 
@@ -135,7 +135,7 @@
     border-radius: 8px !important;
     font-size: 16px !important;
     font-weight: 500 !important;
-    font-family: 'Roboto', sans-serif !important;
+  /* Font inherited from language-specific CSS */
     cursor: pointer !important;
     transition: all 0.2s ease !important;
 

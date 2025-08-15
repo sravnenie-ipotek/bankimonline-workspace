@@ -99,7 +99,7 @@
 .modal-title {
   font-size: 20px; // Exact size from Figma (Russian main Roboto/20/400-Regular)
   font-weight: 400; // Regular weight from Figma
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   color: #FFFFFF; // Text/Primary from Figma
   margin: 0 0 32px 0;
   line-height: normal; // From Figma spec
@@ -114,7 +114,7 @@
 .modal-description {
   font-size: 16px; // Exact size from Figma (Russian main Roboto/16/400-Regular)
   font-weight: 400; // Regular weight from Figma
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   color: #D0D0D0; // Text/Secondary from Figma
   line-height: normal; // From Figma spec
   margin: 0 0 32px 0;
@@ -141,7 +141,7 @@
   color: #161616; // Text/Dark Primary from Figma
   font-size: 16px; // Exact size from Figma (Russian main Roboto/16/500-Medium)
   font-weight: 500; // Medium weight from Figma
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   cursor: pointer;
   transition: all 0.3s ease;
   margin: 0 auto; // Center the button

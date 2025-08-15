@@ -13,7 +13,7 @@
 }
 
 .title-text {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 48px;
   font-weight: 500;
   color: #ffffff;
@@ -33,7 +33,7 @@
   all: unset;
   padding: 12px 0;
   margin-right: 32px;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 400;
   color: #848484;
@@ -59,7 +59,7 @@
 }
 
 .section-title-text {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 31px;
   font-weight: 500;
   color: #ffffff;
@@ -78,7 +78,7 @@
 .transaction-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
 }
 
 /* Table Header */
@@ -308,7 +308,7 @@
 }
 
 .empty-state-title {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 24px;
   font-weight: 500;
   color: #ffffff;
@@ -317,7 +317,7 @@
 }
 
 .empty-state-description {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 400;
   color: #d0d0d0;

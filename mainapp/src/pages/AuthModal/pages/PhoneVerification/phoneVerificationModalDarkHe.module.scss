@@ -89,7 +89,7 @@
 }
 
 .title {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 25px;
   font-weight: 400;
   line-height: 1.2;
@@ -112,7 +112,7 @@
 }
 
 .subtitle {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 400;
   line-height: 1.4;
@@ -155,7 +155,7 @@
   border: 1px solid #424545;
   border-radius: 6px;
   padding: 16px 20px;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 400;
   color: #ffffff;
@@ -195,7 +195,7 @@
         border: 1px solid #424545 !important;
         border-radius: 6px !important;
         padding: 0 16px 0 90px !important; /* Hebrew RTL: padding left for flag on left */
-        font-family: 'Roboto', sans-serif !important;
+  /* Font inherited from language-specific CSS */
         font-size: 16px !important;
         font-weight: 400 !important;
         color: #ffffff !important;
@@ -371,7 +371,7 @@
   border: 1px solid #424545 !important;
   border-radius: 6px !important;
   padding: 0 16px 0 90px !important; /* Hebrew RTL: padding left for flag on left */
-  font-family: 'Roboto', sans-serif !important;
+  /* Font inherited from language-specific CSS */
   font-size: 16px !important;
   font-weight: 400 !important;
   color: #ffffff !important;
@@ -457,7 +457,7 @@
 }
 
 .errorMessage {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 13px;
   color: #dc3545;
   margin-top: 6px;
@@ -475,7 +475,7 @@
 }
 
 .agreementText {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 13px;
   line-height: 1.5;
   color: #d0d0d0;
@@ -503,7 +503,7 @@
   background-color: #35373f;
   border: none;
   border-radius: 8px;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 600;
   color: #848484;

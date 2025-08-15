@@ -34,7 +34,7 @@
 }
 
 .modal-title {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 20px;
   font-weight: 500;
   color: #ffffff;
@@ -85,7 +85,7 @@
   border: 1px solid #333535;
   border-radius: 8px;
   color: #ffffff;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 400;
   line-height: 1.4;
@@ -122,7 +122,7 @@
 }
 
 .warning-title {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 500;
   color: #fbe54d;
@@ -137,7 +137,7 @@
   margin-bottom: 16px;
 
   p {
-    font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
     font-size: 14px;
     font-weight: 400;
     color: #d0d0d0;
@@ -152,7 +152,7 @@
 }
 
 .confirmation-text {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 14px;
   font-weight: 500;
   color: #fbe54d;
@@ -161,7 +161,7 @@
 }
 
 .confirmation-detail {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 13px;
   font-weight: 400;
   color: #d0d0d0;
@@ -170,7 +170,7 @@
 }
 
 .agreement-text {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 14px;
   font-weight: 400;
   color: #d0d0d0;
@@ -208,7 +208,7 @@
   align-items: flex-start;
   gap: 8px;
   cursor: pointer;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 14px;
   font-weight: 400;
   color: #ffffff;
@@ -287,7 +287,7 @@
   color: #000000;
   padding: 12px 24px;
   border-radius: 8px;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;

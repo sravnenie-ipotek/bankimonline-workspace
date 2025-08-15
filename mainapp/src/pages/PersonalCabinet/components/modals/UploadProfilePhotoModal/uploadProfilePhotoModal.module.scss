@@ -18,7 +18,7 @@
 }
 
 .modal-title {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 20px;
   font-weight: 500;
   color: #ffffff;
@@ -91,7 +91,7 @@
 
 .upload-text {
   p {
-    font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
     font-size: 16px;
     color: #d0d0d0;
     margin: 0 0 12px 0;
@@ -102,7 +102,7 @@
 .computer-button {
   all: unset;
   color: #fbe54d;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
@@ -123,7 +123,7 @@
   border: 1px solid #333535;
   border-radius: 8px;
   color: #d0d0d0;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 400;
   cursor: pointer;
@@ -172,7 +172,7 @@
   margin-bottom: 16px;
   
   .file-name {
-    font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
     font-size: 14px;
     font-weight: 500;
     color: #ffffff;
@@ -181,7 +181,7 @@
   }
   
   .file-size {
-    font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
     font-size: 12px;
     color: #848484;
     margin: 0;
@@ -191,7 +191,7 @@
 .change-file-button {
   all: unset;
   color: #fbe54d;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -211,7 +211,7 @@
   padding: 12px 16px;
   margin-top: 16px;
   color: #ff6b7a;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 14px;
   line-height: 1.4;
 }
@@ -227,7 +227,7 @@
   color: #000000;
   padding: 12px 24px;
   border-radius: 8px;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
