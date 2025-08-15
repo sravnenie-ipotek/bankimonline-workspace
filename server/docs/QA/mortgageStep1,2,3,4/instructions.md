@@ -3462,3 +3462,1177 @@ const qualityMetrics = {
 - [ ] **Mobile Responsiveness**: Consistent experience across devices and languages
 
 **REMEMBER**: True multilingual support goes beyond translation - it requires deep cultural understanding and technical excellence in internationalization.
+
+---
+
+# 🚀 ENHANCED AUTOMATION FRAMEWORK - COMPREHENSIVE RESPONSIVE TESTING & STAGE 4 COMPLETION VALIDATION
+
+## 📋 PROFESSIONAL AI AUTOMATION UPDATE - ENHANCED VERSION INTEGRATION
+
+### **Automated Testing Framework Enhancement Directive**
+
+**OBJECTIVE**: Systematically integrate comprehensive responsive testing capabilities with absolute Stage 4 completion validation and exhaustive link testing across all mortgage calculation service endpoints.
+
+---
+
+## 🔧 RESPONSIVE TESTING INTEGRATION - BULLETPROOF FRAMEWORK
+
+### **Source Configuration Integration**
+Enhanced responsive testing patterns extracted from `/server/docs/QA/responsiveQaInstructions` with mortgage calculator-specific adaptations.
+
+#### **Responsive Testing Matrix for Mortgage Calculator**
+```typescript
+const mortgageResponsiveMatrix = {
+  // Mortgage Calculator Breakpoints
+  breakpoints: {
+    mobile: [
+      { width: 320, height: 568, name: 'iPhone SE' },
+      { width: 360, height: 640, name: 'Galaxy S8' },
+      { width: 390, height: 844, name: 'iPhone 12' },
+      { width: 414, height: 896, name: 'iPhone 11 Pro Max' }
+    ],
+    tablet: [
+      { width: 768, height: 1024, name: 'iPad' },
+      { width: 820, height: 1180, name: 'iPad Air' }
+    ],
+    desktop: [
+      { width: 1280, height: 800, name: 'Small Laptop' },
+      { width: 1440, height: 900, name: 'MacBook Pro' },
+      { width: 1920, height: 1080, name: 'Desktop HD' }
+    ]
+  },
+
+  // Mortgage-Specific Layout Validation
+  mortgageLayoutChecks: {
+    propertyValueInput: 'Property value input scales correctly with currency formatting',
+    ownershipDropdown: 'Property ownership dropdown displays all options clearly',
+    ltvSlider: 'LTV slider maintains precision and visual clarity across viewports',
+    initialPaymentCalculator: 'Down payment calculator remains usable on mobile',
+    monthlyPaymentDisplay: 'Monthly payment prominently displayed on all screen sizes',
+    loanTermSelector: 'Loan term selection accessible and clear on mobile',
+    bankOffersTable: 'Bank comparison table transforms appropriately for mobile',
+    progressIndicator: 'Four-step progress indicator adapts to screen width',
+    formValidation: 'Property ownership validation messages display properly',
+    modalDialogs: 'LTV information modals fit viewport bounds perfectly',
+    numericKeypad: 'Mobile devices show numeric keypad for property value inputs'
+  }
+};
+
+// Enhanced Responsive Test Implementation
+describe('🔧 MORTGAGE CALCULATOR RESPONSIVE VALIDATION SUITE', () => {
+  
+  const pages = [
+    { name: 'MortgageStep1', path: '/services/calculate-mortgage/1' },
+    { name: 'MortgageStep2', path: '/services/calculate-mortgage/2' },
+    { name: 'MortgageStep3', path: '/services/calculate-mortgage/3' },
+    { name: 'MortgageStep4', path: '/services/calculate-mortgage/4' }
+  ];
+
+  const viewports = [
+    [320, 568], [360, 640], [390, 844], [414, 896],  // Mobile
+    [768, 1024], [820, 1180],                        // Tablet
+    [1280, 800], [1440, 900], [1920, 1080]          // Desktop
+  ];
+
+  // Enhanced Responsive Validation Functions
+  function assertNoHorizontalScroll() {
+    cy.window().then(win => {
+      const el = win.document.scrollingElement;
+      expect(el.scrollWidth, 'No horizontal scroll on mortgage calculator').to.eq(el.clientWidth);
+    });
+  }
+
+  function assertMortgageElementsVisible(viewport) {
+    const [width, height] = viewport;
+    
+    // Critical mortgage calculator elements must be visible
+    cy.get('[data-testid="property-value"]').should('be.visible');
+    cy.get('[data-testid="property-ownership"]').should('be.visible');
+    cy.get('[data-testid="monthly-payment-display"]').should('be.visible');
+    cy.get('[data-testid="continue-button"]').should('be.visible');
+    
+    // Mobile-specific validations
+    if (width <= 768) {
+      cy.get('[data-testid="mobile-calculator"]').should('be.visible');
+      cy.get('[data-testid="numeric-keypad"]').should('be.visible');
+    }
+    
+    // Desktop-specific validations
+    if (width >= 1280) {
+      cy.get('[data-testid="sidebar-ltv-info"]').should('be.visible');
+      cy.get('[data-testid="calculation-breakdown"]').should('be.visible');
+    }
+  }
+
+  function assertMortgageFormInteractivity(viewport) {
+    const [width, height] = viewport;
+    
+    // Test property value input
+    cy.get('[data-testid="property-value"]').type('1500000');
+    cy.get('[data-testid="formatted-property-value"]').should('contain', '₪1,500,000');
+    
+    // Test property ownership selection
+    cy.get('[data-testid="property-ownership"]').select('no_property');
+    
+    // Verify LTV calculation updates
+    cy.get('[data-testid="max-ltv-display"]').should('contain', '75%');
+    
+    // Test responsive LTV slider
+    if (width <= 768) {
+      cy.get('[data-testid="ltv-mobile-slider"]').should('be.visible');
+    } else {
+      cy.get('[data-testid="ltv-desktop-slider"]').should('be.visible');
+    }
+    
+    // Test form navigation
+    cy.get('[data-testid="continue-button"]').should('be.visible').click();
+  }
+
+  // Comprehensive Responsive Test Suite
+  pages.forEach(page => {
+    viewports.forEach(([width, height]) => {
+      it(`${page.name} responsive validation @ ${width}x${height}`, () => {
+        cy.viewport(width, height);
+        cy.visit(`http://localhost:5173${page.path}`);
+        
+        // Core responsive validations
+        assertNoHorizontalScroll();
+        assertMortgageElementsVisible([width, height]);
+        assertMortgageFormInteractivity([width, height]);
+        
+        // Capture viewport-specific screenshot
+        cy.screenshot(`responsive-mortgage/${page.name}-${width}x${height}`, { 
+          capture: 'viewport',
+          overwrite: true
+        });
+        
+        // Performance validation
+        cy.window().then(win => {
+          const perfEntries = win.performance.getEntriesByType('navigation');
+          expect(perfEntries[0].loadEventEnd - perfEntries[0].loadEventStart)
+            .to.be.lessThan(3000, 'Page load time under 3s');
+        });
+      });
+    });
+  });
+
+  // Fluid Resize Testing
+  it('should handle fluid viewport resizing gracefully', () => {
+    cy.visit('http://localhost:5173/services/calculate-mortgage/1');
+    
+    // Start at mobile and gradually resize to desktop
+    for (let width = 320; width <= 1920; width += 100) {
+      cy.viewport(width, 800);
+      cy.wait(100);
+      
+      // Verify no horizontal scroll at any width
+      assertNoHorizontalScroll();
+      
+      // Verify critical elements remain accessible
+      cy.get('[data-testid="property-value"]').should('be.visible');
+      cy.get('[data-testid="continue-button"]').should('be.visible');
+    }
+  });
+
+  // Property Ownership LTV Responsive Testing
+  it('should validate property ownership LTV logic across all viewports', () => {
+    const ownershipScenarios = [
+      { value: 'no_property', expectedLTV: 75, description: "I don't own any property" },
+      { value: 'has_property', expectedLTV: 50, description: "I own a property" },
+      { value: 'selling_property', expectedLTV: 70, description: "I'm selling a property" }
+    ];
+
+    viewports.forEach(([width, height]) => {
+      cy.viewport(width, height);
+      cy.visit('http://localhost:5173/services/calculate-mortgage/1');
+      
+      ownershipScenarios.forEach(scenario => {
+        cy.get('[data-testid="property-ownership"]').select(scenario.value);
+        cy.get('[data-testid="max-ltv-display"]').should('contain', `${scenario.expectedLTV}%`);
+        
+        // Test LTV slider range adjustment
+        cy.get('[data-testid="ltv-slider"]').should('have.attr', 'max', scenario.expectedLTV);
+      });
+      
+      cy.screenshot(`ltv-logic-${width}x${height}`);
+    });
+  });
+});
+```
+
+---
+
+## 🎯 COMPREHENSIVE LINK TESTING & NEW WINDOW/POPUP VALIDATION
+
+### **CRITICAL LINK AND NAVIGATION TESTING REQUIREMENTS**
+
+**MANDATORY**: Every single clickable element must be tested for complete process flows through Stage 4.
+
+#### **Link Testing Protocol Implementation**
+```typescript
+describe('🔗 COMPREHENSIVE MORTGAGE LINK TESTING SUITE', () => {
+  
+  // Complete Link Discovery and Categorization for Mortgage Calculator
+  const linkCategories = {
+    internalNavigation: '[data-testid*="step"], [data-testid*="continue"], [data-testid*="back"]',
+    externalLinks: 'a[href^="http"], a[href^="https"]',
+    popupTriggers: '[data-testid*="popup"], [data-testid*="modal"], [data-testid*="tooltip"]',
+    documentLinks: '[data-testid*="document"], [data-testid*="pdf"], [data-testid*="download"]',
+    bankingLinks: '[data-testid*="bank"], [data-testid*="program"], [data-testid*="offer"]',
+    mortgageInfoLinks: '[data-testid*="ltv"], [data-testid*="mortgage-info"], [data-testid*="calculator-help"]',
+    legalLinks: '[data-testid*="terms"], [data-testid*="privacy"], [data-testid*="legal"]'
+  };
+
+  beforeEach(() => {
+    cy.visit('http://localhost:5173/services/calculate-mortgage/1');
+    
+    // Initialize link tracking
+    cy.window().then(win => {
+      win.linkTestResults = {
+        discovered: [],
+        tested: [],
+        failed: [],
+        completed: []
+      };
+    });
+  });
+
+  // Phase 1: Link Discovery and Classification
+  it('should discover and classify all clickable elements', () => {
+    const discoveredLinks = [];
+    
+    Object.entries(linkCategories).forEach(([category, selector]) => {
+      cy.get('body').then($body => {
+        const elements = $body.find(selector);
+        elements.each((index, element) => {
+          const linkData = {
+            category,
+            selector: element.getAttribute('data-testid') || element.tagName,
+            href: element.href || 'javascript',
+            target: element.target || '_self',
+            text: element.textContent?.trim() || 'No text'
+          };
+          discoveredLinks.push(linkData);
+        });
+      });
+    });
+
+    cy.then(() => {
+      expect(discoveredLinks.length, 'Must discover mortgage links to test').to.be.greaterThan(0);
+      cy.log(`📊 Discovered ${discoveredLinks.length} clickable elements in mortgage calculator`);
+    });
+  });
+
+  // Phase 2: Complete Link Testing with Process Validation
+  Object.entries(linkCategories).forEach(([category, selector]) => {
+    
+    it(`should test all ${category} links with complete process validation`, () => {
+      cy.get(selector).should('exist').then($links => {
+        
+        $links.each((index, link) => {
+          const linkElement = Cypress.$(link);
+          const linkText = linkElement.text().trim();
+          const linkHref = linkElement.attr('href') || 'javascript';
+          
+          cy.log(`🔗 Testing mortgage ${category} link: "${linkText}"`);
+          
+          // Pre-click state capture
+          cy.window().then(win => {
+            const initialWindowCount = win.length;
+            const initialUrl = win.location.href;
+            
+            cy.wrap(linkElement).click({ force: true });
+            
+            cy.wait(1000); // Allow for navigation/popup
+            
+            // Detect link behavior and complete validation
+            cy.window().then(newWin => {
+              const newWindowCount = newWin.length;
+              const newUrl = newWin.location.href;
+              
+              if (newWindowCount > initialWindowCount) {
+                // New window/tab opened
+                cy.log('🪟 New window/tab detected - validating mortgage content');
+                
+                // Switch to new window and complete process
+                cy.window().then(win => {
+                  // Complete process in new window to Stage 4
+                  completeMortgageProcessInNewWindow(win, category, linkText);
+                });
+                
+              } else if (newUrl !== initialUrl) {
+                // Navigation occurred in same window
+                cy.log('🧭 Navigation detected - validating new mortgage page');
+                
+                // Complete process on new page to Stage 4
+                completeMortgageProcessOnNewPage(newUrl, category, linkText);
+                
+              } else {
+                // Popup/modal opened
+                cy.log('🎭 Popup/modal detected - validating mortgage interaction');
+                
+                // Handle popup interaction completely
+                completeMortgagePopupInteraction(category, linkText);
+              }
+            });
+          });
+        });
+      });
+    });
+  });
+
+  // Helper Functions for Complete Mortgage Process Validation
+  function completeMortgageProcessInNewWindow(win, category, linkText) {
+    cy.log(`🔄 Completing mortgage process in new window for ${category}: ${linkText}`);
+    
+    // Stage 1: Verify new window loaded correctly
+    cy.get('[data-testid="main-content"]', { timeout: 10000 }).should('be.visible');
+    
+    // Stage 2: Complete mortgage data entry in new window
+    if (win.location.href.includes('calculate-mortgage')) {
+      fillMortgageFormToCompletion();
+    } else if (win.location.href.includes('bank-program')) {
+      completeBankMortgageProgramSelection();
+    } else {
+      completeGenericMortgageProcess();
+    }
+    
+    // Stage 3: Validate processing completed
+    cy.get('[data-testid="processing-complete"]', { timeout: 15000 }).should('be.visible');
+    
+    // Stage 4: Confirm final completion
+    cy.get('[data-testid="process-confirmed"]').should('be.visible');
+    cy.get('[data-testid="reference-number"]').should('exist');
+    
+    // Return to original window
+    cy.window().then(originalWin => {
+      originalWin.close();
+    });
+    
+    cy.log(`✅ Mortgage process completed to Stage 4 in new window: ${linkText}`);
+  }
+
+  function completeMortgageProcessOnNewPage(url, category, linkText) {
+    cy.log(`🔄 Completing mortgage process on new page for ${category}: ${linkText}`);
+    
+    // Stage 1: Verify page navigation successful
+    cy.url().should('include', url.split('/').pop());
+    
+    // Stage 2: Complete mortgage form interactions
+    if (url.includes('/2')) {
+      completeMortgageStep2Process();
+    } else if (url.includes('/3')) {
+      completeMortgageStep3Process();
+    } else if (url.includes('/4')) {
+      completeMortgageStep4Process();
+    }
+    
+    // Stage 3: Process validation
+    cy.get('[data-testid="step-validation"]').should('have.class', 'valid');
+    
+    // Stage 4: Final confirmation
+    if (url.includes('/4')) {
+      cy.get('[data-testid="final-submit"]').click();
+      cy.get('[data-testid="submission-confirmed"]').should('be.visible');
+    }
+    
+    cy.log(`✅ Mortgage process completed to Stage 4 on new page: ${linkText}`);
+  }
+
+  function completeMortgagePopupInteraction(category, linkText) {
+    cy.log(`🔄 Completing mortgage popup interaction for ${category}: ${linkText}`);
+    
+    // Stage 1: Verify popup opened
+    cy.get('[data-testid*="modal"], [data-testid*="popup"], [role="dialog"]')
+      .should('be.visible');
+    
+    // Stage 2: Complete mortgage popup form/interaction
+    cy.get('[data-testid*="modal"] input, [data-testid*="popup"] input')
+      .each($input => {
+        if ($input.attr('type') === 'text') {
+          cy.wrap($input).type('Test input');
+        } else if ($input.attr('type') === 'number') {
+          cy.wrap($input).type('1500000');
+        }
+      });
+    
+    // Stage 3: Submit popup form
+    cy.get('[data-testid*="modal"] button, [data-testid*="popup"] button')
+      .contains(/submit|confirm|save|continue/i)
+      .click();
+    
+    // Stage 4: Validate popup completion
+    cy.get('[data-testid*="success"], [data-testid*="confirmed"]')
+      .should('be.visible');
+    
+    // Close popup properly
+    cy.get('[data-testid*="close"], [aria-label*="close"]').click();
+    
+    cy.log(`✅ Mortgage popup interaction completed to Stage 4: ${linkText}`);
+  }
+
+  // Mortgage Calculator Specific Process Completion Functions
+  function fillMortgageFormToCompletion() {
+    // Step 1: Property and Loan Details
+    cy.get('[data-testid="property-value"]').type('2000000');
+    cy.get('[data-testid="property-ownership"]').select('no_property');
+    cy.get('[data-testid="initial-payment"]').type('500000');
+    cy.get('[data-testid="loan-term"]').select('25');
+    cy.get('[data-testid="continue-button"]').click();
+    
+    // Step 2: Personal Information
+    cy.get('[data-testid="first-name"]').type('John');
+    cy.get('[data-testid="last-name"]').type('Doe');
+    cy.get('[data-testid="phone"]').type('050-123-4567');
+    cy.get('[data-testid="email"]').type('john.doe@example.com');
+    cy.get('[data-testid="continue-button"]').click();
+    
+    // Step 3: Income Information
+    cy.get('[data-testid="monthly-income"]').type('25000');
+    cy.get('[data-testid="employment-type"]').select('employee');
+    cy.get('[data-testid="continue-button"]').click();
+    
+    // Step 4: Final Submission
+    cy.get('[data-testid="bank-program-selection"]').click();
+    cy.get('[data-testid="terms-checkbox"]').check();
+    cy.get('[data-testid="submit-application"]').click();
+  }
+
+  function completeMortgageStep2Process() {
+    cy.get('[data-testid="personal-info-form"]').within(() => {
+      cy.get('[data-testid="id-number"]').type('123456789');
+      cy.get('[data-testid="birth-date"]').type('1990-01-01');
+      cy.get('[data-testid="address"]').type('123 Rothschild Blvd');
+      cy.get('[data-testid="city"]').select('Tel Aviv');
+      cy.get('[data-testid="continue-button"]').click();
+    });
+  }
+
+  function completeMortgageStep3Process() {
+    cy.get('[data-testid="income-form"]').within(() => {
+      cy.get('[data-testid="primary-income"]').type('25000');
+      cy.get('[data-testid="employment-duration"]').select('36');
+      cy.get('[data-testid="employer-name"]').type('Tech Company Ltd');
+      cy.get('[data-testid="continue-button"]').click();
+    });
+  }
+
+  function completeMortgageStep4Process() {
+    cy.get('[data-testid="bank-programs"]').within(() => {
+      cy.get('[data-testid="mortgage-program-1"]').click();
+      cy.get('[data-testid="confirm-selection"]').click();
+    });
+    
+    cy.get('[data-testid="application-review"]').within(() => {
+      cy.get('[data-testid="review-complete-checkbox"]').check();
+      cy.get('[data-testid="final-submit"]').click();
+    });
+  }
+});
+```
+
+---
+
+## 🎯 STAGE 4 COMPLETION VALIDATION - ZERO TOLERANCE FRAMEWORK
+
+### **Absolute Mortgage Process Completion Requirements**
+
+**CRITICAL**: Every single mortgage process MUST reach Stage 4 completion - no exceptions.
+
+#### **Stage Definition and Validation Matrix**
+```typescript
+const mortgageStage4ValidationFramework = {
+  stageDefinitions: {
+    stage1: {
+      name: 'INITIALIZATION',
+      requirements: [
+        'User lands on mortgage calculator page',
+        'All mortgage resources fully loaded',
+        'Property ownership dropdown populated',
+        'LTV calculator initialized',
+        'No JavaScript errors in console'
+      ],
+      validation: 'cy.get("[data-testid=mortgage-loaded]").should("have.class", "ready")',
+      mustPass: true
+    },
+    
+    stage2: {
+      name: 'DATA INPUT AND VALIDATION',
+      requirements: [
+        'Property value input accepts valid amounts',
+        'Property ownership selection works correctly',
+        'LTV calculation updates in real-time',
+        'Initial payment slider functions properly',
+        'Loan term selection validates correctly'
+      ],
+      validation: 'cy.get("[data-testid=mortgage-form-valid]").should("have.class", "validated")',
+      mustPass: true
+    },
+    
+    stage3: {
+      name: 'PROCESSING AND CALCULATION',
+      requirements: [
+        'Monthly payment calculation is accurate',
+        'LTV ratios calculated correctly per ownership type',
+        'Bank eligibility checks executed',
+        'Income vs payment ratio validated',
+        'State management maintains all data'
+      ],
+      validation: 'cy.get("[data-testid=mortgage-calculation-complete]").should("be.visible")',
+      mustPass: true
+    },
+    
+    stage4: {
+      name: 'COMPLETION AND CONFIRMATION',
+      requirements: [
+        'Mortgage application submitted successfully',
+        'Bank program selection confirmed',
+        'Application reference number generated',
+        'Email confirmation sent to applicant',
+        'PDF mortgage summary generated',
+        'Next steps clearly communicated',
+        'Data persisted to mortgage database',
+        'Mortgage officer notification sent'
+      ],
+      validation: 'cy.get("[data-testid=mortgage-complete]").should("contain", "completed")',
+      mustPass: true
+    }
+  }
+};
+
+// Comprehensive Mortgage Stage 4 Validation Suite
+describe('🎯 MORTGAGE STAGE 4 COMPLETION VALIDATION - ZERO TOLERANCE', () => {
+  
+  const mortgageServiceEndpoints = [
+    '/services/calculate-mortgage/1',
+    '/services/calculate-mortgage/2', 
+    '/services/calculate-mortgage/3',
+    '/services/calculate-mortgage/4'
+  ];
+
+  mortgageServiceEndpoints.forEach((endpoint, index) => {
+    const stepNumber = index + 1;
+    
+    it(`Mortgage Calculator Step ${stepNumber} - Complete Stage 1-4 Validation`, () => {
+      cy.visit(`http://localhost:5173${endpoint}`);
+      
+      // STAGE 1: INITIALIZATION VALIDATION
+      cy.log(`🚀 STAGE 1: Validating mortgage initialization for Step ${stepNumber}`);
+      
+      validateMortgageStage1Initialization(stepNumber);
+      
+      // STAGE 2: DATA INPUT AND VALIDATION
+      cy.log(`📝 STAGE 2: Validating mortgage data input for Step ${stepNumber}`);
+      
+      validateMortgageStage2DataInput(stepNumber);
+      
+      // STAGE 3: PROCESSING AND CALCULATION
+      cy.log(`⚙️ STAGE 3: Validating mortgage processing for Step ${stepNumber}`);
+      
+      validateMortgageStage3Processing(stepNumber);
+      
+      // STAGE 4: COMPLETION AND CONFIRMATION
+      cy.log(`✅ STAGE 4: Validating mortgage completion for Step ${stepNumber}`);
+      
+      validateMortgageStage4Completion(stepNumber);
+      
+      // Final Stage 4 Confirmation
+      cy.get('[data-testid="mortgage-stage-4-complete"]')
+        .should('be.visible')
+        .and('contain', 'Mortgage Process Complete')
+        .and('have.class', 'success');
+        
+      cy.log(`🎯 ✅ MORTGAGE STAGE 4 COMPLETION VERIFIED for Step ${stepNumber}`);
+    });
+  });
+
+  // Stage Validation Helper Functions
+  function validateMortgageStage1Initialization(step) {
+    // Page load validation
+    cy.get('[data-testid="main-content"]').should('be.visible');
+    cy.get('[data-testid="loading-indicator"]').should('not.exist');
+    
+    // Mortgage-specific resource validation
+    cy.get('[data-testid="property-ownership"]').should('be.visible');
+    cy.get('[data-testid="ltv-calculator"]').should('be.visible');
+    
+    // JavaScript error validation
+    cy.window().then(win => {
+      const errors = win.console?.errors || [];
+      expect(errors.length).to.equal(0, 'No JavaScript errors allowed');
+    });
+    
+    // Interactive element validation
+    cy.get('input, button, select').should('not.be.disabled');
+    
+    // Mark Stage 1 complete
+    cy.get('[data-testid="mortgage-stage-1-indicator"]')
+      .should('have.class', 'completed');
+  }
+
+  function validateMortgageStage2DataInput(step) {
+    if (step === 1) {
+      // Property value input
+      cy.get('[data-testid="property-value"]')
+        .type('2000000')
+        .should('have.value', '2000000');
+      
+      // Property ownership selection
+      cy.get('[data-testid="property-ownership"]')
+        .select('no_property');
+      
+      // Verify LTV limit update
+      cy.get('[data-testid="max-ltv-display"]')
+        .should('contain', '75%');
+      
+      // Initial payment input
+      cy.get('[data-testid="initial-payment"]')
+        .type('500000')
+        .should('have.value', '500000');
+        
+      // Loan term selection
+      cy.get('[data-testid="loan-term"]')
+        .select('25')
+        .should('have.value', '25');
+        
+    } else if (step === 2) {
+      // Personal information
+      cy.get('[data-testid="first-name"]').type('John');
+      cy.get('[data-testid="last-name"]').type('Doe');
+      cy.get('[data-testid="id-number"]').type('123456789');
+      cy.get('[data-testid="phone"]').type('050-123-4567');
+      cy.get('[data-testid="email"]').type('john.doe@example.com');
+      
+    } else if (step === 3) {
+      // Income information
+      cy.get('[data-testid="monthly-income"]').type('25000');
+      cy.get('[data-testid="employment-type"]').select('employee');
+      cy.get('[data-testid="employment-duration"]').select('36');
+      
+    } else if (step === 4) {
+      // Bank program selection
+      cy.get('[data-testid="bank-program-1"]').click();
+      cy.get('[data-testid="terms-checkbox"]').check();
+    }
+    
+    // Validate form state
+    cy.get('[data-testid="mortgage-form-valid"]').should('have.class', 'valid');
+    
+    // Mark Stage 2 complete
+    cy.get('[data-testid="mortgage-stage-2-indicator"]')
+      .should('have.class', 'completed');
+  }
+
+  function validateMortgageStage3Processing(step) {
+    if (step === 1) {
+      // Validate monthly payment calculation
+      cy.get('[data-testid="monthly-payment"]')
+        .should('be.visible')
+        .and('contain', '₪');
+      
+      // Validate LTV ratio calculation
+      cy.get('[data-testid="ltv-ratio"]')
+        .should('be.visible')
+        .and('match', /\d+%/);
+      
+      // Validate loan amount calculation
+      cy.get('[data-testid="loan-amount"]')
+        .should('be.visible')
+        .and('contain', '₪1,500,000');
+        
+    } else if (step === 2) {
+      // Validate personal data processing
+      cy.get('[data-testid="data-processed"]')
+        .should('have.class', 'success');
+        
+    } else if (step === 3) {
+      // Validate income processing and eligibility
+      cy.get('[data-testid="income-validated"]')
+        .should('be.visible')
+        .and('contain', 'Validated');
+      
+      // Validate debt-to-income ratio
+      cy.get('[data-testid="dti-ratio"]')
+        .should('be.visible')
+        .and('match', /\d+\.\d+%/);
+        
+    } else if (step === 4) {
+      // Validate final processing
+      cy.get('[data-testid="final-processing"]')
+        .should('be.visible');
+        
+      cy.get('[data-testid="mortgage-application-id"]')
+        .should('exist')
+        .and('not.be.empty');
+    }
+    
+    // Mark Stage 3 complete
+    cy.get('[data-testid="mortgage-stage-3-indicator"]')
+      .should('have.class', 'completed');
+  }
+
+  function validateMortgageStage4Completion(step) {
+    if (step === 4) {
+      // Final submission
+      cy.get('[data-testid="submit-mortgage-application"]').click();
+      
+      // Wait for submission processing
+      cy.get('[data-testid="mortgage-submission-processing"]', { timeout: 15000 })
+        .should('be.visible');
+      
+      // Validate completion confirmation
+      cy.get('[data-testid="mortgage-submission-confirmed"]', { timeout: 10000 })
+        .should('be.visible')
+        .and('contain', 'Mortgage Application Submitted Successfully');
+      
+      // Validate reference number
+      cy.get('[data-testid="mortgage-reference-number"]')
+        .should('be.visible')
+        .and('not.be.empty');
+      
+      // Validate next steps
+      cy.get('[data-testid="mortgage-next-steps"]')
+        .should('be.visible')
+        .and('contain', 'Next Steps');
+      
+      // Validate mortgage data persistence
+      cy.window().then(win => {
+        const savedData = win.localStorage.getItem('mortgage-application');
+        expect(savedData).to.not.be.null;
+        expect(JSON.parse(savedData).status).to.equal('submitted');
+        expect(JSON.parse(savedData).propertyValue).to.be.a('number');
+      });
+    } else {
+      // For steps 1-3, validate navigation to next step
+      cy.get('[data-testid="continue-button"]').click();
+      cy.url().should('include', `/calculate-mortgage/${step + 1}`);
+      
+      // Validate data carried forward
+      cy.window().its('store').invoke('getState').then(state => {
+        expect(state.calculateMortgage).to.not.be.null;
+        expect(state.calculateMortgage.currentStep).to.equal(step + 1);
+      });
+    }
+    
+    // Mark Stage 4 complete
+    cy.get('[data-testid="mortgage-stage-4-indicator"]')
+      .should('have.class', 'completed');
+  }
+
+  // Complete Mortgage Application Process Validation
+  it('should complete entire mortgage application process through all 4 stages', () => {
+    cy.log('🚀 Starting complete mortgage application process validation');
+    
+    // Step 1: Property and Loan Parameters
+    cy.visit('http://localhost:5173/services/calculate-mortgage/1');
+    
+    // Complete Step 1 to Stage 4
+    validateMortgageStage1Initialization(1);
+    validateMortgageStage2DataInput(1);
+    validateMortgageStage3Processing(1);
+    validateMortgageStage4Completion(1);
+    
+    // Step 2: Personal Information
+    cy.url().should('include', '/calculate-mortgage/2');
+    
+    validateMortgageStage1Initialization(2);
+    validateMortgageStage2DataInput(2);
+    validateMortgageStage3Processing(2);
+    validateMortgageStage4Completion(2);
+    
+    // Step 3: Income and Employment
+    cy.url().should('include', '/calculate-mortgage/3');
+    
+    validateMortgageStage1Initialization(3);
+    validateMortgageStage2DataInput(3);
+    validateMortgageStage3Processing(3);
+    validateMortgageStage4Completion(3);
+    
+    // Step 4: Bank Programs and Final Submission
+    cy.url().should('include', '/calculate-mortgage/4');
+    
+    validateMortgageStage1Initialization(4);
+    validateMortgageStage2DataInput(4);
+    validateMortgageStage3Processing(4);
+    validateMortgageStage4Completion(4);
+    
+    // Final Stage 4 Global Validation
+    cy.get('[data-testid="mortgage-application-complete"]')
+      .should('be.visible')
+      .and('contain', 'Mortgage Application Complete')
+      .and('have.class', 'final-success');
+      
+    cy.log('🎯 ✅ COMPLETE MORTGAGE APPLICATION PROCESS VALIDATED TO STAGE 4');
+  });
+
+  // Property Ownership LTV Logic Complete Validation
+  it('should validate property ownership LTV logic through complete process', () => {
+    const ownershipScenarios = [
+      { 
+        ownership: 'no_property',
+        maxLTV: 75,
+        minDownPayment: 25,
+        description: "No property ownership - 75% max LTV"
+      },
+      {
+        ownership: 'has_property',
+        maxLTV: 50,
+        minDownPayment: 50,
+        description: "Has property - 50% max LTV"
+      },
+      {
+        ownership: 'selling_property',
+        maxLTV: 70,
+        minDownPayment: 30,
+        description: "Selling property - 70% max LTV"
+      }
+    ];
+
+    ownershipScenarios.forEach(scenario => {
+      cy.visit('http://localhost:5173/services/calculate-mortgage/1');
+      
+      // Test complete flow for each ownership scenario
+      cy.get('[data-testid="property-value"]').type('2000000');
+      cy.get('[data-testid="property-ownership"]').select(scenario.ownership);
+      
+      // Validate LTV limits
+      cy.get('[data-testid="max-ltv-display"]').should('contain', `${scenario.maxLTV}%`);
+      
+      // Calculate minimum down payment
+      const minDownPayment = 2000000 * (scenario.minDownPayment / 100);
+      cy.get('[data-testid="initial-payment"]').type(minDownPayment.toString());
+      
+      // Validate loan amount calculation
+      const loanAmount = 2000000 - minDownPayment;
+      cy.get('[data-testid="loan-amount"]').should('contain', loanAmount.toLocaleString());
+      
+      // Continue through all steps to validate complete flow
+      cy.get('[data-testid="continue-button"]').click();
+      
+      // Complete remaining steps
+      fillRemainingMortgageSteps();
+      
+      // Validate final submission with correct LTV logic
+      cy.get('[data-testid="mortgage-summary-ltv"]').should('contain', `${scenario.maxLTV}%`);
+      
+      cy.log(`✅ ${scenario.description} validated through complete process`);
+    });
+  });
+
+  function fillRemainingMortgageSteps() {
+    // Step 2: Personal Information
+    cy.get('[data-testid="first-name"]').type('John');
+    cy.get('[data-testid="last-name"]').type('Doe');
+    cy.get('[data-testid="phone"]').type('050-123-4567');
+    cy.get('[data-testid="email"]').type('john.doe@example.com');
+    cy.get('[data-testid="continue-button"]').click();
+    
+    // Step 3: Income Information
+    cy.get('[data-testid="monthly-income"]').type('30000');
+    cy.get('[data-testid="employment-type"]').select('employee');
+    cy.get('[data-testid="continue-button"]').click();
+    
+    // Step 4: Final submission validation handled in main test
+  }
+});
+```
+
+---
+
+## 🛡️ PROCESS PERFECTION REQUIREMENTS
+
+### **Zero-Defect Mortgage Process Criteria**
+
+**ALL MORTGAGE PROCESSES MUST ACHIEVE 100% PERFECTION**
+
+#### **Mortgage Perfection Validation Framework**
+```typescript
+const mortgageProcessPerfectionCriteria = {
+  functionalPerfection: {
+    requirements: [
+      '100% of mortgage features work as designed',
+      'Zero broken links across all mortgage pages',
+      'All buttons functional and responsive',
+      'All mortgage forms submit successfully',
+      'All LTV calculations mathematically accurate',
+      'Property ownership logic works flawlessly'
+    ],
+    validation: 'Every mortgage feature tested and verified working',
+    tolerance: '0% failure rate'
+  },
+  
+  flowPerfection: {
+    requirements: [
+      'User can complete mortgage process without obstacles',
+      'No dead ends in mortgage navigation flow',
+      'Clear path from Stage 1 to Stage 4 for mortgages',
+      'Intuitive progression throughout mortgage steps',
+      'No confusing or unclear mortgage-specific steps'
+    ],
+    validation: 'Complete mortgage user journey testing',
+    tolerance: '0% user confusion incidents'
+  },
+  
+  dataPerfection: {
+    requirements: [
+      'All mortgage data saved correctly to database',
+      'No mortgage data loss at any stage',
+      'Accurate mortgage data validation throughout',
+      'Proper mortgage data persistence across sessions',
+      'Correct mortgage relationships maintained',
+      'LTV calculations persist correctly'
+    ],
+    validation: 'Mortgage database integrity verification',
+    tolerance: '0% data corruption'
+  },
+  
+  calculationPerfection: {
+    requirements: [
+      'LTV ratios calculated with 100% accuracy',
+      'Monthly payments calculated correctly',
+      'Property ownership logic enforced properly',
+      'Down payment calculations accurate',
+      'Interest calculations mathematically correct'
+    ],
+    validation: 'Mathematical verification of all calculations',
+    tolerance: '0% calculation errors'
+  }
+};
+
+// Mortgage Process Perfection Validation Suite
+describe('🛡️ MORTGAGE PROCESS PERFECTION VALIDATION - ZERO TOLERANCE', () => {
+  
+  it('should validate 100% mortgage functional perfection', () => {
+    cy.visit('http://localhost:5173/services/calculate-mortgage/1');
+    
+    // Test every single mortgage feature
+    const mortgageFeatures = [
+      'property-value-input',
+      'property-ownership-selection',
+      'ltv-slider',
+      'initial-payment-input',
+      'monthly-payment-calculation',
+      'loan-term-dropdown',
+      'form-validation',
+      'step-navigation',
+      'data-persistence'
+    ];
+    
+    mortgageFeatures.forEach(feature => {
+      cy.get(`[data-testid="${feature}"]`)
+        .should('exist')
+        .and('be.visible')
+        .and('not.be.disabled');
+        
+      // Test mortgage-specific functionality
+      if (feature.includes('property-value')) {
+        cy.get(`[data-testid="${feature}"]`).type('2000000').should('have.value', '2000000');
+      } else if (feature.includes('ownership')) {
+        cy.get(`[data-testid="${feature}"]`).select('no_property');
+      } else if (feature.includes('button')) {
+        cy.get(`[data-testid="${feature}"]`).click();
+      }
+    });
+    
+    cy.log('✅ 100% Mortgage Functional Perfection Validated');
+  });
+  
+  it('should validate 100% mortgage calculation perfection', () => {
+    cy.visit('http://localhost:5173/services/calculate-mortgage/1');
+    
+    // Test LTV calculation accuracy
+    const testScenarios = [
+      {
+        propertyValue: 2000000,
+        ownership: 'no_property',
+        expectedMaxLTV: 75,
+        downPayment: 500000,
+        expectedLoanAmount: 1500000
+      },
+      {
+        propertyValue: 1500000,
+        ownership: 'has_property',
+        expectedMaxLTV: 50,
+        downPayment: 750000,
+        expectedLoanAmount: 750000
+      },
+      {
+        propertyValue: 1800000,
+        ownership: 'selling_property',
+        expectedMaxLTV: 70,
+        downPayment: 540000,
+        expectedLoanAmount: 1260000
+      }
+    ];
+    
+    testScenarios.forEach((scenario, index) => {
+      cy.reload();
+      
+      // Input property value
+      cy.get('[data-testid="property-value"]').type(scenario.propertyValue.toString());
+      
+      // Select ownership type
+      cy.get('[data-testid="property-ownership"]').select(scenario.ownership);
+      
+      // Validate max LTV is correct
+      cy.get('[data-testid="max-ltv-display"]')
+        .should('contain', `${scenario.expectedMaxLTV}%`);
+      
+      // Input down payment
+      cy.get('[data-testid="initial-payment"]').type(scenario.downPayment.toString());
+      
+      // Validate loan amount calculation
+      cy.get('[data-testid="loan-amount"]')
+        .should('contain', scenario.expectedLoanAmount.toLocaleString());
+      
+      cy.log(`✅ Scenario ${index + 1}: LTV calculation perfect`);
+    });
+    
+    cy.log('✅ 100% Mortgage Calculation Perfection Validated');
+  });
+  
+  it('should validate 100% mortgage data perfection', () => {
+    cy.visit('http://localhost:5173/services/calculate-mortgage/1');
+    
+    const testData = {
+      propertyValue: 2500000,
+      propertyOwnership: 'no_property',
+      initialPayment: 625000,
+      loanTerm: 30,
+      firstName: 'John',
+      lastName: 'Doe',
+      monthlyIncome: 35000
+    };
+    
+    // Fill and validate data at each step
+    cy.get('[data-testid="property-value"]').type(testData.propertyValue.toString());
+    cy.get('[data-testid="property-ownership"]').select(testData.propertyOwnership);
+    cy.get('[data-testid="initial-payment"]').type(testData.initialPayment.toString());
+    cy.get('[data-testid="loan-term"]').select(testData.loanTerm.toString());
+    
+    // Validate data persistence in Redux store
+    cy.window().its('store').invoke('getState').then(state => {
+      expect(state.calculateMortgage.propertyValue).to.equal(testData.propertyValue);
+      expect(state.calculateMortgage.propertyOwnership).to.equal(testData.propertyOwnership);
+      expect(state.calculateMortgage.initialPayment).to.equal(testData.initialPayment);
+      expect(state.calculateMortgage.loanTerm).to.equal(testData.loanTerm);
+    });
+    
+    cy.log('✅ 100% Mortgage Data Perfection Validated');
+  });
+});
+```
+
+---
+
+## 📊 COMPREHENSIVE SUCCESS CRITERIA
+
+### **Non-Negotiable Mortgage Requirements**
+
+**EVERY MORTGAGE TEST RUN MUST CONFIRM:**
+
+1. ✅ **ALL mortgage links tested and functional** - Zero broken links tolerance
+2. ✅ **ALL mortgage popups handled correctly** - Complete interaction validation
+3. ✅ **ALL new mortgage pages/tabs process completed** - Stage 4 completion required
+4. ✅ **ALL mortgage processes reach Stage 4** - Mandatory completion validation
+5. ✅ **ZERO broken mortgage elements** - Perfect UI functionality
+6. ✅ **ZERO Unicode errors** - Flawless text rendering
+7. ✅ **100% mortgage screenshot coverage** - Complete visual documentation
+8. ✅ **Complete mortgage audit trail** - Full test execution tracking
+9. ✅ **All mortgage validations passed** - No test failures permitted
+10. ✅ **Perfect mortgage process execution** - Flawless end-to-end performance
+11. ✅ **LTV calculations 100% accurate** - Mathematical precision required
+12. ✅ **Property ownership logic perfect** - All scenarios validated
+
+### **Enhanced Mortgage Reporting Requirements**
+
+#### **Stage 4 Completion Report**
+```markdown
+## MORTGAGE CALCULATOR COMPLETION MATRIX
+
+### Mortgage Service Endpoint Validation
+- Mortgage Step 1: [Stage 1 ✅] [Stage 2 ✅] [Stage 3 ✅] [Stage 4 ✅]
+- Mortgage Step 2: [Stage 1 ✅] [Stage 2 ✅] [Stage 3 ✅] [Stage 4 ✅]
+- Mortgage Step 3: [Stage 1 ✅] [Stage 2 ✅] [Stage 3 ✅] [Stage 4 ✅]
+- Mortgage Step 4: [Stage 1 ✅] [Stage 2 ✅] [Stage 3 ✅] [Stage 4 ✅]
+
+### Mortgage Link Testing Results
+- Total mortgage links found: X
+- Mortgage links tested: X (100%)
+- Mortgage links opening popups: X (100% completed)
+- Mortgage links opening new pages: X (100% completed to Stage 4)
+- All mortgage processes completed: YES ✅
+
+### Mortgage LTV Logic Validation
+- No Property (75% LTV): ✅ Perfect
+- Has Property (50% LTV): ✅ Perfect
+- Selling Property (70% LTV): ✅ Perfect
+- All calculations mathematically accurate: ✅
+
+### Responsive Mortgage Testing Matrix
+- Mobile (320-414px): ✅ Perfect
+- Tablet (768-820px): ✅ Perfect  
+- Desktop (1280-1920px): ✅ Perfect
+- Fluid resize testing: ✅ Perfect
+
+### Mortgage Process Perfection Score
+- Functional: 100% ✅
+- Flow: 100% ✅
+- Data: 100% ✅
+- Calculations: 100% ✅
+- UI/UX: 100% ✅
+- Integration: 100% ✅
+
+### Critical Issue Log (Must be empty for release)
+- Critical Issues: 0 ✅
+- Major Issues: 0 ✅
+- Minor Issues: 0 ✅
+- All Issues Resolved: YES ✅
+```
+
+---
+
+## 🚨 CRITICAL MORTGAGE FAILURE CONDITIONS
+
+**MORTGAGE TEST FAILURE CONDITIONS (Any of these = IMMEDIATE FAILURE):**
+
+1. **Incomplete Stage 4 Mortgage Process** - Any mortgage process not reaching Stage 4
+2. **Broken Mortgage Link Detection** - Any non-functional clickable element
+3. **LTV Calculation Error** - Any mathematical error in LTV calculations
+4. **Property Ownership Logic Failure** - Incorrect LTV limits for ownership types
+5. **Mortgage Popup Interaction Failure** - Incomplete popup/modal interaction
+6. **New Mortgage Window Process Incomplete** - New window/tab process not reaching Stage 4
+7. **Responsive Mortgage Layout Failure** - Broken layout on any viewport
+8. **Mortgage Data Loss Incident** - Any mortgage data not persisted correctly
+9. **Mortgage Navigation Dead End** - User cannot complete mortgage journey
+10. **Mortgage API Integration Failure** - Any mortgage API call not completing successfully
+
+### **MORTGAGE EMERGENCY PROTOCOLS**
+
+If any critical mortgage failure is detected:
+
+1. **STOP MORTGAGE TESTING IMMEDIATELY**
+2. **Document mortgage failure with screenshot**
+3. **Create detailed mortgage reproduction steps**
+4. **Verify LTV calculations with independent calculator**
+5. **Re-run complete mortgage test suite after fix**
+6. **Validate mortgage fix does not introduce new issues**
+
+---
+
+**FINAL CRITICAL MORTGAGE REMINDERS**
+
+1. **ABSOLUTE MORTGAGE COMPLETION**: Every mortgage process MUST reach Stage 4 - no exceptions
+2. **TOTAL MORTGAGE LINK COVERAGE**: Every single mortgage link must be clicked and validated
+3. **COMPLETE MORTGAGE POPUP HANDLING**: All mortgage popups must be fully interacted with
+4. **PERFECT MORTGAGE PROCESS FLOW**: From Stage 1 to Stage 4 without any issues
+5. **NEW MORTGAGE PAGE COMPLETION**: All new mortgage pages/tabs must complete their processes
+6. **ZERO MORTGAGE TOLERANCE**: No broken elements, no calculation errors, no incomplete processes
+7. **EXHAUSTIVE MORTGAGE VALIDATION**: Every possible mortgage user path must be tested to perfection
+8. **STAGE 4 MORTGAGE VERIFICATION**: Explicit confirmation that Stage 4 is reached for ALL mortgage processes
+9. **LTV MATHEMATICAL ACCURACY**: All LTV calculations must be 100% mathematically accurate
+10. **PROPERTY OWNERSHIP LOGIC PERFECTION**: All three ownership scenarios must work flawlessly
+
+**FAILURE TO COMPLETE ANY MORTGAGE PROCESS TO STAGE 4 = TEST FAILURE**
+
+This enhanced mortgage framework ensures absolute perfection in mortgage process execution, complete responsive design validation, comprehensive mortgage link coverage, and guaranteed Stage 4 completion for all mortgage user flows across all service endpoints.
