@@ -48,10 +48,12 @@ const initialState: AdminState = {
 
 // API base URL
 const getApiBaseUrl = () => {
-  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-    return 'http://localhost:8003/api'
+  // In development, use relative path to leverage Vite proxy
+  if (import.meta.env.DEV) {
+    return '/api'
   }
-  return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankimonline.com/api'
+  // In production, use environment variable or fallback
+  return import.meta.env.VITE_NODE_API_BASE_URL || '/api'
 }
 
 const API_BASE_URL = getApiBaseUrl();

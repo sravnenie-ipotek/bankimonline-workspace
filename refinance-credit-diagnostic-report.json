@@ -1,0 +1,280 @@
+{
+  "steps": {
+    "1": {
+      "url": "http://localhost:5173/services/refinance-credit/1",
+      "dropdowns": [
+        {
+          "selector": "[data-testid=\"property-ownership-dropdown\"]",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": "[data-testid=\"purpose-dropdown\"]",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": "select",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".dropdown",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".form-control",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".MuiSelect-root",
+          "count": 0,
+          "visible": false
+        }
+      ],
+      "loadingCount": 0,
+      "contentChecks": {
+        "hasDropdownData": false,
+        "hasUndefined": true,
+        "hasErrorMessages": true,
+        "hasLoading": false
+      },
+      "screenshotPath": "/Users/michaelmishayev/Projects/bankDev2_standalone/diagnostic-screenshots/refinance-credit-step1-full-page.png",
+      "consoleErrorCount": 0,
+      "networkErrorCount": 0,
+      "apiCallCount": 15
+    },
+    "2": {
+      "url": "http://localhost:5173/services/refinance-credit/2",
+      "dropdowns": [
+        {
+          "selector": "[data-testid=\"property-ownership-dropdown\"]",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": "[data-testid=\"purpose-dropdown\"]",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": "select",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".dropdown",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".form-control",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".MuiSelect-root",
+          "count": 0,
+          "visible": false
+        }
+      ],
+      "loadingCount": 0,
+      "contentChecks": {
+        "hasDropdownData": false,
+        "hasUndefined": true,
+        "hasErrorMessages": true,
+        "hasLoading": false
+      },
+      "screenshotPath": "/Users/michaelmishayev/Projects/bankDev2_standalone/diagnostic-screenshots/refinance-credit-step2-full-page.png",
+      "consoleErrorCount": 0,
+      "networkErrorCount": 2,
+      "apiCallCount": 30
+    },
+    "3": {
+      "url": "http://localhost:5173/services/refinance-credit/3",
+      "dropdowns": [
+        {
+          "selector": "[data-testid=\"property-ownership-dropdown\"]",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": "[data-testid=\"purpose-dropdown\"]",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": "select",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".dropdown",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".form-control",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".MuiSelect-root",
+          "count": 0,
+          "visible": false
+        }
+      ],
+      "loadingCount": 0,
+      "contentChecks": {
+        "hasDropdownData": false,
+        "hasUndefined": true,
+        "hasErrorMessages": true,
+        "hasLoading": false
+      },
+      "screenshotPath": "/Users/michaelmishayev/Projects/bankDev2_standalone/diagnostic-screenshots/refinance-credit-step3-full-page.png",
+      "consoleErrorCount": 0,
+      "networkErrorCount": 4,
+      "apiCallCount": 45
+    },
+    "4": {
+      "url": "http://localhost:5173/services/refinance-credit/4",
+      "dropdowns": [
+        {
+          "selector": "[data-testid=\"property-ownership-dropdown\"]",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": "[data-testid=\"purpose-dropdown\"]",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": "select",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".dropdown",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".form-control",
+          "count": 0,
+          "visible": false
+        },
+        {
+          "selector": ".MuiSelect-root",
+          "count": 0,
+          "visible": false
+        }
+      ],
+      "loadingCount": 0,
+      "contentChecks": {
+        "hasDropdownData": false,
+        "hasUndefined": true,
+        "hasErrorMessages": true,
+        "hasLoading": false
+      },
+      "screenshotPath": "/Users/michaelmishayev/Projects/bankDev2_standalone/diagnostic-screenshots/refinance-credit-step4-full-page.png",
+      "consoleErrorCount": 0,
+      "networkErrorCount": 5,
+      "apiCallCount": 60
+    }
+  },
+  "consoleErrors": [],
+  "networkErrors": [
+    {
+      "url": "http://localhost:5173/static/primary-logo05-1.svg",
+      "status": 304,
+      "statusText": "Not Modified"
+    },
+    {
+      "url": "http://localhost:5173/static/Background.png",
+      "status": 304,
+      "statusText": "Not Modified"
+    },
+    {
+      "url": "http://localhost:5173/static/primary-logo05-1.svg",
+      "status": 304,
+      "statusText": "Not Modified"
+    },
+    {
+      "url": "http://localhost:5173/static/Background.png",
+      "status": 304,
+      "statusText": "Not Modified"
+    },
+    {
+      "url": "http://localhost:5173/static/primary-logo05-1.svg",
+      "status": 304,
+      "statusText": "Not Modified"
+    }
+  ],
+  "apiCalls": [
+    "http://localhost:5173/src/pages/Services/pages/RefinanceCredit/api/refinanceCredit.ts?t=1755286852318",
+    "http://localhost:5173/src/pages/Services/pages/RefinanceMortgage/api/refinanceMortgage.ts?t=1755286871183",
+    "http://localhost:5173/api/content/validation_errors/he",
+    "http://localhost:5173/api/content/validation_errors/he",
+    "http://localhost:5173/api/content/validation_errors/he",
+    "http://localhost:5173/api/server-mode",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/server-mode",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/src/pages/Services/pages/RefinanceCredit/api/refinanceCredit.ts?t=1755286852318",
+    "http://localhost:5173/src/pages/Services/pages/RefinanceMortgage/api/refinanceMortgage.ts?t=1755286871183",
+    "http://localhost:5173/api/content/validation_errors/he",
+    "http://localhost:5173/api/content/validation_errors/he",
+    "http://localhost:5173/api/server-mode",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/server-mode",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/content/validation_errors/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/src/pages/Services/pages/RefinanceCredit/api/refinanceCredit.ts?t=1755286852318",
+    "http://localhost:5173/src/pages/Services/pages/RefinanceMortgage/api/refinanceMortgage.ts?t=1755286871183",
+    "http://localhost:5173/api/content/validation_errors/he",
+    "http://localhost:5173/api/content/validation_errors/he",
+    "http://localhost:5173/api/server-mode",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/server-mode",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/content/validation_errors/he",
+    "http://localhost:5173/src/pages/Services/pages/RefinanceCredit/api/refinanceCredit.ts?t=1755286852318",
+    "http://localhost:5173/src/pages/Services/pages/RefinanceMortgage/api/refinanceMortgage.ts?t=1755286871183",
+    "http://localhost:5173/api/content/validation_errors/he",
+    "http://localhost:5173/api/content/validation_errors/he",
+    "http://localhost:5173/api/server-mode",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/server-mode",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/refinance_credit_1/he",
+    "http://localhost:5173/api/content/sms_code_verification/he",
+    "http://localhost:5173/api/content/validation_errors/he"
+  ],
+  "loadingStates": [],
+  "dropdownStates": []
+}

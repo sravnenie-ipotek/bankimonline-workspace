@@ -7,6 +7,9 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 
+// Percy visual testing integration
+// import '@percy/cypress' // Commented out - Percy not installed
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
@@ -49,6 +52,33 @@ declare global {
        * @example cy.mockApiResponse('login', { success: true })
        */
       mockApiResponse(endpoint: string, response: any): Chainable<void>
+      
+      /**
+       * Percy visual snapshot with banking-specific configuration
+       * @example cy.percySnapshot('Mortgage Step 1', { widths: [375, 768, 1280] })
+       */
+      percySnapshot(name: string, options?: {
+        widths?: number[],
+        minHeight?: number,
+        percyCSS?: string,
+        scope?: string,
+        enableJavaScript?: boolean,
+        waitForTimeout?: number,
+        waitForSelector?: string,
+        language?: 'he' | 'en' | 'ru'
+      }): Chainable<void>
+      
+      /**
+       * Multi-language Percy snapshot for all supported languages
+       * @example cy.percySnapshotMultiLang('Mortgage Step 1')
+       */
+      percySnapshotMultiLang(baseName: string, options?: any): Chainable<void>
+      
+      /**
+       * Banking-specific Percy snapshot with data masking
+       * @example cy.percySnapshotSecure('Credit Form Step 2')
+       */
+      percySnapshotSecure(name: string, options?: any): Chainable<void>
     }
   }
 }

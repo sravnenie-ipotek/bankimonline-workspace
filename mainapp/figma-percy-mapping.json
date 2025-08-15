@@ -1,0 +1,197 @@
+{
+  "version": "1.0",
+  "description": "Figma to Percy visual regression mapping for Banking Application",
+  "figmaProjectId": "YOUR_FIGMA_PROJECT_ID",
+  "percy": {
+    "projectToken": "PERCY_TOKEN_FROM_ENV"
+  },
+  "mappings": {
+    "mortgage-flow": {
+      "figmaFileId": "YOUR_FIGMA_FILE_ID",
+      "frames": {
+        "step1": {
+          "figmaNodeId": "1:2",
+          "percySnapshotName": "Mortgage Step 1 - Initial State",
+          "description": "Mortgage calculation parameters form",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920]
+        },
+        "step2": {
+          "figmaNodeId": "1:3",
+          "percySnapshotName": "Mortgage Step 2 - Initial State",
+          "description": "Personal information form",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920]
+        },
+        "step3": {
+          "figmaNodeId": "1:4",
+          "percySnapshotName": "Mortgage Step 3 - Initial State",
+          "description": "Income and employment form",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920]
+        },
+        "step4": {
+          "figmaNodeId": "1:5",
+          "percySnapshotName": "Mortgage Step 4 - Bank Offers",
+          "description": "Bank offers and results display",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920]
+        }
+      }
+    },
+    "credit-flow": {
+      "figmaFileId": "YOUR_FIGMA_FILE_ID",
+      "frames": {
+        "step1": {
+          "figmaNodeId": "2:1",
+          "percySnapshotName": "Credit Step 1 - Initial State",
+          "description": "Credit calculation parameters",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920]
+        },
+        "step2": {
+          "figmaNodeId": "2:2",
+          "percySnapshotName": "Credit Step 2 - Initial State",
+          "description": "Personal details for credit",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920]
+        },
+        "step3": {
+          "figmaNodeId": "2:3",
+          "percySnapshotName": "Credit Step 3 - Initial State",
+          "description": "Employment and income information",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920]
+        },
+        "step4": {
+          "figmaNodeId": "2:4",
+          "percySnapshotName": "Credit Step 4 - Offers Display",
+          "description": "Credit offers and approval status",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920]
+        }
+      }
+    },
+    "refinance-credit-flow": {
+      "figmaFileId": "YOUR_FIGMA_FILE_ID",
+      "frames": {
+        "step1": {
+          "figmaNodeId": "3:1",
+          "percySnapshotName": "Refinance Credit Step 1 - Initial State",
+          "description": "Credit refinancing goals and current loan",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920],
+          "status": "broken",
+          "knownIssues": ["Dropdown loading failure", "API endpoint mismatch", "Translation system stuck"]
+        },
+        "step2": {
+          "figmaNodeId": "3:2", 
+          "percySnapshotName": "Refinance Credit Step 2 - Current State",
+          "description": "Current loan information",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920],
+          "status": "broken",
+          "knownIssues": ["Bank selection dropdown failure"]
+        },
+        "step3": {
+          "figmaNodeId": "3:3",
+          "percySnapshotName": "Refinance Credit Step 3 - Initial State", 
+          "description": "New loan preferences",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920],
+          "status": "broken",
+          "knownIssues": ["Improvement options not loading"]
+        },
+        "step4": {
+          "figmaNodeId": "3:4",
+          "percySnapshotName": "Refinance Credit Step 4 - Missing Analysis",
+          "description": "Refinancing analysis and recommendations",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920],
+          "status": "broken",
+          "knownIssues": ["Break-even analysis missing", "No cost-benefit comparison"]
+        }
+      }
+    },
+    "refinance-mortgage-flow": {
+      "figmaFileId": "YOUR_FIGMA_FILE_ID",
+      "frames": {
+        "step1": {
+          "figmaNodeId": "4:1",
+          "percySnapshotName": "Refinance Mortgage Step 1 - Initial State",
+          "description": "Mortgage refinancing goals and current mortgage",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920],
+          "status": "partial",
+          "functionalityPercentage": 57.1
+        },
+        "step2": {
+          "figmaNodeId": "4:2",
+          "percySnapshotName": "Refinance Mortgage Step 2 - Initial State",
+          "description": "Updated personal and financial information",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920],
+          "status": "partial"
+        },
+        "step3": {
+          "figmaNodeId": "4:3",
+          "percySnapshotName": "Refinance Mortgage Step 3 - Initial State",
+          "description": "New mortgage preferences",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920],
+          "status": "partial"
+        },
+        "step4": {
+          "figmaNodeId": "4:4",
+          "percySnapshotName": "Refinance Mortgage Step 4 - Offers Display",
+          "description": "Refinancing analysis and bank offers",
+          "languages": ["Hebrew", "English", "Russian"],
+          "viewports": [375, 768, 1280, 1920],
+          "status": "partial",
+          "missingFeatures": ["Break-even analysis", "Rate comparison", "Savings calculator"]
+        }
+      }
+    }
+  },
+  "globalSettings": {
+    "defaultLanguage": "Hebrew",
+    "rtlSupport": true,
+    "securityMasking": {
+      "enabled": true,
+      "maskPatterns": [
+        "[class*=\"account\"]",
+        "[class*=\"balance\"]", 
+        "[class*=\"amount\"]",
+        "[class*=\"income\"]",
+        "[class*=\"phone\"]",
+        "[class*=\"id-number\"]"
+      ]
+    },
+    "visualRegression": {
+      "threshold": 0.1,
+      "enableJavaScript": true,
+      "disableAnimation": true,
+      "waitForTimeout": 2000
+    }
+  },
+  "workflows": {
+    "pr-review": {
+      "description": "Run visual regression on PR creation",
+      "includeFlows": ["mortgage-flow", "credit-flow"],
+      "approvalRequired": true,
+      "jiraIntegration": true
+    },
+    "nightly-full": {
+      "description": "Full visual regression suite",
+      "includeFlows": ["mortgage-flow", "credit-flow", "refinance-credit-flow", "refinance-mortgage-flow"],
+      "approvalRequired": false,
+      "baselineBehavior": "auto-approve-minor-changes"
+    },
+    "broken-state-tracking": {
+      "description": "Track improvements in known broken flows",
+      "includeFlows": ["refinance-credit-flow", "refinance-mortgage-flow"],
+      "approvalRequired": false,
+      "alertOnImprovement": true
+    }
+  }
+}

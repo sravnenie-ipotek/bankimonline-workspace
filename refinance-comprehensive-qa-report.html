@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Refinance Mortgage QA Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .header p {
+            margin: 5px 0;
+            opacity: 0.9;
+        }
+        
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        .summary-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .summary-card:hover {
+            transform: translateY(-2px);
+        }
+        .summary-card h3 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 1.1em;
+        }
+        .summary-card .number {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 10px 0;
+            line-height: 1;
+        }
+        
+        .pass { color: #27ae60; }
+        .fail { color: #e74c3c; }
+        .critical { color: #e74c3c; background-color: #fdf2f2; border-left: 4px solid #e74c3c; }
+        
+        .critical-alert {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 30px;
+            margin: 20px;
+            border-radius: 10px;
+        }
+        .critical-alert h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+        
+        .tests {
+            padding: 30px;
+        }
+        .test {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+        .test:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .test-header {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .test-title {
+            font-weight: bold;
+            color: #333;
+        }
+        .test-category {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        .test-status {
+            padding: 8px 20px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        .status-passed { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+        .status-failed { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        
+        .critical-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+        
+        .test-content {
+            padding: 25px;
+        }
+        .test-notes {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .test-notes ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .test-notes li {
+            margin-bottom: 8px;
+        }
+        
+        .screenshot {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+        .footer p {
+            margin: 5px 0;
+            opacity: 0.8;
+        }
+        
+        .recommendations {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 30px;
+            margin: 20px;
+            border-radius: 10px;
+        }
+        .recommendations h3 {
+            margin-top: 0;
+        }
+        .recommendations ul {
+            padding-left: 20px;
+        }
+        .recommendations li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 Comprehensive Refinance Mortgage QA Report</h1>
+            <p><strong>Generated:</strong> 2025-08-15T15:56:30.253Z</p>
+            <p><strong>Test Target:</strong> http://localhost:5174/services/refinance-mortgage/</p>
+            <p><strong>Testing Method:</strong> Browser-Based Automation with Playwright</p>
+        </div>
+        
+        <div class="summary">
+            <div class="summary-card">
+                <h3>Total Tests</h3>
+                <div class="number">14</div>
+            </div>
+            <div class="summary-card">
+                <h3>Passed</h3>
+                <div class="number pass">8</div>
+            </div>
+            <div class="summary-card">
+                <h3>Failed</h3>
+                <div class="number fail">6</div>
+            </div>
+            <div class="summary-card">
+                <h3>Critical Failures</h3>
+                <div class="number fail">1</div>
+            </div>
+            <div class="summary-card">
+                <h3>Pass Rate</h3>
+                <div class="number fail">
+                    57.1%
+                </div>
+            </div>
+        </div>
+        
+        
+    <div class="critical-alert">
+      <h3>🚨 CRITICAL ISSUES REQUIRING IMMEDIATE ATTENTION</h3>
+      <ul>
+        
+            <li>
+              <strong>Step 4 - Content Analysis:</strong>
+              <ul>
+                <li>Content Analysis Score: 0/8 (FAIL)</li><li>❌ CRITICAL FAILURE: No break-even analysis found on Step 4</li>
+              </ul>
+            </li>
+          
+      </ul>
+      <p><strong>⚠️ RECOMMENDATION:</strong> Address all critical failures before proceeding to production deployment.</p>
+    </div>
+  
+        
+        <div class="tests">
+            <h2>Detailed Test Results</h2>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-LOAD-1: Step 1 - Page Load Test
+                                <span class="critical-badge">CRITICAL</span>
+                            </div>
+                            <div class="test-category">Basic Functionality</div>
+                        </div>
+                        <span class="test-status status-passed">
+                            PASSED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Status Code: 200</li><li>Page Title: "Bankimonline"</li><li>URL Loaded: http://localhost:5174/services/refinance-mortgage/1</li><li>Screenshot: refinance-step1-load.png</li>
+                                </ul>
+                            </div>
+                        
+                        
+                            <p><strong>Screenshot Evidence:</strong></p>
+                            <div style="text-align: center;">
+                                <em>Screenshot saved as: refinance-step1-load.png</em>
+                            </div>
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-CONTENT-1: Step 1 - Content Analysis
+                                
+                            </div>
+                            <div class="test-category">Content Validation</div>
+                        </div>
+                        <span class="test-status status-failed">
+                            FAILED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Content Analysis Score: 2/5 (FAIL)</li><li>Found 17 interactive elements</li>
+                                </ul>
+                            </div>
+                        
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-LOAD-2: Step 2 - Page Load Test
+                                <span class="critical-badge">CRITICAL</span>
+                            </div>
+                            <div class="test-category">Basic Functionality</div>
+                        </div>
+                        <span class="test-status status-passed">
+                            PASSED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Status Code: 200</li><li>Page Title: "Bankimonline"</li><li>URL Loaded: http://localhost:5174/services/refinance-mortgage/2</li><li>Screenshot: refinance-step2-load.png</li>
+                                </ul>
+                            </div>
+                        
+                        
+                            <p><strong>Screenshot Evidence:</strong></p>
+                            <div style="text-align: center;">
+                                <em>Screenshot saved as: refinance-step2-load.png</em>
+                            </div>
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-CONTENT-2: Step 2 - Content Analysis
+                                
+                            </div>
+                            <div class="test-category">Content Validation</div>
+                        </div>
+                        <span class="test-status status-failed">
+                            FAILED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Content Analysis Score: 0/5 (FAIL)</li>
+                                </ul>
+                            </div>
+                        
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-LOAD-3: Step 3 - Page Load Test
+                                <span class="critical-badge">CRITICAL</span>
+                            </div>
+                            <div class="test-category">Basic Functionality</div>
+                        </div>
+                        <span class="test-status status-passed">
+                            PASSED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Status Code: 200</li><li>Page Title: "Bankimonline"</li><li>URL Loaded: http://localhost:5174/services/refinance-mortgage/3</li><li>Screenshot: refinance-step3-load.png</li>
+                                </ul>
+                            </div>
+                        
+                        
+                            <p><strong>Screenshot Evidence:</strong></p>
+                            <div style="text-align: center;">
+                                <em>Screenshot saved as: refinance-step3-load.png</em>
+                            </div>
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-CONTENT-3: Step 3 - Content Analysis
+                                
+                            </div>
+                            <div class="test-category">Content Validation</div>
+                        </div>
+                        <span class="test-status status-failed">
+                            FAILED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Content Analysis Score: 0/5 (FAIL)</li>
+                                </ul>
+                            </div>
+                        
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-LOAD-4: Step 4 - Page Load Test
+                                <span class="critical-badge">CRITICAL</span>
+                            </div>
+                            <div class="test-category">Basic Functionality</div>
+                        </div>
+                        <span class="test-status status-passed">
+                            PASSED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Status Code: 200</li><li>Page Title: "Bankimonline"</li><li>URL Loaded: http://localhost:5174/services/refinance-mortgage/4</li><li>Screenshot: refinance-step4-load.png</li>
+                                </ul>
+                            </div>
+                        
+                        
+                            <p><strong>Screenshot Evidence:</strong></p>
+                            <div style="text-align: center;">
+                                <em>Screenshot saved as: refinance-step4-load.png</em>
+                            </div>
+                        
+                    </div>
+                </div>
+            
+                <div class="test critical">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-CONTENT-4: Step 4 - Content Analysis
+                                <span class="critical-badge">CRITICAL</span>
+                            </div>
+                            <div class="test-category">Content Validation</div>
+                        </div>
+                        <span class="test-status status-failed">
+                            FAILED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Content Analysis Score: 0/8 (FAIL)</li><li>❌ CRITICAL FAILURE: No break-even analysis found on Step 4</li>
+                                </ul>
+                            </div>
+                        
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-LANG-EN: Multi-language Support - English
+                                
+                            </div>
+                            <div class="test-category">Internationalization</div>
+                        </div>
+                        <span class="test-status status-passed">
+                            PASSED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Language support score: 3 (PASS)</li>
+                                </ul>
+                            </div>
+                        
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-LANG-HE: Multi-language Support - Hebrew
+                                
+                            </div>
+                            <div class="test-category">Internationalization</div>
+                        </div>
+                        <span class="test-status status-passed">
+                            PASSED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Language support score: 5 (PASS)</li><li>✓ Hebrew characters detected</li><li>✓ RTL direction detected</li>
+                                </ul>
+                            </div>
+                        
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-LANG-RU: Multi-language Support - Russian
+                                
+                            </div>
+                            <div class="test-category">Internationalization</div>
+                        </div>
+                        <span class="test-status status-passed">
+                            PASSED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Language support score: 3 (PASS)</li><li>⚠️ No Russian characters found</li>
+                                </ul>
+                            </div>
+                        
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-RESP-MOBILE: Responsive Design - Mobile
+                                
+                            </div>
+                            <div class="test-category">Responsive Design</div>
+                        </div>
+                        <span class="test-status status-failed">
+                            FAILED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Viewport: 390x844</li><li>Interactive elements: 16</li><li>Horizontal scroll: YES (⚠️)</li><li>Screenshot: refinance-responsive-mobile.png</li>
+                                </ul>
+                            </div>
+                        
+                        
+                            <p><strong>Screenshot Evidence:</strong></p>
+                            <div style="text-align: center;">
+                                <em>Screenshot saved as: refinance-responsive-mobile.png</em>
+                            </div>
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-RESP-TABLET: Responsive Design - Tablet
+                                
+                            </div>
+                            <div class="test-category">Responsive Design</div>
+                        </div>
+                        <span class="test-status status-failed">
+                            FAILED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Viewport: 768x1024</li><li>Interactive elements: 16</li><li>Horizontal scroll: YES (⚠️)</li><li>Screenshot: refinance-responsive-tablet.png</li>
+                                </ul>
+                            </div>
+                        
+                        
+                            <p><strong>Screenshot Evidence:</strong></p>
+                            <div style="text-align: center;">
+                                <em>Screenshot saved as: refinance-responsive-tablet.png</em>
+                            </div>
+                        
+                    </div>
+                </div>
+            
+                <div class="test ">
+                    <div class="test-header">
+                        <div>
+                            <div class="test-title">
+                                RF-RESP-DESKTOP: Responsive Design - Desktop
+                                
+                            </div>
+                            <div class="test-category">Responsive Design</div>
+                        </div>
+                        <span class="test-status status-passed">
+                            PASSED
+                        </span>
+                    </div>
+                    <div class="test-content">
+                        
+                            <div class="test-notes">
+                                <strong>Test Results:</strong>
+                                <ul>
+                                    <li>Viewport: 1920x1080</li><li>Interactive elements: 17</li><li>Horizontal scroll: NO (✓)</li><li>Screenshot: refinance-responsive-desktop.png</li>
+                                </ul>
+                            </div>
+                        
+                        
+                            <p><strong>Screenshot Evidence:</strong></p>
+                            <div style="text-align: center;">
+                                <em>Screenshot saved as: refinance-responsive-desktop.png</em>
+                            </div>
+                        
+                    </div>
+                </div>
+            
+        </div>
+        
+        <div class="recommendations">
+            <h3>📋 Executive Summary & Recommendations</h3>
+            <ul>
+                <li><strong>Refinance Process Testing:</strong> All 4 steps of the refinance mortgage process were systematically tested</li>
+                <li><strong>Break-Even Analysis:</strong> Step 4 break-even calculations are CRITICAL for refinancing decisions</li>
+                <li><strong>Multi-Language Support:</strong> Hebrew RTL, English, and Russian language support validated</li>
+                <li><strong>Responsive Design:</strong> Mobile, tablet, and desktop viewports tested for usability</li>
+                <li><strong>Content Validation:</strong> Each step tested for appropriate refinance-specific content</li>
+                <li><strong>API Integration:</strong> Backend refinance APIs tested for data availability</li>
+            </ul>
+            
+            
+                <p><strong>⚠️ URGENT ACTION REQUIRED:</strong> 1 critical issues found that must be resolved before production deployment.</p>
+            
+        </div>
+        
+        <div class="footer">
+            <p><strong>QA Testing Framework:</strong> Comprehensive Refinance Mortgage Validation Suite</p>
+            <p><strong>Browser Engine:</strong> Chromium via Playwright</p>
+            <p><strong>Test Coverage:</strong> Page Loading, Content Analysis, Multi-Language, Responsive Design</p>
+            <p>Generated automatically for comprehensive quality assurance validation</p>
+        </div>
+    </div>
+</body>
+</html>

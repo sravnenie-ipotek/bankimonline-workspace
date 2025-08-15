@@ -78,10 +78,12 @@ const calculateAge = (birthDate: string | number): number => {
 
 // Get API base URL
 const getApiBaseUrl = () => {
-  return import.meta.env.VITE_NODE_API_BASE_URL || 
-         (import.meta.env.PROD ? 
-           'https://bankimonline.com/api' : 
-           'http://localhost:8003/api')
+  // In development, use relative path to leverage Vite proxy
+  if (import.meta.env.DEV) {
+    return '/api'
+  }
+  // In production, use environment variable or fallback
+  return import.meta.env.VITE_NODE_API_BASE_URL || '/api'
 }
 
 // Fetch bank offers from API

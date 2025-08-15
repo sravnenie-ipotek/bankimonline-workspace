@@ -81,7 +81,7 @@ const getDatabaseConfig = (connectionType = 'content') => {
             return {
                 connectionString,
                 ssl,
-                max: 10,
+                max: 20, // ⚡ PERFORMANCE: Increased from 10 to 20 (match production)
                 idleTimeoutMillis: 30000,
                 connectionTimeoutMillis: 5000
             };
@@ -92,7 +92,7 @@ const getDatabaseConfig = (connectionType = 'content') => {
             return {
                 connectionString,
                 ssl,
-                max: 10,
+                max: 20, // ⚡ PERFORMANCE: Increased from 10 to 20 (match production)
                 idleTimeoutMillis: 30000,
                 connectionTimeoutMillis: 5000
             };

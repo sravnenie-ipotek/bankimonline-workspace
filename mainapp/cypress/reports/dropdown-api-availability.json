@@ -1,0 +1,58 @@
+{
+  "investigation": "Dropdown API Availability Check",
+  "results": {
+    "/api/v1/dropdowns/credit_refinance_step1": {
+      "status": 404,
+      "available": false,
+      "hasData": false,
+      "error": {
+        "error": "API endpoint not found"
+      }
+    },
+    "/api/v1/dropdowns/credit_refinance_step2": {
+      "status": 404,
+      "available": false,
+      "hasData": false,
+      "error": {
+        "error": "API endpoint not found"
+      }
+    },
+    "/api/v1/dropdowns/credit_refinance_step3": {
+      "status": 404,
+      "available": false,
+      "hasData": false,
+      "error": {
+        "error": "API endpoint not found"
+      }
+    },
+    "/api/v1/dropdowns/credit_refinance_step4": {
+      "status": 404,
+      "available": false,
+      "hasData": false,
+      "error": {
+        "error": "API endpoint not found"
+      }
+    },
+    "/api/v1/dropdowns": {
+      "status": 404,
+      "available": false,
+      "hasData": false,
+      "error": {
+        "error": "API endpoint not found"
+      }
+    },
+    "/api/v1/dropdowns?screen=credit_refinance_step1": {
+      "status": 404,
+      "available": false,
+      "hasData": false,
+      "error": {
+        "error": "API endpoint not found"
+      }
+    }
+  },
+  "summary": {
+    "totalEndpoints": 6,
+    "workingEndpoints": 0,
+    "recommendation": "Dropdown APIs need to be implemented for refinance credit functionality"
+  }
+}

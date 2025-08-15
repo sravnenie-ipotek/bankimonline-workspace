@@ -51,3 +51,7 @@ config.local.json
 # Jira integration files with credentials (NEVER commit!)
 server/docs/QA/jira/jiraIntegration.md
 **/jiraIntegration.md
+
+# Claude agents and sensitive files
+.claude/
+

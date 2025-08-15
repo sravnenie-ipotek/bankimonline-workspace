@@ -197,6 +197,21 @@ export default defineConfig({
           return fs.existsSync(fullPath)
         },
 
+        // Visual regression Jira integration
+        async createVisualRegressionJira(issue: any) {
+          const { PercyJiraIntegration } = require('./cypress/support/percy-jira-integration')
+          
+          try {
+            const jiraIntegration = new PercyJiraIntegration()
+            const result = await jiraIntegration.createOrUpdateVisualRegressionIssue(issue)
+            console.log(`🎨 Visual regression Jira issue: ${result.issueKey}`)
+            return result
+          } catch (error: any) {
+            console.error('❌ Visual regression Jira integration failed:', error.message)
+            return { error: error.message }
+          }
+        },
+
         // Enhanced Jira integration task with bilingual support and detailed tracking
         async createOrUpdateJira(input: any) {
           const {
