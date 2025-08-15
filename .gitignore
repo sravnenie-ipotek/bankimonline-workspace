@@ -47,3 +47,7 @@ config.local.json
 .env.whatsapp.demo
 .env.whatsapp.template
 .env.jira
+
+# Jira integration files with credentials (NEVER commit!)
+server/docs/QA/jira/jiraIntegration.md
+**/jiraIntegration.md
