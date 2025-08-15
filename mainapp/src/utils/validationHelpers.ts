@@ -134,7 +134,7 @@ export const preloadValidationErrors = async () => {
         const data = await response.json()
         if (data.content) {
           validationCache.set(`validation_errors_${currentLang}`, data.content)
-          )
+          console.log('Validation helper debug')
           return
         }
       }

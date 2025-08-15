@@ -57,9 +57,12 @@ const SecondStepForm = () => {
   const incomeSourceKey = mainSourceOfIncome || ''
 
   // Debug logging for conditional field rendering
-  ,
+  console.log('OtherBorrowers SecondStep debug:', {
+    incomeSourceKey,
     allFormValues: values
   })
+
+  console.log('SecondStepForm validation completed')
 
   const sourceOfIncomeValues = useAppSelector(
     (state) =>

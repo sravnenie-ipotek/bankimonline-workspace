@@ -59,7 +59,7 @@ const SecondStepForm = () => {
   
   const displayUserData = userData?.nameSurname ? userData : fallbackUserData
   
-  :', displayUserData)
+  console.log('RefinanceMortgage SecondStep user data:', displayUserData)
 
   return (
     <FormContainer>

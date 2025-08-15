@@ -75,7 +75,7 @@ async function testAllDropdownAPIs() {
           }
         });
 
-        .length} dropdowns, ${totalOptions} total options`);
+        console.log(`     Parsed ${Object.keys(response.data).length} dropdowns, ${totalOptions} total options`);
         
         if (emptyDropdowns.length > 0) {
           const issue = {

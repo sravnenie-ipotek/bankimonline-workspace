@@ -32,7 +32,8 @@ pool.query('SELECT NOW()', (err, res) => {
     if (err) {
         console.error('❌ Main Database connection failed:', err.message);
     } else {
-        }
+        console.log('✅ Main Database connected successfully');
+    }
 });
 
 // Test content database connection
@@ -40,12 +41,13 @@ contentPool.query('SELECT NOW()', (err, res) => {
     if (err) {
         console.error('❌ Content Database connection failed:', err.message);
     } else {
-        // Delete test-content table if it exists
+        console.log('✅ Content Database connected successfully');
+        // Delete test-content table if it exists (cleanup)
         contentPool.query('DROP TABLE IF EXISTS "test-content" CASCADE', (dropErr, dropRes) => {
             if (dropErr) {
                 console.error('❌ Failed to delete test-content table:', dropErr.message);
             } else {
-                ');
+                console.log('✅ Test content table cleanup completed');
             }
         });
     }
@@ -1092,7 +1094,6 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
         const dropdownMap = new Map();
         
         result.rows.forEach(row => {
-            `);
             
             // Extract field name using multiple patterns to handle various key formats
             // Examples: mortgage_step1.field.property_ownership, app.mortgage.form.calculate_mortgage_city
@@ -1211,7 +1212,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
             // Pattern 4.5: refinance_step2_{fieldname} (handles both container and options)
             if (!fieldName) {
                 // For options like: refinance_step2_education_bachelors, refinance_step2_education_masters, etc.
-                match = row.content_key.match(/refinance_step2_([^_]+(?:_[^_]+)*)_(?:bachelors|masters|doctorate|full_certificate|partial_certificate|no_certificate|post_secondary|postsecondary_education|full_high_school_certificate|partial_high_school_certificat|no_high_school_certificate)/);
+                match = row.content_key.match(/refinance_step2_([^_]+(?:_[^_]+)*)_(?:bachelors|masters|doctorate|full_certificate|partial_certificate|no_certificate|post_secondary|postsecondary_education|full_high_school_certificate|partial_high_school_certificate|no_high_school_certificate)/);
                 if (match) {
                     fieldName = match[1];
                 } else {
@@ -2911,7 +2912,6 @@ app.post('/api/admin/migrate-vacancies', async (req, res) => {
             AND table_name IN ('vacancies', 'vacancy_applications')
         `);
         
-        );
         
         res.json({
             status: 'success',
@@ -3645,7 +3645,6 @@ app.post('/api/login', async (req, res) => {
         }
         
         const user = userResult.rows[0];
-        `);
         
         // Generate JWT
         const token = jwt.sign(
@@ -3718,7 +3717,7 @@ app.post('/api/auth-verify', async (req, res) => {
         } else {
             const newResult = await pool.query(
                 'INSERT INTO clients (first_name, last_name, phone, email, role, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *',
-                ['New', 'Client', mobile_number, `${mobile_number.replace('+', '')}@bankim.com`, 'customer']
+                ['New', 'Client', mobile_number, mobile_number.replace('+', '') + '@bankim.com', 'customer']
             );
             client = newResult.rows[0];
         }
@@ -3727,7 +3726,7 @@ app.post('/api/auth-verify', async (req, res) => {
             { id: client.id, phone: client.phone, type: 'client' },
             process.env.JWT_SECRET || (() => {
                 console.error('🚨 JWT_SECRET environment variable is required');
-                console.error('📋 Generate secure key: node -e ".randomBytes(32).toString(\'hex\'))"');
+                console.error("📋 Generate secure JWT key for JWT_SECRET environment variable");
                 process.exit(1);
             })(),
             { expiresIn: '24h' }
@@ -3815,7 +3814,6 @@ app.post('/api/auth-password', async (req, res) => {
 app.post('/api/email-code-login', async (req, res) => {
     const { code, email } = req.body;
     
-    `);
     
     if (!code || !email) {
         return res.status(400).json({ status: 'error', message: 'Email and code are required' });
@@ -3837,7 +3835,6 @@ app.post('/api/email-code-login', async (req, res) => {
         }
         
         const user = userResult.rows[0];
-        `);
         
         // Generate JWT token
         const token = jwt.sign(
@@ -4018,7 +4015,6 @@ app.post('/api/refinance-credit', async (req, res) => {
         const monthlySavings = oldMonthlyPayment - newMonthlyPayment;
         const totalSavings = monthlySavings * 60; // 5 years = 60 months
         
-        , ₪${newMonthlyPayment}/month, ₪${totalSavings} total savings`);
         
         res.json({
             status: 'success',
@@ -4364,7 +4360,6 @@ app.put('/api/admin/banks/:id/config', requireAdmin, async (req, res) => {
             RETURNING *
         `, [id, baseRate, minRate, maxRate]);
         
-        configuration`);
         
         res.json({
             status: 'success',
@@ -5876,7 +5871,6 @@ app.post('/api/bank-worker/register', async (req, res) => {
 
             await client.query('COMMIT');
 
-            `);
 
             res.status(201).json({
                 status: 'success',
@@ -7730,7 +7724,6 @@ async function calculateBankSpecificRate(bankId, baseRate, customerProfile) {
             return validBaseRate;
         }
         
-        }%`);
         return resultRate;
         
     } catch (error) {
@@ -8012,22 +8005,15 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         
         for (const bank of banks) {
             try {
-                `);
                 
                 // Check if loan amount is within bank's limits
                 if (amount < bank.min_loan_amount || amount > bank.max_loan_amount) {
-                    `);
                     continue;
                 }
                 
                 // 1. GET BANK-SPECIFIC STANDARDS (from bank_configurations table)
                 const bankStandards = await getBankSpecificStandardsFromConfig(bank, globalStandards);
                 
-                .reduce((acc, key) => {
-                        acc[key] = `${bankStandards[key].value} (${bankStandards[key].source})`;
-                        return acc;
-                    }, {})
-                );
                 
                 // 2. CHECK BANK-SPECIFIC ELIGIBILITY CRITERIA
                 
@@ -8036,34 +8022,28 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                     const customerLTV = (amount / property_value) * 100;
                     const maxLTV = bankStandards.standard_ltv_max.value;
                     if (customerLTV > maxLTV) {
-                        }% > Bank Max ${maxLTV}% (${bankStandards.standard_ltv_max.source})`);
                         continue;
                     }
-                    }% ≤ Bank Max ${maxLTV}% ✓`);
                 }
                 
                 // Credit Score Check (Bank-Specific)
                 if (bankStandards.minimum_credit_score && calculated_credit_score < bankStandards.minimum_credit_score.value) {
-                    `);
                     continue;
                 }
                 
                 // Income Check (Bank-Specific)
                 if (bankStandards.minimum_monthly_income && monthly_income < bankStandards.minimum_monthly_income.value) {
-                    `);
                     continue;
                 }
                 
                 // Age Checks (Bank-Specific)
                 if (bankStandards.minimum_age && calculated_age < bankStandards.minimum_age.value) {
-                    `);
                     continue;
                 }
                 
                 if (bankStandards.maximum_age_at_maturity) {
                     const ageAtMaturity = calculated_age + 30; // Assuming 30-year loan
                     if (ageAtMaturity > bankStandards.maximum_age_at_maturity.value) {
-                        `);
                         continue;
                     }
                 }
@@ -8071,7 +8051,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                 // DTI Check (Bank-Specific)
                 const frontEndDTI = (calculated_monthly_expenses / monthly_income) * 100;
                 if (bankStandards.front_end_dti_max && frontEndDTI > bankStandards.front_end_dti_max.value) {
-                    }% > Bank Max ${bankStandards.front_end_dti_max.value}% (${bankStandards.front_end_dti_max.source})`);
                     continue;
                 }
                 
@@ -8096,7 +8075,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                 const finalRate = bankSpecificRate != null ? parseFloat(bankSpecificRate) : baseRateValue;
                 const formattedRate = !isNaN(finalRate) ? finalRate.toFixed(3) : baseRateValue.toFixed(3);
                 
-                : Base rate ${baseRateValue}% → Final rate ${formattedRate}%`);
                 
                 // 4. PERFORM CALCULATION WITH BANK-SPECIFIC PARAMETERS
                 let result;
@@ -8145,9 +8123,7 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                     };
                     
                         bankOffers.push(bankOffer);
-                    }%, Payment: ${result.payment_details.monthly_payment})`);
             } else {
-                    }`);
                 }
                 
             } catch (bankError) {
@@ -8449,14 +8425,13 @@ app.post('/api/register', async (req, res) => {
         
         const newClient = result.rows[0];
         
-        `);
         
         // Generate JWT token for immediate login
         const token = jwt.sign(
             { id: newClient.id, phone: newClient.phone, email: newClient.email, type: 'client' },
             process.env.JWT_SECRET || (() => {
                 console.error('🚨 JWT_SECRET environment variable is required');
-                console.error('📋 Generate secure key: node -e ".randomBytes(32).toString(\'hex\'))"');
+                console.error("📋 Generate secure JWT key for JWT_SECRET environment variable");
                 process.exit(1);
             })(),
             { expiresIn: '24h' }
@@ -8469,7 +8444,7 @@ app.post('/api/register', async (req, res) => {
                 token,
                 user: {
                     id: newClient.id,
-                    name: `${newClient.first_name} ${newClient.last_name}`,
+                    name: newClient.first_name + ' ' + newClient.last_name,
                     email: newClient.email,
                     phone: newClient.phone,
                     type: 'client'

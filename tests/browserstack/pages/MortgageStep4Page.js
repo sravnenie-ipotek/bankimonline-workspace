@@ -177,9 +177,10 @@ class MortgageStep4Page extends BasePage {
       }
       
     } catch (error) {
-      }
+      console.error('Error extracting bank offers:', error.message);
+    }
     
-    ));
+    console.log(`Extracted ${offers.length} bank offers`);
     
     return offers;
   }

@@ -63,7 +63,8 @@ test.describe('Credit Calculator Step 3 - Complete Flow Test', () => {
           const optionValue = await options[1].getAttribute('value');
           if (optionValue && optionValue !== '') {
             await dropdown.selectOption(optionValue);
-            }
+            console.log(`Selected option: ${optionValue}`);
+          }
         }
       }
     }
@@ -89,7 +90,8 @@ test.describe('Credit Calculator Step 3 - Complete Flow Test', () => {
           continuedToStep2 = true;
           break;
         } else {
-          }
+          console.log('Button not enabled, skipping');
+        }
       }
     }
 
@@ -124,7 +126,8 @@ test.describe('Credit Calculator Step 3 - Complete Flow Test', () => {
         } else {
           await input.fill('Test Data');
         }
-        }
+        console.log(`Filled ${inputName} with appropriate data`);
+      }
     }
 
     // Try to continue to Step 3
@@ -154,7 +157,7 @@ test.describe('Credit Calculator Step 3 - Complete Flow Test', () => {
     });
 
     // Now test the specific Step 3 dropdowns that were fixed
-    ');
+    console.log('Testing Step 3 dropdowns that were fixed');
     
     const mainSourceSelectors = [
       'select[name="source"]',
@@ -171,14 +174,15 @@ test.describe('Credit Calculator Step 3 - Complete Flow Test', () => {
         const optionCount = await element.locator('option').count();
         if (optionCount > 1) {
           const options = await element.locator('option').allTextContents();
-          }`);
+          console.log(`Main source options found: ${JSON.stringify(options)}`);
           
           // Try to select first valid option
           const validOption = await element.locator('option:not([value=""])').first();
           if (await validOption.isVisible().catch(() => false)) {
             const optionValue = await validOption.getAttribute('value');
             await element.selectOption(optionValue);
-            }
+            console.log(`Selected dropdown option: ${optionValue}`);
+          }
         }
         
         mainSourceDropdownTested = true;
@@ -186,7 +190,7 @@ test.describe('Credit Calculator Step 3 - Complete Flow Test', () => {
       }
     }
 
-    ');
+    console.log('Main source dropdown tested successfully');
     
     const additionalIncomeSelectors = [
       'select[name="additional"]',
@@ -203,14 +207,15 @@ test.describe('Credit Calculator Step 3 - Complete Flow Test', () => {
         const optionCount = await element.locator('option').count();
         if (optionCount > 1) {
           const options = await element.locator('option').allTextContents();
-          }`);
+          console.log(`Additional income options found: ${JSON.stringify(options)}`);
           
           // Try to select first valid option
           const validOption = await element.locator('option:not([value=""])').first();
           if (await validOption.isVisible().catch(() => false)) {
             const optionValue = await validOption.getAttribute('value');
             await element.selectOption(optionValue);
-            }
+            console.log(`Selected dropdown option: ${optionValue}`);
+          }
         }
         
         additionalIncomeDropdownTested = true;
@@ -218,7 +223,7 @@ test.describe('Credit Calculator Step 3 - Complete Flow Test', () => {
       }
     }
 
-    ');
+    console.log('Additional income dropdown tested successfully');
     
     // Look for obligations button or dropdown
     const obligationsSelectors = [
@@ -262,7 +267,8 @@ test.describe('Credit Calculator Step 3 - Complete Flow Test', () => {
     // Report results
     if (consoleErrors.length > 0) {
       consoleErrors.forEach((error, index) => {
-        });
+        console.log(`Console error ${index + 1}: ${error}`);
+      });
     }
 
     // Assertions

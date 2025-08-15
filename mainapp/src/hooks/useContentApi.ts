@@ -374,8 +374,8 @@ export const useContentApi = (screenLocation: string) => {
     
     // Debug logging (only in development)
     if (process.env.NODE_ENV === 'development') {
-      );
-      }
+      console.log(`No content found for key: ${key}`);
+    }
     
     // Fallback to translation system
     const translationKey = fallbackKey || key;

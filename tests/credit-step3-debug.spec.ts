@@ -50,7 +50,7 @@ test.describe('Credit Calculator Step 3 Debug', () => {
         const optionCount = await element.locator('option').count();
         if (optionCount > 1) {
           const options = await element.locator('option').allTextContents();
-          }`);
+          console.log(`Main source options found: ${JSON.stringify(options)}`);
         }
         
         mainSourceFound = true;
@@ -75,7 +75,7 @@ test.describe('Credit Calculator Step 3 Debug', () => {
         const optionCount = await element.locator('option').count();
         if (optionCount > 1) {
           const options = await element.locator('option').allTextContents();
-          }`);
+          console.log(`Additional income options found: ${JSON.stringify(options)}`);
         }
         
         additionalIncomeFound = true;
@@ -102,12 +102,14 @@ test.describe('Credit Calculator Step 3 Debug', () => {
     // Report console errors
     if (consoleErrors.length > 0) {
       consoleErrors.forEach((error, index) => {
-        });
+        console.log(`Console Error ${index + 1}: ${error}`);
+      });
     } else {
-      }
+      console.log('No console errors detected');
+    }
     
     // Summary
-    `);
+    console.log(`Step 3 debug complete - Main source found: ${mainSourceFound}, Additional income found: ${additionalIncomeFound}`);
     // Basic assertions - page should load without critical errors
     expect(consoleErrors.filter(error => 
       error.includes('TypeError') || 

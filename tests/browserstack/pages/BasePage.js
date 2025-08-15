@@ -309,7 +309,7 @@ class BasePage {
    * @returns {any} Script return value
    */
   async executeScript(script, ...args) {
-    }...`);
+    console.log(`Executing script with ${args.length} args`);
     return await this.driver.executeScript(script, ...args);
   }
 

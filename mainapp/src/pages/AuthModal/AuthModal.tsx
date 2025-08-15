@@ -95,9 +95,6 @@ const AuthModal = () => {
         }
       }
       
-      : null
-      })
-      
       if (!phoneNumber) {
         console.error('🔴 AuthModal - No phone number found for SMS verification')
         return
@@ -164,7 +161,7 @@ const AuthModal = () => {
       if (existingUserData) {
         try {
           preservedUserData = JSON.parse(existingUserData)
-          :', preservedUserData)
+          console.log('Preserved user data:', preservedUserData)
         } catch (error) {
           console.error('Error parsing existing user data:', error)
         }
@@ -187,7 +184,7 @@ const AuthModal = () => {
         phoneNumber: registrationData.mobile_number
       }
       
-      :', userDataForRedux)
+      console.log('userDataForRedux:', userDataForRedux)
       dispatch(initializeUserData(userDataForRedux))
       dispatch(setIsLogin())
       handleClose()

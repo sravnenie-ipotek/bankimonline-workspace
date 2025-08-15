@@ -4,7 +4,7 @@ test('🔍 Investigate Mortgage Calculator Selectors', async ({ page }) => {
   await page.goto('http://localhost:5173/services/calculate-mortgage/1');
   await page.waitForLoadState('networkidle', { timeout: 10000 });
   
-  );
+  console.log('🔍 Starting investigation of mortgage calculator selectors');
   
   // Take screenshot for visual inspection
   await page.screenshot({ path: 'test-results/page-inspection.png', fullPage: true });
@@ -22,8 +22,7 @@ test('🔍 Investigate Mortgage Calculator Selectors', async ({ page }) => {
     const placeholder = await input.getAttribute('placeholder');
     const className = await input.getAttribute('class');
     
-    + (className && className.length > 50 ? '...' : '')
-    });
+    console.log(`Input ${i}: type=${type}, name=${name}, testId=${testId}, id=${id}, placeholder=${placeholder}, class=${className ? (className.length > 50 ? className.substring(0, 50) + '...' : className) : 'none'}`);
   }
   
   // Check for select elements
@@ -35,8 +34,7 @@ test('🔍 Investigate Mortgage Calculator Selectors', async ({ page }) => {
     const id = await select.getAttribute('id');
     const className = await select.getAttribute('class');
     
-    + (className && className.length > 50 ? '...' : '')
-    });
+    console.log(`Select ${i}: name=${name}, testId=${testId}, id=${id}, class=${className ? (className.length > 50 ? className.substring(0, 50) + '...' : className) : 'none'}`);
     
     // Get options
     const options = await select.locator('option').all();

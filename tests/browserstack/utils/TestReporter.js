@@ -553,14 +553,15 @@ ${Object.keys(this.results.data).map(key => `- ${key}: ${this.results.data[key].
    * Log report summary to console
    */
   logReportSummary() {
-    );
-    );
-    .toFixed(1)}s`);
-    }%`);
-    );
+    console.log(`\n📊 Test Report Summary for ${this.sessionName}`);
+    console.log(`Total tests run: ${this.assertions.length}`);
+    console.log(`Test execution time: ${(this.endTime - this.startTime).toFixed(1)}s`);
+    console.log(`Success rate: ${this.getSuccessRate()}%`);
+    console.log(`Report file: ${this.reportPath}`);
     
     // Report file locations
-    }
+    console.log('Test results saved');
+  }
   
   /**
    * Get current test results

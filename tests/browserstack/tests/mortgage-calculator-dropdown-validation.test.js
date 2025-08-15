@@ -329,7 +329,7 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       reporter.addData('ltvRatioValidation', ltvValidationResults);
       
       const validLtvTests = ltvValidationResults.filter(r => r.ltvLogicValid).length;
-      .length} ratios behave correctly`);
+      console.log(`${validLtvTests} LTV ratios behave correctly`);
     });
   });
   
@@ -416,7 +416,7 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
         .reduce((sum, r) => sum + r.responseTime, 0) / 
         Object.values(performanceResults).filter(r => r.status === 'success').length;
       
-      }ms`);
+      console.log(`Average dropdown response time: ${averageResponseTime}ms`);
     });
   });
 });

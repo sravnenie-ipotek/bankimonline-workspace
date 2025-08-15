@@ -52,17 +52,15 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
     : additionalIncomeOptions
 
   // Debug additional income values
-  ,
+  console.log('Additional income debug:', {
     errors: errors.additionalIncome,
     touched: touched.additionalIncome
   })
 
   const handleValueChange = (value: string) => {
-    ,
+    console.log('Additional income value changed:', {
+      value,
       willShowAmountField: !checkIfNoAdditionalIncomeValue(value)
-    })
-    
-    // Additional validation debugging
     })
     
     // CRITICAL FIX: Work WITH Formik's validation cycle instead of against it
@@ -80,9 +78,9 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
       // Use a microtask to ensure our error clear persists after React state updates
       Promise.resolve().then(() => {
         setFieldError('additionalIncome', undefined)
-        })
+      })
       
-      } else {
+    } else {
       // For empty values, allow normal validation
       setFieldTouched('additionalIncome', true, true) // true = validate
     }

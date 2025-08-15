@@ -93,3 +93,140 @@ beforeEach(() => {
     win.localStorage.setItem('admin_language', 'he')
   })
 })
+
+// Enhanced Jira integration with detailed tracking
+Cypress.Screenshot.defaults({ screenshotOnRunFailure: true })
+
+// Global variables to track test execution details
+let testActionLog: string[] = []
+let testSteps: any[] = []
+let currentTestUrl = ''
+
+// Add command logging
+Cypress.on('command:start', (command) => {
+  const action = `[${new Date().toISOString()}] ${command.attributes.name}: ${command.attributes.args ? JSON.stringify(command.attributes.args).slice(0, 100) : ''}`
+  testActionLog.push(action)
+  
+  // Track test steps for structured reporting
+  testSteps.push({
+    action: command.attributes.name,
+    args: command.attributes.args,
+    selector: command.attributes.selector,
+    timestamp: new Date().toISOString(),
+    success: true // Will be updated if command fails
+  })
+})
+
+// Track command failures
+Cypress.on('command:failed', (command, err) => {
+  const failureAction = `[${new Date().toISOString()}] FAILED - ${command.attributes.name}: ${err.message}`
+  testActionLog.push(failureAction)
+  
+  // Update last step as failed
+  if (testSteps.length > 0) {
+    testSteps[testSteps.length - 1].success = false
+    testSteps[testSteps.length - 1].error = err.message
+  }
+})
+
+// Track URL changes
+beforeEach(() => {
+  // Reset tracking variables for each test
+  testActionLog = []
+  testSteps = []
+  currentTestUrl = ''
+  
+  // Log test start
+  testActionLog.push(`[${new Date().toISOString()}] Test started: ${Cypress.currentTest?.title}`)
+})
+
+// Track current URL
+Cypress.on('url:changed', (url) => {
+  currentTestUrl = url
+  testActionLog.push(`[${new Date().toISOString()}] URL changed to: ${url}`)
+})
+
+afterEach(function () {
+  const test = (this as any).currentTest
+  if (test && test.state === 'failed') {
+    // Check if Jira integration is enabled
+    if (!Cypress.env('JIRA_HOST') && !Cypress.env('jiraEnabled')) {
+      return // Skip Jira integration if not configured
+    }
+
+    const spec = Cypress.spec.relative
+    const testTitle = test.fullTitle ? test.fullTitle() : test.title
+    const errMsg = (test.err && (test.err.stack || test.err.message)) || 'Unknown test failure'
+
+    // Build expected screenshot path(s). Cypress stores screenshots as:
+    // cypress/screenshots/<spec>/<test title> (failed).png
+    const sanitize = (s: string) => s.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_').slice(0, 200)
+    const screenshotDir = `cypress/screenshots/${spec}`
+    const screenshotName = `${sanitize(testTitle)} (failed).png`
+    const screenshotPath = `${screenshotDir}/${screenshotName}`
+
+    const browser = `${Cypress.browser.displayName} ${Cypress.browser.version || ''}`.trim()
+    const os = `${Cypress.platform} ${Cypress.arch}`
+    const appUrl = Cypress.config('baseUrl') || 'http://localhost:5174'
+
+    // Get current URL from window if available
+    cy.window().then((win) => {
+      const currentUrl = win.location.href || currentTestUrl || appUrl
+      
+      // Add final test context to action log
+      testActionLog.push(`[${new Date().toISOString()}] Test failed: ${errMsg}`)
+      testActionLog.push(`[${new Date().toISOString()}] Final URL: ${currentUrl}`)
+      testActionLog.push(`[${new Date().toISOString()}] Browser: ${browser}`)
+      testActionLog.push(`[${new Date().toISOString()}] OS: ${os}`)
+      
+      // Determine file path context
+      const filePath = spec.includes('/') ? spec : `cypress/e2e/${spec}`
+      
+      // Create enhanced Jira bug with detailed tracking
+      cy.task('createOrUpdateJira', {
+        spec,
+        testTitle,
+        errorMessage: errMsg,
+        appUrl,
+        browser,
+        os,
+        screenshotPaths: [screenshotPath],
+        actionLog: testActionLog,
+        currentUrl: currentUrl,
+        testSteps: testSteps,
+        filePath: filePath
+      }, { log: false }).then((result: any) => {
+        if (result && result.issueKey) {
+          cy.log(`🎯 Jira bug filed: ${result.issueKey}`)
+          cy.log(`📍 Bug details: https://bankimonline.atlassian.net/browse/${result.issueKey}`)
+        } else if (result && result.error) {
+          cy.log(`❌ Jira filing failed: ${result.error}`)
+        }
+      })
+    }).catch(() => {
+      // Fallback if window is not available
+      const currentUrl = currentTestUrl || appUrl
+      const filePath = spec.includes('/') ? spec : `cypress/e2e/${spec}`
+      
+      cy.task('createOrUpdateJira', {
+        spec,
+        testTitle,
+        errorMessage: errMsg,
+        appUrl,
+        browser,
+        os,
+        screenshotPaths: [screenshotPath],
+        actionLog: testActionLog,
+        currentUrl: currentUrl,
+        testSteps: testSteps,
+        filePath: filePath
+      }, { log: false }).then((result: any) => {
+        if (result && result.issueKey) {
+          cy.log(`🎯 Jira bug filed: ${result.issueKey}`)
+        } else if (result && result.error) {
+          cy.log(`❌ Jira filing failed: ${result.error}`)
+        }
+      })
+    })
+  }
+})

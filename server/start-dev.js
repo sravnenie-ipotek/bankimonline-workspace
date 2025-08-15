@@ -12,15 +12,15 @@
  *     node start-dev.js
  * 
  * This will start:
- *     - API Server on http://localhost:8003 (server-db.js)
+ *     - API Server on http://localhost:8003 (packages/server/src/server.js)
  *     - File Server on http://localhost:3001 (serve.js)
  */
 
 const { spawn } = require('child_process');
 const path = require('path');
 
-// Start the API server (port 8003)
-const apiServer = spawn('node', ['server-db.js'], {
+// Start the API server (port 8003) - PACKAGES SERVER (UNIFIED ARCHITECTURE)
+const apiServer = spawn('node', ['../packages/server/src/server.js'], {
     stdio: 'pipe',
     cwd: __dirname
 });
@@ -33,7 +33,7 @@ const fileServer = spawn('node', ['serve.js'], {
 
 // Handle API server output
 apiServer.stdout.on('data', (data) => {
-    .trim()}`);
+    console.log(`[API] ${data.toString().trim()}`);
 });
 
 apiServer.stderr.on('data', (data) => {
@@ -42,7 +42,7 @@ apiServer.stderr.on('data', (data) => {
 
 // Handle file server output
 fileServer.stdout.on('data', (data) => {
-    .trim()}`);
+    console.log(`[FILE-3001] ${data.toString().trim()}`);
 });
 
 fileServer.stderr.on('data', (data) => {
@@ -77,4 +77,7 @@ fileServer.on('close', (code) => {
     }
 });
 
-');
+console.log('🚀 Development servers starting...');
+console.log('📊 API Server: http://localhost:8003');
+console.log('📁 File Server: http://localhost:3001');
+console.log('Press Ctrl+C to stop both servers');

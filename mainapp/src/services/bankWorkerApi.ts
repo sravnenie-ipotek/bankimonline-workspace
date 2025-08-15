@@ -34,7 +34,7 @@ apiClient.interceptors.request.use(
     
     // Log API requests in development
     if (process.env.NODE_ENV === 'development') {
-      } ${config.url}`, config.data)
+      console.log('Making request to', config.url, config.data)
     }
     
     return config
@@ -50,7 +50,7 @@ apiClient.interceptors.response.use(
   (response) => {
     // Log API responses in development
     if (process.env.NODE_ENV === 'development') {
-      } ${response.config.url}`, response.data)
+      console.log(`API Response from ${response.config.url}`, response.data)
     }
     
     return response

@@ -298,10 +298,6 @@ export const useAllDropdowns = (screenLocation: string) => {
       // Cache successful response
       dropdownCache.set(cacheKey, apiData);
       setData(apiData);
-
-      .length,
-        cacheInfo: apiData.cache_info
-      });
       
     } catch (err) {
       if (err.name === 'AbortError') {

@@ -64,13 +64,14 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
   }
 
   // Debug obligation values
-  ,
+  console.log('Obligation debug:', {
     errors: errors.obligation,
     touched: touched.obligation
   })
 
   const handleValueChange = (value: string) => {
-    ,
+    console.log('Obligation value changed:', {
+      value,
       willShowBankFields: !checkIfNoObligationValue(value)
     })
     
