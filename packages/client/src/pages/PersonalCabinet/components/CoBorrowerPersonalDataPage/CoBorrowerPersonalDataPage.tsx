@@ -117,7 +117,6 @@ export const CoBorrowerPersonalDataPage: React.FC = () => {
   const coBorrowerName = "Людмила Пушкина"
 
   const handleSubmit = (values: CoBorrowerFormTypes) => {
-    console.log('Co-borrower personal data submitted:', values)
     // Handle form submission
     navigate('/personal-cabinet')
   }

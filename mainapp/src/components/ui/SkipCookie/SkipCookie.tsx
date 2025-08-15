@@ -22,7 +22,6 @@ const SkipCookie: React.FC<SkipCookieProps> = ({ onAccept, onClose, onInfo }) =>
   // при загрузке проверяет соглашен ли пользователь с куками
   useEffect(() => {
     const cookieValue = localStorage.getItem('cookie')
-    console.log(cookieValue)
     if (cookieValue === '1') {
       setCookieVisible(false)
     } else {

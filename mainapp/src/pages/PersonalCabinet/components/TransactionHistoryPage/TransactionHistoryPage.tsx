@@ -73,8 +73,7 @@ export const TransactionHistoryPage: React.FC = () => {
 
   const handleDownloadReceipt = (transactionId: string) => {
     // Handle receipt download
-    console.log('Download receipt for transaction:', transactionId)
-  }
+    }
 
   const getStatusText = (status: 'success' | 'failed') => {
     return status === 'success' 

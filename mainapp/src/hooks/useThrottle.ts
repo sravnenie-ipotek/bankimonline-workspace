@@ -35,8 +35,7 @@ const SearchComponent: React.FC = () => {
   useEffect(() => {
     if (throttledSearchTerm) {
       // Выполнение запроса к API или другую логику здесь
-      console.log(`Searching for: ${throttledSearchTerm}`);
-    }
+      }
   }, [throttledSearchTerm]);
 
   return (

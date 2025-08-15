@@ -38,18 +38,6 @@ const ObligationForm = () => {
   const obligationKey = getObligationKey(obligation)
 
   // Debug: Log obligation mapping and form state
-  console.log('🔍 Obligation Modal - Mapping:', {
-    originalValue: obligation,
-    mappedKey: obligationKey,
-    hasComponents: !!componentsByObligation[obligationKey],
-    availableKeys: Object.keys(componentsByObligation)
-  })
-
-  console.log('🔍 Obligation Modal - Form State:', {
-    isValid,
-    values,
-    errors,
-    obligation: obligation
   })
 
   return (

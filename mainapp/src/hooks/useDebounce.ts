@@ -37,8 +37,7 @@ const SearchInput = () => {
   useEffect(() => {
     if (debouncedSearchTerm) {
       // Выполнение поискового запроса здесь
-      console.log(`Sending a request with term: ${debouncedSearchTerm}`);
-    }
+      }
   }, [debouncedSearchTerm]);
 
   return (

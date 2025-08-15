@@ -28,8 +28,6 @@ const FirstStepForm = () => {
   const [maxMonthlyPayment, setMaxMonthlyPayment] = useState(51130)
   const [minMonthlyPayment, setMinMonthlyPayment] = useState(2654)
 
-
-
   const dispatch = useAppDispatch()
   const activeField = useAppSelector((state) => state.activeField)
 
@@ -47,18 +45,11 @@ const FirstStepForm = () => {
 
   // Phase 4: Show loading state for dropdowns while fetching from API
   if (dropdownsLoading) {
-    console.log('🔄 Loading dropdown data for refinance_step1...')
-  }
+    }
 
   // Phase 4: Log dropdown data for debugging
   if (dropdownData && !dropdownsLoading) {
-    console.log('✅ Dropdown data loaded for refinance_step1:', {
-      why: whyProps.options.length,
-      propertyType: propertyTypeProps.options.length,
-      registration: registrationProps.options.length,
-      bank: bankProps.options.length
-    })
-  }
+    }
 
   // Рассчитывает максимальное и минимальное значение ежемесячного платежа
   useLayoutEffect(() => {

@@ -73,8 +73,6 @@ const MultiSelect: React.FC<TypeProps> = ({
     onBlur?.()
   }, [isOpen, checkItem, value, onChange, onBlur])
 
-
-
   const handleSelectItem = (item: string) => {
     setCheckItem((prevCheckItems) => {
       if (prevCheckItems.includes(item)) {

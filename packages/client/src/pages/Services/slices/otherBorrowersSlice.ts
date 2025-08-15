@@ -20,8 +20,6 @@ export const otherBorrowersSlice = createSlice({
 
       const index = state.otherBorrowers.findIndex((item) => item.id === id)
 
-      console.log(state.otherBorrowers[index])
-
       const additionalIncomeModal =
         state.otherBorrowers[index]?.additionalIncomeModal
       const obligationModal = state.otherBorrowers[index]?.obligationModal
@@ -55,8 +53,6 @@ export const otherBorrowersSlice = createSlice({
     updateSourceOfIncomeModal: (state, action) => {
       const { pageId, id } = action.payload
 
-      console.log(state.otherBorrowers[pageId - 1].sourceOfIncomeModal)
-
       const index = state.otherBorrowers[
         pageId - 1
       ].sourceOfIncomeModal.findIndex((item) => item.id === id)
@@ -72,8 +68,6 @@ export const otherBorrowersSlice = createSlice({
       }
     },
     deleteSourceOfIncomeModal: (state, action) => {
-      console.log(action.payload)
-
       state.otherBorrowers[action.payload.pageId - 1].sourceOfIncomeModal =
         state.otherBorrowers[
           action.payload.pageId - 1

@@ -33,7 +33,7 @@ function validateTranslationFile(filePath, language) {
     
     // Count keys
     const keyCount = Object.keys(translations).length
-    console.log(`✅ ${language.toUpperCase()}: ${keyCount} translation keys found`)
+    }: ${keyCount} translation keys found`)
     
     // Check for empty values
     let emptyKeys = 0
@@ -44,7 +44,7 @@ function validateTranslationFile(filePath, language) {
     })
     
     if (emptyKeys > 0) {
-      console.log(`⚠️  ${language.toUpperCase()}: ${emptyKeys} empty translation values found`)
+      }: ${emptyKeys} empty translation values found`)
     }
     
     // Language-specific validation
@@ -63,8 +63,6 @@ function validateTranslationFile(filePath, language) {
 }
 
 function validateAllTranslations() {
-  console.log('🔍 Validating translation files...\n')
-  
   let totalErrors = 0
   const results = {}
   
@@ -82,14 +80,12 @@ function validateAllTranslations() {
     
     // Print errors for this language
     if (errors.length > 0) {
-      console.log(`\n${language.toUpperCase()} Errors:`)
-      errors.forEach(error => console.log(`  ${error}`))
+      } Errors:`)
+      errors.forEach(error => )
     }
   }
   
   // Cross-language validation
-  console.log('\n🔄 Cross-language validation...')
-  
   try {
     const enPath = path.join(LOCALES_DIR, 'en', 'translation.json')
     const hePath = path.join(LOCALES_DIR, 'he', 'translation.json')
@@ -105,34 +101,24 @@ function validateAllTranslations() {
       const missingInRu = enKeys.filter(key => !ruKeys.includes(key))
       
       if (missingInHe.length > 0) {
-        console.log(`⚠️  Hebrew missing ${missingInHe.length} keys found in English`)
         totalErrors += missingInHe.length
       }
       
       if (missingInRu.length > 0) {
-        console.log(`⚠️  Russian missing ${missingInRu.length} keys found in English`)
         totalErrors += missingInRu.length
       }
       
       if (missingInHe.length === 0 && missingInRu.length === 0) {
-        console.log('✅ All languages have consistent key sets')
-      }
+        }
     }
   } catch (error) {
-    console.log(`❌ Cross-language validation failed: ${error.message}`)
     totalErrors++
   }
   
   // Summary
-  console.log('\n📊 Validation Summary:')
-  console.log(`Total languages: ${SUPPORTED_LANGUAGES.length}`)
-  console.log(`Total errors: ${totalErrors}`)
-  
   if (totalErrors === 0) {
-    console.log('🎉 All translation files are valid!')
     process.exit(0)
   } else {
-    console.log('💥 Translation validation failed!')
     process.exit(1)
   }
 }

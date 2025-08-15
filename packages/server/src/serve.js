@@ -22,7 +22,7 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  .toISOString()} - ${req.method} ${req.url}`);
   
   // Parse URL to separate path from query parameters
   const url = new URL(req.url, `http://localhost:${PORT}`);
@@ -30,8 +30,6 @@ const server = http.createServer((req, res) => {
   
   // Handle API requests - proxy to database server
   if (pathname.startsWith('/api/')) {
-    console.log(`🔄 Proxying API request: ${req.url} to port 8003`);
-    
     const options = {
       hostname: 'localhost',
       port: 8003,
@@ -111,7 +109,4 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`File server running at http://localhost:${PORT}/`);
-  console.log(`Customer approval check at http://localhost:${PORT}/customer-approval-check`);
-  console.log(`Main app at http://localhost:${PORT}/`);
-});
+  });

@@ -27,11 +27,6 @@ function generateTimestampedHTMLReport() {
   // Write HTML report
   fs.writeFileSync(reportPath, htmlContent);
   
-  console.log(`\n📊 HTML Report Generated:`);
-  console.log(`📂 Location: ${reportPath}`);
-  console.log(`🌐 Open in browser: file://${reportPath}`);
-  console.log(`⏰ Timestamp: ${timestamp}`);
-  
   return reportPath;
 }
 
@@ -76,7 +71,6 @@ function collectScreenshots() {
   // Sort by timestamp (newest first)
   screenshots.sort((a, b) => b.timestamp - a.timestamp);
   
-  console.log(`📸 Found ${screenshots.length} screenshot files`);
   return screenshots.slice(0, 50); // Limit to 50 most recent
 }
 
@@ -500,10 +494,7 @@ function generateHTMLReport({ timestamp, screenshots, metrics, phase0Results }) 
     <script>
         // Auto-refresh timestamp
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('🏦 Mortgage Calculator Validation Report Loaded');
-            console.log('📊 Test Execution: ${timestamp}');
-            console.log('📸 Screenshots: ${screenshots.length} evidence files');
-        });
+            });
         
         // Image error handling
         document.querySelectorAll('.screenshot img').forEach(img => {

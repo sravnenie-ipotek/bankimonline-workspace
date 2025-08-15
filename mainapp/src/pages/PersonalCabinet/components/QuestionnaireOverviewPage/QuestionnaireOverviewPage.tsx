@@ -110,8 +110,7 @@ export const QuestionnaireOverviewPage: React.FC<QuestionnaireOverviewPageProps>
       navigate('/personal-cabinet/documents')
     } else {
       // Show completion modal or navigate to incomplete sections
-      console.log('Please complete all sections before proceeding')
-    }
+      }
   }
 
   const isQuestionnaireComplete = borrowers.every(b => b.personalDataComplete && b.incomeDataComplete)

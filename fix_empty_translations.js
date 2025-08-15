@@ -20,8 +20,6 @@ function fixEmptyTranslations() {
         
         // Create backup
         fs.writeFileSync(config.backupFile, JSON.stringify(russianData, null, 2));
-        console.log(`💾 Backup created: ${config.backupFile}`);
-        
         let fixedCount = 0;
         const fixedKeys = [];
         
@@ -31,8 +29,7 @@ function fixEmptyTranslations() {
                 russianData[key] = translation;
                 fixedCount++;
                 fixedKeys.push(key);
-                console.log(`✅ Fixed "${key}": "${translation}"`);
-            }
+                }
         }
         
         // Find other empty translations
@@ -42,25 +39,17 @@ function fixEmptyTranslations() {
         );
         
         if (emptyKeys.length > 0) {
-            console.log(`\n⚠️  Found ${emptyKeys.length} other empty translations:`);
             emptyKeys.slice(0, 10).forEach(key => {
-                console.log(`  - ${key}`);
-            });
+                });
             if (emptyKeys.length > 10) {
-                console.log(`  ... and ${emptyKeys.length - 10} more`);
-            }
+                }
         }
         
         // Save the updated file
         fs.writeFileSync(config.russianFile, JSON.stringify(russianData, null, 2));
         
-        console.log(`\n📊 Summary:`);
-        console.log(`- Fixed ${fixedCount} translations`);
-        console.log(`- Found ${emptyKeys.length} other empty translations`);
-        console.log(`- Updated file: ${config.russianFile}`);
-        
         if (fixedKeys.length > 0) {
-            console.log(`\n🎯 Fixed keys: ${fixedKeys.join(', ')}`);
+            }`);
         }
         
     } catch (error) {

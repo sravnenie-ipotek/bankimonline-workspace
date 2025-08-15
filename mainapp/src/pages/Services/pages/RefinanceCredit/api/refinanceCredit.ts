@@ -15,8 +15,7 @@ const refinanceCredit = async (data: any) => {
     const response = await fetch(url, opts)
     return await response.json()
   } catch (error) {
-    console.log(error)
-  }
+    }
 }
 
 export default refinanceCredit

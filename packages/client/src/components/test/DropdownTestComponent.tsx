@@ -14,13 +14,11 @@ const DropdownTestComponent: React.FC = () => {
 
   const handleClearCache = () => {
     clearDropdownCache();
-    console.log('🗑️ Dropdown cache cleared manually');
-  };
+    };
 
   const handleShowCacheStats = () => {
     const stats = getDropdownCacheStats();
-    console.log('📊 Cache statistics:', stats);
-  };
+    };
 
   return (
     <div style={{ padding: '20px', backgroundColor: '#f5f5f5', margin: '20px', borderRadius: '8px' }}>

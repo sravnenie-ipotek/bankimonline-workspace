@@ -44,36 +44,28 @@ const getCurrentLanguage = (): string => {
 export const getValidationError = async (errorKey: string, fallback?: string): Promise<string> => {
   try {
     const currentLang = getCurrentLanguage()
-    console.log(`🔍 getValidationError called for key: ${errorKey}, language: ${currentLang}`)
-    
     // Try to get from content cache first
     const cached = validationCache.get(`validation_errors_${currentLang}`)
     if (cached && cached[errorKey]) {
       // Extract the value if it's an object, otherwise use as-is
       const cachedValue = typeof cached[errorKey] === 'object' ? cached[errorKey].value : cached[errorKey]
-      console.log(`✅ Found cached validation error: ${errorKey} -> "${cachedValue}"`)
       return cachedValue
     }
     
     // Try to fetch from database first
     try {
       const apiUrl = `${getApiBaseUrl()}/content/validation_errors/${currentLang}`
-      console.log(`🌐 Fetching from database: ${apiUrl}`)
       const response = await fetch(apiUrl)
       if (response.ok) {
         const data = await response.json()
-        console.log(`📊 Database response:`, data)
         if (data.content && data.content[errorKey] && data.content[errorKey].value) {
           // Cache the result
           validationCache.set(`validation_errors_${currentLang}`, data.content)
-          console.log(`✅ Found database validation error: ${errorKey} -> "${data.content[errorKey].value}"`)
           return data.content[errorKey].value
         } else {
-          console.log(`❌ Key ${errorKey} not found in database response`)
-        }
+          }
       } else {
-        console.log(`❌ Database response not ok:`, response.status)
-      }
+        }
     } catch (dbError) {
       console.warn('Database fetch failed, falling back to translation system:', dbError)
     }
@@ -82,15 +74,12 @@ export const getValidationError = async (errorKey: string, fallback?: string): P
     if (typeof window !== 'undefined' && window.i18next) {
       const translatedValue = window.i18next.t(errorKey)
       if (translatedValue && translatedValue !== errorKey) {
-        console.log(`✅ Found translation: ${errorKey} -> "${translatedValue}"`)
         return translatedValue
       } else {
-        console.log(`❌ Translation not found for key: ${errorKey}`)
-      }
+        }
     }
     
     // Return fallback or key if not found
-    console.log(`⚠️ Using fallback for key: ${errorKey} -> "${fallback || errorKey}"`)
     return fallback || errorKey
   } catch (error) {
     console.warn(`Validation error key not found: ${errorKey}`, error)
@@ -105,14 +94,11 @@ export const getValidationError = async (errorKey: string, fallback?: string): P
 export const getValidationErrorSync = (errorKey: string, fallback?: string): string => {
   try {
     const currentLang = getCurrentLanguage()
-    console.log(`🔍 getValidationErrorSync called for key: ${errorKey}, language: ${currentLang}`)
-    
     // Try to get from content cache first
     const cached = validationCache.get(`validation_errors_${currentLang}`)
     if (cached && cached[errorKey]) {
       // Extract the value if it's an object, otherwise use as-is
       const cachedValue = typeof cached[errorKey] === 'object' ? cached[errorKey].value : cached[errorKey]
-      console.log(`✅ Found cached validation error: ${errorKey} -> "${cachedValue}"`)
       return cachedValue
     }
     
@@ -120,15 +106,12 @@ export const getValidationErrorSync = (errorKey: string, fallback?: string): str
     if (typeof window !== 'undefined' && window.i18next) {
       const translatedValue = window.i18next.t(errorKey)
       if (translatedValue && translatedValue !== errorKey) {
-        console.log(`✅ Found translation: ${errorKey} -> "${translatedValue}"`)
         return translatedValue
       } else {
-        console.log(`❌ Translation not found for key: ${errorKey}`)
-      }
+        }
     }
     
     // Return fallback if not in cache or translation
-    console.log(`⚠️ Using fallback for key: ${errorKey} -> "${fallback || errorKey}"`)
     return fallback || errorKey
   } catch (error) {
     console.warn(`Validation error key not found: ${errorKey}`)
@@ -143,8 +126,6 @@ export const getValidationErrorSync = (errorKey: string, fallback?: string): str
 export const preloadValidationErrors = async () => {
   try {
     const currentLang = getCurrentLanguage()
-    console.log('🔄 Preloading validation errors for language:', currentLang)
-    
     // Try database first
     try {
       const apiUrl = `${getApiBaseUrl()}/content/validation_errors/${currentLang}`
@@ -153,8 +134,7 @@ export const preloadValidationErrors = async () => {
         const data = await response.json()
         if (data.content) {
           validationCache.set(`validation_errors_${currentLang}`, data.content)
-          console.log('✅ Validation errors preloaded from database for language:', currentLang)
-          console.log('📊 Cached validation errors:', Object.keys(data.content))
+          )
           return
         }
       }
@@ -163,8 +143,7 @@ export const preloadValidationErrors = async () => {
     }
     
     // If database fails, we'll rely on translation system
-    console.log('ℹ️ Validation errors will use translation system for language:', currentLang)
-  } catch (error) {
+    } catch (error) {
     console.warn('Failed to preload validation errors:', error)
   }
 }
@@ -178,11 +157,9 @@ export const initializeValidationLanguageListener = () => {
     // Listen for i18next language changes
     if (typeof window !== 'undefined' && window.i18next) {
       window.i18next.on('languageChanged', (lng: string) => {
-        console.log('🔄 i18next language changed, reloading validation errors for:', lng)
         reloadValidationErrors()
       })
-      console.log('✅ i18next language change listener initialized')
-    }
+      }
     
     // Listen for document language changes (fallback)
     if (typeof document !== 'undefined') {
@@ -191,7 +168,6 @@ export const initializeValidationLanguageListener = () => {
           if (mutation.type === 'attributes' && mutation.attributeName === 'lang') {
             const newLang = document.documentElement.lang
             if (newLang) {
-              console.log('🔄 Document language changed, reloading validation errors for:', newLang)
               setTimeout(() => reloadValidationErrors(), 100) // Small delay to ensure language is fully switched
             }
           }
@@ -202,8 +178,7 @@ export const initializeValidationLanguageListener = () => {
         attributes: true,
         attributeFilter: ['lang']
       })
-      console.log('✅ Document language change observer initialized')
-    }
+      }
     
     // Preload validation errors for current language
     preloadValidationErrors()
@@ -218,8 +193,6 @@ export const initializeValidationLanguageListener = () => {
 export const reloadValidationErrors = async () => {
   try {
     const currentLang = getCurrentLanguage()
-    console.log('🔄 Reloading validation errors for language:', currentLang)
-    
     // Clear existing cache for this language
     validationCache.delete(`validation_errors_${currentLang}`)
     

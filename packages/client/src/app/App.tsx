@@ -46,19 +46,13 @@ const App = () => {
     // Load user data from localStorage into Redux store
     const storedUserData = localStorage.getItem('USER_DATA')
     
-    console.log('App.tsx - Checking localStorage USER_DATA:', storedUserData)
-    
     if (storedUserData) {
       try {
         const userData = JSON.parse(storedUserData)
-        console.log('App.tsx - Parsed user data:', userData)
-        
         const loginData = {
           nameSurname: userData.name || userData.nameSurname,
           phoneNumber: userData.mobile_number || userData.phoneNumber
         }
-        
-        console.log('App.tsx - Mapped login data:', loginData)
         
         // Update login data in Redux with stored user data
         dispatch(initializeUserData(loginData))
@@ -67,8 +61,7 @@ const App = () => {
         console.error('App.tsx - Error loading user data from localStorage:', error)
       }
     } else {
-      console.log('App.tsx - No USER_DATA found in localStorage')
-    }
+      }
 
     // Initialize translations and wait for them to load
     const initializeTranslations = async () => {
@@ -85,10 +78,7 @@ const App = () => {
         
         // Verify translations are actually loaded
         const testTranslation = i18n.t('fill_form', { lng: language })
-        console.log('🧪 Test translation for "fill_form":', testTranslation)
-        
         if (testTranslation === 'fill_form') {
-          console.log('⚠️ Translations not loaded yet, retrying...')
           // Try to reload resources
           await i18n.reloadResources(language)
           await new Promise(resolve => setTimeout(resolve, 500)) // Wait a bit more
@@ -97,12 +87,9 @@ const App = () => {
         setTranslationsLoaded(true)
         document.documentElement.setAttribute('dir', direction)
         document.documentElement.setAttribute('lang', language)
-        console.log('✅ Translations loaded for language:', language)
-        
         // Initialize validation language listener
         initializeValidationLanguageListener()
-        console.log('✅ Validation language listener initialized')
-      } catch (error) {
+        } catch (error) {
         console.error('❌ Error loading translations:', error)
         setTranslationsLoaded(true) // Continue anyway
       }

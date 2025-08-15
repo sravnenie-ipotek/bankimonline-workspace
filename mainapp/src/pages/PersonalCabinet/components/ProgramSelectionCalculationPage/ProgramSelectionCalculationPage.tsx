@@ -105,36 +105,24 @@ export const ProgramSelectionCalculationPage: React.FC<ProgramSelectionCalculati
   const [serviceType, setServiceType] = useState<'mortgage' | 'refinance-mortgage'>('mortgage')
 
   useEffect(() => {
-    console.log('🔍 [SERVICE-TYPE] Location state:', location.state)
-    console.log('🔍 [SERVICE-TYPE] Location pathname:', location.pathname)
-    
     // Determine service type from location state or URL
     if (location.state?.serviceType) {
-      console.log('✅ [SERVICE-TYPE] Using service type from state:', location.state.serviceType)
       setServiceType(location.state.serviceType)
     } else {
       // Improved fallback: try to detect from referrer URL or check Redux data
       const referrer = document.referrer
-      console.log('🔍 [SERVICE-TYPE] Referrer URL:', referrer)
-      
       if (referrer.includes('refinance-mortgage')) {
-        console.log('✅ [SERVICE-TYPE] Detected refinance-mortgage from referrer')
         setServiceType('refinance-mortgage')
       } else if (referrer.includes('calculate-mortgage')) {
-        console.log('✅ [SERVICE-TYPE] Detected mortgage from referrer')
         setServiceType('mortgage')
       } else {
         // Check which Redux store has data
         const hasRefinanceData = Boolean(refinanceMortgageParameters?.priceOfEstate || refinanceMortgageParameters?.mortgageBalance)
         const hasMortgageData = Boolean(mortgageParameters?.priceOfEstate || mortgageParameters?.initialFee)
         
-        console.log('🔍 [SERVICE-TYPE] Redux data check - hasRefinanceData:', hasRefinanceData, 'hasMortgageData:', hasMortgageData)
-        
         if (hasRefinanceData && !hasMortgageData) {
-          console.log('✅ [SERVICE-TYPE] Detected refinance-mortgage from Redux data')
           setServiceType('refinance-mortgage')
         } else {
-          console.log('✅ [SERVICE-TYPE] Defaulting to mortgage')
           setServiceType('mortgage')
         }
       }
@@ -295,9 +283,6 @@ export const ProgramSelectionCalculationPage: React.FC<ProgramSelectionCalculati
     const currentData = getCurrentMortgageData()
     
     // Debug: Log the current data to understand what's missing
-    console.log('🔍 [MORTGAGE-PARAMS] Current data from Redux:', currentData)
-    console.log('🔍 [MORTGAGE-PARAMS] Service type:', serviceType)
-    
     // Calculate credit amount based on service type
     let cost = currentData?.priceOfEstate || 0
     let initialPayment = 0
@@ -316,8 +301,6 @@ export const ProgramSelectionCalculationPage: React.FC<ProgramSelectionCalculati
     
     // Add fallback data if Redux store is empty (for development/testing)
     if (!cost && !credit && !period) {
-      console.log('⚠️ [MORTGAGE-PARAMS] No data in Redux store, using fallback values')
-      
       // Use mock/fallback data based on service type
       if (serviceType === 'refinance-mortgage') {
         cost = 1500000 // Property value
@@ -331,8 +314,7 @@ export const ProgramSelectionCalculationPage: React.FC<ProgramSelectionCalculati
         period = 25
       }
       
-      console.log('✅ [MORTGAGE-PARAMS] Using fallback data:', { cost, initialPayment, credit, period })
-    }
+      }
 
     return {
       cost,

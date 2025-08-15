@@ -21,12 +21,6 @@ const SingleButton: React.FC<SingleButtonProps> = ({
   const [showErrors, setShowErrors] = useState(false)
 
   const handleClick = () => {
-    console.log('=== BUTTON CLICKED ===')
-    console.log('isValid:', isValid)
-    console.log('values:', values)
-    console.log('errors:', errors)
-    console.log('========================')
-    
     // Touch all fields to show validation errors
     Object.keys(values).forEach(fieldName => {
       setFieldTouched(fieldName, true, false)
@@ -34,10 +28,8 @@ const SingleButton: React.FC<SingleButtonProps> = ({
     
     // Only submit if form is valid
     if (isValid) {
-      console.log('Form is valid, submitting...')
       handleSubmit()
     } else {
-      console.log('Form is invalid, showing errors...')
       setShowErrors(true)
     }
   }

@@ -17,11 +17,7 @@ const productionConnections = [
 ];
 
 async function debugProductionIssue() {
-  console.log('🔍 Debugging Production Database Issue...\n');
-  
   for (const db of productionConnections) {
-    console.log(`Testing ${db.name}:`);
-    
     const pool = new Pool({
       connectionString: db.url,
       ssl: db.ssl,
@@ -32,10 +28,6 @@ async function debugProductionIssue() {
     try {
       // Test basic connection
       const result = await pool.query('SELECT NOW() as current_time, current_database() as db_name');
-      console.log(`✅ Connection: SUCCESS`);
-      console.log(`   Database: ${result.rows[0].db_name}`);
-      console.log(`   Time: ${result.rows[0].current_time}`);
-      
       // Test specific tables that might be causing issues
       try {
         const tables = await pool.query(`
@@ -44,24 +36,17 @@ async function debugProductionIssue() {
           WHERE table_schema = 'public' 
           ORDER BY table_name
         `);
-        console.log(`   Tables found: ${tables.rows.length}`);
-        console.log(`   Table names: ${tables.rows.map(t => t.table_name).join(', ')}`);
+        .join(', ')}`);
         
         // Check for specific problematic tables
         const hasFieldOfActivity = tables.rows.some(t => t.table_name === 'field_of_activity');
         const hasStatusTracking = tables.rows.some(t => t.table_name === 'status_tracking');
         
-        console.log(`   field_of_activity table: ${hasFieldOfActivity ? '✅ EXISTS' : '❌ MISSING'}`);
-        console.log(`   status_tracking table: ${hasStatusTracking ? '✅ EXISTS' : '❌ MISSING'}`);
-        
-      } catch (tableError) {
-        console.log(`   ❌ Table check failed: ${tableError.message}`);
-      }
+        } catch (tableError) {
+        }
       
     } catch (error) {
-      console.log(`❌ Connection: FAILED`);
-      console.log(`   Error: ${error.message}`);
-    }
+      }
     
     try {
       await pool.end();
@@ -69,21 +54,9 @@ async function debugProductionIssue() {
       // Ignore cleanup errors
     }
     
-    console.log('');
-  }
+    }
   
-  console.log('🔍 Analysis:');
-  console.log('Since databases are accessible, the issue might be:');
-  console.log('1. Environment variables not set correctly on production server');
-  console.log('2. Different connection strings used in production code');
-  console.log('3. Network/firewall issues on production server');
-  console.log('4. Service configuration issues');
-  console.log('');
-  console.log('📋 Next Steps:');
-  console.log('1. Check production server environment variables');
-  console.log('2. Verify production code is using correct connection strings');
-  console.log('3. Check production server network connectivity');
-}
+  }
 
 debugProductionIssue().catch(console.error);
 

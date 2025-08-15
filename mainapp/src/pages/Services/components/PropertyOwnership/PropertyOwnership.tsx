@@ -22,8 +22,7 @@ const PropertyOwnership = ({ screenLocation = 'personal_data_form' }: PropertyOw
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
-    console.log('🔄 Loading property ownership dropdown options...')
-  }
+    }
 
   if (dropdownData.error) {
     console.warn('❌ Property ownership dropdown error:', dropdownData.error)

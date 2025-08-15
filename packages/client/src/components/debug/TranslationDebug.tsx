@@ -48,12 +48,6 @@ export const TranslationDebug: React.FC = () => {
       
       <button 
         onClick={() => {
-          console.log('🔍 i18n Debug Info:', {
-            language: i18n.language,
-            ready,
-            initialized: i18n.isInitialized,
-            resources: i18n.store.data,
-            testTranslation: i18n.t('fill_form')
           })
         }}
         style={{ marginTop: '10px', padding: '5px' }}

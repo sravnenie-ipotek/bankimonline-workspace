@@ -54,8 +54,7 @@ class ValidationSuite {
             'TEST': colors.cyan
         };
         
-        console.log(`${colorMap[type] || colors.white}[${timestamp}] ${type}: ${message}${details}`);
-    }
+        }
 
     async validateApiEndpoints() {
         this.log('TEST', '🔍 TESTING API ENDPOINTS');
@@ -286,22 +285,22 @@ class ValidationSuite {
     generateReport() {
         this.log('INFO', '📊 GENERATING VALIDATION REPORT');
         
-        console.log('\n' + '='.repeat(80));
-        console.log(colors.bold.blue('DROPDOWN SYSTEM REGRESSION VALIDATION REPORT'));
-        console.log('='.repeat(80));
+        );
+        );
+        );
         
-        console.log(colors.bold.green(`\n✅ API TESTS PASSED: ${this.results.apiTests.filter(t => t.status === 'SUCCESS').length}`));
-        console.log(colors.bold.green(`✅ COMPONENT TESTS PASSED: ${this.results.componentTests.filter(t => t.status === 'SUCCESS').length}`));
-        console.log(colors.bold.green(`✅ INTEGRATION TESTS PASSED: ${this.results.integrationTests.filter(t => t.status === 'SUCCESS').length}`));
+        .length}`));
+        .length}`));
+        .length}`));
         
         if (this.results.warnings.length > 0) {
-            console.log(colors.bold.yellow(`\n⚠️ WARNINGS: ${this.results.warnings.length}`));
-            this.results.warnings.forEach(warning => console.log(colors.yellow(`  • ${warning}`)));
+            );
+            this.results.warnings.forEach(warning => ));
         }
         
         if (this.results.errors.length > 0) {
-            console.log(colors.bold.red(`\n❌ ERRORS: ${this.results.errors.length}`));
-            this.results.errors.forEach(error => console.log(colors.red(`  • ${error}`)));
+            );
+            this.results.errors.forEach(error => ));
         }
         
         const totalTests = this.results.apiTests.length + this.results.componentTests.length + this.results.integrationTests.length;
@@ -309,23 +308,20 @@ class ValidationSuite {
                            this.results.componentTests.filter(t => t.status === 'SUCCESS').length + 
                            this.results.integrationTests.filter(t => t.status === 'SUCCESS').length;
         
-        console.log(colors.bold.cyan(`\n📈 OVERALL SUCCESS RATE: ${Math.round((passedTests / totalTests) * 100)}%`));
-        console.log(colors.bold.cyan(`📊 TOTAL TESTS: ${totalTests} | PASSED: ${passedTests} | FAILED: ${totalTests - passedTests}`));
+        * 100)}%`));
+        );
         
         if (this.results.errors.length === 0) {
-            console.log(colors.bold.green('\n🎉 ALL CRITICAL SYSTEMS OPERATIONAL - NO REGRESSIONS DETECTED'));
+            );
         } else {
-            console.log(colors.bold.red('\n🚨 REGRESSIONS DETECTED - IMMEDIATE ATTENTION REQUIRED'));
+            );
         }
         
-        console.log('='.repeat(80) + '\n');
+        + '\n');
     }
 
     async run() {
-        console.log(colors.bold.blue('\n🚀 STARTING ULTRA-CRITICAL REGRESSION VALIDATION'));
-        console.log(`Frontend: ${FRONTEND_URL}`);
-        console.log(`Backend: ${BASE_URL}\n`);
-
+        );
         try {
             await this.validateApiEndpoints();
             await this.validateCriticalDropdowns();

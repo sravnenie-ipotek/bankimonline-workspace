@@ -94,7 +94,6 @@ class MortgageStep2Page extends BasePage {
    * Navigate to Step 2 of mortgage calculator
    */
   async navigateToStep2() {
-    console.log('👤 Navigating to Mortgage Calculator Step 2');
     await this.navigateTo('/services/calculate-mortgage/2');
     await this.waitForStep2ToLoad();
     return this;
@@ -104,10 +103,8 @@ class MortgageStep2Page extends BasePage {
    * Wait for Step 2 page to fully load
    */
   async waitForStep2ToLoad() {
-    console.log('⏳ Waiting for Step 2 to load...');
     await this.findElement(this.selectors.firstName);
-    console.log('✅ Step 2 loaded successfully');
-  }
+    }
 
   /**
    * Fill personal information form
@@ -125,8 +122,6 @@ class MortgageStep2Page extends BasePage {
     
     const data = { ...defaultData, ...personalData };
     
-    console.log('👤 Filling personal information:', data);
-    
     if (data.firstName) {
       await this.typeText(this.selectors.firstName, data.firstName);
     }
@@ -143,7 +138,6 @@ class MortgageStep2Page extends BasePage {
       await this.typeText(this.selectors.email, data.email);
     }
     
-    console.log('✅ Personal information filled');
     return this;
   }
 
@@ -161,7 +155,6 @@ class MortgageStep2Page extends BasePage {
     
     const currentUrl = await this.getCurrentUrl();
     if (currentUrl.includes('/3')) {
-      console.log('✅ Successfully proceeded to Step 3');
       return true;
     } else {
       console.error('❌ Failed to proceed to Step 3');

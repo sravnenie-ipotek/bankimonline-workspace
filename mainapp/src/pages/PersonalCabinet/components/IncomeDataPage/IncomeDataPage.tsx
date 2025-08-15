@@ -220,7 +220,6 @@ const IncomeDataPage: React.FC<IncomeDataPageProps> = ({
   }
 
   const handleSubmit = (values: IncomeDataFormTypes) => {
-    console.log('Income data submitted:', values)
     // Navigate to next step (Documents page - LK-131)
     navigate('/personal-cabinet/documents')
   }
@@ -502,8 +501,7 @@ const IncomeDataPage: React.FC<IncomeDataPageProps> = ({
                             className={cx('add-button')}
                             onClick={() => {
                               // Add workplace functionality - would open modal in full implementation
-                              console.log('Add workplace modal would open here')
-                            }}
+                              }}
                           >
                             <span>+</span>
                             {t('add_workplace', 'Добавить место работы')}
@@ -650,8 +648,7 @@ const IncomeDataPage: React.FC<IncomeDataPageProps> = ({
                           className={cx('add-button')}
                           onClick={() => {
                             // Add additional income functionality - would open modal in full implementation
-                            console.log('Add additional income modal would open here')
-                          }}
+                            }}
                         >
                           <span>+</span>
                           {t('add_additional_income', 'Добавить дополнительный источник дохода')}
@@ -772,8 +769,7 @@ const IncomeDataPage: React.FC<IncomeDataPageProps> = ({
                           className={cx('add-button')}
                           onClick={() => {
                             // Add debt obligation functionality - would open modal in full implementation
-                            console.log('Add debt obligation modal would open here')
-                          }}
+                            }}
                         >
                           <span>+</span>
                           {t('add_debt_obligation', 'Добавить долговое обязательство')}

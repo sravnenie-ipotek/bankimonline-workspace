@@ -196,7 +196,6 @@ export const BankWorkerStatus: React.FC = () => {
             </Button>
                   </div>
 
-
       </div>
     </Container>
   )

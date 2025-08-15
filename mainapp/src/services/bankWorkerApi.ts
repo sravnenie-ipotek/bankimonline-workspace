@@ -34,7 +34,7 @@ apiClient.interceptors.request.use(
     
     // Log API requests in development
     if (process.env.NODE_ENV === 'development') {
-      console.log(`API Request: ${config.method?.toUpperCase()} ${config.url}`, config.data)
+      } ${config.url}`, config.data)
     }
     
     return config
@@ -50,7 +50,7 @@ apiClient.interceptors.response.use(
   (response) => {
     // Log API responses in development
     if (process.env.NODE_ENV === 'development') {
-      console.log(`API Response: ${response.config.method?.toUpperCase()} ${response.config.url}`, response.data)
+      } ${response.config.url}`, response.data)
     }
     
     return response

@@ -117,7 +117,6 @@ class MortgageStep1Page extends BasePage {
    * @param {number} timeout - Navigation timeout
    */
   async navigateToStep1(timeout = this.config.timeouts.page) {
-    console.log('🏠 Navigating to Mortgage Calculator Step 1');
     await this.navigateTo('/services/calculate-mortgage/1', timeout);
     await this.waitForStep1ToLoad();
     return this;
@@ -128,8 +127,6 @@ class MortgageStep1Page extends BasePage {
    * @param {number} timeout - Wait timeout
    */
   async waitForStep1ToLoad(timeout = this.config.timeouts.explicit) {
-    console.log('⏳ Waiting for Step 1 to load...');
-    
     // Wait for critical form elements to be present
     await Promise.race([
       this.findElement(this.selectors.propertyPrice, timeout),
@@ -144,23 +141,20 @@ class MortgageStep1Page extends BasePage {
       // Loading spinner not present, continue
     }
     
-    console.log('✅ Step 1 loaded successfully');
-  }
+    }
 
   /**
    * Fill property price field
    * @param {number} price - Property price value
    */
   async fillPropertyPrice(price) {
-    console.log(`💰 Setting property price: ${price.toLocaleString()}`);
+    }`);
     
     const priceInput = await this.findElement(this.selectors.propertyPrice);
     await this.typeText(priceInput, price.toString(), true);
     
     // Verify the value was set correctly
     const actualValue = await priceInput.getAttribute('value');
-    console.log(`✅ Property price set to: ${actualValue}`);
-    
     return this;
   }
 
@@ -169,14 +163,10 @@ class MortgageStep1Page extends BasePage {
    * @param {string} cityName - Name of city to select
    */
   async selectCity(cityName) {
-    console.log(`🏙️ Selecting city: ${cityName}`);
-    
     await this.selectDropdownOption(this.selectors.cityDropdown[0], cityName);
     
     // Verify selection
     await this.driver.sleep(1000); // Allow dropdown to close
-    console.log(`✅ City selected: ${cityName}`);
-    
     return this;
   }
 
@@ -185,13 +175,9 @@ class MortgageStep1Page extends BasePage {
    * @param {string} timeframe - When mortgage is needed
    */
   async selectWhenNeeded(timeframe) {
-    console.log(`⏰ Selecting when needed: ${timeframe}`);
-    
     await this.selectDropdownOption(this.selectors.whenNeededDropdown[0], timeframe);
     
     await this.driver.sleep(1000);
-    console.log(`✅ When needed selected: ${timeframe}`);
-    
     return this;
   }
 
@@ -200,13 +186,9 @@ class MortgageStep1Page extends BasePage {
    * @param {string} propertyType - Type of property
    */
   async selectPropertyType(propertyType) {
-    console.log(`🏘️ Selecting property type: ${propertyType}`);
-    
     await this.selectDropdownOption(this.selectors.propertyTypeDropdown[0], propertyType);
     
     await this.driver.sleep(1000);
-    console.log(`✅ Property type selected: ${propertyType}`);
-    
     return this;
   }
 
@@ -215,13 +197,9 @@ class MortgageStep1Page extends BasePage {
    * @param {string} isFirstHome - First home selection
    */
   async selectFirstHome(isFirstHome) {
-    console.log(`🏠 Selecting first home: ${isFirstHome}`);
-    
     await this.selectDropdownOption(this.selectors.firstHomeDropdown[0], isFirstHome);
     
     await this.driver.sleep(1000);
-    console.log(`✅ First home selected: ${isFirstHome}`);
-    
     return this;
   }
 
@@ -230,14 +208,10 @@ class MortgageStep1Page extends BasePage {
    * @param {string} ownershipStatus - Property ownership status
    */
   async selectPropertyOwnership(ownershipStatus) {
-    console.log(`🏛️ Selecting property ownership: ${ownershipStatus}`);
-    
     await this.selectDropdownOption(this.selectors.propertyOwnershipDropdown[0], ownershipStatus);
     
     // Wait for LTV calculation to update initial payment limits
     await this.driver.sleep(2000);
-    console.log(`✅ Property ownership selected: ${ownershipStatus}`);
-    
     return this;
   }
 
@@ -246,7 +220,7 @@ class MortgageStep1Page extends BasePage {
    * @param {number} amount - Initial payment amount
    */
   async setInitialPayment(amount) {
-    console.log(`💳 Setting initial payment: ${amount.toLocaleString()}`);
+    }`);
     
     const slider = await this.findElement(this.selectors.initialFeeSlider);
     
@@ -254,15 +228,11 @@ class MortgageStep1Page extends BasePage {
     const minValue = await slider.getAttribute('min') || '0';
     const maxValue = await slider.getAttribute('max') || '10000000';
     
-    console.log(`📊 Slider range: ${minValue} - ${maxValue}`);
-    
     // Clear and set new value
     await this.typeText(slider, amount.toString(), true);
     
     // Verify the value was set
     const actualValue = await slider.getAttribute('value');
-    console.log(`✅ Initial payment set to: ${actualValue}`);
-    
     return this;
   }
 
@@ -272,8 +242,6 @@ class MortgageStep1Page extends BasePage {
    * @returns {Array<string>} Array of dropdown option texts
    */
   async getDropdownOptions(dropdownType) {
-    console.log(`📋 Getting dropdown options for: ${dropdownType}`);
-    
     let selectorArray;
     switch (dropdownType) {
       case 'city':
@@ -332,7 +300,6 @@ class MortgageStep1Page extends BasePage {
     // Close dropdown by pressing Escape
     await this.driver.actions().sendKeys('\ue00c').perform();
     
-    console.log(`✅ Found ${options.length} options for ${dropdownType}:`, options);
     return options;
   }
 
@@ -342,15 +309,11 @@ class MortgageStep1Page extends BasePage {
    * @returns {Array<Object>} Test results for each option
    */
   async testAllDropdownOptions(dropdownType) {
-    console.log(`🧪 Testing all options for dropdown: ${dropdownType}`);
-    
     const options = await this.getDropdownOptions(dropdownType);
     const results = [];
     
     for (const option of options) {
       try {
-        console.log(`Testing option: ${option}`);
-        
         // Select the option
         switch (dropdownType) {
           case 'city':
@@ -383,9 +346,7 @@ class MortgageStep1Page extends BasePage {
           timestamp: new Date().toISOString()
         });
         
-        console.log(`✅ Option "${option}" tested successfully`);
-        
-      } catch (error) {
+        } catch (error) {
         console.error(`❌ Failed to test option "${option}":`, error.message);
         
         results.push({
@@ -397,7 +358,6 @@ class MortgageStep1Page extends BasePage {
       }
     }
     
-    console.log(`🏁 Dropdown testing completed for ${dropdownType}. Results:`, results);
     return results;
   }
 
@@ -436,7 +396,6 @@ class MortgageStep1Page extends BasePage {
       }
     }
     
-    console.log(`📝 Found ${errors.length} validation errors:`, errors);
     return errors;
   }
 
@@ -457,8 +416,6 @@ class MortgageStep1Page extends BasePage {
     
     const data = { ...defaultData, ...formData };
     
-    console.log('📝 Filling Step 1 form with data:', data);
-    
     await this.fillPropertyPrice(data.propertyPrice);
     await this.selectCity(data.city);
     await this.selectWhenNeeded(data.whenNeeded);
@@ -467,7 +424,6 @@ class MortgageStep1Page extends BasePage {
     await this.selectPropertyOwnership(data.propertyOwnership);
     await this.setInitialPayment(data.initialPayment);
     
-    console.log('✅ Step 1 form filled successfully');
     return this;
   }
 
@@ -475,8 +431,6 @@ class MortgageStep1Page extends BasePage {
    * Click continue button to proceed to next step
    */
   async clickContinue() {
-    console.log('👆 Clicking continue button');
-    
     const continueButton = await this.findElement(this.selectors.continueButton);
     await this.scrollToElement(continueButton);
     await this.clickElement(continueButton);
@@ -484,7 +438,6 @@ class MortgageStep1Page extends BasePage {
     // Wait for navigation to complete
     await this.driver.sleep(2000);
     
-    console.log('✅ Continue button clicked');
     return this;
   }
 
@@ -505,7 +458,6 @@ class MortgageStep1Page extends BasePage {
     const currentUrl = await this.getCurrentUrl();
     
     if (currentUrl.includes('/2')) {
-      console.log('✅ Successfully proceeded to Step 2');
       return true;
     } else {
       console.error('❌ Failed to proceed to Step 2');

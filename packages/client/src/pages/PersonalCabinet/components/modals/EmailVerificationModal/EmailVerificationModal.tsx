@@ -48,10 +48,8 @@ export const EmailVerificationModal: React.FC<EmailVerificationModalProps> = ({
     setIsLoading(true)
     try {
       // Simulate API call for email verification
-      console.log('Verifying email code:', code, 'for email:', email)
       await new Promise(resolve => setTimeout(resolve, 1000))
       
-      console.log('Email verification successful')
       onSuccess()
     } catch (error) {
       console.error('Email verification failed:', error)

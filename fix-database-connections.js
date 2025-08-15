@@ -21,11 +21,8 @@ const databases = [
 ];
 
 async function testDatabases() {
-  console.log('🔍 Testing all Railway databases...\n');
-  
   for (const db of databases) {
-    console.log(`Testing ${db.name}:`);
-    console.log(`URL: ${db.url.replace(/:([^:@]+)@/, ':***@')}`);
+    @/, ':***@')}`);
     
     const pool = new Pool({
       connectionString: db.url,
@@ -37,10 +34,6 @@ async function testDatabases() {
     try {
       // Test basic connection
       const result = await pool.query('SELECT NOW() as current_time, current_database()');
-      console.log(`✅ Connection: OK`);
-      console.log(`   Database: ${result.rows[0].current_database}`);
-      console.log(`   Time: ${result.rows[0].current_time}`);
-      
       // Test function existence
       try {
         const funcTest = await pool.query(`
@@ -51,26 +44,19 @@ async function testDatabases() {
         `);
         
         if (funcTest.rows[0].function_exists) {
-          console.log(`✅ get_content_by_screen function: EXISTS`);
-          
           // Test function call
           try {
             const funcCall = await pool.query('SELECT * FROM get_content_by_screen($1, $2) LIMIT 1', ['mortgage_calculation', 'en']);
-            console.log(`✅ Function call: WORKS (${funcCall.rows.length} rows)`);
+            `);
           } catch (callError) {
-            console.log(`❌ Function call: FAILS - ${callError.message}`);
-          }
+            }
         } else {
-          console.log(`❌ get_content_by_screen function: MISSING`);
-        }
+          }
       } catch (funcError) {
-        console.log(`❌ Function check: ERROR - ${funcError.message}`);
-      }
+        }
       
     } catch (error) {
-      console.log(`❌ Connection: FAILED`);
-      console.log(`   Error: ${error.message}`);
-    }
+      }
     
     try {
       await pool.end();
@@ -78,8 +64,7 @@ async function testDatabases() {
       // Ignore cleanup errors
     }
     
-    console.log('');
-  }
+    }
 }
 
 testDatabases().catch(console.error);

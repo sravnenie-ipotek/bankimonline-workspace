@@ -44,16 +44,13 @@ function generateCreditHTMLReport() {
     }, (res) => {
       if (res.statusCode === 200) {
         useHttpUrls = true;
-        console.log(`✅ QA Server detected on port ${QA_SERVER_PORT} - Using HTTP URLs for screenshots`);
-      }
+        }
     });
     req.on('error', () => {
-      console.log(`⚠️  QA Server not running on port ${QA_SERVER_PORT} - Using file:// URLs`);
-    });
+      });
     req.end();
   } catch (error) {
-    console.log(`⚠️  Could not check QA Server - Using file:// URLs`);
-  }
+    }
   
   // Dynamic screenshot discovery to find all credit-related screenshots
   let screenshots = [];
@@ -564,10 +561,8 @@ npm run qa:generate-credit
                 });
             });
 
-            console.log('🏦 Credit Calculator Validation Report Loaded');
-            console.log('📊 System Status: PRODUCTION READY (94% confidence)');
-            console.log('🎯 Core Discovery: Advanced financial logic with DTI calculations');
-        });
+            ');
+            });
     </script>
 </body>
 </html>`;
@@ -575,22 +570,12 @@ npm run qa:generate-credit
   // Write HTML report
   fs.writeFileSync(reportPath, htmlContent);
   
-  console.log(`\\n🏦 CREDIT CALCULATOR VALIDATION REPORT GENERATED:`);
-  console.log(`📂 Location: ${reportPath}`);
-  console.log(`🌐 Open in browser: file://${reportPath}`);
-  console.log(`⏰ Timestamp: ${timestamp}`);
-  console.log(`📊 System Status: PRODUCTION READY (94% confidence)`);
-  console.log(`🎯 Core Discovery: Advanced financial logic with DTI calculations`);
-  console.log(`📸 Evidence: ${screenshots.length} screenshots collected`);
-  console.log(`📋 Categories: ${Object.keys(groupedScreenshots).join(', ')}`);
-  console.log(`\\n${useHttpUrls ? '✅' : '⚠️'} Screenshot Display: ${useHttpUrls ? 'HTTP URLs (optimal)' : 'file:// URLs (start qa:server for better display)'}`);
+  `);
+  .join(', ')}`);
+  ' : 'file:// URLs (start qa:server for better display)'}`);
   
   if (!useHttpUrls && screenshots.length > 0) {
-    console.log(`\\n💡 TO FIX SCREENSHOT DISPLAY ISSUES:`);
-    console.log(`   1. npm run qa:server          # Start HTTP server`);
-    console.log(`   2. npm run qa:generate-credit # Regenerate with HTTP URLs`);
-    console.log(`   3. Open new report            # Screenshots will work!`);
-  }
+    }
   
   return reportPath;
 }

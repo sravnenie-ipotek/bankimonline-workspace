@@ -14,11 +14,9 @@ describe('Phase 5 Debug - API Investigation', () => {
     
     // Log all intercepted requests
     cy.get('@allRequests.all').then((interceptions) => {
-      console.log('Total requests:', interceptions.length);
       interceptions.forEach((interception) => {
         if (interception.request.url.includes('api')) {
-          console.log('API Request:', interception.request.url);
-        }
+          }
       });
     });
     

@@ -127,11 +127,8 @@ export const useDropdownData = (
       let apiData: StructuredDropdownResponse;
 
       if (cachedData) {
-        console.log(`✅ Cache hit for ${cacheKey}`);
         apiData = cachedData;
       } else {
-        console.log(`🌐 Fetching dropdown data from API: /api/dropdowns/${screenLocation}/${language}`);
-        
         const response = await fetch(`/api/dropdowns/${screenLocation}/${language}`, {
           signal: abortControllerRef.current.signal
         });
@@ -148,8 +145,7 @@ export const useDropdownData = (
 
         // Cache successful response
         dropdownCache.set(cacheKey, apiData);
-        console.log(`💾 Cached dropdown data for ${cacheKey}`);
-      }
+        }
 
       // Extract data for specific field
       const dropdownKey = `${screenLocation}_${fieldName}`;
@@ -199,18 +195,10 @@ export const useDropdownData = (
         error: null
       };
 
-      console.log(`🔍 Dropdown data for ${dropdownKey}:`, {
-        optionsCount: result.options.length,
-        hasPlaceholder: !!result.placeholder,
-        hasLabel: !!result.label,
-        cacheHit: !!cachedData
-      });
-
       setDropdownData(result);
       
     } catch (err) {
       if (err.name === 'AbortError') {
-        console.log('Request aborted');
         return;
       }
 
@@ -289,13 +277,10 @@ export const useAllDropdowns = (screenLocation: string) => {
       const cachedData = dropdownCache.get<StructuredDropdownResponse>(cacheKey);
       
       if (cachedData) {
-        console.log(`✅ Bulk cache hit for ${cacheKey}`);
         setData(cachedData);
         return;
       }
 
-      console.log(`🌐 Bulk fetching dropdowns from API: /api/dropdowns/${screenLocation}/${language}`);
-      
       const response = await fetch(`/api/dropdowns/${screenLocation}/${language}`, {
         signal: abortControllerRef.current.signal
       });
@@ -314,15 +299,12 @@ export const useAllDropdowns = (screenLocation: string) => {
       dropdownCache.set(cacheKey, apiData);
       setData(apiData);
 
-      console.log(`✅ Bulk dropdown data loaded for ${screenLocation}:`, {
-        dropdowns: apiData.dropdowns?.length || 0,
-        optionGroups: Object.keys(apiData.options || {}).length,
+      .length,
         cacheInfo: apiData.cache_info
       });
       
     } catch (err) {
       if (err.name === 'AbortError') {
-        console.log('Bulk request aborted');
         return;
       }
 
@@ -408,8 +390,7 @@ export const useAllDropdowns = (screenLocation: string) => {
  */
 export const clearDropdownCache = (): void => {
   dropdownCache.clear();
-  console.log('🗑️ Dropdown cache cleared');
-};
+  };
 
 /**
  * Get cache statistics

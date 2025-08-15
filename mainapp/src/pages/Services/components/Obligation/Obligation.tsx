@@ -46,7 +46,6 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
   // Phase 4: Use database-driven dropdown data instead of hardcoded array
   // FIXED: Use 'obligations' to match API-generated key (credit_step3_obligations)
   const dropdownData = useDropdownData(resolvedScreenLocation, 'obligations', 'full')
-  
 
   // Handle both DropdownData object and DropdownOption[] array
   const isDropdownDataObject = 'loading' in dropdownData
@@ -58,27 +57,20 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
 
   // Phase 4: Handle loading and error states
   if (isLoading) {
-    console.log('🔄 Loading obligations dropdown options...')
-  }
+    }
 
   if (hasError) {
     console.warn('❌ Obligations dropdown error:', hasError)
   }
 
   // Debug obligation values
-  console.log('🔍 Obligation debug:', {
-    currentValue: values.obligation,
-    options: dropdownOptions,
-    isNoObligationValue: checkIfNoObligationValue(values.obligation),
+  ,
     errors: errors.obligation,
     touched: touched.obligation
   })
 
   const handleValueChange = (value: string) => {
-    console.log('🔍 Obligation onChange:', { 
-      value,
-      currentValue: values.obligation,
-      isNoObligationValue: checkIfNoObligationValue(value),
+    ,
       willShowBankFields: !checkIfNoObligationValue(value)
     })
     
@@ -86,8 +78,7 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
     setFieldValue('obligation', value)
     setFieldTouched('obligation', true)
     
-    console.log('✅ Obligation: Set value and touched:', value)
-  }
+    }
 
   // Simplified error display: Let Formik handle validation naturally
   const shouldShowError = touched.obligation && errors.obligation

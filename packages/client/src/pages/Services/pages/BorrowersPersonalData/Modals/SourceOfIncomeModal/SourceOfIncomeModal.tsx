@@ -48,8 +48,6 @@ const SourceOfIncomeModal: React.FC = () => {
     amountIncomeCurrentYear: savedValue?.amountIncomeCurrentYear || null,
   }
 
-
-
   const validationSchema = Yup.object().shape({
     mainSourceOfIncome: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
     monthlyIncome: Yup.number().when('mainSourceOfIncome', {

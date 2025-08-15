@@ -28,7 +28,7 @@ const reportsPath = path.join(projectRoot, 'server/docs/QA');
 
 // Middleware for logging requests
 app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  .toISOString()} - ${req.method} ${req.url}`);
   next();
 });
 
@@ -303,8 +303,7 @@ app.get('/', (req, res) => {
                 fetch('/api/screenshots')
                     .then(response => response.json())
                     .then(data => {
-                        console.log(\`📸 Screenshots available: \${data.count}\`);
-                    })
+                        })
                     .catch(error => console.error('Server check failed:', error));
             }, 30000);
         </script>
@@ -373,33 +372,17 @@ app.use((req, res) => {
 
 // Start server
 const server = app.listen(PORT, () => {
-  console.log(`\n🌐 QA Reports & Screenshots Server`);
-  console.log(`🚀 Server running at: http://localhost:${PORT}`);
-  console.log(`📸 Screenshots: http://localhost:${PORT}/screenshots/cypress`);
-  console.log(`📊 Reports: http://localhost:${PORT}/reports`);
-  console.log(`📋 API: http://localhost:${PORT}/api/screenshots`);
-  console.log(`🔍 Dashboard: http://localhost:${PORT}`);
-  console.log(`\n📁 Serving from:`);
-  console.log(`   Cypress: ${screenshotsPath}`);
-  console.log(`   Playwright: ${playwrightScreenshotsPath}`);
-  console.log(`   Reports: ${reportsPath}`);
-  console.log(`\n✅ SOLVES: "Screenshot not accessible" browser issues`);
-  console.log(`💡 TIP: Use http://localhost:${PORT} URLs in HTML reports instead of file:// paths\n`);
-});
+  });
 
 // Graceful shutdown
 process.on('SIGTERM', () => {
-  console.log('\n📴 Received SIGTERM, shutting down gracefully...');
   server.close(() => {
-    console.log('✅ QA Server closed');
     process.exit(0);
   });
 });
 
 process.on('SIGINT', () => {
-  console.log('\n📴 Received SIGINT, shutting down gracefully...');
   server.close(() => {
-    console.log('✅ QA Server closed');
     process.exit(0);
   });
 });

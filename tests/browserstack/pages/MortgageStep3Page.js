@@ -59,7 +59,6 @@ class MortgageStep3Page extends BasePage {
    * Navigate to Step 3 of mortgage calculator
    */
   async navigateToStep3() {
-    console.log('💼 Navigating to Mortgage Calculator Step 3');
     await this.navigateTo('/services/calculate-mortgage/3');
     await this.waitForStep3ToLoad();
     return this;
@@ -69,10 +68,8 @@ class MortgageStep3Page extends BasePage {
    * Wait for Step 3 page to fully load
    */
   async waitForStep3ToLoad() {
-    console.log('⏳ Waiting for Step 3 to load...');
     await this.findElement(this.selectors.monthlyIncome);
-    console.log('✅ Step 3 loaded successfully');
-  }
+    }
 
   /**
    * Fill income and employment information
@@ -87,8 +84,6 @@ class MortgageStep3Page extends BasePage {
     
     const data = { ...defaultData, ...incomeData };
     
-    console.log('💰 Filling income information:', data);
-    
     if (data.monthlyIncome) {
       await this.typeText(this.selectors.monthlyIncome, data.monthlyIncome.toString());
     }
@@ -97,11 +92,9 @@ class MortgageStep3Page extends BasePage {
       try {
         await this.selectDropdownOption(this.selectors.employmentType[0], data.employmentType);
       } catch (e) {
-        console.log('Employment dropdown not found or not interactive');
-      }
+        }
     }
     
-    console.log('✅ Income information filled');
     return this;
   }
 
@@ -119,7 +112,6 @@ class MortgageStep3Page extends BasePage {
     
     const currentUrl = await this.getCurrentUrl();
     if (currentUrl.includes('/4')) {
-      console.log('✅ Successfully proceeded to Step 4');
       return true;
     } else {
       console.error('❌ Failed to proceed to Step 4');

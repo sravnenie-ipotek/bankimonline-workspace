@@ -41,8 +41,6 @@ const UserProfileCard: React.FC<TypeProps> = ({
   const { t, i18n } = useTranslation()
   const [isMenuVisible, setMenuVisible] = useState(false)
 
-
-
   const toggleMenu = () => {
     setMenuVisible(true)
   }

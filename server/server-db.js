@@ -26,19 +26,14 @@ const getDatabaseConfig = (connectionType = 'content') => {
     const isProduction = process.env.NODE_ENV === 'production';
     const isRailwayProduction = process.env.RAILWAY_ENVIRONMENT === 'production';
     
-    console.log(`🔧 Database Config - Environment: ${process.env.NODE_ENV || 'development'}, Railway: ${process.env.RAILWAY_ENVIRONMENT || 'not set'}`);
-    
     if (isProduction || isRailwayProduction) {
         // Production: Local PostgreSQL on server
-        console.log('🚀 Production environment detected - using local PostgreSQL');
         return {
             connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/bankim_content',
             ssl: false // Local connections don't need SSL
         };
     } else {
         // Development: Railway PostgreSQL
-        console.log('🛠️ Development environment detected - using Railway PostgreSQL');
-        
         if (connectionType === 'content') {
             // Content database: shortline (bankim_content) - Contains CMS content, translations, dropdowns
             return {
@@ -66,8 +61,7 @@ pool.query('SELECT NOW()', (err, res) => {
     if (err) {
         console.error('❌ Main Database connection failed:', err.message);
     } else {
-        console.log('✅ Main Database connected:', res.rows[0].now);
-    }
+        }
 });
 
 // Test content database connection
@@ -75,14 +69,12 @@ contentPool.query('SELECT NOW()', (err, res) => {
     if (err) {
         console.error('❌ Content Database connection failed:', err.message);
     } else {
-        console.log('✅ Content Database connected:', res.rows[0].now);
-        
         // Delete test-content table if it exists
         contentPool.query('DROP TABLE IF EXISTS "test-content" CASCADE', (dropErr, dropRes) => {
             if (dropErr) {
                 console.error('❌ Failed to delete test-content table:', dropErr.message);
             } else {
-                console.log('✅ test-content table deleted successfully (if it existed)');
+                ');
             }
         });
     }
@@ -119,14 +111,12 @@ global.queryContentDB = queryContentDB;
 const getCorsOrigins = () => {
     // Check if we're in Railway production environment
     if (process.env.RAILWAY_ENVIRONMENT === 'production' || process.env.NODE_ENV === 'production') {
-        console.log('🚀 Production environment detected - allowing all origins');
         return true; // Allow all origins in production
     }
     
     if (process.env.CORS_ALLOWED_ORIGINS) {
         // If it's just '*', return true to allow all origins
         if (process.env.CORS_ALLOWED_ORIGINS.trim() === '*') {
-            console.log('🌐 CORS_ALLOWED_ORIGINS=* detected - allowing all origins');
             return true;
         }
         // Otherwise split comma-separated values
@@ -156,10 +146,6 @@ const corsOptions = {
 };
 
 // Log CORS configuration for debugging
-console.log('🔒 CORS Configuration:');
-console.log('📝 CORS_ALLOWED_ORIGINS env var:', process.env.CORS_ALLOWED_ORIGINS || 'Not set');
-console.log('🌐 Resolved CORS origins:', corsOptions.origin);
-
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -933,16 +919,12 @@ app.get('/api/content-db/tables', async (req, res) => {
 // DEBUG ENDPOINT: Fix translation status from draft to approved
 app.post('/api/content/fix-status', async (req, res) => {
     try {
-        console.log('🔧 Debug: Updating translation status from draft to approved...');
-        
         const result = await contentPool.query(`
             UPDATE content_translations 
             SET status = 'approved' 
             WHERE status = 'draft'
             RETURNING id, content_item_id, language_code, status
         `);
-        
-        console.log(`✅ Updated ${result.rowCount} translation records to approved status`);
         
         res.json({
             status: 'success',
@@ -1020,11 +1002,8 @@ app.get('/api/content/:screen/:language', async (req, res) => {
         // Check cache first
         const cached = contentCache.get(cacheKey);
         if (cached) {
-            console.log(`✅ Cache HIT for ${cacheKey}`);
             return res.json(cached);
         }
-        
-        console.log(`⚡ Cache MISS for ${cacheKey} - querying database`);
         
         // Build query with optional type filtering
         let query = `
@@ -1094,7 +1073,6 @@ app.get('/api/content/:screen/:language', async (req, res) => {
 // POST /api/cache/clear - Clear content cache
 app.post('/api/cache/clear', (req, res) => {
     contentCache.flushAll();
-    console.log('🗑️ Content cache cleared');
     res.json({ status: 'success', message: 'Cache cleared' });
 });
 
@@ -1109,14 +1087,10 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
         // Check cache first
         const cached = contentCache.get(cacheKey);
         if (cached) {
-            console.log(`✅ Dropdown cache HIT for ${cacheKey}`);
             return res.json(cached);
         }
         
-        console.log(`⚡ Dropdown cache MISS for ${cacheKey} - querying database`);
-        
         // Fetch all dropdown-related content for the screen
-        console.log(`🔍 Executing query for screen: ${screen}, language: ${language}`);
         const result = await contentPool.query(`
             SELECT 
                 content_items.content_key,
@@ -1131,8 +1105,6 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 AND content_items.component_type IN ('dropdown_container', 'dropdown_option', 'option', 'placeholder', 'label')
             ORDER BY content_items.content_key, content_items.component_type
         `, [screen, language]);
-        console.log(`📊 Query returned ${result.rows.length} rows`);
-        
         // Structure the response according to the specification
         const response = {
             status: 'success',
@@ -1148,10 +1120,8 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
         // Group by dropdown field - extract field name from content_key
         const dropdownMap = new Map();
         
-        console.log(`📊 Processing ${result.rows.length} rows for ${screen}/${language}`);
-        
         result.rows.forEach(row => {
-            console.log(`🔍 Processing: ${row.content_key} (${row.component_type})`);
+            `);
             
             // Extract field name using multiple patterns to handle various key formats
             // Examples: mortgage_step1.field.property_ownership, app.mortgage.form.calculate_mortgage_city
@@ -1324,9 +1294,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                     }
                 }
             }
-            
 
-            
             // Pattern 5: Simple field name extraction from various patterns
             if (!fieldName) {
                 // Try to extract from patterns like field_name_option_X or field_name_ph
@@ -1931,11 +1899,8 @@ app.get('/api/content/validation_errors/:language', async (req, res) => {
         // Check cache first
         const cached = contentCache.get(cacheKey);
         if (cached) {
-            console.log(`✅ Validation errors cache HIT for ${language}`);
             return res.json(cached);
         }
-        
-        console.log(`⚡ Validation errors cache MISS for ${language} - querying database`);
         
         const query = `
             SELECT 
@@ -2102,7 +2067,6 @@ app.get('/api/property-ownership-ltv', async (req, res) => {
             ltvRatios[key] = parseFloat(row.standard_value) / 100; // Convert to decimal
         });
         
-        console.log('🏠 Property ownership LTV ratios fetched:', ltvRatios);
         res.json({
             status: 'success',
             data: ltvRatios
@@ -2274,8 +2238,6 @@ app.get('/api/services/list', async (req, res) => {
             `);
         } catch (tableError) {
             // If services table doesn't exist, create it and populate with default data
-            console.log('Services table not found, creating with default data...');
-            
             // Create the services table
             await pool.query(`
                 CREATE TABLE IF NOT EXISTS services (
@@ -2356,8 +2318,6 @@ app.get('/api/services/list', async (req, res) => {
                 CREATE INDEX IF NOT EXISTS idx_services_display_order ON services(display_order);
                 CREATE INDEX IF NOT EXISTS idx_services_key ON services(service_key);
             `);
-            
-            console.log('Services table created successfully with default data');
             
             // Now fetch the data
             result = await pool.query(`
@@ -2513,14 +2473,11 @@ app.post('/api/admin/populate-sample-branches', async (req, res) => {
         const errors = [];
         for (const branchData of sampleBranches) {
             try {
-                console.log('Inserting branch:', branchData[4], 'for bank:', branchData[0]);
                 const result = await pool.query(insertQuery, branchData);
                 if (result.rowCount > 0) {
                     insertedCount++;
-                    console.log('Successfully inserted branch:', branchData[4]);
-                } else {
-                    console.log('Branch already exists:', branchData[4]);
-                }
+                    } else {
+                    }
             } catch (err) {
                 console.error(`Error inserting branch ${branchData[4]}:`, err.message);
                 errors.push(`${branchData[4]}: ${err.message}`);
@@ -2671,11 +2628,8 @@ app.get('/api/registration-config/:language', async (req, res) => {
 // END BANK EMPLOYEE REGISTRATION APIs
 // ================================
 
-
-
 // OPTIONS handler for preflight requests
 app.options('*', (req, res) => {
-    console.log(`[CORS] Preflight request from origin: ${req.headers.origin}`);
     res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
@@ -2712,8 +2666,6 @@ app.get('/api/get-cities', async (req, res) => {
     const selectedLang = validLangs.includes(lang) ? lang : 'en';
     const nameColumn = `name_${selectedLang}`;
 
-    console.log(`[CITIES] Request for language: ${selectedLang}`);
-
     try {
         const query = `SELECT id, key as value, ${nameColumn} as name FROM cities ORDER BY ${nameColumn}`;
         // Use content database for cities
@@ -2727,8 +2679,6 @@ app.get('/api/get-cities', async (req, res) => {
         });
     } catch (err) {
         console.error('Error fetching cities from database:', err);
-        console.log('🔄 Using i18n fallback cities data due to database connection issue');
-        
         // Load translation file for fallback
         const translationPath = path.join(__dirname, '../mainapp/public/locales', selectedLang, 'translation.json');
         
@@ -2778,8 +2728,6 @@ app.get('/api/get-regions', async (req, res) => {
     const selectedLang = validLangs.includes(lang) ? lang : 'en';
     const nameColumn = `name_${selectedLang}`;
 
-    console.log(`[REGIONS] Request for language: ${selectedLang}`);
-
     try {
         const query = `SELECT id, key, ${nameColumn} as name FROM regions WHERE is_active = true ORDER BY ${nameColumn}`;
         const result = await pool.query(query);
@@ -2792,8 +2740,6 @@ app.get('/api/get-regions', async (req, res) => {
         });
     } catch (err) {
         console.error('Error fetching regions from database:', err);
-        console.log('🔄 Using i18n fallback regions data due to database connection issue');
-        
         // Load translation file for fallback
         const translationPath = path.join(__dirname, '../mainapp/public/locales', selectedLang, 'translation.json');
         
@@ -2843,8 +2789,6 @@ app.get('/api/get-professions', async (req, res) => {
     const selectedLang = validLangs.includes(lang) ? lang : 'en';
     const nameColumn = `name_${selectedLang}`;
 
-    console.log(`[PROFESSIONS] Request for language: ${selectedLang}, category: ${category}`);
-
     try {
         let query = `SELECT id, key, ${nameColumn} as name, category FROM professions WHERE is_active = true`;
         const params = [];
@@ -2866,8 +2810,6 @@ app.get('/api/get-professions', async (req, res) => {
         });
     } catch (err) {
         console.error('Error fetching professions from database:', err);
-        console.log('🔄 Using i18n fallback professions data due to database connection issue');
-        
         // Load translation file for fallback
         const translationPath = path.join(__dirname, '../mainapp/public/locales', selectedLang, 'translation.json');
         
@@ -2923,8 +2865,6 @@ app.get('/api/get-professions', async (req, res) => {
 
 // Run vacancies table migration
 app.post('/api/admin/migrate-vacancies', async (req, res) => {
-    console.log('[MIGRATION] Running vacancies table migration...');
-    
     try {
         // Read and execute the migration SQL
         const migrationSQL = `
@@ -3071,10 +3011,8 @@ app.post('/api/admin/migrate-vacancies', async (req, res) => {
         const existingData = await pool.query('SELECT COUNT(*) FROM vacancies');
         if (existingData.rows[0].count === '0') {
             await pool.query(sampleDataSQL);
-            console.log('[MIGRATION] Sample data inserted');
-        } else {
-            console.log('[MIGRATION] Sample data already exists, skipping insert');
-        }
+            } else {
+            }
         
         // Verify tables were created
         const tablesCheck = await pool.query(`
@@ -3084,8 +3022,7 @@ app.post('/api/admin/migrate-vacancies', async (req, res) => {
             AND table_name IN ('vacancies', 'vacancy_applications')
         `);
         
-        console.log('[MIGRATION] Vacancies migration completed successfully');
-        console.log('[MIGRATION] Tables created:', tablesCheck.rows.map(r => r.table_name));
+        );
         
         res.json({
             status: 'success',
@@ -3106,8 +3043,6 @@ app.post('/api/admin/migrate-vacancies', async (req, res) => {
 
 // Run additional vacancy columns migration
 app.post('/api/admin/migrate-vacancy-details', async (req, res) => {
-    console.log('[MIGRATION] Running vacancy details columns migration...');
-    
     try {
         // Read and execute the migration SQL
         const migrationSQL = `
@@ -3259,8 +3194,6 @@ app.post('/api/admin/migrate-vacancy-details', async (req, res) => {
         
         await pool.query(updateDataSQL);
         
-        console.log('[MIGRATION] Vacancy details migration completed successfully');
-        
         res.json({
             status: 'success',
             message: 'Vacancy details columns added successfully'
@@ -3278,8 +3211,6 @@ app.post('/api/admin/migrate-vacancy-details', async (req, res) => {
 
 // Run requirements and benefits data migration
 app.post('/api/admin/migrate-requirements-benefits', async (req, res) => {
-    console.log('[MIGRATION] Running requirements and benefits data migration...');
-    
     try {
         // Read and execute the migration SQL
         const migrationSQL = `
@@ -3472,8 +3403,6 @@ app.post('/api/admin/migrate-requirements-benefits', async (req, res) => {
         // Execute the migration
         await pool.query(migrationSQL);
         
-        console.log('[MIGRATION] Requirements and benefits migration completed successfully');
-        
         res.json({
             status: 'success',
             message: 'Requirements and benefits data added successfully'
@@ -3492,16 +3421,12 @@ app.post('/api/admin/migrate-requirements-benefits', async (req, res) => {
 // Update vacancy applications table structure
 app.post('/api/admin/migrate-vacancy-applications', async (req, res) => {
     try {
-        console.log('[MIGRATION] Starting vacancy applications table update...');
-        
         const migrationSQL = fs.readFileSync(
             path.join(__dirname, 'migrations/010-update-vacancy-applications-table.sql'),
             'utf8'
         );
         
         await pool.query(migrationSQL);
-        
-        console.log('[MIGRATION] Vacancy applications table updated successfully');
         
         res.json({
             status: 'success',
@@ -3524,8 +3449,6 @@ app.post('/api/admin/migrate-vacancy-applications', async (req, res) => {
 // Get all vacancies (public endpoint)
 app.get('/api/vacancies', async (req, res) => {
     const { category, lang = 'en', active_only = 'true' } = req.query;
-    
-    console.log(`[VACANCIES] Request - Category: ${category}, Language: ${lang}`);
     
     try {
         let query = `
@@ -3709,8 +3632,6 @@ app.post('/api/vacancies/:id/apply', uploadFile.single('resume'), async (req, re
         cover_letter
     } = req.body;
     
-    console.log(`[VACANCY APPLICATION] Vacancy ID: ${id}, Applicant: ${applicant_email}`);
-    
     // Server-side validation for required fields
     if (!applicant_name || !applicant_email || !applicant_phone || !applicant_city) {
         return res.status(400).json({
@@ -3817,8 +3738,6 @@ app.post('/api/vacancies/:id/apply', uploadFile.single('resume'), async (req, re
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
     
-    console.log(`[EMAIL LOGIN] Attempt: ${email}`);
-    
     if (!email || !password) {
         return res.status(400).json({ 
             status: 'error',
@@ -3837,7 +3756,7 @@ app.post('/api/login', async (req, res) => {
         }
         
         const user = userResult.rows[0];
-        console.log(`[EMAIL LOGIN] User found: ${user.name} (${user.role})`);
+        `);
         
         // Generate JWT
         const token = jwt.sign(
@@ -3871,16 +3790,12 @@ app.post('/api/login', async (req, res) => {
 app.post('/api/auth-mobile', async (req, res) => {
     const { mobile_number } = req.body;
     
-    console.log(`[SMS] Request for: ${mobile_number}`);
-    
     if (!mobile_number) {
         return res.status(400).json({ status: 'error', message: 'Phone required' });
     }
     
     try {
         const otp = Math.floor(1000 + Math.random() * 9000);
-        console.log(`*** SMS CODE: ${otp} ***`);
-        
         res.json({
             status: 'success',
             message: 'SMS sent',
@@ -3897,8 +3812,6 @@ app.post('/api/auth-mobile', async (req, res) => {
 app.post('/api/auth-verify', async (req, res) => {
     const { code, mobile_number } = req.body;
     
-    console.log(`[SMS] Verify ${code} for ${mobile_number}`);
-
     // Mock mode for local development or automated tests
     // Triggers if:
     // - env MOCK_SMS_AUTH=true, or
@@ -3950,7 +3863,7 @@ app.post('/api/auth-verify', async (req, res) => {
             } catch (insertError) {
                 // Handle race condition - if client was created by concurrent request
                 if (insertError.code === '23505' && (insertError.constraint === 'clients_phone_key' || insertError.constraint === 'clients_email_unique')) {
-                    console.log(`[SMS] Duplicate constraint detected for ${mobile_number} (${insertError.constraint}), fetching existing client`);
+                    , fetching existing client`);
                     // Try to find existing client by phone OR email
                     const email = `${mobile_number.replace('+', '')}@bankim.com`;
                     const existingResult = await pool.query('SELECT * FROM clients WHERE phone = $1 OR email = $2', [mobile_number, email]);
@@ -3958,7 +3871,6 @@ app.post('/api/auth-verify', async (req, res) => {
                         client = existingResult.rows[0];
                         // Update the phone number if it's different (in case we found by email)
                         if (client.phone !== mobile_number) {
-                            console.log(`[SMS] Updating phone number for existing client from ${client.phone} to ${mobile_number}`);
                             await pool.query('UPDATE clients SET phone = $1, updated_at = NOW() WHERE id = $2', [mobile_number, client.id]);
                             client.phone = mobile_number;
                         }
@@ -4001,8 +3913,6 @@ app.post('/api/auth-verify', async (req, res) => {
 app.post('/api/auth-password', async (req, res) => {
     const { mobile_number, password } = req.body;
     
-    console.log(`[PHONE LOGIN] Request for: ${mobile_number}`);
-    
     if (!mobile_number || !password) {
         return res.status(400).json({ status: 'error', message: 'Phone number and password are required' });
     }
@@ -4010,8 +3920,6 @@ app.post('/api/auth-password', async (req, res) => {
     try {
         // Normalize phone number - remove spaces and keep only digits and +
         const normalizedPhone = mobile_number.replace(/\s+/g, '');
-        console.log(`[PHONE LOGIN] Normalized phone: ${normalizedPhone}`);
-        
         // Check if user exists with this phone number
         const clientResult = await pool.query('SELECT * FROM clients WHERE phone = $1', [normalizedPhone]);
         
@@ -4023,8 +3931,6 @@ app.post('/api/auth-password', async (req, res) => {
         }
         
         const client = clientResult.rows[0];
-        console.log(`[PHONE LOGIN] User found: ${client.first_name} ${client.last_name}`);
-        
         // Verify password hash
         if (!client.password_hash) {
             return res.status(401).json({
@@ -4037,19 +3943,14 @@ app.post('/api/auth-password', async (req, res) => {
         const isPasswordValid = await bcrypt.compare(password, client.password_hash);
         
         if (!isPasswordValid) {
-            console.log(`[PHONE LOGIN] Invalid password for: ${normalizedPhone}`);
             return res.status(401).json({
                 status: 'error',
                 message: 'שם המשתמש או הסיסמה שגויים' // Hebrew: "Username or password is incorrect"
             });
         }
         
-        console.log(`[PHONE LOGIN] Password verified for: ${normalizedPhone}`);
-        
         // Generate SMS code (4-digit OTP)
         const otp = Math.floor(1000 + Math.random() * 9000);
-        console.log(`*** SMS CODE for ${normalizedPhone}: ${otp} ***`);
-        
         // Return success - frontend will proceed to SMS verification step
         res.json({
             status: 'success',
@@ -4070,9 +3971,7 @@ app.post('/api/auth-password', async (req, res) => {
 app.post('/api/email-code-login', async (req, res) => {
     const { code, email } = req.body;
     
-    console.log(`[EMAIL 2FA] Verify code for ${email}`);
-    console.log(`[EMAIL 2FA] Raw request body:`, req.body);
-    console.log(`[EMAIL 2FA] Code: "${code}" (length: ${code ? code.length : 'N/A'})`);
+    `);
     
     if (!code || !email) {
         return res.status(400).json({ status: 'error', message: 'Email and code are required' });
@@ -4094,7 +3993,7 @@ app.post('/api/email-code-login', async (req, res) => {
         }
         
         const user = userResult.rows[0];
-        console.log(`[EMAIL 2FA] Code verified for: ${user.name} (${user.role})`);
+        `);
         
         // Generate JWT token
         const token = jwt.sign(
@@ -4126,9 +4025,6 @@ app.post('/api/email-code-login', async (req, res) => {
 // REFINANCE MORTGAGE ENDPOINT
 app.post('/api/refinance-mortgage', async (req, res) => {
     const { target, amount_left, full_amount, estate_type, bank_id, programs } = req.body;
-    
-    console.log(`[REFINANCE MORTGAGE] New request received`);
-    console.log(`[REFINANCE MORTGAGE] Data:`, { target, amount_left, full_amount, estate_type, bank_id, programs });
     
     // Basic validation
     if (!target || !amount_left || !full_amount || !estate_type || !bank_id) {
@@ -4165,8 +4061,6 @@ app.post('/api/refinance-mortgage', async (req, res) => {
         const monthlyPayment = Math.round(parseFloat(monthlyPaymentResult.rows[0].monthly_payment));
         
         const totalSavings = Math.round(amount_left * (savingsPercentage / 100));
-        
-        console.log(`[REFINANCE MORTGAGE] Database-driven calculation: ${currentRate}% rate, ₪${monthlyPayment}/month, ${savingsPercentage}% savings`);
         
         // Determine language for bank names based on Accept-Language header
         const clientLang = req.headers['accept-language']?.split(',')[0]?.split('-')[0] || 'en';
@@ -4223,9 +4117,6 @@ app.post('/api/refinance-mortgage', async (req, res) => {
 app.post('/api/refinance-credit', async (req, res) => {
     const { loans_data, monthly_income, expenses } = req.body;
     
-    console.log(`[REFINANCE CREDIT] New request received`);
-    console.log(`[REFINANCE CREDIT] Data:`, { loans_data, monthly_income, expenses });
-    
     try {
         // FIXED: Using database-driven calculation instead of hardcoded mock values
         
@@ -4279,7 +4170,7 @@ app.post('/api/refinance-credit', async (req, res) => {
         const monthlySavings = oldMonthlyPayment - newMonthlyPayment;
         const totalSavings = monthlySavings * 60; // 5 years = 60 months
         
-        console.log(`[REFINANCE CREDIT] Database-driven calculation: ${newRate}% rate (down from ${currentCreditRate}%), ₪${newMonthlyPayment}/month, ₪${totalSavings} total savings`);
+        , ₪${newMonthlyPayment}/month, ₪${totalSavings} total savings`);
         
         res.json({
             status: 'success',
@@ -4329,8 +4220,6 @@ const requireAdmin = (req, res, next) => {
 app.post('/api/admin/login', async (req, res) => {
     const { email, password } = req.body;
     
-    console.log(`[ADMIN LOGIN] Attempt: ${email}`);
-    
     if (!email || !password) {
         return res.status(400).json({
             status: 'error',
@@ -4361,8 +4250,6 @@ app.post('/api/admin/login', async (req, res) => {
                 message: 'Invalid admin credentials'
             });
         }
-        
-        console.log(`[ADMIN LOGIN] Admin authenticated: ${admin.first_name} ${admin.last_name}`);
         
         // Generate JWT with admin privileges
         const token = jwt.sign(
@@ -4583,8 +4470,6 @@ app.put('/api/admin/banks/:id/config', requireAdmin, async (req, res) => {
         const { id } = req.params;
         const { baseRate, minRate, maxRate } = req.body;
         
-        console.log(`[BANK CONFIG] Updating bank ${id} rates:`, { baseRate, minRate, maxRate });
-        
         // Check if bank exists
         const bankExists = await pool.query('SELECT id, name_en, name_ru FROM banks WHERE id = $1', [id]);
         if (bankExists.rows.length === 0) {
@@ -4608,8 +4493,7 @@ app.put('/api/admin/banks/:id/config', requireAdmin, async (req, res) => {
                 )
             `);
         } catch (createErr) {
-            console.log('Table already exists or creation failed:', createErr.message);
-        }
+            }
         
         // Insert or update bank configuration
         const configResult = await pool.query(`
@@ -4624,7 +4508,7 @@ app.put('/api/admin/banks/:id/config', requireAdmin, async (req, res) => {
             RETURNING *
         `, [id, baseRate, minRate, maxRate]);
         
-        console.log(`[BANK CONFIG] Successfully updated bank ${id} (${bankName}) configuration`);
+        configuration`);
         
         res.json({
             status: 'success',
@@ -4654,8 +4538,6 @@ app.get('/api/admin/banks/:id/config', requireAdmin, async (req, res) => {
     try {
         const { id } = req.params;
         
-        console.log(`[BANK CONFIG] Fetching bank ${id} configuration`);
-        
         // Check if bank exists
         const bankExists = await pool.query('SELECT id, name_en, name_ru FROM banks WHERE id = $1', [id]);
         if (bankExists.rows.length === 0) {
@@ -4669,7 +4551,6 @@ app.get('/api/admin/banks/:id/config', requireAdmin, async (req, res) => {
         
         if (configResult.rows.length === 0) {
             // No configuration found, return defaults
-            console.log(`[BANK CONFIG] No configuration found for bank ${id}, returning defaults`);
             return res.json({
                 status: 'success',
                 message: 'Bank configuration retrieved (defaults)',
@@ -4685,8 +4566,6 @@ app.get('/api/admin/banks/:id/config', requireAdmin, async (req, res) => {
         }
         
         const config = configResult.rows[0];
-        console.log(`[BANK CONFIG] Retrieved bank ${id} configuration:`, config);
-        
         res.json({
             status: 'success',
             message: 'Bank configuration retrieved successfully',
@@ -4715,8 +4594,6 @@ app.get('/api/admin/banks/:id/config', requireAdmin, async (req, res) => {
 app.get('/api/admin/banks/:id/stats', requireAdmin, async (req, res) => {
     try {
         const { id } = req.params;
-        
-        console.log(`[BANK STATS] Fetching statistics for bank ${id}`);
         
         // Check if bank exists
         const bankExists = await pool.query('SELECT id, name_en, name_ru FROM banks WHERE id = $1', [id]);
@@ -4801,8 +4678,6 @@ app.get('/api/admin/banks/:id/stats', requireAdmin, async (req, res) => {
             }
         }
         
-        console.log(`[BANK STATS] Bank ${id} - Active loans: ${activeLoans}, Avg rate: ${avgRate}, Has real data: ${hasRealData}`);
-        
         res.json({
             status: 'success',
             data: {
@@ -4827,8 +4702,6 @@ app.get('/api/admin/banks/:id/stats', requireAdmin, async (req, res) => {
 // GET bank fallback configuration
 app.get('/api/admin/banks/fallback-config', requireAdmin, async (req, res) => {
     try {
-        console.log('[BANK FALLBACK CONFIG] Fetching fallback configuration');
-        
         // Get current configuration
         const configResult = await pool.query(`
             SELECT * FROM bank_fallback_config ORDER BY id DESC LIMIT 1
@@ -4879,8 +4752,6 @@ app.put('/api/admin/banks/fallback-config', requireAdmin, async (req, res) => {
             language_preference 
         } = req.body;
         
-        console.log('[BANK FALLBACK CONFIG] Updating configuration:', req.body);
-        
         // Update or insert configuration
         const upsertResult = await pool.query(`
             INSERT INTO bank_fallback_config 
@@ -4922,8 +4793,6 @@ app.put('/api/admin/banks/:id/fallback', requireAdmin, async (req, res) => {
             fallback_approval_rate 
         } = req.body;
         
-        console.log(`[BANK FALLBACK] Updating bank ${id} fallback settings:`, req.body);
-        
         const result = await pool.query(`
             UPDATE banks 
             SET 
@@ -4964,8 +4833,6 @@ app.put('/api/admin/banks/:id/fallback', requireAdmin, async (req, res) => {
 // GET all banking standards
 app.get('/api/admin/banking-standards', requireAdmin, async (req, res) => {
     try {
-        console.log('[BANKING STANDARDS] Fetching all banking standards');
-        
         // Check if banking_standards table exists
         const tableExists = await pool.query(`
             SELECT EXISTS (
@@ -5026,8 +4893,6 @@ app.get('/api/admin/banking-standards', requireAdmin, async (req, res) => {
 app.get('/api/admin/banking-standards/:loanType', requireAdmin, async (req, res) => {
     try {
         const { loanType } = req.params;
-        console.log(`[BANKING STANDARDS] Fetching standards for loan type: ${loanType}`);
-        
         // Return mock data for specific loan types
         const standards = {
             mortgage: {
@@ -5089,8 +4954,6 @@ app.put('/api/admin/banking-standards/:id', requireAdmin, async (req, res) => {
     try {
         const { id } = req.params;
         const updates = req.body;
-        
-        console.log(`[BANKING STANDARDS] Updating standard ${id}:`, updates);
         
         // Build dynamic update query
         const updateFields = [];
@@ -5560,8 +5423,7 @@ app.get('/api/admin/calculations', requireAdmin, async (req, res) => {
                 params[row.key] = row.value;
             });
         } catch (err) {
-            console.log('Params table not accessible, using defaults');
-        }
+            }
         
         // FIXED: Get calculation parameters from banking_standards instead of hardcoded values
         const bankingStandardsQuery = `
@@ -5667,8 +5529,7 @@ app.put('/api/admin/calculations', requireAdmin, async (req, res) => {
                     );
                 } catch (err) {
                     // If params table doesn't exist, we'll just return success
-                    console.log('Params table operation failed:', err.message);
-                }
+                    }
             }
         }
         
@@ -5939,8 +5800,6 @@ app.post('/api/bank-worker/invite', requireAdmin, async (req, res) => {
             new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
         ]);
 
-        console.log(`[INVITATION] Sent invitation to ${email} for bank ${bankId}`);
-
         res.status(201).json({
             status: 'success',
             message: 'Invitation sent successfully',
@@ -6149,7 +6008,7 @@ app.post('/api/bank-worker/register', async (req, res) => {
 
             await client.query('COMMIT');
 
-            console.log(`[REGISTRATION] New bank worker registered: ${fullName} (${invitationData.email})`);
+            `);
 
             res.status(201).json({
                 status: 'success',
@@ -6388,8 +6247,6 @@ app.post('/api/admin/approve/:id', requireAdmin, async (req, res) => {
 
             await client.query('COMMIT');
 
-            console.log(`[ADMIN] Bank worker ${id} approved by admin ${adminId}`);
-
             res.json({
                 status: 'success',
                 message: 'Bank worker approved successfully'
@@ -6451,8 +6308,6 @@ app.post('/api/admin/reject/:id', requireAdmin, async (req, res) => {
             `, [adminId, reason, id]);
 
             await client.query('COMMIT');
-
-            console.log(`[ADMIN] Bank worker ${id} rejected by admin ${adminId}: ${reason}`);
 
             res.json({
                 status: 'success',
@@ -7926,7 +7781,6 @@ async function calculateBankSpecificRate(bankId, baseRate, customerProfile) {
         // Ensure baseRate is a valid number
         const validBaseRate = parseFloat(baseRate);
         if (isNaN(validBaseRate)) {
-            console.log(`[RATE CALC] Bank ${bankId}: Invalid base rate "${baseRate}", using 3.0% default`);
             return 3.0;
         }
         
@@ -7944,29 +7798,21 @@ async function calculateBankSpecificRate(bankId, baseRate, customerProfile) {
         
         const rulesResult = await pool.query(rateRulesQuery, [bankId]);
         
-        console.log(`[RATE CALC] Bank ${bankId}: Found ${rulesResult.rows.length} rate rules`);
-        
         // If no specific rules found, apply standard credit score adjustments
         if (rulesResult.rows.length === 0) {
-            console.log(`[RATE CALC] Bank ${bankId}: No specific rules found, applying standard adjustments`);
-            
             // Standard credit score adjustments
             if (credit_score >= 750) {
                 finalRate -= 0.3; // Excellent credit
-                console.log(`[RATE CALC] Bank ${bankId}: Applied credit_score adjustment: -0.3%`);
-            } else if (credit_score >= 650) {
+                } else if (credit_score >= 650) {
                 finalRate -= 0.1; // Good credit
-                console.log(`[RATE CALC] Bank ${bankId}: Applied credit_score adjustment: -0.1%`);
-            } else if (credit_score < 580) {
+                } else if (credit_score < 580) {
                 finalRate += 0.5; // Poor credit
-                console.log(`[RATE CALC] Bank ${bankId}: Applied credit_score adjustment: +0.5%`);
-            }
+                }
             
             // Standard LTV adjustments
             if (ltv_ratio > 80) {
                 finalRate += 0.2; // High LTV risk
-                console.log(`[RATE CALC] Bank ${bankId}: Applied high LTV adjustment: +0.2%`);
-            }
+                }
         } else {
             // Apply bank-specific rules
             for (const rule of rulesResult.rows) {
@@ -8006,25 +7852,22 @@ async function calculateBankSpecificRate(bankId, baseRate, customerProfile) {
             
             if (adjustment !== 0) {
                 finalRate += adjustment;
-                console.log(`[RATE CALC] Bank ${bankId}: Applied ${rule.rule_type} adjustment: ${adjustment > 0 ? '+' : ''}${adjustment}%`);
-            }
+                }
         }
         }  // Close the else block that contains the for loop
         
         // Ensure we return a valid number
         const resultRate = parseFloat(finalRate);
         if (isNaN(resultRate)) {
-            console.log(`[RATE CALC] Bank ${bankId}: Final rate calculation resulted in NaN, using base rate ${validBaseRate}%`);
             return validBaseRate;
         }
         
-        console.log(`[RATE CALC] Bank ${bankId}: Final calculated rate: ${resultRate.toFixed(3)}%`);
+        }%`);
         return resultRate;
         
     } catch (error) {
         console.error(`[RATE CALC] Error calculating bank ${bankId} rate:`, error);
         const fallbackRate = parseFloat(baseRate) || 3.0;
-        console.log(`[RATE CALC] Bank ${bankId}: Using fallback rate ${fallbackRate}%`);
         return fallbackRate; // Fallback to base rate
     }
 }
@@ -8097,14 +7940,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
     } = req.body;
     
     try {
-        console.log('[COMPARE-BANKS] Request received:', { 
-            loan_type, 
-            amount, 
-            property_value, 
-            property_ownership,
-            session_id 
-        });
-        
         // ===============================================
         // 1. CALCULATE REAL VALUES FROM DATABASE (NO HARDCODED VALUES)
         // ===============================================
@@ -8233,8 +8068,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         const baseRateResult = await contentPool.query(baseRateQuery);
         const configurable_base_rate = parseFloat(baseRateResult.rows[0].base_rate);
         
-        console.log('[COMPARE-BANKS] Using configurable base rate:', configurable_base_rate);
-        
         // Determine language for bank names based on Accept-Language header
         const clientLang = req.headers['accept-language']?.split(',')[0]?.split('-')[0] || 'en';
         let nameField = 'name_en';
@@ -8243,8 +8076,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         } else if (clientLang === 'ru') {
             nameField = 'name_ru';
         }
-        
-        console.log(`[COMPARE-BANKS] Using language: ${clientLang}, name field: ${nameField}`);
         
         // Query banks with configurations from bank_configurations table
         const banksQuery = `
@@ -8290,8 +8121,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
             });
         }
         
-        console.log(`[COMPARE-BANKS] Found ${banks.length} active banks`);
-        
         // Load global standards for fallback
         // Use default standards (banking_standards table not available - use hardcoded defaults)
         const globalStandards = {
@@ -8306,19 +8135,18 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         
         for (const bank of banks) {
             try {
-                console.log(`[COMPARE-BANKS] Processing Bank ${bank.id} (${bank.name})`);
+                `);
                 
                 // Check if loan amount is within bank's limits
                 if (amount < bank.min_loan_amount || amount > bank.max_loan_amount) {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Loan amount ${amount} outside limits (${bank.min_loan_amount} - ${bank.max_loan_amount})`);
+                    `);
                     continue;
                 }
                 
                 // 1. GET BANK-SPECIFIC STANDARDS (from bank_configurations table)
                 const bankStandards = await getBankSpecificStandardsFromConfig(bank, globalStandards);
                 
-                console.log(`[COMPARE-BANKS] Bank ${bank.id} specific standards:`, 
-                    Object.keys(bankStandards).reduce((acc, key) => {
+                .reduce((acc, key) => {
                         acc[key] = `${bankStandards[key].value} (${bankStandards[key].source})`;
                         return acc;
                     }, {})
@@ -8331,34 +8159,34 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                     const customerLTV = (amount / property_value) * 100;
                     const maxLTV = bankStandards.standard_ltv_max.value;
                     if (customerLTV > maxLTV) {
-                        console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - LTV ${customerLTV.toFixed(1)}% > Bank Max ${maxLTV}% (${bankStandards.standard_ltv_max.source})`);
+                        }% > Bank Max ${maxLTV}% (${bankStandards.standard_ltv_max.source})`);
                         continue;
                     }
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: LTV ${customerLTV.toFixed(1)}% ≤ Bank Max ${maxLTV}% ✓`);
+                    }% ≤ Bank Max ${maxLTV}% ✓`);
                 }
                 
                 // Credit Score Check (Bank-Specific)
                 if (bankStandards.minimum_credit_score && calculated_credit_score < bankStandards.minimum_credit_score.value) {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Credit Score ${calculated_credit_score} < Bank Min ${bankStandards.minimum_credit_score.value} (${bankStandards.minimum_credit_score.source})`);
+                    `);
                     continue;
                 }
                 
                 // Income Check (Bank-Specific)
                 if (bankStandards.minimum_monthly_income && monthly_income < bankStandards.minimum_monthly_income.value) {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Income ${monthly_income} < Bank Min ${bankStandards.minimum_monthly_income.value} (${bankStandards.minimum_monthly_income.source})`);
+                    `);
                     continue;
                 }
                 
                 // Age Checks (Bank-Specific)
                 if (bankStandards.minimum_age && calculated_age < bankStandards.minimum_age.value) {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Age ${calculated_age} < Bank Min ${bankStandards.minimum_age.value} (${bankStandards.minimum_age.source})`);
+                    `);
                     continue;
                 }
                 
                 if (bankStandards.maximum_age_at_maturity) {
                     const ageAtMaturity = calculated_age + 30; // Assuming 30-year loan
                     if (ageAtMaturity > bankStandards.maximum_age_at_maturity.value) {
-                        console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - Age at maturity ${ageAtMaturity} > Bank Max ${bankStandards.maximum_age_at_maturity.value} (${bankStandards.maximum_age_at_maturity.source})`);
+                        `);
                         continue;
                     }
                 }
@@ -8366,11 +8194,9 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                 // DTI Check (Bank-Specific)
                 const frontEndDTI = (calculated_monthly_expenses / monthly_income) * 100;
                 if (bankStandards.front_end_dti_max && frontEndDTI > bankStandards.front_end_dti_max.value) {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: REJECTED - DTI ${frontEndDTI.toFixed(1)}% > Bank Max ${bankStandards.front_end_dti_max.value}% (${bankStandards.front_end_dti_max.source})`);
+                    }% > Bank Max ${bankStandards.front_end_dti_max.value}% (${bankStandards.front_end_dti_max.source})`);
                     continue;
                 }
-                
-                console.log(`[COMPARE-BANKS] Bank ${bank.id}: PASSED bank-specific eligibility checks`);
                 
                 // 3. CALCULATE BANK-SPECIFIC INTEREST RATE
                 const customerProfile = {
@@ -8383,8 +8209,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                 
                 // Ensure base rate is a valid number
                 const baseRateValue = parseFloat(bank.base_interest_rate || bank.min_interest_rate || 3.0);
-                console.log(`[COMPARE-BANKS] Bank ${bank.id}: Base rate input: "${bank.base_interest_rate || bank.min_interest_rate}" → Parsed: ${baseRateValue}`);
-                
                 const bankSpecificRate = await calculateBankSpecificRate(
                     bank.id, 
                     baseRateValue, 
@@ -8395,10 +8219,10 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                 const finalRate = bankSpecificRate != null ? parseFloat(bankSpecificRate) : baseRateValue;
                 const formattedRate = !isNaN(finalRate) ? finalRate.toFixed(3) : baseRateValue.toFixed(3);
                 
-                console.log(`[COMPARE-BANKS] Bank ${bank.id} (${bank.name}): Base rate ${baseRateValue}% → Final rate ${formattedRate}%`);
+                : Base rate ${baseRateValue}% → Final rate ${formattedRate}%`);
                 
                 // 4. PERFORM CALCULATION WITH BANK-SPECIFIC PARAMETERS
-                console.log(`[COMPARE-BANKS] Bank ${bank.id}: Starting calculation with rate ${finalRate}%`);                let result;
+                let result;
                 if (loan_type === 'mortgage' || loan_type === 'mortgage_refinance') {
                     result = await calculateEnhancedMortgage({
                         amount: amount,
@@ -8424,7 +8248,7 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                     }, bankStandards);
                 }
                 
-                console.log(`[COMPARE-BANKS] Bank ${bank.id}: Calculation result:`, { decision: result?.approval_decision?.decision, monthlyPayment: result?.payment_details?.monthly_payment, error: result?.error });                if (result && result.approval_decision && result.approval_decision.decision === 'approved') {
+                if (result && result.approval_decision && result.approval_decision.decision === 'approved') {
                     const bankOffer = {
                         bank_id: bank.id,
                         bank_name: bank.name,
@@ -8444,9 +8268,9 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                     };
                     
                         bankOffers.push(bankOffer);
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: APPROVED - Added to offers (Rate: ${finalRate.toFixed(3)}%, Payment: ${result.payment_details.monthly_payment})`);
+                    }%, Payment: ${result.payment_details.monthly_payment})`);
             } else {
-                    console.log(`[COMPARE-BANKS] Bank ${bank.id}: NOT APPROVED - ${result.rejection_reasons?.join(', ')}`);
+                    }`);
                 }
                 
             } catch (bankError) {
@@ -8456,8 +8280,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         
         // If no real offers, use admin-configurable database fallback
         if (bankOffers.length === 0) {
-            console.log(`[COMPARE-BANKS] No real offers found, generating database-driven fallback offers`);
-            
             try {
                 // Get fallback configuration
                 const fallbackConfigQuery = `
@@ -8534,13 +8356,10 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                             });
                         });
                         
-                        console.log(`[COMPARE-BANKS] Generated ${bankOffers.length} database-driven fallback offers`);
-                    } else {
-                        console.log(`[COMPARE-BANKS] No fallback banks available in database`);
-                    }
+                        } else {
+                        }
                 } else {
-                    console.log(`[COMPARE-BANKS] Fallback disabled in configuration`);
-                }
+                    }
             } catch (error) {
                 console.error(`[COMPARE-BANKS] Error generating fallback offers:`, error);
                 // If database fallback fails, provide minimal response
@@ -8550,8 +8369,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         
         // Sort offers by monthly payment (lowest first)
         bankOffers.sort((a, b) => a.monthly_payment - b.monthly_payment);
-        
-        console.log(`[COMPARE-BANKS] Returning ${bankOffers.length} bank offers`);
         
         res.json({
             status: 'success',
@@ -8582,8 +8399,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
 // MORTGAGE PROGRAMS ENDPOINT
 app.get('/api/customer/mortgage-programs', async (req, res) => {
     try {
-        console.log('[MORTGAGE-PROGRAMS] Fetching mortgage programs');
-        
         // Return standard Israeli mortgage programs
         const mortgagePrograms = [
             {
@@ -8670,9 +8485,6 @@ app.get('/api/customer/mortgage-programs', async (req, res) => {
 app.post('/api/register', async (req, res) => {
     const { name, mobile_number, email, password, password_confirmation } = req.body;
     
-    console.log(`[REGISTER] New registration attempt`);
-    console.log(`[REGISTER] Data:`, { name, mobile_number, email, password: '***' });
-    
     // Validation
     if (!name || !mobile_number || !email || !password || !password_confirmation) {
         return res.status(400).json({ 
@@ -8707,35 +8519,27 @@ app.post('/api/register', async (req, res) => {
     
     try {
         // First, ensure the clients table has proper constraints
-        console.log('[REGISTER] Ensuring proper table schema...');
-        
         // Add unique constraints if they don't exist
         try {
             await pool.query('ALTER TABLE clients ADD CONSTRAINT clients_email_unique UNIQUE (email)');
-            console.log('[REGISTER] Added unique constraint on email');
-        } catch (err) {
+            } catch (err) {
             if (err.code !== '42P07') { // Ignore "already exists" error
-                console.log('[REGISTER] Email constraint already exists or other error:', err.message);
-            }
+                }
         }
         
         try {
             await pool.query('ALTER TABLE clients ADD CONSTRAINT clients_phone_unique UNIQUE (phone)');
-            console.log('[REGISTER] Added unique constraint on phone');
-        } catch (err) {
+            } catch (err) {
             if (err.code !== '42P07') { // Ignore "already exists" error
-                console.log('[REGISTER] Phone constraint already exists or other error:', err.message);
-            }
+                }
         }
         
         // Add password_hash column if it doesn't exist
         try {
             await pool.query('ALTER TABLE clients ADD COLUMN password_hash VARCHAR(255)');
-            console.log('[REGISTER] Added password_hash column');
-        } catch (err) {
+            } catch (err) {
             if (err.code !== '42701') { // Ignore "column already exists" error
-                console.log('[REGISTER] Password column already exists or other error:', err.message);
-            }
+                }
         }
         
         // Check if client already exists by phone or email
@@ -8767,7 +8571,7 @@ app.post('/api/register', async (req, res) => {
         
         const newClient = result.rows[0];
         
-        console.log(`[REGISTER] Client created successfully: ${newClient.first_name} ${newClient.last_name} (ID: ${newClient.id})`);
+        `);
         
         // Generate JWT token for immediate login
         const token = jwt.sign(
@@ -8815,8 +8619,6 @@ app.post('/api/register', async (req, res) => {
 // ADMIN APPLICATION MANAGEMENT ENDPOINTS
 app.get('/api/admin/applications', async (req, res) => {
     try {
-        console.log('[ADMIN-APPLICATIONS] Fetching all applications');
-        
         const { status, bank_id, limit = 50, offset = 0 } = req.query;
         
         let query = `
@@ -8894,8 +8696,6 @@ app.put('/api/admin/applications/:id/status', async (req, res) => {
     const { status, review_notes } = req.body;
     
     try {
-        console.log(`[ADMIN-UPDATE-STATUS] Updating application ${id} to status ${status}`);
-        
         // Validate status
         const validStatuses = [
             'pending_review', 'under_review', 'documentation_required',
@@ -8929,8 +8729,6 @@ app.put('/api/admin/applications/:id/status', async (req, res) => {
         }
         
         // Log status change
-        console.log(`[ADMIN-UPDATE-STATUS] Application ${id} updated to ${status}`);
-        
         res.json({
             status: 'success',
             data: {
@@ -8954,8 +8752,6 @@ app.get('/api/admin/applications/:id', async (req, res) => {
     const { id } = req.params;
     
     try {
-        console.log(`[ADMIN-APPLICATION-DETAIL] Fetching application ${id}`);
-        
         const query = `
             SELECT 
                 la.*,
@@ -9026,8 +8822,6 @@ app.post('/api/customer/submit-application', async (req, res) => {
     } = req.body;
     
     try {
-        console.log('[SUBMIT-APPLICATION] New application submission');
-        
         // Validate required fields
         if (!bank_id || !loan_type || !loan_amount || !name || !email || !phone) {
             return res.status(400).json({
@@ -9144,8 +8938,6 @@ app.post('/api/customer/submit-application', async (req, res) => {
             // Commit transaction
             await pool.query('COMMIT');
             
-            console.log(`[SUBMIT-APPLICATION] Application ${applicationId} created successfully`);
-            
             res.json({
                 status: 'success',
                 data: {
@@ -9193,8 +8985,6 @@ app.get('/api/applications/:id/status', async (req, res) => {
     const { id } = req.params;
     
     try {
-        console.log(`[APPLICATION-STATUS] Checking status for application ${id}`);
-        
         const query = `
             SELECT 
                 la.id, la.status, la.created_at, la.updated_at,
@@ -9487,8 +9277,6 @@ app.post('/api/admin/banks/:bankId/calculation-config', requireAdmin, async (req
             contract_employee_rate_add        // +0.25%
         } = req.body;
 
-        console.log(`[BANK CONFIG] Setting calculation config for bank ${bankId}`);
-        
         // 1. Update/Insert Bank Configurations
         await pool.query(`
             INSERT INTO bank_configurations (
@@ -9588,8 +9376,6 @@ app.post('/api/test/initialize-bank-configs', async (req, res) => {
     try {
         // First, get all available banks
         const banksResult = await pool.query('SELECT id, name_en, name_ru FROM banks WHERE tender = 1 ORDER BY id LIMIT 10');
-        console.log(`[TEST] Found ${banksResult.rows.length} banks in database`);
-        
         if (banksResult.rows.length === 0) {
             return res.json({
                 status: 'success',
@@ -9605,8 +9391,6 @@ app.post('/api/test/initialize-bank-configs', async (req, res) => {
         
         const configurations = [];
         
-        console.log('[TEST] Initializing bank configurations...');
-        
         for (let i = 0; i < banksResult.rows.length; i++) {
             const bank = banksResult.rows[i];
             const config = {
@@ -9617,8 +9401,6 @@ app.post('/api/test/initialize-bank-configs', async (req, res) => {
                 min_credit: creditConfigs[i % creditConfigs.length],
                 dti_max: 35 + (i % 3) * 5 // 35, 40, 42
             };
-            
-            console.log(`[TEST] Configuring bank ${config.bankId}: ${config.name}`);
             
             // Insert bank configuration (with upsert logic)
             const existingConfig = await pool.query('SELECT id FROM bank_configurations WHERE bank_id = $1 AND product_type = $2', [config.bankId, 'mortgage']);
@@ -9971,45 +9753,8 @@ app.get('/api/get-table-schema', async (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
-    console.log('🚨                                                     🚨');
-    console.log('🚨    ⚠️  LEGACY MODE - DEV MONOREPO SERVER  ⚠️      🚨');
-    console.log('🚨                                                     🚨');
-    console.log('🚨    Using: server/server-db.js (BACKUP SERVER)      🚨');
-    console.log('🚨    Modern: packages/server/src/server.js           🚨');
-    console.log('🚨                                                     🚨');
-    console.log('🚨    Switch to modern: npm run server:dev            🚨');
-    console.log('🚨                                                     🚨');
-    console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
-    console.log('🚀 Database API Server Started (LEGACY MODE)');
-    console.log(`📡 http://localhost:${PORT}`);
-    console.log('📧 Email login: POST /api/login');
-    console.log('📧 Email 2FA: POST /api/email-code-login');
-    console.log('📱 SMS login: POST /api/sms-login & /api/sms-code-login');
-    console.log('👤 Registration: POST /api/register');
-    console.log('🏙️ Cities: GET /api/get-cities?lang=xx');
-    console.log('🏠 Refinance mortgage: POST /api/refinance-mortgage');
-    console.log('💳 Refinance credit: POST /api/refinance-credit');
-    console.log('🔐 Admin login: POST /api/admin/login');
-    console.log('📊 Admin stats: GET /api/admin/stats');
-    console.log('🏦 Admin banks: GET /api/admin/banks');
-    console.log('🏪 Compare banks: POST /api/customer/compare-banks');
-    console.log('📝 Submit application: POST /api/customer/submit-application');
-    console.log('📋 Check status: GET /api/applications/:id/status');
-    console.log('🔧 Admin applications: GET /api/admin/applications');
-    console.log('📊 Admin app details: GET /api/admin/applications/:id');
-    console.log('✏️ Update app status: PUT /api/admin/applications/:id/status');
-    console.log('');
-    console.log('🏢 PHASE 2: Bank Worker Registration System');
-    console.log('📨 Send invitation: POST /api/bank-worker/invite');
-    console.log('📝 Get registration form: GET /api/bank-worker/register/:token');
-    console.log('✅ Complete registration: POST /api/bank-worker/register');
-    console.log('📊 Check status: GET /api/bank-worker/status/:id');
-    console.log('📋 Admin invitations: GET /api/admin/invitations');
-    console.log('⏳ Admin approval queue: GET /api/admin/approval-queue');
-    console.log('✅ Approve worker: POST /api/admin/approve/:id');
-    console.log('❌ Reject worker: POST /api/admin/reject/:id');
-    console.log('');
-});
+    🚨');
+    ');
+    });
 
 module.exports = app; 

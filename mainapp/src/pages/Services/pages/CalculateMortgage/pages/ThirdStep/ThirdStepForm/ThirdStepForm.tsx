@@ -112,15 +112,6 @@ const ThirdStepForm = () => {
   const obligationKey = obligation === 'no_obligations' ? '' : obligation || ''
 
   // Debug: Log mapping results
-  console.log('🔍 Mortgage ThirdStep mapping debug:', {
-    mainSourceOfIncome,
-    incomeSourceKey,
-    willShowIncomeComponents: !!incomeSourceKey,
-    obligation,
-    obligationKey,
-    willShowObligationComponents: !!obligationKey
-  })
-
   const openSourceOfIncome = () => {
     dispatch(updateMortgageData(values))
     dispatch(createSourceOfIncomeModal())

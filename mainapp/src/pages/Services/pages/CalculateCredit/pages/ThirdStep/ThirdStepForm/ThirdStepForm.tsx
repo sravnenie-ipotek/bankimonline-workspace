@@ -66,36 +66,16 @@ const ThirdStepForm = () => {
 
   // Comprehensive form debugging
   React.useEffect(() => {
-    console.log('🔍 ThirdStepForm Debug:', {
-      isValid,
-      values,
-      errors,
-      touched,
-      mainSourceOfIncome,
-      additionalIncome,
-      obligation
-    })
-    
     // Log specific field validation status
     const requiredFields = ['mainSourceOfIncome', 'additionalIncome', 'obligation']
     requiredFields.forEach(field => {
-      console.log(`Field ${field}:`, {
-        value: values[field],
-        error: errors[field],
-        touched: touched[field]
       })
-    })
     
     // If main source of income requires additional fields
     if (mainSourceOfIncome && !['5', '6'].includes(mainSourceOfIncome)) {
       const conditionalFields = ['monthlyIncome', 'startDate', 'fieldOfActivity', 'profession', 'companyName']
       conditionalFields.forEach(field => {
-        console.log(`Conditional Field ${field}:`, {
-          value: values[field],
-          error: errors[field],
-          touched: touched[field]
         })
-      })
     }
   }, [values, errors, isValid, touched, mainSourceOfIncome, additionalIncome, obligation])
 
@@ -153,15 +133,7 @@ const ThirdStepForm = () => {
   // Get components with proper screenLocation for credit_step3
   const componentsByIncomeSource = getComponentsByIncomeSource('credit_step3')
   
-  console.log('🔍 Credit Step 3 - ENHANCED DEBUG:', {
-    formValues: { mainSourceOfIncome, obligation },
-    incomeMapping: {
-      originalValue: mainSourceOfIncome,
-      mappedKey: incomeSourceKey,
-      hasComponents: !!componentsByIncomeSource[incomeSourceKey],
-      componentsCount: componentsByIncomeSource[incomeSourceKey]?.length || 0,
-      availableKeys: Object.keys(componentsByIncomeSource)
-    },
+  },
     obligationMapping: {
       originalValue: obligation,
       mappedKey: obligationKey,
@@ -173,10 +145,6 @@ const ThirdStepForm = () => {
     shouldShowObligationComponents: !!(obligation && componentsByObligation[obligationKey])
   })
   
-  console.log('🚨 FORM RENDERING DEBUG - ThirdStepForm is mounting/updating')
-  console.log('🚨 VALUES:', { mainSourceOfIncome, obligation })
-  console.log('🚨 MAPPED KEYS:', { incomeSourceKey, obligationKey })
-
   const dispatch = useAppDispatch()
 
   const sourceOfIncomeValues = useAppSelector(
@@ -279,12 +247,7 @@ const ThirdStepForm = () => {
       <Row>
         <MainSourceOfIncome screenLocation="credit_step3" />
         {(() => {
-          console.log('🔍 Credit Step 3 - PRODUCTION DEBUGGING:', {
-            rawMainSourceOfIncome: mainSourceOfIncome,
-            mappedIncomeSourceKey: incomeSourceKey,
-            hasComponentsForMapped: !!componentsByIncomeSource[incomeSourceKey],
-            hasComponentsForRaw: !!componentsByIncomeSource[mainSourceOfIncome],
-            availableKeys: Object.keys(componentsByIncomeSource),
+          ,
             componentCountForMapped: componentsByIncomeSource[incomeSourceKey]?.length || 0,
             componentCountForRaw: componentsByIncomeSource[mainSourceOfIncome]?.length || 0,
             mappingFunction: 'getIncomeSourceKey working?',
@@ -358,12 +321,7 @@ const ThirdStepForm = () => {
       <Row>
         <Obligation screenLocation="credit_step3" />
         {(() => {
-          console.log('🔍 Credit Step 3 - OBLIGATION DEBUGGING:', {
-            rawObligation: obligation,
-            mappedObligationKey: obligationKey,
-            hasComponentsForMapped: !!componentsByObligation[obligationKey],
-            hasComponentsForRaw: !!componentsByObligation[obligation],
-            availableObligationKeys: Object.keys(componentsByObligation),
+          ,
             componentCountForMapped: componentsByObligation[obligationKey]?.length || 0,
             componentCountForRaw: componentsByObligation[obligation]?.length || 0,
             shouldShowObligationComponents: !!(obligationKey && componentsByObligation[obligationKey])

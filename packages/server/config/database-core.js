@@ -60,11 +60,8 @@ const getDatabaseConfig = (connectionType = 'content') => {
     const isProduction = process.env.NODE_ENV === 'production';
     const isRailwayProduction = process.env.RAILWAY_ENVIRONMENT === 'production';
     
-    console.log(`🔧 Database Config - Environment: ${process.env.NODE_ENV || 'development'}, Railway: ${process.env.RAILWAY_ENVIRONMENT || 'not set'}`);
-    
     if (isProduction || isRailwayProduction) {
         // Production: Local PostgreSQL on server
-        console.log('🚀 Production environment detected - using local PostgreSQL');
         const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/bankim_content';
         const config = {
             connectionString,
@@ -73,16 +70,14 @@ const getDatabaseConfig = (connectionType = 'content') => {
             idleTimeoutMillis: 30000,
             connectionTimeoutMillis: 2000
         };
-        console.log(`🧩 DB target (${connectionType}):`, sanitizeUrlForLog(connectionString), '| SSL: off');
+        :`, sanitizeUrlForLog(connectionString), '| SSL: off');
         return config;
     } else {
         // Development: Railway PostgreSQL or developer-provided URLs
-        console.log('🛠️ Development environment detected - using Railway PostgreSQL');
-
         if (connectionType === 'content') {
             const connectionString = process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:hNmqRehjTLTuTGysRIYrvPPaQBDrmNQA@yamanote.proxy.rlwy.net:53119/railway';
             const ssl = decideSslForConnection(connectionString, { isProd: false });
-            console.log(`🧩 DB target (content):`, sanitizeUrlForLog(connectionString), `| SSL: ${ssl ? 'on' : 'off'}`);
+            :`, sanitizeUrlForLog(connectionString), `| SSL: ${ssl ? 'on' : 'off'}`);
             return {
                 connectionString,
                 ssl,
@@ -93,7 +88,7 @@ const getDatabaseConfig = (connectionType = 'content') => {
         } else {
             const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:lqqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway';
             const ssl = decideSslForConnection(connectionString, { isProd: false });
-            console.log(`🧩 DB target (main):`, sanitizeUrlForLog(connectionString), `| SSL: ${ssl ? 'on' : 'off'}`);
+            :`, sanitizeUrlForLog(connectionString), `| SSL: ${ssl ? 'on' : 'off'}`);
             return {
                 connectionString,
                 ssl,
@@ -124,8 +119,7 @@ const createPool = (connectionType = 'content') => {
 const testConnection = async (pool, poolName) => {
     try {
         const result = await pool.query('SELECT NOW() as current_time, version() as db_version');
-        console.log(`✅ ${poolName} connected:`, result.rows[0].current_time);
-        console.log(`📊 ${poolName} version:`, result.rows[0].db_version.split(' ')[0] + ' ' + result.rows[0].db_version.split(' ')[1]);
+        [0] + ' ' + result.rows[0].db_version.split(' ')[1]);
         return true;
     } catch (error) {
         console.error(`❌ ${poolName} connection failed:`, error.message);
@@ -141,8 +135,7 @@ const testConnection = async (pool, poolName) => {
 const closePool = async (pool, poolName) => {
     try {
         await pool.end();
-        console.log(`🔌 ${poolName} pool closed successfully`);
-    } catch (error) {
+        } catch (error) {
         console.error(`❌ Error closing ${poolName} pool:`, error.message);
     }
 };

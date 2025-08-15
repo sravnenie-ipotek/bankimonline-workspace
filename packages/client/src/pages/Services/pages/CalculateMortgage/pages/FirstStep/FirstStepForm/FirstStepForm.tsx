@@ -122,18 +122,11 @@ const FirstStepForm = () => {
 
   // Phase 4: Show loading state for dropdowns while fetching from API
   if (dropdownsLoading) {
-    console.log('🔄 Loading dropdown data for mortgage_step1...')
-  }
+    }
 
   // Phase 4: Log dropdown data for debugging
   if (dropdownData && !dropdownsLoading) {
-    console.log('✅ Dropdown data loaded for mortgage_step1:', {
-      whenNeeded: whenNeededProps.options.length,
-      type: typeProps.options.length,
-      firstHome: firstHomeProps.options.length,
-      propertyOwnership: propertyOwnershipProps.options.length
-    })
-  }
+    }
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
     useFormikContext<CalculateMortgageTypes>()
@@ -164,12 +157,12 @@ const FirstStepForm = () => {
       
       // If current initial payment is below the new minimum, set it to minimum
       if (values.initialFee < minPayment) {
-        console.log(`[PROPERTY-OWNERSHIP] Adjusting initial payment from ${values.initialFee} to ${minPayment} (min for ${values.propertyOwnership})`)
+        `)
         setFieldValue('initialFee', minPayment)
       }
       // If current initial payment is above maximum, set it to maximum
       else if (values.initialFee > maxPayment) {
-        console.log(`[PROPERTY-OWNERSHIP] Adjusting initial payment from ${values.initialFee} to ${maxPayment} (max)`)
+        `)
         setFieldValue('initialFee', maxPayment)
       }
     }

@@ -13,8 +13,6 @@ const pool = new Pool({
 
 class ProfessionalHebrewUpdater {
   async identifyPriorityTranslations() {
-    console.log('🔍 Identifying priority Hebrew translations...');
-    
     const criticalPatterns = [
       'calculate_mortgage_property_ownership%',
       'calculate_mortgage_initial_payment%', 
@@ -35,18 +33,12 @@ class ProfessionalHebrewUpdater {
       
       const result = await pool.query(query, [pattern]);
       
-      console.log(`\n📋 Pattern: ${pattern}`);
-      console.log(`   Found: ${result.rows.length} translations`);
-      
       result.rows.slice(0, 3).forEach(row => {
-        console.log(`   • ${row.content_key}: "${row.content_value}"`);
-      });
+        });
     }
   }
 
   async createProfessionalReviewBatch() {
-    console.log('\n🎯 Creating professional review batch...');
-    
     const updateQuery = `
       UPDATE content_translations 
       SET status = 'professional_review',
@@ -64,12 +56,9 @@ class ProfessionalHebrewUpdater {
     `;
 
     const result = await pool.query(updateQuery);
-    console.log(`✅ Marked ${result.rowCount} translations for professional review`);
-  }
+    }
 
   async validateTranslationIntegrity() {
-    console.log('\n🔍 Validating translation integrity...');
-    
     // Check for missing Hebrew translations
     const missingQuery = `
       SELECT ci.content_key, ci.screen_location
@@ -82,18 +71,14 @@ class ProfessionalHebrewUpdater {
     
     const missing = await pool.query(missingQuery);
     if (missing.rows.length > 0) {
-      console.log(`⚠️  Found ${missing.rows.length} missing Hebrew translations:`);
       missing.rows.forEach(row => {
-        console.log(`   • ${row.content_key} (${row.screen_location})`);
+        `);
       });
     } else {
-      console.log('✅ All active content has Hebrew translations');
-    }
+      }
   }
 
   async generateProfessionalWorksheet() {
-    console.log('\n📊 Generating professional translator worksheet...');
-    
     const worksheetQuery = `
       SELECT 
         ci.content_key,
@@ -119,22 +104,16 @@ class ProfessionalHebrewUpdater {
 
     const worksheet = await pool.query(worksheetQuery);
     
-    console.log(`📋 Professional Translation Worksheet (${worksheet.rows.length} items):`);
-    console.log('=' .repeat(80));
+    :`);
+    );
     
     worksheet.rows.forEach((row, index) => {
-      console.log(`${index + 1}. ${row.content_key}`);
-      console.log(`   Context: ${row.screen_location} (${row.category})`);
-      console.log(`   EN: ${row.english_text}`);
-      console.log(`   HE: ${row.current_hebrew}`);
-      console.log(`   Status: ${row.hebrew_status}`);
-      console.log('-'.repeat(60));
+      `);
+      );
     });
   }
 
   async createRollbackPoint() {
-    console.log('\n💾 Creating rollback point...');
-    
     const backupQuery = `
       CREATE TABLE IF NOT EXISTS content_translations_backup_${Date.now()} AS
       SELECT * FROM content_translations 
@@ -142,8 +121,7 @@ class ProfessionalHebrewUpdater {
     `;
     
     await pool.query(backupQuery);
-    console.log('✅ Backup created for Hebrew translations');
-  }
+    }
 }
 
 async function main() {
@@ -156,14 +134,7 @@ async function main() {
     await updater.createProfessionalReviewBatch();
     await updater.generateProfessionalWorksheet();
     
-    console.log('\n🎉 Professional Hebrew update preparation complete!');
-    console.log('\nNext steps:');
-    console.log('1. Share worksheet with professional Hebrew translator');
-    console.log('2. Translator updates database content directly');
-    console.log('3. Run validation tests');
-    console.log('4. Deploy with zero downtime');
-    
-  } catch (error) {
+    } catch (error) {
     console.error('❌ Error:', error.message);
   } finally {
     await pool.end();

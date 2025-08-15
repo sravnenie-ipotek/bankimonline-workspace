@@ -52,9 +52,7 @@ const CitizenshipsDropdown = () => {
         )
 
         setCitizenshipOptions(uniqueOptions)
-        console.log('✅ Citizenship options loaded:', uniqueOptions.length, 'options')
-        
-      } catch (err) {
+        } catch (err) {
         console.error('❌ Error fetching citizenship options:', err)
         setError(err instanceof Error ? err.message : 'Unknown error')
       } finally {
@@ -66,23 +64,13 @@ const CitizenshipsDropdown = () => {
   }, [])
 
   const handleCitizenshipChange = (selectedLabels: string[]) => {
-    console.log('=== Citizenship Change Debug ===')
-    console.log('Selected labels:', selectedLabels)
-    console.log('Current Formik values BEFORE update:', values)
-    console.log('Current citizenshipsDropdown BEFORE:', values.citizenshipsDropdown)
-    console.log('Formik errors BEFORE:', errors)
-    console.log('Formik touched BEFORE:', touched)
-    
     // Store labels directly - simpler approach
     setFieldValue('citizenshipsDropdown', selectedLabels, true)
     setFieldTouched('citizenshipsDropdown', true, true)
     
     // Force validation after setting value
     setTimeout(() => {
-      console.log('=== After Update (delayed) ===')
-      console.log('Formik values AFTER:', values)
-      console.log('citizenshipsDropdown AFTER:', values.citizenshipsDropdown)
-      console.log('Formik errors AFTER:', errors)
+      ===')
       validateField('citizenshipsDropdown')
     }, 100)
   }
@@ -108,15 +96,6 @@ const CitizenshipsDropdown = () => {
   // No conversion needed - we're storing labels directly now
   const displayValues = values.citizenshipsDropdown || []
   
-  console.log('=== CitizenshipsDropdown Render ===')
-  console.log('Current form values.citizenshipsDropdown:', values.citizenshipsDropdown)
-  console.log('Display values:', displayValues)
-  console.log('Citizenship options:', citizenshipOptions.length)
-  console.log('Touched:', touched.citizenshipsDropdown)
-  console.log('Error:', errors.citizenshipsDropdown)
-  console.log('Current language:', typeof window !== 'undefined' && window.i18next ? window.i18next.language : 'unknown')
-  console.log('Document language:', typeof document !== 'undefined' ? document.documentElement.lang : 'unknown')
-
   return (
     <Column gap="16px">
       <TitleElement title="אזרחות" />

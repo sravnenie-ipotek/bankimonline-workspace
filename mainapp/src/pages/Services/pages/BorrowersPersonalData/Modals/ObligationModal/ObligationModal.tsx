@@ -55,14 +55,12 @@ const ObligationModal = () => {
   // Preload validation errors and regenerate schema when language changes
   useEffect(() => {
     const initializeValidation = async () => {
-      console.log('🔄 BorrowersPersonalData ObligationModal: Preloading validation errors for language:', i18n.language)
       await preloadValidationErrors()
       
       // Regenerate validation schema after errors are loaded
       const newSchema = getValidationSchema()
       setValidationSchema(newSchema)
-      console.log('✅ BorrowersPersonalData ObligationModal: Validation schema updated for language:', i18n.language)
-    }
+      }
     
     initializeValidation()
   }, [i18n.language]) // Regenerate when language changes

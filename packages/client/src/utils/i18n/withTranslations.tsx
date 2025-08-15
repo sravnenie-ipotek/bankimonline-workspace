@@ -19,9 +19,7 @@ export const WithTranslations: React.FC<WithTranslationsProps> = ({ children }) 
         const testKey = i18n.t('fill_form')
         if (testKey && testKey !== 'fill_form') {
           setTranslationsReady(true)
-          console.log('✅ WithTranslations: Translations ready')
-        } else {
-          console.log('⚠️ WithTranslations: Waiting for translations...')
+          } else {
           // Retry after a short delay
           setTimeout(checkTranslations, 100)
         }

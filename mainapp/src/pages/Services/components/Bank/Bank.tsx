@@ -39,11 +39,6 @@ const Bank = ({ screenLocation = 'calculate_credit_3' }: BankProps) => {
     { value: '5', label: getCommonContent('bank_option_5', 'Other Bank') }
   ]
 
-  console.log('🔍 Bank options debug:', {
-    options: bankOptions,
-    language: i18n.language,
-    currentValue: values.bank,
-    selectedBank: bankOptions.find(bank => bank.value === values.bank)
   })
 
   return (

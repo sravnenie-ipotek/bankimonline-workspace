@@ -67,7 +67,6 @@ export default defineConfig({
       // Add custom tasks here
       on('task', {
         log(message) {
-          console.log(message)
           return null
         },
         table(message) {
@@ -120,17 +119,12 @@ export default defineConfig({
         details.path = newPath
         details.name = newFileName
         
-        console.log(`Screenshot saved: ${newPath}`)
-        
         return details
       })
       
       // Log the screenshot folder at the start of the run
       on('before:run', () => {
-        console.log(`\n📸 Screenshots will be saved to: ${screenshotsPath}\n`)
-        console.log(`📊 Main Database: ${process.env.DATABASE_URL ? 'Configured' : 'Not configured'}`)
-        console.log(`📊 Content Database: ${process.env.CONTENT_DATABASE_URL ? 'Configured' : 'Not configured'}\n`)
-      })
+        })
       
       // Configure code coverage if needed
       // require('@cypress/code-coverage/task')(on, config)

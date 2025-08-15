@@ -6,7 +6,6 @@ const contentPool = new Pool({
 
 async function checkSchema() {
   try {
-    console.log('=== CONTENT_ITEMS TABLE STRUCTURE ===');
     const schemaResult = await contentPool.query(`
       SELECT column_name, data_type, is_nullable
       FROM information_schema.columns
@@ -15,10 +14,9 @@ async function checkSchema() {
     `);
     
     schemaResult.rows.forEach(row => {
-      console.log(`${row.column_name}: ${row.data_type} (${row.is_nullable})`);
+      `);
     });
     
-    console.log('\n=== CONTENT_TRANSLATIONS TABLE STRUCTURE ===');
     const transSchema = await contentPool.query(`
       SELECT column_name, data_type, is_nullable
       FROM information_schema.columns
@@ -27,7 +25,7 @@ async function checkSchema() {
     `);
     
     transSchema.rows.forEach(row => {
-      console.log(`${row.column_name}: ${row.data_type} (${row.is_nullable})`);
+      `);
     });
     
   } catch (error) {

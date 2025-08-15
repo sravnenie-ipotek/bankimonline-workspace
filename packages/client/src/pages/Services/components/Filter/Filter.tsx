@@ -32,8 +32,7 @@ const Filter = ({ screenLocation: propScreenLocation }: FilterProps = {}) => {
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
-    console.log('🔄 Loading filter dropdown options...')
-  }
+    }
 
   if (dropdownData.error) {
     console.warn('❌ Filter dropdown error:', dropdownData.error)

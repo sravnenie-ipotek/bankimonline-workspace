@@ -45,7 +45,6 @@ export const BankAuthorizationPage: React.FC<BankAuthorizationPageProps> = ({
   }
 
   const handleSubmit = (values: BankAuthorizationFormTypes) => {
-    console.log('Bank Authorization data submitted:', values)
     // Save authorization data to user profile
     // Navigate to "Application Submitted" page (LK-133)
     navigate('/personal-cabinet/application-submitted')

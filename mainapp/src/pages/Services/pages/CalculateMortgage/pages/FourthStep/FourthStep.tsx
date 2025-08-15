@@ -62,23 +62,19 @@ const FourthStep = () => {
       validationSchema={validationSchema}
       validateOnMount={true}
       onSubmit={(values) => {
-        console.log('Saving mortgage data and proceeding...', values)
-        
         // Save any selected bank/offer data
         dispatch(updateMortgageData(values))
         
         // For now, bypass authentication and go directly to application submitted
         // TODO: Implement proper authentication flow
-        console.log('Proceeding to application submission (auth bypassed for testing)')
+        ')
         navigate('/services/application-submitted')
         
         // Original authentication logic (commented out for testing):
         // if (!isAuthenticated || !loginData?.phoneNumber) {
-        //   console.log('User not authenticated, redirecting to registration')
-        //   navigate('/auth?step=register&returnTo=/services/calculate-mortgage/4')
+        //   //   navigate('/auth?step=register&returnTo=/services/calculate-mortgage/4')
         // } else {
-        //   console.log('User authenticated, proceeding to application')
-        //   navigate('/services/application-submitted')
+        //   //   navigate('/services/application-submitted')
         // }
       }}
     >

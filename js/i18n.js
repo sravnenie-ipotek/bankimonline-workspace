@@ -9,8 +9,6 @@ class I18nManager {
     
     async init() {
         try {
-            console.log('🚀 Initializing i18n...');
-            
             // Load all supported languages
             const languages = ['en', 'he', 'ru'];
             
@@ -22,8 +20,6 @@ class I18nManager {
             await this.changeLanguage(this.currentLanguage);
             
             this.initialized = true;
-            console.log('✅ i18n initialization complete');
-            
             // Test critical translations
             this.testTranslations();
             
@@ -41,11 +37,9 @@ class I18nManager {
             'button_next'
         ];
         
-        console.log('🧪 Testing translations:');
         testKeys.forEach(key => {
             const translation = this.getTranslation(key);
-            console.log(`"${key}" = "${translation}"`);
-        });
+            });
     }
     
     async loadTranslations(language) {
@@ -62,17 +56,14 @@ class I18nManager {
             
             for (const path of paths) {
                 try {
-                    console.log(`🔍 Trying to load: ${path}`);
                     const response = await fetch(path);
                     if (response.ok) {
                         this.translations[language] = await response.json();
-                        console.log(`✅ Loaded translations from: ${path}`);
-                        console.log(`📦 ${language} translations:`, Object.keys(this.translations[language]).length, 'keys');
+                        .length, 'keys');
                         return true;
                     }
                 } catch (e) {
-                    console.log(`❌ Failed to load from: ${path}`, e.message);
-                }
+                    }
             }
             
             console.error(`❌ Failed to load translations for ${language} from any path`);
@@ -105,14 +96,11 @@ class I18nManager {
         // Update language selector
         this.updateLanguageSelector();
         
-        console.log(`🔄 Language changed to: ${language}`);
         return true;
     }
     
     updateTranslations() {
         const elements = document.querySelectorAll('[data-i18n]');
-        console.log(`🔄 Updating ${elements.length} translation elements`);
-        
         elements.forEach(element => {
             const key = element.getAttribute('data-i18n');
             const translation = this.getTranslation(key);
@@ -124,8 +112,7 @@ class I18nManager {
                 } else {
                     element.textContent = translation;
                 }
-                console.log(`✅ Updated "${key}" to "${translation}"`);
-            } else {
+                } else {
                 console.warn(`⚠️ No translation found for "${key}"`);
             }
         });

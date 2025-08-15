@@ -20,8 +20,6 @@ const SourceOfIncomeForm = () => {
   const { handleSubmit, isValid, values, errors, touched } =
     useFormikContext<SourceOfIncomeModalTypes>()
 
-
-
   const { mainSourceOfIncome } = values
 
   const dispatch = useAppDispatch()

@@ -103,12 +103,10 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onToggleSidebar }) => {
   }
 
   const handleNotificationItemClick = (notification: NotificationItem) => {
-    console.log('Notification clicked:', notification)
     // Handle notification click - navigate to relevant page
   }
 
   const handleNotificationActionClick = (notification: NotificationItem) => {
-    console.log('Notification action clicked:', notification)
     // Handle action click based on actionType
     switch (notification.actionType) {
       case 'chat':

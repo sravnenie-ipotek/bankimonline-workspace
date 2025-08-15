@@ -92,8 +92,7 @@ const ChangeLanguage = () => {
       document.documentElement.setAttribute('dir', dir)
       document.documentElement.lang = newLanguage
       
-      console.log(`🔄 Language changed to: ${newLanguage}`)
-    } catch (error) {
+      } catch (error) {
       console.error('Error changing language:', error)
     }
   }

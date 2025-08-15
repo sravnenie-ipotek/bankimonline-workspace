@@ -51,12 +51,10 @@ export function CodeVerification<
     if (!canResendEmail) return
 
     try {
-      console.log('🔄 Resending email code to:', formikContext.values.email)
-      
       // Mock email sending delay
       await new Promise(resolve => setTimeout(resolve, 1000))
       
-      console.log('✅ Email code sent successfully (mocked)')
+      ')
       
       // Start 60-second countdown
       setCanResendEmail(false)
@@ -73,7 +71,6 @@ export function CodeVerification<
     },
     onSubmit: async (values) => {
       await handleNextStep(values.code!, formik)
-      console.log(values)
       // alert(JSON.stringify(values, null, 2))
       await formikContext.setValues({ ...formikContext.values, ...values })
     },

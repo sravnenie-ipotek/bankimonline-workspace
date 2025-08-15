@@ -49,8 +49,7 @@ const Header: React.FC<PropsTypes> = ({ onOpenMobileMenu, isMobile }) => {
                 type="button"
                 onClick={() => {
                   onOpenMobileMenu?.()
-                  console.log('click')
-                }}
+                  }}
                 className={cx('burger')}
               >
                 <span>{''}</span>

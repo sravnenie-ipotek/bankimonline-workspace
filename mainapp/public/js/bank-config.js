@@ -38,7 +38,6 @@ async function loadBankSelector() {
             bankSelector.disabled = false;
         } else {
             // Fallback to mock data if API fails or returns non-200 status
-            console.log('API response not OK, using fallback data');
             bankSelector.innerHTML = `
                 <option value="" data-i18n="forms.select_bank_option">${t('forms.select_bank_option')}</option>
                 <option value="1">Bank Hapoalim</option>

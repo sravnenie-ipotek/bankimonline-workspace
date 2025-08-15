@@ -59,10 +59,8 @@ describe('Citizenship Validation Debug Test', () => {
       
       // Print all captured logs
       cy.then(() => {
-        console.log('=== CAPTURED LOGS ===')
-        logs.forEach(log => console.log(log))
-        console.log('=== END LOGS ===')
-      })
+        logs.forEach(log => )
+        })
       
       // Check if validation error appears
       cy.get('span').then(($spans) => {
@@ -71,8 +69,6 @@ describe('Citizenship Validation Debug Test', () => {
         )
         
         if (errorSpan) {
-          console.log('❌ VALIDATION ERROR FOUND:', errorSpan.textContent)
-          
           // Get Formik state
           cy.window().then((win) => {
             // Access React component to check Formik state
@@ -80,17 +76,16 @@ describe('Citizenship Validation Debug Test', () => {
             if (formikElement) {
               // Log the form data
               const formData = new FormData(formikElement as HTMLFormElement)
-              console.log('FORM DATA:', Array.from(formData.entries()))
+              ))
             }
           })
         } else {
-          console.log('✅ NO VALIDATION ERROR')
-        }
+          }
       })
       
       // Check what values are showing as selected
       cy.get('.multiselect_tag').then(($tags) => {
-        console.log('SELECTED TAGS:', Array.from($tags).map(tag => tag.textContent))
+        .map(tag => tag.textContent))
       })
     })
   })

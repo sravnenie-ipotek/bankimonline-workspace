@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useContentApi } from '@src/hooks/useContentApi'
 import { useDropdownData } from '@src/hooks/useDropdownData'
 
-
 import { Column } from '@components/ui/Column'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
 import { Error } from '@components/ui/Error'
@@ -60,28 +59,17 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
       }).filter(option => option.label && option.label !== option.value) // Filter out missing options
 
   // Debug dropdown data
-  console.log('🔍 MainSourceOfIncome options:', {
-    options: mainSourceOptions,
-    currentValue: values.mainSourceOfIncome,
-    selectedItem: mainSourceOptions.find(item => item.value === values.mainSourceOfIncome),
+  ,
     errors: errors.mainSourceOfIncome,
     touched: touched.mainSourceOfIncome,
     errorShowing: touched.mainSourceOfIncome && errors.mainSourceOfIncome
   })
 
   const handleValueChange = (value: string) => {
-    console.log('🔍 MainSourceOfIncome onChange:', { 
-      value, 
-      currentValue: values.mainSourceOfIncome,
-      dropdownOptions: mainSourceOptions,
-      selectedOption: mainSourceOptions.find(item => item.value === value)
     })
     
     // Additional validation debugging
-    console.log('🔍 MainSourceOfIncome validation debug:', {
-      value,
-      isEmpty: !value || value === '' || value === null || value === undefined,
-      isNoIncomeValue: checkIfNoIncomeValue(value),
+    ,
       willRequireFields: !checkIfNoIncomeValue(value)
     })
     

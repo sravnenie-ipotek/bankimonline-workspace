@@ -94,9 +94,6 @@ export const fetchBankOffers = async (requestPayload: BankOfferRequest): Promise
                         currentLanguage === 'ru' ? 'ru-RU' : 
                         'en-US'
   
-  console.log('🚀 [BANK-API] Making bank offers request:', requestPayload)
-  console.log('🌍 [BANK-API] Using language:', currentLanguage, '→', acceptLanguage)
-  
   const response = await fetch(`${API_BASE}/customer/compare-banks`, {
     method: 'POST',
     headers: {
@@ -106,8 +103,6 @@ export const fetchBankOffers = async (requestPayload: BankOfferRequest): Promise
     body: JSON.stringify(requestPayload),
   })
   
-  console.log('📡 [BANK-API] Response status:', response.status)
-  
   if (!response.ok) {
     const errorText = await response.text()
     console.error('❌ [BANK-API] Error:', response.status, errorText)
@@ -115,8 +110,6 @@ export const fetchBankOffers = async (requestPayload: BankOfferRequest): Promise
   }
   
   const data = await response.json()
-  console.log('📦 [BANK-API] Response data:', data)
-  
   return data.data?.bank_offers || []
 }
 
@@ -141,7 +134,6 @@ export const fetchMortgagePrograms = async (): Promise<MortgageProgram[]> => {
     
     if (response.ok) {
       const data = await response.json()
-      console.log('📋 [MORTGAGE-PROGRAMS-API] Fetched programs:', data)
       return data.data?.programs || []
     } else {
       console.warn('⚠️ [MORTGAGE-PROGRAMS-API] Failed to fetch programs')
@@ -168,11 +160,6 @@ export const transformUserDataToRequest = (
   const currentSessionId = sessionId || `sess_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
   
   // Debug logging
-  console.log('🔍 [TRANSFORM-DATA] Service Type:', serviceType, 'Is Credit:', isCredit)
-  console.log('🔍 [TRANSFORM-DATA] Parameters:', parameters)
-  console.log('🔍 [TRANSFORM-DATA] User Personal Data:', userPersonalData)
-  console.log('🔍 [TRANSFORM-DATA] User Income Data:', userIncomeData)
-  
   // Calculate age from birthday if available
   let calculatedAge: number | undefined = undefined
   if (userPersonalData?.birthday) {
@@ -199,12 +186,6 @@ export const transformUserDataToRequest = (
                        userIncomeData?.monthlyIncome || 
                        parameters?.monthlyIncome ||
                        0 // No fallback - should be provided by user
-  
-  console.log('💰 [TRANSFORM-DATA] Monthly Income Sources:')
-  console.log('   userPersonalData.monthlyIncome:', userPersonalData?.monthlyIncome)
-  console.log('   userIncomeData.monthlyIncome:', userIncomeData?.monthlyIncome)
-  console.log('   parameters.monthlyIncome:', parameters?.monthlyIncome)
-  console.log('   Final monthlyIncome:', monthlyIncome)
   
   // Handle different service types for amount calculation
   let amount = 0
@@ -233,23 +214,10 @@ export const transformUserDataToRequest = (
     property_value = parameters.priceOfEstate || 0
   }
   
-  console.log('🏠 [TRANSFORM-DATA] Amount Calculation:')
-  console.log('   Service Type:', serviceType)
-  console.log('   Is Credit:', isCredit)
-  console.log('   parameters.mortgageBalance:', parameters?.mortgageBalance)
-  console.log('   parameters.priceOfEstate:', parameters?.priceOfEstate)
-  console.log('   parameters.loanAmount:', parameters?.loanAmount)
-  console.log('   parameters.initialFee:', parameters?.initialFee)
   if (serviceType === 'refinance-credit') {
-    console.log('   parameters.creditData:', parameters?.creditData)
-    console.log('   creditData.length:', parameters?.creditData?.length || 0)
     parameters?.creditData?.forEach((credit: any, index: number) => {
-      console.log(`   creditData[${index}].amount:`, credit?.amount)
-    })
+      })
   }
-  console.log('   Final amount:', amount)
-  console.log('   Final property_value:', property_value)
-  
   const requestPayload = {
     loan_type: isCredit ? 'credit' : 'mortgage',
     amount: amount,
@@ -288,13 +256,11 @@ export const transformUserDataToRequest = (
     is_public_figure: userPersonalData?.publicPerson === 'yes'
   }
   
-  console.log('🚀 [TRANSFORM-DATA] Final Request Payload:', requestPayload)
-  console.log('🚀 [TRANSFORM-DATA] Critical Fields Check:')
-  console.log('   loan_type:', requestPayload.loan_type, '(should not be empty)')
-  console.log('   amount:', requestPayload.amount, '(should be > 0)')
-  console.log('   monthly_income:', requestPayload.monthly_income, '(should be > 0)')
-  console.log('   age:', requestPayload.age, '(should be > 0)')
-  console.log('   property_ownership:', requestPayload.property_ownership, '(should not be empty)')
+  ')
+  ')
+  ')
+  ')
+  ')
   
   return requestPayload
 }

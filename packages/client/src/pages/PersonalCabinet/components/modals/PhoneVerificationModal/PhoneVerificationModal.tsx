@@ -42,10 +42,8 @@ export const PhoneVerificationModal: React.FC<PhoneVerificationModalProps> = ({
     setIsLoading(true)
     try {
       // Simulate API call for phone verification
-      console.log('Verifying phone code:', code, 'for phone:', phone)
       await new Promise(resolve => setTimeout(resolve, 1000))
       
-      console.log('Phone verification successful')
       onSuccess()
     } catch (error) {
       console.error('Phone verification failed:', error)

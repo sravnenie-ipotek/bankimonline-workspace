@@ -94,7 +94,6 @@ class MortgageStep4Page extends BasePage {
    * Navigate to Step 4 of mortgage calculator
    */
   async navigateToStep4() {
-    console.log('🏦 Navigating to Mortgage Calculator Step 4');
     await this.navigateTo('/services/calculate-mortgage/4');
     await this.waitForStep4ToLoad();
     return this;
@@ -104,8 +103,6 @@ class MortgageStep4Page extends BasePage {
    * Wait for Step 4 page to fully load with bank offers
    */
   async waitForStep4ToLoad(timeout = this.config.timeouts.page) {
-    console.log('⏳ Waiting for Step 4 to load...');
-    
     // Wait for loading spinner to disappear
     try {
       await this.driver.sleep(2000);
@@ -124,19 +121,15 @@ class MortgageStep4Page extends BasePage {
         this.findElement(this.selectors.bankOffers, 15000)
       ]);
     } catch (e) {
-      console.log('⚠️ Neither results nor bank offers found, continuing...');
-    }
+      }
     
-    console.log('✅ Step 4 loaded successfully');
-  }
+    }
 
   /**
    * Get all bank offers displayed on the page
    * @returns {Array<Object>} Array of bank offer data
    */
   async getBankOffers() {
-    console.log('🏦 Getting all bank offers...');
-    
     const offers = [];
     
     try {
@@ -152,8 +145,7 @@ class MortgageStep4Page extends BasePage {
             const bankNameElement = await offer.findElement({ css: this.selectors.bankNames[0] });
             bankName = await bankNameElement.getText();
           } catch (e) {
-            console.log(`Could not find bank name for offer ${i + 1}`);
-          }
+            }
           
           // Extract monthly payment
           let monthlyPayment = 'N/A';
@@ -161,8 +153,7 @@ class MortgageStep4Page extends BasePage {
             const paymentElement = await offer.findElement({ css: this.selectors.monthlyPayments[0] });
             monthlyPayment = await paymentElement.getText();
           } catch (e) {
-            console.log(`Could not find monthly payment for offer ${i + 1}`);
-          }
+            }
           
           // Extract interest rate
           let interestRate = 'N/A';
@@ -170,8 +161,7 @@ class MortgageStep4Page extends BasePage {
             const rateElement = await offer.findElement({ css: this.selectors.interestRates[0] });
             interestRate = await rateElement.getText();
           } catch (e) {
-            console.log(`Could not find interest rate for offer ${i + 1}`);
-          }
+            }
           
           offers.push({
             index: i,
@@ -187,14 +177,9 @@ class MortgageStep4Page extends BasePage {
       }
       
     } catch (error) {
-      console.log('❌ No bank offers found on page');
-    }
+      }
     
-    console.log(`✅ Found ${offers.length} bank offers:`, offers.map(o => ({
-      bank: o.bankName,
-      payment: o.monthlyPayment,
-      rate: o.interestRate
-    })));
+    ));
     
     return offers;
   }
@@ -204,8 +189,6 @@ class MortgageStep4Page extends BasePage {
    * @param {Array<number>} bankIndices - Array of bank offer indices to select
    */
   async selectBanksForComparison(bankIndices = [0, 1]) {
-    console.log(`🏦 Selecting banks for comparison: ${bankIndices}`);
-    
     const checkboxes = await this.findElements(this.selectors.bankCheckboxes[0]);
     
     for (const index of bankIndices) {
@@ -215,10 +198,8 @@ class MortgageStep4Page extends BasePage {
         
         if (!isChecked) {
           await this.clickElement(checkbox);
-          console.log(`✅ Selected bank at index ${index}`);
-        } else {
-          console.log(`ℹ️ Bank at index ${index} already selected`);
-        }
+          } else {
+          }
       }
     }
     
@@ -229,8 +210,6 @@ class MortgageStep4Page extends BasePage {
    * Click compare button to view detailed comparison
    */
   async clickCompare() {
-    console.log('📊 Clicking compare button...');
-    
     try {
       const compareButton = await this.findElement(this.selectors.compareButton);
       await this.scrollToElement(compareButton);
@@ -239,10 +218,8 @@ class MortgageStep4Page extends BasePage {
       // Wait for comparison results to load
       await this.driver.sleep(3000);
       
-      console.log('✅ Compare button clicked successfully');
       return true;
     } catch (error) {
-      console.log('❌ Compare button not found or not clickable');
       return false;
     }
   }
@@ -252,8 +229,6 @@ class MortgageStep4Page extends BasePage {
    * @returns {Object} Results summary data
    */
   async getCalculationResults() {
-    console.log('📊 Getting calculation results...');
-    
     const results = {
       hasResults: false,
       bankOffers: [],
@@ -288,12 +263,6 @@ class MortgageStep4Page extends BasePage {
       results.errors.push(`Error retrieving results: ${error.message}`);
     }
     
-    console.log('✅ Calculation results retrieved:', {
-      hasResults: results.hasResults,
-      totalOffers: results.totalOffers,
-      errors: results.errors.length
-    });
-    
     return results;
   }
 
@@ -302,8 +271,6 @@ class MortgageStep4Page extends BasePage {
    * @returns {Object} Test results for Step 4 functionality
    */
   async testStep4Functionality() {
-    console.log('🧪 Testing Step 4 functionality...');
-    
     const testResults = {
       step: 4,
       timestamp: new Date().toISOString(),
@@ -356,7 +323,6 @@ class MortgageStep4Page extends BasePage {
     // Take screenshot of results
     await this.takeScreenshot('step4-functionality-test');
     
-    console.log('✅ Step 4 functionality test completed:', testResults);
     return testResults;
   }
 
@@ -365,8 +331,6 @@ class MortgageStep4Page extends BasePage {
    * @returns {Object} Complete calculation results
    */
   async completeCalculation() {
-    console.log('🎯 Completing mortgage calculation...');
-    
     await this.waitForStep4ToLoad();
     
     const results = await this.getCalculationResults();
@@ -374,7 +338,6 @@ class MortgageStep4Page extends BasePage {
     // Take final screenshot
     await this.takeScreenshot('step4-calculation-complete');
     
-    console.log('✅ Mortgage calculation completed');
     return results;
   }
 }

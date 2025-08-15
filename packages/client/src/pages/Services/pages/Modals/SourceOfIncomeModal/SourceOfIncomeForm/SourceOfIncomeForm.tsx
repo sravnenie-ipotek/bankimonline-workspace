@@ -27,14 +27,7 @@ const SourceOfIncomeForm = () => {
 
   // Debug validation state
   React.useEffect(() => {
-    console.log('🔍 Form Validation Debug:', {
-      isValid,
-      values,
-      errors,
-      touched,
-      mainSourceOfIncome: values.mainSourceOfIncome
-    })
-  }, [isValid, values, errors, touched])
+    }, [isValid, values, errors, touched])
 
   // Force validation when mainSourceOfIncome changes
   React.useEffect(() => {

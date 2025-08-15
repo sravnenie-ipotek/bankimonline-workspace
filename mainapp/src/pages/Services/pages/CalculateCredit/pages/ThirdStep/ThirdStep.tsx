@@ -26,14 +26,12 @@ const ThirdStep = () => {
   // Preload validation errors and regenerate schema when component mounts or language changes
   useEffect(() => {
     const initializeValidation = async () => {
-      console.log('🔄 ThirdStep: Preloading validation errors for language:', i18n.language)
       await preloadValidationErrors()
       
       // Regenerate validation schema after errors are loaded
       const newSchema = getValidationSchema()
       setValidationSchema(newSchema)
-      console.log('✅ ThirdStep: Validation schema updated for language:', i18n.language)
-    }
+      }
     
     initializeValidation()
   }, [i18n.language]) // Regenerate when language changes

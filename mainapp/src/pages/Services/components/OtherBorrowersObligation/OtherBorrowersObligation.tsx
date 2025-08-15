@@ -79,10 +79,7 @@ const OtherBorrowersObligation = ({ screenLocation = 'other_borrowers_step2' }: 
   const hasError = isDropdownDataObject ? dropdownData.error : null
 
   // Debug obligation values
-  console.log('🔍 OtherBorrowersObligation debug:', {
-    currentValue: values.obligation,
-    options: dropdownOptions,
-    isNoObligationValue: checkIfNoObligationValue(values.obligation),
+  ,
     errors: errors.obligation,
     touched: touched.obligation,
     errorShowing: touched.obligation && errors.obligation,
@@ -91,10 +88,7 @@ const OtherBorrowersObligation = ({ screenLocation = 'other_borrowers_step2' }: 
   })
 
   const handleValueChange = (value: string) => {
-    console.log('🔍 OtherBorrowersObligation onChange:', { 
-      value,
-      currentValue: values.obligation,
-      isNoObligationValue: checkIfNoObligationValue(value),
+    ,
       willShowBankFields: !checkIfNoObligationValue(value)
     })
     
@@ -113,11 +107,9 @@ const OtherBorrowersObligation = ({ screenLocation = 'other_borrowers_step2' }: 
       // Use a microtask to ensure our error clear persists after React state updates
       Promise.resolve().then(() => {
         setFieldError('obligation', undefined)
-        console.log('✅ OtherBorrowersObligation: Microtask error clear for:', value)
-      })
+        })
       
-      console.log('✅ OtherBorrowersObligation: Applied validation bypass for valid selection:', value)
-    } else {
+      } else {
       // For empty values, allow normal validation
       setFieldTouched('obligation', true, true) // true = validate
     }
@@ -139,7 +131,6 @@ const OtherBorrowersObligation = ({ screenLocation = 'other_borrowers_step2' }: 
                          values.obligation !== undefined
     
     if (hasValidValue) {
-      console.log('✅ OtherBorrowersObligation: Suppressing validation error for valid value:', values.obligation)
       return false
     }
     

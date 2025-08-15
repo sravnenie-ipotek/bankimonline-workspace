@@ -172,7 +172,6 @@ const BankWorkerRegistrationDemo: React.FC = () => {
   };
 
   const handleSubmit = (values: any) => {
-    console.log('Demo form submitted:', values);
     alert(`${t('bank_worker_demo_description')}\n\nIn the real system, after successful registration, you would be redirected to:\n/bank-worker/status/[registration-id]\n\nThis page would show your registration status and next steps.`);
   };
 

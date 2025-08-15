@@ -5,12 +5,6 @@ describe('Credit Calculator Step 3 - Regression Test', () => {
   })
 
   it('should navigate to Step 3 and test income source dropdown functionality', () => {
-    console.log('Test ID: CREDIT-STEP3-001')
-    console.log('Category: Regression Test')
-    console.log('Element: Income Source Dropdown in Credit Calculator Step 3')
-    console.log('Test Case: Verify components render after income source selection')
-    console.log('Expected Result: Income-related components appear after dropdown selection')
-
     // Step 1: Complete Credit Calculator Step 1 first
     cy.log('🔄 Completing Step 1 to reach Step 3')
     

@@ -48,16 +48,12 @@ test('Test dropdown validation race condition fix', async ({ page }) => {
   
   // Step 3: Test dropdown validation
   await page.waitForTimeout(2000);
-  console.log('Reached step 3 - Testing dropdown validation');
-  
   // Take initial screenshot
   await page.screenshot({ path: 'step3-initial.png', fullPage: true });
   
   // Check initial state of continue button - should be disabled
   const continueButton = await page.locator('button:has-text("הבא"), button:has-text("המשך"), button:has-text("Next")');
   const isInitiallyDisabled = await continueButton.isDisabled();
-  console.log('Continue button initially disabled:', isInitiallyDisabled);
-  
   // Find and select main source of income dropdown
   const mainIncomeDropdown = await page.locator('[data-testid="main-source-of-income-dropdown"], select, .MuiSelect-select').first();
   await mainIncomeDropdown.click();
@@ -67,7 +63,6 @@ test('Test dropdown validation race condition fix', async ({ page }) => {
   const employeeOption = await page.locator('li:has-text("עובד שכיר"), option:has-text("עובד שכיר")').first();
   await employeeOption.click();
   
-  console.log('Selected main income source');
   await page.waitForTimeout(1000);
   
   // Find and select additional income dropdown
@@ -79,7 +74,6 @@ test('Test dropdown validation race condition fix', async ({ page }) => {
   const additionalIncomeOption = await page.locator('li, option').nth(1);
   await additionalIncomeOption.click();
   
-  console.log('Selected additional income');
   await page.waitForTimeout(1000);
   
   // Find and select obligations dropdown
@@ -91,7 +85,6 @@ test('Test dropdown validation race condition fix', async ({ page }) => {
   const obligationsOption = await page.locator('li, option').nth(1);
   await obligationsOption.click();
   
-  console.log('Selected obligations');
   await page.waitForTimeout(2000);
   
   // Take screenshot after filling dropdowns
@@ -99,16 +92,12 @@ test('Test dropdown validation race condition fix', async ({ page }) => {
   
   // Check if continue button is now enabled
   const isEnabledAfterFilling = await continueButton.isDisabled();
-  console.log('Continue button disabled after filling:', isEnabledAfterFilling);
-  
   // Verify the fix worked
   if (!isEnabledAfterFilling) {
-    console.log('✅ SUCCESS: Continue button is now enabled after filling dropdowns');
     // Take final success screenshot
     await page.screenshot({ path: 'step3-success.png', fullPage: true });
   } else {
-    console.log('❌ ISSUE: Continue button is still disabled after filling dropdowns');
-  }
+    }
   
   // Additional validation - check form state
   const formData = await page.evaluate(() => {
@@ -120,8 +109,6 @@ test('Test dropdown validation race condition fix', async ({ page }) => {
     }
     return {};
   });
-  
-  console.log('Form data:', formData);
   
   expect(!isEnabledAfterFilling).toBe(true);
 });

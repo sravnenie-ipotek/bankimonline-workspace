@@ -446,9 +446,7 @@ const MainRoutes: React.FC = () => {
                 <Route path="bank-workers" element={<BankWorkerManagement />} />
                 <Route index element={<Navigate replace to="/admin/login" />} />
               </Route>
-              
 
-              
               {/* Side Navigation Demo route */}
               <Route path="/side-navigation-demo" element={<SideNavigationDemo />} />
               

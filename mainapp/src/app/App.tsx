@@ -46,19 +46,13 @@ const App = () => {
     // Load user data from localStorage into Redux store
     const storedUserData = localStorage.getItem('USER_DATA')
     
-    console.log('App.tsx - Checking localStorage USER_DATA:', storedUserData)
-    
     if (storedUserData) {
       try {
         const userData = JSON.parse(storedUserData)
-        console.log('App.tsx - Parsed user data:', userData)
-        
         const loginData = {
           nameSurname: userData.name || userData.nameSurname,
           phoneNumber: userData.mobile_number || userData.phoneNumber
         }
-        
-        console.log('App.tsx - Mapped login data:', loginData)
         
         // Update login data in Redux with stored user data
         dispatch(initializeUserData(loginData))
@@ -67,8 +61,7 @@ const App = () => {
         console.error('App.tsx - Error loading user data from localStorage:', error)
       }
     } else {
-      console.log('App.tsx - No USER_DATA found in localStorage')
-    }
+      }
 
     // Initialize translations and wait for them to load
     const initializeTranslations = async () => {
@@ -77,7 +70,6 @@ const App = () => {
         if (!i18n.isInitialized) {
           await new Promise((resolve) => {
             const timeout = setTimeout(() => {
-              console.log('⚠️ i18n initialization timeout, continuing anyway...')
               resolve(void 0)
             }, 3000) // Max 3 second wait
             
@@ -93,10 +85,7 @@ const App = () => {
         
         // Check if resources are loaded for current language
         const hasResources = i18n.hasResourceBundle(language, 'translation')
-        console.log('🔍 Resources available for', language, ':', hasResources)
-        
         if (!hasResources) {
-          console.log('⚠️ No resources found, trying to load...')
           try {
             await i18n.loadLanguages(language)
             await new Promise(resolve => setTimeout(resolve, 1000)) // Wait for load
@@ -109,12 +98,9 @@ const App = () => {
         setTranslationsLoaded(true)
         document.documentElement.setAttribute('dir', direction)
         document.documentElement.setAttribute('lang', language)
-        console.log('✅ Continuing with translations for language:', language)
-        
         // Initialize validation language listener
         initializeValidationLanguageListener()
-        console.log('✅ Validation language listener initialized')
-      } catch (error) {
+        } catch (error) {
         console.error('❌ Error loading translations:', error)
         setTranslationsLoaded(true) // Always continue to prevent infinite loading
       }

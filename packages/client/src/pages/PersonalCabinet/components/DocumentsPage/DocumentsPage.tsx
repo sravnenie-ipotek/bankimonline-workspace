@@ -76,8 +76,6 @@ export const DocumentsPage: React.FC<DocumentsPageProps> = ({
   }
 
   const handleDocumentUpload = (file: File) => {
-    console.log('Document uploaded:', file)
-    
     // Add new document to the list
     const newDocument: UploadedDocument = {
       id: Date.now().toString(),

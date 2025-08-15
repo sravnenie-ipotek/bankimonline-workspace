@@ -97,22 +97,13 @@ const BankOffers = () => {
           serviceType || undefined
         )
         
-        console.log('🚀 [BANK-OFFERS] Service Type:', serviceType)
-        console.log('🚀 [BANK-OFFERS] Is Credit:', isCredit)
-        console.log('🚀 [BANK-OFFERS] Selected Parameters:', getParameters())
-        console.log('🚀 [BANK-OFFERS] User Personal Data:', userPersonalData)
-        console.log('🚀 [BANK-OFFERS] User Income Data:', userIncomeData)
-        console.log('🚀 [BANK-OFFERS] Making API request with payload:', requestPayload)
-        
+        )
         // Fetch bank offers from API
         const bankOffers = await fetchBankOffers(requestPayload)
         
-        console.log('🏦 [BANK-OFFERS] Received bank offers:', bankOffers.length)
-        
         if (bankOffers.length === 0) {
           console.warn('⚠️ [BANK-OFFERS] NO BANK OFFERS FOUND!')
-          console.log('💡 [BANK-OFFERS] Check admin panel banking standards!')
-        }
+          }
         
         setBanks(bankOffers)
         

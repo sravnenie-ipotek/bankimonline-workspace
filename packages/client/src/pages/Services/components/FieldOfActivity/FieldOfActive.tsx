@@ -40,8 +40,7 @@ const FieldOfActivity = ({ screenLocation }: FieldOfActivityProps) => {
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
-    console.log('🔄 Loading field of activity dropdown options...')
-  }
+    }
 
   if (dropdownData.error) {
     console.warn('❌ Field of activity dropdown error:', dropdownData.error)
