@@ -19,8 +19,6 @@ class BasePage {
    */
   async navigateTo(path = '', timeout = this.config.timeouts.page) {
     const url = this.config.getUrl(path);
-    console.log(`🌐 Navigating to: ${url}`);
-    
     await this.driver.manage().setTimeouts({
       pageLoad: timeout,
       script: this.config.timeouts.script
@@ -29,7 +27,6 @@ class BasePage {
     await this.driver.get(url);
     await this.waitForPageLoad();
     
-    console.log(`✅ Successfully navigated to: ${url}`);
     return this;
   }
 
@@ -58,8 +55,7 @@ class BasePage {
       }
     }, 10000, 'React application did not initialize');
 
-    console.log('📄 Page fully loaded and React initialized');
-  }
+    }
 
   /**
    * Find element with multiple selector strategies
@@ -72,7 +68,6 @@ class BasePage {
     
     for (const selector of selectorArray) {
       try {
-        console.log(`🔍 Trying selector: ${selector}`);
         const element = await this.driver.wait(
           until.elementLocated(By.css(selector)), 
           timeout / selectorArray.length
@@ -80,10 +75,8 @@ class BasePage {
         
         // Wait for element to be visible
         await this.driver.wait(until.elementIsVisible(element), 5000);
-        console.log(`✅ Found element with selector: ${selector}`);
         return element;
       } catch (error) {
-        console.log(`❌ Failed to find element with selector: ${selector}`);
         if (selector === selectorArray[selectorArray.length - 1]) {
           // This was the last selector, throw the error
           throw new Error(`Element not found with any of the selectors: ${selectorArray.join(', ')}`);
@@ -101,15 +94,12 @@ class BasePage {
    * @returns {Array<WebElement>} Array of found elements
    */
   async findElements(selector, timeout = this.config.timeouts.explicit) {
-    console.log(`🔍 Finding elements: ${selector}`);
-    
     await this.driver.wait(
       until.elementLocated(By.css(selector)), 
       timeout
     );
     
     const elements = await this.driver.findElements(By.css(selector));
-    console.log(`✅ Found ${elements.length} elements with selector: ${selector}`);
     return elements;
   }
 
@@ -136,8 +126,7 @@ class BasePage {
     
     // Click the element
     await element.click();
-    console.log('👆 Element clicked successfully');
-  }
+    }
 
   /**
    * Type text into an input field
@@ -159,8 +148,7 @@ class BasePage {
     }
     
     await element.sendKeys(text.toString());
-    console.log(`⌨️ Typed: ${text}`);
-  }
+    }
 
   /**
    * Select option from dropdown
@@ -169,8 +157,6 @@ class BasePage {
    * @param {number} timeout - Timeout in milliseconds
    */
   async selectDropdownOption(dropdownSelector, optionText, timeout = this.config.timeouts.explicit) {
-    console.log(`📋 Selecting dropdown option: ${optionText}`);
-    
     // Click dropdown to open
     const dropdown = await this.findElement(dropdownSelector);
     await this.clickElement(dropdown);
@@ -192,7 +178,6 @@ class BasePage {
           timeout / optionSelectors.length
         );
         await this.clickElement(option);
-        console.log(`✅ Selected dropdown option: ${optionText}`);
         return;
       } catch (error) {
         continue;
@@ -209,8 +194,6 @@ class BasePage {
    * @param {number} timeout - Timeout in milliseconds
    */
   async waitForText(selector, expectedText, timeout = this.config.timeouts.explicit) {
-    console.log(`⏳ Waiting for text "${expectedText}" in element: ${selector}`);
-    
     await this.driver.wait(async () => {
       try {
         const element = await this.driver.findElement(By.css(selector));
@@ -221,8 +204,7 @@ class BasePage {
       }
     }, timeout, `Text "${expectedText}" not found in element within timeout`);
     
-    console.log(`✅ Found expected text: ${expectedText}`);
-  }
+    }
 
   /**
    * Take screenshot for debugging
@@ -246,7 +228,6 @@ class BasePage {
       }
       
       fs.writeFileSync(screenshotPath, screenshot, 'base64');
-      console.log(`📸 Screenshot saved: ${screenshotPath}`);
       return screenshotPath;
     } catch (error) {
       console.error('❌ Failed to take screenshot:', error.message);
@@ -260,7 +241,6 @@ class BasePage {
    */
   async getPageTitle() {
     const title = await this.driver.getTitle();
-    console.log(`📄 Page title: ${title}`);
     return title;
   }
 
@@ -270,7 +250,6 @@ class BasePage {
    */
   async getCurrentUrl() {
     const url = await this.driver.getCurrentUrl();
-    console.log(`🌐 Current URL: ${url}`);
     return url;
   }
 
@@ -294,8 +273,6 @@ class BasePage {
    * @param {number} timeout - Timeout in milliseconds
    */
   async waitForElementToDisappear(selector, timeout = this.config.timeouts.explicit) {
-    console.log(`⏳ Waiting for element to disappear: ${selector}`);
-    
     await this.driver.wait(async () => {
       try {
         const elements = await this.driver.findElements(By.css(selector));
@@ -305,8 +282,7 @@ class BasePage {
       }
     }, timeout, `Element did not disappear within timeout: ${selector}`);
     
-    console.log(`✅ Element disappeared: ${selector}`);
-  }
+    }
 
   /**
    * Get element text
@@ -323,7 +299,6 @@ class BasePage {
     }
     
     const text = await element.getText();
-    console.log(`📝 Element text: ${text}`);
     return text;
   }
 
@@ -334,7 +309,7 @@ class BasePage {
    * @returns {any} Script return value
    */
   async executeScript(script, ...args) {
-    console.log(`🔧 Executing script: ${script.substring(0, 100)}...`);
+    }...`);
     return await this.driver.executeScript(script, ...args);
   }
 
@@ -353,8 +328,7 @@ class BasePage {
     
     await this.executeScript('arguments[0].scrollIntoView({behavior: "smooth", block: "center"});', element);
     await this.driver.sleep(1000); // Allow smooth scroll to complete
-    console.log('📜 Scrolled to element');
-  }
+    }
 }
 
 module.exports = BasePage;

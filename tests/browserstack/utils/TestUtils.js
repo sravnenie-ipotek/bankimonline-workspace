@@ -182,7 +182,6 @@ class TestUtils {
         }
         
         const delay = baseDelay * Math.pow(2, attempt);
-        console.log(`Retry attempt ${attempt + 1}/${maxRetries + 1} after ${delay}ms delay`);
         await this.sleep(delay);
       }
     }
@@ -209,7 +208,6 @@ class TestUtils {
     const dataFile = path.join(evidencePath, 'test-evidence.json');
     fs.writeFileSync(dataFile, JSON.stringify(evidence, null, 2));
     
-    console.log(`📁 Test evidence saved: ${evidencePath}`);
     return evidencePath;
   }
   
@@ -272,11 +270,8 @@ class TestUtils {
     };
     
     const icon = icons[status] || 'ℹ️';
-    console.log(`${icon} ${step}`);
-    
     if (data) {
-      console.log('  Data:', data);
-    }
+      }
   }
   
   /**

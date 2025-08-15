@@ -37,8 +37,6 @@ class DualPushTool {
   }
 
   async init() {
-    console.log('🚀 Initializing Dual-Push Tool');
-    
     // Verify we're in a git repository
     if (!fs.existsSync('.git')) {
       throw new Error('❌ Not in a git repository root. Please run from repository root.');
@@ -46,16 +44,13 @@ class DualPushTool {
 
     // Get current branch
     this.currentBranch = await this.getCurrentBranch();
-    console.log(`📍 Current branch: ${this.currentBranch}`);
-
     // Verify packages directory exists
     if (!fs.existsSync('packages')) {
       throw new Error('❌ packages/ directory not found. Ensure workspace structure is set up.');
     }
 
     if (this.verbose) {
-      console.log('✅ Initialization complete');
-    }
+      }
   }
 
   async getCurrentBranch() {
@@ -80,9 +75,6 @@ class DualPushTool {
         
         const hasChanges = stdout.trim().length > 0;
         if (hasChanges && !this.dryRun) {
-          console.log('⚠️  Working directory has uncommitted changes:');
-          console.log(stdout);
-          console.log('💡 Commit changes or use --dry-run flag');
           reject(new Error('Working directory not clean'));
           return;
         }
@@ -93,10 +85,9 @@ class DualPushTool {
   }
 
   async pushToWorkspace() {
-    console.log(`📡 Pushing to workspace repository (${this.workspaceRepo})...`);
+    ...`);
     
     if (this.dryRun) {
-      console.log(`🔍 DRY RUN: Would push to ${this.workspaceRepo} ${this.currentBranch}`);
       return true;
     }
 
@@ -109,9 +100,7 @@ class DualPushTool {
         }
         
         if (this.verbose) {
-          console.log('✅ Workspace push completed');
-          console.log(stdout);
-        }
+          }
         resolve(true);
       });
     });
@@ -124,10 +113,9 @@ class DualPushTool {
       throw new Error(`❌ Package directory not found: ${packagePath}`);
     }
 
-    console.log(`📦 Pushing ${packageName} (${packagePath}) to ${repoUrl}...`);
+    to ${repoUrl}...`);
 
     if (this.dryRun) {
-      console.log(`🔍 DRY RUN: Would push ${packagePath} to ${repoUrl} via git subtree`);
       return true;
     }
 
@@ -136,14 +124,12 @@ class DualPushTool {
     
     return new Promise((resolve, reject) => {
       if (this.verbose) {
-        console.log(`🔧 Executing: ${cmd}`);
-      }
+        }
 
       exec(cmd, { maxBuffer: 1024 * 1024 * 10 }, (error, stdout, stderr) => {
         if (error) {
           // Check if it's a "no new commits" error (not actually an error)
           if (stderr.includes('no new commits') || stderr.includes('already up to date')) {
-            console.log(`ℹ️  ${packageName}: No new commits to push`);
             resolve(true);
             return;
           }
@@ -153,9 +139,7 @@ class DualPushTool {
         }
         
         if (this.verbose) {
-          console.log(`✅ ${packageName} push completed`);
-          console.log(stdout);
-        }
+          }
         resolve(true);
       });
     });
@@ -166,20 +150,15 @@ class DualPushTool {
       throw new Error(`❌ Unknown package: ${packageName}. Available: ${Object.keys(REPO_MAPPINGS).join(', ')}`);
     }
 
-    console.log(`\n🎯 Pushing ${packageName} package...`);
-    
     // Step 1: Push to workspace (monorepo)
     await this.pushToWorkspace();
     
     // Step 2: Push to deployment repository using git subtree
     await this.pushPackageToRepo(packageName, REPO_MAPPINGS[packageName]);
     
-    console.log(`✅ ${packageName} dual-push completed successfully!`);
-  }
+    }
 
   async pushAllPackages() {
-    console.log('\n🎯 Pushing all packages...');
-    
     // Step 1: Push to workspace once
     await this.pushToWorkspace();
     
@@ -195,12 +174,9 @@ class DualPushTool {
       }
     }
     
-    console.log('✅ All packages dual-push completed successfully!');
-  }
+    }
 
   async validatePackages() {
-    console.log('🔍 Validating packages...');
-    
     const packages = Object.keys(PACKAGE_PATHS);
     const issues = [];
     
@@ -231,15 +207,13 @@ class DualPushTool {
     }
     
     if (issues.length > 0) {
-      console.log('\n⚠️  Package validation issues:');
-      issues.forEach(issue => console.log(`  ${issue}`));
+      issues.forEach(issue => );
       
       if (!this.dryRun) {
         throw new Error('Package validation failed. Use --dry-run to see issues without failing.');
       }
     } else {
-      console.log('✅ All packages valid');
-    }
+      }
   }
 }
 
@@ -255,15 +229,7 @@ async function main() {
   };
 
   if (!target || target === 'help' || target === '--help') {
-    console.log(`
-🚀 Dual-Push Tool for Bankimonline Hybrid Architecture
-
-Usage:
-  node tools/dual-push.js <target> [flags]
-
-Targets:
-  client    Push client package (packages/client → bankimonline-web)
-  server    Push server package (packages/server → bankimonline-api) 
+    server    Push server package (packages/server → bankimonline-api) 
   shared    Push shared package (packages/shared → bankimonline-shared)
   all       Push all packages to their respective repositories
   validate  Validate package structure without pushing
@@ -294,7 +260,6 @@ Repository Mappings:
 
     if (target === 'validate') {
       await tool.validatePackages();
-      console.log('🎉 Validation complete!');
       process.exit(0);
     }
 
@@ -306,9 +271,7 @@ Repository Mappings:
       throw new Error(`❌ Unknown target: ${target}. Use 'client', 'server', 'shared', 'all', or 'validate'`);
     }
 
-    console.log('🎉 Dual-push operation completed successfully!');
-    
-  } catch (error) {
+    } catch (error) {
     console.error(`\n💥 Dual-push failed:`, error.message);
     
     if (options.verbose) {

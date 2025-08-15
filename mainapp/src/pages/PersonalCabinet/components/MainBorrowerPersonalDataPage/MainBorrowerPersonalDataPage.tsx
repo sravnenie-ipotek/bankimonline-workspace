@@ -144,7 +144,6 @@ const MainBorrowerPersonalDataPage: React.FC<MainBorrowerPersonalDataPageProps> 
   }
 
   const handleSubmit = (values: Partial<FormTypes>) => {
-    console.log('Main Borrower Personal Data submitted:', values)
     navigate('/personal-cabinet')
   }
 

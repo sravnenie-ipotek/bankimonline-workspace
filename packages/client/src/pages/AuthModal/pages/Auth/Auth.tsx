@@ -49,8 +49,7 @@ const Auth = () => {
       }).unwrap()
       dispatch(updateRegistrationData(response.data))
       dispatch(setActiveModal('codeAuth'))
-      console.log(response)
-    } catch (error) {
+      } catch (error) {
       console.error(error)
     }
   }
@@ -63,8 +62,7 @@ const Auth = () => {
       }).unwrap()
       dispatch(updateRegistrationData(response.data))
       dispatch(setActiveModal('codeAuth'))
-      console.log(response)
-    } catch (error) {
+      } catch (error) {
       console.error(error)
     }
   }

@@ -65,15 +65,12 @@ async function captureEvidence(page: Page, testName: string, description: string
     fullPage: true
   });
   
-  console.log(`📷 Evidence captured: ${testName} - ${description}`);
   return filename;
 }
 
 test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
   
   test('💰 Business Logic: Property Value and LTV Calculations', async ({ page }) => {
-    console.log('🚀 Testing business logic with working selectors...');
-    
     await waitForMortgagePageLoad(page);
     await captureEvidence(page, 'business-logic-initial', 'Initial page load');
     
@@ -81,7 +78,6 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
     const propertyPriceInput = page.locator('[data-testid="property-price-input"]');
     await expect(propertyPriceInput).toBeVisible();
     
-    console.log('📝 Testing property value input...');
     await propertyPriceInput.clear();
     await propertyPriceInput.fill('1000000');
     
@@ -89,7 +85,6 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
     const initialFeeInput = page.locator('[data-testid="initial-fee-input"]');
     await expect(initialFeeInput).toBeVisible();
     
-    console.log('📝 Testing initial fee calculation...');
     await initialFeeInput.clear();
     await initialFeeInput.fill('250000'); // 25% down payment
     
@@ -98,23 +93,19 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
     
     // Verify loan amount calculation (should show financing amount)
     const bodyText = await page.textContent('body');
-    console.log('📊 Page contains financing information:', bodyText?.includes('מימון'));
-    console.log('📊 Page contains loan/financing amount:', bodyText?.includes('750,000') || bodyText?.includes('500,000'));
+    );
+    || bodyText?.includes('500,000'));
     
     // Test different down payment scenarios
-    console.log('📝 Testing 50% down payment scenario...');
     await initialFeeInput.clear();
     await initialFeeInput.fill('500000'); // 50% down payment
     await page.waitForTimeout(1000);
     
     await captureEvidence(page, 'business-logic-50-percent', '50% down payment calculation');
     
-    console.log('✅ Business logic validation completed');
-  });
+    });
 
   test('🌍 Hebrew RTL Implementation Validation', async ({ page }) => {
-    console.log('🚀 Testing Hebrew RTL implementation...');
-    
     await waitForMortgagePageLoad(page);
     
     // Verify Hebrew RTL attributes
@@ -122,15 +113,12 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
     await expect(htmlElement).toHaveAttribute('lang', 'he');
     await expect(htmlElement).toHaveAttribute('dir', 'rtl');
     
-    console.log('🔤 Verified HTML RTL attributes');
-    
     // Check Hebrew content is present
     const bodyText = await page.textContent('body');
     expect(bodyText).toContain('משכנתא'); // Hebrew for "mortgage"
     expect(bodyText).toContain('חישוב'); // Hebrew for "calculation"
     expect(bodyText).toContain('נכס');   // Hebrew for "property"
     
-    console.log('🔤 Verified Hebrew text content');
     await captureEvidence(page, 'hebrew-rtl-validation', 'Hebrew RTL implementation');
     
     // Test Hebrew form interactions
@@ -143,8 +131,7 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
     await page.waitForTimeout(1000);
     await captureEvidence(page, 'hebrew-rtl-interactions', 'Hebrew form interactions');
     
-    console.log('✅ Hebrew RTL validation completed');
-  });
+    });
 
   test('📱 Responsive Design Matrix Validation', async ({ page }) => {
     const viewports = [
@@ -154,7 +141,7 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
     ];
     
     for (const viewport of viewports) {
-      console.log(`📐 Testing ${viewport.name} (${viewport.width}x${viewport.height})`);
+      `);
       
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
       await waitForMortgagePageLoad(page);
@@ -178,20 +165,15 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
       }
       
       await captureEvidence(page, `responsive-${viewport.name}`, `${viewport.width}x${viewport.height} validation`);
-      console.log(`✅ ${viewport.name} responsive validation passed`);
-    }
+      }
   });
 
   test('⚡ Performance and Load Time Validation', async ({ page }) => {
-    console.log('🚀 Testing performance metrics...');
-    
     const startTime = Date.now();
     
     await waitForMortgagePageLoad(page);
     
     const loadTime = Date.now() - startTime;
-    console.log(`⏱️ Total page load time: ${loadTime}ms`);
-    
     // Performance should be under 10 seconds (generous for development)
     expect(loadTime, 'Page should load within 10 seconds in development').toBeLessThan(10000);
     
@@ -206,8 +188,6 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
       };
     });
     
-    console.log('📊 Performance Metrics:', performanceMetrics);
-    
     // Save performance data
     await fs.mkdir(`${EVIDENCE_DIR}/performance`, { recursive: true });
     await fs.writeFile(
@@ -216,24 +196,17 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
     );
     
     await captureEvidence(page, 'performance-validation', 'Performance metrics captured');
-    console.log('✅ Performance validation completed');
-  });
+    });
 
   test('♿ Accessibility and Keyboard Navigation', async ({ page }) => {
-    console.log('🚀 Testing accessibility features...');
-    
     await waitForMortgagePageLoad(page);
     
     // Test keyboard navigation
     await page.keyboard.press('Tab');
     const firstFocused = await page.evaluate(() => document.activeElement?.getAttribute('data-testid'));
-    console.log(`⌨️ First tab stop: ${firstFocused}`);
-    
     // Continue tabbing through form
     await page.keyboard.press('Tab');
     const secondFocused = await page.evaluate(() => document.activeElement?.getAttribute('data-testid'));
-    console.log(`⌨️ Second tab stop: ${secondFocused}`);
-    
     // Test form field accessibility
     const propertyPriceInput = page.locator('[data-testid="property-price-input"]');
     
@@ -248,12 +221,9 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
     expect(inputValue, 'Input should accept keyboard input').toBe('1200000');
     
     await captureEvidence(page, 'accessibility-validation', 'Accessibility features tested');
-    console.log('✅ Accessibility validation completed');
-  });
+    });
 
   test('🔄 Multi-Step Navigation and Data Persistence', async ({ page }) => {
-    console.log('🚀 Testing multi-step navigation...');
-    
     await waitForMortgagePageLoad(page);
     
     // Fill out form data
@@ -267,35 +237,25 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
     const nextButton = page.locator('button:has-text("הבא")');
     await expect(nextButton).toBeVisible();
     
-    console.log('📝 Attempting navigation to step 2...');
     await nextButton.click();
     
     // Wait for navigation (or check if validation prevents it)
     await page.waitForTimeout(2000);
     
     const currentUrl = page.url();
-    console.log(`📄 Current URL after next click: ${currentUrl}`);
-    
     await captureEvidence(page, 'navigation-attempt', 'After clicking next button');
     
     // Check if we progressed or if there are validation errors
     if (currentUrl.includes('/2')) {
-      console.log('✅ Successfully navigated to step 2');
-    } else {
-      console.log('⚠️ Stayed on step 1 - likely due to validation requirements');
-      
+      } else {
       // Check for validation messages
       const pageText = await page.textContent('body');
       const hasValidationText = pageText?.includes('שדה חובה') || pageText?.includes('required');
-      console.log('📝 Has validation messages:', hasValidationText);
-    }
+      }
     
-    console.log('✅ Navigation validation completed');
-  });
+    });
 
   test('🎨 Visual Design Consistency', async ({ page }) => {
-    console.log('🚀 Testing visual design consistency...');
-    
     await waitForMortgagePageLoad(page);
     
     // Test color scheme and typography
@@ -312,8 +272,6 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
       };
     });
     
-    console.log('🎨 Next button styles:', buttonStyles);
-    
     // Test input field consistency
     const propertyInput = page.locator('[data-testid="property-price-input"]');
     const inputStyles = await propertyInput.evaluate(el => {
@@ -327,11 +285,8 @@ test.describe('🏦 WORKING MORTGAGE CALCULATOR VALIDATION', () => {
       };
     });
     
-    console.log('📝 Input field styles:', inputStyles);
-    
     await captureEvidence(page, 'visual-design-consistency', 'Design system elements');
-    console.log('✅ Visual design validation completed');
-  });
+    });
 });
 
 // Generate comprehensive test report
@@ -381,8 +336,4 @@ test.afterAll(async () => {
     JSON.stringify(reportData, null, 2)
   );
 
-  console.log('\n📋 COMPREHENSIVE VALIDATION REPORT GENERATED');
-  console.log('📂 Evidence Location:', EVIDENCE_DIR);
-  console.log('🎯 Key Success: Mortgage calculator is functional with Hebrew RTL support');
-  console.log('🏆 Bulletproof Testing: All critical workflows validated with working selectors');
-});
+  });

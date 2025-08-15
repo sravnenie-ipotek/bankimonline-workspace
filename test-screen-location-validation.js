@@ -22,8 +22,6 @@ async function validateScreenLocationFix() {
   
   const results = [];
   
-  console.log('🔬 PHASE 3 VALIDATION: Screen Location Unification Testing\n');
-  
   // Test scenarios
   const testScenarios = [
     {
@@ -50,11 +48,7 @@ async function validateScreenLocationFix() {
   ];
   
   for (const scenario of testScenarios) {
-    console.log(`\n📊 Testing: ${scenario.name}`);
-    console.log(`URL: ${scenario.url}`);
-    console.log(`Expected: ${scenario.expectedScreenLocation} (${scenario.expectedDropdowns} dropdowns)`);
-    console.log(`Description: ${scenario.description}\n`);
-    
+    `);
     try {
       // Navigate to page
       await page.goto(scenario.url, { waitUntil: 'networkidle' });
@@ -76,8 +70,7 @@ async function validateScreenLocationFix() {
       
       // Look for screen location detection logs
       await page.evaluate(() => {
-        console.log(`🔍 Current URL: ${window.location.pathname}`);
-      });
+        });
       
       // Wait for components to render and API calls to complete
       await page.waitForTimeout(3000);
@@ -122,11 +115,7 @@ async function validateScreenLocationFix() {
       
       results.push(result);
       
-      console.log(`✅ Screenshot saved: ${screenshotPath}`);
-      console.log(`📡 API calls detected: ${apiCalls.length}`);
-      console.log(`🖥️ Components found: Main Source=${!!mainSourceDropdown}, Obligations=${!!obligationsDropdown}`);
-      
-    } catch (error) {
+      } catch (error) {
       console.error(`❌ Error testing ${scenario.name}:`, error.message);
       results.push({
         scenario: scenario.name,
@@ -155,13 +144,6 @@ async function validateScreenLocationFix() {
   const reportPath = path.join(screenshotDir, 'validation-report.json');
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
   
-  console.log('\n📋 VALIDATION SUMMARY:');
-  console.log(`Total Tests: ${report.summary.totalTests}`);
-  console.log(`Completed: ${report.summary.passed}`);
-  console.log(`Failed: ${report.summary.failed}`);
-  console.log(`\n📁 Report saved: ${reportPath}`);
-  console.log(`📁 Screenshots directory: ${screenshotDir}`);
-  
   await browser.close();
   return report;
 }
@@ -170,7 +152,6 @@ async function validateScreenLocationFix() {
 if (require.main === module) {
   validateScreenLocationFix()
     .then(report => {
-      console.log('\n🎉 Screen location validation completed!');
       process.exit(0);
     })
     .catch(error => {

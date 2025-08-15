@@ -36,8 +36,6 @@ const FirstStepForm = () => {
 
   const { values } = useFormikContext<FormTypes>()
 
-  console.log(query)
-
   return (
     <FormContainer>
       <FormCaption title={getContent('app.other_borrowers.step1.personal_data_title', 'Personal Data of Borrower') + ' ' + query} />

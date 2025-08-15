@@ -72,7 +72,6 @@ const NewPassword = () => {
       // validationSchemaOptions={{ showMultipleFieldErrors: true }}
       // validateOnMount
       onSubmit={(values) => {
-        console.log(values)
         dispatch(setActiveModal('codeNewPassword'))
       }}
     >

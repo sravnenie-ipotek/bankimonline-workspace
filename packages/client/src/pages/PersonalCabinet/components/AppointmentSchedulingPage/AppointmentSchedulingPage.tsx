@@ -146,8 +146,6 @@ export const AppointmentSchedulingPage: React.FC = () => {
   const handleScheduleMeeting = async (values: AppointmentFormValues) => {
     try {
       // In real app, this would call the appointment API
-      console.log('Scheduling appointment:', values)
-      
       // Mock API call
       await new Promise(resolve => setTimeout(resolve, 1000))
       

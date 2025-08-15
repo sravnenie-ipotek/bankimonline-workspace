@@ -20,7 +20,6 @@ class TranslationService {
     // Google Translate API (REST) using API key directly
     async translateWithGoogle(text, targetLang = 'ru') {
         if (!this.apiKey) {
-            console.log('⚠️  Google Translate API key not provided. Using fallback method.');
             return this.translateWithFallback(text);
         }
 
@@ -48,7 +47,6 @@ class TranslationService {
             if (!translation) throw new Error('Empty translation result');
             return translation;
         } catch (error) {
-            console.log(`❌ Google Translate REST error: ${error.message}`);
             return this.translateWithFallback(text);
         }
     }
@@ -80,7 +78,6 @@ class TranslationService {
     // DeepL API (alternative to Google Translate)
     async translateWithDeepL(text, targetLang = 'RU') {
         // Implementation would require DeepL API key
-        console.log('DeepL translation not implemented - requires API key');
         return this.translateWithFallback(text);
     }
 }
@@ -106,10 +103,7 @@ class TranslationProcessor {
             
             this.missingKeys = hebrewKeys.filter(key => !russianKeys.includes(key));
             
-            console.log(`📊 Loaded ${hebrewKeys.length} Hebrew keys and ${russianKeys.length} Russian keys`);
-            console.log(`🔍 Found ${this.missingKeys.length} missing translations`);
-            
-        } catch (error) {
+            } catch (error) {
             console.error('❌ Error loading translation files:', error.message);
             process.exit(1);
         }
@@ -125,14 +119,10 @@ class TranslationProcessor {
             }
         }
 
-        console.log(`🔄 Translating batch of ${batch.length} items...`);
-
         for (const item of batch) {
             try {
                 const translation = await this.translationService.translateWithGoogle(item.text);
                 this.translations[item.key] = translation;
-                console.log(`✅ ${item.key}: "${item.text}" → "${translation}"`);
-                
                 // Add delay to avoid rate limiting
                 await new Promise(resolve => setTimeout(resolve, 200));
                 
@@ -144,8 +134,6 @@ class TranslationProcessor {
     }
 
     async processAllTranslations() {
-        console.log('🚀 Starting translation process...\n');
-        
         // Process in batches
         for (let i = 0; i < this.missingKeys.length; i += config.batchSize) {
             const batch = this.missingKeys.slice(i, i + config.batchSize);
@@ -153,7 +141,6 @@ class TranslationProcessor {
             
             // Delay between batches
             if (i + config.batchSize < this.missingKeys.length) {
-                console.log(`⏳ Waiting ${config.delay}ms before next batch...\n`);
                 await new Promise(resolve => setTimeout(resolve, config.delay));
             }
         }
@@ -173,30 +160,23 @@ class TranslationProcessor {
         };
 
         fs.writeFileSync(config.outputFile, JSON.stringify(output, null, 2));
-        console.log(`\n💾 Results saved to ${config.outputFile}`);
-        
         // Also create a ready-to-use Russian translation file
         const updatedRussianData = { ...this.russianData, ...this.translations };
         const backupFile = config.russianFile.replace('.json', '.backup.json');
         fs.writeFileSync(backupFile, JSON.stringify(this.russianData, null, 2));
         fs.writeFileSync(config.russianFile, JSON.stringify(updatedRussianData, null, 2));
         
-        console.log(`💾 Updated Russian translation file (backup saved to ${backupFile})`);
+        `);
     }
 
     generateReport() {
-        console.log('\n📋 Translation Report:');
-        console.log('====================');
-        console.log(`Total missing keys: ${this.missingKeys.length}`);
-        console.log(`Successfully translated: ${Object.keys(this.translations).length}`);
-        console.log(`Failed translations: ${this.missingKeys.length - Object.keys(this.translations).length}`);
+        .length}`);
+        .length}`);
         
         if (Object.keys(this.translations).length > 0) {
-            console.log('\n✅ Sample translations:');
             const sampleKeys = Object.keys(this.translations).slice(0, 5);
             sampleKeys.forEach(key => {
-                console.log(`  ${key}: "${this.hebrewData[key]}" → "${this.translations[key]}"`);
-            });
+                });
         }
     }
 }
@@ -209,7 +189,6 @@ async function main() {
         await processor.loadData();
         
         if (processor.missingKeys.length === 0) {
-            console.log('🎉 No missing translations found!');
             return;
         }
         
@@ -217,13 +196,7 @@ async function main() {
         processor.saveResults();
         processor.generateReport();
         
-        console.log('\n🎯 Next steps:');
-        console.log('1. Review the generated translations in the output file');
-        console.log('2. Manually verify critical business terms');
-        console.log('3. Test the translations with Russian-speaking users');
-        console.log('4. Consider professional review for legal/financial content');
-        
-    } catch (error) {
+        } catch (error) {
         console.error('❌ Translation process failed:', error.message);
         process.exit(1);
     }

@@ -7,8 +7,6 @@ const contentPool = new Pool({
 
 async function createCooperationMissingKeys() {
   try {
-    console.log('=== PHASE 9: CREATING MISSING COOPERATION KEYS ===\n');
-    
     // Only 2 missing keys identified in database verification
     const missingKeys = [
       {
@@ -35,14 +33,10 @@ async function createCooperationMissingKeys() {
       }
     ];
     
-    console.log(`Creating ${missingKeys.length} content items with ${missingKeys.length * 3} translations\n`);
-    
     let createdItems = 0;
     let createdTranslations = 0;
     
     for (const item of missingKeys) {
-      console.log(`🔨 Creating: ${item.key}`);
-      
       try {
         // 1. Create content_item
         const itemResult = await contentPool.query(`
@@ -56,7 +50,7 @@ async function createCooperationMissingKeys() {
         `, [item.key, item.screen_location, item.component_type, item.category]);
         
         const contentItemId = itemResult.rows[0].id;
-        console.log(`   ✅ Content item created (ID: ${contentItemId})`);
+        `);
         createdItems++;
         
         // 2. Create translations for all languages
@@ -73,31 +67,22 @@ async function createCooperationMissingKeys() {
             RETURNING id
           `, [contentItemId, lang, translation]);
           
-          console.log(`   ✅ ${lang.toUpperCase()}: "${translation}"`);
+          }: "${translation}"`);
           createdTranslations++;
         }
         
-        console.log('');
-        
-      } catch (error) {
+        } catch (error) {
         console.error(`   ❌ Error creating ${item.key}:`, error.message);
       }
     }
     
-    console.log('=== CREATION SUMMARY ===');
-    console.log(`✅ Content items created: ${createdItems}/${missingKeys.length}`);
-    console.log(`✅ Translations created: ${createdTranslations}/${missingKeys.length * 3}`);
-    
     if (createdItems === missingKeys.length && createdTranslations === missingKeys.length * 3) {
-      console.log(`\n🎉 SUCCESS: All missing cooperation keys created!`);
-      console.log(`📊 Database coverage: 100% (13/13 keys)`);
-      console.log(`⚡ Next step: Remove t() fallbacks from Cooperation.tsx`);
+      `);
+      fallbacks from Cooperation.tsx`);
     } else {
-      console.log(`\n⚠️ Partial success - some entries may have failed`);
-    }
+      }
     
     // Verify final state
-    console.log(`\n=== FINAL VERIFICATION ===`);
     const verifyResult = await contentPool.query(`
       SELECT ci.content_key, COUNT(ct.id) as translation_count
       FROM content_items ci
@@ -109,8 +94,7 @@ async function createCooperationMissingKeys() {
     
     verifyResult.rows.forEach(row => {
       const status = row.translation_count === 3 ? '✅' : '⚠️';
-      console.log(`${status} ${row.content_key}: ${row.translation_count}/3 translations`);
-    });
+      });
     
   } catch (error) {
     console.error('Database creation failed:', error.message);

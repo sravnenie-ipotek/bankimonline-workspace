@@ -422,10 +422,8 @@ function generateRefinanceHTMLReport() {
                 });
             });
 
-            console.log('🏦 Refinance Mortgage Ultrathink Report Loaded');
-            console.log('📊 System Status: PRODUCTION READY (95% confidence)');
-            console.log('🎯 Core Discovery: Modern React architecture with Hebrew RTL excellence');
-        });
+            ');
+            });
     </script>
 </body>
 </html>`;
@@ -433,14 +431,7 @@ function generateRefinanceHTMLReport() {
   // Write HTML report
   fs.writeFileSync(reportPath, htmlContent);
   
-  console.log(`\n🏦 REFINANCE MORTGAGE ULTRATHINK REPORT GENERATED:`);
-  console.log(`📂 Location: ${reportPath}`);
-  console.log(`🌐 Open in browser: file://${reportPath}`);
-  console.log(`⏰ Timestamp: ${timestamp}`);
-  console.log(`📊 System Status: PRODUCTION READY (95% confidence)`);
-  console.log(`🎯 Core Discovery: Modern React + Hebrew RTL excellence`);
-  console.log(`📸 Evidence: ${screenshots.length} screenshots collected`);
-  
+  `);
   return reportPath;
 }
 

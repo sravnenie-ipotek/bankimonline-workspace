@@ -37,26 +37,26 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
   const [errors, setErrors] = useState<FormErrors>({})
 
   const validateName = (name: string): string | undefined => {
-    console.log('🔍 Hebrew validation - Input:', name, 'Length:', name.length) // Debug log
+    // Debug log
     
     if (!name.trim()) {
-      console.log('❌ Name is empty') // Debug log
+      // Debug log
       return t('name_required')
     }
     if (!/^[א-ת\s]+$/.test(name)) {
-      console.log('❌ Name contains non-Hebrew characters:', name) // Debug log
+      // Debug log
       return t('name_letters_only')
     }
     if (name.trim().length < 2) {
-      console.log('❌ Name too short:', name.trim().length) // Debug log
+      .length) // Debug log
       return t('name_min_length')
     }
-    console.log('✅ Name validation passed') // Debug log
+    // Debug log
     return undefined
   }
 
   const validatePhone = (phone: string): string | undefined => {
-    console.log('Validating phone:', phone, 'Length:', phone.length) // Debug log
+    // Debug log
     
     if (!phone.trim()) {
       return t('phone_required')
@@ -65,16 +65,16 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
     // Israeli phone number validation: must be +972 followed by 9 digits
     // The react-phone-input-2 returns phone in format like "972544123456"
     if (!phone.startsWith('972')) {
-      console.log('Phone does not start with 972') // Debug log
+      // Debug log
       return t('phone_format_israel_error')
     }
     
     // Remove country code and check if we have exactly 9 more digits
     const phoneWithoutCountryCode = phone.substring(3)
-    console.log('Phone without country code:', phoneWithoutCountryCode, 'Length:', phoneWithoutCountryCode.length) // Debug log
+    // Debug log
     
     if (phoneWithoutCountryCode.length !== 9 || !/^\d{9}$/.test(phoneWithoutCountryCode)) {
-      console.log('Invalid phone format - needs exactly 9 digits after 972') // Debug log
+      // Debug log
       return t('phone_format_israel_error')
     }
     
@@ -91,7 +91,7 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
   }
 
   const handlePhoneChange = (phone: string) => {
-    console.log('Phone changed:', phone) // Debug log
+    // Debug log
     setFormData(prev => ({ ...prev, phone }))
     
     // Always validate on phone change for real-time validation
@@ -112,8 +112,6 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
     }
 
     try {
-      console.log('🔵 Hebrew Modal - handleContinue called with:', { name: formData.name, phone: formData.phone })
-      
       // Format phone number with + prefix if needed
       let phoneNumber = formData.phone
       if (!phoneNumber.startsWith('+')) {
@@ -129,22 +127,17 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
         timestamp: new Date().toISOString()
       }
       
-      console.log('🟢 Hebrew Modal - Saving user data to USER_DATA:', userData)
-      
       // Save data to localStorage with USER_DATA key (same as registration flow)
       localStorage.setItem('USER_DATA', JSON.stringify(userData))
       
       // Verify localStorage save
       const savedData = localStorage.getItem('USER_DATA')
-      console.log('🟢 Hebrew Modal - Verified localStorage save:', savedData)
-      
       // Update Redux state with user data
       const loginData = {
         nameSurname: formData.name,
         phoneNumber: phoneNumber
       }
       
-      console.log('🟢 Hebrew Modal - Updating Redux state with:', loginData)
       dispatch(initializeUserData(loginData))
       dispatch(setIsLogin()) // Mark user as logged in
 

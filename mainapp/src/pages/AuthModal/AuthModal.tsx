@@ -95,11 +95,7 @@ const AuthModal = () => {
         }
       }
       
-      console.log('🔵 AuthModal - SMS verification attempt:', { 
-        code: values.code, 
-        phoneNumber,
-        registrationDataPhone: registrationData.mobile_number,
-        userData: userData ? JSON.parse(userData) : null
+      : null
       })
       
       if (!phoneNumber) {
@@ -112,16 +108,13 @@ const AuthModal = () => {
         mobile_number: phoneNumber,
       }).unwrap()
       
-      console.log('🟢 AuthModal - SMS verification successful:', response)
-      
       // Check if we have existing user data from phone verification modal
       const existingUserData = localStorage.getItem(USER_DATA)
       let preservedUserData = null
       if (existingUserData) {
         try {
           preservedUserData = JSON.parse(existingUserData)
-          console.log('🔍 AuthModal - Found existing user data:', preservedUserData)
-        } catch (error) {
+          } catch (error) {
           console.error('Error parsing existing user data:', error)
         }
       }
@@ -150,7 +143,6 @@ const AuthModal = () => {
         phoneNumber: phoneNumber
       }
       
-      console.log('🟢 AuthModal - Initializing user data:', userDataForRedux)
       dispatch(initializeUserData(userDataForRedux))
       dispatch(setIsLogin())
       handleClose()
@@ -172,7 +164,7 @@ const AuthModal = () => {
       if (existingUserData) {
         try {
           preservedUserData = JSON.parse(existingUserData)
-          console.log('🔍 AuthModal - Found existing user data (email):', preservedUserData)
+          :', preservedUserData)
         } catch (error) {
           console.error('Error parsing existing user data:', error)
         }
@@ -195,7 +187,7 @@ const AuthModal = () => {
         phoneNumber: registrationData.mobile_number
       }
       
-      console.log('🟢 AuthModal - Initializing user data (email):', userDataForRedux)
+      :', userDataForRedux)
       dispatch(initializeUserData(userDataForRedux))
       dispatch(setIsLogin())
       handleClose()

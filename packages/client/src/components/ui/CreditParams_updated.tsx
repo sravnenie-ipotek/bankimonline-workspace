@@ -41,8 +41,7 @@ export const CreditParams_updated: FC<TypesValues> = ({
 
   // const handleChangePeriod = (value: number | null) => {
   //   // setActiveField('period')
-  //   // console.log('активный')
-  //   setFieldValue('period', value)
+  //   // //   setFieldValue('period', value)
   // }
 
   // const handleChangeMonthlyPayment = (value: number | null) => {

@@ -36,8 +36,7 @@ const colors = {
 };
 
 function log(color, message) {
-    console.log(`${colors[color]}${message}${colors.reset}`);
-}
+    }
 
 function startServer(serverConfig) {
     return new Promise((resolve, reject) => {

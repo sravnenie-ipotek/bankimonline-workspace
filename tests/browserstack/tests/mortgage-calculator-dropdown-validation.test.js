@@ -23,8 +23,6 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
   const testBrowser = process.env.BROWSER || 'chrome-latest';
   
   before(async function() {
-    console.log('🎯 Starting specialized dropdown validation testing...');
-    
     const capabilities = getCapability(testBrowser);
     capabilities['bstack:options'].sessionName = `Dropdown Validation Specialist - ${testBrowser}`;
     
@@ -65,8 +63,6 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
   describe('City Dropdown Comprehensive Testing', function() {
     
     it('should validate all city dropdown options', async function() {
-      console.log('🏙️ Testing city dropdown comprehensively...');
-      
       const cityOptions = await step1Page.getDropdownOptions('city');
       const cityTestResults = await step1Page.testAllDropdownOptions('city');
       
@@ -84,12 +80,9 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       expect(cityOptions.length).to.be.greaterThan(0);
       expect(validationResults.successfulSelections).to.be.greaterThan(0);
       
-      console.log(`✅ City dropdown: ${validationResults.successfulSelections}/${cityOptions.length} options validated`);
-    });
+      });
     
     it('should test city dropdown search functionality', async function() {
-      console.log('🔍 Testing city dropdown search...');
-      
       const searchTests = [
         'תל', // Hebrew search
         'ירו', // Hebrew partial
@@ -103,7 +96,6 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       for (const searchTerm of searchTests) {
         try {
           // This would need to be implemented based on the actual search functionality
-          console.log(`Searching for: ${searchTerm}`);
           // TODO: Implement search testing when search functionality is available
           searchResults[searchTerm] = { tested: true, found: true };
         } catch (error) {
@@ -112,15 +104,12 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       }
       
       reporter.addData('cityDropdownSearchResults', searchResults);
-      console.log('✅ City dropdown search functionality tested');
-    });
+      });
   });
   
   describe('When Needed Dropdown Testing', function() {
     
     it('should validate all "when needed" options', async function() {
-      console.log('⏰ Testing when needed dropdown...');
-      
       const options = await step1Page.getDropdownOptions('whenNeeded');
       const testResults = await step1Page.testAllDropdownOptions('whenNeeded');
       
@@ -134,12 +123,9 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       reporter.addData('whenNeededDropdownValidation', results);
       
       expect(options.length).to.be.greaterThan(0);
-      console.log(`✅ When needed dropdown: ${results.successfulTests}/${options.length} options validated`);
-    });
+      });
     
     it('should test date-related option logic', async function() {
-      console.log('📅 Testing date-related logic in when needed dropdown...');
-      
       // Test typical options that might be present
       const dateOptions = [
         'מיד',
@@ -155,11 +141,9 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
         try {
           await step1Page.selectWhenNeeded(option);
           dateTestResults.push({ option, success: true });
-          console.log(`✅ Date option "${option}" selected successfully`);
-        } catch (error) {
+          } catch (error) {
           dateTestResults.push({ option, success: false, error: error.message });
-          console.log(`⚠️ Date option "${option}" not found or not selectable`);
-        }
+          }
       }
       
       reporter.addData('dateOptionsValidation', dateTestResults);
@@ -169,8 +153,6 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
   describe('Property Type Dropdown Testing', function() {
     
     it('should validate all property type options', async function() {
-      console.log('🏘️ Testing property type dropdown...');
-      
       const options = await step1Page.getDropdownOptions('propertyType');
       const testResults = await step1Page.testAllDropdownOptions('propertyType');
       
@@ -184,15 +166,12 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       reporter.addData('propertyTypeDropdownValidation', results);
       
       expect(options.length).to.be.greaterThan(0);
-      console.log(`✅ Property type dropdown: ${results.successfulTests}/${options.length} options validated`);
-    });
+      });
   });
   
   describe('First Home Dropdown Testing', function() {
     
     it('should validate first home options', async function() {
-      console.log('🏠 Testing first home dropdown...');
-      
       const options = await step1Page.getDropdownOptions('firstHome');
       const testResults = await step1Page.testAllDropdownOptions('firstHome');
       
@@ -206,12 +185,9 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       reporter.addData('firstHomeDropdownValidation', results);
       
       expect(options.length).to.be.greaterThan(0);
-      console.log(`✅ First home dropdown: ${results.successfulTests}/${options.length} options validated`);
-    });
+      });
     
     it('should test boolean nature of first home options', async function() {
-      console.log('✅❌ Testing boolean logic of first home dropdown...');
-      
       const expectedOptions = ['כן', 'לא', 'Yes', 'No'];
       const actualOptions = await step1Page.getDropdownOptions('firstHome');
       
@@ -226,15 +202,12 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       reporter.addData('firstHomeBooleanAnalysis', booleanAnalysis);
       
       expect(actualOptions.length).to.be.at.least(1);
-      console.log('✅ First home boolean options analyzed');
-    });
+      });
   });
   
   describe('Property Ownership Dropdown Critical Testing', function() {
     
     it('should validate all property ownership options with LTV impact', async function() {
-      console.log('🏛️ Testing property ownership dropdown with LTV calculations...');
-      
       const options = await step1Page.getDropdownOptions('propertyOwnership');
       const testResults = [];
       
@@ -244,8 +217,6 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       
       for (const option of options) {
         try {
-          console.log(`Testing property ownership: ${option}`);
-          
           await step1Page.selectPropertyOwnership(option);
           await driver.sleep(2000); // Wait for LTV calculation
           
@@ -306,12 +277,9 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       reporter.addData('propertyOwnershipLtvValidation', ownershipResults);
       
       expect(options.length).to.be.greaterThan(0);
-      console.log(`✅ Property ownership dropdown: ${ownershipResults.successfulTests}/${options.length} options with LTV validation`);
-    });
+      });
     
     it('should validate expected LTV ratios for property ownership', async function() {
-      console.log('📊 Validating expected LTV ratios...');
-      
       const expectedLtvRatios = {
         'אין לי נכס': 75,    // No property: 75% LTV
         'יש לי נכס': 50,     // Has property: 50% LTV  
@@ -361,15 +329,13 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       reporter.addData('ltvRatioValidation', ltvValidationResults);
       
       const validLtvTests = ltvValidationResults.filter(r => r.ltvLogicValid).length;
-      console.log(`✅ LTV ratio validation: ${validLtvTests}/${Object.keys(expectedLtvRatios).length} ratios behave correctly`);
+      .length} ratios behave correctly`);
     });
   });
   
   describe('Cross-Dropdown Dependencies', function() {
     
     it('should test dropdown interdependencies', async function() {
-      console.log('🔗 Testing dropdown interdependencies...');
-      
       const dependencyTests = [
         {
           name: 'Property ownership affects initial payment limits',
@@ -412,15 +378,12 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
       reporter.addData('dropdownDependencyResults', dependencyResults);
       
       const successfulTests = dependencyResults.filter(r => r.success).length;
-      console.log(`✅ Dropdown dependencies: ${successfulTests}/${dependencyTests.length} tests passed`);
-    });
+      });
   });
   
   describe('Dropdown Performance and Responsiveness', function() {
     
     it('should measure dropdown response times', async function() {
-      console.log('⚡ Measuring dropdown performance...');
-      
       const dropdownTypes = ['city', 'whenNeeded', 'propertyType', 'firstHome', 'propertyOwnership'];
       const performanceResults = {};
       
@@ -453,7 +416,7 @@ describe('Mortgage Calculator - Dropdown Validation Specialist', function() {
         .reduce((sum, r) => sum + r.responseTime, 0) / 
         Object.values(performanceResults).filter(r => r.status === 'success').length;
       
-      console.log(`✅ Dropdown performance measured. Average response time: ${averageResponseTime.toFixed(0)}ms`);
+      }ms`);
     });
   });
 });

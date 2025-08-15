@@ -20,12 +20,8 @@ const pool = new Pool({
 });
 
 async function createMortgageDropdownContent() {
-    console.log('🚀 Creating Missing Mortgage Dropdown Content...');
-    
     try {
         // 1. CREATE "WHEN NEEDED" DROPDOWN CONTENT
-        console.log('\n📝 Creating "when needed" dropdown content...');
-        
         // Insert content items for "when needed" dropdown
         const whenNeededItems = [
             {
@@ -75,8 +71,6 @@ async function createMortgageDropdownContent() {
         }
         
         // 2. CREATE "FIRST HOME" DROPDOWN CONTENT
-        console.log('📝 Creating "first home" dropdown content...');
-        
         const firstHomeItems = [
             {
                 content_key: 'calculate_mortgage_first_home',
@@ -119,8 +113,6 @@ async function createMortgageDropdownContent() {
         }
         
         // 3. CREATE TRANSLATIONS
-        console.log('🌐 Creating translations for all languages...');
-        
         // Get content item IDs
         const contentItems = await pool.query(`
             SELECT id, content_key 
@@ -196,8 +188,6 @@ async function createMortgageDropdownContent() {
         }
         
         // 4. VERIFICATION
-        console.log('✅ Verifying created content...');
-        
         const verification = await pool.query(`
             SELECT ci.content_key, ci.component_type, ct.language_code, ct.content_value
             FROM content_items ci
@@ -208,21 +198,15 @@ async function createMortgageDropdownContent() {
             ORDER BY ci.content_key, ct.language_code
         `);
         
-        console.log(`\n📊 Created ${verification.rows.length} translations:`);
-        
         let currentKey = '';
         verification.rows.forEach(row => {
             if (row.content_key !== currentKey) {
                 currentKey = row.content_key;
-                console.log(`\n🔑 ${row.content_key} (${row.component_type}):`);
+                :`);
             }
-            console.log(`  ${row.language_code}: ${row.content_value}`);
-        });
+            });
         
-        console.log('\n🎉 SUCCESS! Mortgage dropdown content created successfully.');
-        console.log('Hebrew dropdowns should now appear in both development and production.');
-        
-    } catch (error) {
+        } catch (error) {
         console.error('❌ Error creating mortgage dropdown content:', error.message);
         throw error;
     } finally {

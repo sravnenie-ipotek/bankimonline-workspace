@@ -29,14 +29,13 @@ const SideNavigationDemo: React.FC = () => {
 
   // Handle navigation actions
   const handleNavigate = (path: string, id: string) => {
-    console.log(`Navigating to: ${path} (${id})`)
+    `)
     setCurrentPage(id)
     // In a real app, you would use navigate(path) here
   }
 
   // Handle logout action
   const handleLogout = () => {
-    console.log('Logout triggered - would open logout modal in real app')
     alert('Logout functionality triggered!')
   }
 

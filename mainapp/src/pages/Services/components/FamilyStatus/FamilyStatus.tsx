@@ -20,8 +20,7 @@ const FamilyStatus = () => {
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
-    console.log('🔄 Loading family status dropdown options...')
-  }
+    }
 
   if (dropdownData.error) {
     console.warn('❌ Family status dropdown error:', dropdownData.error)

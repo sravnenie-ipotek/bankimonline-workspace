@@ -3,18 +3,18 @@ import { test, expect } from '@playwright/test';
 test.describe('Credit Calculator Step 3 Investigation', () => {
   test('investigate step 3 form issues', async ({ page }) => {
     // Enable console logging
-    page.on('console', msg => console.log('CONSOLE:', msg.type(), msg.text()));
+    page.on('console', msg => , msg.text()));
     
     // Monitor network requests
     page.on('request', request => {
       if (request.url().includes('api')) {
-        console.log('REQUEST:', request.method(), request.url());
+        , request.url());
       }
     });
     
     page.on('response', response => {
       if (response.url().includes('api')) {
-        console.log('RESPONSE:', response.status(), response.url());
+        , response.url());
       }
     });
     
@@ -28,27 +28,19 @@ test.describe('Credit Calculator Step 3 Investigation', () => {
     await page.screenshot({ path: 'step3-initial.png', fullPage: true });
     
     // Check form elements
-    console.log('=== FORM ELEMENTS ===');
-    
     // Look for dropdowns
     const dropdowns = await page.locator('select, [role="combobox"], .dropdown').all();
-    console.log('Found dropdowns:', dropdowns.length);
-    
     for (let i = 0; i < dropdowns.length; i++) {
       const dropdown = dropdowns[i];
       const text = await dropdown.textContent();
       const value = await dropdown.getAttribute('value');
-      console.log(`Dropdown ${i}:`, { text, value });
-    }
+      }
     
     // Check for error messages
     const errors = await page.locator('.error, [class*="error"], .invalid').all();
-    console.log('Found error elements:', errors.length);
-    
     for (let i = 0; i < errors.length; i++) {
       const errorText = await errors[i].textContent();
-      console.log(`Error ${i}:`, errorText);
-    }
+      }
     
     // Check Redux state via window object
     const reduxState = await page.evaluate(() => {
@@ -57,7 +49,7 @@ test.describe('Credit Calculator Step 3 Investigation', () => {
         'Redux DevTools not available';
     });
     
-    console.log('=== REDUX STATE ===', JSON.stringify(reduxState, null, 2));
+    );
     
     // Check localStorage
     const localStorage = await page.evaluate(() => {
@@ -69,7 +61,7 @@ test.describe('Credit Calculator Step 3 Investigation', () => {
       return items;
     });
     
-    console.log('=== LOCAL STORAGE ===', JSON.stringify(localStorage, null, 2));
+    );
     
     // Check API endpoints manually
     const apiTests = [
@@ -81,14 +73,13 @@ test.describe('Credit Calculator Step 3 Investigation', () => {
     for (const apiUrl of apiTests) {
       try {
         const response = await page.request.get(apiUrl);
-        console.log(`API Test ${apiUrl}:`, response.status());
+        );
         if (response.ok()) {
           const data = await response.json();
-          console.log(`API Data length:`, Array.isArray(data) ? data.length : Object.keys(data).length);
+          ? data.length : Object.keys(data).length);
         }
       } catch (error) {
-        console.log(`API Error ${apiUrl}:`, error.message);
-      }
+        }
     }
   });
 });

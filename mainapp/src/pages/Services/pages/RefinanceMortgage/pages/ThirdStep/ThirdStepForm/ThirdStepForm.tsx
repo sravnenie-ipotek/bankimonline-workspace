@@ -79,12 +79,7 @@ const ThirdStepForm = () => {
   const incomeSourceKey = mainSourceOfIncome || ''
 
   // Debug logging for conditional field rendering
-  console.log('🔍 RefinanceMortgage ThirdStepForm debug:', {
-    mainSourceOfIncome,
-    incomeSourceKey,
-    componentsByIncomeSource,
-    hasComponent: !!componentsByIncomeSource[incomeSourceKey],
-    componentKeys: Object.keys(componentsByIncomeSource),
+  ,
     allFormValues: values
   })
 

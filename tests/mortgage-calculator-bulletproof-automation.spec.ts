@@ -113,8 +113,6 @@ test.describe('📋 PHASE 1: Business Logic Validation', () => {
     
     for (const scenario of PROPERTY_OWNERSHIP_SCENARIOS) {
       await test.step(`Testing ${scenario.option} - ${scenario.maxLTV}% LTV`, async () => {
-        console.log(`🔍 Testing: ${scenario.option}`);
-        
         // Navigate to Step 1
         await page.goto(`${BASE_URL}${MORTGAGE_BASE}/1`);
         await page.waitForLoadState('networkidle');
@@ -149,8 +147,6 @@ test.describe('📋 PHASE 1: Business Logic Validation', () => {
         await evidence.screenshot(page, `step1-calculated-${scenario.maxLTV}ltv`);
         
         const displayedLoanAmount = await loanAmountDisplay.textContent();
-        console.log(`💰 Expected Loan: ${scenario.expectedMaxLoan}, Displayed: ${displayedLoanAmount}`);
-        
         // Verify loan amount is correct (within tolerance)
         const numericLoanAmount = parseInt(displayedLoanAmount?.replace(/[^\d]/g, '') || '0');
         expect(Math.abs(numericLoanAmount - scenario.expectedMaxLoan)).toBeLessThan(1000);
@@ -165,8 +161,7 @@ test.describe('📋 PHASE 1: Business Logic Validation', () => {
         // Should not exceed maximum loan amount
         expect(boundaryNumeric).toBeLessThanOrEqual(scenario.expectedMaxLoan + 1000);
         
-        console.log(`✅ Passed: ${scenario.option} LTV validation`);
-      });
+        });
     }
   });
 
@@ -209,14 +204,13 @@ test.describe('📋 PHASE 1: Business Logic Validation', () => {
     const displayedPayment = await paymentDisplay.textContent();
     const numericPayment = parseFloat(displayedPayment?.replace(/[^\d.]/g, '') || '0');
     
-    console.log(`🧮 Expected Payment: ${expectedPayment.toFixed(2)}, Displayed: ${numericPayment}`);
+    }, Displayed: ${numericPayment}`);
     
     // Allow 10 NIS tolerance for calculation differences
     expect(Math.abs(numericPayment - expectedPayment)).toBeLessThan(10);
     
     await evidence.screenshot(page, 'payment-calculation-verified');
-    console.log('✅ Passed: Payment calculation accuracy');
-  });
+    });
 });
 
 test.describe('🎨 PHASE 2: Figma Design Comparison', () => {
@@ -230,8 +224,6 @@ test.describe('🎨 PHASE 2: Figma Design Comparison', () => {
     // Test color palette
     const continueButton = page.locator('[data-testid="continue-button"], .continue-btn, button[type="submit"]').first();
     const buttonColor = await continueButton.evaluate(el => getComputedStyle(el).backgroundColor);
-    console.log(`🎨 Continue Button Color: ${buttonColor}`);
-    
     // Take design comparison screenshots
     await evidence.screenshot(page, 'design-system-colors');
     
@@ -239,8 +231,7 @@ test.describe('🎨 PHASE 2: Figma Design Comparison', () => {
     const headings = await page.locator('h1, h2, h3').all();
     for (let i = 0; i < headings.length; i++) {
       const fontSize = await headings[i].evaluate(el => getComputedStyle(el).fontSize);
-      console.log(`📝 H${i+1} Font Size: ${fontSize}`);
-    }
+      }
     
     await evidence.screenshot(page, 'design-system-typography');
     
@@ -252,12 +243,10 @@ test.describe('🎨 PHASE 2: Figma Design Comparison', () => {
         padding: getComputedStyle(el).padding,
         fontSize: getComputedStyle(el).fontSize
       }));
-      console.log('📝 Field Styles:', fieldStyles);
-    }
+      }
     
     await evidence.screenshot(page, 'design-system-forms');
-    console.log('✅ Passed: Visual design system validation');
-  });
+    });
 
   VIEWPORTS.forEach(viewport => {
     test(`📱 Visual Comparison - ${viewport.name} (${viewport.width}x${viewport.height})`, async ({ page }, testInfo) => {
@@ -285,8 +274,7 @@ test.describe('🎨 PHASE 2: Figma Design Comparison', () => {
         }
       }
       
-      console.log(`✅ Captured: ${viewport.name} visual comparison`);
-    });
+      });
   });
 });
 
@@ -317,8 +305,6 @@ test.describe('🌍 PHASE 3: Multi-Language RTL Testing', () => {
         
         // Verify Hebrew font loading
         const bodyFontFamily = await page.evaluate(() => getComputedStyle(document.body).fontFamily);
-        console.log(`🔤 Hebrew Font Family: ${bodyFontFamily}`);
-        
         await evidence.screenshot(page, `hebrew-rtl-layout`);
       }
       
@@ -340,7 +326,7 @@ test.describe('🌍 PHASE 3: Multi-Language RTL Testing', () => {
       }
       
       await evidence.screenshot(page, `language-${lang}-dropdown-options`);
-      console.log(`✅ Passed: ${lang.toUpperCase()} language validation`);
+      } language validation`);
     });
   });
 });
@@ -377,8 +363,7 @@ test.describe('📱 PHASE 4: Responsive Design Validation', () => {
       expect(sliderWidth?.width).toBeGreaterThan(100); // Should have reasonable width
       
       await evidence.screenshot(page, `responsive-${viewport.name}-validation`);
-      console.log(`✅ Passed: ${viewport.name} responsive validation`);
-    });
+      });
   });
 });
 
@@ -392,18 +377,15 @@ test.describe('⚡ PHASE 5: Performance & Accessibility Testing', () => {
     await page.waitForLoadState('networkidle');
     const loadTime = Date.now() - startTime;
     
-    console.log(`⏱️ Page Load Time: ${loadTime}ms`);
     expect(loadTime, 'Page should load within 5 seconds').toBeLessThan(5000);
     
     // Record detailed performance metrics
     const metrics = await evidence.recordPerformance(page, 'step1-load-performance');
     
-    console.log('📊 Performance Metrics:', metrics);
     expect(metrics.domContentLoaded, 'DOM Content Loaded should be under 3 seconds').toBeLessThan(3000);
     
     await evidence.screenshot(page, 'performance-validation-complete');
-    console.log('✅ Passed: Load performance validation');
-  });
+    });
 
   test('♿ Accessibility Compliance (WCAG 2.1 AA)', async ({ page }, testInfo) => {
     const evidence = new EvidenceCollector(testInfo);
@@ -414,8 +396,6 @@ test.describe('⚡ PHASE 5: Performance & Accessibility Testing', () => {
     // Test keyboard navigation
     await page.keyboard.press('Tab');
     let focusedElement = await page.evaluate(() => document.activeElement?.getAttribute('data-testid'));
-    console.log(`⌨️ First Tab: ${focusedElement}`);
-    
     // Continue tabbing through form
     const tabbableElements = [];
     for (let i = 0; i < 10; i++) {
@@ -428,15 +408,12 @@ test.describe('⚡ PHASE 5: Performance & Accessibility Testing', () => {
       tabbableElements.push(element);
     }
     
-    console.log('⌨️ Tab Order:', tabbableElements);
-    
     // Check ARIA attributes
     const inputs = await page.locator('input[required]').all();
     for (const input of inputs) {
       const ariaRequired = await input.getAttribute('aria-required');
       const ariaLabel = await input.getAttribute('aria-label');
-      console.log(`🏷️ Input ARIA - Required: ${ariaRequired}, Label: ${ariaLabel}`);
-    }
+      }
     
     // Test color contrast (basic check)
     const contrastElements = await page.locator('button, input, label').all();
@@ -446,12 +423,10 @@ test.describe('⚡ PHASE 5: Performance & Accessibility Testing', () => {
         backgroundColor: getComputedStyle(el).backgroundColor,
         fontSize: getComputedStyle(el).fontSize
       }));
-      console.log('🎨 Contrast Check:', styles);
-    }
+      }
     
     await evidence.screenshot(page, 'accessibility-validation');
-    console.log('✅ Passed: Accessibility compliance testing');
-  });
+    });
 });
 
 test.describe('🌐 PHASE 6: Cross-Browser Testing', () => {
@@ -484,8 +459,7 @@ test.describe('🌐 PHASE 6: Cross-Browser Testing', () => {
     await expect(page).toHaveURL(/.*calculate-mortgage\/2/);
     
     await evidence.screenshot(page, 'chromium-step2-navigation');
-    console.log('✅ Passed: Chromium browser validation');
-  });
+    });
 });
 
 // Test on mobile viewport specifically
@@ -521,8 +495,7 @@ test.describe('📱 Mobile-Specific Testing', () => {
     await page.waitForTimeout(500);
     await evidence.screenshot(page, 'mobile-dropdown-interaction');
     
-    console.log('✅ Passed: Mobile touch interactions');
-  });
+    });
 });
 
 // Generate comprehensive test report
@@ -559,6 +532,4 @@ test.afterAll(async () => {
     JSON.stringify(reportData, null, 2)
   );
 
-  console.log('📋 Comprehensive Test Report Generated');
-  console.log('📂 Evidence Location:', REPORT_DIR);
-});
+  });

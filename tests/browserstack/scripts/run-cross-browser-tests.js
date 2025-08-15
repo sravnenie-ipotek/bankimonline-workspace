@@ -27,16 +27,12 @@ class CrossBrowserTestRunner {
    * @param {Array<string>} specificBrowsers - Specific browsers to test
    */
   async runCrossBrowserTests(category = 'desktop', specificBrowsers = null) {
-    console.log('🚀 Starting Cross-Browser Test Execution');
-    console.log('=' .repeat(60));
+    );
     
     const capabilities = specificBrowsers || 
       (category === 'all' ? this.getAllBrowserKeys() : this.getBrowserKeysForCategory(category));
     
-    console.log(`📋 Testing on ${capabilities.length} browser configurations:`);
-    capabilities.forEach(browser => console.log(`  • ${browser}`));
-    console.log('');
-    
+    capabilities.forEach(browser => );
     const testPromises = [];
     const semaphore = new Array(this.concurrent).fill(null);
     
@@ -61,8 +57,6 @@ class CrossBrowserTestRunner {
       }
     }
     
-    console.log(`⚡ Running ${testPromises.length} test configurations with ${this.concurrent} concurrent executions...`);
-    
     // Wait for all tests to complete
     const results = await Promise.allSettled(testPromises);
     
@@ -72,7 +66,6 @@ class CrossBrowserTestRunner {
     // Generate comprehensive report
     await this.generateCrossBrowserReport();
     
-    console.log('\n🏁 Cross-browser testing completed!');
     return this.results;
   }
   
@@ -95,8 +88,6 @@ class CrossBrowserTestRunner {
     const testId = TestUtils.generateTestId(`${testSuite}-${browser}`, browser);
     const startTime = new Date();
     
-    console.log(`🧪 Starting: ${testSuite} on ${browser}`);
-    
     try {
       const result = await this.executeTest(browser, testSuite, testId);
       
@@ -117,7 +108,7 @@ class CrossBrowserTestRunner {
       this.results.push(testResult);
       
       const statusIcon = testResult.status === 'PASSED' ? '✅' : '❌';
-      console.log(`${statusIcon} Completed: ${testSuite} on ${browser} (${(testResult.duration / 1000).toFixed(1)}s)`);
+      .toFixed(1)}s)`);
       
       return testResult;
       
@@ -206,13 +197,8 @@ class CrossBrowserTestRunner {
    * @param {Array} results - Array of Promise results
    */
   async processResults(results) {
-    console.log('\n📊 Processing test results...');
-    
     const successful = results.filter(r => r.status === 'fulfilled').length;
     const failed = results.filter(r => r.status === 'rejected').length;
-    
-    console.log(`✅ Successful executions: ${successful}`);
-    console.log(`❌ Failed executions: ${failed}`);
     
     // Analyze results by browser
     const browserResults = {};
@@ -223,13 +209,12 @@ class CrossBrowserTestRunner {
       browserResults[result.browser].push(result);
     });
     
-    console.log('\n🌐 Results by browser:');
     Object.entries(browserResults).forEach(([browser, results]) => {
       const passed = results.filter(r => r.status === 'PASSED').length;
       const total = results.length;
       const passRate = total > 0 ? ((passed / total) * 100).toFixed(1) : 0;
       
-      console.log(`  ${browser}: ${passed}/${total} (${passRate}%)`);
+      `);
     });
   }
   
@@ -237,8 +222,6 @@ class CrossBrowserTestRunner {
    * Generate comprehensive cross-browser report
    */
   async generateCrossBrowserReport() {
-    console.log('\n📋 Generating cross-browser report...');
-    
     const endTime = new Date();
     const totalDuration = endTime - this.startTime;
     
@@ -277,8 +260,7 @@ class CrossBrowserTestRunner {
     // Generate summary table
     this.printSummaryTable(report);
     
-    console.log(`📄 Cross-browser report saved: ${reportPath}`);
-  }
+    }
   
   /**
    * Analyze results by browser
@@ -523,29 +505,24 @@ class CrossBrowserTestRunner {
     }
     
     fs.writeFileSync(htmlPath, html);
-    console.log(`🌐 HTML report saved: ${htmlPath}`);
-  }
+    }
   
   /**
    * Print summary table to console
    */
   printSummaryTable(report) {
-    console.log('\n' + '='.repeat(80));
-    console.log('🏆 CROSS-BROWSER TEST RESULTS SUMMARY');
-    console.log('='.repeat(80));
-    console.log(`Total Tests: ${report.summary.totalTests} | Passed: ${report.summary.passedTests} | Failed: ${report.summary.failedTests}`);
-    console.log(`Overall Pass Rate: ${((report.summary.passedTests / report.summary.totalTests) * 100).toFixed(1)}%`);
-    console.log(`Total Execution Time: ${(report.summary.totalDuration / 1000 / 60).toFixed(1)} minutes`);
-    console.log('');
-    console.log('Browser Compatibility:');
-    console.log('-'.repeat(80));
+    );
+    );
+    * 100).toFixed(1)}%`);
+    .toFixed(1)} minutes`);
+    );
     
     Object.entries(report.browserAnalysis).forEach(([browser, stats]) => {
       const passRateIcon = parseFloat(stats.passRate) >= 90 ? '✅' : parseFloat(stats.passRate) >= 70 ? '⚠️' : '❌';
-      console.log(`${passRateIcon} ${browser.padEnd(20)} | ${stats.passed}/${stats.total} (${stats.passRate}%) | Avg: ${(stats.avgDuration / 1000).toFixed(1)}s`);
+      } | ${stats.passed}/${stats.total} (${stats.passRate}%) | Avg: ${(stats.avgDuration / 1000).toFixed(1)}s`);
     });
     
-    console.log('='.repeat(80));
+    );
   }
   
   /**
@@ -592,7 +569,7 @@ if (require.main === module) {
       const totalTests = results.length;
       const passRate = totalTests > 0 ? (passedTests / totalTests) * 100 : 0;
       
-      console.log(`\n🎯 Final Results: ${passedTests}/${totalTests} tests passed (${passRate.toFixed(1)}%)`);
+      }%)`);
       
       // Exit with appropriate code
       process.exit(passRate >= 70 ? 0 : 1);

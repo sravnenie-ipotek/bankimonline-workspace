@@ -76,7 +76,6 @@ const CreditHistoryPage: React.FC<CreditHistoryPageProps> = ({
   }
 
   const handleSubmit = (values: CreditHistoryFormTypes) => {
-    console.log('Credit History data submitted:', values)
     // Navigate to next step (Documents page - LK-131)
     navigate('/personal-cabinet/documents')
   }

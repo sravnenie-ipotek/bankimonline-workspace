@@ -13,7 +13,6 @@ import { SourceOfIncomeModalTypes } from '@src/pages/Services/types/formTypes'
 import { generateNewId } from '@src/pages/Services/utils/generateNewId.ts'
 import { getValidationErrorSync } from '@src/utils/validationHelpers'
 
-
 import { SourceOfIncomeForm } from './SourceOfIncomeForm'
 
 const SourceOfIncomeModal: React.FC = () => {
@@ -59,8 +58,6 @@ const SourceOfIncomeModal: React.FC = () => {
     companyName: savedValue?.companyName || '',
     amountIncomeCurrentYear: savedValue?.amountIncomeCurrentYear || null,
   }
-
-
 
   const validationSchema = Yup.object().shape({
     mainSourceOfIncome: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),

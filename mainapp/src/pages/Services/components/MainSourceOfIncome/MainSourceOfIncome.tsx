@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom'
 import { useContentApi } from '@src/hooks/useContentApi'
 import { useDropdownData } from '@src/hooks/useDropdownData'
 
-
 import { Column } from '@components/ui/Column'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
 import { Error } from '@components/ui/Error'
@@ -28,7 +27,6 @@ const MainSourceOfIncome = ({ screenLocation }: MainSourceOfIncomeProps) => {
     : 'credit_step3'
     
   // Debug logging for validation
-  console.log(`🔍 MainSourceOfIncome: URL=${location.pathname}, resolved screen location=${resolvedScreenLocation}`)
   const { t } = useTranslation()
   const { getContent } = useContentApi(resolvedScreenLocation)
   const { values, setFieldValue, errors, touched, setFieldTouched } =
@@ -45,22 +43,13 @@ const MainSourceOfIncome = ({ screenLocation }: MainSourceOfIncomeProps) => {
   }
 
   // Debug dropdown data
-  console.log('🔍 MainSourceOfIncome options:', {
-    dropdownData: dropdownData,
-    options: dropdownData.options,
-    currentValue: values.mainSourceOfIncome,
-    selectedItem: dropdownData.options?.find(item => item.value === values.mainSourceOfIncome),
+  ,
     errors: errors.mainSourceOfIncome,
     touched: touched.mainSourceOfIncome,
     errorShowing: touched.mainSourceOfIncome && errors.mainSourceOfIncome
   })
 
   const handleValueChange = (value: string) => {
-    console.log('🔍 MainSourceOfIncome onChange:', { 
-      value, 
-      currentValue: values.mainSourceOfIncome,
-      dropdownOptions: dropdownData.options,
-      selectedOption: dropdownData.options?.find(item => item.value === value)
     })
     
     // Prefer validating immediately on selection to clear initial required error
@@ -86,7 +75,6 @@ const MainSourceOfIncome = ({ screenLocation }: MainSourceOfIncomeProps) => {
                          values.mainSourceOfIncome !== undefined
     
     if (hasValidValue) {
-      console.log('✅ MainSourceOfIncome: Suppressing validation error for valid value:', values.mainSourceOfIncome)
       return false
     }
     

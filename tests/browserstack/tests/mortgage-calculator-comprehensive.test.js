@@ -32,8 +32,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
   const testEnv = process.env.TEST_ENV || 'local';
   
   before(async function() {
-    console.log(`🚀 Starting comprehensive test suite on ${testBrowser} in ${testEnv} environment`);
-    
     // Initialize WebDriver with BrowserStack capabilities
     const capabilities = getCapability(testBrowser);
     capabilities['bstack:options'].sessionName = `Mortgage Calculator Comprehensive - ${testBrowser}`;
@@ -56,14 +54,12 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       script: config.timeouts.script
     });
     
-    console.log('✅ Test environment initialized successfully');
-  });
+    });
   
   after(async function() {
     if (driver) {
       await driver.quit();
-      console.log('🏁 Test session ended');
-    }
+      }
     
     // Generate test report
     await reporter.generateReport();
@@ -71,8 +67,7 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
   
   beforeEach(async function() {
     reporter.startTest(this.currentTest.title);
-    console.log(`\n🧪 Starting test: ${this.currentTest.title}`);
-  });
+    });
   
   afterEach(async function() {
     const testResult = {
@@ -99,8 +94,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       const url = await step1Page.getCurrentUrl();
       
       expect(url).to.include('/services/calculate-mortgage/1');
-      console.log('✅ Step 1 page loaded successfully');
-      
       reporter.addAssertion('Page URL contains step 1 path', true);
       reporter.addAssertion('Page title exists', title.length > 0);
     });
@@ -113,8 +106,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       
       for (const dropdownType of dropdownTypes) {
         try {
-          console.log(`\n📋 Testing ${dropdownType} dropdown...`);
-          
           const options = await step1Page.getDropdownOptions(dropdownType);
           const testResults = await step1Page.testAllDropdownOptions(dropdownType);
           
@@ -126,8 +117,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
             options: options,
             results: testResults
           };
-          
-          console.log(`✅ ${dropdownType} dropdown: ${dropdownResults[dropdownType].successfulSelections}/${dropdownResults[dropdownType].totalOptions} options tested successfully`);
           
           // Assertions for reporting
           reporter.addAssertion(`${dropdownType} dropdown has options`, options.length > 0);
@@ -148,8 +137,7 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       const successfulDropdowns = Object.values(dropdownResults).filter(r => !r.error).length;
       
       expect(successfulDropdowns).to.be.greaterThan(0);
-      console.log(`\n🎯 Dropdown validation summary: ${successfulDropdowns}/${totalDropdowns} dropdowns tested successfully`);
-    });
+      });
     
     it('should complete Step 1 form and proceed to Step 2', async function() {
       await step1Page.navigateToStep1();
@@ -170,8 +158,7 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       reporter.addAssertion('Step 1 form completion successful', success);
       reporter.addData('step1FormData', formData);
       
-      console.log('✅ Step 1 completed successfully, proceeding to Step 2');
-    });
+      });
     
     it('should validate property ownership LTV impact', async function() {
       await step1Page.navigateToStep1();
@@ -185,8 +172,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       
       for (const ownership of ownershipOptions) {
         try {
-          console.log(`\n🏛️ Testing property ownership: ${ownership}`);
-          
           await step1Page.selectPropertyOwnership(ownership);
           
           // Wait for LTV calculation to update
@@ -207,9 +192,7 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
             errors: errors
           });
           
-          console.log(`✅ Property ownership "${ownership}" tested - Errors: ${errors.length}`);
-          
-        } catch (error) {
+          } catch (error) {
           console.error(`❌ Error testing property ownership "${ownership}":`, error.message);
           ltvResults.push({
             ownership: ownership,
@@ -224,8 +207,7 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       const successfulTests = ltvResults.filter(r => !r.error).length;
       expect(successfulTests).to.be.greaterThan(0);
       
-      console.log(`🎯 LTV validation completed: ${successfulTests}/${ownershipOptions.length} options tested`);
-    });
+      });
   });
   
   describe('Step 2 - Personal Information', function() {
@@ -242,8 +224,7 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       expect(url).to.include('/services/calculate-mortgage/2');
       
       reporter.addAssertion('Step 2 navigation successful', true);
-      console.log('✅ Step 2 loaded successfully after Step 1 completion');
-    });
+      });
     
     it('should fill personal information and proceed to Step 3', async function() {
       // Navigate directly to Step 2 (assuming previous test completed Step 1)
@@ -260,8 +241,7 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       reporter.addAssertion('Step 2 completion successful', success);
       reporter.addData('step2PersonalData', personalData);
       
-      console.log('✅ Step 2 completed successfully');
-    });
+      });
   });
   
   describe('Step 3 - Income Information', function() {
@@ -282,8 +262,7 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       reporter.addAssertion('Step 3 completion successful', success);
       reporter.addData('step3IncomeData', incomeData);
       
-      console.log('✅ Step 3 completed successfully');
-    });
+      });
   });
   
   describe('Step 4 - Bank Offers & Results', function() {
@@ -299,8 +278,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       reporter.addData('bankOffers', offers);
       reporter.addData('calculationResults', results);
       
-      console.log(`✅ Step 4 loaded with ${offers.length} bank offers`);
-      
       expect(results.hasResults || offers.length > 0).to.be.true;
     });
     
@@ -315,15 +292,12 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       // Verify basic functionality
       expect(functionalityResults.pageLoaded).to.be.true;
       
-      console.log('✅ Step 4 functionality testing completed');
-    });
+      });
   });
   
   describe('Complete End-to-End Flow', function() {
     
     it('should complete entire mortgage calculator flow', async function() {
-      console.log('🎯 Starting complete end-to-end mortgage calculator flow...');
-      
       const flowResults = {
         startTime: new Date().toISOString(),
         steps: {}
@@ -331,7 +305,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       
       try {
         // Step 1
-        console.log('\n📝 Executing Step 1...');
         await step1Page.navigateToStep1();
         const step1Success = await step1Page.completeStep1({
           propertyPrice: 3000000,
@@ -341,7 +314,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
         flowResults.steps.step1 = { success: step1Success, timestamp: new Date().toISOString() };
         
         // Step 2
-        console.log('\n👤 Executing Step 2...');
         const step2Success = await step2Page.completeStep2({
           firstName: 'דוד',
           lastName: 'לוי',
@@ -351,7 +323,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
         flowResults.steps.step2 = { success: step2Success, timestamp: new Date().toISOString() };
         
         // Step 3
-        console.log('\n💼 Executing Step 3...');
         const step3Success = await step3Page.completeStep3({
           monthlyIncome: 35000,
           employmentType: 'עובד משכורת'
@@ -359,7 +330,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
         flowResults.steps.step3 = { success: step3Success, timestamp: new Date().toISOString() };
         
         // Step 4
-        console.log('\n🏦 Executing Step 4...');
         await step4Page.waitForStep4ToLoad();
         const step4Results = await step4Page.completeCalculation();
         flowResults.steps.step4 = { 
@@ -372,15 +342,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
         flowResults.overallSuccess = Object.values(flowResults.steps).every(step => step.success);
         
         reporter.addData('completeFlowResults', flowResults);
-        
-        console.log('\n🎉 Complete end-to-end flow results:', {
-          overallSuccess: flowResults.overallSuccess,
-          step1: flowResults.steps.step1.success,
-          step2: flowResults.steps.step2.success, 
-          step3: flowResults.steps.step3.success,
-          step4: flowResults.steps.step4.success,
-          totalOffers: step4Results.totalOffers
-        });
         
         expect(flowResults.overallSuccess).to.be.true;
         
@@ -409,12 +370,6 @@ describe('BankiMonline Mortgage Calculator - Comprehensive Test Suite', function
       };
       
       reporter.addData('browserInfo', browserData);
-      
-      console.log('🌐 Browser information recorded:', {
-        browser: browserData.browserName,
-        version: browserData.browserVersion,
-        platform: browserData.platform
-      });
       
       expect(browserData.browserName).to.exist;
     });

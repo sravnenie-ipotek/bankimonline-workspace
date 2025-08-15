@@ -52,21 +52,13 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
     : additionalIncomeOptions
 
   // Debug additional income values
-  console.log('🔍 AdditionalIncome debug:', {
-    currentValue: values.additionalIncome,
-    originalOptions: additionalIncomeOptions,
-    filteredOptions: filteredOptions,
-    excludeNoIncome: excludeNoIncome,
-    isNoAdditionalIncomeValue: checkIfNoAdditionalIncomeValue(values.additionalIncome),
+  ,
     errors: errors.additionalIncome,
     touched: touched.additionalIncome
   })
 
   const handleValueChange = (value: string) => {
-    console.log('🔍 AdditionalIncome onChange:', { 
-      value,
-      currentValue: values.additionalIncome,
-      isNoAdditionalIncomeValue: checkIfNoAdditionalIncomeValue(value),
+    ,
       willShowAmountField: !checkIfNoAdditionalIncomeValue(value)
     })
     

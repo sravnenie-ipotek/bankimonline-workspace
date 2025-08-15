@@ -54,13 +54,6 @@ export const PaymentModal: React.FC<PaymentModalProps> = ({
     }
 
     // Process payment (mock)
-    console.log('Processing payment:', {
-      cardId: selectedCard,
-      amount,
-      privacyAgreed,
-      termsAgreed
-    })
-
     // Close modal and navigate to payment confirmation
     onClose()
     navigate('/personal-cabinet', { 

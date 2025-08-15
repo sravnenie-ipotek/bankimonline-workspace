@@ -488,17 +488,13 @@ const LawyersPage: React.FC = () => {
       referrer: document.referrer || 'none'
     }
     
-    console.log('🚀 FORM SUBMIT WITH SOURCE!', submissionData)
-    console.log('🚀 Attempting navigation to /lawyer-success')
-    
     try {
       // Here you can add actual API call to submit form data
       await submitLawyerForm(submissionData)
       
       // Navigate to success page
       navigate('/lawyer-success')
-      console.log('🚀 Navigation completed successfully')
-    } catch (error) {
+      } catch (error) {
       console.error('❌ Form submission error:', error)
     } finally {
       setSubmitting(false)

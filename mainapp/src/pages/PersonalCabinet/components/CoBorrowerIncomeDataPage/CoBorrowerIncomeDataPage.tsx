@@ -232,7 +232,6 @@ const CoBorrowerIncomeDataPage: React.FC<CoBorrowerIncomeDataPageProps> = ({
   }
 
   const handleSubmit = (values: CoBorrowerIncomeDataFormTypes) => {
-    console.log('Co-borrower income data submitted:', values)
     // Navigate to next step (Documents page - LK-131)
     navigate('/personal-cabinet/documents')
   }
@@ -243,8 +242,7 @@ const CoBorrowerIncomeDataPage: React.FC<CoBorrowerIncomeDataPageProps> = ({
 
   const handleAddBankAccount = () => {
     // Add bank account functionality - would open modal in full implementation
-    console.log('Add bank account modal would open here')
-  }
+    }
 
   const incomeSourceOptions = [
     { value: 'employment', label: t('employment', 'Работа по найму') },
@@ -581,8 +579,7 @@ const CoBorrowerIncomeDataPage: React.FC<CoBorrowerIncomeDataPageProps> = ({
                             className={cx('add-button')}
                             onClick={() => {
                               // Add workplace functionality - would open modal in full implementation
-                              console.log('Add workplace modal would open here')
-                            }}
+                              }}
                           >
                             + {t('add_workplace', 'Добавить место работы')}
                           </button>
@@ -653,8 +650,7 @@ const CoBorrowerIncomeDataPage: React.FC<CoBorrowerIncomeDataPageProps> = ({
                           className={cx('add-button')}
                           onClick={() => {
                             // Add additional income source functionality
-                            console.log('Add additional income source modal would open here')
-                          }}
+                            }}
                         >
                           + {t('add_additional_income', 'Добавить дополнительный источник дохода')}
                         </button>
@@ -772,8 +768,7 @@ const CoBorrowerIncomeDataPage: React.FC<CoBorrowerIncomeDataPageProps> = ({
                           className={cx('add-button')}
                           onClick={() => {
                             // Add debt obligation functionality
-                            console.log('Add debt obligation modal would open here')
-                          }}
+                            }}
                         >
                           + {t('add_debt_obligation', 'Добавить еще одно долговое обязательство?')}
                         </button>

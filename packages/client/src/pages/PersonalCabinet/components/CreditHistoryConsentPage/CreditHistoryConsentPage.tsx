@@ -39,7 +39,6 @@ export const CreditHistoryConsentPage: React.FC<CreditHistoryConsentPageProps> =
   }
 
   const handleSubmit = (values: ConsentFormTypes) => {
-    console.log('Credit History Consent data submitted:', values)
     // Navigate to next step (Service Payment - LK-136)
     navigate('/personal-cabinet/service-payment')
   }

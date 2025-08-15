@@ -22,8 +22,7 @@ const Gender = ({ screenLocation = 'personal_data_form' }: GenderProps) => {
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
-    console.log('🔄 Loading gender dropdown options...')
-  }
+    }
 
   if (dropdownData.error) {
     console.warn('❌ Gender dropdown error:', dropdownData.error)

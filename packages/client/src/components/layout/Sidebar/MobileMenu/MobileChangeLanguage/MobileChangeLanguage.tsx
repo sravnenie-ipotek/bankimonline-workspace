@@ -83,8 +83,7 @@ const MobileChangeLanguage = () => {
       localStorage.setItem('admin_language', newLanguage)
       localStorage.setItem('language', newLanguage) // Keep for backward compatibility
       
-      console.log(`🔄 Mobile language changed to: ${newLanguage}`)
-    } catch (error) {
+      } catch (error) {
       console.error('Error changing language:', error)
     }
   }

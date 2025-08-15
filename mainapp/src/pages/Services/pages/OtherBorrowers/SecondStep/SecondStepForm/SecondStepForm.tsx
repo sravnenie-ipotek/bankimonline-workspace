@@ -57,12 +57,7 @@ const SecondStepForm = () => {
   const incomeSourceKey = mainSourceOfIncome || ''
 
   // Debug logging for conditional field rendering
-  console.log('🔍 OtherBorrowers SecondStepForm debug:', {
-    mainSourceOfIncome,
-    incomeSourceKey,
-    componentsByIncomeSource,
-    hasComponent: !!componentsByIncomeSource[incomeSourceKey],
-    componentKeys: Object.keys(componentsByIncomeSource),
+  ,
     allFormValues: values
   })
 

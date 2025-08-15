@@ -52,7 +52,6 @@ const PartnerPersonalDataPage: React.FC<PartnerPersonalDataPageProps> = ({
   }
 
   const handleSubmit = (values: Partial<FormTypes>) => {
-    console.log('Partner Personal Data submitted:', values)
     // Navigate to next step or save data
     navigate('/personal-cabinet')
   }

@@ -62,19 +62,15 @@ const FourthStep = () => {
       validationSchema={validationSchema}
       validateOnMount={true}
       onSubmit={(values) => {
-        console.log('Saving refinance mortgage data and proceeding...', values)
-        
         // Save any selected bank/offer data
         dispatch(updateRefinanceMortgageData(values))
         
         // If user is not authenticated, open auth modal
         if (!isAuthenticated || !loginData?.phoneNumber) {
-          console.log('User not authenticated, opening auth modal')
           dispatch(openAuthModal())
           dispatch(setActiveModal('signUp'))
         } else {
           // User is authenticated, proceed to application submission
-          console.log('User authenticated, proceeding to application')
           navigate('/services/application-submitted')
         }
       }}

@@ -190,7 +190,6 @@ const PersonalCabinet: React.FC = () => {
         isOpen={activeModal === 'emailSettings'}
         onClose={handleCloseModal}
         onSuccess={(email) => {
-          console.log('Email settings updated:', email)
           setEmailToVerify(email)
           setActiveModal('emailVerification')
         }}
@@ -202,7 +201,6 @@ const PersonalCabinet: React.FC = () => {
         email={emailToVerify}
         onClose={handleCloseModal}
         onSuccess={() => {
-          console.log('Email verification successful for:', emailToVerify)
           handleCloseModal()
           // In real app: update user email in backend, refresh settings
         }}
@@ -217,7 +215,6 @@ const PersonalCabinet: React.FC = () => {
         onClose={handleCloseModal}
         currentEmail="user@example.com" // In real app, get from user state
         onSuccess={(email) => {
-          console.log('Email changed to:', email)
           handleCloseModal()
         }}
       />
@@ -227,7 +224,6 @@ const PersonalCabinet: React.FC = () => {
         isOpen={activeModal === 'changePhone'}
         onClose={handleCloseModal}
         onSuccess={(phone) => {
-          console.log('Phone updated, starting verification:', phone)
           setPhoneToVerify(phone)
           setActiveModal('phoneVerification')
         }}
@@ -239,7 +235,6 @@ const PersonalCabinet: React.FC = () => {
           <PhoneVerificationModalDarkHe 
             onClose={handleCloseModal}
             onSuccess={() => {
-              console.log('Phone verification successful for:', phoneToVerify)
               handleCloseModal()
               // In real app: update user phone in backend, refresh settings
             }}
@@ -248,7 +243,6 @@ const PersonalCabinet: React.FC = () => {
           <PhoneVerificationModalDark 
             onClose={handleCloseModal}
             onSuccess={() => {
-              console.log('Phone verification successful for:', phoneToVerify)
               handleCloseModal()
               // In real app: update user phone in backend, refresh settings
             }}
@@ -261,7 +255,6 @@ const PersonalCabinet: React.FC = () => {
         isOpen={activeModal === 'changePassword'}
         onClose={handleCloseModal}
         onSuccess={() => {
-          console.log('Password changed successfully')
           handleCloseModal()
         }}
       />
@@ -272,7 +265,6 @@ const PersonalCabinet: React.FC = () => {
         onClose={handleCloseModal}
         currentName="Александр Пушкин" // In real app, get from user state
         onSuccess={(name) => {
-          console.log('Name changed to:', name)
           handleCloseModal()
           // In real app: update user name in backend, refresh settings
         }}
@@ -283,7 +275,6 @@ const PersonalCabinet: React.FC = () => {
         isOpen={activeModal === 'profilePhoto'}
         onClose={handleCloseModal}
         onSave={(photo) => {
-          console.log('Profile photo uploaded:', photo.name)
           handleCloseModal()
           // In real app: upload to backend, update user profile
         }}
@@ -337,7 +328,6 @@ const PersonalCabinet: React.FC = () => {
         onConfirm={() => {
           // Handle co-borrower deletion
           if (coBorrowerToDelete?.id) {
-            console.log('Deleting co-borrower:', coBorrowerToDelete.id)
             // In real app: dispatch deleteOtherBorrowers action with ID
             // dispatch(deleteOtherBorrowers(coBorrowerToDelete.id))
           }
@@ -350,13 +340,11 @@ const PersonalCabinet: React.FC = () => {
         onClose={handleCloseModal}
         onContinue={(selectedCoBorrowers) => {
           // Handle co-borrower selection
-          console.log('Selected co-borrowers:', selectedCoBorrowers)
           // In real app: save selected co-borrowers to state/API
           // dispatch(setSelectedCoBorrowers(selectedCoBorrowers))
         }}
         onSkip={() => {
           // Handle skip step
-          console.log('Co-borrower selection skipped')
           // In real app: proceed without co-borrowers
         }}
       />

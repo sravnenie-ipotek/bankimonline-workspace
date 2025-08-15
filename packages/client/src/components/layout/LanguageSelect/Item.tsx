@@ -181,12 +181,7 @@ const Item: FC<ItemProps> = ({ options, title }) => (
         </StyledItem>
       )}
       onChange={(value) =>
-        console.log(
-          `%c > onChange ${title} `,
-          'background: #555; color: tomato',
-          value
-        )
-      }
+        }
     />
   </div>
 )

@@ -24,8 +24,7 @@ const Education = ({ screenLocation = 'mortgage_step2' }: EducationProps) => {
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
-    console.log('🔄 Loading education dropdown options...')
-  }
+    }
 
   if (dropdownData.error) {
     console.warn('❌ Education dropdown error:', dropdownData.error)

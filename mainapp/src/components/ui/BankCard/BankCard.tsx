@@ -81,9 +81,7 @@ const BankCard: React.FC<TypeProps> = ({
     dispatch(setActiveModal('signUp'))
     dispatch(openAuthModal())
     
-    console.log(`[BANK SELECTION] Selected bank: ${selectedBankOffer.bankName}`)
-    console.log(`[BANK SELECTION] Bank data:`, selectedBankOffer)
-  }
+    }
 
   return (
     <div className={cx('card')}>

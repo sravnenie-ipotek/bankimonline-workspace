@@ -18,19 +18,13 @@ const DoubleButtons: React.FC = () => {
 
   // Enhanced debug logging
   useEffect(() => {
-    console.log('🔍 DoubleButtons Debug:', { 
-      isValid, 
-      errors, 
-      values,
-      touched,
-      errorCount: Object.keys(errors).length,
+    .length,
       touchedCount: Object.keys(touched).length
     })
     
     // Log specific validation errors
     if (Object.keys(errors).length > 0) {
-      console.log('❌ Validation Errors:', errors)
-    }
+      }
   }, [isValid, errors, values, touched])
 
   return (

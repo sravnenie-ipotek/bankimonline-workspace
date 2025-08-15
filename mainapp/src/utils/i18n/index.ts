@@ -56,10 +56,6 @@ i18n
   .use(initReactI18next)
   .init(i18nConfig)
   .then(() => {
-    console.log('✅ i18n initialized successfully')
-    console.log('🔍 Available resources:', i18n.store.data)
-    console.log('🔍 Current language:', i18n.language)
-    
     // Test specific translations that are commonly problematic
     const testKeys = [
       'yes', 
@@ -71,7 +67,6 @@ i18n
     ]
     testKeys.forEach(key => {
       const translation = i18n.t(key)
-      console.log(`🧪 "${key}" = "${translation}"`)
       if (translation === key) {
         console.warn(`⚠️ Translation key "${key}" not found!`)
       }
@@ -83,22 +78,17 @@ i18n
 
 // Add event listeners for debugging
 i18n.on('initialized', () => {
-  console.log('🎯 i18n initialized event fired')
-})
+  })
 
 i18n.on('loaded', (loaded) => {
-  console.log('📦 i18n resources loaded:', loaded)
   // Force a small delay to ensure all components can access the new translations
   setTimeout(() => {
-    console.log('🔄 Triggering resource loaded event for components')
-  }, 100)
+    }, 100)
 })
 
 i18n.on('languageChanged', (lng) => {
-  console.log('🔄 Language changed to:', lng)
   // Ensure translations are loaded for the new language
   if (!i18n.hasResourceBundle(lng, 'translation')) {
-    console.log(`📥 Loading resources for language: ${lng}`)
     i18n.loadLanguages(lng)
   }
 })

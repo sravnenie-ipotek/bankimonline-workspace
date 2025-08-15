@@ -72,17 +72,10 @@ const FIELD_OF_ACTIVITY_VALUE_MAPPING = {
 };
 
 async function fixCreditDropdownValues() {
-    console.log('🚨 EMERGENCY FIX: Converting Credit Calculator dropdown values');
-    console.log('📍 Target: calculate_credit_3 screen location');
-    console.log('');
-
     try {
         // Test database connection
         await contentPool.query('SELECT NOW()');
-        console.log('✅ Connected to content database');
-
         // Step 1: Analyze current data
-        console.log('\n🔍 Step 1: Analyzing current dropdown data...');
         const analysisResult = await contentPool.query(`
             SELECT 
                 ci.content_key,
@@ -101,8 +94,6 @@ async function fixCreditDropdownValues() {
             ORDER BY ci.content_key, ct.language_code
         `);
         
-        console.log(`📊 Found ${analysisResult.rows.length} option records to analyze`);
-
         // Group by field and option number
         const fieldGroups = {};
         analysisResult.rows.forEach(row => {
@@ -122,41 +113,24 @@ async function fixCreditDropdownValues() {
             }
         });
 
-        console.log('\n📋 Field Analysis:');
         for (const [fieldName, options] of Object.entries(fieldGroups)) {
-            console.log(`  ${fieldName}: ${Object.keys(options).length} options`);
+            .length} options`);
         }
 
         // Step 2: Display current API output for verification
-        console.log('\n🔍 Step 2: Current API output analysis...');
         const testResponse = await fetch('http://localhost:8003/api/dropdowns/calculate_credit_3/en');
         if (testResponse.ok) {
             const apiData = await testResponse.json();
             const mainSourceOptions = apiData.options?.calculate_credit_3_main_source || [];
-            console.log('🔍 Current main_source API values:');
             mainSourceOptions.forEach(opt => {
-                console.log(`  "${opt.value}" -> "${opt.label}"`);
-            });
+                });
         } else {
-            console.log('⚠️ Could not fetch current API data - server may be down');
-        }
+            }
 
         // Step 3: The REAL FIX - Update server-side processing
-        console.log('\n🔧 Step 3: The actual fix is to update server-side dropdown processing...');
-        console.log('');
-        console.log('⚡ SOLUTION: The issue is in server-db.js dropdown processing logic');
-        console.log('   The /_option_(.+)$/ pattern extracts numeric values from _option_1, _option_2, etc.');
-        console.log('   We need to add semantic value mapping for specific fields');
-        console.log('');
-
+        $/ pattern extracts numeric values from _option_1, _option_2, etc.');
         // Step 4: Generate the semantic mapping fix
-        console.log('🛠️ Step 4: Required server-db.js fix...');
-        console.log('');
-        console.log('Add this mapping logic after line where optionValue is extracted:');
-        console.log('');
-        console.log(`
-        // CREDIT CALCULATOR FIX: Map numeric values to semantic values
-        if (fieldName === 'main_source') {
+        {
             const semanticMapping = {
                 '1': 'employee',
                 '2': 'selfemployed', 
@@ -215,13 +189,9 @@ async function fixCreditDropdownValues() {
         }
         `);
 
-        console.log('');
-        console.log('🎯 This fix should be applied in server-db.js around line where optionValue is assigned');
-        console.log('   (in the dropdown processing logic within the option case)');
+        ');
 
-        console.log('\n✅ Analysis complete - ready for server-side fix implementation');
-        
-    } catch (error) {
+        } catch (error) {
         console.error('❌ Error:', error.message);
         process.exit(1);
     } finally {

@@ -59,9 +59,7 @@ const SecondStepForm = () => {
   
   const displayUserData = userData?.nameSurname ? userData : fallbackUserData
   
-  console.log('🔍 SecondStepForm - userData from Redux:', userData)
-  console.log('🔍 SecondStepForm - fallbackUserData from localStorage:', fallbackUserData)
-  console.log('🔍 SecondStepForm - displayUserData (final):', displayUserData)
+  :', displayUserData)
 
   return (
     <FormContainer>

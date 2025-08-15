@@ -103,15 +103,11 @@ export const managementPool = new Pool({
 export const testCoreConnection = async () => {
   try {
     const client = await corePool.connect();
-    console.log('✅ Connected to bankim_core database (maglev)');
+    ');
     
     // Test query with user count validation
     const result = await client.query('SELECT NOW() as current_time, current_database() as db_name');
     const userCount = await client.query('SELECT COUNT(*) as user_count FROM users');
-    
-    console.log('🕒 Core database time:', result.rows[0].current_time);
-    console.log('🏢 Database name:', result.rows[0].db_name);
-    console.log('👥 Production users:', userCount.rows[0].user_count);
     
     client.release();
     return true;
@@ -125,15 +121,11 @@ export const testCoreConnection = async () => {
 export const testContentConnection = async () => {
   try {
     const client = await contentPool.connect();
-    console.log('✅ Connected to bankim_content database (shortline)');
+    ');
     
     // Test content function availability
     const result = await client.query('SELECT NOW() as current_time, current_database() as db_name');
     const rateTest = await client.query('SELECT get_current_mortgage_rate() as rate');
-    
-    console.log('🕒 Content database time:', result.rows[0].current_time);
-    console.log('🏢 Database name:', result.rows[0].db_name);
-    console.log('📊 Mortgage rate function:', rateTest.rows[0].rate + '%');
     
     client.release();
     return true;
@@ -147,12 +139,9 @@ export const testContentConnection = async () => {
 export const testManagementConnection = async () => {
   try {
     const client = await managementPool.connect();
-    console.log('✅ Connected to bankim_management database (yamanote)');
+    ');
     
     const result = await client.query('SELECT NOW() as current_time, current_database() as db_name');
-    console.log('🕒 Management database time:', result.rows[0].current_time);
-    console.log('🏢 Database name:', result.rows[0].db_name);
-    
     client.release();
     return true;
   } catch (error) {
@@ -163,8 +152,6 @@ export const testManagementConnection = async () => {
 
 // ADDED: Test all database connections
 export const testAllConnections = async () => {
-  console.log('🧪 Testing all database connections...');
-  
   const coreResult = await testCoreConnection();
   const contentResult = await testContentConnection();
   const managementResult = await testManagementConnection();
@@ -172,8 +159,7 @@ export const testAllConnections = async () => {
   const allConnected = coreResult && contentResult && managementResult;
   
   if (allConnected) {
-    console.log('🎉 All database connections successful!');
-  } else {
+    } else {
     console.error('💥 Some database connections failed!');
   }
   
@@ -188,10 +174,8 @@ export const testAllConnections = async () => {
 export const getMortgageRate = async () => {
   const client = await contentPool.connect();
   try {
-    console.log('[MORTGAGE-RATE] Getting rate from content database...');
     const result = await client.query('SELECT get_current_mortgage_rate() as rate');
     const rate = parseFloat(result.rows[0].rate);
-    console.log('[MORTGAGE-RATE] Retrieved rate:', rate + '%');
     return rate;
   } catch (error) {
     console.error('[MORTGAGE-RATE] Error getting mortgage rate:', error.message);
@@ -206,12 +190,10 @@ export const getMortgageRate = async () => {
 export const getContentByScreen = async (screenLocation, language = 'en') => {
   const client = await contentPool.connect();
   try {
-    console.log(`[CONTENT] Getting content for screen: ${screenLocation}, language: ${language}`);
     const result = await client.query(
       'SELECT * FROM get_content_by_screen($1, $2)', 
       [screenLocation, language]
     );
-    console.log(`[CONTENT] Retrieved ${result.rows.length} content items`);
     return result.rows;
   } catch (error) {
     console.error('[CONTENT] Error getting content by screen:', error.message);
@@ -225,7 +207,6 @@ export const getContentByScreen = async (screenLocation, language = 'en') => {
 export const calculateAnnuityPayment = async (loanAmount, termYears) => {
   const client = await contentPool.connect();
   try {
-    console.log(`[CALCULATION] Calculating payment for loan: ${loanAmount}, term: ${termYears}`);
     const result = await client.query(`
       SELECT 
         get_current_mortgage_rate() as interest_rate,
@@ -233,7 +214,6 @@ export const calculateAnnuityPayment = async (loanAmount, termYears) => {
     `, [loanAmount, termYears]);
     
     const calculation = result.rows[0];
-    console.log(`[CALCULATION] Rate: ${calculation.interest_rate}%, Payment: ${calculation.monthly_payment}`);
     return {
       interestRate: parseFloat(calculation.interest_rate),
       monthlyPayment: parseFloat(calculation.monthly_payment)
@@ -427,7 +407,6 @@ export const coreOperations = {
 
       const calculatedRate = Math.max(minRate, Math.min(maxRate, finalRate));
       
-      console.log(`[BANK-RATE] Bank ${bankId}: Base=${baseRate}%, Adj=${rateAdjustment}%, Final=${calculatedRate}%`);
       return calculatedRate;
 
     } catch (error) {
@@ -587,8 +566,6 @@ export const contentOperations = {
 
 // UPDATED: Initialize production database with correct connections
 export const initializeProductionDatabase = async () => {
-  console.log('🚀 Initializing PRODUCTION database architecture...');
-  
   try {
     // Test all connections first
     const connectionsOk = await testAllConnections();
@@ -600,19 +577,10 @@ export const initializeProductionDatabase = async () => {
     const coreInfo = await coreOperations.getDbInfo();
     const contentInfo = await contentOperations.getDbInfo();
     
-    console.log('📊 Production Database Status:');
-    console.log('   ✅ Core Database (bankim_core):', coreInfo.actual_host);
-    console.log('   👥 Production Users:', coreInfo.production_users);
-    console.log('   👤 Production Clients:', coreInfo.production_clients);
-    console.log('   ✅ Content Database (bankim_content):', contentInfo.actual_host);
-    console.log('   📝 Content Items:', contentInfo.content_items);
-    console.log('   🗣️ Translations:', contentInfo.translations);
-    
+    :', coreInfo.actual_host);
+    :', contentInfo.actual_host);
     // Test critical functions
     const mortgageRate = await getMortgageRate();
-    console.log('   💰 Mortgage Rate Function:', mortgageRate + '%');
-    
-    console.log('🎉 Production database initialization complete!');
     return true;
     
   } catch (error) {
@@ -627,16 +595,13 @@ export const initializeProductionDatabase = async () => {
 
 export const closeAllConnections = async () => {
   try {
-    console.log('🔄 Closing all database connections...');
-    
     await Promise.all([
       corePool.end(),
       contentPool.end(),
       managementPool.end()
     ]);
     
-    console.log('✅ All database connections closed successfully');
-  } catch (error) {
+    } catch (error) {
     console.error('❌ Error closing database connections:', error);
   }
 };
@@ -649,8 +614,6 @@ export const closeCoreConnection = closeAllConnections;
 // ===============================================
 
 export const productionHealthCheck = async () => {
-  console.log('🏥 Running production health check...');
-  
   try {
     // Test all connections
     const coreOk = await testCoreConnection();
@@ -671,7 +634,6 @@ export const productionHealthCheck = async () => {
       overall_status: (coreOk && contentOk && rateOk) ? 'healthy' : 'degraded'
     };
     
-    console.log('🏥 Health Check Results:', healthStatus);
     return healthStatus;
     
   } catch (error) {

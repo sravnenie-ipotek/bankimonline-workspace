@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useContentApi } from '@src/hooks/useContentApi'
 import { useDropdownData } from '@src/hooks/useDropdownData'
 
-
 import { Column } from '@components/ui/Column'
 import AddInc from '@components/ui/ContextButtons/AddInc/AddInc.tsx'
 import { DropdownMenu } from '@components/ui/DropdownMenu'
@@ -53,29 +52,17 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
     : additionalIncomeOptions
 
   // Debug additional income values
-  console.log('🔍 AdditionalIncome debug:', {
-    currentValue: values.additionalIncome,
-    originalOptions: additionalIncomeOptions,
-    filteredOptions: filteredOptions,
-    excludeNoIncome: excludeNoIncome,
-    isNoAdditionalIncomeValue: checkIfNoAdditionalIncomeValue(values.additionalIncome),
+  ,
     errors: errors.additionalIncome,
     touched: touched.additionalIncome
   })
 
   const handleValueChange = (value: string) => {
-    console.log('🔍 AdditionalIncome onChange:', { 
-      value,
-      currentValue: values.additionalIncome,
-      isNoAdditionalIncomeValue: checkIfNoAdditionalIncomeValue(value),
+    ,
       willShowAmountField: !checkIfNoAdditionalIncomeValue(value)
     })
     
     // Additional validation debugging
-    console.log('🔍 AdditionalIncome validation debug:', {
-      value,
-      isEmpty: !value || value === '' || value === null || value === undefined,
-      willRequireFields: !checkIfNoAdditionalIncomeValue(value)
     })
     
     // CRITICAL FIX: Work WITH Formik's validation cycle instead of against it
@@ -93,11 +80,9 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
       // Use a microtask to ensure our error clear persists after React state updates
       Promise.resolve().then(() => {
         setFieldError('additionalIncome', undefined)
-        console.log('✅ AdditionalIncome: Microtask error clear for:', value)
-      })
+        })
       
-      console.log('✅ AdditionalIncome: Applied validation bypass for valid selection:', value)
-    } else {
+      } else {
       // For empty values, allow normal validation
       setFieldTouched('additionalIncome', true, true) // true = validate
     }
@@ -119,7 +104,6 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
                          values.additionalIncome !== undefined
     
     if (hasValidValue) {
-      console.log('✅ AdditionalIncome: Suppressing validation error for valid value:', values.additionalIncome)
       return false
     }
     

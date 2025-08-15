@@ -73,8 +73,7 @@ class TestReporter {
       screenshots: []
     };
     
-    console.log(`📝 Starting test: ${testName}`);
-  }
+    }
   
   /**
    * End current test
@@ -117,7 +116,6 @@ class TestReporter {
         ? (this.results.summary.passed / this.results.summary.total) * 100 
         : 0;
     
-    console.log(`✅ Test completed: ${this.currentTest.name} - ${this.currentTest.status}`);
     this.currentTest = null;
   }
   
@@ -142,8 +140,7 @@ class TestReporter {
       this.currentTest.assertions.push(assertion);
     }
     
-    console.log(`${passed ? '✅' : '❌'} Assertion: ${description}`);
-  }
+    }
   
   /**
    * Add test data
@@ -167,8 +164,7 @@ class TestReporter {
       this.currentTest.data[key] = value;
     }
     
-    console.log(`📊 Data added: ${key}`);
-  }
+    }
   
   /**
    * Add warning
@@ -182,8 +178,7 @@ class TestReporter {
     };
     
     this.results.warnings.push(warning);
-    console.log(`⚠️ Warning: ${message}`);
-  }
+    }
   
   /**
    * Add error
@@ -197,8 +192,7 @@ class TestReporter {
     };
     
     this.results.errors.push(error);
-    console.log(`❌ Error: ${message}`);
-  }
+    }
   
   /**
    * Add screenshot reference
@@ -215,8 +209,7 @@ class TestReporter {
       this.currentTest.screenshots.push(screenshot);
     }
     
-    console.log(`📸 Screenshot added: ${screenshotPath}`);
-  }
+    }
   
   /**
    * Generate comprehensive test report
@@ -224,8 +217,6 @@ class TestReporter {
   async generateReport() {
     this.results.endTime = new Date().toISOString();
     this.results.duration = new Date() - this.startTime;
-    
-    console.log('📊 Generating comprehensive test report...');
     
     // Generate JSON report
     await this.generateJsonReport();
@@ -239,7 +230,6 @@ class TestReporter {
     // Generate CSV data export
     await this.generateCsvExport();
     
-    console.log('✅ Test reports generated successfully');
     this.logReportSummary();
   }
   
@@ -263,8 +253,7 @@ class TestReporter {
     };
     
     fs.writeFileSync(jsonPath, JSON.stringify(detailedResults, null, 2));
-    console.log(`📄 JSON report saved: ${jsonPath}`);
-  }
+    }
   
   /**
    * Generate HTML report
@@ -275,8 +264,7 @@ class TestReporter {
     const html = this.generateHtmlContent();
     fs.writeFileSync(htmlPath, html);
     
-    console.log(`🌐 HTML report saved: ${htmlPath}`);
-  }
+    }
   
   /**
    * Generate HTML content
@@ -473,8 +461,7 @@ ${Object.keys(this.results.data).map(key => `- ${key}: ${this.results.data[key].
 `;
     
     fs.writeFileSync(summaryPath, summary);
-    console.log(`📋 Summary report saved: ${summaryPath}`);
-  }
+    }
   
   /**
    * Generate CSV export
@@ -488,8 +475,7 @@ ${Object.keys(this.results.data).map(key => `- ${key}: ${this.results.data[key].
     ).join('\n');
     
     fs.writeFileSync(csvPath, csvHeader + csvRows);
-    console.log(`📊 CSV export saved: ${csvPath}`);
-  }
+    }
   
   /**
    * Calculate detailed statistics
@@ -567,32 +553,14 @@ ${Object.keys(this.results.data).map(key => `- ${key}: ${this.results.data[key].
    * Log report summary to console
    */
   logReportSummary() {
-    console.log('\n' + '='.repeat(60));
-    console.log('📊 TEST EXECUTION SUMMARY');
-    console.log('='.repeat(60));
-    console.log(`Suite: ${this.suiteName}`);
-    console.log(`Browser: ${this.results.browser}`);
-    console.log(`Environment: ${this.results.environment}`);
-    console.log(`Duration: ${(this.results.duration / 1000).toFixed(1)}s`);
-    console.log('');
-    console.log(`📋 Tests: ${this.results.summary.total}`);
-    console.log(`✅ Passed: ${this.results.summary.passed}`);
-    console.log(`❌ Failed: ${this.results.summary.failed}`);
-    console.log(`⏭️ Skipped: ${this.results.summary.skipped}`);
-    console.log(`📊 Pass Rate: ${this.results.summary.passRate.toFixed(1)}%`);
-    console.log('');
-    console.log(`📝 Total Assertions: ${this.results.assertions.length}`);
-    console.log(`❌ Total Errors: ${this.results.errors.length}`);
-    console.log(`⚠️ Total Warnings: ${this.results.warnings.length}`);
-    console.log('='.repeat(60));
+    );
+    );
+    .toFixed(1)}s`);
+    }%`);
+    );
     
     // Report file locations
-    console.log('\n📁 Report Files Generated:');
-    console.log(`• JSON Report: ${this.reportDir}/${this.suiteName}-report.json`);
-    console.log(`• HTML Report: ${this.reportDir}/html/${this.suiteName}-report.html`);
-    console.log(`• Summary: ${this.reportDir}/${this.suiteName}-summary.txt`);
-    console.log(`• CSV Data: ${this.reportDir}/${this.suiteName}-data.csv`);
-  }
+    }
   
   /**
    * Get current test results

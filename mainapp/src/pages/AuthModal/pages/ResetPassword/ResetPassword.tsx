@@ -40,7 +40,6 @@ const ResetPassword = () => {
       validationSchema={validationSchema}
       validateOnMount
       onSubmit={(values) => {
-        console.log(values)
         dispatch(setActiveModal('newPassword'))
       }}
     >

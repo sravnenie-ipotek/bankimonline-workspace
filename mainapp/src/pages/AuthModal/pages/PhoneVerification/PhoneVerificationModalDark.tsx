@@ -48,7 +48,7 @@ const PhoneVerificationModalDark: React.FC<PhoneVerificationModalDarkProps> = ({
   }
 
   const validatePhone = (phone: string): string | undefined => {
-    console.log('Validating phone:', phone, 'Length:', phone.length) // Debug log
+    // Debug log
     
     if (!phone.trim()) {
       return t('phone_required')
@@ -57,16 +57,16 @@ const PhoneVerificationModalDark: React.FC<PhoneVerificationModalDarkProps> = ({
     // Israeli phone number validation: must be +972 followed by 9 digits
     // The react-phone-input-2 returns phone in format like "972544123456"
     if (!phone.startsWith('972')) {
-      console.log('Phone does not start with 972') // Debug log
+      // Debug log
       return t('phone_format_israel_error')
     }
     
     // Remove country code and check if we have exactly 9 more digits
     const phoneWithoutCountryCode = phone.substring(3)
-    console.log('Phone without country code:', phoneWithoutCountryCode, 'Length:', phoneWithoutCountryCode.length) // Debug log
+    // Debug log
     
     if (phoneWithoutCountryCode.length !== 9 || !/^\d{9}$/.test(phoneWithoutCountryCode)) {
-      console.log('Invalid phone format - needs exactly 9 digits after 972') // Debug log
+      // Debug log
       return t('phone_format_israel_error')
     }
     
@@ -84,7 +84,7 @@ const PhoneVerificationModalDark: React.FC<PhoneVerificationModalDarkProps> = ({
   }
 
   const handlePhoneChange = (phone: string) => {
-    console.log('Phone changed:', phone) // Debug log
+    // Debug log
     setFormData(prev => ({ ...prev, phone }))
     
     // Always validate on phone change for real-time validation

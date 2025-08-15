@@ -175,31 +175,22 @@ const BrokerQuestionnaire: React.FC = () => {
   }
 
   const handleSubmit = async (values: FormData) => {
-    console.log('🚀 handleSubmit called with values:', values)
     setIsSubmitting(true)
     setShowValidationErrors(true)
 
     try {
       // Log the form data for debugging
-      console.log('✅ Broker questionnaire submitted:', values)
-      
       // Simulate API call delay - in real implementation, this would be an actual API call
-      console.log('⏳ Waiting 500ms before navigation...')
       await new Promise(resolve => setTimeout(resolve, 500))
       
       // Navigate to application submitted page (like other forms do)
-      console.log('🧭 Navigating to /services/application-submitted')
       navigate('/services/application-submitted')
-      console.log('✅ Navigation completed')
-      
-    } catch (error) {
+      } catch (error) {
       console.error('❌ Error submitting questionnaire:', error)
       alert(t('broker_questionnaire_error_submit'))
       setIsSubmitting(false)
     }
   }
-
-
 
   return (
     <div className={cx('broker-questionnaire')}>
@@ -251,8 +242,6 @@ const BrokerQuestionnaire: React.FC = () => {
           >
             {({ values, setFieldValue, errors, touched, setFieldTouched, isValid }) => {
               // Debug logging
-              console.log('Form state:', { isValid, errors, values });
-              
               return (
               <Form className={cx('form')} ref={formRef}>
                 {/* Contact Information Section */}

@@ -36,9 +36,7 @@ export const useContentApi = (screenLocation: string) => {
         const language = i18n.language || 'en';
         // Use relative URL to work with proxy in development
         const apiUrl = `/api/content/${screenLocation}/${language}`;
-        
 
-        
         const response = await fetch(apiUrl);
         
         if (!response.ok) {
@@ -46,9 +44,7 @@ export const useContentApi = (screenLocation: string) => {
         }
         
         const data: ContentResponse = await response.json();
-        
 
-        
         if (data.status === 'success' && data.content) {
           // Transform API response to key-value pairs
           const transformedContent: Record<string, string> = {};
@@ -61,8 +57,7 @@ export const useContentApi = (screenLocation: string) => {
             // Also store with full key for more specific lookups
             transformedContent[key] = item.value;
           });
-          
-          
+
           setContent(transformedContent);
         } else {
           throw new Error('Invalid API response format');
@@ -354,7 +349,6 @@ export const useContentApi = (screenLocation: string) => {
     const mappedKeys = prefixMap[key] || [];
     for (const mappedKey of mappedKeys) {
       if (content[mappedKey]) {
-        console.log(`✅ Found content for key: ${key} using mapping: ${mappedKey} -> "${content[mappedKey]}"`);
         return content[mappedKey];
       }
     }
@@ -374,17 +368,14 @@ export const useContentApi = (screenLocation: string) => {
     
     for (const altKey of alternativeKeys) {
       if (content[altKey]) {
-        console.log(`✅ Found content for key: ${key} using alternative: ${altKey} -> "${content[altKey]}"`);
         return content[altKey];
       }
     }
     
     // Debug logging (only in development)
     if (process.env.NODE_ENV === 'development') {
-      console.log(`❌ Content lookup failed for key: ${key}`);
-      console.log(`Available keys:`, Object.keys(content));
-      console.log(`Tried mappings:`, mappedKeys);
-    }
+      );
+      }
     
     // Fallback to translation system
     const translationKey = fallbackKey || key;
