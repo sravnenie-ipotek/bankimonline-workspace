@@ -4,7 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-const { Pool } = require('pg');
+const { createPool } = require('../config/database-core');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
@@ -21,47 +21,19 @@ const contentCache = new NodeCache({
     useClones: false // Better performance for JSON objects
 });
 
-// Database configuration function for environment-based switching
-const getDatabaseConfig = (connectionType = 'content') => {
-    const isProduction = process.env.NODE_ENV === 'production';
-    const isRailwayProduction = process.env.RAILWAY_ENVIRONMENT === 'production';
-    
-    if (isProduction || isRailwayProduction) {
-        // Production: Local PostgreSQL on server
-        return {
-            connectionString: process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/bankim_content',
-            ssl: false // Local connections don't need SSL
-        };
-    } else {
-        // Development: Railway PostgreSQL
-        if (connectionType === 'content') {
-            // Content database: shortline (bankim_content) - Contains CMS content, translations, dropdowns
-            return {
-                connectionString: process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway',
-                ssl: false // Railway doesn't require SSL for proxy connections
-            };
-        } else {
-            // Main database: maglev (bankim_core) - Contains user data, authentication, client information
-            return {
-                connectionString: process.env.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway',
-                ssl: false // Railway doesn't require SSL for proxy connections
-            };
-        }
-    }
-};
-
 // Main database connection (Core Database)
-const pool = new Pool(getDatabaseConfig('main'));
+const pool = createPool('main');
 
 // Content database connection (SECOND database for content/translations)
-const contentPool = new Pool(getDatabaseConfig('content'));
+const contentPool = createPool('content');
 
 // Test main database connection
 pool.query('SELECT NOW()', (err, res) => {
     if (err) {
         console.error('❌ Main Database connection failed:', err.message);
     } else {
-        }
+        console.log('✅ Main Database connected successfully');
+    }
 });
 
 // Test content database connection
@@ -69,15 +41,28 @@ contentPool.query('SELECT NOW()', (err, res) => {
     if (err) {
         console.error('❌ Content Database connection failed:', err.message);
     } else {
-        // Delete test-content table if it exists
+        console.log('✅ Content Database connected successfully');
+        // Delete test-content table if it exists (cleanup)
         contentPool.query('DROP TABLE IF EXISTS "test-content" CASCADE', (dropErr, dropRes) => {
             if (dropErr) {
                 console.error('❌ Failed to delete test-content table:', dropErr.message);
             } else {
-                ');
+                console.log('✅ Test content table cleanup completed');
             }
         });
     }
+});
+
+// Server mode identification endpoint
+app.get('/api/server-mode', (req, res) => {
+    res.json({
+        mode: 'modern',
+        server: 'packages',
+        file: 'packages/server/src/server.js',
+        warning: false,
+        message: 'MODERN MODE - PACKAGES SERVER',
+        status: 'PRODUCTION READY'
+    });
 });
 
 // Helper function for content database queries
@@ -90,18 +75,6 @@ async function queryContentDB(query, params = []) {
         throw error;
     }
 }
-
-// Server mode identification endpoint
-app.get('/api/server-mode', (req, res) => {
-    res.json({
-        mode: 'legacy',
-        server: 'monorepo',
-        file: 'server/server-db.js',
-        warning: true,
-        message: 'LEGACY MODE - DEV MONOREPO SERVER',
-        recommendedSwitch: 'npm run server:dev'
-    });
-});
 
 // Export contentPool for direct access when needed
 global.contentPool = contentPool;
@@ -123,7 +96,7 @@ const getCorsOrigins = () => {
         return process.env.CORS_ALLOWED_ORIGINS.split(',').map(url => url.trim());
     }
     
-    // Default origins for development and production deployment
+    // Default origins for development and Railway deployment
     return [
         'http://localhost:3001',
         'http://localhost:3000',
@@ -131,7 +104,7 @@ const getCorsOrigins = () => {
         'http://localhost:5174', // Vite dev server (alternative port)
         'http://localhost:5175', // Vite dev server (another alternative port)
         'http://localhost:8003',
-        // Production domains
+        // Production domain
         'https://bankimonline.com'
     ];
 };
@@ -1121,7 +1094,6 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
         const dropdownMap = new Map();
         
         result.rows.forEach(row => {
-            `);
             
             // Extract field name using multiple patterns to handle various key formats
             // Examples: mortgage_step1.field.property_ownership, app.mortgage.form.calculate_mortgage_city
@@ -1170,49 +1142,6 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 } else {
                     // Base container label
                     match = row.content_key.match(/^mortgage_step\d+_([^_]+(?:_[^_]+)*)$/);
-                    if (match) {
-                        fieldName = match[1];
-                    }
-                }
-            }
-
-            // Pattern 1.7: app.refinance.step1.{field} (label/option)
-            // Examples: app.refinance.step1.why_option_1, app.refinance.step1.property_type_label
-            if (!fieldName) {
-                // Option like why_option_1
-                match = row.content_key.match(/^app\.refinance\.step1\.([^.]+?)_option_\d+$/);
-                if (match) {
-                    fieldName = match[1];
-                } else {
-                    // Label like property_type_label
-                    match = row.content_key.match(/^app\.refinance\.step1\.([^.]+?)_label$/);
-                    if (match) {
-                        fieldName = match[1];
-                    } else {
-                        // Base container (rare)
-                        match = row.content_key.match(/^app\.refinance\.step1\.([^.]+)$/);
-                        if (match) {
-                            fieldName = match[1];
-                        }
-                    }
-                }
-            }
-
-            // Pattern 1.8: calculate_credit_{field} (handles placeholders, options, and labels)
-            if (!fieldName) {
-                // Placeholder: calculate_credit_family_status_ph
-                match = row.content_key.match(/^calculate_credit_([^_]+(?:_[^_]+)*)_ph$/);
-                if (match) {
-                    fieldName = match[1];
-                } else if (row.content_key.includes('_option_')) {
-                    // Option: calculate_credit_family_status_option_1
-                    match = row.content_key.match(/^calculate_credit_([^_]+(?:_[^_]+)*)_option_\d+$/);
-                    if (match) {
-                        fieldName = match[1];
-                    }
-                } else {
-                    // Base container label: calculate_credit_family_status
-                    match = row.content_key.match(/^calculate_credit_([^_]+(?:_[^_]+)*)$/);
                     if (match) {
                         fieldName = match[1];
                     }
@@ -1283,7 +1212,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
             // Pattern 4.5: refinance_step2_{fieldname} (handles both container and options)
             if (!fieldName) {
                 // For options like: refinance_step2_education_bachelors, refinance_step2_education_masters, etc.
-                match = row.content_key.match(/refinance_step2_([^_]+(?:_[^_]+)*)_(?:bachelors|masters|doctorate|full_certificate|partial_certificate|no_certificate|post_secondary|postsecondary_education|full_high_school_certificate|partial_high_school_certificat|no_high_school_certificate)/);
+                match = row.content_key.match(/refinance_step2_([^_]+(?:_[^_]+)*)_(?:bachelors|masters|doctorate|full_certificate|partial_certificate|no_certificate|post_secondary|postsecondary_education|full_high_school_certificate|partial_high_school_certificate|no_high_school_certificate)/);
                 if (match) {
                     fieldName = match[1];
                 } else {
@@ -1437,67 +1366,6 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                             optionValue = 'no_obligations';
                         }
                         
-                        // 🚨 CREDIT CALCULATOR FIX: Map numeric values to semantic values
-                        // This fixes the critical business issue where credit calculator dropdowns
-                        // return numeric values but frontend expects semantic values
-                        if (fieldName === 'main_source' || fieldName === '3_main_source') {
-                            const semanticMapping = {
-                                '1': 'employee',
-                                '2': 'selfemployed', 
-                                '3': 'selfemployed', // Business owner treated as self-employed
-                                '4': 'pension',
-                                '5': 'student',
-                                '6': 'unemployed',
-                                '7': 'other'
-                            };
-                            if (semanticMapping[optionValue]) {
-                                optionValue = semanticMapping[optionValue];
-                            }
-                        } else if (fieldName === 'has_additional' || fieldName === '3_has_additional') {
-                            const semanticMapping = {
-                                '1': 'no_additional_income',
-                                '2': 'additional_salary',
-                                '3': 'additional_work',
-                                '4': 'investment_income',
-                                '5': 'property_rental_income',
-                                '6': 'pension_benefits',
-                                '7': 'other_income'
-                            };
-                            if (semanticMapping[optionValue]) {
-                                optionValue = semanticMapping[optionValue];
-                            }
-                        } else if (fieldName === 'debt_types' || fieldName === 'types' || fieldName === '3_debt_types' || fieldName === '3_types') {
-                            const semanticMapping = {
-                                '1': 'no_obligations',
-                                '2': 'credit_card',
-                                '3': 'bank_loan', 
-                                '4': 'consumer_credit',
-                                '5': 'other_obligations'
-                            };
-                            if (semanticMapping[optionValue]) {
-                                optionValue = semanticMapping[optionValue];
-                            }
-                        } else if (fieldName === 'field_of_activity' || fieldName === 'activity' || fieldName === '3_field_of_activity' || fieldName === '3_activity') {
-                            const semanticMapping = {
-                                '1': 'technology',
-                                '2': 'healthcare',
-                                '3': 'education',
-                                '4': 'finance',
-                                '5': 'real_estate',
-                                '6': 'construction',
-                                '7': 'retail',
-                                '8': 'manufacturing',
-                                '9': 'government',
-                                '10': 'transport',
-                                '11': 'consulting',
-                                '12': 'entertainment',
-                                '13': 'other'
-                            };
-                            if (semanticMapping[optionValue]) {
-                                optionValue = semanticMapping[optionValue];
-                            }
-                        }
-                        
                         dropdown.options.push({
                             value: optionValue,
                             label: row.content_value
@@ -1534,22 +1402,40 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
         });
 
         // Alias fix for production: expose citizenship options under an additional key
-        // This avoids frontend exclusions while keeping DB-first API intact
         try {
             const mainCitizenshipKey = `${screen}_citizenship`;
             const aliasCitizenshipKey = `${screen}_citizenship_countries`;
             if (screen === 'mortgage_step2' && response.options[mainCitizenshipKey]) {
-                // Copy options
                 response.options[aliasCitizenshipKey] = response.options[mainCitizenshipKey];
-                // Copy labels/placeholders when available
                 if (response.labels && response.labels[mainCitizenshipKey]) {
                     response.labels[aliasCitizenshipKey] = response.labels[mainCitizenshipKey];
                 }
                 if (response.placeholders && response.placeholders[mainCitizenshipKey]) {
                     response.placeholders[aliasCitizenshipKey] = response.placeholders[mainCitizenshipKey];
                 }
-                // Ensure alias appears in dropdowns list
                 response.dropdowns.push({ key: aliasCitizenshipKey, label: response.labels?.[aliasCitizenshipKey] || 'citizenship countries' });
+            }
+
+            // Step 1 aliases: when_needed/first_home ↔ when/first (non-breaking copies)
+            if (screen === 'mortgage_step1') {
+                const aliasPairs = [
+                    { source: 'when', alias: 'when_needed' },
+                    { source: 'first', alias: 'first_home' }
+                ];
+                for (const { source, alias } of aliasPairs) {
+                    const sourceKey = `${screen}_${source}`;
+                    const aliasKey = `${screen}_${alias}`;
+                    if (response.options[sourceKey] && !response.options[aliasKey]) {
+                        response.options[aliasKey] = response.options[sourceKey];
+                        if (response.labels && response.labels[sourceKey]) {
+                            response.labels[aliasKey] = response.labels[sourceKey];
+                        }
+                        if (response.placeholders && response.placeholders[sourceKey]) {
+                            response.placeholders[aliasKey] = response.placeholders[sourceKey];
+                        }
+                        response.dropdowns.push({ key: aliasKey, label: response.labels?.[aliasKey] || alias.replace(/_/g, ' ') });
+                    }
+                }
             }
         } catch (aliasErr) {
             console.warn('Citizenship alias mapping warning:', aliasErr?.message || aliasErr);
@@ -2537,7 +2423,11 @@ app.post('/api/bank-employee/register', async (req, res) => {
         // Generate registration token
         const registrationToken = jwt.sign(
             { email: corporateEmail, timestamp: Date.now() },
-            process.env.JWT_SECRET || 'bank-employee-secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e ".randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
 
@@ -3022,7 +2912,6 @@ app.post('/api/admin/migrate-vacancies', async (req, res) => {
             AND table_name IN ('vacancies', 'vacancy_applications')
         `);
         
-        );
         
         res.json({
             status: 'success',
@@ -3756,12 +3645,15 @@ app.post('/api/login', async (req, res) => {
         }
         
         const user = userResult.rows[0];
-        `);
         
         // Generate JWT
         const token = jwt.sign(
             { id: user.id, email: user.email, role: user.role, name: user.name },
-            process.env.JWT_SECRET || 'secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e ".randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
         
@@ -3812,37 +3704,6 @@ app.post('/api/auth-mobile', async (req, res) => {
 app.post('/api/auth-verify', async (req, res) => {
     const { code, mobile_number } = req.body;
     
-    // Mock mode for local development or automated tests
-    // Triggers if:
-    // - env MOCK_SMS_AUTH=true, or
-    // - query param ?mock=1, or
-    // - special code '0000' (explicit mock code)
-    try {
-        const shouldMock = (process.env.MOCK_SMS_AUTH === 'true') || (req.query && req.query.mock === '1') || code === '0000';
-        if (shouldMock) {
-            const token = jwt.sign(
-                { id: 1, phone: mobile_number || '+972500000000', type: 'client', mock: true },
-                process.env.JWT_SECRET || 'secret',
-                { expiresIn: '24h' }
-            );
-            return res.json({
-                status: 'success',
-                message: 'Login successful (mock)',
-                data: {
-                    token,
-                    user: {
-                        id: 1,
-                        name: 'Mock User',
-                        phone: mobile_number || '+972500000000',
-                        email: `${(mobile_number || '+972500000000').replace('+', '')}@mock.local`
-                    }
-                }
-            });
-        }
-    } catch (mockErr) {
-        console.warn('Mock auth-verify failed to generate token:', mockErr);
-    }
-    
     if (!code || !mobile_number || code.length !== 4) {
         return res.status(400).json({ status: 'error', message: 'Invalid code' });
     }
@@ -3854,38 +3715,20 @@ app.post('/api/auth-verify', async (req, res) => {
         if (clientResult.rows.length > 0) {
             client = clientResult.rows[0];
         } else {
-            try {
-                const newResult = await pool.query(
-                    'INSERT INTO clients (first_name, last_name, phone, email, role, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *',
-                    ['New', 'Client', mobile_number, `${mobile_number.replace('+', '')}@bankim.com`, 'customer']
-                );
-                client = newResult.rows[0];
-            } catch (insertError) {
-                // Handle race condition - if client was created by concurrent request
-                if (insertError.code === '23505' && (insertError.constraint === 'clients_phone_key' || insertError.constraint === 'clients_email_unique')) {
-                    , fetching existing client`);
-                    // Try to find existing client by phone OR email
-                    const email = `${mobile_number.replace('+', '')}@bankim.com`;
-                    const existingResult = await pool.query('SELECT * FROM clients WHERE phone = $1 OR email = $2', [mobile_number, email]);
-                    if (existingResult.rows.length > 0) {
-                        client = existingResult.rows[0];
-                        // Update the phone number if it's different (in case we found by email)
-                        if (client.phone !== mobile_number) {
-                            await pool.query('UPDATE clients SET phone = $1, updated_at = NOW() WHERE id = $2', [mobile_number, client.id]);
-                            client.phone = mobile_number;
-                        }
-                    } else {
-                        throw new Error('Client creation failed and no existing client found');
-                    }
-                } else {
-                    throw insertError;
-                }
-            }
+            const newResult = await pool.query(
+                'INSERT INTO clients (first_name, last_name, phone, email, role, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *',
+                ['New', 'Client', mobile_number, mobile_number.replace('+', '') + '@bankim.com', 'customer']
+            );
+            client = newResult.rows[0];
         }
         
         const token = jwt.sign(
             { id: client.id, phone: client.phone, type: 'client' },
-            process.env.JWT_SECRET || 'secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error("📋 Generate secure JWT key for JWT_SECRET environment variable");
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
         
@@ -3971,7 +3814,6 @@ app.post('/api/auth-password', async (req, res) => {
 app.post('/api/email-code-login', async (req, res) => {
     const { code, email } = req.body;
     
-    `);
     
     if (!code || !email) {
         return res.status(400).json({ status: 'error', message: 'Email and code are required' });
@@ -3993,12 +3835,15 @@ app.post('/api/email-code-login', async (req, res) => {
         }
         
         const user = userResult.rows[0];
-        `);
         
         // Generate JWT token
         const token = jwt.sign(
             { id: user.id, email: user.email, role: user.role, name: user.name },
-            process.env.JWT_SECRET || 'secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e ".randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
         
@@ -4084,7 +3929,7 @@ app.post('/api/refinance-mortgage', async (req, res) => {
             LEFT JOIN bank_configurations bc ON b.id = bc.bank_id 
                 AND bc.product_type = 'mortgage'
                 AND bc.is_active = true
-            WHERE b.is_active = true
+            WHERE b.tender = 1
             ORDER BY COALESCE(bc.base_interest_rate, $1) ASC
             LIMIT 3
         `;
@@ -4170,7 +4015,6 @@ app.post('/api/refinance-credit', async (req, res) => {
         const monthlySavings = oldMonthlyPayment - newMonthlyPayment;
         const totalSavings = monthlySavings * 60; // 5 years = 60 months
         
-        , ₪${newMonthlyPayment}/month, ₪${totalSavings} total savings`);
         
         res.json({
             status: 'success',
@@ -4203,7 +4047,11 @@ const requireAdmin = (req, res, next) => {
     const token = authHeader.substring(7);
     
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || (() => {
+            console.error('🚨 JWT_SECRET environment variable is required');
+            console.error('📋 Generate secure key: node -e ".randomBytes(32).toString(\'hex\'))"');
+            process.exit(1);
+        })());
         
         if (!decoded.role || !decoded.is_staff) {
             return res.status(403).json({ status: 'error', message: 'Admin privileges required' });
@@ -4260,7 +4108,11 @@ app.post('/api/admin/login', async (req, res) => {
                 name: `${admin.first_name} ${admin.last_name}`,
                 is_staff: true
             },
-            process.env.JWT_SECRET || 'secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e ".randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
         
@@ -4508,7 +4360,6 @@ app.put('/api/admin/banks/:id/config', requireAdmin, async (req, res) => {
             RETURNING *
         `, [id, baseRate, minRate, maxRate]);
         
-        configuration`);
         
         res.json({
             status: 'success',
@@ -5781,7 +5632,11 @@ app.post('/api/bank-worker/invite', requireAdmin, async (req, res) => {
         // Generate invitation token
         const invitationToken = jwt.sign(
             { email, bankId, branchId, invitedBy: adminId, type: 'invitation' },
-            process.env.JWT_SECRET || 'bank-worker-invitation-secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e ".randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })(),
             { expiresIn: '7d' } // 7 days to complete registration
         );
 
@@ -5833,7 +5688,11 @@ app.get('/api/bank-worker/register/:token', async (req, res) => {
         // Verify and decode invitation token
         let decodedToken;
         try {
-            decodedToken = jwt.verify(token, process.env.JWT_SECRET || 'bank-worker-invitation-secret');
+            decodedToken = jwt.verify(token, process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e ".randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })());
         } catch (err) {
             return res.status(401).json({
                 status: 'error',
@@ -5922,7 +5781,11 @@ app.post('/api/bank-worker/register', async (req, res) => {
         // Verify invitation token
         let decodedToken;
         try {
-            decodedToken = jwt.verify(invitationToken, process.env.JWT_SECRET || 'bank-worker-invitation-secret');
+            decodedToken = jwt.verify(invitationToken, process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error('📋 Generate secure key: node -e ".randomBytes(32).toString(\'hex\'))"');
+                process.exit(1);
+            })());
         } catch (err) {
             return res.status(401).json({
                 status: 'error',
@@ -6008,7 +5871,6 @@ app.post('/api/bank-worker/register', async (req, res) => {
 
             await client.query('COMMIT');
 
-            `);
 
             res.status(201).json({
                 status: 'success',
@@ -7862,7 +7724,6 @@ async function calculateBankSpecificRate(bankId, baseRate, customerProfile) {
             return validBaseRate;
         }
         
-        }%`);
         return resultRate;
         
     } catch (error) {
@@ -8086,15 +7947,15 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                     WHEN $4 = 'name_ru' THEN COALESCE(b.name_ru, b.name_en)
                     ELSE b.name_en
                 END as name, 
-                NULL as logo_url,
-                COALESCE(bc.min_loan_amount, 50000) as min_loan_amount,
-                COALESCE(bc.max_loan_amount, 5000000) as max_loan_amount,
+                b.url as logo_url,
+                COALESCE(bc.min_loan_amount, cp_min.parameter_value, 50000) as min_loan_amount,
+                COALESCE(bc.max_loan_amount, cp_max.parameter_value, 5000000) as max_loan_amount,
                 COALESCE(bc.base_interest_rate, $1) as base_interest_rate,
                 COALESCE(bc.min_interest_rate, $1 - 0.5) as min_interest_rate,
                 COALESCE(bc.max_interest_rate, $1 + 2.0) as max_interest_rate,
                 COALESCE(bc.max_ltv_ratio, $2) as max_ltv_ratio,
                 COALESCE(bc.min_credit_score, 620) as min_credit_score,
-                COALESCE(bc.processing_fee, 2500) as processing_fee,
+                COALESCE(bc.processing_fee, cp_fee.parameter_value, 2500) as processing_fee,
                 COALESCE(bc.risk_premium, 0.0) as risk_premium,
                 bc.auto_approval_enabled
             FROM banks b
@@ -8102,8 +7963,11 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                 AND bc.product_type = $3 
                 AND bc.is_active = true
                 AND (bc.effective_to IS NULL OR bc.effective_to >= CURRENT_DATE)
-            WHERE b.is_active = true
-            ORDER BY b.name_en
+            LEFT JOIN calculation_parameters cp_min ON cp_min.parameter_name = 'min_loan_amount'
+            LEFT JOIN calculation_parameters cp_max ON cp_max.parameter_name = 'max_loan_amount'  
+            LEFT JOIN calculation_parameters cp_fee ON cp_fee.parameter_name = 'processing_fee'
+            WHERE b.tender = 1
+            ORDER BY b.priority, b.name_en
         `;
         
         const banksResult = await pool.query(banksQuery, [
@@ -8122,35 +7986,34 @@ app.post('/api/customer/compare-banks', async (req, res) => {
         }
         
         // Load global standards for fallback
-        // Use default standards (banking_standards table not available - use hardcoded defaults)
-        const globalStandards = {
-            minimum_monthly_income: 3000,
-            minimum_age: 18,
-            maximum_age_at_maturity: 75,
-            pmi_ltv_max: 97
-        };
+        const globalStandardsQuery = `
+            SELECT standard_name, standard_value
+            FROM banking_standards 
+            WHERE business_path = $1 AND is_active = true
+        `;
+        const globalStandardsResult = await pool.query(globalStandardsQuery, [
+            loan_type === 'mortgage' || loan_type === 'mortgage_refinance' ? 'mortgage' : 'credit'
+        ]);
+        
+        const globalStandards = {};
+        globalStandardsResult.rows.forEach(row => {
+            globalStandards[row.standard_name] = parseFloat(row.standard_value);
+        });
         
         // Calculate loan terms for each bank
         let bankOffers = [];
         
         for (const bank of banks) {
             try {
-                `);
                 
                 // Check if loan amount is within bank's limits
                 if (amount < bank.min_loan_amount || amount > bank.max_loan_amount) {
-                    `);
                     continue;
                 }
                 
                 // 1. GET BANK-SPECIFIC STANDARDS (from bank_configurations table)
                 const bankStandards = await getBankSpecificStandardsFromConfig(bank, globalStandards);
                 
-                .reduce((acc, key) => {
-                        acc[key] = `${bankStandards[key].value} (${bankStandards[key].source})`;
-                        return acc;
-                    }, {})
-                );
                 
                 // 2. CHECK BANK-SPECIFIC ELIGIBILITY CRITERIA
                 
@@ -8159,34 +8022,28 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                     const customerLTV = (amount / property_value) * 100;
                     const maxLTV = bankStandards.standard_ltv_max.value;
                     if (customerLTV > maxLTV) {
-                        }% > Bank Max ${maxLTV}% (${bankStandards.standard_ltv_max.source})`);
                         continue;
                     }
-                    }% ≤ Bank Max ${maxLTV}% ✓`);
                 }
                 
                 // Credit Score Check (Bank-Specific)
                 if (bankStandards.minimum_credit_score && calculated_credit_score < bankStandards.minimum_credit_score.value) {
-                    `);
                     continue;
                 }
                 
                 // Income Check (Bank-Specific)
                 if (bankStandards.minimum_monthly_income && monthly_income < bankStandards.minimum_monthly_income.value) {
-                    `);
                     continue;
                 }
                 
                 // Age Checks (Bank-Specific)
                 if (bankStandards.minimum_age && calculated_age < bankStandards.minimum_age.value) {
-                    `);
                     continue;
                 }
                 
                 if (bankStandards.maximum_age_at_maturity) {
                     const ageAtMaturity = calculated_age + 30; // Assuming 30-year loan
                     if (ageAtMaturity > bankStandards.maximum_age_at_maturity.value) {
-                        `);
                         continue;
                     }
                 }
@@ -8194,7 +8051,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                 // DTI Check (Bank-Specific)
                 const frontEndDTI = (calculated_monthly_expenses / monthly_income) * 100;
                 if (bankStandards.front_end_dti_max && frontEndDTI > bankStandards.front_end_dti_max.value) {
-                    }% > Bank Max ${bankStandards.front_end_dti_max.value}% (${bankStandards.front_end_dti_max.source})`);
                     continue;
                 }
                 
@@ -8219,7 +8075,6 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                 const finalRate = bankSpecificRate != null ? parseFloat(bankSpecificRate) : baseRateValue;
                 const formattedRate = !isNaN(finalRate) ? finalRate.toFixed(3) : baseRateValue.toFixed(3);
                 
-                : Base rate ${baseRateValue}% → Final rate ${formattedRate}%`);
                 
                 // 4. PERFORM CALCULATION WITH BANK-SPECIFIC PARAMETERS
                 let result;
@@ -8268,9 +8123,7 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                     };
                     
                         bankOffers.push(bankOffer);
-                    }%, Payment: ${result.payment_details.monthly_payment})`);
             } else {
-                    }`);
                 }
                 
             } catch (bankError) {
@@ -8315,14 +8168,15 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                             b.name_en,
                             b.name_he, 
                             b.name_ru,
-                            NULL as logo,
-                            NULL as url,
-                            5.0 as fallback_rate,
-                            80.0 as approval_rate,
-                            b.id as fallback_priority
+                            b.logo,
+                            b.url,
+                            COALESCE(b.fallback_interest_rate, 5.0) as fallback_rate,
+                            COALESCE(b.fallback_approval_rate, 80.0) as approval_rate,
+                            b.fallback_priority
                         FROM banks b
                         WHERE b.is_active = true 
-                        ORDER BY b.id ASC, b.name_en ASC
+                        AND b.show_in_fallback = true
+                        ORDER BY b.fallback_priority ASC, b.priority ASC, b.name_en ASC
                         LIMIT $1
                     `;
                     
@@ -8343,7 +8197,7 @@ app.post('/api/customer/compare-banks', async (req, res) => {
                             bankOffers.push({
                                 bank_id: `fallback-${bank.id}`,
                                 bank_name: bank.bank_name || bank.name_en,
-                                bank_logo: bank.logo || bank.url || null,
+                                bank_logo: bank.logo || bank.url,
                                 loan_amount: amount,
                                 monthly_payment: Math.round(monthlyPayment),
                                 interest_rate: parseFloat(rate.toFixed(2)),
@@ -8571,12 +8425,15 @@ app.post('/api/register', async (req, res) => {
         
         const newClient = result.rows[0];
         
-        `);
         
         // Generate JWT token for immediate login
         const token = jwt.sign(
             { id: newClient.id, phone: newClient.phone, email: newClient.email, type: 'client' },
-            process.env.JWT_SECRET || 'secret',
+            process.env.JWT_SECRET || (() => {
+                console.error('🚨 JWT_SECRET environment variable is required');
+                console.error("📋 Generate secure JWT key for JWT_SECRET environment variable");
+                process.exit(1);
+            })(),
             { expiresIn: '24h' }
         );
         
@@ -8587,7 +8444,7 @@ app.post('/api/register', async (req, res) => {
                 token,
                 user: {
                     id: newClient.id,
-                    name: `${newClient.first_name} ${newClient.last_name}`,
+                    name: newClient.first_name + ' ' + newClient.last_name,
                     email: newClient.email,
                     phone: newClient.phone,
                     type: 'client'
@@ -8992,7 +8849,7 @@ app.get('/api/applications/:id/status', async (req, res) => {
                 la.term_months, la.monthly_payment,
                 la.application_data, la.review_notes,
                 c.name as client_name, c.email, c.phone,
-                b.name_en as bank_name, NULL as bank_logo
+                b.name as bank_name, b.logo_url as bank_logo
             FROM loan_applications la
             JOIN clients c ON la.client_id = c.id
             JOIN banks b ON la.bank_id = b.id
@@ -9570,69 +9427,40 @@ app.get('/api/v1/calculation-parameters', async (req, res) => {
             });
         }
 
-        // Get configuration parameters - use default values (banking_standards table not available)
-        let parameters = {};
-        try {
-            const parametersQuery = `
-                SELECT 
-                    standard_category,
-                    standard_name,
-                    standard_value,
-                    value_type,
-                    description
-                FROM banking_standards 
-                WHERE business_path = $1 
-                    AND is_active = true
-                    AND (effective_to IS NULL OR effective_to >= CURRENT_DATE)
-                ORDER BY standard_category, standard_name
-            `;
-            
-            const result = await pool.query(parametersQuery, [business_path]);
-            
-            // Organize parameters by category
-            result.rows.forEach(row => {
-                if (!parameters[row.standard_category]) {
-                    parameters[row.standard_category] = {};
-                }
-                parameters[row.standard_category][row.standard_name] = {
-                    value: parseFloat(row.standard_value),
-                    type: row.value_type,
-                    description: row.description
-                };
-            });
-        } catch (paramError) {
-            console.warn('[CALC-PARAMS] banking_standards table not found, using default fallback values');
-            // Use hardcoded defaults for mortgage calculation parameters
-            parameters = {
-                eligibility: {
-                    minimum_monthly_income: { value: 3000, type: 'currency', description: 'Minimum monthly income required' },
-                    minimum_age: { value: 18, type: 'integer', description: 'Minimum borrower age' },
-                    maximum_age_at_maturity: { value: 75, type: 'integer', description: 'Maximum age when loan matures' }
-                },
-                loan_terms: {
-                    minimum_loan_amount: { value: 50000, type: 'currency', description: 'Minimum loan amount' },
-                    maximum_loan_amount: { value: 3000000, type: 'currency', description: 'Maximum loan amount' },
-                    minimum_term_years: { value: 5, type: 'integer', description: 'Minimum loan term in years' },
-                    maximum_term_years: { value: 30, type: 'integer', description: 'Maximum loan term in years' }
-                },
-                ratios: {
-                    pmi_ltv_max: { value: 97, type: 'percentage', description: 'Maximum LTV for PMI calculation' },
-                    front_end_dti_max: { value: 45, type: 'percentage', description: 'Maximum front-end DTI ratio' },
-                    back_end_dti_max: { value: 45, type: 'percentage', description: 'Maximum back-end DTI ratio' }
-                }
+        // Get configuration parameters from banking_standards table
+        const parametersQuery = `
+            SELECT 
+                standard_category,
+                standard_name,
+                standard_value,
+                value_type,
+                description
+            FROM banking_standards 
+            WHERE business_path = $1 
+                AND is_active = true
+                AND (effective_to IS NULL OR effective_to >= CURRENT_DATE)
+            ORDER BY standard_category, standard_name
+        `;
+        
+        const result = await pool.query(parametersQuery, [business_path]);
+        
+        // Organize parameters by category
+        const parameters = {};
+        result.rows.forEach(row => {
+            if (!parameters[row.standard_category]) {
+                parameters[row.standard_category] = {};
+            }
+            parameters[row.standard_category][row.standard_name] = {
+                value: parseFloat(row.standard_value),
+                type: row.value_type,
+                description: row.description
             };
-        }
+        });
 
-        // Get current mortgage rate using database function with fallback
-        let currentRate = 5.0; // Default fallback rate
-        try {
-            const rateQuery = `SELECT get_current_mortgage_rate() as current_rate`;
-            const rateResult = await contentPool.query(rateQuery);
-            currentRate = parseFloat(rateResult.rows[0].current_rate);
-        } catch (rateError) {
-            console.warn('[CALC-PARAMS] get_current_mortgage_rate function not found, using default rate 5.0%');
-            currentRate = 5.0;
-        }
+        // Get current mortgage rate using database function
+        const rateQuery = `SELECT get_current_mortgage_rate() as current_rate`;
+        const rateResult = await contentPool.query(rateQuery);
+        const currentRate = parseFloat(rateResult.rows[0].current_rate);
 
         // Get property ownership LTV ratios with fallback
         let propertyOwnershipLtvs = {};
@@ -9753,8 +9581,6 @@ app.get('/api/get-table-schema', async (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    🚨');
-    ');
     });
 
 module.exports = app; 
