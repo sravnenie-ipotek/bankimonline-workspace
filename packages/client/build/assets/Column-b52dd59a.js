@@ -1,1 +1,0 @@
-import{j as c}from"./ui-vendor-5a9cd79c.js";import{c as m}from"./index-bc53121f.js";const n="_column_1uzwz_1",t={column:n},l=m.bind(t),a=({children:s,...o})=>c.jsx("div",{className:l("column"),...o,children:s});export{a as C};

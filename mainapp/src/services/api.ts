@@ -2,9 +2,9 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 // Get API base URL from environment variables
 const getApiBaseUrl = () => {
-  // Check if we're running on localhost (development)
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-    return 'http://localhost:8003/api'
+  // In development, use relative path to leverage Vite proxy
+  if (import.meta.env.DEV) {
+    return '/api'
   }
   
   // In production, use environment variable or fallback to production API
