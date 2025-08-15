@@ -231,5 +231,201 @@ Cypress.Commands.add('documentStep', (stepName: string, description?: string) =>
   cy.task('log', `Step: ${stepName} - ${description || 'No description'}`);
 });
 
+// 🎨 PERCY VISUAL REGRESSION COMMANDS
+
+// Banking-specific Percy snapshot with security and localization
+Cypress.Commands.add('percySnapshot', (name: string, options = {}) => {
+  const defaultOptions = {
+    widths: [375, 768, 1280, 1920],
+    minHeight: 1000,
+    percyCSS: `
+      /* Hide sensitive banking data */
+      [class*="account-number"], 
+      [class*="credit-score"], 
+      [data-test*="sensitive"],
+      .sensitive-data {
+        background: #f0f0f0 !important;
+        color: transparent !important;
+      }
+      
+      /* Ensure Hebrew fonts load properly */
+      @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap');
+      * {
+        font-family: 'Heebo', 'Segoe UI', Arial, sans-serif !important;
+      }
+      
+      /* Stabilize animations */
+      *, *::before, *::after {
+        animation-duration: 0s !important;
+        animation-delay: 0s !important;
+        transition-duration: 0s !important;
+        transition-delay: 0s !important;
+      }
+      
+      /* Hide loading skeletons for consistent snapshots */
+      [class*="skeleton"], [class*="shimmer"], [class*="loading"] {
+        display: none !important;
+      }
+    `,
+    enableJavaScript: true,
+    waitForTimeout: 2000,
+    ...options
+  };
+
+  // Wait for page to be fully loaded
+  if (options.waitForSelector) {
+    cy.get(options.waitForSelector, { timeout: 10000 }).should('be.visible');
+  }
+  
+  // Wait for fonts to load
+  cy.document().should('have.property', 'readyState', 'complete');
+  cy.wait(1000); // Additional wait for font rendering
+  
+  // Take Percy snapshot
+  cy.get('body').then(() => {
+    // @ts-ignore - Percy types may not be fully available
+    cy.percySnapshot(name, defaultOptions);
+  });
+});
+
+// Multi-language Percy snapshots
+Cypress.Commands.add('percySnapshotMultiLang', (baseName: string, options = {}) => {
+  const languages = ['he', 'en', 'ru'];
+  const languageNames = {
+    'he': 'Hebrew',
+    'en': 'English', 
+    'ru': 'Russian'
+  };
+
+  languages.forEach(lang => {
+    // Switch language
+    cy.selectLanguage(lang as 'he' | 'en' | 'ru');
+    
+    // Wait for translation to load
+    cy.wait(2000);
+    
+    // Take snapshot with language identifier
+    const snapshotName = `${baseName} - ${languageNames[lang]}`;
+    cy.percySnapshot(snapshotName, {
+      ...options,
+      percyCSS: (options.percyCSS || '') + `
+        /* Language-specific styling */
+        html[dir="rtl"] {
+          direction: rtl !important;
+        }
+        html[dir="ltr"] {
+          direction: ltr !important;
+        }
+      `
+    });
+  });
+  
+  // Reset to Hebrew (default)
+  cy.selectLanguage('he');
+});
+
+// Secure banking Percy snapshot with enhanced data masking
+Cypress.Commands.add('percySnapshotSecure', (name: string, options = {}) => {
+  // Enhanced security CSS for banking data
+  const securityCSS = `
+    /* Mask all potential PII and financial data */
+    [class*="account"], [class*="balance"], [class*="amount"],
+    [class*="loan"], [class*="credit"], [class*="income"],
+    [class*="salary"], [class*="payment"], [class*="rate"],
+    [data-test*="financial"], [data-test*="personal"],
+    input[type="number"], input[name*="amount"], 
+    input[name*="income"], input[name*="salary"] {
+      background: linear-gradient(45deg, #e0e0e0 25%, transparent 25%),
+                  linear-gradient(-45deg, #e0e0e0 25%, transparent 25%),
+                  linear-gradient(45deg, transparent 75%, #e0e0e0 75%),
+                  linear-gradient(-45deg, transparent 75%, #e0e0e0 75%) !important;
+      background-size: 10px 10px !important;
+      background-position: 0 0, 0 5px, 5px -5px, -5px 0px !important;
+      color: transparent !important;
+    }
+    
+    /* Mask phone numbers and IDs */
+    [class*="phone"], [class*="id-number"], 
+    [name*="phone"], [name*="id"] {
+      background: #f5f5f5 !important;
+      color: transparent !important;
+    }
+    
+    /* Hide tooltips and overlays that might contain sensitive info */
+    .tooltip, [class*="tooltip"], [class*="overlay"],
+    [class*="modal"] {
+      display: none !important;
+    }
+  `;
+
+  cy.percySnapshot(name, {
+    ...options,
+    percyCSS: securityCSS + (options.percyCSS || '')
+  });
+});
+
+// Banking form state snapshot (useful for step-by-step flows)
+Cypress.Commands.add('percySnapshotFormState', (stepName: string, formData: any = {}) => {
+  // Fill form with provided data
+  Object.keys(formData).forEach(field => {
+    cy.get(`[name="${field}"]`).clear().type(formData[field]);
+  });
+  
+  // Wait for form validation
+  cy.wait(1000);
+  
+  // Take snapshot
+  cy.percySnapshot(`Form State - ${stepName}`, {
+    percyCSS: `
+      /* Highlight form fields */
+      input:focus, select:focus, textarea:focus {
+        outline: 2px solid #0066cc !important;
+        outline-offset: 2px !important;
+      }
+      
+      /* Highlight validation errors */
+      .error, [class*="error"], [class*="invalid"] {
+        border: 2px solid #ff4444 !important;
+        background-color: #fff5f5 !important;
+      }
+      
+      /* Highlight successful validation */
+      .valid, [class*="valid"], [class*="success"] {
+        border: 2px solid #44ff44 !important;
+        background-color: #f5fff5 !important;
+      }
+    `
+  });
+});
+
+// Percy snapshot with mobile-first responsive testing
+Cypress.Commands.add('percySnapshotResponsive', (name: string, options = {}) => {
+  const responsiveOptions = {
+    ...options,
+    widths: [375, 768, 1024, 1280, 1920],
+    percyCSS: (options.percyCSS || '') + `
+      /* Mobile-first optimizations */
+      @media (max-width: 768px) {
+        .desktop-only { display: none !important; }
+        .mobile-optimized { display: block !important; }
+      }
+      
+      /* Tablet optimizations */
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .mobile-only { display: none !important; }
+        .tablet-optimized { display: block !important; }
+      }
+      
+      /* Desktop optimizations */
+      @media (min-width: 1025px) {
+        .mobile-only, .tablet-only { display: none !important; }
+        .desktop-optimized { display: block !important; }
+      }
+    `
+  };
+  
+  cy.percySnapshot(name, responsiveOptions);
+});
+
 // Export empty object to make this a module
 export {}

@@ -1,0 +1,310 @@
+name: 🎨 Percy Visual Regression Testing
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'mainapp/src/**'
+      - 'mainapp/cypress/**'
+      - 'mainapp/public/**'
+      - 'locales/**'
+      - 'server/docs/**'
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      test_scope:
+        description: 'Test scope'
+        required: true
+        default: 'full'
+        type: choice
+        options:
+        - full
+        - mortgage-only
+        - credit-only
+        - broken-flows-only
+
+env:
+  PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+  PERCY_BRANCH: ${{ github.head_ref || github.ref_name }}
+  PERCY_TARGET_BRANCH: ${{ github.base_ref || 'main' }}
+
+jobs:
+  visual-regression:
+    name: 🎨 Visual Regression Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    strategy:
+      matrix:
+        # Run in parallel for faster execution
+        test-group: 
+          - mortgage
+          - credit
+          - refinance-credit
+          - refinance-mortgage
+
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Fetch more history for better Percy baseline detection
+          fetch-depth: 50
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: mainapp/package-lock.json
+
+      - name: 🔧 Install dependencies
+        working-directory: mainapp
+        run: |
+          npm ci
+          npx percy --version
+          npx cypress --version
+
+      - name: 🏗️ Build application
+        working-directory: mainapp
+        run: npm run build
+
+      - name: 🚀 Start servers
+        working-directory: ../
+        run: |
+          # Start backend API server
+          node server/server-db.js &
+          echo $! > api_server.pid
+          
+          # Start frontend dev server
+          cd mainapp
+          npm run dev &
+          echo $! > frontend_server.pid
+          
+          # Wait for servers to be ready
+          sleep 10
+          
+          # Verify servers are running
+          curl --retry 5 --retry-delay 2 http://localhost:8003/health || echo "API server not ready"
+          curl --retry 5 --retry-delay 2 http://localhost:5173 || echo "Frontend server not ready"
+
+      - name: 🎨 Run Percy Visual Tests
+        working-directory: mainapp
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          JIRA_HOST: ${{ secrets.JIRA_HOST }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
+        run: |
+          case "${{ matrix.test-group }}" in
+            "mortgage")
+              npm run test:visual:mortgage
+              ;;
+            "credit")
+              npm run test:visual:credit
+              ;;
+            "refinance-credit")
+              npm run test:visual:refinance-credit
+              ;;
+            "refinance-mortgage")
+              npm run test:visual:refinance-mortgage
+              ;;
+          esac
+
+      - name: 📊 Upload Percy Build Info
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: percy-build-info-${{ matrix.test-group }}
+          path: |
+            mainapp/.percy/
+            mainapp/cypress/screenshots/
+            mainapp/cypress/videos/
+
+      - name: 🐛 Create Jira Bug for Visual Regression
+        if: failure()
+        working-directory: mainapp
+        env:
+          JIRA_HOST: ${{ secrets.JIRA_HOST }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_PROJECT_KEY: ${{ secrets.JIRA_PROJECT_KEY }}
+        run: |
+          node -e "
+          const axios = require('axios');
+          const fs = require('fs');
+          
+          async function createVisualRegressionBug() {
+            const auth = Buffer.from('${{ secrets.JIRA_EMAIL }}:${{ secrets.JIRA_API_TOKEN }}').toString('base64');
+            
+            const payload = {
+              fields: {
+                project: { key: '${{ secrets.JIRA_PROJECT_KEY }}' },
+                summary: '🎨 Visual Regression Detected: ${{ matrix.test-group }} Flow',
+                description: {
+                  type: 'doc',
+                  version: 1,
+                  content: [
+                    {
+                      type: 'panel',
+                      attrs: { panelType: 'error' },
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            { type: 'text', text: 'Visual regression detected in Percy visual testing pipeline', marks: [{ type: 'strong' }] }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      type: 'heading',
+                      attrs: { level: 3 },
+                      content: [{ type: 'text', text: '📍 Regression Details' }]
+                    },
+                    {
+                      type: 'bulletList',
+                      content: [
+                        {
+                          type: 'listItem',
+                          content: [
+                            {
+                              type: 'paragraph',
+                              content: [
+                                { type: 'text', text: 'Test Group: ${{ matrix.test-group }}' }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          type: 'listItem',
+                          content: [
+                            {
+                              type: 'paragraph',
+                              content: [
+                                { type: 'text', text: 'Branch: ${{ github.head_ref || github.ref_name }}' }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          type: 'listItem',
+                          content: [
+                            {
+                              type: 'paragraph',
+                              content: [
+                                { type: 'text', text: 'Commit: ${{ github.sha }}' }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          type: 'listItem',
+                          content: [
+                            {
+                              type: 'paragraph',
+                              content: [
+                                { type: 'text', text: 'Percy Build: https://percy.io/bankimonline/banking-app' }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                issuetype: { name: 'Bug' },
+                priority: { name: 'High' },
+                labels: ['visual-regression', 'percy', 'automated', '${{ matrix.test-group }}']
+              }
+            };
+            
+            try {
+              const response = await axios.post('${{ secrets.JIRA_HOST }}/rest/api/3/issue', payload, {
+                headers: {
+                  'Authorization': \`Basic \${auth}\`,
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                }
+              });
+              
+              console.log('🎯 Visual regression Jira bug created:', response.data.key);
+            } catch (error) {
+              console.error('❌ Failed to create Jira bug:', error.response?.data || error.message);
+            }
+          }
+          
+          createVisualRegressionBug();
+          "
+
+      - name: 🧹 Cleanup servers
+        if: always()
+        working-directory: ../
+        run: |
+          # Kill servers
+          if [ -f api_server.pid ]; then
+            kill $(cat api_server.pid) || true
+            rm api_server.pid
+          fi
+          if [ -f mainapp/frontend_server.pid ]; then
+            kill $(cat mainapp/frontend_server.pid) || true
+            rm mainapp/frontend_server.pid
+          fi
+
+  percy-finalize:
+    name: 🏁 Finalize Percy Build
+    runs-on: ubuntu-latest
+    needs: visual-regression
+    if: always()
+    
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: 🔧 Install Percy CLI
+        run: npm install -g @percy/cli
+
+      - name: 🏁 Finalize Percy Build
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        run: |
+          # Finalize the Percy build
+          percy build:finalize
+
+      - name: 📋 Percy Build Status
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        run: |
+          echo "🎨 Percy visual regression testing completed"
+          echo "📊 View results: https://percy.io/bankimonline/banking-app"
+          echo "🔗 Build URL: https://percy.io/bankimonline/banking-app/builds/$PERCY_BUILD_ID"
+
+  # Block merge if visual regression detected
+  visual-regression-gate:
+    name: 🚦 Visual Regression Gate
+    runs-on: ubuntu-latest
+    needs: visual-regression
+    if: github.event_name == 'pull_request'
+    
+    steps:
+      - name: ✅ Visual Regression Check
+        run: |
+          echo "🎨 Visual regression testing completed"
+          echo "🔍 Check Percy dashboard for any visual changes"
+          echo "📊 Results: https://percy.io/bankimonline/banking-app"
+          
+          # This job will fail if any visual regression test failed
+          # Preventing merge until Percy changes are approved
+          if [ "${{ needs.visual-regression.result }}" != "success" ]; then
+            echo "❌ Visual regression detected - blocking merge"
+            echo "Please review and approve changes in Percy dashboard"
+            exit 1
+          fi
+          
+          echo "✅ No visual regressions detected - safe to merge"

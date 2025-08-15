@@ -73,7 +73,18 @@
     "test:translations": "cypress run --spec 'cypress/e2e/translation-checker.cy.ts'",
     "test:translations:full": "cypress run --spec 'cypress/e2e/full-translation-scan.cy.ts'",
     "test:translations:visual": "cypress open --spec 'cypress/e2e/translation-checker.cy.ts'",
-    "test:translations:screenshots": "cypress run --spec 'cypress/e2e/translation-screenshot-each-issue.cy.ts'"
+    "test:translations:screenshots": "cypress run --spec 'cypress/e2e/translation-screenshot-each-issue.cy.ts'",
+    "percy:exec": "percy exec --",
+    "test:visual": "percy exec -- cypress run --spec 'cypress/e2e/visual/*.cy.ts'",
+    "test:visual:open": "cypress open --spec 'cypress/e2e/visual/*.cy.ts'",
+    "test:visual:mortgage": "percy exec -- cypress run --spec 'cypress/e2e/visual/mortgage-visual.cy.ts'",
+    "test:visual:credit": "percy exec -- cypress run --spec 'cypress/e2e/visual/credit-visual.cy.ts'",
+    "test:visual:refinance-credit": "percy exec -- cypress run --spec 'cypress/e2e/visual/refinance-credit-visual.cy.ts'",
+    "test:visual:refinance-mortgage": "percy exec -- cypress run --spec 'cypress/e2e/visual/refinance-mortgage-visual.cy.ts'",
+    "test:visual:all": "percy exec -- cypress run --spec 'cypress/e2e/visual/*.cy.ts'",
+    "test:visual:baseline": "percy exec -- cypress run --spec 'cypress/e2e/visual/*.cy.ts' --env updateSnapshots=true",
+    "percy:approve": "percy build:approve",
+    "percy:finalize": "percy build:finalize"
   },
   "browserslist": {
     "production": [
@@ -104,6 +115,9 @@
     "axios": "^1.11.0",
     "csscomb": "^4.3.0",
     "cypress": "^14.5.4",
+    "@percy/cli": "^1.28.4",
+    "@percy/cypress": "^3.1.2",
+    "@percy/core": "^1.28.4",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.1",

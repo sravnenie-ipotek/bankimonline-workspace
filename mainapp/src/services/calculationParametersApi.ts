@@ -5,9 +5,10 @@ const getApiBaseUrl = () => {
   // In development, use relative path to leverage Vite proxy
   if (import.meta.env.DEV) {
     return '/api'
+  }
   
   // In production, use environment variable or fallback to production
-  return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankimonline.com/api'
+  return import.meta.env.VITE_NODE_API_BASE_URL || '/api'
 }
 
 // Type definitions for calculation parameters

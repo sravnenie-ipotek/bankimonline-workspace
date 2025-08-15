@@ -9427,6 +9427,15 @@ app.get('/api/v1/calculation-parameters', async (req, res) => {
             });
         }
 
+        // ⚡ PERFORMANCE OPTIMIZATION: Check cache first
+        const cacheKey = `calculation_parameters_${business_path}`;
+        const cached = contentCache.get(cacheKey);
+        if (cached) {
+            console.log(`✅ Cache HIT for calculation-parameters: ${business_path} (${Date.now()})`);
+            return res.json(cached);
+        }
+        console.log(`❄️  Cache MISS for calculation-parameters: ${business_path} (${Date.now()})`);
+
         // Get configuration parameters from banking_standards table
         const parametersQuery = `
             SELECT 
@@ -9490,7 +9499,7 @@ app.get('/api/v1/calculation-parameters', async (req, res) => {
             };
         }
 
-        res.json({
+        const responseData = {
             status: 'success',
             data: {
                 business_path,
@@ -9499,7 +9508,13 @@ app.get('/api/v1/calculation-parameters', async (req, res) => {
                 standards: parameters,
                 last_updated: new Date().toISOString()
             }
-        });
+        };
+
+        // ⚡ PERFORMANCE OPTIMIZATION: Cache the response for 5 minutes
+        contentCache.set(cacheKey, responseData);
+        console.log(`💾 Cached calculation-parameters for: ${business_path} (TTL: 5min)`);
+
+        res.json(responseData);
 
     } catch (err) {
         console.error('Get calculation parameters error:', err);

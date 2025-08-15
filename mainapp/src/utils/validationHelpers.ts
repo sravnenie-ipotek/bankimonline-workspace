@@ -5,13 +5,13 @@ const validationCache = new Map<string, Record<string, string>>();
  * Get API base URL (same logic as api.ts)
  */
 const getApiBaseUrl = (): string => {
-  // Check if we're running on localhost (development)
-  if (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
-    return 'http://localhost:8003/api'
+  // In development, use relative path to leverage Vite proxy
+  if (import.meta.env.DEV) {
+    return '/api'
   }
   
-  // In production, use environment variable or fallback to production
-  return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankimonline.com/api'
+  // In production, use environment variable or fallback
+  return import.meta.env.VITE_NODE_API_BASE_URL || '/api'
 }
 
 /**

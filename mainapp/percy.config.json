@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "snapshot": {
+    "widths": [375, 768, 1280, 1920],
+    "minHeight": 1000,
+    "enableJavaScript": true,
+    "disableAnimation": true
+  },
+  "discovery": {
+    "allowedHostnames": ["localhost"],
+    "networkIdleTimeout": 100,
+    "requestHeaders": {
+      "Accept-Language": "he-IL,he;q=0.9,en;q=0.8,ru;q=0.7"
+    }
+  },
+  "staticSnapshots": false,
+  "defer": false,
+  "dryRun": false,
+  "parallel": {
+    "total": 4,
+    "nonce": ""
+  },
+  "percy": {
+    "css": "@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap');"
+  }
+}

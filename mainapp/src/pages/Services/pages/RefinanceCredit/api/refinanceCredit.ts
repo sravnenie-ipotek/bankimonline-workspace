@@ -1,6 +1,8 @@
 const refinanceCredit = async (data: any) => {
-  // Get API base URL from environment variables
-  const baseUrl = import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankimonline.com/api'
+  // Use relative URL for development (proxied by Vite)
+  // In production, this will use the full URL from environment
+  const isDevelopment = import.meta.env.DEV
+  const baseUrl = isDevelopment ? '/api' : (import.meta.env.VITE_NODE_API_BASE_URL || '/api')
   const url = `${baseUrl}/refinance-credit`
 
   try {

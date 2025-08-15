@@ -1,0 +1,71 @@
+{
+  "investigation": "UI Functionality Analysis",
+  "stepAnalysis": {
+    "step1": {
+      "url": "/refinance-credit/1",
+      "hasContent": true,
+      "elements": {
+        "forms": 0,
+        "inputs": 1,
+        "selects": 0,
+        "buttons": 3,
+        "dropdowns": 0
+      },
+      "hasLoadingState": false,
+      "hasErrorState": false,
+      "contentLength": 692,
+      "title": "No title found"
+    },
+    "step2": {
+      "url": "/refinance-credit/2",
+      "hasContent": true,
+      "elements": {
+        "forms": 0,
+        "inputs": 1,
+        "selects": 0,
+        "buttons": 3,
+        "dropdowns": 0
+      },
+      "hasLoadingState": false,
+      "hasErrorState": false,
+      "contentLength": 692,
+      "title": "No title found"
+    },
+    "step3": {
+      "url": "/refinance-credit/3",
+      "hasContent": true,
+      "elements": {
+        "forms": 0,
+        "inputs": 1,
+        "selects": 0,
+        "buttons": 3,
+        "dropdowns": 0
+      },
+      "hasLoadingState": false,
+      "hasErrorState": false,
+      "contentLength": 692,
+      "title": "No title found"
+    },
+    "step4": {
+      "url": "/refinance-credit/4",
+      "hasContent": true,
+      "elements": {
+        "forms": 0,
+        "inputs": 1,
+        "selects": 0,
+        "buttons": 3,
+        "dropdowns": 0
+      },
+      "hasLoadingState": false,
+      "hasErrorState": false,
+      "contentLength": 692,
+      "title": "No title found"
+    }
+  },
+  "summary": {
+    "totalSteps": 4,
+    "stepsWithContent": 0,
+    "stepsWithForms": 0,
+    "stepsWithInputs": 0
+  }
+}
