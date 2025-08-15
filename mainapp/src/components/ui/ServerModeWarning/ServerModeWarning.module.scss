@@ -1,0 +1,99 @@
+.warningBanner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #ff4444, #cc0000);
+  color: white;
+  z-index: 10000;
+  box-shadow: 0 2px 8px rgba(255, 68, 68, 0.3);
+  animation: slideDown 0.3s ease-out;
+}
+
+.warningContent {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.warningIcon {
+  font-size: 20px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.warningText {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  
+  strong {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+}
+
+.warningDetails {
+  font-size: 12px;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+.warningClose {
+  margin-left: 12px;
+  flex-shrink: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+// Make sure content is not covered by the warning banner
+:global(body) {
+  &:has(.warningBanner) {
+    padding-top: 60px !important;
+  }
+}
+
+// Mobile responsive
+@media (max-width: 768px) {
+  .warningContent {
+    padding: 10px 16px;
+  }
+  
+  .warningText strong {
+    font-size: 13px;
+  }
+  
+  .warningDetails {
+    font-size: 11px;
+  }
+  
+  .warningIcon {
+    font-size: 18px;
+    margin-right: 8px;
+  }
+}

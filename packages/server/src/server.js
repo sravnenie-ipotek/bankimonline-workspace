@@ -54,6 +54,18 @@ contentPool.query('SELECT NOW()', (err, res) => {
     }
 });
 
+// Server mode identification endpoint
+app.get('/api/server-mode', (req, res) => {
+    res.json({
+        mode: 'modern',
+        server: 'packages',
+        file: 'packages/server/src/server.js',
+        warning: false,
+        message: 'MODERN MODE - PACKAGES SERVER',
+        status: 'PRODUCTION READY'
+    });
+});
+
 // Helper function for content database queries
 async function queryContentDB(query, params = []) {
     try {
@@ -3787,8 +3799,8 @@ app.post('/api/auth-verify', async (req, res) => {
             client = clientResult.rows[0];
         } else {
             const newResult = await pool.query(
-                'INSERT INTO clients (first_name, last_name, phone, email, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING *',
-                ['New', 'Client', mobile_number, `${mobile_number.replace('+', '')}@bankim.com`]
+                'INSERT INTO clients (first_name, last_name, phone, email, role, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *',
+                ['New', 'Client', mobile_number, `${mobile_number.replace('+', '')}@bankim.com`, 'customer']
             );
             client = newResult.rows[0];
         }
@@ -9806,6 +9818,16 @@ app.get('/api/get-table-schema', async (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
+    console.log('✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅');
+    console.log('✅                                                 ✅');
+    console.log('✅    🚀  MODERN MODE - PACKAGES SERVER  🚀      ✅');
+    console.log('✅                                                 ✅');
+    console.log('✅    Using: packages/server/src/server.js       ✅');
+    console.log('✅    Status: ✅ PRODUCTION READY                ✅');
+    console.log('✅                                                 ✅');
+    console.log('✅    Architecture: Modular Workspace Package     ✅');
+    console.log('✅                                                 ✅');
+    console.log('✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅');
     console.log('🚀 Database API Server Started');
     console.log(`📡 http://localhost:${PORT}`);
     console.log('📧 Email login: POST /api/login');

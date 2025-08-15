@@ -7,7 +7,7 @@ import { Button } from '@src/components/ui/ButtonUI'
 import { Column } from '@src/components/ui/Column'
 import { useAppDispatch } from '@src/hooks/store.ts'
 import { MainSourceOfIncome } from '@src/pages/Services/components/MainSourceOfIncome'
-import { componentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource'
+import { getComponentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource'
 import { closeModal } from '@src/pages/Services/slices/modalSlice.ts'
 import { SourceOfIncomeModalTypes } from '@src/pages/Services/types/formTypes'
 
@@ -24,6 +24,10 @@ const SourceOfIncomeForm = () => {
   const { mainSourceOfIncome } = values
 
   const dispatch = useAppDispatch()
+
+  // ✅ FIXED: Use screen-specific components to ensure proper dropdown API calls
+  // This ensures FieldOfActivity calls /api/dropdowns/other_borrowers_step2/he instead of /api/dropdowns/auto-detect/he
+  const componentsByIncomeSource = getComponentsByIncomeSource('other_borrowers_step2')
 
   return (
     <>

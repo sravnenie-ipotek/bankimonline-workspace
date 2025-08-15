@@ -16,7 +16,7 @@ import { AdditionalIncome } from '@src/pages/Services/components/AdditionalIncom
 import { AdditionalIncomeAmount } from '@src/pages/Services/components/AdditionalIncomeAmount'
 import { MainSourceOfIncome } from '@src/pages/Services/components/MainSourceOfIncome'
 import { OtherBorrowersObligation } from '@src/pages/Services/components/OtherBorrowersObligation'
-import { componentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource'
+import { getComponentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource'
 import { componentsByObligation } from '@src/pages/Services/constants/componentsByObligation'
 import {
   createAdditionalIncomeModal,
@@ -48,6 +48,10 @@ const SecondStepForm = () => {
   const { mainSourceOfIncome, additionalIncome, obligation } = values
 
   const dispatch = useAppDispatch()
+
+  // ✅ FIXED: Use screen-specific components to ensure proper dropdown API calls
+  // This ensures FieldOfActivity calls /api/dropdowns/other_borrowers_step2/he instead of /api/dropdowns/auto-detect/he
+  const componentsByIncomeSource = getComponentsByIncomeSource('other_borrowers_step2')
 
   // Direct mapping: dropdown values match componentsByIncomeSource keys exactly
   const incomeSourceKey = mainSourceOfIncome || ''
