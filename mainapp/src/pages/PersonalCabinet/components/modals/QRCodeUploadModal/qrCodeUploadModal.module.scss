@@ -36,7 +36,7 @@
   border-radius: 10px;
   padding: 0;
   color: var(--lk-text-primary);
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
 }
 
 .modal-header {
@@ -78,7 +78,7 @@
 }
 
 .modal-title {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 25px;
   font-weight: 400;
   color: #ffffff;
@@ -89,7 +89,7 @@
 }
 
 .modal-description {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 12px;
   font-weight: 400;
   color: #d0d0d0;
@@ -138,7 +138,7 @@
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 8px;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;

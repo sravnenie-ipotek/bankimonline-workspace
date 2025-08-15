@@ -95,7 +95,7 @@
 .modal-title {
   font-size: 25px; // Exact size from Figma
   font-weight: 400; // Regular weight from Figma
-  font-family: 'Roboto', sans-serif; // Exact font from Figma
+  /* Font inherited from language-specific CSS */ // Exact font from Figma
   color: #FFFFFF; // Exact color from Figma
   margin: 0 0 16px 0; // 1rem gap from Figma
   line-height: normal; // Figma specification
@@ -113,7 +113,7 @@
 .modal-description {
   font-size: 16px; // Exact size from Figma
   font-weight: 400; // Regular weight from Figma
-  font-family: 'Roboto', sans-serif; // Exact font from Figma
+  /* Font inherited from language-specific CSS */ // Exact font from Figma
   color: #D0D0D0; // Exact secondary color from Figma
   line-height: normal; // Figma specification
   margin: 0 0 32px 0; // 2rem gap from Figma
@@ -144,7 +144,7 @@
   color: #161616; // Exact dark text color from Figma
   font-size: 16px; // Exact size from Figma
   font-weight: 600; // Semi-bold from Figma
-  font-family: 'Arimo', sans-serif; // Font from Figma button
+  /* Font inherited from language-specific CSS */ // Font from Figma button
   cursor: pointer;
   transition: all 0.3s ease;
   margin: 0 auto;

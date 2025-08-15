@@ -34,7 +34,7 @@
 }
 
 .modal-title {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 24px;
   font-weight: 500;
   color: #ffffff;
@@ -85,7 +85,7 @@
 }
 
 .section-title {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 20px;
   font-weight: 500;
   color: #ffffff;
@@ -103,7 +103,7 @@
 }
 
 .subsection-title {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 18px;
   font-weight: 500;
   color: #ffffff;
@@ -138,7 +138,7 @@
   border: none;
   padding: 12px 24px;
   border-radius: 6px;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;

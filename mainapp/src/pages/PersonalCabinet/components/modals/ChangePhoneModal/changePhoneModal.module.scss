@@ -27,7 +27,7 @@
 }
 
 .modal-title {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 24px;
   font-weight: 600;
   color: #161616;
@@ -48,7 +48,7 @@
 }
 
 .input-label {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 500;
   color: #fbe54d;
@@ -62,7 +62,7 @@
 }
 
 .country-select {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 400;
   color: #161616;
@@ -82,7 +82,7 @@
 
 .phone-input {
   flex: 1;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 400;
   color: #161616;
@@ -111,7 +111,7 @@
 }
 
 .warning-title {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 500;
   color: #fbe54d;
@@ -126,7 +126,7 @@
   margin-bottom: 16px;
 
   p {
-    font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
     font-size: 14px;
     font-weight: 400;
     color: #d0d0d0;
@@ -141,7 +141,7 @@
 }
 
 .confirmation-text {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 14px;
   font-weight: 500;
   color: #fbe54d;
@@ -154,7 +154,7 @@
 }
 
 .legal-text {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 14px;
   font-weight: 400;
   color: #d0d0d0;
@@ -184,7 +184,7 @@
   align-items: flex-start;
   gap: 12px;
   cursor: pointer;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 14px;
   font-weight: 400;
   color: #d0d0d0;
@@ -243,7 +243,7 @@
   width: 100%;
   max-width: 300px;
   height: 48px;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 600;
   color: #161616;

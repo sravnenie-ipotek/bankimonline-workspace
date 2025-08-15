@@ -11,7 +11,7 @@
 // Container and layout
 .container {
   min-height: 100vh;
-  font-family: 'Arimo', Arial, sans-serif;
+  /* Font inherited from language-specific CSS */
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -64,7 +64,7 @@
   .mainTitle {
     width: 147px;
     height: 36px;
-    font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
     font-style: normal;
     font-weight: 600;
     font-size: 24px;
@@ -79,7 +79,7 @@
   .subtitle {
     width: 271px;
     height: 21px;
-    font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -157,7 +157,7 @@
     .stepNumber {
       width: 7px;
       height: 15px;
-      font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
       font-style: normal;
       font-weight: 500;
       font-size: 12px;
@@ -172,7 +172,7 @@
   .stepText {
     width: 177px;
     height: 20px;
-    font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -279,7 +279,7 @@
   .label {
     width: 278px;
     height: 21px;
-    font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -328,7 +328,7 @@
 // Input text styling
 .inputText {
   height: 18px;
-  font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -378,7 +378,7 @@
     .selectedText {
       width: 238px;
       height: 18px;
-      font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
@@ -517,7 +517,7 @@
         .searchInputText {
           width: 168px;
           height: 21px;
-          font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
           font-style: normal;
           font-weight: 400;
           font-size: 14px;
@@ -574,7 +574,7 @@
     .text {
       width: 244px;
       height: 21px;
-      font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
       font-style: normal;
       font-weight: 400;
       font-size: 14px;
@@ -651,7 +651,7 @@
     .checkboxLabel {
       width: 552px;
       height: 18px;
-      font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
       font-style: normal;
       font-weight: 400;
       font-size: 12px;
@@ -702,7 +702,7 @@
   .buttonText {
     width: 83px;
     height: 21px;
-    font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -718,7 +718,7 @@
 .loginLink {
   width: 162px;
   height: 14px;
-  font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -741,7 +741,7 @@
 .errorMessage {
   color: #ef4444;
   font-size: 12px;
-  font-family: 'Arimo';
+  /* Font inherited from language-specific CSS */
   min-height: 21px; // Fixed height to prevent layout shift
   line-height: 1.4;
   margin-top: 4px;

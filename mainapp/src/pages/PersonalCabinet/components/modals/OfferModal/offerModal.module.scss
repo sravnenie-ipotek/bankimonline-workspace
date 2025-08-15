@@ -91,7 +91,7 @@
 .modal-title {
   font-size: 28px; // Large title for impact
   font-weight: 600; // Semi-bold
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   color: #FFFFFF;
   margin: 0 0 16px 0;
   line-height: 1.2;
@@ -105,7 +105,7 @@
 .modal-description {
   font-size: 16px;
   font-weight: 400;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   color: #CCCCCC;
   margin: 0 0 32px 0;
   line-height: 1.5;
@@ -133,7 +133,7 @@
 .price-label {
   font-size: 14px;
   font-weight: 500;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   color: #1A1A1A; // Dark text on yellow background
   margin-bottom: 8px;
   text-transform: uppercase;
@@ -143,7 +143,7 @@
 .price-amount {
   font-size: 36px;
   font-weight: 700;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   color: #1A1A1A; // Dark text on yellow background
   line-height: 1;
   
@@ -168,7 +168,7 @@
   margin-bottom: 16px;
   font-size: 16px;
   font-weight: 400;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   color: #FFFFFF;
   
   &:last-child {
@@ -221,7 +221,7 @@
   color: #CCCCCC;
   font-size: 16px;
   font-weight: 500;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 120px;
@@ -256,7 +256,7 @@
   color: #1A1A1A; // Dark text on yellow background
   font-size: 16px;
   font-weight: 600;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 120px;

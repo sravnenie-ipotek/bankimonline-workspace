@@ -27,7 +27,7 @@
 .modal-content {
   padding: 2rem;
   color: var(--lk-text-primary);
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   max-width: 600px;
   width: 100%;
 }
@@ -46,7 +46,7 @@
   color: var(--lk-text-primary);
   margin: 0;
   line-height: 1.2;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
 }
 
 .card-form {
@@ -86,7 +86,7 @@
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 500;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   cursor: pointer;
   transition: all 0.3s ease;
   border: 1px solid;

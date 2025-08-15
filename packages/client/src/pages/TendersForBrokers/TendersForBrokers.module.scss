@@ -2,7 +2,7 @@
   min-height: 100vh;
   background-color: #161616;
   color: #ffffff;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   
   // Override Container component padding on mobile
   :global(.container) {

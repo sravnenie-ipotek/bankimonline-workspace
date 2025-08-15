@@ -2,7 +2,7 @@
   min-height: 100vh;
   background: #161616;
   color: #ffffff;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   padding: 0;
   margin: 0;
   overflow-x: hidden;
@@ -29,7 +29,7 @@
   color: #ffffff;
   margin: 0;
   line-height: 1.2;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
 }
 
 .content {
@@ -86,7 +86,7 @@
   color: #ffffff;
   margin: 0;
   line-height: 1.4;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
 }
 
 .preview-section {
@@ -155,7 +155,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 140px;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
 
   &:hover:not(:disabled) {
     background: #f0d43a;
@@ -195,7 +195,7 @@
   font-weight: 600;
   color: #ffffff;
   margin: 0 0 1rem 0;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
 }
 
 .uploaded-file-item {

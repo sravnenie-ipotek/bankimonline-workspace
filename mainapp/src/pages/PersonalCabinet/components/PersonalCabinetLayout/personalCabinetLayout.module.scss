@@ -4,7 +4,7 @@
   width: 100%;
   background-color: #161616;
   color: #ffffff;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
 }
 
 .sidebar-container {
@@ -78,7 +78,7 @@
 }
 
 .footer-link {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 12px;
   font-weight: 400;
   color: #848484;

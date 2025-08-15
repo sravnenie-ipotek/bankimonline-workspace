@@ -57,7 +57,7 @@
 .modal-title {
   font-size: 24px; // Exact size from Figma
   font-weight: 500; // Medium weight from Figma
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   color: #FFFFFF; // Text/Primary from Figma
   margin: 0;
   line-height: normal;
@@ -105,7 +105,7 @@
 .payment-description {
   font-size: 16px; // Exact size from Figma
   font-weight: 400; // Regular weight from Figma
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   color: #D0D0D0; // Text/Secondary from Figma
   line-height: 1.5;
   margin: 0 0 32px 0;
@@ -129,7 +129,7 @@
 .section-title {
   font-size: 18px; // Exact size from Figma
   font-weight: 500; // Medium weight from Figma
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   color: #FFFFFF; // Text/Primary from Figma
   margin: 0 0 16px 0;
   line-height: normal;
@@ -183,7 +183,7 @@
   border-radius: 4px;
   
   span {
-    font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
     font-size: 14px;
     font-weight: 700;
     color: #FFFFFF;
@@ -199,7 +199,7 @@
 }
 
 .card-number {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px; // Exact size from Figma
   font-weight: 500; // Medium weight from Figma
   color: #FFFFFF; // Text/Primary from Figma
@@ -207,7 +207,7 @@
 }
 
 .card-expiry {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 14px; // Exact size from Figma
   font-weight: 400; // Regular weight from Figma
   color: #D0D0D0; // Text/Secondary from Figma
@@ -251,7 +251,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 16px;
   font-weight: 400;
   color: #D0D0D0;
@@ -293,7 +293,7 @@
   align-items: flex-start;
   gap: 12px;
   cursor: pointer;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 14px; // Exact size from Figma
   font-weight: 400; // Regular weight from Figma
   color: #D0D0D0; // Text/Secondary from Figma
@@ -377,7 +377,7 @@
 }
 
 .total-label {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 18px; // Exact size from Figma
   font-weight: 500; // Medium weight from Figma
   color: #FFFFFF; // Text/Primary from Figma
@@ -389,7 +389,7 @@
 }
 
 .total-amount {
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   font-size: 24px; // Exact size from Figma
   font-weight: 700; // Bold weight from Figma
   color: #FBE54D; // Accent/Primary from Figma
@@ -424,7 +424,7 @@
   color: #D0D0D0; // Text/Secondary from Figma
   font-size: 16px; // Exact size from Figma
   font-weight: 500; // Medium weight from Figma
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 120px;
@@ -458,7 +458,7 @@
   color: #161616; // Text/Dark Primary from Figma
   font-size: 16px; // Exact size from Figma
   font-weight: 600; // Semi-bold weight from Figma
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 200px;

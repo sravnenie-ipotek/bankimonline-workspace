@@ -3,7 +3,7 @@
   height: 100%;
   background-color: #161616;
   color: #ffffff;
-  font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
   
   .content {
     padding: 20px;
@@ -26,7 +26,7 @@
       font-weight: 500;
       color: #ffffff;
       margin: 0;
-      font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
     }
     
     .back-to-cabinet {
@@ -39,7 +39,7 @@
       font-weight: 500;
       cursor: pointer;
       transition: all 0.2s ease;
-      font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
       
       &:hover {
         background-color: #3f444d;
@@ -155,7 +155,7 @@
     font-size: 16px;
     font-weight: 500;
     transition: all 0.2s ease;
-    font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
     min-width: 120px;
     
     &:hover {
@@ -180,7 +180,7 @@
     font-size: 16px;
     font-weight: 600;
     transition: all 0.2s ease;
-    font-family: 'Roboto', sans-serif;
+  /* Font inherited from language-specific CSS */
     min-width: 140px;
     
     &:hover {
@@ -203,7 +203,7 @@
 
   /* Button styling */
   button {
-    font-family: 'Roboto', sans-serif !important;
+  /* Font inherited from language-specific CSS */
     font-weight: 500 !important;
     border-radius: 8px !important;
     padding: 14px 32px !important;
