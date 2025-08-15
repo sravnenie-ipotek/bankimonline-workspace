@@ -38,6 +38,16 @@
       ],
       "env": {}
     },
+    "GoogleTranslate": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@google-cloud/translate-mcp@latest"
+      ],
+      "env": {
+        "GOOGLE_TRANSLATE_API_KEY": "AIzaSyC7VZYnyK7mORTbxJirt4o9pmeFqSedgIw"
+      }
+    },
     "playwright": {
       "type": "stdio",
       "command": "npx",

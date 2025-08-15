@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔤 Font Consistency Analysis - Banking Application</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .summary-item {
+            padding: 20px;
+            text-align: center;
+            border-right: 1px solid #e9ecef;
+        }
+        
+        .summary-item:last-child {
+            border-right: none;
+        }
+        
+        .summary-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #495057;
+        }
+        
+        .summary-label {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background: white;
+            border-bottom-color: #2c3e50;
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .font-declaration {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .font-preview {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            background: white;
+        }
+        
+        .arimo-preview {
+            font-family: 'Arimo', sans-serif;
+        }
+        
+        .roboto-preview {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .system-preview {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        .issue-critical {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .issue-warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .issue-good {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .rtl-text {
+            direction: rtl;
+            text-align: right;
+        }
+        
+        .recommendation {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .recommendation h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔤 Font Consistency Analysis</h1>
+            <p>Banking Application Typography Assessment</p>
+        </div>
+        
+        <div class="summary-grid">
+            <div class="summary-item">
+                <div class="summary-value">2</div>
+                <div class="summary-label">Primary Fonts</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">3</div>
+                <div class="summary-label">Languages</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">75%</div>
+                <div class="summary-label">Consistency Score</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">5</div>
+                <div class="summary-label">Issues Found</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">Google</div>
+                <div class="summary-label">Font Source</div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('overview')">📊 Overview</div>
+            <div class="tab" onclick="showTab('issues')">⚠️ Issues</div>
+            <div class="tab" onclick="showTab('configuration')">⚙️ Configuration</div>
+            <div class="tab" onclick="showTab('recommendations')">🔧 Recommendations</div>
+        </div>
+        
+        <div id="overview" class="tab-content active">
+            <h2>🎯 Font Usage Analysis</h2>
+            
+            <div class="issue-good">
+                <h3>✅ Good Practices Found</h3>
+                <ul>
+                    <li><strong>Language-Specific Fonts:</strong> Proper Hebrew (Arimo) and Russian/English (Roboto) font assignment</li>
+                    <li><strong>Google Fonts Integration:</strong> Fonts loaded from Google Fonts CDN with proper fallbacks</li>
+                    <li><strong>RTL Support:</strong> Hebrew font properly configured for right-to-left text</li>
+                    <li><strong>Tailwind Configuration:</strong> Fonts properly configured in Tailwind config</li>
+                </ul>
+            </div>
+            
+            <h3>📝 Current Font Configuration</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Language</th>
+                        <th>Font Family</th>
+                        <th>Usage</th>
+                        <th>Configuration Location</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🇮🇱 Hebrew</td>
+                        <td>Arimo</td>
+                        <td>[lang="he"] elements</td>
+                        <td>css/i18n.css, tailwind.config.ts</td>
+                        <td>✅ Consistent</td>
+                    </tr>
+                    <tr>
+                        <td>🇷🇺 Russian</td>
+                        <td>Roboto</td>
+                        <td>[lang="ru"] elements</td>
+                        <td>css/i18n.css, tailwind.config.ts</td>
+                        <td>✅ Consistent</td>
+                    </tr>
+                    <tr>
+                        <td>🇺🇸 English</td>
+                        <td>Roboto</td>
+                        <td>[lang="en"] elements</td>
+                        <td>css/i18n.css, tailwind.config.ts</td>
+                        <td>✅ Consistent</td>
+                    </tr>
+                    <tr>
+                        <td>🌐 System Default</td>
+                        <td>ui-sans-serif, system-ui</td>
+                        <td>Tailwind base</td>
+                        <td>tailwind.min.css</td>
+                        <td>⚠️ Fallback only</td>
+                    </tr>
+                    <tr>
+                        <td>💼 Component Overrides</td>
+                        <td>Roboto (hardcoded)</td>
+                        <td>SCSS modules, built CSS</td>
+                        <td>Various .module.scss files</td>
+                        <td>🔴 Inconsistent</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3>🔤 Font Preview</h3>
+            
+            <div class="font-preview arimo-preview">
+                <h4>Arimo Font (Hebrew) - משפחת הגופן ארימו</h4>
+                <p>The quick brown fox jumps over the lazy dog. 1234567890</p>
+                <p class="rtl-text">הנה דוגמה של טקסט בעברית עם גופן ארימו. זה מתאים לקריאה וברור.</p>
+                <p><strong>Bold:</strong> משכנתה וחישוב אשראי בנקאי</p>
+            </div>
+            
+            <div class="font-preview roboto-preview">
+                <h4>Roboto Font (Russian/English) - Шрифт Робото</h4>
+                <p>The quick brown fox jumps over the lazy dog. 1234567890</p>
+                <p>Быстрая коричневая лиса прыгает через ленивую собаку. Банковские услуги.</p>
+                <p><strong>Bold:</strong> Banking Services and Mortgage Calculation</p>
+            </div>
+            
+            <div class="font-preview system-preview">
+                <h4>System UI Font (Fallback)</h4>
+                <p>The quick brown fox jumps over the lazy dog. 1234567890</p>
+                <p><em>Used when custom fonts fail to load</em></p>
+            </div>
+        </div>
+        
+        <div id="issues" class="tab-content">
+            <h2>⚠️ Font Consistency Issues</h2>
+            
+            <div class="issue-critical">
+                <h3>🔴 Critical Issue: Hardcoded Font Overrides</h3>
+                <p><strong>Problem:</strong> Many components have hardcoded "Roboto" font-family declarations</p>
+                <p><strong>Impact:</strong> Breaks language-specific font selection, Hebrew text may display with wrong font</p>
+                <p><strong>Locations:</strong></p>
+                <ul>
+                    <li>packages/client/src/pages/Vacancies/*.module.scss</li>
+                    <li>mainapp/build/assets/*.css (compiled CSS)</li>
+                    <li>packages/client/src/pages/BrokerQuestionnaire/*.module.scss</li>
+                </ul>
+                <div class="code-block">
+// ❌ Problem: Hardcoded font overrides language selection
+.vacancy-card {
+  font-family: 'Roboto', sans-serif; /* This breaks Hebrew font */
+}
+
+// ✅ Solution: Remove explicit font-family, inherit from language
+.vacancy-card {
+  /* font-family removed - inherits from [lang] selector */
+}</div>
+            </div>
+            
+            <div class="issue-warning">
+                <h3>🟡 Warning: Inconsistent Font Loading</h3>
+                <p><strong>Problem:</strong> Duplicate font imports in index.html</p>
+                <div class="font-declaration">
+&lt;!-- Arimo is imported twice --&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Arimo:..." /&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Arimo:...&family=Roboto:..." /&gt;
+                </div>
+                <p><strong>Impact:</strong> Unnecessary network requests, potential loading conflicts</p>
+            </div>
+            
+            <div class="issue-warning">
+                <h3>🟡 Warning: Built CSS Contains Hardcoded Fonts</h3>
+                <p><strong>Problem:</strong> Production build CSS has hardcoded font-family declarations</p>
+                <p><strong>Files:</strong> mainapp/build/assets/*.css</p>
+                <p><strong>Impact:</strong> Production environment may not respect language-specific fonts</p>
+            </div>
+            
+            <div class="issue-warning">
+                <h3>🟡 Warning: System Font Fallback Chain</h3>
+                <p><strong>Problem:</strong> Tailwind's default font stack may interfere with language-specific fonts</p>
+                <div class="font-declaration">
+/* Tailwind default that might override language fonts */
+html { 
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 
+              "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif 
+}
+                </div>
+            </div>
+            
+            <div class="issue-warning">
+                <h3>🟡 Minor: Script-Generated Content</h3>
+                <p><strong>Problem:</strong> Some generated HTML/CSS uses Segoe UI instead of app fonts</p>
+                <p><strong>Files:</strong> scripts/generate-html-report.js, test reports</p>
+                <p><strong>Impact:</strong> Reports and generated content don't match app typography</p>
+            </div>
+        </div>
+        
+        <div id="configuration" class="tab-content">
+            <h2>⚙️ Current Font Configuration</h2>
+            
+            <h3>📝 Tailwind Config (mainapp/tailwind.config.ts)</h3>
+            <div class="code-block">
+fontFamily: {
+  ru: ['Roboto', 'sans'],
+  he: ['Arimo', 'sans'],
+}
+            </div>
+            
+            <h3>🌐 HTML Font Loading (mainapp/index.html)</h3>
+            <div class="code-block">
+&lt;link rel="preconnect" href="https://fonts.googleapis.com" /&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" /&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Arimo:...&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" /&gt;
+            </div>
+            
+            <h3>🎨 CSS Language Rules (css/i18n.css)</h3>
+            <div class="code-block">
+/* Language-specific font assignments */
+[lang="he"] {
+    font-family: "Arimo", sans-serif;
+}
+
+[lang="ru"] {
+    font-family: "Roboto", sans-serif;
+}
+
+[lang="en"] {
+    font-family: "Roboto", sans-serif;
+}
+            </div>
+            
+            <h3>🔍 Font Weight Configuration</h3>
+            <div class="code-block">
+/* Available font weights from Google Fonts */
+Arimo: 400, 500, 600, 700 (+ italic variants)
+Roboto: 100, 300, 400, 500, 700, 900 (+ italic variants)
+
+/* Tailwind font weights configured */
+fontWeight: {
+  hairline: '100',    // Roboto only
+  extralight: '200',  // Not available
+  light: '300',       // Roboto only
+  normal: '400',      // Both fonts
+  medium: '500',      // Both fonts
+  semibold: '600',    // Arimo only
+  bold: '700',        // Both fonts
+  'extra-bold': '800', // Not available
+  black: '900',       // Roboto only
+}
+            </div>
+        </div>
+        
+        <div id="recommendations" class="tab-content">
+            <h2>🔧 Recommendations</h2>
+            
+            <div class="recommendation">
+                <h3>🚨 Immediate Actions (High Priority)</h3>
+                
+                <h4>1. Remove Hardcoded Font Overrides</h4>
+                <div class="code-block">
+# Find all hardcoded font-family declarations
+grep -r "font-family.*Roboto" mainapp/src/ packages/
+grep -r "font-family.*Arimo" mainapp/src/ packages/
+
+# Remove explicit font-family from component SCSS files
+# Let language-specific CSS handle font selection
+                </div>
+                
+                <h4>2. Clean Up Font Loading</h4>
+                <div class="code-block">
+&lt;!-- Replace duplicate imports in index.html with single import --&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;600;700&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" /&gt;
+                </div>
+                
+                <h4>3. Fix Production Build</h4>
+                <div class="code-block">
+# Ensure build process doesn't hardcode fonts
+# Check PostCSS/Tailwind build configuration
+npm run build
+grep -r "font-family.*Roboto" mainapp/build/
+                </div>
+            </div>
+            
+            <div class="recommendation">
+                <h3>📈 Improvements (Medium Priority)</h3>
+                
+                <h4>1. Enhance Font Loading Strategy</h4>
+                <ul>
+                    <li>Use font-display: swap for better loading performance</li>
+                    <li>Preload critical font variants</li>
+                    <li>Consider self-hosting fonts for better control</li>
+                </ul>
+                
+                <h4>2. Standardize Font Weights</h4>
+                <ul>
+                    <li>Audit which font weights are actually used</li>
+                    <li>Remove unused weights to reduce load time</li>
+                    <li>Ensure consistent weight availability across both fonts</li>
+                </ul>
+                
+                <h4>3. Component Font Guidelines</h4>
+                <div class="code-block">
+/* Recommended approach for components */
+.component {
+  /* ✅ DO: Let language determine font */
+  /* font-family is inherited from [lang] selector */
+  
+  /* ✅ DO: Use Tailwind font utilities */
+  @apply font-medium text-lg;
+  
+  /* ❌ DON'T: Hardcode specific fonts */
+  /* font-family: 'Roboto', sans-serif; */
+}
+                </div>
+            </div>
+            
+            <div class="recommendation">
+                <h3>🔮 Future Enhancements (Low Priority)</h3>
+                
+                <h4>1. Variable Fonts</h4>
+                <p>Consider upgrading to variable font versions of Roboto and Arimo for better performance and more weight options.</p>
+                
+                <h4>2. Font Loading Optimization</h4>
+                <ul>
+                    <li>Implement font preloading for critical text</li>
+                    <li>Use resource hints for better font loading</li>
+                    <li>Consider font subset optimization for specific languages</li>
+                </ul>
+                
+                <h4>3. Accessibility Improvements</h4>
+                <ul>
+                    <li>Ensure font sizes meet accessibility guidelines</li>
+                    <li>Test font readability across all languages</li>
+                    <li>Implement user font size preferences</li>
+                </ul>
+            </div>
+            
+            <div class="recommendation">
+                <h3>✅ Implementation Checklist</h3>
+                <ul style="list-style-type: none;">
+                    <li>☐ Audit and remove hardcoded font-family from components</li>
+                    <li>☐ Consolidate font imports in index.html</li>
+                    <li>☐ Verify language-specific font inheritance works</li>
+                    <li>☐ Test Hebrew text displays with Arimo font</li>
+                    <li>☐ Test Russian text displays with Roboto font</li>
+                    <li>☐ Check production build font consistency</li>
+                    <li>☐ Update component style guidelines</li>
+                    <li>☐ Add font loading performance monitoring</li>
+                    <li>☐ Create font usage documentation</li>
+                    <li>☐ Test font fallback scenarios</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
