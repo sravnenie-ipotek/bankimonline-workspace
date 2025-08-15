@@ -24,6 +24,7 @@ This document provides comprehensive testing instructions for the **Calculate Mo
 - **Multi-Language Testing** including Hebrew RTL validation
 - **Responsive Design** across 9 viewport matrix
 - **Performance & Accessibility** compliance validation
+- **Automated Bug Filing** via Jira integration for failed tests
 
 ---
 
@@ -4619,3 +4620,240 @@ If any critical mortgage failure is detected:
 **FAILURE TO COMPLETE ANY MORTGAGE PROCESS TO STAGE 4 = TEST FAILURE**
 
 This enhanced mortgage framework ensures absolute perfection in mortgage process execution, complete responsive design validation, comprehensive mortgage link coverage, and guaranteed Stage 4 completion for all mortgage user flows across all service endpoints.
+
+---
+
+## 🎯 COMPREHENSIVE JIRA INTEGRATION | ВСЕОБЪЕМЛЮЩАЯ ИНТЕГРАЦИЯ JIRA
+
+### 🚨 Advanced Automated Bug Filing System | Расширенная система автоматической подачи багов
+
+When any test fails during mortgage calculator testing, the system will **automatically create a detailed bilingual Jira bug** with comprehensive debugging information.
+
+*Когда любой тест не пройден во время тестирования ипотечного калькулятора, система **автоматически создаст подробный двуязычный баг в Jira** с полной отладочной информацией.*
+
+### 📋 Enhanced Bug Information | Расширенная информация о баге
+
+**Automatically Included | Автоматически включается:**
+
+#### 📍 **Exact Location Data | Точные данные местоположения:**
+```yaml
+Spec File | Файл спецификации: "cypress/e2e/mortgage-step1.cy.ts"
+Test Title | Название теста: "Should complete property value validation"
+File Path | Путь к файлу: "/Users/user/Projects/bankDev2_standalone/mainapp/cypress/e2e/mortgage-step1.cy.ts"
+Current URL | Текущий URL: "http://localhost:5174/services/calculate-mortgage/1"
+Timestamp | Временная метка: "2025-08-15T11:30:45.123Z"
+```
+
+#### 🔍 **Detailed Action Log | Подробный журнал действий:**
+```text
+[2025-08-15T11:30:45.123Z] Test started: Should complete property value validation
+[2025-08-15T11:30:45.234Z] visit: ["http://localhost:5174/services/calculate-mortgage/1"]
+[2025-08-15T11:30:45.345Z] URL changed to: http://localhost:5174/services/calculate-mortgage/1
+[2025-08-15T11:30:45.456Z] get: ["[data-testid=\"property-value\"]"]
+[2025-08-15T11:30:45.567Z] should: ["be.visible"]
+[2025-08-15T11:30:45.678Z] FAILED - should: AssertionError: expected 'מחיר נכס' to contain 'Property Value'
+[2025-08-15T11:30:45.789Z] Test failed: AssertionError: expected 'מחיר נכס' to contain 'Property Value'
+```
+
+#### 📋 **Structured Test Steps | Структурированные шаги теста:**
+```yaml
+1. ✅ visit: http://localhost:5174/services/calculate-mortgage/1
+2. ✅ get: [data-testid="property-value"]
+3. ❌ should: be.visible (FAILED: Element not found)
+4. ❌ Test terminated due to failure
+```
+
+#### 🖥️ **Complete Environment Context | Полный контекст окружения:**
+```yaml
+Browser | Браузер: "Chrome 120.0.6099.109"
+Operating System | Операционная система: "darwin x64"
+App URL | URL приложения: "http://localhost:5174"
+Final URL | Финальный URL: "http://localhost:5174/services/calculate-mortgage/1"
+Screenshot Path | Путь к скриншоту: "cypress/screenshots/mortgage-step1.cy.ts/Should complete property value validation (failed).png"
+```
+
+### 🎯 **Bilingual Bug Format | Двуязычный формат бага**
+
+**Example Auto-Created Bug | Пример автоматически созданного бага:**
+
+```
+🔥 Cypress Automated Test Failure | Автоматизированный сбой теста Cypress
+
+⚠️ CRITICAL: Test failure detected during automated QA execution
+⚠️ КРИТИЧЕСКИЙ: Обнаружен сбой теста во время автоматизированного выполнения QA
+
+📍 Test Location | Местоположение теста:
+┌─────────────────────────────────┬────────────────────────────────────────────┐
+│ Field | Поле                    │ Value | Значение                               │
+├─────────────────────────────────┼────────────────────────────────────────────┤
+│ Spec File | Файл спецификации   │ cypress/e2e/mortgage-step1.cy.ts          │
+│ Test Title | Название теста      │ Should complete property value validation  │
+│ File Path | Путь к файлу        │ cypress/e2e/mortgage-step1.cy.ts          │
+│ Current URL | Текущий URL        │ http://localhost:5174/services/...        │
+└─────────────────────────────────┴────────────────────────────────────────────┘
+
+🖥️ Environment | Окружение:
+• Browser | Браузер: Chrome 120.0.6099.109
+• Operating System | Операционная система: darwin x64
+• Timestamp | Время: 2025-08-15T11:30:45.123Z
+
+❌ Error Details | Детали ошибки:
+AssertionError: expected 'מחיר נכס' to contain 'Property Value'
+    at Context.eval (cypress/e2e/mortgage-step1.cy.ts:15:23)
+
+📋 Test Steps | Шаги теста:
+1. visit: http://localhost:5174/services/calculate-mortgage/1
+2. get: [data-testid="property-value"]
+3. should: be.visible ❌ FAILED
+
+🔍 Action Log | Журнал действий:
+[Complete timestamped log as shown above]
+
+🔧 Debug Information | Отладочная информация:
+• Fingerprint | Отпечаток: cfp_abc123def4
+• Screenshots attached | Прикреплены скриншоты: Yes | Да
+
+ℹ️ Note: This bug was automatically created by Cypress test automation. The fingerprint prevents duplicate bug creation for the same issue.
+ℹ️ Примечание: Этот баг был автоматически создан автоматизацией тестов Cypress. Отпечаток предотвращает создание дублирующих багов для одной и той же проблемы.
+```
+
+### 🔄 **Smart Deduplication | Умная дедупликация**
+
+**Intelligent Bug Management | Интеллектуальное управление багами:**
+- **Same failure | Тот же сбой** = Comment added to existing bug | Комментарий добавлен к существующему багу
+- **Different failure | Другой сбой** = New bug created | Создан новый баг
+- **Resolved + recurring | Решен + повторяется** = New bug created | Создан новый баг
+
+**Deduplication Example | Пример дедупликации:**
+```
+1st Failure → Creates TVKC-123 | 1-й сбой → Создает TVKC-123
+Same Failure → Adds comment to TVKC-123 | Тот же сбой → Добавляет комментарий к TVKC-123
+Different Error → Creates TVKC-124 | Другая ошибка → Создает TVKC-124
+```
+
+### 🏷️ **Enhanced Labels & Categorization | Расширенные метки и категоризация**
+
+**Automatic Labels | Автоматические метки:**
+- `cypress` - Automated test origin | Происхождение автоматизированного теста
+- `auto-filed` - Automatically created | Автоматически создан
+- `automated-qa` - QA automation system | Система автоматизации QA
+- `bilingual` - Contains EN/RU content | Содержит контент на EN/RU
+- `mortgage-calculator` - Component context | Контекст компонента
+- `[fingerprint]` - Unique deduplication ID | Уникальный ID дедупликации
+
+### 🔧 **QA Team Workflow | Рабочий процесс команды QA**
+
+#### **Daily Bug Review | Ежедневный обзор багов:**
+```bash
+# 1. Run comprehensive test suite | Запустить полный набор тестов
+cd mainapp
+npm run cypress:run -- --spec "cypress/e2e/mortgage*.cy.ts"
+
+# 2. Review auto-filed bugs | Просмотреть автоматически поданные баги
+# Visit: https://bankimonline.atlassian.net/browse/TVKC
+
+# 3. Filter by automated bugs | Фильтровать по автоматизированным багам
+# JQL: project = TVKC AND labels = "auto-filed" AND created >= -1d
+```
+
+#### **Bug Triage Process | Процесс сортировки багов:**
+1. **Priority Assignment | Назначение приоритета:**
+   - Critical | Критический: UI completely broken | UI полностью сломан
+   - High | Высокий: Core functionality fails | Основная функциональность не работает
+   - Medium | Средний: Minor UI issues | Незначительные проблемы UI
+   - Low | Низкий: Cosmetic issues | Косметические проблемы
+
+2. **Developer Assignment | Назначение разработчика:**
+   - Frontend issues → Frontend team | Проблемы фронтенда → Команда фронтенда
+   - Backend issues → Backend team | Проблемы бэкенда → Команда бэкенда
+   - Integration → Full-stack developer | Интеграция → Фулстек разработчик
+
+3. **Labels Update | Обновление меток:**
+   - Add component: `mortgage-step1`, `property-value`, etc.
+   - Add priority: `critical`, `high`, `medium`, `low`
+   - Add assignment: `frontend`, `backend`, `integration`
+
+### 👨‍💻 **Developer Workflow | Рабочий процесс разработчика**
+
+#### **Bug Investigation | Расследование бага:**
+```bash
+# 1. Review bug details | Просмотреть детали бага
+# - Read bilingual description | Читать двуязычное описание
+# - Check action log for exact failure point | Проверить журнал действий для точного места сбоя
+# - Download attached screenshots | Скачать прикрепленные скриншоты
+# - Note file path for quick navigation | Отметить путь к файлу для быстрой навигации
+
+# 2. Local reproduction | Локальное воспроизведение
+npm run dev  # Start development server | Запустить сервер разработки
+cd mainapp
+npm run cypress:open  # Open Cypress UI | Открыть UI Cypress
+# Run specific failing test | Запустить конкретный провалившийся тест
+
+# 3. Fix implementation | Реализация исправления
+# - Navigate to exact file path from bug report | Перейти к точному пути файла из отчета о баге
+# - Implement fix based on action log analysis | Реализовать исправление на основе анализа журнала действий
+# - Test fix locally | Протестировать исправление локально
+
+# 4. Validation | Валидация
+npm run cypress:run -- --spec "path/to/specific/test.cy.ts"
+# Verify test now passes | Убедиться, что тест теперь проходит
+```
+
+### 📊 **Enhanced Reporting | Расширенная отчетность**
+
+**Automatic Test Reports | Автоматические отчеты тестов:**
+```bash
+# Generate comprehensive test report | Создать всеобъемлющий отчет тестов
+npm run cypress:run -- --reporter mochawesome
+
+# View detailed HTML report | Просмотреть подробный HTML отчет
+open cypress/reports/mochawesome.html
+
+# Check Jira integration status | Проверить статус интеграции Jira
+# All failed tests should have corresponding Jira bugs
+# Все провалившиеся тесты должны иметь соответствующие баги в Jira
+```
+
+**Quality Metrics Dashboard | Панель метрик качества:**
+- Test pass rate | Коэффициент прохождения тестов: >95%
+- Auto-filed bugs | Автоматически поданные баги: 100% of failures
+- Bug resolution time | Время решения багов: <24h for critical
+- Duplicate prevention | Предотвращение дубликатов: >99% accuracy
+
+### 🎯 **Integration Verification | Проверка интеграции**
+
+**Test Jira Integration | Тестировать интеграцию Jira:**
+```typescript
+// File: cypress/e2e/jira-integration-test.cy.ts
+describe('Mortgage Calculator Jira Integration', () => {
+  it('should create detailed bilingual bug on failure', () => {
+    cy.visit('/services/calculate-mortgage/1');
+    
+    // Intentional failure to test enhanced Jira integration
+    cy.get('[data-testid="non-existent-element-for-comprehensive-test"]')
+      .should('exist'); // This will fail and trigger enhanced Jira bug
+  });
+
+  it('should create different bug for different error type', () => {
+    cy.visit('/services/calculate-mortgage/1');
+    
+    // Different failure type
+    cy.get('[data-testid="property-value"]')
+      .should('contain.text', 'Impossible Text That Does Not Exist');
+  });
+});
+```
+
+**Expected Enhanced Results | Ожидаемые расширенные результаты:**
+- ✅ Bilingual bug created with comprehensive details | Двуязычный баг создан с подробными деталями
+- ✅ Exact file paths included for quick navigation | Точные пути к файлам включены для быстрой навигации  
+- ✅ Complete action log with timestamps | Полный журнал действий с временными метками
+- ✅ Structured test steps with success/failure status | Структурированные шаги тестов со статусом успех/неудача
+- ✅ Enhanced environment context | Расширенный контекст окружения
+- ✅ Screenshots automatically attached | Скриншоты автоматически прикреплены
+- ✅ Smart deduplication working | Умная дедупликация работает
+- ✅ Console shows: `🎯 Jira bug filed: TVKC-XXX` | Консоль показывает: `🎯 Jira bug filed: TVKC-XXX`
+
+This comprehensive bilingual system ensures **complete transparency** and **zero manual effort** for bug reporting while providing developers with **exact debugging context** needed for rapid resolution.
+
+*Эта всеобъемлющая двуязычная система обеспечивает **полную прозрачность** и **нулевые ручные усилия** для отчетности о багах, предоставляя разработчикам **точный контекст отладки**, необходимый для быстрого решения.*

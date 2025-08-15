@@ -41,3 +41,9 @@ config.local.json
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Environment files with secrets
+.env.whatsapp
+.env.whatsapp.demo
+.env.whatsapp.template
+.env.jira

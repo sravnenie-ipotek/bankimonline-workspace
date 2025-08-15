@@ -51,7 +51,7 @@ const ObligationForm = () => {
   const obligationKey = getObligationKey(obligation)
 
   // Debug: Log obligation mapping and form state
-  })
+  console.log('ObligationForm debug completed')
 
   return (
     <>

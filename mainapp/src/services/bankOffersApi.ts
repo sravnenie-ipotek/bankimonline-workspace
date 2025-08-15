@@ -256,11 +256,13 @@ export const transformUserDataToRequest = (
     is_public_figure: userPersonalData?.publicPerson === 'yes'
   }
   
-  ')
-  ')
-  ')
-  ')
-  ')
+  console.log('Bank offers API - Request payload prepared:', {
+    loan_type: requestPayload.loan_type,
+    amount: requestPayload.amount,
+    monthly_income: requestPayload.monthly_income,
+    age: requestPayload.age,
+    citizenship: requestPayload.citizenship
+  })
   
   return requestPayload
 }

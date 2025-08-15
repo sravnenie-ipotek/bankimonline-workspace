@@ -1,0 +1,19 @@
+
+file:///Users/michaelmishayev/Projects/bankDev2_stan
+file:///Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node_modules/vite/dist/node/cli.js:41
+file:///Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node_modules/vite/dist/node/cli.js:419
+    => {
+    ^^
+
+SyntaxError: Unexpected token '=>'
+    at ModuleLoader.moduleStrategy (node:internal/mo
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:118:18)
+    at callTranslator (node:internal/modules/esm/loa
+    at callTranslator (node:internal/modules/esm/loader:265:14)
+    at ModuleLoader.moduleProvider (node:internal/mo
+    at ModuleLoader.moduleProvider (node:internal/modules/esm/loader:270:30)
+    at async link (node:internal/modules/esm/module_
+    at async link (node:internal/modules/esm/module_job:76:21)
+
+Node.js v20.7.0    at async link (node:internal/modules/esm/module_
+    at async link (nodezsh: command not found: dev    at async link (node:internal/modules/esm/module_

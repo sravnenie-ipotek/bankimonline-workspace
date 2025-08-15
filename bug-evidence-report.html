@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🚨 CRITICAL BUG DETECTED - Banking System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .timestamp {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .content {
+            padding: 40px;
+        }
+        .alert-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .critical-box {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .code-block {
+            background: #1e1e1e;
+            color: #ff6b6b;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+        }
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .impact-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #dc3545;
+        }
+        .impact-card h3 {
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .critical { background: #dc3545; color: white; }
+        .production { background: #fd7e14; color: white; }
+        .financial { background: #e83e8c; color: white; }
+        h2 { color: #495057; margin: 30px 0 15px 0; }
+        h3 { color: #6c757d; margin: 20px 0 10px 0; }
+        ul { margin-left: 20px; }
+        li { margin: 8px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚨 CRITICAL SYSTEM BUG DETECTED</h1>
+            <div class="timestamp">Detected: 8/15/2025, 4:11:29 PM</div>
+        </div>
+        
+        <div class="content">
+            <div class="critical-box">
+                <h2>⚠️ IMMEDIATE ACTION REQUIRED</h2>
+                <span class="status-badge critical">CRITICAL</span>
+                <span class="status-badge production">PRODUCTION</span>
+                <span class="status-badge financial">FINANCIAL</span>
+                
+                <h3>Financial Calculation System Corrupted</h3>
+                <p><strong>All mortgage payment calculations are returning random values instead of accurate financial calculations.</strong></p>
+            </div>
+            
+            <h2>📍 Bug Location</h2>
+            <div class="code-block">
+File: mainapp/src/utils/helpers/calculateMonthlyPayment.ts
+Function: calculateMonthlyPayment()
+Line: ~62-65
+
+// 🚨 CRITICAL BUG INJECTED FOR DEMO
+const corruptedPayment = monthlyPayment * Math.random() * 100;
+console.error("💥 BUG DETECTED: Financial calculations returning random values!");
+return Math.trunc(corruptedPayment);
+            </div>
+            
+            <h2>💥 System Impact Analysis</h2>
+            <div class="impact-grid">
+                <div class="impact-card">
+                    <h3>🎯 User Impact</h3>
+                    <ul>
+                        <li>ALL users affected</li>
+                        <li>Mortgage calculations unreliable</li>
+                        <li>Financial advice incorrect</li>
+                        <li>User trust compromised</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-card">
+                    <h3>💼 Business Impact</h3>
+                    <ul>
+                        <li>Reputation damage</li>
+                        <li>Potential financial liability</li>
+                        <li>Regulatory compliance risk</li>
+                        <li>Customer service issues</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-card">
+                    <h3>🔧 Technical Impact</h3>
+                    <ul>
+                        <li>Core calculation engine broken</li>
+                        <li>Data integrity compromised</li>
+                        <li>System reliability affected</li>
+                        <li>Monitoring alerts triggered</li>
+                    </ul>
+                </div>
+                
+                <div class="impact-card">
+                    <h3>⏰ Urgency Factors</h3>
+                    <ul>
+                        <li>Production system affected</li>
+                        <li>Financial calculations involved</li>
+                        <li>Customer-facing feature</li>
+                        <li>No workaround available</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="alert-box">
+                <h2>🔧 Automated Response Initiated</h2>
+                <ul>
+                    <li>✅ Bug detected and isolated</li>
+                    <li>✅ Visual evidence captured</li>
+                    <li>✅ Jira ticket creation in progress</li>
+                    <li>✅ Development team notification triggered</li>
+                    <li>✅ System monitoring enhanced</li>
+                </ul>
+            </div>
+            
+            <div class="critical-box">
+                <h2>📋 Required Actions</h2>
+                <ol>
+                    <li><strong>IMMEDIATE:</strong> Restore calculateMonthlyPayment function</li>
+                    <li><strong>SHORT TERM:</strong> Implement automated testing for financial calculations</li>
+                    <li><strong>LONG TERM:</strong> Add calculation validation and monitoring</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

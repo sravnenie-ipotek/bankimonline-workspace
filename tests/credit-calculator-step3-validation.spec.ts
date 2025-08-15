@@ -43,7 +43,8 @@ test.describe('Credit Calculator Step 3 - Post-Fix Validation', () => {
       fullPage: true 
     });
 
-    });
+    console.log('Step 3 loaded successfully with no errors');
+  });
 
   test('Test ID: CC-002 - Main Source of Income Dropdown Population', async () => {
     // Wait for the dropdown to be present
@@ -83,7 +84,8 @@ test.describe('Credit Calculator Step 3 - Post-Fix Validation', () => {
       fullPage: true 
     });
 
-    });
+    console.log(`Main source dropdown found with ${substantiveOptions.length} options`);
+  });
 
   test('Test ID: CC-003 - Additional Income Dropdown Population', async () => {
     // Wait for the dropdown to be present  
@@ -123,7 +125,8 @@ test.describe('Credit Calculator Step 3 - Post-Fix Validation', () => {
       fullPage: true 
     });
 
-    });
+    console.log(`Additional income dropdown found with ${substantiveOptions.length} options`);
+  });
 
   test('Test ID: CC-004 - Obligations Dropdown Functionality', async () => {
     // Look for obligations/debt related dropdown or button
@@ -158,7 +161,8 @@ test.describe('Credit Calculator Step 3 - Post-Fix Validation', () => {
       }
     }
 
-    });
+    console.log('Obligations functionality tested');
+  });
 
   test('Test ID: CC-005 - Form Interaction and Validation', async () => {
     // Try to select values in dropdowns
@@ -171,7 +175,8 @@ test.describe('Credit Calculator Step 3 - Post-Fix Validation', () => {
         const optionValue = await options[1].getAttribute('value');
         if (optionValue) {
           await mainSourceDropdown.selectOption(optionValue);
-          }
+          console.log(`Selected main source option: ${optionValue}`);
+        }
       }
     }
     
@@ -184,7 +189,8 @@ test.describe('Credit Calculator Step 3 - Post-Fix Validation', () => {
         const optionValue = await options[1].getAttribute('value');
         if (optionValue) {
           await additionalDropdown.selectOption(optionValue);
-          }
+          console.log(`Selected additional income option: ${optionValue}`);
+        }
       }
     }
     
@@ -195,7 +201,8 @@ test.describe('Credit Calculator Step 3 - Post-Fix Validation', () => {
     
     if (await continueButton.isVisible()) {
       const isEnabled = await continueButton.isEnabled();
-      }
+      console.log(`Continue button enabled status: ${isEnabled}`);
+    }
     
     await page.screenshot({ 
       path: 'test-results/cc-step3-form-filled.png',
@@ -226,12 +233,14 @@ test.describe('Credit Calculator Step 3 - Post-Fix Validation', () => {
     );
     
     apiRequests.forEach(req => {
-      });
+      console.log(`API Request: ${req.method} ${req.url}`);
+    });
     
     // We should see some API activity for dropdown data
     expect(apiRequests.length).toBeGreaterThan(0);
 
-    });
+    console.log('Network activity verified');
+  });
 
   test('Test ID: CC-007 - Comprehensive Issue Resolution Verification', async () => {
     const testResults = {
@@ -297,7 +306,7 @@ test.describe('Credit Calculator Step 3 - Post-Fix Validation', () => {
     
     // Generate comprehensive report
     if (consoleErrors.length > 0) {
-      consoleErrors.forEach(error => );
+      consoleErrors.forEach(error => console.log('Console Error:', error));
     }
     
     // All critical tests should pass
@@ -310,6 +319,6 @@ test.describe('Credit Calculator Step 3 - Post-Fix Validation', () => {
 
   test.afterEach(async () => {
     // Cleanup and ensure test results directory exists
-    await page.evaluate(() => );
+    await page.evaluate(() => console.log('Test cleanup completed'));
   });
 });

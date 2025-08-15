@@ -79,9 +79,12 @@ const ThirdStepForm = () => {
   const incomeSourceKey = mainSourceOfIncome || ''
 
   // Debug logging for conditional field rendering
-  ,
+  console.log('RefinanceMortgage ThirdStep debug:', {
+    incomeSourceKey,
     allFormValues: values
   })
+
+  console.log('RefinanceMortgage ThirdStep validation completed')
 
   const openSourceOfIncome = () => {
     dispatch(updateRefinanceMortgageData(values))

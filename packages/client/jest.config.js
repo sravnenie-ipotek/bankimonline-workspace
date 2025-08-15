@@ -7,7 +7,13 @@ module.exports = {
     '**/?(*.)+(spec|test).+(ts|tsx|js)'
   ],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
+    '^.+\\.(ts|tsx)$': ['ts-jest', {
+      tsconfig: {
+        jsx: 'react',
+        esModuleInterop: true,
+        allowSyntheticDefaultImports: true
+      }
+    }]
   },
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
@@ -36,15 +42,6 @@ module.exports = {
       functions: 80,
       lines: 80,
       statements: 80
-    }
-  },
-  globals: {
-    'ts-jest': {
-      tsconfig: {
-        jsx: 'react',
-        esModuleInterop: true,
-        allowSyntheticDefaultImports: true
-      }
     }
   }
 };

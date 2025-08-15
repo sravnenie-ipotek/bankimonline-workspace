@@ -67,7 +67,7 @@ const FourthStep = () => {
         
         // For now, bypass authentication and go directly to application submitted
         // TODO: Implement proper authentication flow
-        ')
+        console.log('FourthStep validation:')
         navigate('/services/application-submitted')
         
         // Original authentication logic (commented out for testing):

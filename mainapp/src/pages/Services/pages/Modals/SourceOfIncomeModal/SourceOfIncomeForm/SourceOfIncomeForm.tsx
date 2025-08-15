@@ -61,7 +61,8 @@ const SourceOfIncomeForm = () => {
   // Debug current selection and mapping
   React.useEffect(() => {
     // eslint-disable-next-line no-console
-    ,
+    console.log('SourceOfIncomeForm debug:', {
+      incomeSourceKey,
       willRender: !!componentsByIncomeSource[incomeSourceKey],
     })
   }, [mainSourceOfIncome, incomeSourceKey, screenLocation, componentsByIncomeSource])

@@ -133,7 +133,7 @@ const ThirdStepForm = () => {
   // Get components with proper screenLocation for credit_step3
   const componentsByIncomeSource = getComponentsByIncomeSource('credit_step3')
   
-  },
+  console.log('ThirdStepForm debug:', {
     obligationMapping: {
       originalValue: obligation,
       mappedKey: obligationKey,
@@ -247,7 +247,7 @@ const ThirdStepForm = () => {
       <Row>
         <MainSourceOfIncome screenLocation="credit_step3" />
         {(() => {
-          ,
+          console.log('Income source components debug:', {
             componentCountForMapped: componentsByIncomeSource[incomeSourceKey]?.length || 0,
             componentCountForRaw: componentsByIncomeSource[mainSourceOfIncome]?.length || 0,
             mappingFunction: 'getIncomeSourceKey working?',
@@ -321,7 +321,7 @@ const ThirdStepForm = () => {
       <Row>
         <Obligation screenLocation="credit_step3" />
         {(() => {
-          ,
+          console.log('Obligation source components debug:', {
             componentCountForMapped: componentsByObligation[obligationKey]?.length || 0,
             componentCountForRaw: componentsByObligation[obligation]?.length || 0,
             shouldShowObligationComponents: !!(obligationKey && componentsByObligation[obligationKey])

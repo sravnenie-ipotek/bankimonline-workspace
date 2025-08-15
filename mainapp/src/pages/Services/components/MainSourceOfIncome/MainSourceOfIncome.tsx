@@ -43,14 +43,14 @@ const MainSourceOfIncome = ({ screenLocation }: MainSourceOfIncomeProps) => {
   }
 
   // Debug dropdown data
-  ,
-    errors: errors.mainSourceOfIncome,
-    touched: touched.mainSourceOfIncome,
+  console.log('MainSourceOfIncome debug:', {
+    fieldErrors: errors.mainSourceOfIncome || {},
+    fieldTouched: touched.mainSourceOfIncome || {},
     errorShowing: touched.mainSourceOfIncome && errors.mainSourceOfIncome
   })
 
   const handleValueChange = (value: string) => {
-    })
+    console.log('Main source of income changed:', value)
     
     // Prefer validating immediately on selection to clear initial required error
     setFieldValue('mainSourceOfIncome', value, true)

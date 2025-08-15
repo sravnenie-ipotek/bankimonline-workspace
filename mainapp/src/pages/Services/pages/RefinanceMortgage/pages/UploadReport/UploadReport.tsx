@@ -37,7 +37,7 @@ const UploadReport = () => {
           />
         </div>
         <Divider />
-        <Dropzone onDrop={(acceptedFiles) => }>
+        <Dropzone onDrop={(acceptedFiles) => console.log('Files uploaded:', acceptedFiles)}>
           {({ getRootProps, getInputProps }) => (
             <section className={cx('upload-report-file')}>
               <div

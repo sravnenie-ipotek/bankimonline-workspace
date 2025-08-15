@@ -22,7 +22,7 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
-  .toISOString()} - ${req.method} ${req.url}`);
+  console.log(`[${new Date().toISOString()}] - ${req.method} ${req.url}`);
   
   // Parse URL to separate path from query parameters
   const url = new URL(req.url, `http://localhost:${PORT}`);

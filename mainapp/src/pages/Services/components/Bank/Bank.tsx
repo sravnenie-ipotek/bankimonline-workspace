@@ -39,7 +39,7 @@ const Bank = ({ screenLocation = 'calculate_credit_3' }: BankProps) => {
     { value: '5', label: getCommonContent('bank_option_5', 'Other Bank') }
   ]
 
-  })
+  console.log('Bank options loaded:', bankOptions.length)
 
   return (
     <Column>

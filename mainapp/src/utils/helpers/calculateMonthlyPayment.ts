@@ -59,7 +59,7 @@ const calculateMonthlyPayment = (
   const monthlyPayment =
     (loanAmount * monthlyRate * totalRate) / (totalRate - 1)
 
-  // Возвращаем целое число
+  // Возвращаем целое число, округленное в меньшую сторону
   return Math.trunc(monthlyPayment)
 }
 

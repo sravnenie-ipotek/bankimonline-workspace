@@ -132,23 +132,26 @@ test('Final dropdown validation test - Navigate through steps', async ({ page })
     const isDisabledAfterFilling = await continueButton.isDisabled();
     // Final validation
     if (isInitiallyDisabled && !isDisabledAfterFilling) {
+      console.log('Success: Continue button was enabled after filling dropdowns');
       await page.screenshot({ path: 'step3-success.png', fullPage: true });
     } else if (!isInitiallyDisabled) {
-      ');
+      console.log('Continue button was already enabled');
     } else {
-      }
+      console.log('Continue button remained disabled after filling dropdowns');
+    }
     
     // Try to click continue if enabled
     if (!isDisabledAfterFilling) {
       await continueButton.click();
       await page.waitForTimeout(2000);
       await page.screenshot({ path: 'step4-reached.png', fullPage: true });
-      }
+      console.log('Successfully clicked continue button');
+    }
     
   } else {
-    ');
+    console.log('Continue button is disabled, test complete');
     const bodyText = await page.textContent('body') || '';
-    + '...');
+    console.log('Page content: ' + (bodyText.length > 100 ? bodyText.substring(0, 100) + '...' : bodyText));
   }
   
   expect(true).toBe(true);

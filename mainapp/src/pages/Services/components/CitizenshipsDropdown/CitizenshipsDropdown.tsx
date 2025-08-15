@@ -52,7 +52,7 @@ const CitizenshipsDropdown = () => {
         )
 
         setCitizenshipOptions(uniqueOptions)
-        } catch (err) {
+      } catch (err) {
         console.error('❌ Error fetching citizenship options:', err)
         setError(err instanceof Error ? err.message : 'Unknown error')
       } finally {
@@ -70,7 +70,9 @@ const CitizenshipsDropdown = () => {
     
     // Force validation after setting value
     setTimeout(() => {
-      ===')
+      if (selectedLabels.includes('option_1')) {
+        console.log('Citizenship validation:', selectedLabels)
+      }
       validateField('citizenshipsDropdown')
     }, 100)
   }

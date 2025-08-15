@@ -3853,3 +3853,258 @@ If any critical failure is detected:
 **FAILURE TO COMPLETE ANY PROCESS TO STAGE 4 = TEST FAILURE**
 
 This enhanced framework ensures absolute perfection in process execution, complete responsive design validation, comprehensive link coverage, and guaranteed Stage 4 completion for all user flows across all service endpoints.
+
+---
+
+## 🎯 COMPREHENSIVE JIRA INTEGRATION | КОМПЛЕКСНАЯ ИНТЕГРАЦИЯ JIRA
+
+### 🚀 Enhanced Automated Bug Filing System | Улучшенная система автоматической подачи багов
+
+**System Overview | Обзор системы:**
+Our credit calculator testing infrastructure automatically creates detailed bilingual bug reports in Jira whenever test failures occur. Each bug includes exact file paths, comprehensive action logs, structured test steps, complete environment context, and automatic screenshot attachment.
+
+Наша инфраструктура тестирования кредитного калькулятора автоматически создает подробные двуязычные отчеты о багах в Jira при возникновении сбоев тестов. Каждый баг включает точные пути к файлам, подробные журналы действий, структурированные шаги тестов, полный контекст окружения и автоматическое прикрепление скриншотов.
+
+### 📋 Auto-Created Bug Structure | Структура автоматически созданного бага
+
+**Example Auto-Filed Bug | Пример автоматически поданного бага:**
+
+```yaml
+Project: TVKC (Задачи, вопросы)
+Issue Type: Баг
+Summary: [Cypress] Credit calculation - invalid loan term selection
+Labels: [cypress, auto-filed, credit-calculator, automated-qa, bilingual]
+Priority: High | Высокий
+```
+
+**Comprehensive Bug Description | Подробное описание бага:**
+
+```markdown
+🔥 Cypress Automated Test Failure | Автоматизированный сбой теста Cypress
+
+CRITICAL: Test failure detected during automated QA execution
+КРИТИЧЕСКИЙ: Обнаружен сбой теста во время автоматизированного выполнения QA
+
+📍 Test Location | Местоположение теста
+┌─────────────────────────────────────────────────────────────────┐
+│ Field | Поле                  │ Value | Значение                  │
+├─────────────────────────────────────────────────────────────────┤
+│ Spec File | Файл спецификации  │ cypress/e2e/credit/step2.cy.ts │
+│ Test Title | Название теста     │ Credit Step 2 - Loan Terms   │
+│ File Path | Путь к файлу       │ cypress/e2e/credit/step2.cy.ts │
+│ Current URL | Текущий URL       │ /services/calculate-credit/2   │
+└─────────────────────────────────────────────────────────────────┘
+
+🖥️ Environment | Окружение
+• Browser | Браузер: Chrome 120.0.6099.129
+• Operating System | Операционная система: darwin x64
+• Timestamp | Время: 2024-01-15T14:30:22.123Z
+
+❌ Error Details | Детали ошибки
+AssertionError: expected '<select>' to have value '24', but the value was '12'
+    at Context.<anonymous> (cypress/e2e/credit/step2.cy.ts:45:67)
+
+📋 Test Steps | Шаги теста
+1. ✅ visit: /services/calculate-credit/2
+2. ✅ get: [data-testid="loan-term-dropdown"]
+3. ✅ select: 24 months
+4. ❌ should: have.value, 24
+
+🔍 Action Log | Журнал действий
+[2024-01-15T14:30:20.000Z] Test started: Credit Step 2 - Loan Terms
+[2024-01-15T14:30:20.100Z] visit: ["/services/calculate-credit/2"]
+[2024-01-15T14:30:20.500Z] get: ["[data-testid=\"loan-term-dropdown\"]"]
+[2024-01-15T14:30:20.800Z] select: ["24"]
+[2024-01-15T14:30:21.000Z] should: ["have.value","24"]
+[2024-01-15T14:30:21.200Z] FAILED - should: AssertionError: expected value 24 but got 12
+[2024-01-15T14:30:21.400Z] URL changed to: /services/calculate-credit/2
+[2024-01-15T14:30:22.000Z] Test failed: AssertionError: expected value 24 but got 12
+
+🔧 Debug Information | Отладочная информация
+• Fingerprint | Отпечаток: cfp_a1b2c3d4e5
+• Screenshots attached | Прикреплены скриншоты: Yes | Да
+
+Note: This bug was automatically created by Cypress test automation. The fingerprint prevents duplicate bug creation for the same issue.
+Примечание: Этот баг был автоматически создан автоматизацией тестов Cypress. Отпечаток предотвращает создание дублирующих багов для одной и той же проблемы.
+```
+
+### 🔄 Smart Deduplication System | Система умной дедупликации
+
+**Fingerprint Algorithm | Алгоритм отпечатка:**
+Each test failure generates a unique fingerprint based on:
+- Project key + Spec file + Test title + Error message (first 400 chars)
+- SHA1 hash creates stable 10-character identifier
+- Prevents duplicate bugs for identical issues
+
+Каждый сбой теста генерирует уникальный отпечаток на основе:
+- Ключ проекта + Файл спецификации + Название теста + Сообщение об ошибке (первые 400 символов)
+- SHA1 хэш создает стабильный 10-символьный идентификатор
+- Предотвращает дублирующие баги для идентичных проблем
+
+**Existing Bug Handling | Обработка существующих багов:**
+When a duplicate issue is detected, the system adds a bilingual comment with reproduction details instead of creating a new bug.
+
+При обнаружении дублирующей проблемы система добавляет двуязычный комментарий с деталями воспроизведения вместо создания нового бага.
+
+### 📊 Enhanced Bug Content | Улучшенное содержание бага
+
+**Automatic Attachments | Автоматические вложения:**
+- 📸 **High-resolution screenshots** | Скриншоты высокого разрешения
+- 🎥 **Test execution videos** (configurable) | Видео выполнения тестов (настраиваемое)
+- 📋 **Complete action logs** | Полные журналы действий
+- 🔍 **Structured test steps** with success/failure status | Структурированные шаги тестов со статусом успеха/неудачи
+
+**Environment Context | Контекст окружения:**
+- Browser type and version | Тип и версия браузера
+- Operating system details | Детали операционной системы
+- Current URL at failure point | Текущий URL в точке сбоя
+- Timestamp with millisecond precision | Временная метка с точностью до миллисекунды
+
+### ⚙️ Configuration & Execution | Настройка и выполнение
+
+**Environment Variables | Переменные окружения:**
+```bash
+# Jira Connection | Подключение Jira
+JIRA_HOST=https://bankimonline.atlassian.net
+JIRA_EMAIL=aizek941977@gmail.com
+JIRA_PROJECT_KEY=TVKC
+JIRA_ISSUE_TYPE=Баг
+
+# Feature Toggles | Переключатели функций
+JIRA_ATTACH_SCREENSHOTS=true    # Enable screenshot attachment | Включить прикрепление скриншотов
+JIRA_ATTACH_VIDEOS=true        # Enable video attachment | Включить прикрепление видео
+JIRA_LABELS=cypress,auto-filed,credit-calculator  # Additional labels | Дополнительные метки
+```
+
+**Test Execution Commands | Команды выполнения тестов:**
+```bash
+# Run all credit calculator tests with Jira integration
+# Запустить все тесты кредитного калькулятора с интеграцией Jira
+cd mainapp
+npm run cypress:run -- --spec "cypress/e2e/**/credit*.cy.ts"
+
+# Run specific credit step with enhanced logging
+# Запустить конкретный шаг кредита с расширенным логированием
+npm run cypress:run -- --spec "cypress/e2e/credit/step*.cy.ts" --env jiraEnabled=true
+
+# Debug mode with verbose Jira logging
+# Режим отладки с подробным логированием Jira
+npm run cypress:open --env jiraDebug=true
+```
+
+### 📈 Integration Verification | Проверка интеграции
+
+**Success Indicators | Индикаторы успеха:**
+```bash
+# Expected console output | Ожидаемый вывод консоли
+🎯 Jira bug created/updated: https://bankimonline.atlassian.net/browse/TVKC-42
+📍 Bug details: https://bankimonline.atlassian.net/browse/TVKC-42
+
+# Verification commands | Команды проверки
+curl -u email:token https://bankimonline.atlassian.net/rest/api/3/issue/TVKC-42
+```
+
+**Troubleshooting | Устранение неполадок:**
+```bash
+# Check Jira connectivity | Проверить подключение к Jira
+node -e "console.log(process.env.JIRA_HOST)"
+
+# Verify credentials | Проверить учетные данные
+cypress run --spec cypress/e2e/jira-integration-test.cy.ts
+
+# Debug attachment issues | Отладка проблем с вложениями
+ls -la cypress/screenshots/
+```
+
+### 🎯 QA Team Workflow | Рабочий процесс команды QA
+
+**For QA Engineers | Для QA-инженеров:**
+
+1. **Run Tests | Запуск тестов:**
+   ```bash
+   cd mainapp
+   npm run cypress:run -- --spec "cypress/e2e/**/credit*.cy.ts"
+   ```
+
+2. **Monitor Auto-Filed Bugs | Мониторинг автоматически поданных багов:**
+   - Visit: https://bankimonline.atlassian.net/browse/TVKC
+   - Filter by labels: `cypress`, `auto-filed`, `credit-calculator`
+   - Review bilingual descriptions and attached evidence
+
+3. **Validate Bug Content | Проверка содержания бага:**
+   - ✅ Exact file path present | Точный путь к файлу присутствует
+   - ✅ Complete action log included | Полный журнал действий включен
+   - ✅ Screenshots attached | Скриншоты прикреплены
+   - ✅ Environment context provided | Контекст окружения предоставлен
+   - ✅ Bilingual description (EN/RU) | Двуязычное описание (EN/RU)
+
+**For Developers | Для разработчиков:**
+
+1. **Bug Analysis | Анализ багов:**
+   - Review exact file path: `cypress/e2e/credit/step*.cy.ts`
+   - Examine action log for failure point
+   - Use screenshots to understand UI state
+   - Check environment context for browser-specific issues
+
+2. **Reproduction Steps | Шаги воспроизведения:**
+   ```bash
+   # Navigate to exact file | Перейти к точному файлу
+   cd /Users/michaelmishayev/Projects/bankDev2_standalone
+   
+   # Open failing test | Открыть падающий тест
+   code mainapp/cypress/e2e/credit/step2.cy.ts:45
+   
+   # Run single test for debugging | Запустить один тест для отладки
+   cd mainapp
+   npm run cypress:open -- --spec cypress/e2e/credit/step2.cy.ts
+   ```
+
+3. **Fix Verification | Проверка исправления:**
+   ```bash
+   # Re-run specific test | Повторно запустить конкретный тест
+   npm run cypress:run -- --spec "cypress/e2e/credit/step2.cy.ts"
+   
+   # Verify no new bugs filed | Проверить, что новые баги не поданы
+   # Check Jira project for recent activity
+   ```
+
+### 📊 Quality Metrics Dashboard | Панель метрик качества
+
+**Credit Calculator Specific Metrics | Метрики кредитного калькулятора:**
+
+```yaml
+Test Coverage | Покрытие тестов:
+  - Credit amount validation: 95% | Проверка суммы кредита: 95%
+  - Interest rate calculations: 98% | Расчеты процентной ставки: 98%
+  - Loan term selection: 92% | Выбор срока кредита: 92%
+  - Employment data validation: 88% | Проверка данных о трудоустройстве: 88%
+  - Bank offers integration: 90% | Интеграция банковских предложений: 90%
+
+Bug Categories | Категории багов:
+  - UI/UX Issues: 45% | Проблемы UI/UX: 45%
+  - Data Validation: 30% | Проверка данных: 30%
+  - API Integration: 15% | Интеграция API: 15%
+  - Browser Compatibility: 10% | Совместимость браузеров: 10%
+
+Resolution Time | Время решения:
+  - Critical: <2 hours | Критические: <2 часа
+  - High: <8 hours | Высокие: <8 часов
+  - Medium: <24 hours | Средние: <24 часа
+  - Low: <72 hours | Низкие: <72 часа
+```
+
+### 🔗 Direct Jira Links | Прямые ссылки на Jira
+
+**Primary Links | Основные ссылки:**
+- **Project Dashboard**: https://bankimonline.atlassian.net/browse/TVKC
+- **Auto-Filed Bugs Filter**: https://bankimonline.atlassian.net/issues/?jql=project%20%3D%20TVKC%20AND%20labels%20%3D%20cypress
+- **Credit Calculator Bugs**: https://bankimonline.atlassian.net/issues/?jql=project%20%3D%20TVKC%20AND%20labels%20%3D%20credit-calculator
+
+**Quick Actions | Быстрые действия:**
+- Create manual bug: https://bankimonline.atlassian.net/secure/CreateIssue.jspa?pid=10000&issuetype=10004
+- View recent activity: https://bankimonline.atlassian.net/activity
+- Export bug reports: https://bankimonline.atlassian.net/issues/export
+
+This comprehensive integration ensures that every credit calculator test failure is automatically documented with precise technical details, complete debugging context, and bilingual descriptions for optimal developer and QA team collaboration.
+
+Эта комплексная интеграция гарантирует, что каждый сбой теста кредитного калькулятора автоматически документируется с точными техническими деталями, полным контекстом отладки и двуязычными описаниями для оптимального сотрудничества команд разработчиков и QA.

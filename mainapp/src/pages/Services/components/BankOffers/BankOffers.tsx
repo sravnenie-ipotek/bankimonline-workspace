@@ -97,13 +97,13 @@ const BankOffers = () => {
           serviceType || undefined
         )
         
-        )
+        console.log('Bank offers request payload prepared')
         // Fetch bank offers from API
         const bankOffers = await fetchBankOffers(requestPayload)
         
         if (bankOffers.length === 0) {
           console.warn('⚠️ [BANK-OFFERS] NO BANK OFFERS FOUND!')
-          }
+        }
         
         setBanks(bankOffers)
         

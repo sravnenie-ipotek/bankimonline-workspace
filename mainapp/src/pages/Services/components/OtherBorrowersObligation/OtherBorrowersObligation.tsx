@@ -79,16 +79,17 @@ const OtherBorrowersObligation = ({ screenLocation = 'other_borrowers_step2' }: 
   const hasError = isDropdownDataObject ? dropdownData.error : null
 
   // Debug obligation values
-  ,
-    errors: errors.obligation,
-    touched: touched.obligation,
+  console.log('OtherBorrowersObligation debug:', {
+    fieldErrors: errors.obligation,
+    fieldTouched: touched.obligation,
     errorShowing: touched.obligation && errors.obligation,
     selectedItem: dropdownOptions?.find(item => item.value === values.obligation),
     screenLocation
   })
 
   const handleValueChange = (value: string) => {
-    ,
+    console.log('Obligation value changed:', {
+      value,
       willShowBankFields: !checkIfNoObligationValue(value)
     })
     

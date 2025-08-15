@@ -148,7 +148,7 @@ class MortgageStep1Page extends BasePage {
    * @param {number} price - Property price value
    */
   async fillPropertyPrice(price) {
-    }`);
+    console.log(`Filling property price: ${price}`);
     
     const priceInput = await this.findElement(this.selectors.propertyPrice);
     await this.typeText(priceInput, price.toString(), true);
@@ -220,7 +220,7 @@ class MortgageStep1Page extends BasePage {
    * @param {number} amount - Initial payment amount
    */
   async setInitialPayment(amount) {
-    }`);
+    console.log(`Setting initial payment: ${amount}`);
     
     const slider = await this.findElement(this.selectors.initialFeeSlider);
     
