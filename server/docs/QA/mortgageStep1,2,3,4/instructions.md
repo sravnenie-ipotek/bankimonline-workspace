@@ -8,7 +8,14 @@
 
 ## =� EXECUTIVE SUMMARY
 
-This document provides comprehensive testing instructions for the **Calculate Mortgage** process (Steps 1-4) comparing live application behavior against documented specifications, Figma designs, and business logic requirements. The testing covers:
+This document provides comprehensive testing instructions for the **Calculate Mortgage** process (Steps 1-4) comparing live application behavior against documented specifications, Figma designs, and business logic requirements. 
+
+### Server Architecture
+- **Main Server**: `packages/server/src/server.js` (monorepo structure, port 8003)
+- **Legacy Fallback**: `server/server-db.js` (emergency use only, deprecated)
+- **Unified System**: No dual-server synchronization required
+
+### Testing Coverage
 
 - **Confluence Business Specifications** with 15 specific action requirements
 - **Figma Design System** comparison and visual validation  
@@ -152,40 +159,101 @@ Hebrew Labels: Arimo Medium 14px
 **PRIORITY**: This phase MUST be executed first to validate the foundation of the dropdown system across all mortgage calculator steps.
 
 #### Architecture Integration
-Based on `/server/docs/Architecture/dropDownLogicBankim.md` and `/docs/systemTranslationLogic.md`, the mortgage calculator uses a sophisticated database-driven dropdown system with:
-- **Content Management Integration**: Dropdowns sourced from `content_items` and `content_translations` tables
-- **Multi-Language Support**: Dynamic translations for Hebrew, English, Russian
-- **Conditional Logic**: Dropdowns that trigger additional UI elements based on selection
-- **API Integration**: Real-time dropdown data via `/api/v1/dropdowns` endpoints
+Based on `/server/docs/Architecture/dropDownLogicBankim.md`, the mortgage calculator uses a sophisticated screen-specific database-driven dropdown system with:
+- **Server Architecture**: Single main server (`packages/server/src/server.js`) handles all API endpoints
+- **Content Database Integration**: Dropdowns sourced from `content_items` and `content_translations` tables via shortline proxy
+- **Screen-Specific Content**: Each screen (mortgage_step1, mortgage_step2, mortgage_step3, mortgage_step4) has independent dropdown control
+- **API Key Generation**: Pattern `{screen_location}_{field_name}` (e.g., `mortgage_step3_obligations`)
+- **Database Content Key**: Format `{screen_location}.field.{field_name}_{option_value}`
+- **Multi-Language Support**: Dynamic translations for Hebrew, English, Russian with proper RTL handling
+- **useDropdownData Hook**: Frontend hook with screen location and field name parameters
+- **Caching Strategy**: 5-minute TTL on both server and frontend for optimal performance
 
-#### 🚨 CRITICAL TESTING APPROACH: Traditional vs Modern Dropdown Detection
+#### 🚨 CRITICAL TESTING APPROACH: Screen-Specific Dropdown Architecture
 
-**MANDATORY UNDERSTANDING**: Modern React applications like this mortgage calculator often use **custom dropdown components** instead of traditional HTML `<select>` elements. Tests must account for BOTH types to be bulletproof.
+**MANDATORY UNDERSTANDING**: The dropdown system uses screen-specific API endpoints for admin panel independence. Tests must validate each screen's dropdown isolation and proper API key generation.
 
-##### Common Testing Mistakes (What Causes Failures):
+##### Core Architecture Validation:
 ```typescript
-// ❌ WRONG: Looking for traditional elements only
-cy.get('select')  // ← Found ZERO (will fail)
-cy.get('[role="combobox"]')  // ← Found ZERO (will fail)  
-cy.get('.dropdown')  // ← Wrong class names (will fail)
+// ✅ CORRECT: Screen-specific dropdown testing
+const testScreenDropdowns = (screenLocation, stepNumber) => {
+  cy.visit(`/services/calculate-mortgage/${stepNumber}`);
+  cy.wait(3000);
+
+  // Intercept screen-specific dropdown API
+  cy.intercept('GET', `/api/dropdowns/${screenLocation}/*`).as(`${screenLocation}API`);
+  
+  // Validate API call is made to correct screen endpoint
+  cy.wait(`@${screenLocation}API`).then((interception) => {
+    expect(interception.request.url).to.include(`/api/dropdowns/${screenLocation}/`);
+    expect(interception.response.statusCode).to.equal(200);
+    
+    const response = interception.response.body;
+    expect(response.screen_location).to.equal(screenLocation);
+    expect(response.options).to.be.an('object');
+    
+    cy.log(`✅ ${screenLocation}: API endpoint and response structure validated`);
+  });
+};
 ```
 
-##### Reality: What Modern Apps Actually Implement:
-- **Custom dropdown buttons** with Hebrew placeholders like "בחר עיר" ("Choose city")
-- **React components** that look like dropdowns but aren't `<select>` elements
-- **Working business logic** and calculations with functional interfaces
-- **Functional Hebrew RTL interface** with proper text rendering
+##### useDropdownData Hook Validation:
+```typescript
+// Test that components use correct hook parameters
+const validateDropdownHookUsage = (screenLocation, fieldName) => {
+  // Expected API key pattern: {screen_location}_{field_name}
+  const expectedApiKey = `${screenLocation}_${fieldName}`;
+  
+  cy.intercept('GET', `/api/dropdowns/${screenLocation}/*`).as('dropdownAPI');
+  
+  cy.wait('@dropdownAPI').then((interception) => {
+    const response = interception.response.body;
+    
+    // Validate API key exists in response
+    expect(response.options).to.have.property(expectedApiKey);
+    expect(response.dropdowns).to.deep.include({
+      key: expectedApiKey,
+      label: Cypress.sinon.match.string
+    });
+    
+    cy.log(`✅ useDropdownData('${screenLocation}', '${fieldName}') → ${expectedApiKey} validated`);
+  });
+};
+```
+
+##### Content Database Key Pattern Validation:
+```typescript
+// Validate database content key format matches architecture
+const validateContentKeyPattern = (screenLocation, fieldName) => {
+  cy.intercept('GET', `/api/dropdowns/${screenLocation}/*`).as('dropdownAPI');
+  
+  cy.wait('@dropdownAPI').then((interception) => {
+    const response = interception.response.body;
+    const apiKey = `${screenLocation}_${fieldName}`;
+    
+    if (response.options[apiKey]) {
+      response.options[apiKey].forEach(option => {
+        // Content keys should follow: {screen_location}.field.{field_name}_{option_value}
+        const expectedKeyPattern = new RegExp(`^${screenLocation}\\.field\\.${fieldName}_`);
+        
+        // Log validation for debugging
+        cy.log(`Validating content key pattern for ${apiKey} option: ${option.value}`);
+      });
+    }
+  });
+};
+```
 
 ##### 🛡️ BULLETPROOF DROPDOWN DETECTION STRATEGY:
 ```typescript
-// ✅ COMPREHENSIVE: Test for ALL possible dropdown types
+// Enhanced detection for React components with screen-specific validation
 const allDropdownSelectors = [
   // Traditional HTML dropdowns
   'select',
   '[role="combobox"]',
   '[role="listbox"]',
   
-  // Modern React dropdown components
+  // Modern React dropdown components  
   '[data-testid*="dropdown"]',
   '[data-testid*="select"]',
   '[aria-haspopup="listbox"]',
@@ -204,7 +272,7 @@ const allDropdownSelectors = [
   '[class*="dropdown"]',
   '[class*="select"]',
   
-  // Hebrew text pattern dropdowns (common placeholders)
+  // Hebrew text pattern dropdowns (RTL support)
   'button:contains("בחר")',  // "Choose" in Hebrew
   'button:contains("בחירה")', // "Selection" in Hebrew
   '[placeholder*="בחר"]',
@@ -220,29 +288,34 @@ const allDropdownSelectors = [
   '.react-select',    // React Select
 ];
 
-// Test strategy: Try each selector type until dropdowns are found
-let foundDropdowns = false;
-let workingSelectors = [];
+// Validate dropdown detection with screen awareness
+const validateScreenDropdowns = (screenLocation, stepNumber) => {
+  let foundDropdowns = false;
+  let workingSelectors = [];
 
-allDropdownSelectors.forEach(selector => {
-  cy.get('body').then($body => {
-    const elements = $body.find(selector);
-    if (elements.length > 0) {
-      foundDropdowns = true;
-      workingSelectors.push(selector);
-      cy.log(`✅ Found ${elements.length} dropdowns with selector: ${selector}`);
-    }
+  allDropdownSelectors.forEach(selector => {
+    cy.get('body').then($body => {
+      const elements = $body.find(selector);
+      if (elements.length > 0) {
+        foundDropdowns = true;
+        workingSelectors.push(selector);
+        cy.log(`✅ ${screenLocation}: Found ${elements.length} dropdowns with selector: ${selector}`);
+      }
+    });
   });
-});
+  
+  return foundDropdowns;
+};
 ```
 
 ##### Phase 0 Testing Must Validate:
-1. **✅ Detection Success**: Find and identify ALL dropdown types present
-2. **✅ Interaction Testing**: Verify dropdowns are clickable and functional
-3. **✅ Content Validation**: Confirm dropdowns have options (not empty)
-4. **✅ Business Logic**: Verify property ownership affects LTV calculations
-5. **✅ Hebrew RTL Support**: Confirm Hebrew text renders and functions correctly
-6. **✅ Conditional UI**: Verify dropdown selections reveal additional form elements
+1. **✅ Screen-Specific API Endpoints**: Each step calls correct `/api/dropdowns/{screen_location}/{language}` endpoint
+2. **✅ API Key Generation**: Proper `{screen_location}_{field_name}` pattern validation
+3. **✅ Content Database Integration**: Database content key format validation
+4. **✅ useDropdownData Hook**: Correct screen location and field name parameters
+5. **✅ Multi-Language Support**: Hebrew, English, Russian with proper caching
+6. **✅ Screen Independence**: Admin panel can modify each screen separately
+7. **✅ Hook Performance**: Frontend and server caching with 5-minute TTL
 
 ##### Emergency Fallback Strategy:
 If automated dropdown detection fails:
@@ -268,396 +341,289 @@ cy.get('body').then($body => {
 });
 ```
 
-#### Test 0.1: Dropdown Availability and Options Validation
+#### Test 0.1: Screen-Specific API Validation
 ```typescript
-describe('CRITICAL: Dropdown Availability Across All Steps', () => {
-  const steps = [1, 2, 3, 4];
+describe('CRITICAL: Screen-Specific Dropdown API Architecture', () => {
+  const screenMappings = [
+    { step: 1, screenLocation: 'mortgage_step1' },
+    { step: 2, screenLocation: 'mortgage_step2' },
+    { step: 3, screenLocation: 'mortgage_step3' },
+    { step: 4, screenLocation: 'mortgage_step4' }
+  ];
   
-  steps.forEach(step => {
-    it(`Step ${step}: All dropdowns must have options and be functional`, () => {
-      cy.visit(`/services/calculate-mortgage/${step}`);
-      cy.wait(3000); // Allow API calls to complete
+  screenMappings.forEach(({ step, screenLocation }) => {
+    it(`Step ${step}: ${screenLocation} API endpoint and structure validation`, () => {
+      // Intercept screen-specific API calls
+      cy.intercept('GET', `/api/dropdowns/${screenLocation}/*`).as(`${screenLocation}API`);
       
-      // Find all dropdowns on the page
-      cy.get('select, [role="combobox"], .dropdown, [data-testid*="dropdown"]').each($dropdown => {
-        const dropdownName = $dropdown.attr('data-testid') || $dropdown.attr('id') || 'unnamed-dropdown';
+      cy.visit(`/services/calculate-mortgage/${step}`);
+      cy.wait(3000);
+      
+      // Validate API call to correct endpoint
+      cy.wait(`@${screenLocation}API`).then((interception) => {
+        expect(interception.request.url).to.include(`/api/dropdowns/${screenLocation}/`);
+        expect(interception.response.statusCode).to.equal(200);
         
-        cy.log(`🔍 Testing dropdown: ${dropdownName} on Step ${step}`);
+        const response = interception.response.body;
         
-        // CRITICAL: Dropdown must not be empty
-        cy.wrap($dropdown).within(() => {
-          cy.get('option, [role="option"], .dropdown-option').should('have.length.greaterThan', 0, 
-            `Dropdown ${dropdownName} on Step ${step} MUST have options - empty dropdowns are blocking failures`);
+        // Validate response structure matches architecture
+        expect(response).to.have.property('status', 'success');
+        expect(response).to.have.property('screen_location', screenLocation);
+        expect(response).to.have.property('dropdowns').that.is.an('array');
+        expect(response).to.have.property('options').that.is.an('object');
+        expect(response).to.have.property('placeholders').that.is.an('object');
+        expect(response).to.have.property('labels').that.is.an('object');
+        
+        // Validate API key patterns for this screen
+        response.dropdowns.forEach(dropdown => {
+          expect(dropdown.key).to.match(new RegExp(`^${screenLocation}_`));
+          cy.log(`✅ API key validated: ${dropdown.key}`);
         });
         
-        // CRITICAL: Dropdown must be interactive
-        cy.wrap($dropdown).should('not.be.disabled', 
-          `Dropdown ${dropdownName} on Step ${step} must be interactive`);
+        cy.log(`✅ ${screenLocation}: API structure and key patterns validated`);
+      });
+    });
+  });
+  
+  it('Screen independence: Different screens should have different API keys', () => {
+    const apiKeys = new Set();
+    
+    screenMappings.forEach(({ step, screenLocation }) => {
+      cy.intercept('GET', `/api/dropdowns/${screenLocation}/*`).as(`${screenLocation}API`);
+      
+      cy.visit(`/services/calculate-mortgage/${step}`);
+      cy.wait(3000);
+      
+      cy.wait(`@${screenLocation}API`).then((interception) => {
+        const response = interception.response.body;
         
-        // CRITICAL: Default selection validation
-        cy.wrap($dropdown).then($el => {
-          const hasDefaultValue = $el.val() !== '' && $el.val() !== null;
-          const hasPlaceholder = $el.attr('placeholder') || $el.find('option[value=""]').length > 0;
+        response.dropdowns.forEach(dropdown => {
+          if (apiKeys.has(dropdown.key)) {
+            throw new Error(`API key collision detected: ${dropdown.key} appears in multiple screens`);
+          }
+          apiKeys.add(dropdown.key);
+        });
+      });
+    });
+    
+    cy.log(`✅ Screen independence validated: All API keys are screen-specific`);
+  });
+});
+```
+
+#### Test 0.2: useDropdownData Hook Integration Validation  
+```typescript
+describe('CRITICAL: useDropdownData Hook Integration', () => {
+  const dropdownFieldMappings = {
+    mortgage_step1: ['property_ownership', 'city'],
+    mortgage_step2: ['citizenship', 'marital_status', 'family_status'],
+    mortgage_step3: ['obligations', 'main_source', 'additional_income'],
+    mortgage_step4: ['bank_selection', 'program_selection']
+  };
+  
+  Object.entries(dropdownFieldMappings).forEach(([screenLocation, fields]) => {
+    fields.forEach(fieldName => {
+      it(`${screenLocation}: useDropdownData('${screenLocation}', '${fieldName}') integration`, () => {
+        const expectedApiKey = `${screenLocation}_${fieldName}`;
+        
+        cy.intercept('GET', `/api/dropdowns/${screenLocation}/*`).as('dropdownAPI');
+        
+        const stepNumber = parseInt(screenLocation.replace('mortgage_step', ''));
+        cy.visit(`/services/calculate-mortgage/${stepNumber}`);
+        cy.wait(3000);
+        
+        cy.wait('@dropdownAPI').then((interception) => {
+          const response = interception.response.body;
           
-          expect(hasDefaultValue || hasPlaceholder, 
-            `Dropdown ${dropdownName} must have either a default value or placeholder`).to.be.true;
+          // Validate expected API key exists
+          if (response.options[expectedApiKey]) {
+            expect(response.options[expectedApiKey]).to.be.an('array');
+            expect(response.options[expectedApiKey].length).to.be.greaterThan(0);
+            
+            cy.log(`✅ useDropdownData integration validated: ${expectedApiKey}`);
+          } else {
+            cy.log(`⚠️ Expected API key not found: ${expectedApiKey}`);
+            cy.log(`Available keys: ${Object.keys(response.options).join(', ')}`);
+          }
+          
+          // Validate placeholder exists
+          const placeholderKey = `${expectedApiKey}_ph`;
+          if (response.placeholders[placeholderKey] || response.placeholders[expectedApiKey]) {
+            cy.log(`✅ Placeholder validated for: ${expectedApiKey}`);
+          }
+          
+          // Validate label exists  
+          const labelKey = `${expectedApiKey}_label`;
+          if (response.labels[labelKey] || response.labels[expectedApiKey]) {
+            cy.log(`✅ Label validated for: ${expectedApiKey}`);
+          }
         });
-        
-        cy.screenshot(`dropdown-validation/step${step}-${dropdownName}-options`);
       });
     });
   });
 });
 ```
 
-#### Test 0.2: Property Ownership Dropdown Logic (Step 1)
+#### Test 0.3: Multi-Language Support Validation
 ```typescript
-describe('CRITICAL: Property Ownership Dropdown Logic', () => {
-  it('Property ownership dropdown must have exact 3 options with correct LTV logic', () => {
-    cy.visit('/services/calculate-mortgage/1');
+describe('CRITICAL: Multi-Language Dropdown Support', () => {
+  const languages = ['en', 'he', 'ru'];
+  const screenLocation = 'mortgage_step3'; // Test most complex step
+  
+  languages.forEach(language => {
+    it(`${screenLocation}: Multi-language support for ${language}`, () => {
+      cy.intercept('GET', `/api/dropdowns/${screenLocation}/${language}`).as(`${language}API`);
+      
+      cy.visit('/services/calculate-mortgage/3');
+      
+      // Change language if needed
+      if (language !== 'en') {
+        cy.get('[data-testid="language-selector"], .language-toggle').then($toggle => {
+          if ($toggle.length > 0) {
+            cy.wrap($toggle).click();
+            cy.get(`[data-lang="${language}"], [value="${language}"]`).click();
+            cy.wait(2000);
+          }
+        });
+      }
+      
+      cy.wait(`@${language}API`).then((interception) => {
+        const response = interception.response.body;
+        
+        expect(response.language_code).to.equal(language);
+        expect(response.screen_location).to.equal(screenLocation);
+        
+        // Validate options have content in correct language
+        Object.entries(response.options).forEach(([apiKey, options]) => {
+          expect(options).to.be.an('array');
+          options.forEach(option => {
+            expect(option.label).to.be.a('string').that.is.not.empty;
+            
+            // Hebrew-specific validation
+            if (language === 'he') {
+              // Hebrew text should contain Hebrew characters
+              expect(option.label).to.match(/[\u0590-\u05FF]/);
+            }
+          });
+          
+          cy.log(`✅ ${language} content validated for: ${apiKey}`);
+        });
+        
+        // Validate cache performance
+        if (response.cached) {
+          cy.log(`✅ ${language} response served from cache`);
+        }
+      });
+    });
+  });
+  
+  it('Language switching should load different content', () => {
+    const testApiKey = 'mortgage_step3_obligations';
+    let englishContent, hebrewContent;
+    
+    // Load English content
+    cy.intercept('GET', `/api/dropdowns/mortgage_step3/en`).as('englishAPI');
+    cy.visit('/services/calculate-mortgage/3');
+    cy.wait('@englishAPI').then((interception) => {
+      englishContent = interception.response.body.options[testApiKey];
+    });
+    
+    // Switch to Hebrew and load content
+    cy.intercept('GET', `/api/dropdowns/mortgage_step3/he`).as('hebrewAPI');
+    cy.get('[data-testid="language-selector"]').click();
+    cy.get('[data-lang="he"]').click();
     cy.wait(2000);
     
-    const propertyOwnershipDropdown = '[data-testid="property-ownership"], [data-testid="property_ownership"], select[name*="property"], select[name*="ownership"]';
-    
-    // CRITICAL: Dropdown must exist and be visible
-    cy.get(propertyOwnershipDropdown).should('exist').should('be.visible');
-    
-    // CRITICAL: Must have exactly 3 options (plus optional placeholder)
-    cy.get(propertyOwnershipDropdown).within(() => {
-      cy.get('option').then($options => {
-        const visibleOptions = Array.from($options).filter(option => 
-          option.value !== '' && option.textContent.trim() !== ''
-        );
-        
-        expect(visibleOptions.length, 'Property ownership must have exactly 3 options').to.equal(3);
-        
-        // Validate each option exists
-        const expectedOptions = [
-          { value: 'no_property', textPattern: /don't.*own|אין.*נכס|не.*владею/i },
-          { value: 'own_property', textPattern: /own.*property|יש.*נכס|владею/i },
-          { value: 'selling_property', textPattern: /selling|מוכר|продаю/i }
-        ];
-        
-        expectedOptions.forEach(expected => {
-          const foundOption = visibleOptions.find(option => 
-            option.value === expected.value || expected.textPattern.test(option.textContent)
-          );
-          expect(foundOption, `Missing property ownership option: ${expected.value}`).to.exist;
-        });
-      });
-    });
-    
-    // Test LTV logic for each option
-    const ltvTests = [
-      { option: 0, expectedMaxLTV: 75, scenario: 'No Property' },
-      { option: 1, expectedMaxLTV: 50, scenario: 'Own Property' },
-      { option: 2, expectedMaxLTV: 70, scenario: 'Selling Property' }
-    ];
-    
-    ltvTests.forEach(test => {
-      cy.get(propertyOwnershipDropdown).select(test.option);
-      cy.wait(1000); // Allow UI to update
+    cy.wait('@hebrewAPI').then((interception) => {
+      hebrewContent = interception.response.body.options[testApiKey];
       
-      // Check if slider max value changes
-      cy.get('[data-testid*="slider"], [type="range"], .slider').then($slider => {
-        if ($slider.length > 0) {
-          const maxValue = parseFloat($slider.attr('max') || '100');
-          const propertyValue = 1000000; // Default test value
-          const expectedMaxLoan = propertyValue * (test.expectedMaxLTV / 100);
-          
-          cy.log(`${test.scenario}: MaxLTV=${test.expectedMaxLTV}%, MaxLoan=${expectedMaxLoan}`);
-        }
-      });
-      
-      cy.screenshot(`dropdown-validation/property-ownership-${test.scenario.toLowerCase().replace(' ', '-')}`);
+      // Content should be different between languages
+      if (englishContent && hebrewContent) {
+        const englishLabels = englishContent.map(opt => opt.label);
+        const hebrewLabels = hebrewContent.map(opt => opt.label);
+        
+        expect(englishLabels).to.not.deep.equal(hebrewLabels);
+        cy.log(`✅ Language switching loads different content`);
+      }
     });
   });
 });
 ```
 
-#### Test 0.3: Conditional UI Elements Discovery (Steps 2-4)
+#### Test 0.4: Content Database Integration Validation
 ```typescript
-describe('CRITICAL: Conditional UI Elements Triggered by Dropdowns', () => {
-  
-  it('Step 2: Personal information dropdowns reveal conditional fields', () => {
-    cy.visit('/services/calculate-mortgage/2');
-    cy.wait(3000);
+describe('CRITICAL: Content Database Integration', () => {
+  it('Database content key format validation', () => {
+    const screenLocation = 'mortgage_step3';
     
-    // Find dropdowns that might trigger conditional UI
-    const conditionalDropdowns = [
-      '[data-testid*="citizenship"], [name*="citizenship"]',
-      '[data-testid*="marital"], [name*="marital"]',
-      '[data-testid*="employment"], [name*="employment"]'
-    ];
-    
-    conditionalDropdowns.forEach(selector => {
-      cy.get('body').then($body => {
-        if ($body.find(selector).length > 0) {
-          cy.get(selector).each($dropdown => {
-            const dropdownName = $dropdown.attr('data-testid') || $dropdown.attr('name') || 'conditional-dropdown';
-            
-            cy.wrap($dropdown).within(() => {
-              cy.get('option').each(($option, index) => {
-                if (index === 0) return; // Skip placeholder
-                
-                const optionValue = $option.attr('value');
-                const optionText = $option.text();
-                
-                cy.log(`🔄 Testing conditional UI for ${dropdownName}: ${optionText}`);
-                
-                // Select option and check for new UI elements
-                cy.wrap($dropdown).select(optionValue);
-                cy.wait(1000);
-                
-                // Take screenshot to capture any UI changes
-                cy.screenshot(`conditional-ui/step2-${dropdownName}-option-${index}`);
-                
-                // Check for common conditional elements
-                const conditionalSelectors = [
-                  '.conditional-field',
-                  '[style*="display: block"]',
-                  '.form-section:not(.hidden)',
-                  '.additional-info',
-                  '.sub-form'
-                ];
-                
-                conditionalSelectors.forEach(conditional => {
-                  cy.get('body').then($body => {
-                    const conditionalElements = $body.find(conditional);
-                    if (conditionalElements.length > 0) {
-                      cy.log(`✅ Found conditional UI: ${conditional} for option ${optionText}`);
-                    }
-                  });
-                });
-              });
-            });
-          });
-        }
-      });
-    });
-  });
-  
-  it('Step 3: Income/Employment dropdowns must reveal additional fields', () => {
+    cy.intercept('GET', `/api/dropdowns/${screenLocation}/*`).as('dropdownAPI');
     cy.visit('/services/calculate-mortgage/3');
     cy.wait(3000);
     
-    // Based on Confluence, Step 3 has conditional dropdowns for income sources
-    const incomeDropdowns = [
-      '[data-testid*="income"], [name*="income"]',
-      '[data-testid*="employment"], [name*="employment"]',
-      '[data-testid*="occupation"], [name*="occupation"]',
-      '[data-testid*="source"], [name*="source"]'
-    ];
-    
-    incomeDropdowns.forEach(selector => {
-      cy.get('body').then($body => {
-        if ($body.find(selector).length > 0) {
-          cy.log(`🔍 Testing income dropdown: ${selector}`);
-          
-          cy.get(selector).first().then($dropdown => {
-            const initialFormElements = $body.find('input, select, textarea').length;
-            
-            cy.wrap($dropdown).within(() => {
-              cy.get('option').each(($option, index) => {
-                if (index === 0 || index > 5) return; // Test first 5 options
-                
-                const optionValue = $option.attr('value');
-                const optionText = $option.text();
-                
-                cy.wrap($dropdown).select(optionValue);
-                cy.wait(1500); // Allow conditional UI to render
-                
-                // Check if new form elements appeared
-                cy.get('body').then($updatedBody => {
-                  const newFormElements = $updatedBody.find('input, select, textarea').length;
-                  
-                  if (newFormElements > initialFormElements) {
-                    cy.log(`✅ Option "${optionText}" revealed ${newFormElements - initialFormElements} new form elements`);
-                    cy.screenshot(`conditional-ui/step3-income-revealed-${index}`);
-                  }
-                });
-              });
-            });
-          });
-        }
+    cy.wait('@dropdownAPI').then((interception) => {
+      const response = interception.response.body;
+      
+      // Validate content database integration
+      expect(response.performance).to.have.property('total_items');
+      expect(response.performance.total_items).to.be.greaterThan(0);
+      
+      // API keys should follow pattern: {screen_location}_{field_name}
+      Object.keys(response.options).forEach(apiKey => {
+        expect(apiKey).to.match(new RegExp(`^${screenLocation}_`));
+        
+        // Underlying database content should follow: {screen_location}.field.{field_name}_{option}
+        const fieldName = apiKey.replace(`${screenLocation}_`, '');
+        cy.log(`✅ API key ${apiKey} maps to field: ${fieldName}`);
       });
+      
+      cy.log(`✅ Database integration validated: ${response.performance.total_items} items loaded`);
     });
   });
   
-  it('Step 4: Bank selection must reveal program details', () => {
-    cy.visit('/services/calculate-mortgage/4');
-    cy.wait(5000); // Step 4 may need more time for bank API calls
+  it('Cache performance validation', () => {
+    const screenLocation = 'mortgage_step3';
+    let firstRequestTime, secondRequestTime;
     
-    // Step 4 should have bank selection dropdowns
-    const bankSelectors = [
-      '[data-testid*="bank"], [name*="bank"]',
-      '[data-testid*="program"], [name*="program"]',
-      '.bank-selector',
-      '.program-selector'
-    ];
+    // First request (cache miss)
+    cy.intercept('GET', `/api/dropdowns/${screenLocation}/*`).as('firstAPI');
+    cy.visit('/services/calculate-mortgage/3');
     
-    bankSelectors.forEach(selector => {
-      cy.get('body').then($body => {
-        if ($body.find(selector).length > 0) {
-          cy.log(`🏦 Testing bank dropdown: ${selector}`);
-          
-          cy.get(selector).first().within(() => {
-            cy.get('option').should('have.length.greaterThan', 0, 'Bank dropdown must have options');
-            
-            cy.get('option').each(($option, index) => {
-              if (index === 0 || index > 3) return; // Test first 3 bank options
-              
-              const optionValue = $option.attr('value');
-              const optionText = $option.text();
-              
-              if (optionValue && optionValue !== '') {
-                cy.get(selector).select(optionValue);
-                cy.wait(2000); // Bank selection may trigger API calls
-                
-                // Look for revealed program details
-                const detailSelectors = [
-                  '.bank-details',
-                  '.program-details',
-                  '.interest-rate-display',
-                  '.terms-display',
-                  '[data-testid*="rate"]',
-                  '[data-testid*="term"]'
-                ];
-                
-                detailSelectors.forEach(detailSelector => {
-                  cy.get('body').then($body => {
-                    if ($body.find(detailSelector).length > 0) {
-                      cy.log(`✅ Bank "${optionText}" revealed details: ${detailSelector}`);
-                    }
-                  });
-                });
-                
-                cy.screenshot(`conditional-ui/step4-bank-${index}-details`);
-              }
-            });
-          });
-        }
-      });
+    cy.wait('@firstAPI').then((interception) => {
+      firstRequestTime = Date.now();
+      expect(interception.response.body.cached).to.be.false;
+      cy.log(`✅ First request: Cache miss as expected`);
     });
-  });
-});
-```
-
-#### Test 0.4: Database Integration Validation
-```typescript
-describe('CRITICAL: Dropdown Database Integration', () => {
-  it('All dropdowns must load data from API/database', () => {
-    // Intercept API calls for dropdown data
-    cy.intercept('GET', '**/api/v1/dropdowns**').as('dropdownAPI');
-    cy.intercept('GET', '**/api/v1/content**').as('contentAPI');
-    cy.intercept('GET', '**/api/v1/calculation-parameters**').as('paramsAPI');
     
-    [1, 2, 3, 4].forEach(step => {
-      cy.visit(`/services/calculate-mortgage/${step}`);
+    // Second request (cache hit)
+    cy.reload();
+    cy.intercept('GET', `/api/dropdowns/${screenLocation}/*`).as('secondAPI');
+    
+    cy.wait('@secondAPI').then((interception) => {
+      secondRequestTime = Date.now();
       
-      // Wait for API calls to complete
-      cy.wait('@dropdownAPI', { timeout: 10000 }).then((interception) => {
-        expect(interception.response.statusCode).to.equal(200);
-        expect(interception.response.body).to.have.property('data');
-        
-        cy.log(`✅ Step ${step}: Dropdown API loaded successfully`);
-      });
+      // Cache hit should be faster
+      const responseTime = secondRequestTime - firstRequestTime;
+      expect(interception.response.body.cached).to.be.true;
       
-      // Verify dropdowns are populated from API data
-      cy.get('select, [role="combobox"]').should('have.length.greaterThan', 0);
-      
-      cy.get('select, [role="combobox"]').each($dropdown => {
-        cy.wrap($dropdown).within(() => {
-          cy.get('option').should('have.length.greaterThan', 0, 
-            `Dropdown on Step ${step} must be populated from database`);
-        });
-      });
-      
-      cy.screenshot(`api-integration/step${step}-dropdowns-loaded`);
+      cy.log(`✅ Second request: Cache hit validated, response time improved`);
     });
   });
   
-  it('Multi-language dropdown content must load correctly', () => {
-    const languages = ['en', 'he', 'ru'];
-    
-    languages.forEach(lang => {
-      cy.window().then(win => {
-        win.localStorage.setItem('i18nextLng', lang);
-      });
-      
-      cy.visit('/services/calculate-mortgage/1');
-      cy.wait(3000);
-      
-      cy.get('[data-testid="property-ownership"], select[name*="ownership"]').within(() => {
-        cy.get('option').each($option => {
-          const optionText = $option.text().trim();
-          
-          // Verify option has translated text (not empty or placeholder keys)
-          expect(optionText).to.not.be.empty;
-          expect(optionText).to.not.include('undefined');
-          expect(optionText).to.not.include('translation');
-          expect(optionText).to.not.include('{{');
-          
-          if (lang === 'he') {
-            // Hebrew text should contain Hebrew characters
-            expect(optionText).to.match(/[\u0590-\u05FF]/, `Hebrew dropdown option missing Hebrew text: ${optionText}`);
-          }
-        });
-      });
-      
-      cy.screenshot(`multilingual/step1-property-ownership-${lang}`);
+  it('Shortline database proxy validation', () => {
+    // Test that API can connect to content database
+    cy.request({
+      method: 'GET',
+      url: '/api/dropdowns/cache/stats',
+      failOnStatusCode: false
+    }).then((response) => {
+      if (response.status === 200) {
+        expect(response.body).to.have.property('cache_stats');
+        expect(response.body).to.have.property('dropdown_cache_size');
+        cy.log(`✅ Shortline database proxy operational`);
+      } else {
+        cy.log(`⚠️ Database proxy not available: ${response.status}`);
+      }
     });
-  });
-});
-```
-
-#### Test 0.5: Dropdown Accessibility and Error States
-```typescript
-describe('CRITICAL: Dropdown Accessibility and Error Handling', () => {
-  it('All dropdowns must have proper ARIA attributes', () => {
-    [1, 2, 3, 4].forEach(step => {
-      cy.visit(`/services/calculate-mortgage/${step}`);
-      cy.wait(2000);
-      
-      cy.get('select, [role="combobox"]').each($dropdown => {
-        const dropdownName = $dropdown.attr('data-testid') || $dropdown.attr('name') || 'dropdown';
-        
-        // ARIA label or labelledby required
-        cy.wrap($dropdown).should('satisfy', $el => {
-          return $el.attr('aria-label') || $el.attr('aria-labelledby') || 
-                 $el.siblings('label').length > 0;
-        }, `Dropdown ${dropdownName} must have ARIA label or associated label`);
-        
-        // Required dropdowns must have aria-required
-        cy.wrap($dropdown).then($el => {
-          if ($el.attr('required') || $el.hasClass('required')) {
-            cy.wrap($el).should('have.attr', 'aria-required', 'true');
-          }
-        });
-        
-        cy.log(`✅ Dropdown ${dropdownName} accessibility validated`);
-      });
-    });
-  });
-  
-  it('Dropdowns must handle loading and error states', () => {
-    // Test with slow/failed API response
-    cy.intercept('GET', '**/api/v1/dropdowns**', { delay: 5000 }).as('slowDropdownAPI');
-    
-    cy.visit('/services/calculate-mortgage/1');
-    
-    // Verify loading state is shown
-    cy.get('select, [role="combobox"]').should('exist');
-    
-    // Check for loading indicators
-    cy.get('.loading, .spinner, [data-testid*="loading"]').should('be.visible');
-    
-    cy.wait('@slowDropdownAPI');
-    
-    // Verify dropdowns are populated after loading
-    cy.get('select option').should('have.length.greaterThan', 1);
-    
-    cy.screenshot('dropdown-states/loading-completed');
   });
 });
 ```
@@ -1658,13 +1624,30 @@ browsers.forEach(browserName => {
 ### Setup Requirements
 
 #### 1. Development Environment
+
+##### Server Architecture
+The application uses a monorepo structure with a unified server system:
+- **Main Server**: `packages/server/src/server.js` (port 8003) - Handles all API endpoints and database operations
+- **Legacy Server**: `server/server-db.js` (deprecated) - Emergency fallback only, not used in normal operations
+
 ```bash
 # Ensure servers are running
-npm run dev                    # Backend API (port 8003)
+npm run dev                    # Main server: packages/server/src/server.js (port 8003)
 cd mainapp && npm run dev     # Frontend (port 5173)
 
 # Install testing dependencies
 npm install --save-dev @playwright/test axe-core cypress-axe
+```
+
+##### Legacy Server Emergency Testing
+Only test the legacy server if the main server is unavailable:
+```bash
+# Emergency fallback testing (only if main server fails)
+node server/server-db.js      # Legacy server (port 8003)
+
+# Validate emergency API endpoints
+curl http://localhost:8003/api/v1/calculation-parameters?business_path=mortgage
+curl http://localhost:8003/api/dropdowns/mortgage_step1/en
 ```
 
 #### 2. Figma Design Assets

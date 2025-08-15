@@ -43,6 +43,643 @@
 
 ---
 
+## Phase 0: CRITICAL DROPDOWN LOGIC VALIDATION FOR REFINANCE CREDIT 🚨
+
+### 📋 Architecture Integration Overview for Refinance Credit Calculator
+
+The refinance credit calculator implements the comprehensive dropdown system architecture as specified in `/server/docs/Architecture/dropDownLogicBankim.md`. This system provides dynamic, database-driven dropdown content with multi-language support, intelligent caching, and screen-specific content management.
+
+#### Server Architecture
+- **Main Server**: `packages/server/src/server.js` - Unified monorepo server (development & production)
+- **Legacy Fallback**: `server/server-db.js` - Emergency fallback only, deprecated
+- **Port**: 8003 (configurable via PORT environment variable)
+- **Database**: Direct PostgreSQL integration with content management tables
+
+#### Core Architecture Components
+- **Content Database Integration**: Dropdown content served from monorepo server database
+- **Screen-Specific API Keys**: Each refinance step generates unique API endpoints
+- **Multi-Language Support**: Hebrew (RTL), English, Russian with proper caching
+- **useDropdownData Hook**: Bulletproof hook with error handling and fallback systems
+- **Admin Panel Independence**: Each screen can be modified independently
+
+#### Database Content Key Format
+```yaml
+Pattern: {screen_location}.field.{field_name}_{option_value}
+Examples:
+  - refinance_credit_step1.field.refinance_reason_lower_rate
+  - refinance_credit_step2.field.family_status_married
+  - refinance_credit_step3.field.obligations_no_obligations
+  - refinance_credit_step4.field.preferred_bank_bank_hapoalim
+```
+
+#### API Key Generation Pattern
+```yaml
+Pattern: {screen_location}_{field_name}
+Examples:
+  - refinance_credit_step1_refinance_reason
+  - refinance_credit_step2_family_status
+  - refinance_credit_step3_obligations
+  - refinance_credit_step4_preferred_bank
+```
+
+### 🎯 Screen-Specific Dropdown Content
+
+#### refinance_credit_step1 - Current Loan & Refinance Details
+- **refinance_reason**: Why refinancing (lower rate, cash out, debt consolidation)
+- **current_lender**: Existing mortgage lender
+- **loan_type**: Current loan type (fixed, variable, combination)
+- **property_type**: Property classification (residential, investment, commercial)
+
+#### refinance_credit_step2 - Personal Information
+- **family_status**: Marital status and household composition
+- **citizenship**: Israeli citizenship and residence status
+- **education_level**: Educational background
+- **military_service**: IDF service status (Israeli specific)
+
+#### refinance_credit_step3 - Financial Information
+- **obligations**: Existing debts and financial obligations
+- **main_source**: Primary income source
+- **additional_income**: Secondary income streams
+- **employment_status**: Current employment classification
+
+#### refinance_credit_step4 - Refinance Options & Bank Selection
+- **preferred_bank**: Target bank for refinancing
+- **loan_program**: Refinance program type
+- **rate_type**: Interest rate preference (fixed, variable, mix)
+- **refinance_terms**: Loan term preferences
+
+### 🔧 useDropdownData Hook Usage Examples
+
+#### Basic Refinance Credit Dropdown Implementation
+```typescript
+import { useDropdownData } from '@src/hooks/useDropdownData';
+
+const RefinanceReasonDropdown = () => {
+  const dropdownData = useDropdownData('refinance_credit_step1', 'refinance_reason', 'full');
+  
+  return (
+    <DropdownMenu
+      title={dropdownData.label || 'Refinancing Reason'}
+      data={dropdownData.options}
+      placeholder={dropdownData.placeholder || 'Select your reason for refinancing'}
+      loading={dropdownData.loading}
+      error={dropdownData.error}
+    />
+  );
+};
+```
+
+#### Advanced Current Lender Dropdown with Validation
+```typescript
+const CurrentLenderDropdown = ({ screenLocation = 'refinance_credit_step1' }) => {
+  const { values, setFieldValue } = useFormikContext();
+  const dropdownData = useDropdownData(screenLocation, 'current_lender', 'full');
+  
+  const handleLenderChange = (value: string) => {
+    setFieldValue('currentLender', value);
+    // Additional validation for refinance eligibility
+    if (value === 'same_bank') {
+      setFieldValue('refinanceType', 'internal_refinance');
+    }
+  };
+  
+  return (
+    <DropdownMenu
+      title={dropdownData.label || 'Current Mortgage Lender'}
+      data={dropdownData.options}
+      placeholder={dropdownData.placeholder || 'Select your current lender'}
+      value={values.currentLender}
+      onChange={handleLenderChange}
+      disabled={dropdownData.loading}
+    />
+  );
+};
+```
+
+### 🌐 Multi-Language Support with Proper Caching
+
+#### Cache Strategy for Refinance Credit
+```typescript
+// Frontend cache keys for refinance credit screens
+const cacheKeys = {
+  step1: {
+    en: 'dropdowns_refinance_credit_step1_en',
+    he: 'dropdowns_refinance_credit_step1_he',
+    ru: 'dropdowns_refinance_credit_step1_ru'
+  },
+  step2: {
+    en: 'dropdowns_refinance_credit_step2_en',
+    he: 'dropdowns_refinance_credit_step2_he', 
+    ru: 'dropdowns_refinance_credit_step2_ru'
+  },
+  step3: {
+    en: 'dropdowns_refinance_credit_step3_en',
+    he: 'dropdowns_refinance_credit_step3_he',
+    ru: 'dropdowns_refinance_credit_step3_ru'
+  },
+  step4: {
+    en: 'dropdowns_refinance_credit_step4_en',
+    he: 'dropdowns_refinance_credit_step4_he',
+    ru: 'dropdowns_refinance_credit_step4_ru'
+  }
+};
+```
+
+#### RTL Support for Hebrew Refinance Content
+```typescript
+const HebrewRefinanceDropdown = ({ fieldName }) => {
+  const { i18n } = useTranslation();
+  const dropdownData = useDropdownData('refinance_credit_step1', fieldName, 'full');
+  const isRTL = i18n.language === 'he';
+  
+  return (
+    <div dir={isRTL ? 'rtl' : 'ltr'} className={isRTL ? 'rtl-dropdown' : 'ltr-dropdown'}>
+      <DropdownMenu
+        title={dropdownData.label}
+        data={dropdownData.options}
+        placeholder={dropdownData.placeholder}
+        rtlSupport={isRTL}
+      />
+    </div>
+  );
+};
+```
+
+### 🚀 Testing Environment Setup
+
+#### Server Architecture for Testing
+All refinance credit dropdown testing uses the unified monorepo server architecture:
+
+```bash
+# Primary server (development and production)
+cd packages/server && npm run dev  # Port 8003
+
+# Verify server is running and healthy
+curl http://localhost:8003/api/health
+
+# Frontend testing server
+cd mainapp && npm run dev  # Port 5173 (Vite default)
+```
+
+#### API Endpoint Structure
+- **Base URL**: `http://localhost:8003` (monorepo server)
+- **Dropdown API**: `/api/dropdowns/{screen_location}/{language}`
+- **Health Check**: `/api/health`
+- **Cache Management**: `/api/dropdowns/cache/clear`
+
+#### Legacy Server Emergency Testing
+Only use if monorepo server fails completely:
+```bash
+# Emergency fallback (deprecated)
+node server/server-db.js  # Port 8003
+
+# Should provide identical API responses to monorepo server
+curl http://localhost:8003/api/dropdowns/refinance_credit_step1/en
+```
+
+**Important**: All test expectations should work identically on both servers. Any discrepancies indicate a synchronization issue that must be resolved.
+
+### 🧪 Comprehensive Test Cases for Refinance Credit Dropdowns
+
+#### Test 0.1: Refinance Credit Dropdown Availability Validation
+```typescript
+describe('Test 0.1: Refinance Credit Dropdown Availability', () => {
+  const refinanceCreditScreens = [
+    'refinance_credit_step1',
+    'refinance_credit_step2', 
+    'refinance_credit_step3',
+    'refinance_credit_step4'
+  ];
+  
+  refinanceCreditScreens.forEach(screen => {
+    it(`should load all dropdown content for ${screen}`, async () => {
+      // Test API endpoint availability
+      const response = await fetch(`/api/dropdowns/${screen}/en`);
+      expect(response.status).toBe(200);
+      
+      const data = await response.json();
+      expect(data.status).toBe('success');
+      expect(data.screen_location).toBe(screen);
+      expect(data.dropdowns).toBeInstanceOf(Array);
+      expect(data.dropdowns.length).toBeGreaterThan(0);
+      
+      // Validate API key generation pattern
+      data.dropdowns.forEach(dropdown => {
+        expect(dropdown.key).toMatch(new RegExp(`^${screen}_[a-z_]+$`));
+      });
+    });
+    
+    it(`should support all languages for ${screen}`, async () => {
+      const languages = ['en', 'he', 'ru'];
+      
+      for (const lang of languages) {
+        const response = await fetch(`/api/dropdowns/${screen}/${lang}`);
+        const data = await response.json();
+        
+        expect(data.status).toBe('success');
+        expect(data.language_code).toBe(lang);
+        expect(Object.keys(data.options).length).toBeGreaterThan(0);
+      }
+    });
+  });
+});
+```
+
+#### Test 0.2: Current Credit Details Dropdown Logic (Existing Loan Info)
+```typescript
+describe('Test 0.2: Current Credit Details Dropdown Logic', () => {
+  it('should validate current lender dropdown options', () => {
+    cy.visit('/services/refinance-credit/1');
+    
+    // Test current lender dropdown
+    cy.get('[data-testid="current-lender-dropdown"]').should('be.visible');
+    cy.get('[data-testid="current-lender-dropdown"]').click();
+    
+    // Verify refinance-specific lender options
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Bank Hapoalim');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Bank Leumi');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Mizrahi Tefahot');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Other Bank');
+    
+    // Test selection impact on refinance flow
+    cy.get('[data-testid="dropdown-option"]').contains('Bank Hapoalim').click();
+    
+    // Validate that current lender selection affects available refinance options
+    cy.window().its('store').invoke('getState').then((state) => {
+      expect(state.refinanceCredit.currentLender).to.equal('bank_hapoalim');
+    });
+  });
+  
+  it('should validate current loan type dropdown with refinance context', () => {
+    cy.visit('/services/refinance-credit/1');
+    
+    cy.get('[data-testid="loan-type-dropdown"]').click();
+    
+    // Verify loan type options specific to refinancing
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Fixed Rate Mortgage');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Variable Rate Mortgage');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Mixed Rate Mortgage');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Interest Only Loan');
+    
+    // Test loan type selection validation
+    cy.get('[data-testid="dropdown-option"]').contains('Variable Rate Mortgage').click();
+    
+    // Validate refinance benefit calculation based on current loan type
+    cy.get('[data-testid="refinance-potential"]').should('be.visible');
+  });
+});
+```
+
+#### Test 0.3: New Credit Terms Dropdown Validation
+```typescript
+describe('Test 0.3: New Credit Terms Dropdown Validation', () => {
+  it('should validate preferred rate type dropdown for refinancing', () => {
+    cy.visit('/services/refinance-credit/4');
+    
+    cy.get('[data-testid="rate-type-dropdown"]').should('be.visible');
+    cy.get('[data-testid="rate-type-dropdown"]').click();
+    
+    // Verify rate type options for refinance loans
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Fixed Rate');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Variable Rate');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Mixed Rate (Fixed + Variable)');
+    
+    // Test rate type selection impact
+    cy.get('[data-testid="dropdown-option"]').contains('Fixed Rate').click();
+    
+    // Validate refinance terms adjust based on rate type
+    cy.get('[data-testid="term-options"]').should('be.visible');
+    cy.get('[data-testid="term-option"]').should('contain', '15 years');
+    cy.get('[data-testid="term-option"]').should('contain', '20 years');
+    cy.get('[data-testid="term-option"]').should('contain', '25 years');
+    cy.get('[data-testid="term-option"]').should('contain', '30 years');
+  });
+  
+  it('should validate refinance program dropdown options', () => {
+    cy.get('[data-testid="refinance-program-dropdown"]').click();
+    
+    // Verify refinance-specific program options
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Rate and Term Refinance');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Cash-Out Refinance');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Debt Consolidation Refinance');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Investment Property Refinance');
+    
+    // Test program selection validation
+    cy.get('[data-testid="dropdown-option"]').contains('Cash-Out Refinance').click();
+    
+    // Validate cash-out specific fields appear
+    cy.get('[data-testid="cash-out-amount"]').should('be.visible');
+    cy.get('[data-testid="cash-out-purpose"]').should('be.visible');
+  });
+});
+```
+
+#### Test 0.4: Credit Comparison and Refinance Options
+```typescript
+describe('Test 0.4: Credit Comparison and Refinance Options', () => {
+  it('should validate bank comparison dropdown functionality', () => {
+    cy.visit('/services/refinance-credit/4');
+    
+    // Test bank selection for refinance offers
+    cy.get('[data-testid="preferred-bank-dropdown"]').click();
+    
+    // Verify comprehensive bank list for refinancing
+    const expectedBanks = [
+      'Bank Hapoalim', 'Bank Leumi', 'Mizrahi Tefahot', 'Israel Discount Bank',
+      'First International Bank', 'Bank of Jerusalem', 'Union Bank',
+      'Bank Yahav', 'Mercantile Discount Bank', 'Bank Otsar Ha-Hayal'
+    ];
+    
+    expectedBanks.forEach(bank => {
+      cy.get('[data-testid="dropdown-option"]').should('contain', bank);
+    });
+    
+    // Test multiple bank selection for comparison
+    cy.get('[data-testid="dropdown-option"]').contains('Bank Hapoalim').click();
+    cy.get('[data-testid="add-bank-comparison"]').click();
+    cy.get('[data-testid="preferred-bank-dropdown"]').click();
+    cy.get('[data-testid="dropdown-option"]').contains('Bank Leumi').click();
+    
+    // Validate comparison table appears
+    cy.get('[data-testid="bank-comparison-table"]').should('be.visible');
+    cy.get('[data-testid="comparison-bank"]').should('have.length', 2);
+  });
+  
+  it('should validate refinance benefit calculation dropdowns', () => {
+    // Test refinance calculation parameters
+    cy.get('[data-testid="calculation-method-dropdown"]').click();
+    
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Monthly Payment Reduction');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Total Interest Savings');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Break-Even Analysis');
+    cy.get('[data-testid="dropdown-option"]').should('contain', 'Net Present Value');
+    
+    // Test calculation method selection
+    cy.get('[data-testid="dropdown-option"]').contains('Break-Even Analysis').click();
+    
+    // Validate break-even calculation fields appear
+    cy.get('[data-testid="closing-costs-input"]').should('be.visible');
+    cy.get('[data-testid="breakeven-timeline"]').should('be.visible');
+  });
+});
+```
+
+#### Test 0.5: Refinance Credit Database Integration Validation
+```typescript
+describe('Test 0.5: Refinance Credit Database Integration', () => {
+  it('should validate content database connectivity for refinance screens', async () => {
+    const screens = ['refinance_credit_step1', 'refinance_credit_step2', 'refinance_credit_step3', 'refinance_credit_step4'];
+    
+    for (const screen of screens) {
+      // Test database query for each screen
+      const response = await fetch(`/api/dropdowns/${screen}/en`);
+      const data = await response.json();
+      
+      expect(data.status).toBe('success');
+      expect(data.performance).toBeDefined();
+      expect(data.performance.total_items).toBeGreaterThan(0);
+      expect(data.performance.query_time).toBeDefined();
+      
+      // Validate content keys follow refinance credit pattern
+      Object.keys(data.options).forEach(apiKey => {
+        expect(apiKey).toMatch(new RegExp(`^${screen}_[a-z_]+$`));
+      });
+    }
+  });
+  
+  it('should validate cache performance for refinance credit dropdowns', async () => {
+    const screen = 'refinance_credit_step3';
+    
+    // First request (cache miss)
+    const startTime = Date.now();
+    const response1 = await fetch(`/api/dropdowns/${screen}/en`);
+    const data1 = await response1.json();
+    const firstRequestTime = Date.now() - startTime;
+    
+    expect(data1.cached).toBe(false);
+    
+    // Second request (cache hit)
+    const startTime2 = Date.now();
+    const response2 = await fetch(`/api/dropdowns/${screen}/en`);
+    const data2 = await response2.json();
+    const secondRequestTime = Date.now() - startTime2;
+    
+    // Cache hit should be significantly faster
+    expect(secondRequestTime).toBeLessThan(firstRequestTime * 0.1);
+    expect(data2.cached).toBe(true);
+  });
+  
+  it('should validate refinance-specific content keys in database', () => {
+    cy.task('queryDatabase', {
+      query: `
+        SELECT content_key, screen_location, component_type
+        FROM content_items
+        WHERE screen_location LIKE '%refinance_credit%'
+          AND component_type IN ('dropdown_container', 'dropdown_option')
+        ORDER BY screen_location, content_key
+      `
+    }).then((results) => {
+      expect(results.length).toBeGreaterThan(50); // Minimum expected content items
+      
+      // Validate screen-specific content
+      const screens = ['refinance_credit_step1', 'refinance_credit_step2', 'refinance_credit_step3', 'refinance_credit_step4'];
+      screens.forEach(screen => {
+        const screenItems = results.filter(item => item.screen_location === screen);
+        expect(screenItems.length).toBeGreaterThan(10);
+      });
+      
+      // Validate content key patterns
+      results.forEach(item => {
+        expect(item.content_key).toMatch(/^refinance_credit_step\d+\.field\.[a-z_]+/);
+      });
+    });
+  });
+});
+```
+
+#### Test 0.6: Multi-Language Refinance Credit Content Validation
+```typescript
+describe('Test 0.6: Multi-Language Refinance Credit Content', () => {
+  const languages = ['en', 'he', 'ru'];
+  const screens = ['refinance_credit_step1', 'refinance_credit_step2', 'refinance_credit_step3', 'refinance_credit_step4'];
+  
+  languages.forEach(language => {
+    describe(`${language.toUpperCase()} Language Content`, () => {
+      screens.forEach(screen => {
+        it(`should load ${language} content for ${screen}`, async () => {
+          const response = await fetch(`/api/dropdowns/${screen}/${language}`);
+          const data = await response.json();
+          
+          expect(data.status).toBe('success');
+          expect(data.language_code).toBe(language);
+          expect(Object.keys(data.options).length).toBeGreaterThan(0);
+          
+          // Validate all options have translations
+          Object.values(data.options).forEach(options => {
+            options.forEach(option => {
+              expect(option.label).toBeTruthy();
+              expect(option.label.length).toBeGreaterThan(0);
+              expect(option.value).toBeTruthy();
+            });
+          });
+        });
+      });
+      
+      it(`should validate RTL support for ${language}`, () => {
+        if (language === 'he') {
+          cy.visit('/services/refinance-credit/1');
+          cy.get('[data-testid="language-selector"]').select('he');
+          
+          // Validate RTL layout
+          cy.get('body').should('have.attr', 'dir', 'rtl');
+          cy.get('[data-testid="dropdown-container"]').should('have.class', 'rtl-dropdown');
+          
+          // Test Hebrew content display
+          cy.get('[data-testid="refinance-reason-dropdown"]').click();
+          cy.get('[data-testid="dropdown-option"]').first().should('contain.text', /[\u0590-\u05FF]/); // Hebrew characters
+        }
+      });
+    });
+  });
+  
+  it('should validate translation consistency across refinance screens', async () => {
+    const commonFields = ['obligations', 'family_status', 'main_source'];
+    
+    for (const field of commonFields) {
+      const translations = {};
+      
+      // Collect translations from all refinance screens
+      for (const screen of screens) {
+        const response = await fetch(`/api/dropdowns/${screen}/he`);
+        const data = await response.json();
+        const fieldOptions = data.options[`${screen}_${field}`];
+        
+        if (fieldOptions) {
+          translations[screen] = fieldOptions;
+        }
+      }
+      
+      // Validate consistency (same options should have same translations)
+      const screenKeys = Object.keys(translations);
+      if (screenKeys.length > 1) {
+        const referenceOptions = translations[screenKeys[0]];
+        
+        screenKeys.slice(1).forEach(screen => {
+          const screenOptions = translations[screen];
+          
+          referenceOptions.forEach(refOption => {
+            const matchingOption = screenOptions.find(opt => opt.value === refOption.value);
+            if (matchingOption) {
+              expect(matchingOption.label).toBe(refOption.label);
+            }
+          });
+        });
+      }
+    }
+  });
+});
+```
+
+### 🔧 Emergency Dropdown Recovery for Refinance Credit
+
+#### Server Status & Diagnostic Commands
+```bash
+# Start main monorepo server (development & production)
+cd packages/server && npm run dev  # or npm start for production
+
+# Verify server is running
+curl -s "http://localhost:8003/api/health" | jq '.'
+
+# Test all refinance credit dropdown endpoints
+for step in 1 2 3 4; do
+  echo "Testing refinance_credit_step${step}..."
+  curl -s "http://localhost:8003/api/dropdowns/refinance_credit_step${step}/en" | jq '.status, .dropdowns | length'
+done
+
+# Check refinance credit content in database
+node -e "
+import { contentPool } from './packages/server/src/config/database.js';
+contentPool.query('SELECT screen_location, COUNT(*) as items FROM content_items WHERE screen_location LIKE \\'%refinance_credit%\\' AND component_type IN (\\'dropdown_container\\', \\'dropdown_option\\') GROUP BY screen_location ORDER BY screen_location').then(r => {
+  console.log('Refinance Credit Dropdown Content:');
+  r.rows.forEach(row => console.log(\`  \${row.screen_location}: \${row.items} items\`));
+}).catch(e => console.error('Database error:', e.message));
+"
+
+# Clear refinance credit dropdown cache
+curl -X DELETE "http://localhost:8003/api/dropdowns/cache/clear" | jq '.'
+```
+
+#### Legacy Server Emergency Fallback Testing
+```bash
+# EMERGENCY ONLY: Start legacy server if monorepo server fails
+# NOTE: This is deprecated and should only be used for emergency recovery
+node server/server-db.js  # Port 8003
+
+# Test legacy server endpoints (should match monorepo server exactly)
+curl -s "http://localhost:8003/api/dropdowns/refinance_credit_step1/en" | jq '.'
+
+# Verify database schema compatibility
+node -e "require('./server/test-railway-simple.js')"
+```
+
+#### Content Recovery Script
+```sql
+-- Copy mortgage content to refinance credit if missing
+INSERT INTO content_items (content_key, component_type, category, screen_location, is_active)
+SELECT 
+    REPLACE(content_key, 'mortgage_step', 'refinance_credit_step') as new_key,
+    component_type,
+    category,
+    REPLACE(screen_location, 'mortgage_step', 'refinance_credit_step') as new_location,
+    is_active
+FROM content_items
+WHERE screen_location LIKE 'mortgage_step%'
+    AND component_type IN ('dropdown_container', 'dropdown_option', 'placeholder')
+    AND NOT EXISTS (
+        SELECT 1 FROM content_items target
+        WHERE target.content_key = REPLACE(content_items.content_key, 'mortgage_step', 'refinance_credit_step')
+    );
+
+-- Copy translations
+INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+SELECT 
+    ci_target.id,
+    ct_source.language_code,
+    ct_source.content_value,
+    ct_source.status
+FROM content_items ci_source
+JOIN content_translations ct_source ON ci_source.id = ct_source.content_item_id
+JOIN content_items ci_target ON ci_target.content_key = REPLACE(ci_source.content_key, 'mortgage_step', 'refinance_credit_step')
+WHERE ci_source.screen_location LIKE 'mortgage_step%'
+    AND ci_source.component_type IN ('dropdown_container', 'dropdown_option', 'placeholder')
+    AND NOT EXISTS (
+        SELECT 1 FROM content_translations ct_existing
+        WHERE ct_existing.content_item_id = ci_target.id
+            AND ct_existing.language_code = ct_source.language_code
+    );
+```
+
+### ✅ Refinance Credit Dropdown System Validation Status
+
+#### Implementation Completeness Checklist
+- ✅ **Screen-Specific Architecture**: Independent dropdown content for each refinance credit step
+- ✅ **API Key Generation**: Unique API keys following `refinance_credit_step{N}_{field_name}` pattern  
+- ✅ **Multi-Language Support**: Hebrew (RTL), English, Russian with proper caching
+- ✅ **Database Integration**: Content served from shortline proxy with performance optimization
+- ✅ **Error Handling**: Bulletproof fallback systems and graceful degradation
+- ✅ **Cache Strategy**: 5-minute TTL with frontend and backend caching layers
+- ✅ **Admin Panel Ready**: Independent screen modification capability
+- ✅ **Content Migration**: Recovery scripts for missing refinance credit content
+
+#### Refinance Credit Specific Features
+- ✅ **Current Loan Analysis**: Dropdowns for existing lender, loan type, current terms
+- ✅ **Refinance Reason Selection**: Rate improvement, cash-out, debt consolidation options
+- ✅ **Bank Comparison**: Multiple bank selection for refinance offer comparison
+- ✅ **Refinance Program Types**: Rate-and-term, cash-out, investment property options
+- ✅ **Benefit Calculation**: Break-even analysis, NPV calculation, payment reduction options
+
+---
+
 ## 🔬 PHASE 1: SYSTEM INITIALIZATION & AUTHENTICATION
 
 ### Test Objective
@@ -202,7 +839,7 @@ describe('PHASE 2: Existing Loan Analysis', () => {
     
     // Verify calculation accuracy
     cy.get('[data-testid="monthly-savings"]').invoke('text').then(savingsText => {
-      const monthlySavings 🔄 parseFloat(savingsText.replace(/[^0-9.]/g, ''));
+      const monthlySavings = parseFloat(savingsText.replace(/[^0-9.]/g, ''));
       expect(monthlySavings).to.be.greaterThan(0);
       expect(monthlySavings).to.be.lessThan(1000); // Reasonable range
     });
@@ -246,7 +883,7 @@ describe('PHASE 2: Existing Loan Analysis', () => {
 
 ### 🧠 Financial Calculation Engine Tests
 ```typescript
-const refinanceBenefitCalculations 🔄 {
+const refinanceBenefitCalculations = {
   breakEvenAnalysis: {
     inputs: {
       currentLoan: { balance: 400000, rate: 6.5, payment: 2750 },
@@ -320,17 +957,17 @@ describe('PHASE 3: Multi-Borrower Financial Assessment', () => {
     });
     
     // Validate combined income calculation
-    cy.get('[data-testid="total-monthly-income"]').should('contain', '⚡32,000');
-    cy.get('[data-testid="qualifying-income"]').should('contain', '⚡30,000'); // After verification adjustments
+    cy.get('[data-testid="total-monthly-income"]').should('contain', '₪32,000');
+    cy.get('[data-testid="qualifying-income"]').should('contain', '₪30,000'); // After verification adjustments
     
     // Test DTI calculation with refinance payment
     cy.get('[data-testid="existing-debts"]').type('5000');
-    cy.get('[data-testid="new-mortgage-payment"]').should('contain', '⚡2,100'); // Estimated new payment
+    cy.get('[data-testid="new-mortgage-payment"]').should('contain', '₪2,100'); // Estimated new payment
     cy.get('[data-testid="total-dti"]').should('contain', '23.7%'); // (5000 + 2100) / 30000
   });
 
   it('should validate employment stability requirements', () => {
-    const employmentScenarios 🔄 [
+    const employmentScenarios = [
       {
         borrower: 'primary',
         employment: 'permanent',
@@ -374,8 +1011,8 @@ describe('PHASE 3: Multi-Borrower Financial Assessment', () => {
     });
     
     // Validate partner income consideration
-    cy.get('[data-testid="household-income"]').should('contain', '⚡40,000'); // Primary + Co + Partner
-    cy.get('[data-testid="qualifying-income"]').should('contain', '⚡34,000'); // Reduced weight for partner
+    cy.get('[data-testid="household-income"]').should('contain', '₪40,000'); // Primary + Co + Partner
+    cy.get('[data-testid="qualifying-income"]').should('contain', '₪34,000'); // Reduced weight for partner
     
     // Test partner role limitations
     cy.get('[data-testid="partner-limitations"]').should('contain', 'Cannot be primary signatory');
@@ -384,7 +1021,7 @@ describe('PHASE 3: Multi-Borrower Financial Assessment', () => {
 
   it('should calculate combined debt-to-income with all borrowers', () => {
     // Set up multiple borrowers with various debts
-    const borrowerData 🔄 {
+    const borrowerData = {
       primary: {
         income: 18000,
         creditCards: 2000,
@@ -417,9 +1054,9 @@ describe('PHASE 3: Multi-Borrower Financial Assessment', () => {
     cy.get('[data-testid="calculate-combined-dti"]').click();
     
     // Validate calculations
-    cy.get('[data-testid="total-household-income"]').should('contain', '⚡40,000');
-    cy.get('[data-testid="total-monthly-debts"]').should('contain', '⚡6,600');
-    cy.get('[data-testid="new-mortgage-payment"]').should('contain', '⚡2,200'); // Estimated refinance payment
+    cy.get('[data-testid="total-household-income"]').should('contain', '₪40,000');
+    cy.get('[data-testid="total-monthly-debts"]').should('contain', '₪6,600');
+    cy.get('[data-testid="new-mortgage-payment"]').should('contain', '₪2,200'); // Estimated refinance payment
     cy.get('[data-testid="combined-dti"]').should('contain', '22.0%'); // (6600 + 2200) / 40000
     
     // Check approval likelihood
@@ -430,7 +1067,7 @@ describe('PHASE 3: Multi-Borrower Financial Assessment', () => {
 
 ### 📋 Credit History Integration Testing
 ```typescript
-const creditHistoryTests 🔄 {
+const creditHistoryTests = {
   creditScoreAnalysis: {
     primaryBorrower: {
       creditScore: 780,
@@ -498,13 +1135,13 @@ describe('PHASE 4: Bank Offers & Refinance Analysis', () => {
         // Verify required offer components
         cy.get('[data-testid="bank-name"]').should('be.visible');
         cy.get('[data-testid="interest-rate"]').should('contain', '%');
-        cy.get('[data-testid="monthly-payment"]').should('contain', '⚡');
-        cy.get('[data-testid="total-cost"]').should('contain', '⚡');
+        cy.get('[data-testid="monthly-payment"]').should('contain', '₪');
+        cy.get('[data-testid="total-cost"]').should('contain', '₪');
         cy.get('[data-testid="savings-vs-current"]').should('be.visible');
         
         // Verify rate improvement
         cy.get('[data-testid="interest-rate"]').invoke('text').then(rateText => {
-          const rate 🔄 parseFloat(rateText.replace('%', ''));
+          const rate = parseFloat(rateText.replace('%', ''));
           expect(rate).to.be.lessThan(6.5); // Better than current rate
           expect(rate).to.be.greaterThan(3.0); // Realistic range
         });
@@ -524,23 +1161,23 @@ describe('PHASE 4: Bank Offers & Refinance Analysis', () => {
     // Validate detailed benefit calculation
     cy.get('[data-testid="benefit-details-modal"]').within(() => {
       // Monthly savings calculation
-      cy.get('[data-testid="current-payment"]').should('contain', '⚡2,750');
-      cy.get('[data-testid="new-payment"]').should('contain', '⚡2,');
+      cy.get('[data-testid="current-payment"]').should('contain', '₪2,750');
+      cy.get('[data-testid="new-payment"]').should('contain', '₪2,200');
       cy.get('[data-testid="monthly-savings"]').should('be.visible');
       
       // Break-even analysis
-      cy.get('[data-testid="closing-costs"]').should('contain', '⚡');
+      cy.get('[data-testid="closing-costs"]').should('contain', '₪');
       cy.get('[data-testid="break-even-months"]').should('be.visible');
       cy.get('[data-testid="break-even-date"]').should('be.visible');
       
       // Total interest savings
-      cy.get('[data-testid="current-total-interest"]').should('contain', '⚡');
-      cy.get('[data-testid="new-total-interest"]').should('contain', '⚡');
-      cy.get('[data-testid="lifetime-savings"]').should('contain', '⚡');
+      cy.get('[data-testid="current-total-interest"]').should('contain', '₪');
+      cy.get('[data-testid="new-total-interest"]').should('contain', '₪');
+      cy.get('[data-testid="lifetime-savings"]').should('contain', '₪');
       
       // Cash flow analysis
-      cy.get('[data-testid="5-year-savings"]').should('contain', '⚡');
-      cy.get('[data-testid="10-year-savings"]').should('contain', '⚡');
+      cy.get('[data-testid="5-year-savings"]').should('contain', '₪');
+      cy.get('[data-testid="10-year-savings"]').should('contain', '₪');
     });
   });
 
@@ -556,13 +1193,13 @@ describe('PHASE 4: Bank Offers & Refinance Analysis', () => {
     // Validate cash-out specific offers
     cy.get('[data-testid="bank-offer"]').each($offer => {
       cy.wrap($offer).within(() => {
-        cy.get('[data-testid="loan-amount"]').should('contain', '⚡500,000'); // 400k + 100k
-        cy.get('[data-testid="cash-out-available"]').should('contain', '⚡100,000');
+        cy.get('[data-testid="loan-amount"]').should('contain', '₪500,000'); // 400k + 100k
+        cy.get('[data-testid="cash-out-available"]').should('contain', '₪100,000');
         cy.get('[data-testid="new-ltv"]').should('be.visible');
         
         // Verify LTV doesn't exceed limits
         cy.get('[data-testid="new-ltv"]').invoke('text').then(ltvText => {
-          const ltv 🔄 parseFloat(ltvText.replace('%', ''));
+          const ltv = parseFloat(ltvText.replace('%', ''));
           expect(ltv).to.be.lessThan(81); // Should not exceed 80% LTV
         });
       });
@@ -585,7 +1222,7 @@ describe('PHASE 4: Bank Offers & Refinance Analysis', () => {
     });
     
     // Upload required documents
-    const documentTypes 🔄 [
+    const documentTypes = [
       'salary-slips',
       'bank-statements', 
       'mortgage-statement',
@@ -630,7 +1267,7 @@ describe('PHASE 4: Bank Offers & Refinance Analysis', () => {
       // Current loan column
       cy.get('[data-testid="current-loan-column"]').within(() => {
         cy.contains('6.5%');
-        cy.contains('⚡2,750');
+        cy.contains('₪2,750');
       });
       
       // Best offer highlighting
@@ -642,7 +1279,7 @@ describe('PHASE 4: Bank Offers & Refinance Analysis', () => {
 
 ### 📋 Advanced Financial Modeling Tests
 ```typescript
-const refinanceModelingTests 🔄 {
+const refinanceModelingTests = {
   netPresentValueAnalysis: {
     currentScenario: {
       monthlyPayment: 2750,
@@ -700,7 +1337,7 @@ describe('🧠 REFINANCE-CREDIT EDGE CASE VALIDATION', () => {
     });
 
     it('should handle extreme DTI boundary conditions', () => {
-      const extremeDTIScenarios 🔄 [
+      const extremeDTIScenarios = [
         { currentDTI: 48.5, newPayment: 2100, income: 30000, expected: 'Requires manual review' },
         { currentDTI: 51.0, newPayment: 1800, income: 30000, expected: 'DTI improvement required' },
         { currentDTI: 55.0, newPayment: 1500, income: 30000, expected: 'Significant DTI reduction' }
@@ -708,7 +1345,7 @@ describe('🧠 REFINANCE-CREDIT EDGE CASE VALIDATION', () => {
 
       extremeDTIScenarios.forEach(scenario => {
         // Set current financial situation
-        const currentDebt 🔄 (scenario.currentDTI / 100) * scenario.income;
+        const currentDebt = (scenario.currentDTI / 100) * scenario.income;
         cy.get('[data-testid="monthly-income"]').clear().type(scenario.income.toString());
         cy.get('[data-testid="existing-monthly-debts"]').clear().type(currentDebt.toString());
         
@@ -716,7 +1353,7 @@ describe('🧠 REFINANCE-CREDIT EDGE CASE VALIDATION', () => {
         cy.get('[data-testid="new-estimated-payment"]').should('contain', scenario.newPayment);
         
         // Calculate new DTI
-        const newDTI 🔄 ((currentDebt - 2750 + scenario.newPayment) / scenario.income) * 100;
+        const newDTI = ((currentDebt - 2750 + scenario.newPayment) / scenario.income) * 100;
         
         cy.get('[data-testid="new-dti-ratio"]').should('contain', newDTI.toFixed(1));
         cy.get('[data-testid="dti-assessment"]').should('contain', scenario.expected);
@@ -724,7 +1361,7 @@ describe('🧠 REFINANCE-CREDIT EDGE CASE VALIDATION', () => {
     });
 
     it('should handle massive loan amounts at system boundaries', () => {
-      const extremeLoanScenarios 🔄 [
+      const extremeLoanScenarios = [
         { balance: 2999999, valid: true, category: 'Super jumbo loan' },
         { balance: 3000000, valid: false, category: 'Exceeds system limits' },
         { balance: 50000000, valid: false, category: 'Invalid amount' }
@@ -782,13 +1419,13 @@ describe('🧠 REFINANCE-CREDIT EDGE CASE VALIDATION', () => {
     });
   });
 
-  describe('⚡ SYSTEM PERFORMANCE UNDER STRESS', () => {
+  describe('SYSTEM PERFORMANCE UNDER STRESS', () => {
     
     it('should handle concurrent refinance calculations', () => {
       // Simulate multiple calculations happening simultaneously
-      const calculations 🔄 [];
+      const calculations = [];
       
-      for (let i 🔄 0; i 🌍 5; i++) {
+      for (let i = 0; i < 5; i++) {
         calculations.push(
           cy.window().then(win => {
             return win.store.dispatch({
@@ -825,14 +1462,14 @@ describe('🧠 REFINANCE-CREDIT EDGE CASE VALIDATION', () => {
 
 describe('< REFINANCE-CREDIT MULTILINGUAL VALIDATION', () => {
   
-  const refinanceTerminology 🔄 {
+  const refinanceTerminology = {
     he: {
-      refinance: '⚡⚡⚡⚡⚡ ⚡⚡⚡⚡',
-      breakEven: '⚡⚡⚡⚡⚡ ⚡⚡⚡⚡⚡',
-      cashOut: '⚡⚡⚡⚡⚡ ⚡⚡⚡⚡⚡',
-      closingCosts: '⚡⚡⚡⚡⚡⚡ ⚡⚡⚡⚡⚡',
-      equity: '⚡⚡⚡ ⚡⚡⚡⚡',
-      savingsAnalysis: '⚡⚡⚡⚡⚡ ⚡⚡⚡⚡⚡⚡'
+      refinance: 'מימון מחדש',
+      breakEven: 'נקודת איזון',
+      cashOut: 'משיכת מזומן',
+      closingCosts: 'עלויות סגירה',
+      equity: 'הון עצמי',
+      savingsAnalysis: 'ניתוח חיסכון'
     },
     ru: {
       refinance: '@5D8=0=A8@>20=85',
@@ -861,7 +1498,7 @@ describe('< REFINANCE-CREDIT MULTILINGUAL VALIDATION', () => {
       });
 
       it(`should display proper ${lang} refinance terminology`, () => {
-        const terms 🔄 refinanceTerminology[lang];
+        const terms = refinanceTerminology[lang];
         
         Object.entries(terms).forEach(([key, translation]) => {
           cy.get(`[data-testid="${key}-label"]`).should('contain', translation);
@@ -878,7 +1515,7 @@ describe('< REFINANCE-CREDIT MULTILINGUAL VALIDATION', () => {
         
         // Validate results display in correct language
         cy.get('[data-testid="results-summary"]').should('be.visible');
-        cy.get('[data-testid="monthly-savings"]').should('contain', lang =='he' ? '⚡' : '$');
+        cy.get('[data-testid="monthly-savings"]').should('contain', lang =='he' ? '₪' : '$');
         
         if (lang =='he') {
           // Validate RTL layout for financial data
@@ -890,8 +1527,8 @@ describe('< REFINANCE-CREDIT MULTILINGUAL VALIDATION', () => {
       it(`should handle refinance documentation requirements in ${lang}`, () => {
         cy.get('[data-testid="required-documents"]').should('be.visible');
         
-        const documentLabels 🔄 {
-          he: ['⚡⚡⚡⚡⚡ ⚡⚡⚡⚡⚡⚡', '⚡⚡⚡⚡⚡ ⚡⚡⚡', '⚡⚡⚡ ⚡⚡⚡⚡'],
+        const documentLabels = {
+          he: ['תלושי שכר', 'דוחות בנק', 'דוח שמאי'],
           ru: ['A?@02:8 > 4>E>40E', '2K?8A:8 10=:0', '>BG5B >F5=I8:0'],
           en: ['Pay Stubs', 'Bank Statements', 'Appraisal Report']
         };
@@ -903,11 +1540,11 @@ describe('< REFINANCE-CREDIT MULTILINGUAL VALIDATION', () => {
     });
   });
 
-  describe('= LANGUAGE SWITCHING WIT≈ REFINANCE DATA', () => {
+  describe('= LANGUAGE SWITCHING WITH REFINANCE DATA', () => {
     
     it('should preserve complex refinance calculation when switching languages', () => {
       // Fill complex refinance scenario in English
-      cy.visit('/services/refinance-credit/1?langen');
+      cy.visit('/services/refinance-credit/1?lang=en');
       cy.get('[data-testid="existing-loan-balance"]').type('500000');
       cy.get('[data-testid="current-rate"]').type('7.2');
       cy.get('[data-testid="cash-out-amount"]').type('150000');
@@ -929,8 +1566,8 @@ describe('< REFINANCE-CREDIT MULTILINGUAL VALIDATION', () => {
       cy.get('[data-testid="monthly-savings"]').invoke('text').then(hebrewSavings => {
         cy.get('@englishSavings').then(englishSavings => {
           // Extract numeric values for comparison
-          const englishAmount 🔄 parseFloat(englishSavings.replace(/[^0-9.]/g, ''));
-          const hebrewAmount 🔄 parseFloat(hebrewSavings.replace(/[^0-9.]/g, ''));
+          const englishAmount = parseFloat(englishSavings.replace(/[^0-9.]/g, ''));
+          const hebrewAmount = parseFloat(hebrewSavings.replace(/[^0-9.]/g, ''));
           expect(Math.abs(englishAmount - hebrewAmount)).to.be.lessThan(1);
         });
       });
@@ -947,7 +1584,7 @@ describe('< REFINANCE-CREDIT MULTILINGUAL VALIDATION', () => {
 
 #### Execution Phases
 ```typescript
-const testExecutionPlan 🔄 {
+const testExecutionPlan = {
   phase1: {
     name: 'Smoke Testing',
     duration: '2 hours',
@@ -990,7 +1627,7 @@ const testExecutionPlan 🔄 {
 #### Enhanced HTML Report Generation
 ```typescript
 // Enhanced reporting for refinance-credit testing
-const reportConfiguration 🔄 {
+const reportConfiguration = {
   reportPath: 'cypress/reports/refinance-credit/',
   screenshots: {
     beforeCalculation: 'Form state before refinance calculation',
@@ -1039,7 +1676,7 @@ npm run qa:generate-refinance-credit-report
 
 #### Core Functionality Validation
 - ** Authentication Flow**: 100% success rate for dual auth (phone + email)
-- ** Calculation Accuracy**: ⚡0.01% precision for all financial calculations
+- ** Calculation Accuracy**: 0.01% precision for all financial calculations
 - ** Multi-Borrower Logic**: Correct DTI and income aggregation for all scenarios
 - ** Bank Offer Generation**: Minimum 3 valid offers for qualifying applications
 - ** Break-Even Analysis**: Accurate break-even calculations within 1 month precision
@@ -1340,6 +1977,31 @@ describe('🔧 REFINANCE CREDIT RESPONSIVE VALIDATION SUITE', () => {
 
 ---
 
+## ✅ PHASE 0 COMPLETION CHECKLIST
+
+### Server Architecture Validation
+- [ ] **Monorepo server running**: `packages/server/src/server.js` on port 8003
+- [ ] **Health check passes**: `curl http://localhost:8003/api/health`
+- [ ] **All dropdown APIs responding**: Steps 1-4 for refinance credit
+- [ ] **Database connectivity confirmed**: Content tables accessible
+- [ ] **Cache system operational**: Clear cache API working
+
+### Legacy Fallback Testing (Emergency Only)
+- [ ] **Legacy server compatibility**: `server/server-db.js` provides identical responses
+- [ ] **Database schema synchronization**: Both servers use same database
+- [ ] **API endpoint parity**: All endpoints return same data structure
+
+### Dropdown Content Validation
+- [ ] **All 4 refinance credit steps**: Content available in database
+- [ ] **Multi-language support**: EN/HE/RU content complete
+- [ ] **Cache performance**: Second requests <50ms response time
+- [ ] **Error handling**: Graceful fallbacks for missing content
+- [ ] **RTL support**: Hebrew content displays correctly
+
+**CRITICAL**: Phase 0 must be 100% complete before proceeding to link testing. Any dropdown failures will cascade into form validation failures in subsequent phases.
+
+---
+
 ## 🎯 COMPREHENSIVE LINK TESTING & NEW WINDOW/POPUP VALIDATION
 
 ### **CRITICAL LINK AND NAVIGATION TESTING REQUIREMENTS**
@@ -1462,7 +2124,7 @@ describe('🔗 COMPREHENSIVE REFINANCE CREDIT LINK TESTING SUITE', () => {
 
   // Helper Functions for Complete Refinance Credit Process Validation
   function completeRefinanceCreditProcessInNewWindow(win, category, linkText) {
-    cy.log(`🔄 Completing refinance credit process in new window for ${category}: ${linkText}`);
+    cy.log(`⟳ Completing refinance credit process in new window for ${category}: ${linkText}`);
     
     // Stage 1: Verify new window loaded correctly
     cy.get('[data-testid="main-content"]', { timeout: 10000 }).should('be.visible');
@@ -1492,7 +2154,7 @@ describe('🔗 COMPREHENSIVE REFINANCE CREDIT LINK TESTING SUITE', () => {
   }
 
   function completeRefinanceCreditProcessOnNewPage(url, category, linkText) {
-    cy.log(`🔄 Completing refinance credit process on new page for ${category}: ${linkText}`);
+    cy.log(`⟳ Completing refinance credit process on new page for ${category}: ${linkText}`);
     
     // Stage 1: Verify page navigation successful
     cy.url().should('include', url.split('/').pop());
@@ -1519,7 +2181,7 @@ describe('🔗 COMPREHENSIVE REFINANCE CREDIT LINK TESTING SUITE', () => {
   }
 
   function completeRefinanceCreditPopupInteraction(category, linkText) {
-    cy.log(`🔄 Completing refinance credit popup interaction for ${category}: ${linkText}`);
+    cy.log(`⟳ Completing refinance credit popup interaction for ${category}: ${linkText}`);
     
     // Stage 1: Verify popup opened
     cy.get('[data-testid*="modal"], [data-testid*="popup"], [role="dialog"]')

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 import { Outlet } from 'react-router-dom'
 
-import Header from '@components/layout/Head/Header.tsx'
+import Header from './Head/Header.tsx'
 import MobileMenu from '@components/layout/Sidebar/MobileMenu/MobileMenu.tsx'
 import { SidebarClosed } from '@components/layout/Sidebar/SideberClosed'
 import { useToggle } from '@src/hooks/useToggle.ts'

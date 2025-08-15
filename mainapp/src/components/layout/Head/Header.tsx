@@ -2,8 +2,8 @@ import classnames from 'classnames/bind'
 import React from 'react'
 import { useLocation } from 'react-router'
 
-import LoginLanguage from '@components/layout/Head/LoginLanguage.tsx'
-import Logo from '@components/layout/Head/Logo.tsx'
+import LoginLanguage from './LoginLanguage.tsx'
+import Logo from './Logo.tsx'
 import { Container } from '@components/ui/Container'
 
 import styles from './Header.module.scss'

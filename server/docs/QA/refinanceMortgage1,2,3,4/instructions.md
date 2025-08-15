@@ -1,12 +1,14 @@
-# <� BULLETPROOF REFINANCE MORTGAGE TESTING INSTRUCTIONS
+# 🚀 BULLETPROOF REFINANCE MORTGAGE TESTING INSTRUCTIONS
 **Generated:** August 14, 2025  
 **Target Application:** http://localhost:5173/services/refinance-mortgage/1,2,3,4  
+**Main Server:** packages/server/src/server.js (port 8003) - Unified development/production system  
+**Legacy Fallback:** server/server-db.js (emergency use only)  
 **Confluence Specification:** https://bankimonline.atlassian.net/wiki/spaces/Bankim/pages/7897157/4.1.+  
 **Testing Framework:** Cypress E2E + Playwright Cross-Browser + Figma Comparison  
 
 ---
 
-## =� EXECUTIVE SUMMARY
+## 📋 EXECUTIVE SUMMARY
 
 This document provides comprehensive testing instructions for the **Refinance Mortgage** process (Steps 1-4) comparing live application behavior against documented specifications, Figma designs, and business logic requirements. The testing covers:
 
@@ -65,85 +67,113 @@ Refinance Scenario Validation:
 
 ---
 
-## =� PHASE 0: CRITICAL DROPDOWN LOGIC VALIDATION FOR REFINANCE
+## 🔧 PHASE 0: CRITICAL DROPDOWN LOGIC VALIDATION FOR REFINANCE
 
-**PRIORITY**: This phase MUST be executed first to validate the foundation of the refinance dropdown system across all steps.
+**PRIORITY**: This phase MUST be executed first to validate the foundation of the refinance dropdown system across all steps according to the correct architectural patterns.
 
-### 🚨 CRITICAL DISCOVERY: Test Methodology vs System Reality
+### 🎯 DROPDOWN SYSTEM ARCHITECTURE OVERVIEW
 
-**MOST IMPORTANT FINDING**: The refinance mortgage system uses **MODERN REACT COMPONENTS** with Hebrew text, NOT traditional HTML dropdowns. All test failures were caused by outdated element detection strategies, NOT system defects.
+**CRITICAL UNDERSTANDING**: The refinance mortgage system uses a modern, database-driven dropdown architecture with screen-specific content management, multi-language support, and proper API key generation patterns.
 
-#### 🔬 Actual vs Expected Implementation:
+**SERVER ARCHITECTURE NOTE**: This application uses a unified server architecture (`packages/server/src/server.js`) for both development and production. Do NOT test for "dual-server synchronization" or "production vs development server differences" as they use the same system.
 
-**❌ What Tests Searched For:**
-```typescript
-cy.get('select')                    // ← Found ZERO (modern React)
-cy.get('[role="combobox"]')         // ← Found ZERO (custom components)
-cy.get('.dropdown')                 // ← Wrong class names
+#### 📋 Screen-Specific Dropdown Architecture
+
+**FUNDAMENTAL RULE**: Every screen creates its own dropdown API keys and content for independent admin panel control.
+
+**Screen Location Mapping**:
+- `refinance_step1` → Current loan details, bank selection
+- `refinance_step2` → Personal information, rate comparison options  
+- `refinance_step3` → Income, employment, obligations
+- `refinance_step4` → Bank offers, program selection
+
+**API Endpoint Pattern**: `/api/dropdowns/{screen_location}/{language}`
+- Example: `/api/dropdowns/refinance_step3/he`
+- Example: `/api/dropdowns/refinance_step1/en`
+
+#### 🔑 Content Key Architecture
+
+**Database Content Key Format**: `{screen_location}.field.{field_name}_{option_value}`
+```yaml
+Examples:
+  - refinance_step1.field.current_bank_hapoalim
+  - refinance_step1.field.current_rate_4_percent
+  - refinance_step3.field.obligations_no_obligations
+  - refinance_step3.field.obligations_existing_mortgage
 ```
 
-**✅ What the System Actually Uses:**
-```typescript
-// Reality: Page uses Hebrew React dropdowns:
-"בחר בנק וחשבונות"                   // Choose bank and accounts
-"בחר אפשרות חיובים"                  // Choose allocation option
-"יתרת המשכנתא הנוכחית"               // Current mortgage balance
-"בנק המשכנתא הנוכחית"                // Current mortgage bank
+**API Generated Key Format**: `{screen_location}_{field_name}`
+```yaml
+Examples:
+  - refinance_step1_current_bank → API key for current mortgage bank
+  - refinance_step1_current_rate → API key for current interest rate
+  - refinance_step3_obligations → API key for existing obligations
+  - refinance_step3_main_source → API key for main income source
 ```
 
-#### 🏦 Confirmed System Architecture:
+#### 🏗️ useDropdownData Hook Integration
 
-**PROFESSIONAL HEBREW RTL INTERFACE DISCOVERED**:
-- **מחזור משכנתא** (Refinance Mortgage) - Complete Hebrew terminology
-- **Working Calculations**: Current balance 200K ₪, Property 1M ₪, Payment 4,605 ₪
-- **API Integration**: `mortgage_refinance` endpoint functional (2%/80%/42% requirements)
-- **Business Logic**: Break-even analysis, rate comparison, cash-out options working
-- **Multi-Step Flow**: 4-step refinance process operational
-
-**SYSTEM STATUS**: ✅ **95% PRODUCTION READY** (NOT failing as tests suggested)
-
-#### 🛠️ Required Testing Strategy Update:
-
-**Hebrew-Aware Selectors**:
+**Hook Usage Pattern**:
 ```typescript
-// ✅ CORRECTED APPROACH: Modern React Component Detection
-const hebrewRefinanceSelectors = [
-  'button:contains("בחר")',           // Hebrew "Choose" buttons
-  'button:contains("בנק")',           // Hebrew "Bank" buttons  
-  '[data-testid*="dropdown"]',        // React component attributes
-  '[aria-expanded]',                  // Modern accessibility attributes
-  'button[role="button"]'             // Interactive button elements
-];
+const dropdownData = useDropdownData(screenLocation, fieldName, 'full');
 ```
 
-**React Interaction Strategy**:
+**Screen-Specific Examples**:
 ```typescript
-// ✅ CLICK-BASED: Instead of traditional .select()
-cy.get('button:contains("בחר בנק")').click();
-cy.get('[role="option"]').first().click();
+// Refinance Step 1 - Current loan details
+const currentBankData = useDropdownData('refinance_step1', 'current_bank', 'full');
+const currentRateData = useDropdownData('refinance_step1', 'current_rate', 'full');
+
+// Refinance Step 3 - Income and obligations  
+const obligationsData = useDropdownData('refinance_step3', 'obligations', 'full');
+const mainSourceData = useDropdownData('refinance_step3', 'main_source', 'full');
 ```
 
-#### =� BULLETPROOF REFINANCE DROPDOWN DETECTION STRATEGY
+#### 🔍 REFINANCE SCREEN-SPECIFIC API ENDPOINT VALIDATION
 
-**MANDATORY UNDERSTANDING**: Refinance mortgage applications use complex dropdown systems for loan comparison, rate selection, and refinance options. Tests must account for traditional AND modern dropdown implementations.
-
-##### Common Refinance Testing Mistakes (What Causes Failures):
 ```typescript
-// L WRONG: Looking only for traditional elements
-cy.get('select[name="current_rate"]')  // � May find ZERO (will fail)
-cy.get('[role="combobox"]')            // � May find ZERO (will fail)  
-cy.get('.rate-dropdown')               // � Wrong class names (will fail)
+describe('CRITICAL: Refinance Screen-Specific API Endpoints', () => {
+  const refinanceScreens = ['refinance_step1', 'refinance_step2', 'refinance_step3', 'refinance_step4'];
+  const languages = ['en', 'he', 'ru'];
+  
+  refinanceScreens.forEach(screen => {
+    languages.forEach(language => {
+      it(`${screen} API endpoint must return screen-specific dropdown content for ${language}`, () => {
+        cy.request({
+          method: 'GET',
+          url: `/api/dropdowns/${screen}/${language}`,
+          timeout: 10000
+        }).then((response) => {
+          // CRITICAL: API must return successful response
+          expect(response.status).to.equal(200);
+          expect(response.body).to.have.property('status', 'success');
+          expect(response.body).to.have.property('screen_location', screen);
+          expect(response.body).to.have.property('language_code', language);
+
+          // CRITICAL: Must have dropdown structure
+          expect(response.body).to.have.property('dropdowns').that.is.an('array');
+          expect(response.body).to.have.property('options').that.is.an('object');
+          expect(response.body).to.have.property('placeholders').that.is.an('object');
+          expect(response.body).to.have.property('labels').that.is.an('object');
+          
+          // CRITICAL: Must have screen-specific API keys
+          const apiKeys = Object.keys(response.body.options);
+          const hasScreenSpecificKeys = apiKeys.some(key => key.startsWith(screen));
+          
+          expect(hasScreenSpecificKeys, 
+            `API response must contain keys starting with '${screen}' for screen independence`
+          ).to.be.true;
+          
+          cy.log(`✅ ${screen}/${language}: Found ${apiKeys.length} dropdown API keys`);
+          cy.log(`   API keys: ${apiKeys.slice(0, 3).join(', ')}...`);
+        });
+      });
+    });
+  });
+});
 ```
 
-##### Reality: What Refinance Apps Actually Implement:
-- **Custom rate comparison dropdowns** with percentage selections
-- **Loan term modification selectors** with year/month options
-- **Bank program comparison** with dynamic rate loading
-- **Cash-out amount selectors** with percentage/dollar options
-- **Refinance reason dropdowns** with multiple justification options
-- **Working refinance calculations** with real-time comparison logic
-
-##### =� COMPREHENSIVE REFINANCE DROPDOWN DETECTION:
+##### 🔍 Test 0.2: useDropdownData Hook Integration Validation
 ```typescript
 //  REFINANCE-SPECIFIC: Test for ALL possible refinance dropdown types
 const allRefinanceDropdownSelectors = [
@@ -179,11 +209,11 @@ const allRefinanceDropdownSelectors = [
   '.cash-out-selector',
   
   // Hebrew text patterns for refinance
-  'button:contains("��� �����")',     // "Choose rate" in Hebrew
-  'button:contains("��� �����")',     // "Choose period" in Hebrew
-  'button:contains("��� ���")',       // "Choose bank" in Hebrew
-  '[placeholder*="�����"]',          // Rate placeholder
-  '[placeholder*="�����"]',          // Term placeholder
+  'button:contains("בחר ריבית")',     // "Choose rate" in Hebrew
+  'button:contains("בחר תקופה")',     // "Choose period" in Hebrew
+  'button:contains("בחר בנק")',       // "Choose bank" in Hebrew
+  '[placeholder*="ריבית"]',          // Rate placeholder
+  '[placeholder*="תקופה"]',          // Term placeholder
   
   // Interactive refinance elements
   'div[tabindex="0"]:has(.rate-options)',
@@ -297,7 +327,7 @@ describe('CRITICAL: Current Loan Details Dropdown Logic', () => {
           // Validate term options (years)
           cy.get('option').each($option => {
             const termText = $option.text();
-            if (termText.includes('year') || termText.includes('���') || termText.includes('3>4')) {
+            if (termText.includes('year') || termText.includes('שנה') || termText.includes('שנים')) {
               const termMatch = termText.match(/(\d+)/);
               if (termMatch) {
                 const years = parseInt(termMatch[1]);
@@ -439,7 +469,7 @@ describe('CRITICAL: Refinance Bank Offers and Program Comparison', () => {
             'Bank selection dropdown must have lender options');
           
           // Validate Israeli banks are present
-          const expectedBanks = ['��� �������', '��� �����', '��� �������', '���� ���������'];
+          const expectedBanks = ['בנק הפועלים', 'בנק לאומי', 'בנק דיסקונט', 'בנק מזרחי טפחות'];
           
           cy.get('option').then($options => {
             const bankTexts = Array.from($options).map(option => option.textContent);
@@ -618,7 +648,7 @@ describe('CRITICAL: Refinance Application Summary and Submission', () => {
         // Test submit button text contains refinance context
         cy.get(submitButton).then($button => {
           const buttonText = $button.text().toLowerCase();
-          const refinanceKeywords = ['refinance', 'refinanc', '������', '@5D8=0=A'];
+          const refinanceKeywords = ['refinance', 'refinanc', 'רפינאנס', 'מימון חוזר'];
           const hasRefinanceKeyword = refinanceKeywords.some(keyword => buttonText.includes(keyword));
           
           if (hasRefinanceKeyword) {
@@ -847,7 +877,7 @@ describe('Break-Even Analysis Calculation', () => {
 
 ---
 
-## <� FIGMA DESIGN VALIDATION FOR REFINANCE
+## 🎨 FIGMA DESIGN VALIDATION FOR REFINANCE
 
 ### Refinance-Specific Design Components
 
@@ -857,7 +887,7 @@ describe('Break-Even Analysis Calculation', () => {
 
 ##### Visual Components to Validate:
 - **Progress Indicator:** 4-step refinance progress bar showing Step 1 active
-- **Current Loan Balance Input:** Numeric input with � symbol, proper formatting
+- **Current Loan Balance Input:** Numeric input with ₪ symbol, proper formatting
 - **Current Interest Rate Dropdown:** Percentage options with clear Hebrew/English labels
 - **Current Monthly Payment Input:** Auto-calculated field with proper formatting
 - **Remaining Term Dropdown:** Years/months selection with validation
@@ -921,11 +951,11 @@ describe('Hebrew RTL Refinance Implementation', () => {
     
     // Verify Hebrew refinance-specific terms
     const refinanceTerms = [
-      '������ ������',    // Refinance mortgage
-      '����� ������',     // Current rate
-      '����� ����',      // New rate
-      '������ �����',     // Monthly savings
-      '������ �����'     // Closing costs
+      'מימון חוזר',    // Refinance mortgage
+      'ריבית נוכחית',     // Current rate
+      'ריבית חדשה',      // New rate
+      'חיסכון חודשי',     // Monthly savings
+      'עלויות סגירה'     // Closing costs
     ];
     
     refinanceTerms.forEach(term => {
@@ -934,7 +964,7 @@ describe('Hebrew RTL Refinance Implementation', () => {
     
     // Verify refinance dropdowns have Hebrew options
     cy.get('[data-testid="current-rate"]').click();
-    cy.get('option').should('contain', '�����');  // Rate in Hebrew
+    cy.get('option').should('contain', 'ריבית');  // Rate in Hebrew
     
     cy.screenshot('refinance-hebrew-rtl/step1-current-loan-hebrew');
   });
@@ -949,7 +979,7 @@ describe('Hebrew RTL Refinance Implementation', () => {
     
     // Verify Hebrew savings display
     cy.get('[data-testid="monthly-savings"]').should('be.visible');
-    cy.get('body').should('contain', '������');  // Savings in Hebrew
+    cy.get('body').should('contain', 'חיסכון');  // Savings in Hebrew
     
     cy.screenshot('refinance-hebrew-rtl/step2-savings-hebrew');
   });
@@ -987,7 +1017,7 @@ describe('Russian Language Refinance Testing', () => {
 
 ---
 
-## =� RESPONSIVE DESIGN VALIDATION FOR REFINANCE
+## 📱 RESPONSIVE DESIGN VALIDATION FOR REFINANCE
 
 ### Refinance-Specific Responsive Testing
 ```typescript
@@ -1025,7 +1055,7 @@ describe('Refinance Responsive Design', () => {
 
 ---
 
-## � PERFORMANCE & ACCESSIBILITY FOR REFINANCE
+## ⚡ PERFORMANCE & ACCESSIBILITY FOR REFINANCE
 
 ### Refinance-Specific Performance Testing
 ```typescript
@@ -1645,21 +1675,36 @@ describe('🧠 THINK HARD: Refinance Cross-Component State Communication', () =>
 
 ---
 
-## <� REFINANCE EXECUTION INSTRUCTIONS
+## 🎨 REFINANCE EXECUTION INSTRUCTIONS
 
 ### Setup Requirements for Refinance Testing
 
 #### 1. Refinance Development Environment
+
+**CRITICAL SERVER ARCHITECTURE**: The application uses a unified server architecture where development and production use the same system.
+
+**Main Server**: `packages/server/src/server.js` (port 8003)
+- Handles all API endpoints for refinance mortgage functionality
+- Serves both development and production environments
+- Single source of truth for all backend operations
+
 ```bash
-# Ensure refinance services are running
-npm run dev                     # Backend API (port 8003)
+# Start the main refinance server
+npm run dev                     # Main server: packages/server/src/server.js (port 8003)
 cd mainapp && npm run dev      # Frontend (port 5173)
 
-# Verify refinance endpoints
+# Verify refinance endpoints from main server
 curl http://localhost:8003/api/v1/refinance
 curl http://localhost:8003/api/v1/rates
 curl http://localhost:8003/api/v1/banks
+curl http://localhost:8003/api/dropdowns/refinance_step1/en
 ```
+
+**Legacy Server Emergency Fallback**: 
+- `server/server-db.js` exists for emergency scenarios only
+- Should NOT be used for normal development or testing
+- Only use if main server is completely unavailable
+- If using legacy server, test endpoints at same port (8003) but note potential differences in API responses
 
 #### 2. Refinance Test Data Configuration
 ```yaml
@@ -1697,9 +1742,56 @@ npx cypress run --spec "cypress/e2e/refinance-mortgage-comprehensive.cy.ts" --gr
 npx cypress open
 ```
 
+#### 4. Legacy Server Emergency Fallback Testing
+
+**⚠️ EMERGENCY USE ONLY**: These procedures should only be used if the main server (`packages/server/src/server.js`) is completely unavailable.
+
+```bash
+# Emergency fallback server startup (LAST RESORT)
+node server/server-db.js        # Legacy server on port 8003
+
+# Verify legacy server endpoints (if main server fails)
+curl http://localhost:8003/api/v1/refinance
+curl http://localhost:8003/api/v1/rates
+curl http://localhost:8003/api/v1/banks
+
+# Test critical differences between main and legacy servers
+curl http://localhost:8003/api/dropdowns/refinance_step1/en
+# Note: Legacy server may have different response format
+```
+
+**Emergency Testing Validation**:
+```typescript
+describe('EMERGENCY: Legacy Server Fallback Validation', () => {
+  it('should verify legacy server provides minimal refinance functionality', () => {
+    // Only run this test if main server is unavailable
+    cy.request({
+      method: 'GET',
+      url: '/api/v1/refinance',
+      timeout: 5000,
+      retryOnStatusCodeFailure: false
+    }).then((response) => {
+      expect(response.status).to.equal(200);
+      cy.log('⚠️ EMERGENCY: Using legacy server for refinance testing');
+      
+      // Test basic refinance endpoints exist
+      cy.request('/api/v1/rates').its('status').should('eq', 200);
+      cy.request('/api/v1/banks').its('status').should('eq', 200);
+    });
+  });
+});
+```
+
+**Legacy Server Testing Notes**:
+- API responses may differ from main server
+- Some modern dropdown endpoints may not be available
+- Should only be used for critical system testing
+- Always document when legacy server was used in test reports
+- Return to main server as soon as possible
+
 ---
 
-## =� REFINANCE VALIDATION CHECKLIST
+## 📱 REFINANCE VALIDATION CHECKLIST
 
 ### Refinance Business Logic Validation 
 - [ ] Current loan details capture (balance, rate, term, payment)
@@ -1731,7 +1823,7 @@ npx cypress open
 - [ ] English refinance professional language
 - [ ] Hebrew RTL layout for loan comparisons
 - [ ] Number formatting for different locales
-- [ ] Currency display (�) consistency
+- [ ] Currency display (₪) consistency
 - [ ] Refinance-specific error messages
 - [ ] Terms and conditions translations
 - [ ] Bank name localization
@@ -1739,7 +1831,7 @@ npx cypress open
 
 ---
 
-## =� REFINANCE CRITICAL FAILURE CRITERIA
+## 📱 REFINANCE CRITICAL FAILURE CRITERIA
 
 ### Blocking Issues (Must Fix Before Release)
 1. **Break-Even Calculation Errors** - Incorrect ROI analysis for refinancing
@@ -1759,7 +1851,7 @@ npx cypress open
 
 ---
 
-## =� REFINANCE HTML REPORT GENERATION
+## 📱 REFINANCE HTML REPORT GENERATION
 
 ### Automated Refinance Test Report Creation
 
@@ -1788,18 +1880,18 @@ echo " Complete refinance validation report generated with timestamp: $TIMESTAM
 
 The generated HTML report includes:
 
-- **<� Refinance Metrics**: Break-even calculations, savings analysis, rate comparisons
-- **=� Phase 0 Priority**: Critical refinance dropdown validation results
-- **=� Comparison Screenshots**: Current vs new loan visual evidence  
-- **=� Calculation Validation**: Mathematical accuracy of refinance benefits
-- **=� ROI Analysis**: Return on investment and break-even period validation
-- **<� Bank Offers Testing**: Multi-lender program comparison results
-- **� Timestamp**: Exact execution time in filename and content
-- **=� Responsive Design**: Refinance table responsiveness validation
+- **🚀 Refinance Metrics**: Break-even calculations, savings analysis, rate comparisons
+- **📋 Phase 0 Priority**: Critical refinance dropdown validation results
+- **📸 Comparison Screenshots**: Current vs new loan visual evidence  
+- **🔢 Calculation Validation**: Mathematical accuracy of refinance benefits
+- **💰 ROI Analysis**: Return on investment and break-even period validation
+- **🏦 Bank Offers Testing**: Multi-lender program comparison results
+- **⏰ Timestamp**: Exact execution time in filename and content
+- **📱 Responsive Design**: Refinance table responsiveness validation
 
 ---
 
-## <� REFINANCE SUCCESS CRITERIA
+## 🎨 REFINANCE SUCCESS CRITERIA
 
 ### Minimum Viable Refinance Release Criteria
 1. **100% Refinance Calculation Tests Pass** - All break-even and savings calculations correct
@@ -1812,14 +1904,14 @@ The generated HTML report includes:
 8. **Zero Blocking Refinance Issues** - No critical failures preventing refinance applications
 
 ### Excellence Criteria (Stretch Goals)
-1. <� **Real-Time Rate Updates** - Live bank rate integration
-2. <� **Advanced Break-Even Charts** - Interactive ROI visualizations  
-3. <� **Predictive Analytics** - AI-powered refinance recommendations
-4. <� **Document Upload Integration** - Automated document processing
-5. <� **Credit Score Integration** - Real-time qualification checking
-6. <� **Rate Alert System** - Notify users of better refinance opportunities
-7. <� **Refinance Calculator Widget** - Embeddable comparison tool
-8. <� **Multi-Property Support** - Portfolio refinancing capabilities
+1. 🔄 **Real-Time Rate Updates** - Live bank rate integration
+2. 📈 **Advanced Break-Even Charts** - Interactive ROI visualizations  
+3. 🤖 **Predictive Analytics** - AI-powered refinance recommendations
+4. 📄 **Document Upload Integration** - Automated document processing
+5. 📊 **Credit Score Integration** - Real-time qualification checking
+6. 🔔 **Rate Alert System** - Notify users of better refinance opportunities
+7. 🧮 **Refinance Calculator Widget** - Embeddable comparison tool
+8. 🏠 **Multi-Property Support** - Portfolio refinancing capabilities
 
 ---
 

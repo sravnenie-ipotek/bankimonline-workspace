@@ -1,4 +1,4 @@
-# <� BULLETPROOF CREDIT CALCULATOR TESTING INSTRUCTIONS
+# 🚀 BULLETPROOF CREDIT CALCULATOR TESTING INSTRUCTIONS
 **Generated:** August 15, 2025  
 **Target Application:** http://localhost:5173/services/calculate-credit/1,2,3,4  
 **Confluence Specification:** https://bankimonline.atlassian.net/wiki/spaces/Bankim/pages/20414700/5.1.+  
@@ -6,7 +6,7 @@
 
 ---
 
-## <� EXECUTIVE SUMMARY
+## 📋 EXECUTIVE SUMMARY
 
 This document provides comprehensive testing instructions for the **Calculate Credit** process (Steps 1-4) comparing live application behavior against documented specifications, Figma designs, and business logic requirements. The testing covers:
 
@@ -21,7 +21,7 @@ This document provides comprehensive testing instructions for the **Calculate Cr
 
 ---
 
-## <� BUSINESS LOGIC REQUIREMENTS (FROM CONFLUENCE)
+## 💼 BUSINESS LOGIC REQUIREMENTS (FROM CONFLUENCE)
 
 ### Critical Credit Calculation Logic
 Based on Confluence specification (5.1.  0AAG8B0BL :@548B), the credit calculator MUST implement these exact calculations:
@@ -29,27 +29,27 @@ Based on Confluence specification (5.1.  0AAG8B0BL :@548B), the credit calculato
 ```yaml
 Credit Amount Validation:
   1. "Personal Credit":
-     - Maximum Amount: �500,000
-     - Minimum Amount: �10,000
-     - DTI Ratio: d42% of monthly income
+     - Maximum Amount: ₪500,000
+     - Minimum Amount: ₪10,000
+     - DTI Ratio: ≤42% of monthly income
      - Term Range: 12-84 months
      
   2. "Renovation Credit":  
-     - Maximum Amount: �300,000
-     - Minimum Amount: �15,000
-     - DTI Ratio: d35% of monthly income
+     - Maximum Amount: ₪300,000
+     - Minimum Amount: ₪15,000
+     - DTI Ratio: ≤35% of monthly income
      - Term Range: 24-120 months
      
   3. "Business Credit":
-     - Maximum Amount: �1,000,000
-     - Minimum Amount: �50,000
-     - DTI Ratio: d38% of monthly income
+     - Maximum Amount: ₪1,000,000
+     - Minimum Amount: ₪50,000
+     - DTI Ratio: ≤38% of monthly income
      - Term Range: 12-180 months
 
 Income Requirements:
-  - Minimum Monthly Income: �8,000
-  - Employment Period: e6 months current job
-  - Credit Score: e650 (Bank of Israel rating)
+  - Minimum Monthly Income: ₪8,000
+  - Employment Period: ≥6 months current job
+  - Credit Score: ≥650 (Bank of Israel rating)
   - Age Requirements: 21-70 years
 ```
 
@@ -79,7 +79,649 @@ Income Requirements:
 
 ---
 
-## <� FIGMA DESIGN VALIDATION REQUIREMENTS
+## Phase 0: CRITICAL DROPDOWN LOGIC VALIDATION FOR CREDIT CALCULATOR 🚨
+
+### 🎯 DROPDOWN ARCHITECTURE INTEGRATION OVERVIEW
+
+The credit calculator leverages a sophisticated dropdown system architecture that integrates with the database-backed content management system. This section validates the COMPLETE dropdown functionality specifically for credit calculator forms across all steps.
+
+#### 🔧 Architecture Components for Credit Calculator
+- **Main Server**: `packages/server/src/server.js` - Unified server handling all API endpoints (port 8003)
+- **Database Integration**: Content served from PostgreSQL via direct integration
+- **API Endpoints**: Screen-specific endpoints for credit_step1, credit_step2, credit_step3, credit_step4
+- **Content Management**: Database-driven dropdown content with multi-language support
+- **Frontend Hook**: useDropdownData hook integration for dynamic content loading
+- **Caching Strategy**: Server-side and frontend caching for optimal performance
+- **Legacy Fallback**: `server/server-db.js` available for emergency situations only
+
+#### 🗂️ Credit Calculator Screen Architecture
+```yaml
+Credit Step Locations:
+  - credit_step1: Credit type, amount, purpose selection
+  - credit_step2: Personal information, employment status
+  - credit_step3: Income sources, financial obligations, employment details
+  - credit_step4: Bank programs, credit offers, application finalization
+
+API Key Generation Pattern:
+  Format: {screen_location}_{field_name}
+  Examples:
+    - credit_step1_credit_type
+    - credit_step1_credit_purpose
+    - credit_step2_employment_status
+    - credit_step3_income_source
+    - credit_step3_obligations
+    - credit_step4_bank_selection
+
+Database Content Key Format:
+  Pattern: {screen_location}.field.{field_name}_{option_value}
+  Examples:
+    - credit_step1.field.credit_type_personal
+    - credit_step1.field.credit_type_business
+    - credit_step1.field.credit_type_renovation
+    - credit_step3.field.obligations_no_obligations
+    - credit_step3.field.income_source_salary
+```
+
+#### 🔗 useDropdownData Hook Integration for Credit Calculator
+```typescript
+// Credit Step 1 - Credit Type Selection
+const creditTypeData = useDropdownData('credit_step1', 'credit_type', 'full');
+
+// Credit Step 2 - Employment Status
+const employmentData = useDropdownData('credit_step2', 'employment_status', 'full');
+
+// Credit Step 3 - Income Sources and Obligations  
+const incomeSourceData = useDropdownData('credit_step3', 'income_source', 'full');
+const obligationsData = useDropdownData('credit_step3', 'obligations', 'full');
+
+// Credit Step 4 - Bank Programs
+const bankProgramsData = useDropdownData('credit_step4', 'bank_programs', 'full');
+```
+
+#### 🌐 Multi-Language Support for Credit Content
+- **English**: Primary language for international users
+- **Hebrew**: RTL support for Israeli market with financial terminology
+- **Russian**: Cyrillic support for Russian-speaking community
+- **Content Database**: All dropdown options stored with translations
+- **Fallback Strategy**: English as default if translation missing
+
+#### ⚡ Performance and Caching Strategy
+- **Server Cache**: 5-minute TTL for dropdown content per screen/language
+- **Frontend Cache**: Client-side caching with automatic invalidation
+- **API Response**: <30ms for cached content, <100ms for database queries
+- **Error Recovery**: Graceful degradation with fallback content
+
+### 🧪 COMPREHENSIVE CREDIT DROPDOWN TEST CASES
+
+#### Test 0.1: Credit Calculator Dropdown Availability Validation
+
+```javascript
+describe('Credit Calculator Dropdown Availability', () => {
+  const creditScreens = ['credit_step1', 'credit_step2', 'credit_step3', 'credit_step4'];
+  const languages = ['en', 'he', 'ru'];
+  
+  creditScreens.forEach(screen => {
+    languages.forEach(language => {
+      test(`${screen} dropdown API should return valid content for ${language}`, async () => {
+        // Test API endpoint directly (packages/server architecture)
+        const response = await fetch(`/api/dropdowns/${screen}/${language}`);
+        expect(response.status).toBe(200);
+        
+        const data = await response.json();
+        expect(data.status).toBe('success');
+        expect(data.screen_location).toBe(screen);
+        expect(data.language_code).toBe(language);
+        expect(data.dropdowns).toBeInstanceOf(Array);
+        expect(data.options).toBeInstanceOf(Object);
+        
+        // Validate response structure
+        expect(data).toHaveProperty('dropdowns');
+        expect(data).toHaveProperty('options');
+        expect(data).toHaveProperty('placeholders');
+        expect(data).toHaveProperty('labels');
+        
+        console.log(`✅ ${screen}/${language} dropdown API validation passed`);
+      });
+    });
+  });
+  
+  test('Credit dropdown content should be screen-specific', async () => {
+    const credit1Data = await fetch('/api/dropdowns/credit_step1/en').then(r => r.json());
+    const credit3Data = await fetch('/api/dropdowns/credit_step3/en').then(r => r.json());
+    
+    // Each screen should have different dropdown keys
+    const credit1Keys = Object.keys(credit1Data.options);
+    const credit3Keys = Object.keys(credit3Data.options);
+    
+    expect(credit1Keys).not.toEqual(credit3Keys);
+    
+    // Credit step 1 should have credit type options
+    expect(credit1Keys.some(key => key.includes('credit_type'))).toBe(true);
+    
+    // Credit step 3 should have income/obligations options
+    expect(credit3Keys.some(key => key.includes('income_source') || key.includes('obligations'))).toBe(true);
+    
+    console.log('✅ Credit dropdown screen independence validated');
+  });
+});
+```
+
+#### Test 0.2: Credit Type Dropdown Logic (Personal/Renovation/Business)
+
+```javascript
+describe('Credit Type Dropdown Logic', () => {
+  beforeEach(() => {
+    cy.visit('/services/calculate-credit/1');
+    cy.wait(2000); // Allow dropdown data to load
+  });
+  
+  test('Credit type dropdown should load with all required options', () => {
+    // Test that credit type dropdown loads properly
+    cy.get('[data-testid="credit-type-dropdown"]', { timeout: 10000 })
+      .should('be.visible')
+      .should('not.have.attr', 'disabled');
+    
+    // Verify required credit type options are present
+    const requiredCreditTypes = [
+      'personal', // Personal credit - max ₪500,000, DTI ≤42%
+      'renovation', // Renovation credit - max ₪300,000, DTI ≤35%
+      'business' // Business credit - max ₪1,000,000, DTI ≤38%
+    ];
+    
+    requiredCreditTypes.forEach(creditType => {
+      cy.get('[data-testid="credit-type-dropdown"]')
+        .click()
+        .within(() => {
+          cy.contains(creditType, { matchCase: false }).should('exist');
+        });
+      
+      cy.get('body').click(); // Close dropdown
+    });
+    
+    console.log('✅ Credit type dropdown options validated');
+  });
+  
+  test('Credit type selection should affect credit amount limits', () => {
+    // Test Personal Credit limits
+    cy.get('[data-testid="credit-type-dropdown"]').click();
+    cy.contains('Personal', { matchCase: false }).click();
+    
+    // Verify personal credit max amount (₪500,000)
+    cy.get('[data-testid="credit-amount-input"]')
+      .clear()
+      .type('600000'); // Above personal credit limit
+    
+    cy.get('[data-testid="validation-error"]')
+      .should('contain.text', 'Personal credit maximum is ₪500,000');
+    
+    // Test Renovation Credit limits  
+    cy.get('[data-testid="credit-type-dropdown"]').click();
+    cy.contains('Renovation', { matchCase: false }).click();
+    
+    cy.get('[data-testid="credit-amount-input"]')
+      .clear()
+      .type('400000'); // Above renovation credit limit
+    
+    cy.get('[data-testid="validation-error"]')
+      .should('contain.text', 'Renovation credit maximum is ₪300,000');
+    
+    // Test Business Credit limits
+    cy.get('[data-testid="credit-type-dropdown"]').click();
+    cy.contains('Business', { matchCase: false }).click();
+    
+    cy.get('[data-testid="credit-amount-input"]')
+      .clear()
+      .type('1200000'); // Above business credit limit
+    
+    cy.get('[data-testid="validation-error"]')
+      .should('contain.text', 'Business credit maximum is ₪1,000,000');
+    
+    console.log('✅ Credit type amount limits validation passed');
+  });
+  
+  test('Credit type should affect loan term options', () => {
+    // Personal credit: 12-84 months
+    cy.get('[data-testid="credit-type-dropdown"]').click();
+    cy.contains('Personal', { matchCase: false }).click();
+    
+    cy.get('[data-testid="loan-term-dropdown"]').click();
+    cy.get('[data-option-value="12"]').should('exist'); // Min 12 months
+    cy.get('[data-option-value="84"]').should('exist'); // Max 84 months
+    cy.get('[data-option-value="120"]').should('not.exist'); // Not available for personal
+    
+    // Renovation credit: 24-120 months
+    cy.get('[data-testid="credit-type-dropdown"]').click();
+    cy.contains('Renovation', { matchCase: false }).click();
+    
+    cy.get('[data-testid="loan-term-dropdown"]').click();
+    cy.get('[data-option-value="24"]').should('exist'); // Min 24 months
+    cy.get('[data-option-value="120"]').should('exist'); // Max 120 months
+    
+    // Business credit: 12-180 months
+    cy.get('[data-testid="credit-type-dropdown"]').click();
+    cy.contains('Business', { matchCase: false }).click();
+    
+    cy.get('[data-testid="loan-term-dropdown"]').click();
+    cy.get('[data-option-value="12"]').should('exist'); // Min 12 months
+    cy.get('[data-option-value="180"]').should('exist'); // Max 180 months
+    
+    console.log('✅ Credit type loan term validation passed');
+  });
+});
+```
+
+#### Test 0.3: Loan Term Dropdown Validation
+
+```javascript
+describe('Credit Calculator Loan Term Dropdown', () => {
+  beforeEach(() => {
+    cy.visit('/services/calculate-credit/1');
+    cy.wait(2000);
+  });
+  
+  test('Loan term dropdown should be dynamic based on credit type', () => {
+    // Test that loan term options change based on credit type selection
+    const creditTypeTermMapping = {
+      'personal': { min: 12, max: 84 },
+      'renovation': { min: 24, max: 120 },
+      'business': { min: 12, max: 180 }
+    };
+    
+    Object.entries(creditTypeTermMapping).forEach(([creditType, terms]) => {
+      // Select credit type
+      cy.get('[data-testid="credit-type-dropdown"]').click();
+      cy.contains(creditType, { matchCase: false }).click();
+      
+      // Wait for loan term dropdown to update
+      cy.wait(1000);
+      
+      // Check loan term dropdown loads correctly
+      cy.get('[data-testid="loan-term-dropdown"]')
+        .should('be.visible')
+        .should('not.have.attr', 'disabled');
+      
+      // Verify minimum term is available
+      cy.get('[data-testid="loan-term-dropdown"]').click();
+      cy.get(`[data-option-value="${terms.min}"]`).should('exist');
+      
+      // Verify maximum term is available
+      cy.get(`[data-option-value="${terms.max}"]`).should('exist');
+      
+      // Close dropdown
+      cy.get('body').click();
+      
+      console.log(`✅ ${creditType} loan term range validated: ${terms.min}-${terms.max} months`);
+    });
+  });
+  
+  test('Loan term dropdown should use database content with translations', () => {
+    // Test that loan term options come from database, not hardcoded
+    cy.get('[data-testid="credit-type-dropdown"]').click();
+    cy.contains('Personal', { matchCase: false }).click();
+    
+    // Check that loan term dropdown has content from useDropdownData hook
+    cy.window().then(win => {
+      // Verify the dropdown is using database-driven content
+      cy.wrap(win).its('dropdownDataCache').should('exist');
+    });
+    
+    // Test multi-language support for loan terms
+    cy.get('[data-testid="language-switcher"]').click();
+    cy.contains('עברית').click(); // Switch to Hebrew
+    
+    cy.wait(2000); // Allow content to reload
+    
+    cy.get('[data-testid="loan-term-dropdown"]')
+      .should('be.visible')
+      .click();
+    
+    // Verify Hebrew content loads for loan terms
+    cy.get('[data-testid="loan-term-dropdown"]')
+      .within(() => {
+        cy.get('option').should('have.length.greaterThan', 5);
+      });
+    
+    console.log('✅ Loan term dropdown translation validation passed');
+  });
+});
+```
+
+#### Test 0.4: Income Source and Employment Dropdown Logic
+
+```javascript
+describe('Credit Step 3 - Income and Employment Dropdowns', () => {
+  beforeEach(() => {
+    // Navigate to credit step 3 (income/employment step)
+    cy.visit('/services/calculate-credit/1');
+    cy.get('[data-testid="credit-type-dropdown"]').click();
+    cy.contains('Personal').click();
+    cy.get('[data-testid="credit-amount-input"]').type('50000');
+    cy.get('[data-testid="continue-button"]').click();
+    
+    // Fill step 2 personal info
+    cy.get('[data-testid="first-name-input"]').type('John');
+    cy.get('[data-testid="last-name-input"]').type('Doe');
+    cy.get('[data-testid="phone-input"]').type('0501234567');
+    cy.get('[data-testid="continue-button"]').click();
+    
+    // Now on step 3 - income and employment
+    cy.url().should('include', '/services/calculate-credit/3');
+  });
+  
+  test('Income source dropdown should load with credit-specific options', () => {
+    cy.get('[data-testid="income-source-dropdown"]', { timeout: 10000 })
+      .should('be.visible')
+      .should('not.have.attr', 'disabled');
+    
+    // Test that income source options are loaded from database
+    cy.get('[data-testid="income-source-dropdown"]').click();
+    
+    const expectedIncomeSourceOptions = [
+      'salary', // Monthly salary employment
+      'freelance', // Freelance/contractor income
+      'business', // Business owner income
+      'pension', // Pension or retirement income
+      'rental', // Rental property income
+      'investments', // Investment income
+      'other' // Other income sources
+    ];
+    
+    expectedIncomeSourceOptions.forEach(incomeSource => {
+      cy.get('[data-testid="income-source-dropdown"]')
+        .within(() => {
+          cy.contains(incomeSource, { matchCase: false }).should('exist');
+        });
+    });
+    
+    cy.get('body').click(); // Close dropdown
+    console.log('✅ Income source dropdown options validated');
+  });
+  
+  test('Employment status dropdown should affect income validation rules', () => {
+    // Test employment status affects income requirements
+    cy.get('[data-testid="employment-status-dropdown"]').click();
+    cy.contains('Employee', { matchCase: false }).click();
+    
+    // Employee should require minimum monthly income ₪8,000
+    cy.get('[data-testid="monthly-income-input"]')
+      .clear()
+      .type('7000'); // Below minimum
+    
+    cy.get('[data-testid="validation-error"]')
+      .should('contain.text', 'Minimum monthly income is ₪8,000');
+    
+    // Test freelancer employment status
+    cy.get('[data-testid="employment-status-dropdown"]').click();
+    cy.contains('Freelancer', { matchCase: false }).click();
+    
+    // Freelancer might have different income validation rules
+    cy.get('[data-testid="monthly-income-input"]')
+      .clear()
+      .type('10000');
+    
+    // Should require additional income documentation
+    cy.get('[data-testid="income-documentation-section"]')
+      .should('be.visible');
+    
+    console.log('✅ Employment status dropdown logic validation passed');
+  });
+  
+  test('Obligations dropdown should be credit-specific', () => {
+    cy.get('[data-testid="obligations-dropdown"]', { timeout: 10000 })
+      .should('be.visible')
+      .click();
+    
+    // Credit-specific obligation types
+    const creditObligationTypes = [
+      'no_obligations', // No existing debts
+      'credit_card', // Credit card debt
+      'personal_loan', // Existing personal loan
+      'auto_loan', // Car loan
+      'student_loan', // Education loan
+      'other_debt' // Other debt types
+    ];
+    
+    creditObligationTypes.forEach(obligationType => {
+      cy.get('[data-testid="obligations-dropdown"]')
+        .within(() => {
+          cy.contains(obligationType.replace('_', ' '), { matchCase: false })
+            .should('exist');
+        });
+    });
+    
+    // Test that selecting obligations affects DTI calculation
+    cy.contains('Credit card', { matchCase: false }).click();
+    
+    // Should show additional debt amount input
+    cy.get('[data-testid="debt-amount-input"]')
+      .should('be.visible')
+      .type('2000'); // Monthly debt payment
+    
+    cy.get('[data-testid="monthly-income-input"]')
+      .clear()
+      .type('15000');
+    
+    // DTI calculation should include debt payment
+    cy.get('[data-testid="dti-ratio-display"]')
+      .should('contain.text', '13.3%'); // 2000/15000 = 13.3%
+    
+    console.log('✅ Credit obligations dropdown validation passed');
+  });
+});
+```
+
+#### Test 0.5: Credit Database Integration Validation
+
+```javascript
+describe('Credit Calculator Database Integration', () => {
+  test('Credit dropdown content should be served from database', async () => {
+    const creditScreens = ['credit_step1', 'credit_step2', 'credit_step3', 'credit_step4'];
+    
+    for (const screen of creditScreens) {
+      // Test API response structure
+      const response = await fetch(`/api/dropdowns/${screen}/en`);
+      const data = await response.json();
+      
+      expect(data.status).toBe('success');
+      expect(data.screen_location).toBe(screen);
+      
+      // Verify database-specific response structure
+      expect(data).toHaveProperty('performance');
+      expect(data.performance).toHaveProperty('total_items');
+      expect(data.performance).toHaveProperty('query_time');
+      
+      // Verify caching information
+      expect(data).toHaveProperty('cached');
+      
+      console.log(`✅ ${screen} database integration validated`);
+    }
+  });
+  
+  test('Credit dropdown cache should work correctly', async () => {
+    // First call - should be uncached
+    const start1 = Date.now();
+    const response1 = await fetch('/api/dropdowns/credit_step1/en');
+    const data1 = await response1.json();
+    const time1 = Date.now() - start1;
+    
+    // Second call - should be cached
+    const start2 = Date.now();
+    const response2 = await fetch('/api/dropdowns/credit_step1/en');
+    const data2 = await response2.json();
+    const time2 = Date.now() - start2;
+    
+    // Cached response should be significantly faster
+    expect(time2).toBeLessThan(time1);
+    expect(time2).toBeLessThan(50); // Cached should be < 50ms
+    
+    // Content should be identical
+    expect(data1.options).toEqual(data2.options);
+    
+    console.log(`✅ Cache performance: uncached ${time1}ms, cached ${time2}ms`);
+  });
+  
+  test('Credit dropdown content keys should follow database pattern', async () => {
+    const response = await fetch('/api/dropdowns/credit_step3/en');
+    const data = await response.json();
+    
+    // Verify API keys follow pattern: {screen_location}_{field_name}
+    const apiKeys = Object.keys(data.options);
+    
+    apiKeys.forEach(key => {
+      expect(key).toMatch(/^credit_step\d+_\w+$/);
+      expect(key.startsWith('credit_step3')).toBe(true);
+    });
+    
+    // Verify database content keys exist in response metadata
+    expect(data.performance.total_items).toBeGreaterThan(0);
+    
+    console.log('✅ Credit dropdown database key pattern validation passed');
+  });
+});
+```
+
+#### Test 0.6: Multi-Language Credit Content Validation
+
+```javascript
+describe('Credit Calculator Multi-Language Content', () => {
+  const languages = ['en', 'he', 'ru'];
+  const creditScreens = ['credit_step1', 'credit_step2', 'credit_step3', 'credit_step4'];
+  
+  creditScreens.forEach(screen => {
+    languages.forEach(language => {
+      test(`${screen} should have complete ${language} translations`, async () => {
+        const response = await fetch(`/api/dropdowns/${screen}/${language}`);
+        const data = await response.json();
+        
+        expect(response.status).toBe(200);
+        expect(data.status).toBe('success');
+        expect(data.language_code).toBe(language);
+        
+        // Verify options have content
+        const optionKeys = Object.keys(data.options);
+        expect(optionKeys.length).toBeGreaterThan(0);
+        
+        // Verify each option has non-empty labels
+        optionKeys.forEach(key => {
+          const options = data.options[key];
+          expect(options).toBeInstanceOf(Array);
+          expect(options.length).toBeGreaterThan(0);
+          
+          options.forEach(option => {
+            expect(option).toHaveProperty('value');
+            expect(option).toHaveProperty('label');
+            expect(option.label).toBeTruthy();
+            expect(option.label.trim().length).toBeGreaterThan(0);
+          });
+        });
+        
+        console.log(`✅ ${screen}/${language} translation completeness validated`);
+      });
+    });
+  });
+  
+  test('Hebrew credit content should support RTL layout', () => {
+    cy.visit('/services/calculate-credit/1');
+    
+    // Switch to Hebrew
+    cy.get('[data-testid="language-switcher"]').click();
+    cy.contains('עברית').click();
+    
+    cy.wait(2000); // Allow content to reload
+    
+    // Verify RTL layout
+    cy.get('body').should('have.attr', 'dir', 'rtl');
+    
+    // Test credit type dropdown in Hebrew
+    cy.get('[data-testid="credit-type-dropdown"]')
+      .should('be.visible')
+      .click();
+    
+    // Verify Hebrew content loads
+    cy.get('[data-testid="credit-type-dropdown"]')
+      .within(() => {
+        cy.get('option').should('have.length.greaterThan', 2);
+        // Should contain Hebrew characters
+        cy.get('option').first().should('not.contain.text', 'Select option');
+      });
+    
+    // Test other critical dropdowns in Hebrew
+    cy.get('body').click(); // Close dropdown
+    
+    console.log('✅ Hebrew RTL credit content validation passed');
+  });
+  
+  test('Russian credit content should display Cyrillic correctly', () => {
+    cy.visit('/services/calculate-credit/1');
+    
+    // Switch to Russian
+    cy.get('[data-testid="language-switcher"]').click();
+    cy.contains('Русский').click();
+    
+    cy.wait(2000); // Allow content to reload
+    
+    // Test credit type dropdown in Russian
+    cy.get('[data-testid="credit-type-dropdown"]')
+      .should('be.visible')
+      .click();
+    
+    // Verify Russian content loads with Cyrillic characters
+    cy.get('[data-testid="credit-type-dropdown"]')
+      .within(() => {
+        cy.get('option').should('have.length.greaterThan', 2);
+        // Should contain Cyrillic characters
+        cy.get('option').first().invoke('text').should('match', /[а-яё]/i);
+      });
+    
+    cy.get('body').click(); // Close dropdown
+    
+    console.log('✅ Russian Cyrillic credit content validation passed');
+  });
+});
+```
+
+### 🔧 Critical Credit Dropdown Field Validation
+
+#### Credit-Specific Fields to Test
+```yaml
+credit_step1 (Credit Parameters):
+  - credit_type: Personal/Renovation/Business credit types
+  - credit_purpose: Debt consolidation, home improvement, business expansion
+  - loan_term: Variable by credit type (12-180 months)
+  - interest_rate_type: Fixed vs variable rate options
+
+credit_step2 (Personal Information):
+  - employment_status: Employee, freelancer, business owner, retired
+  - family_status: Single, married, divorced, widowed
+  - education_level: High school, bachelor's, master's, doctorate
+  - military_status: Regular service, reserve, veteran, exempt
+
+credit_step3 (Financial Information):
+  - income_source: Salary, business, freelance, pension, rental, investments
+  - additional_income: Bonuses, commissions, rental, spouse income
+  - obligations: Credit cards, loans, mortgage, other debts
+  - bank_relationship: Current bank, new bank, multiple banks
+
+credit_step4 (Credit Offers):
+  - bank_programs: Available credit programs per bank
+  - interest_rate: Offered rates based on credit profile
+  - repayment_terms: Monthly payment options
+  - insurance_options: Credit life insurance, payment protection
+```
+
+#### Validation Success Criteria
+- ✅ All credit-specific dropdown fields load from database
+- ✅ Credit type selection affects available options in subsequent dropdowns
+- ✅ Multi-language content displays correctly for all credit-related terms
+- ✅ RTL support works properly for Hebrew credit terminology
+- ✅ Database content keys follow credit calculator patterns
+- ✅ API response times meet performance requirements (<100ms)
+- ✅ Error handling works for missing or invalid dropdown content
+- ✅ Cache invalidation works correctly for content updates
+
+---
+
+## 🎨 FIGMA DESIGN VALIDATION REQUIREMENTS
 
 ### Step 1: Credit Type & Amount Parameters
 **Figma Reference:** Credit Calculator Step 1 Design  
@@ -88,7 +730,7 @@ Income Requirements:
 #### Visual Components to Validate:
 - **Progress Indicator:** 4-step progress bar showing Step 1 active
 - **Credit Type Selection:** Radio buttons or dropdown (Personal/Renovation/Business)
-- **Credit Amount Input:** Numeric input with � symbol, proper formatting
+- **Credit Amount Input:** Numeric input with ₪ symbol, proper formatting
 - **Amount Slider:** Interactive slider with dynamic min/max based on credit type
 - **Loan Term Dropdown:** Term options specific to selected credit type
 - **Interest Rate Display:** Calculated rate with percentage formatting
@@ -170,9 +812,9 @@ Hebrew Financial: Arimo Mono Bold 18px
 
 ---
 
-## >� COMPREHENSIVE TEST EXECUTION PLAN
+## 📊💰 COMPREHENSIVE TEST EXECUTION PLAN
 
-### Phase 0: CRITICAL CREDIT CALCULATION LOGIC VALIDATION =�
+### Phase 0: CRITICAL CREDIT CALCULATION LOGIC VALIDATION 💰
 
 **PRIORITY**: This phase MUST be executed first to validate the foundation of the credit calculation system across all steps.
 
@@ -184,16 +826,16 @@ Based on `/server/docs/Architecture/dropDownLogicBankim.md` and credit-specific 
 - **Multi-Language Support**: Hebrew, English, Russian with financial terminology
 - **Conditional Logic**: Credit type determines available amounts, terms, and rates
 
-#### =� CRITICAL TESTING APPROACH: Credit-Specific vs Generic Form Testing
+#### 💰 CRITICAL TESTING APPROACH: Credit-Specific vs Generic Form Testing
 
 **MANDATORY UNDERSTANDING**: Credit applications have specific financial validation logic that differs from standard form testing. Tests must validate BOTH UI functionality AND financial calculations.
 
 ##### Common Testing Mistakes (What Causes Failures):
 ```typescript
-// L WRONG: Testing form without financial logic validation
-cy.get('[data-testid="amount"]').type('50000')  // � Missing DTI validation
-cy.get('[data-testid="income"]').type('10000')  // � Missing credit score check
-cy.get('button').click()  // � No calculation verification
+// ❌ WRONG: Testing form without financial logic validation
+cy.get('[data-testid="amount"]').type('50000')  // ₪ Missing DTI validation
+cy.get('[data-testid="income"]').type('10000')  // ₪ Missing credit score check
+cy.get('button').click()  // ₪ No calculation verification
 ```
 
 ##### Reality: What Credit Applications Actually Require:
@@ -203,9 +845,9 @@ cy.get('button').click()  // � No calculation verification
 - **DTI Ratio Validation** preventing over-borrowing
 - **Multi-Step Data Persistence** across navigation
 
-##### =� BULLETPROOF CREDIT TESTING STRATEGY:
+##### 💰 BULLETPROOF CREDIT TESTING STRATEGY:
 ```typescript
-//  COMPREHENSIVE: Test financial logic AND UI interactions
+// ✅ COMPREHENSIVE: Test financial logic AND UI interactions
 describe('Credit Calculation Logic Validation', () => {
   it('should validate DTI ratio in real-time', () => {
     // Set up test scenario
@@ -277,7 +919,7 @@ describe('Credit Type Business Logic', () => {
       
       cy.get('[data-testid="amount-error"]')
         .should('be.visible')
-        .and('contain', `Maximum amount for ${credit.type} credit is �${credit.maxAmount.toLocaleString()}`);
+        .and('contain', `Maximum amount for ${credit.type} credit is ₪${credit.maxAmount.toLocaleString()}`);
       
       // Test minimum amount enforcement
       cy.get('[data-testid="credit-amount"]')
@@ -287,7 +929,7 @@ describe('Credit Type Business Logic', () => {
       
       cy.get('[data-testid="amount-error"]')
         .should('be.visible')
-        .and('contain', `Minimum amount for ${credit.type} credit is �${credit.minAmount.toLocaleString()}`);
+        .and('contain', `Minimum amount for ${credit.type} credit is ₪${credit.minAmount.toLocaleString()}`);
       
       // Test valid amount
       const validAmount = (credit.maxAmount + credit.minAmount) / 2;
@@ -317,7 +959,7 @@ describe('Credit Type Business Logic', () => {
 
 #### Test 0.2: DTI Ratio Calculation Engine
 ```typescript
-describe('>� THINK HARD: DTI Ratio Calculation Engine', () => {
+describe('💰 THINK HARD: DTI Ratio Calculation Engine', () => {
   it('should calculate DTI ratio with complex scenarios', () => {
     cy.visit('/services/calculate-credit/1');
     
@@ -471,7 +1113,7 @@ describe('Income and Employment Validation Logic', () => {
     cy.get('[data-testid="monthly-income"]').type((minimumIncome - 1000).toString());
     cy.get('[data-testid="income-error"]')
       .should('be.visible')
-      .and('contain', `Minimum monthly income required: �${minimumIncome.toLocaleString()}`);
+      .and('contain', `Minimum monthly income required: ₪${minimumIncome.toLocaleString()}`);
     
     // Test valid income
     cy.get('[data-testid="monthly-income"]')
@@ -518,15 +1160,15 @@ describe('Hebrew RTL Credit Calculator Interface', () => {
     
     // Verify Hebrew financial terms
     cy.get('[data-testid="credit-amount-label"]')
-      .should('contain', '���� ������')
+      .should('contain', '₪₪₪₪ ₪₪₪₪₪₪')
       .and('have.css', 'direction', 'rtl');
     
     cy.get('[data-testid="monthly-payment-label"]')
-      .should('contain', '����� �����')
+      .should('contain', '₪₪₪₪₪ ₪₪₪₪₪')
       .and('have.css', 'direction', 'rtl');
     
     cy.get('[data-testid="interest-rate-label"]')
-      .should('contain', '����� �����')
+      .should('contain', '₪₪₪₪₪ ₪₪₪₪₪')
       .and('have.css', 'direction', 'rtl');
     
     // Test RTL form layout
@@ -535,16 +1177,16 @@ describe('Hebrew RTL Credit Calculator Interface', () => {
     
     // Test Hebrew credit type options
     cy.get('[data-testid="credit-type-personal"]')
-      .should('contain', '����� ����');
+      .should('contain', '₪₪₪₪₪ ₪₪₪₪');
     cy.get('[data-testid="credit-type-renovation"]')
-      .should('contain', '����� ��������');
+      .should('contain', '₪₪₪₪₪ ₪₪₪₪₪₪₪₪');
     cy.get('[data-testid="credit-type-business"]')
-      .should('contain', '����� ����');
+      .should('contain', '₪₪₪₪₪ ₪₪₪₪');
     
     // Verify Hebrew number formatting
     cy.get('[data-testid="credit-amount"]').type('150000');
     cy.get('[data-testid="amount-display"]')
-      .should('contain', '�150,000')
+      .should('contain', '₪150,000')
       .and('have.css', 'direction', 'ltr'); // Numbers should be LTR even in RTL layout
       
     cy.screenshot('hebrew-rtl-interface');
@@ -587,7 +1229,7 @@ test.describe('Credit Calculator Cross-Browser Compatibility', () => {
       
       // Verify calculation consistency across browsers
       const monthlyPayment = await page.textContent('[data-testid="monthly-payment"]');
-      expect(monthlyPayment).toContain('�4,');
+      expect(monthlyPayment).toContain('₪4,');
       
       // Take browser-specific screenshot
       await page.screenshot({ 
@@ -694,9 +1336,9 @@ describe('Credit Calculator Accessibility Compliance', () => {
 
 ### Phase 6: Advanced State Management Validation (THINK HARD ANALYSIS)
 
-**>� CRITICAL STATE MANAGEMENT VALIDATION**: This phase implements ultra-deep state management testing with "think hard" level analysis to ensure bulletproof data integrity, persistence, and synchronization across the entire credit calculator application.
+**💰 CRITICAL STATE MANAGEMENT VALIDATION**: This phase implements ultra-deep state management testing with "think hard" level analysis to ensure bulletproof data integrity, persistence, and synchronization across the entire credit calculator application.
 
-#### =, State Architecture Analysis Framework
+#### 📊 State Architecture Analysis Framework
 
 **Redux Store Architecture Validation**:
 - **calculateCreditSlice**: Primary credit calculation state
@@ -713,7 +1355,7 @@ describe('Credit Calculator Accessibility Compliance', () => {
 
 #### Test 6.1: Redux State Integrity and Credit Persistence Validation
 ```typescript
-describe('>� THINK HARD: Credit Redux State Management Deep Analysis', () => {
+describe('💰 THINK HARD: Credit Redux State Management Deep Analysis', () => {
   
   it('should maintain credit state integrity across all calculator steps', () => {
     cy.visit('/services/calculate-credit/1');
@@ -746,10 +1388,10 @@ describe('>� THINK HARD: Credit Redux State Management Deep Analysis', () => {
       expect(state.dtiCalculation.ratio).to.be.a('number');
       expect(state.language.currentLanguage).to.be.oneOf(['en', 'he', 'ru']);
       
-      cy.log(`>� Initial Credit Redux state validated: ${Object.keys(state).length} slices`);
+      cy.log(`💰 Initial Credit Redux state validated: ${Object.keys(state).length} slices`);
     });
     
-    // <� CREDIT STEP 1: Test credit calculation state changes and persistence
+    // 💰 CREDIT STEP 1: Test credit calculation state changes and persistence
     cy.get('[data-testid="credit-type-personal"]').click();
     cy.get('[data-testid="credit-amount"]').type('250000');
     cy.get('[data-testid="loan-term"]').select('60');
@@ -777,7 +1419,7 @@ describe('>� THINK HARD: Credit Redux State Management Deep Analysis', () => {
       cy.log(`= Credit state persistence verified across navigation`);
     });
     
-    // <� CREDIT STEP 2: Test employment and income state management
+    // 💰 CREDIT STEP 2: Test employment and income state management
     cy.get('[data-testid="monthly-income"]').type('18000');
     cy.get('[data-testid="employment-type"]').select('employee');
     cy.get('[data-testid="employment-duration"]').select('24');
@@ -800,7 +1442,7 @@ describe('>� THINK HARD: Credit Redux State Management Deep Analysis', () => {
   it('should handle complex credit state scenarios with race conditions', () => {
     cy.visit('/services/calculate-credit/1');
     
-    // <�B RACE CONDITION TESTING: Rapid user interactions
+    // 💰B RACE CONDITION TESTING: Rapid user interactions
     cy.get('[data-testid="credit-amount"]').type('100000');
     cy.get('[data-testid="loan-term"]').select('36');
     cy.get('[data-testid="credit-amount"]').clear().type('200000');
@@ -823,7 +1465,7 @@ describe('>� THINK HARD: Credit Redux State Management Deep Analysis', () => {
       
       expect(state.calculateCredit.monthlyPayment).to.be.closeTo(expectedPayment, 10);
       
-      cy.log(`<�B Race condition handling verified: Final amount ${state.calculateCredit.amount}`);
+      cy.log(`💰B Race condition handling verified: Final amount ${state.calculateCredit.amount}`);
     });
   });
   
@@ -839,13 +1481,13 @@ describe('>� THINK HARD: Credit Redux State Management Deep Analysis', () => {
     cy.get('[data-testid="monthly-income"]').type('35000');
     cy.get('[data-testid="employment-type"]').select('self-employed');
     
-    // =� Verify localStorage persistence
+    // 💰 Verify localStorage persistence
     cy.window().then((win) => {
       const persistedState = JSON.parse(win.localStorage.getItem('redux-persist-root') || '{}');
       expect(persistedState.calculateCredit?.amount).to.equal(500000);
       expect(persistedState.employment?.monthlyIncome).to.equal(35000);
       
-      cy.log(`=� State persisted to localStorage successfully`);
+      cy.log(`💰 State persisted to localStorage successfully`);
     });
     
     // = Test browser refresh state recovery
@@ -865,7 +1507,7 @@ describe('>� THINK HARD: Credit Redux State Management Deep Analysis', () => {
 
 #### Test 6.2: Credit Form State Management Deep Analysis
 ```typescript
-describe('>� THINK HARD: Credit Form State Management Deep Analysis', () => {
+describe('💰 THINK HARD: Credit Form State Management Deep Analysis', () => {
   
   it('should manage complex form state with conditional fields and validation', () => {
     cy.visit('/services/calculate-credit/2');
@@ -902,7 +1544,7 @@ describe('>� THINK HARD: Credit Form State Management Deep Analysis', () => {
 
 #### Test 6.3: Credit API State Synchronization Deep Analysis
 ```typescript
-describe('>� THINK HARD: Credit API State Synchronization Deep Analysis', () => {
+describe('💰 THINK HARD: Credit API State Synchronization Deep Analysis', () => {
   
   it('should synchronize state with bank programs API and handle loading states', () => {
     // Mock API responses for testing
@@ -940,7 +1582,7 @@ describe('>� THINK HARD: Credit API State Synchronization Deep Analysis', () =
 
 #### Test 6.4: Credit Cross-Component State Communication
 ```typescript
-describe('>� THINK HARD: Credit Cross-Component State Communication', () => {
+describe('💰 THINK HARD: Credit Cross-Component State Communication', () => {
   
   it('should maintain state consistency across all credit calculator components', () => {
     cy.visit('/services/calculate-credit/1');
@@ -950,15 +1592,15 @@ describe('>� THINK HARD: Credit Cross-Component State Communication', () => {
     cy.get('[data-testid="loan-term"]').select('84');
     
     // Verify immediate state propagation to all connected components
-    cy.get('[data-testid="monthly-payment"]').should('contain', '�');
-    cy.get('[data-testid="total-interest"]').should('contain', '�');
-    cy.get('[data-testid="total-cost"]').should('contain', '�');
+    cy.get('[data-testid="monthly-payment"]').should('contain', '₪');
+    cy.get('[data-testid="total-interest"]').should('contain', '₪');
+    cy.get('[data-testid="total-cost"]').should('contain', '₪');
     
     // Navigate to step 2 and verify state carried forward
     cy.get('[data-testid="continue-button"]').click();
     
     // Verify credit summary shows correct values from step 1
-    cy.get('[data-testid="credit-summary-amount"]').should('contain', '�300,000');
+    cy.get('[data-testid="credit-summary-amount"]').should('contain', '₪300,000');
     cy.get('[data-testid="credit-summary-term"]').should('contain', '84');
     
     // Add income and verify DTI calculation updates
@@ -973,23 +1615,23 @@ describe('>� THINK HARD: Credit Cross-Component State Communication', () => {
     cy.get('[data-testid="continue-button"]').click();
     
     // Verify all previous data is correctly displayed
-    cy.get('[data-testid="application-summary"]').should('contain', '�300,000');
+    cy.get('[data-testid="application-summary"]').should('contain', '₪300,000');
     cy.get('[data-testid="application-summary"]').should('contain', '84 months');
-    cy.get('[data-testid="application-summary"]').should('contain', '�20,000');
+    cy.get('[data-testid="application-summary"]').should('contain', '₪20,000');
   });
 });
 ```
 
 ---
 
-## =' EXECUTION INSTRUCTIONS
+## 📋 EXECUTION INSTRUCTIONS
 
 ### Setup Requirements
 
 #### 1. Development Environment
 ```bash
-# Ensure API server is running on port 8003
-node server/server-db.js
+# Start main API server on port 8003
+node packages/server/src/server.js
 
 # Ensure frontend development server is running on port 5173
 cd mainapp && npm run dev
@@ -1003,9 +1645,13 @@ npm run qa:server
 # Prepare test database with credit programs
 node scripts/setup-credit-test-data.js
 
-# Verify API endpoints
+# Verify API endpoints (packages/server architecture)
 curl http://localhost:8003/api/v1/bank-programs?creditType=personal
 curl http://localhost:8003/api/v1/credit-parameters
+
+# Verify dropdown API endpoints
+curl http://localhost:8003/api/dropdowns/credit_step1/en
+curl http://localhost:8003/api/dropdowns/credit_step3/en
 ```
 
 #### 3. Screenshot Configuration
@@ -1020,9 +1666,57 @@ npm run qa:generate-credit
 open http://localhost:3002/reports
 ```
 
+#### 4. Server Architecture Validation
+
+**Main Server Architecture (packages/server/src/server.js)**
+```bash
+# Primary server for all environments (development and production)
+node packages/server/src/server.js
+
+# Verify main server is running correctly
+curl http://localhost:8003/health
+curl http://localhost:8003/api/v1/status
+
+# Test credit calculator specific endpoints
+curl http://localhost:8003/api/v1/bank-programs?creditType=personal
+curl http://localhost:8003/api/dropdowns/credit_step1/en
+```
+
+**Legacy Server Emergency Fallback Testing**
+```bash
+# Only use for emergency situations when main server fails
+# NOTE: This is deprecated and should be used only for critical failures
+
+# Stop main server first
+pkill -f "packages/server/src/server.js"
+
+# Start legacy server
+node server/server-db.js
+
+# Verify legacy endpoints (limited functionality)
+curl http://localhost:8003/api/v1/calculation-parameters
+curl http://localhost:8003/api/v1/banks
+
+# Return to main server after emergency testing
+pkill -f "server-db.js"
+node packages/server/src/server.js
+```
+
+**Server Architecture Notes:**
+- **Main Server**: `packages/server/src/server.js` - Complete API functionality, content management, dropdowns
+- **Development**: Same server as production (unified architecture)
+- **Legacy Server**: `server/server-db.js` - Emergency fallback only, limited functionality
+- **Port Configuration**: Both servers use port 8003 (only run one at a time)
+- **Content Management**: Only available through main server (packages/server)
+- **Dropdown APIs**: Full dropdown functionality requires main server
+
 ### Execution Order
 
-1. **Phase 0**: Critical Credit Logic Validation (MANDATORY FIRST)
+1. **Phase 0**: Critical Dropdown Logic Validation (MANDATORY FIRST)
+   - Validate main server architecture (packages/server/src/server.js)
+   - Test credit calculator dropdown functionality
+   - Verify content management system integration
+   - Test legacy server emergency fallback (if needed)
 2. **Phase 1**: Business Logic Validation Tests
 3. **Phase 2**: Multi-Language and RTL Testing
 4. **Phase 3**: Cross-Browser Compatibility Testing
@@ -1031,7 +1725,9 @@ open http://localhost:3002/reports
 
 ### Expected Results
 
-- **100% Credit Logic Validation**: All financial calculations must be mathematically correct
+- **100% Dropdown Logic Validation**: All dropdown content and API integrations must work correctly
+- **Server Architecture Validation**: Main server (packages/server/src/server.js) must handle all API requests
+- **Financial Calculations**: All credit calculations must be mathematically correct
 - **DTI Ratio Compliance**: All scenarios must respect maximum DTI ratios by credit type
 - **Multi-Language Support**: Hebrew RTL interface must display properly with financial terminology
 - **Cross-Browser Compatibility**: Consistent behavior across Chrome, Firefox, Safari
@@ -1041,7 +1737,7 @@ open http://localhost:3002/reports
 
 ---
 
-## =� SUCCESS CRITERIA
+## 💰 SUCCESS CRITERIA
 
 ### Functional Requirements
 -  All credit calculations mathematically accurate
@@ -1066,7 +1762,9 @@ open http://localhost:3002/reports
 
 ---
 
-**<� CRITICAL SUCCESS INDICATOR**: Credit calculator must demonstrate production-ready quality with bulletproof financial calculations, comprehensive state management, and flawless user experience across all supported platforms and languages.## 🧪 COMPREHENSIVE EDGE CASE TESTING - EXTREME SCENARIOS & BOUNDARY CONDITIONS
+**💰 CRITICAL SUCCESS INDICATOR**: Credit calculator must demonstrate production-ready quality with bulletproof financial calculations, comprehensive state management, and flawless user experience across all supported platforms and languages.
+
+## 🧪 COMPREHENSIVE EDGE CASE TESTING - EXTREME SCENARIOS & BOUNDARY CONDITIONS
 
 ### 🎯 THINK HARD: Critical Edge Case Analysis Framework
 

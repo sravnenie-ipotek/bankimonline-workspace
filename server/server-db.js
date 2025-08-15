@@ -99,6 +99,18 @@ async function queryContentDB(query, params = []) {
     }
 }
 
+// Server mode identification endpoint
+app.get('/api/server-mode', (req, res) => {
+    res.json({
+        mode: 'legacy',
+        server: 'monorepo',
+        file: 'server/server-db.js',
+        warning: true,
+        message: 'LEGACY MODE - DEV MONOREPO SERVER',
+        recommendedSwitch: 'npm run server:dev'
+    });
+});
+
 // Export contentPool for direct access when needed
 global.contentPool = contentPool;
 global.queryContentDB = queryContentDB;
@@ -3931,8 +3943,8 @@ app.post('/api/auth-verify', async (req, res) => {
         } else {
             try {
                 const newResult = await pool.query(
-                    'INSERT INTO clients (first_name, last_name, phone, email, created_at, updated_at) VALUES ($1, $2, $3, $4, NOW(), NOW()) RETURNING *',
-                    ['New', 'Client', mobile_number, `${mobile_number.replace('+', '')}@bankim.com`]
+                    'INSERT INTO clients (first_name, last_name, phone, email, role, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *',
+                    ['New', 'Client', mobile_number, `${mobile_number.replace('+', '')}@bankim.com`, 'customer']
                 );
                 client = newResult.rows[0];
             } catch (insertError) {
@@ -9959,7 +9971,17 @@ app.get('/api/get-table-schema', async (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    console.log('🚀 Database API Server Started');
+    console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
+    console.log('🚨                                                     🚨');
+    console.log('🚨    ⚠️  LEGACY MODE - DEV MONOREPO SERVER  ⚠️      🚨');
+    console.log('🚨                                                     🚨');
+    console.log('🚨    Using: server/server-db.js (BACKUP SERVER)      🚨');
+    console.log('🚨    Modern: packages/server/src/server.js           🚨');
+    console.log('🚨                                                     🚨');
+    console.log('🚨    Switch to modern: npm run server:dev            🚨');
+    console.log('🚨                                                     🚨');
+    console.log('🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨');
+    console.log('🚀 Database API Server Started (LEGACY MODE)');
     console.log(`📡 http://localhost:${PORT}`);
     console.log('📧 Email login: POST /api/login');
     console.log('📧 Email 2FA: POST /api/email-code-login');

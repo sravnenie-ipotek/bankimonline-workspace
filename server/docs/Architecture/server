@@ -1,5 +1,10 @@
 ## System Architecture Overview (read first)
 
+- Development: packages/server/src/server.js
+  - Production: packages/server/src/server.js (SAME system)
+  - Legacy: server/server-db.js (deprecated, for emergency only)
+
+  
 This project uses a hybrid architecture that separates day‑to‑day development from production deployment, and a runtime architecture optimized for fast, localized content delivery.
 
 - Repositories (hybrid model)

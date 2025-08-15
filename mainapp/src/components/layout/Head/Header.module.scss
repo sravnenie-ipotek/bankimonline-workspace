@@ -19,10 +19,51 @@
   }
 }
 
+.logo-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .logo {
   cursor: pointer;
   @media screen and (max-width: 1240px) {
     width: 66px;
+  }
+}
+
+.server-mode-badge {
+  background: linear-gradient(135deg, #ff4444, #cc0000);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(255, 68, 68, 0.3);
+  animation: pulse 2s infinite;
+  
+  @media screen and (max-width: 1240px) {
+    font-size: 8px;
+    padding: 1px 4px;
+  }
+}
+
+.server-mode-text {
+  white-space: nowrap;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 2px 4px rgba(255, 68, 68, 0.3);
+  }
+  50% {
+    box-shadow: 0 2px 8px rgba(255, 68, 68, 0.6);
+  }
+  100% {
+    box-shadow: 0 2px 4px rgba(255, 68, 68, 0.3);
   }
 }
 
