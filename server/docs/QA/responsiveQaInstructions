@@ -1,0 +1,186 @@
+Here’s a copy‑paste “bulletproof prompt” you can give an AI/dev agent to set up and run **responsiveness QA** for any web app. It tells the AI exactly what to check, what tools it may install (Cypress/Playwright/Lighthouse), how to generate evidence, and what to deliver back.
+
+---
+
+# 🔧 Agent Prompt: End‑to‑End Responsiveness QA for Web App
+
+**Role:** You are a senior QA automation engineer. Your task is to **plan, implement, and execute** a complete responsiveness QA suite for the target web app, then produce a human‑readable report with evidence.
+
+## Inputs
+
+* **Base URL:** `<PUT-URL-HERE>` (include auth steps if needed)
+* **Critical flows/pages:** `<LIST PAGES/ROUTES OR FLOWS>`
+* **Auth details (if any):** `<LOGIN STEPS / TEST USER>`
+* **Tech constraints:** Node 18+, npm/yarn/pnpm available
+* **Repo access:** `<LINK or CLONE INSTRUCTIONS>` (if available; otherwise test against deployed site)
+
+## Allowed Tools (choose the best combo; you MAY install packages)
+
+* **Cypress** (component + e2e) with `@4tw/cypress-drag-drop`, `@testing-library/cypress`, `cypress-axe`, `cypress-real-events`.
+* **Playwright** for parallel headless cross‑browser checks (Chromium/WebKit/Firefox).
+* **Lighthouse CI** (or `page-speed-insights` API) for layout shift / mobile friendliness signals.
+* **Optional visual regression:** Percy (BrowserStack), `@argos-ci/playwright`, or `pixelmatch`/`resemblejs`.
+
+## Scope & Acceptance Criteria
+
+**Breakpoints / Viewports:** test at minimum:
+
+* **Mobile:** 320×568, 360×640, 390×844, 414×896
+* **Tablet:** 768×1024, 820×1180
+* **Small laptop:** 1280×800
+* **Desktop:** 1440×900, 1920×1080
+  Also run a **fluid resize sweep** from 320→1920 capturing key widths (e.g., every 80px) on 1–2 core pages.
+
+**Layout & Behavior Checks (apply to each target page/flow):**
+
+1. **No horizontal scroll** (except intended carousels). Body `overflow-x` must not appear.
+2. **Content fits**: critical UI (header, nav, primary CTA, forms) is visible without overlap/clip.
+3. **Breakpoints fire correctly**: grids/columns stack appropriately; menus collapse/expand (hamburger).
+4. **Typography scales**: line length 45–90 chars; no text truncation; headings don’t jump.
+5. **Images/media**: responsive (`srcset`/`sizes`), correct aspect ratio, no distortion, no layout shift.
+6. **Forms**: inputs and buttons full‑width on mobile; labels not overlapping; keyboard safe‑area not hiding fields.
+7. **Sticky/fixed bars**: don’t cover content on small screens; safe‑area insets respected (iOS notch).
+8. **Modals/Drawers/Toasts**: viewport‑bounded; scroll locked; dismissible and keyboard‑safe.
+9. **Tables/cards**: provide horizontal scroll or transform to stacked/cards; headers readable.
+10. **Performance/layout stability**: CLS < 0.1 on mobile for key pages (Lighthouse).
+11. **A11y basics in responsive states**: color contrast ≥ 4.5:1; focus visible; tab order intact after layout changes; landmarks present; no obvious AXE violations introduced by breakpoints.
+
+## Deliverables
+
+1. **Automated test suite** in `/tests` (Cypress or Playwright) with:
+
+   * Viewport matrix parametric tests
+   * Assertions for: no horizontal scroll, element visibility, overlap detection, menu collapse/expand, modal fit
+   * Screenshots and short videos per viewport
+   * Optional visual snapshots per breakpoint (if Percy/visual tool configured)
+2. **Command scripts** in `package.json`: `test:responsive`, `test:responsive:headed`, `report:responsive`.
+3. **Evidence artifacts**: `/artifacts/<timestamp>/…` with screenshots, videos, JSON summaries, Lighthouse HTML.
+4. **Final report (Markdown)**: `RESPONSIVENESS_REPORT.md` including:
+
+   * Executive summary (pass/fail per page)
+   * Matrix table (pages × breakpoints) with ✅/❌
+   * Top issues with reproducible steps and **cropped screenshots**
+   * Suggested CSS/HTML fixes per issue (selectors + code hints)
+   * Links to artifacts
+
+## Implementation Guidance
+
+### 1) Project setup
+
+* Initialize Node project if missing.
+* Install Cypress **and** (optionally) Playwright; pick one as primary runner, the other for cross‑browser sanity.
+* Add Lighthouse CI for mobile metrics on 2–3 critical pages.
+
+### 2) Assertions you MUST implement
+
+* **No horizontal scroll:**
+
+  * Assert `document.scrollingElement.scrollWidth === clientWidth`.
+* **Overlap detection (key elements):**
+
+  * For selectors like header/nav/CTA/form/footer, compute bounding rects and assert no intersections.
+* **Visibility & interactability:**
+
+  * Assert `isInViewport`, `not covered`, clickable, text not truncated (`scrollWidth === clientWidth` on headings).
+* **Menu behavior:**
+
+  * At mobile widths, hamburger visible; clicking opens nav; focus trapped in menu; ESC closes.
+* **Modal bounds:**
+
+  * Modal maxes to viewport; no off‑screen content; body scroll locked.
+
+### 3) Example Cypress skeleton
+
+*Create file* `cypress/e2e/responsiveness.cy.ts`:
+
+```ts
+const pages = [
+  { name: 'Home', path: '/' },
+  // { name: 'Calculator', path: '/calculate-mortgage/1' },
+];
+
+const viewports: [number, number][] = [
+  [320, 568], [360, 640], [390, 844], [414, 896],
+  [768, 1024], [820, 1180], [1280, 800], [1440, 900], [1920, 1080],
+];
+
+function assertNoHorizontalScroll() {
+  cy.window().then(win => {
+    const el = win.document.scrollingElement!;
+    expect(el.scrollWidth, 'no horizontal scroll').to.eq(el.clientWidth);
+  });
+}
+
+function assertNoOverlap(selectors: string[]) {
+  cy.window().then(win => {
+    const rects = selectors
+      .map(sel => win.document.querySelector(sel))
+      .filter(Boolean)
+      .map(el => (el as Element).getBoundingClientRect());
+    for (let i = 0; i < rects.length; i++) {
+      for (let j = i + 1; j < rects.length; j++) {
+        const a = rects[i], b = rects[j];
+        const overlap = !(a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top);
+        expect(overlap, `no overlap between #${i} and #${j}`).to.be.false;
+      }
+    }
+  });
+}
+
+describe('Responsive layout', () => {
+  pages.forEach(p => {
+    viewports.forEach(([w, h]) => {
+      it(`${p.name} @ ${w}x${h}`, () => {
+        cy.viewport(w, h);
+        cy.visit(Cypress.env('BASE_URL') + p.path);
+        assertNoHorizontalScroll();
+        assertNoOverlap(['header', 'nav', 'main', 'footer', '[data-cta]', 'form']);
+        cy.screenshot(`responsive/${p.name}-${w}x${h}`, { capture: 'viewport' });
+      });
+    });
+  });
+});
+```
+
+**package.json scripts:**
+
+```json
+{
+  "scripts": {
+    "test:responsive": "cypress run --env BASE_URL=<PUT-URL-HERE>",
+    "test:responsive:headed": "cypress open",
+    "report:responsive": "node scripts/collect-artifacts.js"
+  }
+}
+```
+
+### 4) Optional: Visual diffs
+
+If Percy (BrowserStack) or another visual tool is available, add snapshot calls per viewport and create a baseline from current prod. Fail on >0.1% diff for critical regions (header/nav/CTA/form).
+
+### 5) Lighthouse mobile stability
+
+Run Lighthouse in **mobile emulation** for key pages; export HTML/JSON. Flag CLS > 0.1 or “Tap targets too small” as responsiveness issues.
+
+### 6) Report generation
+
+* Generate a **matrix** with rows = pages, columns = breakpoints, each cell linked to screenshot/video.
+* Include a **Top Issues** section with CSS suggestions (e.g., `min-width: 0` for flex children, `overflow-wrap: anywhere` for long tokens, `max-width: 100%` on images, `aspect-ratio` for media, `@container` queries for complex components, safe-area insets via `env(safe-area-inset-*)`).
+
+## Definition of Done
+
+* Tests run locally with `npm run test:responsive` and complete for all listed pages and breakpoints.
+* Artifacts and `RESPONSIVENESS_REPORT.md` produced and organized under `/artifacts/<timestamp>/`.
+* Clear list of **actionable fixes** with CSS/HTML snippets and selectors.
+* Exit with non‑zero code if any blocking issue is found.
+
+## House Rules
+
+* Prefer deterministic waits (network idle, element visible) over fixed timeouts.
+* Make the suite **idempotent** and **CI‑friendly**.
+* Keep secrets out of logs; use env vars for credentials.
+* If a tool is unavailable, fall back to an alternative and note it in the report.
+
+---
+
+If you want, I can tailor this to your exact pages and generate the initial Cypress files ready to run.
