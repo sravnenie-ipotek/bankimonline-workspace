@@ -52,6 +52,14 @@ config.local.json
 server/docs/QA/jira/jiraIntegration.md
 **/jiraIntegration.md
 
+# QA instruction files with API tokens (NEVER commit!)
+server/docs/QA/*/instructions.md
+server/docs/QA/menuQA/instructions.md
+server/docs/QA/mortgageStep1,2,3,4/instructions.md
+server/docs/QA/refinanceMortgage1,2,3,4/instructions.md
+server/docs/QA/refinanceCredit1,2,3,4/instructions.md
+server/docs/QA/calculateCredit1,2,3,4/instructions.md
+
 # Claude agents and sensitive files
 .claude/
 
