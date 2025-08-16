@@ -378,10 +378,10 @@ git push workspace --delete feature/new-calculator
 # Two-database architecture - DO NOT MODIFY CONNECTIONS WITHOUT BACKUP
 
 # Content Database (shortline) - CMS content (1,342+ items)
-CONTENT_DATABASE_URL=postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway
+CONTENT_DATABASE_URL=postgresql://postgres:[REDACTED]@shortline.proxy.rlwy.net:33452/railway
 
 # Main Database (maglev) - User data (226+ production users)
-DATABASE_URL=postgresql://postgres:lqqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway
+DATABASE_URL=postgresql://postgres:[REDACTED]@maglev.proxy.rlwy.net:43809/railway
 ```
 
 ### **Database Safety Checklist**
