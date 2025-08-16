@@ -70,7 +70,6 @@ const CitizenshipsDropdown = () => {
     
     // Force validation after setting value
     setTimeout(() => {
-      ===')
       validateField('citizenshipsDropdown')
     }, 100)
   }

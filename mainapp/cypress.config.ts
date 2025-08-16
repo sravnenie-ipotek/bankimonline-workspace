@@ -95,7 +95,7 @@ function buildFingerprint({ projectKey, spec, testTitle, errorMessage }: any) {
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:5174',
+    baseUrl: process.env.CYPRESS_BASE_URL || 'http://localhost:5174',
     viewportWidth: 1920,
     viewportHeight: 1080,
     video: true,
@@ -109,7 +109,7 @@ export default defineConfig({
     
     // Setup for banking application specific needs
     env: {
-      apiUrl: 'http://localhost:8003',
+      apiUrl: process.env.CYPRESS_API_URL || 'http://localhost:8003',
       testUser: {
         phone: '972544123456',
         name: 'Test User',

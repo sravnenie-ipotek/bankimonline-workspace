@@ -38,20 +38,23 @@ const Obligation = ({ screenLocation = 'mortgage_step3' }: ObligationProps) => {
 
   // Phase 4: Handle loading and error states
   if (dropdownData.loading) {
-    }
+    return <div>Loading obligations...</div>
+  }
 
   if (dropdownData.error) {
     console.warn('❌ Obligations dropdown error:', dropdownData.error)
   }
 
   // Debug obligation values
-  ,
+  console.log('Obligation debug:', {
+    value: values.obligation,
     errors: errors.obligation,
     touched: touched.obligation
   })
 
   const handleValueChange = (value: string) => {
-    ,
+    console.log('Obligation value changed:', {
+      value,
       willShowBankFields: !checkIfNoObligationValue(value)
     })
     

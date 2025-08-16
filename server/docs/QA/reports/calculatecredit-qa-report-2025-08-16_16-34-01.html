@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalculateCredit QA Report - FAILED</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 40px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; margin-bottom: 30px; }
+        .status { padding: 12px 24px; border-radius: 8px; font-weight: bold; margin: 20px 0; }
+        .status.failed { background: #f8d7da; color: #721c24; border: 2px solid #f5c6cb; }
+        .instructions { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .test-details { background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .critical-warning { background: #f8d7da; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #dc3545; }
+        code { background: #f1f3f4; padding: 2px 6px; border-radius: 4px; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .metric { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; }
+        .metric-value { font-size: 24px; font-weight: bold; color: #dc3545; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CalculateCredit QA Report</h1>
+        
+        <div class="status failed">
+            ❌ TESTS FAILED - DO NOT DEPLOY TO PRODUCTION!
+        </div>
+        
+        <div class="critical-warning">
+            <h3>🚨 CRITICAL: Production Deployment Blocked</h3>
+            <p><strong>CalculateCredit tests have failed.</strong> This indicates critical issues that must be resolved before production deployment.</p>
+            <p><strong>Exit Code:</strong> 1</p>
+        </div>
+        
+        <div class="test-details">
+            <h3>🧪 Test Execution Details</h3>
+            <p><strong>Test Suite:</strong> CalculateCredit</p>
+            <p><strong>Test Spec:</strong> <code>cypress/e2e/credit-calculator-comprehensive.cy.ts</code></p>
+            <p><strong>Instructions:</strong> <code>/Users/michaelmishayev/Projects/bankDev2_standalone/server/docs/QA/calculateCredit1,2,3,4/instructions.md</code></p>
+            <p><strong>Execution Time:</strong> Sat Aug 16 16:34:24 IDT 2025</p>
+            <p><strong>Browser:</strong> Chrome (Headless)</p>
+            <p><strong>Status:</strong> <span style="color: #dc3545; font-weight: bold;">FAILED</span></p>
+            <p><strong>Exit Code:</strong> 1</p>
+        </div>
+        
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value">❌</div>
+                <div>Test Status</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">1</div>
+                <div>Exit Code</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">BLOCKED</div>
+                <div>Production Status</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">CRITICAL</div>
+                <div>Issue Level</div>
+            </div>
+        </div>
+        
+        <div class="critical-warning">
+            <h3>🔧 Required Actions Before Production</h3>
+            <ol>
+                <li><strong>Check Cypress logs</strong> in mainapp/cypress/screenshots and mainapp/cypress/videos</li>
+                <li><strong>Review failed test details</strong> in the Cypress dashboard</li>
+                <li><strong>Fix the identified issues</strong> in the codebase</li>
+                <li><strong>Re-run QA tests</strong> using <code>runqa</code> command</li>
+                <li><strong>Ensure all tests pass</strong> before proceeding with deployment</li>
+            </ol>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Debug Information</h3>
+            <p><strong>To debug this failure:</strong></p>
+            <ul>
+                <li>Run the specific test manually: <code>cd mainapp && npx cypress run --spec "cypress/e2e/credit-calculator-comprehensive.cy.ts"</code></li>
+                <li>Run in headed mode to see what's happening: <code>npx cypress run --spec "cypress/e2e/credit-calculator-comprehensive.cy.ts" --headed</code></li>
+                <li>Check the test instructions: <code>/Users/michaelmishayev/Projects/bankDev2_standalone/server/docs/QA/calculateCredit1,2,3,4/instructions.md</code></li>
+                <li>Review screenshots and videos in the cypress folder</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; color: #666; text-align: center;">
+            <p>Real Cypress test execution failed on Sat Aug 16 16:34:24 IDT 2025</p>
+            <p><strong style="color: #dc3545;">Production deployment is blocked until all tests pass</strong></p>
+        </div>
+    </div>
+</body>
+</html>

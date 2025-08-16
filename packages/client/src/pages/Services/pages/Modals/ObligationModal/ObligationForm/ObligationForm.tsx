@@ -38,6 +38,10 @@ const ObligationForm = () => {
   const obligationKey = getObligationKey(obligation)
 
   // Debug: Log obligation mapping and form state
+  console.log('Obligation mapping:', {
+    originalValue: obligation,
+    mappedKey: obligationKey,
+    hasComponents: !!componentsByObligation[obligationKey]
   })
 
   return (

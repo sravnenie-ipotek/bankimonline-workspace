@@ -244,11 +244,12 @@ export const transformUserDataToRequest = (
     is_public_figure: userPersonalData?.publicPerson === 'yes'
   }
   
-  ')
-  ')
-  ')
-  ')
-  ')
+  console.log('Bank offers API request payload:', {
+    requestPayload,
+    isCredit,
+    parameters,
+    userPersonalData
+  })
   
   return requestPayload
 }

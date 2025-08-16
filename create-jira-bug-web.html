@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Jira Bug - Web Interface</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+        h1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .alert {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .alert-info {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
+        .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+        .code {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 13px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        #result {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐛 Create Jira Bug</h1>
+        
+        <div class="alert alert-info">
+            <strong>Navigation Bug Details:</strong><br>
+            Menu button disappears after navigating from service pages back to home via logo
+        </div>
+
+        <form id="jiraForm">
+            <div class="form-group">
+                <label>Jira Email*</label>
+                <input type="email" id="email" required placeholder="your-email@company.com">
+            </div>
+            
+            <div class="form-group">
+                <label>API Token*</label>
+                <input type="password" id="apiToken" required placeholder="Your Jira API token">
+                <small style="color: #666;">Get token from: <a href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank">Atlassian API Tokens</a></small>
+            </div>
+            
+            <div class="form-group">
+                <label>Project Key*</label>
+                <input type="text" id="projectKey" value="BANKIM" required>
+            </div>
+            
+            <button type="submit" class="btn">Create Bug in Jira</button>
+        </form>
+
+        <div id="result"></div>
+
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+            <h3>📋 Manual Setup Instructions:</h3>
+            <div class="code">
+# 1. Install dependencies<br>
+npm install axios form-data<br><br>
+
+# 2. Set environment variables<br>
+export JIRA_EMAIL="your-email@company.com"<br>
+export JIRA_API_TOKEN="your-api-token"<br><br>
+
+# 3. Run the script<br>
+node create-jira-bug.js
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('jiraForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'alert alert-info';
+            resultDiv.innerHTML = '⏳ Creating bug in Jira...';
+            
+            const formData = {
+                email: document.getElementById('email').value,
+                apiToken: document.getElementById('apiToken').value,
+                projectKey: document.getElementById('projectKey').value
+            };
+            
+            // Create the bug data
+            const bugData = {
+                fields: {
+                    project: {
+                        key: formData.projectKey
+                    },
+                    summary: '[CRITICAL] Menu button disappears after navigating from service pages',
+                    description: {
+                        type: 'doc',
+                        version: 1,
+                        content: [
+                            {
+                                type: 'paragraph',
+                                content: [{
+                                    type: 'text',
+                                    text: 'Critical UI/UX Bug: Menu button disappears after navigating from service pages back to home via logo.'
+                                }]
+                            }
+                        ]
+                    },
+                    issuetype: {
+                        name: 'Bug'
+                    },
+                    priority: {
+                        name: 'Critical'
+                    },
+                    labels: ['menu-navigation', 'ui-ux', 'critical-bug']
+                }
+            };
+            
+            try {
+                const response = await fetch(`https://${formData.projectKey.toLowerCase()}.atlassian.net/rest/api/3/issue`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Basic ' + btoa(`${formData.email}:${formData.apiToken}`),
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bugData)
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    const issueUrl = `https://${formData.projectKey.toLowerCase()}.atlassian.net/browse/${data.key}`;
+                    
+                    resultDiv.className = 'alert alert-success';
+                    resultDiv.innerHTML = `
+                        ✅ <strong>Bug Created Successfully!</strong><br>
+                        Issue Key: ${data.key}<br>
+                        <a href="${issueUrl}" target="_blank">View in Jira →</a>
+                    `;
+                } else {
+                    const error = await response.text();
+                    throw new Error(`Failed to create bug: ${response.status}`);
+                }
+            } catch (error) {
+                resultDiv.className = 'alert alert-error';
+                resultDiv.innerHTML = `
+                    ❌ <strong>Failed to create bug</strong><br>
+                    ${error.message}<br><br>
+                    Please check your credentials and try again, or use the command line:<br>
+                    <code>node create-jira-bug.js</code>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

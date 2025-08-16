@@ -46,7 +46,7 @@ const Layout: React.FC = () => {
 
   return (
     <>
-      <Header isMobile={isDesktop} onOpenMobileMenu={toggleMobileMenu} />
+      <Header isMobile={!isDesktop} onOpenMobileMenu={toggleMobileMenu} />
       {isOpen && (
         <div
           onClick={() => {

@@ -44,9 +44,11 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000, // Increase limit to 1MB to reduce warnings
   },
   server: {
+    port: 4003,
+    host: true,
     proxy: {
       '/api': {
-        target: process.env.VITE_API_TARGET || 'http://localhost:8003',
+        target: process.env.VITE_API_TARGET || 'http://localhost:8004',
         changeOrigin: true,
         secure: false,
       },

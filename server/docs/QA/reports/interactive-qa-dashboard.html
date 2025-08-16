@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Interactive QA Dashboard - Bug Management System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card .number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-card.passed .number { color: #10b981; }
+        .stat-card.failed .number { color: #ef4444; }
+        .stat-card.pending .number { color: #f59e0b; }
+        .stat-card.bugs .number { color: #8b5cf6; }
+
+        .issues-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .issues-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background: #f3f4f6;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .issue-card {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .issue-card.confirmed {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+
+        .issue-card.rejected {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .issue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .issue-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .severity-badge {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .severity-critical { background: #fee2e2; color: #991b1b; }
+        .severity-high { background: #fed7aa; color: #9a3412; }
+        .severity-medium { background: #fef3c7; color: #92400e; }
+        .severity-low { background: #dbeafe; color: #1e40af; }
+
+        .issue-details {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .issue-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-confirm {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-confirm:hover {
+            background: #059669;
+            transform: scale(1.05);
+        }
+
+        .btn-reject {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-reject:hover {
+            background: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .btn-investigate {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .btn-investigate:hover {
+            background: #d97706;
+            transform: scale(1.05);
+        }
+
+        .btn-jira {
+            background: #0052cc;
+            color: white;
+        }
+
+        .btn-jira:hover {
+            background: #0747a6;
+            transform: scale(1.05);
+        }
+
+        .btn-disabled {
+            background: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .jira-form {
+            display: none;
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .jira-form.show {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification.success {
+            background: #10b981;
+        }
+
+        .notification.error {
+            background: #ef4444;
+        }
+
+        .notification.info {
+            background: #3b82f6;
+        }
+
+        .notification.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1em;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .export-btn {
+            padding: 12px 25px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .export-btn:hover {
+            background: #5a67d8;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #999;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .timestamp {
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎯 Interactive QA Dashboard</h1>
+            <div class="subtitle">Bug Management System with Jira Integration</div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card passed">
+                <div class="number" id="passed-count">0</div>
+                <div>Tests Passed</div>
+            </div>
+            <div class="stat-card failed">
+                <div class="number" id="failed-count">0</div>
+                <div>Issues Found</div>
+            </div>
+            <div class="stat-card pending">
+                <div class="number" id="pending-count">0</div>
+                <div>Awaiting Confirmation</div>
+            </div>
+            <div class="stat-card bugs">
+                <div class="number" id="bugs-count">0</div>
+                <div>Bugs Created</div>
+            </div>
+        </div>
+
+        <!-- Issues Container -->
+        <div class="issues-container">
+            <div class="issues-header">
+                <h2>📋 Issues Requiring Confirmation</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterIssues('all')">All</button>
+                    <button class="filter-btn" onclick="filterIssues('pending')">Pending</button>
+                    <button class="filter-btn" onclick="filterIssues('confirmed')">Confirmed</button>
+                    <button class="filter-btn" onclick="filterIssues('rejected')">Rejected</button>
+                </div>
+            </div>
+
+            <div class="search-bar">
+                <input type="text" class="search-input" placeholder="Search issues..." id="search-input" onkeyup="searchIssues()">
+                <button class="export-btn" onclick="exportReport()">📊 Export Report</button>
+            </div>
+
+            <div id="issues-list">
+                <!-- Issues will be dynamically added here -->
+            </div>
+
+            <div class="empty-state" id="empty-state" style="display: none;">
+                <h3>No issues found</h3>
+                <p>All tests passed successfully!</p>
+            </div>
+        </div>
+
+        <div class="timestamp">
+            Last Updated: <span id="last-updated"></span>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Test Data - In real implementation, this would come from the test runner
+        let issues = [
+            {
+                id: 1,
+                section: 'Main Navigation',
+                severity: 'warning',
+                description: 'Services menu item not found - check if React component uses different selector',
+                component: 'Menu Navigation',
+                timestamp: new Date().toISOString(),
+                status: 'pending',
+                screenshot: 'menu-services-dropdown.png'
+            },
+            {
+                id: 2,
+                section: 'Mobile Menu',
+                severity: 'warning',
+                description: 'Hamburger menu not found on mobile - check responsive breakpoints and React component',
+                component: 'Menu Navigation',
+                timestamp: new Date().toISOString(),
+                status: 'pending',
+                screenshot: 'hamburger-not-found.png'
+            },
+            {
+                id: 3,
+                section: 'Language Switcher',
+                severity: 'warning',
+                description: 'Language switcher not found - check if implemented as React component',
+                component: 'Menu Navigation',
+                timestamp: new Date().toISOString(),
+                status: 'pending',
+                screenshot: 'language-switcher-missing.png'
+            }
+        ];
+
+        let stats = {
+            passed: 6,
+            failed: 3,
+            pending: 3,
+            bugs: 0
+        };
+
+        // Initialize Dashboard
+        function initDashboard() {
+            updateStats();
+            renderIssues();
+            updateTimestamp();
+        }
+
+        // Update Statistics
+        function updateStats() {
+            document.getElementById('passed-count').textContent = stats.passed;
+            document.getElementById('failed-count').textContent = stats.failed;
+            document.getElementById('pending-count').textContent = stats.pending;
+            document.getElementById('bugs-count').textContent = stats.bugs;
+        }
+
+        // Render Issues
+        function renderIssues(filter = 'all') {
+            const issuesList = document.getElementById('issues-list');
+            const emptyState = document.getElementById('empty-state');
+            
+            let filteredIssues = issues;
+            if (filter !== 'all') {
+                filteredIssues = issues.filter(issue => issue.status === filter);
+            }
+
+            if (filteredIssues.length === 0) {
+                issuesList.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            issuesList.innerHTML = filteredIssues.map(issue => `
+                <div class="issue-card ${issue.status}" id="issue-${issue.id}">
+                    <div class="issue-header">
+                        <div class="issue-title">${issue.section}</div>
+                        <span class="severity-badge severity-${issue.severity}">${issue.severity.toUpperCase()}</span>
+                    </div>
+                    <div class="issue-details">
+                        ${issue.description}
+                    </div>
+                    <div class="issue-meta">
+                        <span>📍 Component: ${issue.component}</span>
+                        <span>🕒 ${new Date(issue.timestamp).toLocaleString()}</span>
+                        ${issue.screenshot ? `<span>📸 Screenshot: ${issue.screenshot}</span>` : ''}
+                    </div>
+                    <div class="action-buttons" id="actions-${issue.id}">
+                        ${issue.status === 'pending' ? `
+                            <button class="btn btn-confirm" onclick="confirmIssue(${issue.id})">
+                                ✅ Confirm Bug
+                            </button>
+                            <button class="btn btn-reject" onclick="rejectIssue(${issue.id})">
+                                ❌ Not a Bug
+                            </button>
+                            <button class="btn btn-investigate" onclick="investigateIssue(${issue.id})">
+                                🔍 Investigate
+                            </button>
+                        ` : issue.status === 'confirmed' ? `
+                            <button class="btn btn-jira" onclick="showJiraForm(${issue.id})">
+                                🎫 Create Jira Bug
+                            </button>
+                            <span style="color: #10b981; font-weight: 600;">✓ Confirmed as Bug</span>
+                        ` : issue.status === 'rejected' ? `
+                            <span style="color: #ef4444; font-weight: 600;">✗ Rejected - Not a Bug</span>
+                        ` : ''}
+                    </div>
+                    <div class="jira-form" id="jira-form-${issue.id}">
+                        <h3>Create Jira Bug</h3>
+                        <div class="form-group">
+                            <label>Project</label>
+                            <select id="jira-project-${issue.id}">
+                                <option value="BANK">BANK - Banking Application</option>
+                                <option value="QA">QA - Quality Assurance</option>
+                                <option value="UI">UI - User Interface</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Issue Type</label>
+                            <select id="jira-type-${issue.id}">
+                                <option value="Bug">Bug</option>
+                                <option value="Task">Task</option>
+                                <option value="Story">Story</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Priority</label>
+                            <select id="jira-priority-${issue.id}">
+                                <option value="Critical">Critical</option>
+                                <option value="High">High</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Summary</label>
+                            <input type="text" id="jira-summary-${issue.id}" value="${issue.section} - ${issue.description.substring(0, 50)}...">
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="jira-description-${issue.id}">${issue.description}
+
+Component: ${issue.component}
+Section: ${issue.section}
+Severity: ${issue.severity}
+${issue.screenshot ? `Screenshot: ${issue.screenshot}` : ''}
+
+Steps to Reproduce:
+1. Navigate to ${issue.section}
+2. Observe the behavior
+3. Issue occurs
+
+Expected Result:
+Component should work as per React implementation
+
+Actual Result:
+${issue.description}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Labels</label>
+                            <input type="text" id="jira-labels-${issue.id}" value="qa, react-component, menu-navigation">
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-jira" onclick="createJiraBug(${issue.id})">
+                                <span id="btn-text-${issue.id}">🎫 Create Bug in Jira</span>
+                                <span class="loading" id="loading-${issue.id}" style="display: none;"></span>
+                            </button>
+                            <button class="btn btn-reject" onclick="hideJiraForm(${issue.id})">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Confirm Issue
+        function confirmIssue(id) {
+            const issue = issues.find(i => i.id === id);
+            if (issue) {
+                issue.status = 'confirmed';
+                stats.pending--;
+                renderIssues();
+                showNotification('Issue confirmed as a bug', 'success');
+            }
+        }
+
+        // Reject Issue
+        function rejectIssue(id) {
+            const issue = issues.find(i => i.id === id);
+            if (issue) {
+                issue.status = 'rejected';
+                stats.pending--;
+                renderIssues();
+                showNotification('Issue rejected - not a bug', 'info');
+            }
+        }
+
+        // Investigate Issue
+        function investigateIssue(id) {
+            const issue = issues.find(i => i.id === id);
+            showNotification('Investigation requested - gathering more information...', 'info');
+            
+            // Simulate investigation
+            setTimeout(() => {
+                showNotification(`Investigation complete for: ${issue.section}`, 'success');
+            }, 2000);
+        }
+
+        // Show Jira Form
+        function showJiraForm(id) {
+            const form = document.getElementById(`jira-form-${id}`);
+            form.classList.add('show');
+        }
+
+        // Hide Jira Form
+        function hideJiraForm(id) {
+            const form = document.getElementById(`jira-form-${id}`);
+            form.classList.remove('show');
+        }
+
+        // Create Jira Bug
+        async function createJiraBug(id) {
+            const issue = issues.find(i => i.id === id);
+            
+            // Show loading
+            document.getElementById(`btn-text-${id}`).style.display = 'none';
+            document.getElementById(`loading-${id}`).style.display = 'inline-block';
+            
+            // Get form data
+            const jiraData = {
+                project: document.getElementById(`jira-project-${id}`).value,
+                issueType: document.getElementById(`jira-type-${id}`).value,
+                priority: document.getElementById(`jira-priority-${id}`).value,
+                summary: document.getElementById(`jira-summary-${id}`).value,
+                description: document.getElementById(`jira-description-${id}`).value,
+                labels: document.getElementById(`jira-labels-${id}`).value.split(',').map(l => l.trim())
+            };
+
+            // Simulate API call to create Jira bug
+            // In real implementation, this would call your backend API
+            setTimeout(() => {
+                // Hide loading
+                document.getElementById(`btn-text-${id}`).style.display = 'inline';
+                document.getElementById(`loading-${id}`).style.display = 'none';
+                
+                // Update stats
+                stats.bugs++;
+                issue.status = 'bug-created';
+                issue.jiraId = `BANK-${Math.floor(Math.random() * 9000) + 1000}`;
+                
+                updateStats();
+                renderIssues();
+                hideJiraForm(id);
+                
+                showNotification(`✅ Jira bug created: ${issue.jiraId}`, 'success');
+                
+                // Log for backend integration
+                console.log('Jira Bug Created:', {
+                    issueId: issue.id,
+                    jiraId: issue.jiraId,
+                    data: jiraData
+                });
+            }, 2000);
+        }
+
+        // Filter Issues
+        function filterIssues(filter) {
+            // Update button states
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderIssues(filter);
+        }
+
+        // Search Issues
+        function searchIssues() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const filteredIssues = issues.filter(issue => 
+                issue.description.toLowerCase().includes(searchTerm) ||
+                issue.section.toLowerCase().includes(searchTerm) ||
+                issue.component.toLowerCase().includes(searchTerm)
+            );
+            
+            const issuesList = document.getElementById('issues-list');
+            const emptyState = document.getElementById('empty-state');
+            
+            if (filteredIssues.length === 0) {
+                issuesList.innerHTML = '';
+                emptyState.style.display = 'block';
+                emptyState.innerHTML = '<h3>No matching issues found</h3><p>Try different search terms</p>';
+            } else {
+                emptyState.style.display = 'none';
+                // Render filtered issues
+                issues = filteredIssues;
+                renderIssues();
+                // Restore original issues
+                issues = [
+                    {
+                        id: 1,
+                        section: 'Main Navigation',
+                        severity: 'warning',
+                        description: 'Services menu item not found - check if React component uses different selector',
+                        component: 'Menu Navigation',
+                        timestamp: new Date().toISOString(),
+                        status: issues[0]?.status || 'pending',
+                        screenshot: 'menu-services-dropdown.png'
+                    },
+                    {
+                        id: 2,
+                        section: 'Mobile Menu',
+                        severity: 'warning',
+                        description: 'Hamburger menu not found on mobile - check responsive breakpoints and React component',
+                        component: 'Menu Navigation',
+                        timestamp: new Date().toISOString(),
+                        status: issues[1]?.status || 'pending',
+                        screenshot: 'hamburger-not-found.png'
+                    },
+                    {
+                        id: 3,
+                        section: 'Language Switcher',
+                        severity: 'warning',
+                        description: 'Language switcher not found - check if implemented as React component',
+                        component: 'Menu Navigation',
+                        timestamp: new Date().toISOString(),
+                        status: issues[2]?.status || 'pending',
+                        screenshot: 'language-switcher-missing.png'
+                    }
+                ];
+            }
+        }
+
+        // Export Report
+        function exportReport() {
+            const reportData = {
+                timestamp: new Date().toISOString(),
+                stats: stats,
+                issues: issues,
+                summary: {
+                    totalTests: stats.passed + stats.failed,
+                    successRate: Math.round((stats.passed / (stats.passed + stats.failed)) * 100) + '%',
+                    confirmedBugs: issues.filter(i => i.status === 'confirmed').length,
+                    rejectedIssues: issues.filter(i => i.status === 'rejected').length,
+                    pendingConfirmation: issues.filter(i => i.status === 'pending').length
+                }
+            };
+
+            // Create download link
+            const dataStr = JSON.stringify(reportData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `qa-report-${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            showNotification('Report exported successfully!', 'success');
+        }
+
+        // Show Notification
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Update Timestamp
+        function updateTimestamp() {
+            document.getElementById('last-updated').textContent = new Date().toLocaleString();
+        }
+
+        // Initialize on load
+        window.onload = initDashboard;
+
+        // Auto-refresh every 30 seconds
+        setInterval(() => {
+            updateTimestamp();
+        }, 30000);
+
+        // Backend Integration Functions
+        // These would connect to your actual backend/Jira API
+        
+        async function sendToBackend(action, data) {
+            // This function would send data to your backend
+            console.log('Backend Action:', action, data);
+            
+            // Example:
+            // const response = await fetch('/api/qa/bug', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(data)
+            // });
+            // return response.json();
+        }
+
+        // WebSocket for real-time updates (optional)
+        function connectWebSocket() {
+            // const ws = new WebSocket('ws://localhost:8003/qa-dashboard');
+            // ws.onmessage = (event) => {
+            //     const data = JSON.parse(event.data);
+            //     if (data.type === 'new-issue') {
+            //         issues.push(data.issue);
+            //         renderIssues();
+            //     }
+            // };
+        }
+    </script>
+</body>
+</html>

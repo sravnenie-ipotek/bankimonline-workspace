@@ -55,3 +55,6 @@ server/docs/QA/jira/jiraIntegration.md
 # Claude agents and sensitive files
 .claude/
 
+.qa-stats.json
+.qa-results.log
+server/.env

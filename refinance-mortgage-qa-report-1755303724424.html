@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refinance Mortgage QA Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { background: #10b981; color: white; padding: 20px; border-radius: 8px; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0; }
+        .stat-card { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; }
+        .passed { color: #28a745; }
+        .failed { color: #dc3545; }
+        .issue { margin: 10px 0; padding: 15px; border-left: 4px solid #dc3545; background: #f8f9fa; }
+        .issue.warning { border-left-color: #ffc107; }
+        .issue.critical { border-left-color: #dc3545; }
+        .step-section { margin: 30px 0; padding: 20px; border: 1px solid #dee2e6; border-radius: 8px; }
+        .screenshot { max-width: 300px; margin: 10px 0; }
+        .timestamp { font-size: 0.8em; color: #6c757d; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏡 Refinance Mortgage QA Testing Report</h1>
+        <p><strong>Testing Duration:</strong> 2.03 minutes</p>
+        <p><strong>Timestamp:</strong> 2025-08-16T00:22:04.424Z</p>
+    </div>
+
+    <div class="summary">
+        <div class="stat-card">
+            <h3>Total Tests</h3>
+            <h2>32</h2>
+        </div>
+        <div class="stat-card">
+            <h3 class="passed">Passed</h3>
+            <h2 class="passed">4</h2>
+        </div>
+        <div class="stat-card">
+            <h3 class="failed">Failed</h3>
+            <h2 class="failed">28</h2>
+        </div>
+        <div class="stat-card">
+            <h3>Issues Found</h3>
+            <h2>28</h2>
+        </div>
+    </div>
+
+    
+    <div class="step-section">
+        <h2>REFINANCE MORTGAGE STEP 1</h2>
+        <p><span class="passed">✅ Passed: 1</span> | <span class="failed">❌ Failed: 10</span></p>
+        
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Existing loan balance input not found</h4>
+            <p class="timestamp">2025-08-16T00:20:29.541Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-balance-missing-1755303629447.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Current monthly payment input not found</h4>
+            <p class="timestamp">2025-08-16T00:20:29.615Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-payment-missing-1755303629542.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Current interest rate input not found</h4>
+            <p class="timestamp">2025-08-16T00:20:29.693Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-rate-missing-1755303629616.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Remaining term input not found</h4>
+            <p class="timestamp">2025-08-16T00:20:29.765Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-term-missing-1755303629694.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Current lender dropdown not found</h4>
+            <p class="timestamp">2025-08-16T00:20:29.952Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-lender-missing-1755303629867.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Loan type dropdown not found</h4>
+            <p class="timestamp">2025-08-16T00:20:30.032Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-loan-type-missing-1755303629953.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Continue button not found</h4>
+            <p class="timestamp">2025-08-16T00:20:30.114Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-continue-missing-1755303630033.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Closing costs input not found</h4>
+            <p class="timestamp">2025-08-16T00:22:04.319Z</p>
+            
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Refinance recommendation not found</h4>
+            <p class="timestamp">2025-08-16T00:22:04.321Z</p>
+            
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Long-term savings analysis not found</h4>
+            <p class="timestamp">2025-08-16T00:22:04.322Z</p>
+            
+        </div>
+        
+    </div>
+    
+    <div class="step-section">
+        <h2>REFINANCE MORTGAGE STEP 2</h2>
+        <p><span class="passed">✅ Passed: 1</span> | <span class="failed">❌ Failed: 6</span></p>
+        
+        
+        <div class="issue critical">
+            <h4>CRITICAL: New interest rate input not found</h4>
+            <p class="timestamp">2025-08-16T00:20:52.643Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step2-new-rate-missing-1755303652554.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: New loan term dropdown not found</h4>
+            <p class="timestamp">2025-08-16T00:20:52.718Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step2-new-term-missing-1755303652643.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Cash-out amount input not found</h4>
+            <p class="timestamp">2025-08-16T00:20:52.783Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step2-cash-out-missing-1755303652718.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Monthly payment reduction display not found</h4>
+            <p class="timestamp">2025-08-16T00:20:52.936Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step2-reduction-missing-1755303652868.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Rate comparison display not found</h4>
+            <p class="timestamp">2025-08-16T00:20:52.999Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step2-comparison-missing-1755303652937.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Continue button not found</h4>
+            <p class="timestamp">2025-08-16T00:20:53.064Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step2-continue-missing-1755303653000.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+    </div>
+    
+    <div class="step-section">
+        <h2>REFINANCE MORTGAGE STEP 3</h2>
+        <p><span class="passed">✅ Passed: 1</span> | <span class="failed">❌ Failed: 6</span></p>
+        
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Bank offers section not found</h4>
+            <p class="timestamp">2025-08-16T00:21:12.465Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step3-offers-missing-1755303672373.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Bank selector not found</h4>
+            <p class="timestamp">2025-08-16T00:21:12.534Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step3-bank-selector-missing-1755303672466.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Program selector not found</h4>
+            <p class="timestamp">2025-08-16T00:21:12.600Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step3-program-missing-1755303672535.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Rate comparison table not found</h4>
+            <p class="timestamp">2025-08-16T00:21:12.665Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step3-rate-table-missing-1755303672601.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Savings calculator not found</h4>
+            <p class="timestamp">2025-08-16T00:21:12.732Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step3-savings-missing-1755303672665.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Continue button not found</h4>
+            <p class="timestamp">2025-08-16T00:21:12.801Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step3-continue-missing-1755303672733.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+    </div>
+    
+    <div class="step-section">
+        <h2>REFINANCE MORTGAGE STEP 4</h2>
+        <p><span class="passed">✅ Passed: 1</span> | <span class="failed">❌ Failed: 6</span></p>
+        
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Application summary not found</h4>
+            <p class="timestamp">2025-08-16T00:21:38.345Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step4-summary-missing-1755303698244.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Final rate confirmation not found</h4>
+            <p class="timestamp">2025-08-16T00:21:38.435Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step4-rate-confirmation-missing-1755303698346.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Total savings summary not found</h4>
+            <p class="timestamp">2025-08-16T00:21:38.507Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step4-savings-summary-missing-1755303698436.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Break-even period not found</h4>
+            <p class="timestamp">2025-08-16T00:21:38.581Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step4-break-even-missing-1755303698507.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue warning">
+            <h4>WARNING: Terms & conditions checkbox not found</h4>
+            <p class="timestamp">2025-08-16T00:21:38.663Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step4-terms-missing-1755303698582.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Submit application button not found</h4>
+            <p class="timestamp">2025-08-16T00:21:38.738Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step4-submit-missing-1755303698664.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+    </div>
+    
+
+    <div class="step-section">
+        <h2>📊 REFINANCE MORTGAGE ANALYSIS</h2>
+        <h3>Business Logic Compliance</h3>
+        <ul>
+            <li>Break-Even Calculation: ✅ Working</li>
+            <li>Payment Reduction Calculation: ❌ Issues found</li>
+            <li>Savings Analysis: ❌ Issues found</li>
+            <li>Rate Comparison: ❌ Issues found</li>
+        </ul>
+
+        <h3>Critical Issues</h3>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Existing loan balance input not found</h4>
+            <p><strong>Step:</strong> step1 | <strong>Time:</strong> 2025-08-16T00:20:29.541Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-balance-missing-1755303629447.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Current monthly payment input not found</h4>
+            <p><strong>Step:</strong> step1 | <strong>Time:</strong> 2025-08-16T00:20:29.615Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-payment-missing-1755303629542.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Current interest rate input not found</h4>
+            <p><strong>Step:</strong> step1 | <strong>Time:</strong> 2025-08-16T00:20:29.693Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-rate-missing-1755303629616.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Remaining term input not found</h4>
+            <p><strong>Step:</strong> step1 | <strong>Time:</strong> 2025-08-16T00:20:29.765Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-term-missing-1755303629694.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Continue button not found</h4>
+            <p><strong>Step:</strong> step1 | <strong>Time:</strong> 2025-08-16T00:20:30.114Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step1-continue-missing-1755303630033.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: New interest rate input not found</h4>
+            <p><strong>Step:</strong> step2 | <strong>Time:</strong> 2025-08-16T00:20:52.643Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step2-new-rate-missing-1755303652554.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: New loan term dropdown not found</h4>
+            <p><strong>Step:</strong> step2 | <strong>Time:</strong> 2025-08-16T00:20:52.718Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step2-new-term-missing-1755303652643.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Continue button not found</h4>
+            <p><strong>Step:</strong> step2 | <strong>Time:</strong> 2025-08-16T00:20:53.064Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step2-continue-missing-1755303653000.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Bank offers section not found</h4>
+            <p><strong>Step:</strong> step3 | <strong>Time:</strong> 2025-08-16T00:21:12.465Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step3-offers-missing-1755303672373.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Bank selector not found</h4>
+            <p><strong>Step:</strong> step3 | <strong>Time:</strong> 2025-08-16T00:21:12.534Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step3-bank-selector-missing-1755303672466.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Continue button not found</h4>
+            <p><strong>Step:</strong> step3 | <strong>Time:</strong> 2025-08-16T00:21:12.801Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step3-continue-missing-1755303672733.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Application summary not found</h4>
+            <p><strong>Step:</strong> step4 | <strong>Time:</strong> 2025-08-16T00:21:38.345Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step4-summary-missing-1755303698244.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+        <div class="issue critical">
+            <h4>CRITICAL: Submit application button not found</h4>
+            <p><strong>Step:</strong> step4 | <strong>Time:</strong> 2025-08-16T00:21:38.738Z</p>
+            <img src="screenshots/refinance-mortgage-qa-step4-submit-missing-1755303698664.png" alt="Screenshot" class="screenshot">
+        </div>
+        
+
+        <h3>Recommendations</h3>
+        <ul>
+            <li>Fix critical UI element selectors for all steps</li>
+            <li>Verify refinance benefit calculations</li>
+            <li>Test break-even analysis accuracy</li>
+            <li>Validate rate comparison logic</li>
+            <li>Test cash-out refinance scenarios</li>
+            <li>Verify bank offer integration</li>
+        </ul>
+    </div>
+</body>
+</html>
+    

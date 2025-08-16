@@ -97,7 +97,6 @@ const BankOffers = () => {
           serviceType || undefined
         )
         
-        )
         // Fetch bank offers from API
         const bankOffers = await fetchBankOffers(requestPayload)
         

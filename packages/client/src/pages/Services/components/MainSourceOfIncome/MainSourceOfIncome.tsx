@@ -58,18 +58,17 @@ const MainSourceOfIncome = ({ screenLocation = 'mortgage_step3' }: MainSourceOfI
         }
       }).filter(option => option.label && option.label !== option.value) // Filter out missing options
 
-  // Debug dropdown data
-  ,
+  // Debug dropdown validation
+  const validationState = {
     errors: errors.mainSourceOfIncome,
     touched: touched.mainSourceOfIncome,
     errorShowing: touched.mainSourceOfIncome && errors.mainSourceOfIncome
-  })
+  }
 
   const handleValueChange = (value: string) => {
-    })
-    
     // Additional validation debugging
-    ,
+    console.log('MainSourceOfIncome change:', {
+      value,
       willRequireFields: !checkIfNoIncomeValue(value)
     })
     

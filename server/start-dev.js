@@ -19,8 +19,8 @@
 const { spawn } = require('child_process');
 const path = require('path');
 
-// Start the API server (port 8003) - PACKAGES SERVER (UNIFIED ARCHITECTURE)
-const apiServer = spawn('node', ['../packages/server/src/server.js'], {
+// Start the API server (port 8003) - STANDALONE ARCHITECTURE
+const apiServer = spawn('node', ['server-db.js'], {
     stdio: 'pipe',
     cwd: __dirname
 });

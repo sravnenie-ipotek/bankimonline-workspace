@@ -120,12 +120,30 @@ const FirstStepForm = () => {
   const firstHomeProps = getDropdownProps('first_home')    // API key: mortgage_step1_first_home
   const propertyOwnershipProps = getDropdownProps('property_ownership')
 
+  // Fallback data for property ownership dropdown when API is not available
+  const propertyOwnershipFallback = [
+    { value: 'no_property', label: t('calculate_mortgage_property_ownership_option_1', "I don't own any property") },
+    { value: 'has_property', label: t('calculate_mortgage_property_ownership_option_2', "I own a property") },
+    { value: 'selling_property', label: t('calculate_mortgage_property_ownership_option_3', "I'm selling a property") }
+  ]
+
+  // Debug logging
+  console.log('Property ownership dropdown state:', {
+    loading: dropdownsLoading,
+    error: dropdownsError,
+    propsOptions: propertyOwnershipProps.options,
+    fallback: propertyOwnershipFallback,
+    finalData: propertyOwnershipProps.options.length > 0 ? propertyOwnershipProps.options : propertyOwnershipFallback
+  })
+
   // Phase 4: Show loading state for dropdowns while fetching from API
   if (dropdownsLoading) {
+    console.log('Dropdowns still loading...')
     }
 
   // Phase 4: Log dropdown data for debugging
   if (dropdownData && !dropdownsLoading) {
+    console.log('Dropdown data loaded:', dropdownData)
     }
 
   const { setFieldValue, values, errors, touched, setFieldTouched } =
@@ -279,14 +297,14 @@ const FirstStepForm = () => {
           <Column>
             <DropdownMenu
               title={propertyOwnershipProps.label || getContent('mortgage_step1.field.property_ownership', 'calculate_mortgage_property_ownership')}
-              data={propertyOwnershipProps.options}
+              data={propertyOwnershipProps.options.length > 0 ? propertyOwnershipProps.options : propertyOwnershipFallback}
               placeholder={propertyOwnershipProps.placeholder || getContent('mortgage_step1.field.property_ownership_ph', 'calculate_mortgage_property_ownership_ph')}
               value={values.propertyOwnership}
               onChange={(value) => setFieldValue('propertyOwnership', value)}
               onBlur={() => setFieldTouched('propertyOwnership', true)}
               error={touched.propertyOwnership && errors.propertyOwnership}
               dataTestId="property-ownership-dropdown"
-              disabled={dropdownsLoading}
+              disabled={false}
             />
             {dropdownsError && (
               <Error error={getContent('error_dropdown_load_failed', 'Failed to load property ownership options. Please refresh the page.')} />

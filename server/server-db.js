@@ -1,5 +1,43 @@
 #!/usr/bin/env node
-require('dotenv').config();
+const path = require('path');
+
+// Enhanced environment loading for production deployment
+const getEnvFile = () => {
+  const env = process.env.NODE_ENV || 'development';
+  
+  switch (env) {
+    case 'production':
+      return '.env.production';
+    case 'staging':
+      return '.env.staging';
+    case 'test':
+      return '.env.test';
+    default:
+      return '.env';
+  }
+};
+
+const envFile = getEnvFile();
+const envPath = path.resolve(__dirname, `../${envFile}`);
+
+// Load environment variables from appropriate file
+require('dotenv').config({ path: envPath });
+
+// Validate required environment variables
+const requiredVars = ['DATABASE_URL', 'JWT_SECRET', 'PORT'];
+const missingVars = requiredVars.filter(varName => !process.env[varName]);
+
+if (missingVars.length > 0) {
+  console.error(`🚨 FATAL: Missing required environment variables: ${missingVars.join(', ')}`);
+  console.error(`🚨 Environment file: ${envPath}`);
+  console.error(`🚨 Available files: ${require('fs').readdirSync(path.resolve(__dirname, '..')).filter(f => f.startsWith('.env')).join(', ')}`);
+  process.exit(1);
+}
+
+console.log(`✅ Environment loaded from: ${envFile}`);
+console.log(`✅ Variables loaded: ${requiredVars.length}`);
+console.log(`✅ Database URL configured: ${process.env.DATABASE_URL ? 'Yes' : 'No'}`);
+console.log(`✅ Environment: ${process.env.NODE_ENV || 'development'}`);
 
 const express = require('express');
 const cors = require('cors');
@@ -7,7 +45,6 @@ const morgan = require('morgan');
 const { createPool } = require('./config/database-core');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
-const path = require('path');
 const fs = require('fs');
 const NodeCache = require('node-cache');
 
@@ -3715,9 +3752,12 @@ app.post('/api/auth-verify', async (req, res) => {
         if (clientResult.rows.length > 0) {
             client = clientResult.rows[0];
         } else {
+            // Generate unique email using timestamp to avoid duplicates
+            const timestamp = Date.now();
+            const uniqueEmail = `${mobile_number.replace(/[^0-9]/g, '')}_${timestamp}@bankim.com`;
             const newResult = await pool.query(
                 'INSERT INTO clients (first_name, last_name, phone, email, role, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *',
-                ['New', 'Client', mobile_number, mobile_number.replace('+', '') + '@bankim.com', 'customer']
+                ['New', 'Client', mobile_number, uniqueEmail, 'customer']
             );
             client = newResult.rows[0];
         }

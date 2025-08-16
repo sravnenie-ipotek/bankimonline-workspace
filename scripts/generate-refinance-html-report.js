@@ -421,9 +421,7 @@ function generateRefinanceHTMLReport() {
                     });
                 });
             });
-
-            ');
-            });
+        });
     </script>
 </body>
 </html>`;
@@ -431,7 +429,7 @@ function generateRefinanceHTMLReport() {
   // Write HTML report
   fs.writeFileSync(reportPath, htmlContent);
   
-  `);
+  console.log(`✅ Refinance HTML report generated: ${reportPath}`);
   return reportPath;
 }
 

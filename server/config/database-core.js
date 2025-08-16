@@ -75,7 +75,7 @@ const getDatabaseConfig = (connectionType = 'content') => {
     } else {
         // Development: Railway PostgreSQL or developer-provided URLs
         if (connectionType === 'content') {
-            const connectionString = process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway';
+            const connectionString = process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:[REDACTED]@shortline.proxy.rlwy.net:33452/railway';
             const ssl = decideSslForConnection(connectionString, { isProd: false });
             console.log(`📊 [${connectionType}] DB Config:`, sanitizeUrlForLog(connectionString), `| SSL: ` + (ssl ? 'on' : 'off'));
             return {
@@ -86,7 +86,7 @@ const getDatabaseConfig = (connectionType = 'content') => {
                 connectionTimeoutMillis: 5000
             };
         } else {
-            const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway';
+            const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:[REDACTED]@maglev.proxy.rlwy.net:43809/railway';
             const ssl = decideSslForConnection(connectionString, { isProd: false });
             console.log(`📊 [${connectionType}] DB Config:`, sanitizeUrlForLog(connectionString), `| SSL: ` + (ssl ? 'on' : 'off'));
             return {

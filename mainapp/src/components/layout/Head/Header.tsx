@@ -20,6 +20,10 @@ const Header: React.FC<PropsTypes> = ({ onOpenMobileMenu, isMobile }) => {
   const location = useLocation()
   const pathMap = location.pathname.split('/')
   const isService = pathMap.includes('services')
+  const isHomePage = location.pathname === '/' || location.pathname === ''
+  
+  // Show burger menu on homepage always, or on desktop when not on service pages
+  const shouldShowBurger = isHomePage || (!isMobile && !isService)
 
   return (
     <div style={{ width: '100%', borderBottom: '1px solid #333535' }}>
@@ -44,7 +48,7 @@ const Header: React.FC<PropsTypes> = ({ onOpenMobileMenu, isMobile }) => {
           <Logo />
           <div className={cx('bottom')}>
             <LoginLanguage />
-            {!isMobile && !isService && (
+            {shouldShowBurger && (
               <button
                 type="button"
                 onClick={() => {

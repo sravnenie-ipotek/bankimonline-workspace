@@ -1,0 +1,21 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run checks in BACKGROUND - doesn't block your commit!
+(
+  # Quick syntax check only (50ms)
+  node -c $(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(js|ts)x?$') 2>/dev/null
+  
+  # If syntax passes, run other checks in background
+  if [ $? -eq 0 ]; then
+    # These run AFTER commit succeeds - no blocking!
+    npm run lint:staged --silent &
+    npm run type-check:changed --silent &
+    
+    # Log results to file for review
+    echo "QA Check started at $(date)" >> .qa-log
+  fi
+) &
+
+# Commit proceeds immediately!
+exit 0

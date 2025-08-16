@@ -29,7 +29,7 @@ const SideNavigationDemo: React.FC = () => {
 
   // Handle navigation actions
   const handleNavigate = (path: string, id: string) => {
-    `)
+    console.log(`Navigating to: ${path}, id: ${id}`)
     setCurrentPage(id)
     // In a real app, you would use navigate(path) here
   }
@@ -146,4 +146,4 @@ const SideNavigationDemo: React.FC = () => {
   )
 }
 
-export default SideNavigationDemo 
+export default SideNavigationDemo

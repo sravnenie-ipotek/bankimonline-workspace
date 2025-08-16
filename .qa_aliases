@@ -1,0 +1,32 @@
+# QA Automation Aliases
+
+alias runqa='./runqa.sh'
+alias runqa-menu='cd /Users/michaelmishayev/Projects/bankDev2_standalone && echo "🔄 Running Menu & Navigation QA..." && echo "📋 Instructions: server/docs/QA/menuQA/instructions.md"'
+alias runqa-credit='cd /Users/michaelmishayev/Projects/bankDev2_standalone && echo "🔄 Running Credit Calculator QA..." && echo "📋 Instructions: server/docs/QA/calculateCredit1,2,3,4/instructions.md"'
+alias runqa-mortgage='cd /Users/michaelmishayev/Projects/bankDev2_standalone && echo "🔄 Running Mortgage Calculator QA..." && echo "📋 Instructions: server/docs/QA/mortgageStep1,2,3,4/instructions.md"'
+alias runqa-refcredit='cd /Users/michaelmishayev/Projects/bankDev2_standalone && echo "🔄 Running Refinance Credit QA..." && echo "📋 Instructions: server/docs/QA/refinanceCredit1,2,3,4/instructions.md"'
+alias runqa-refmortgage='cd /Users/michaelmishayev/Projects/bankDev2_standalone && echo "🔄 Running Refinance Mortgage QA..." && echo "📋 Instructions: server/docs/QA/refinanceMortgage1,2,3,4/instructions.md"'
+alias qa-reports='cd /Users/michaelmishayev/Projects/bankDev2_standalone/server/docs/QA/reports && ls -la'
+alias qahelp='echo "
+🎯 QA Automation Commands:
+========================
+runqa              - Run all 5 QA test suites + generate master report
+runqa-menu         - Run Menu & Navigation tests only
+runqa-credit       - Run Credit Calculator tests only  
+runqa-mortgage     - Run Mortgage Calculator tests only
+runqa-refcredit    - Run Refinance Credit tests only
+runqa-refmortgage  - Run Refinance Mortgage tests only
+qa-reports         - View generated reports directory
+qahelp             - Show this help message
+
+📋 Test Suites:
+- Menu & Navigation QA (All menus and submenus)
+- Calculate Credit (Steps 1-4)
+- Mortgage Steps (Steps 1-4) 
+- Refinance Credit (Steps 1-4)
+- Refinance Mortgage (Steps 1-4)
+
+📄 Report follows: server/docs/QA/ReportsCreations/reportDetails_afterEachRun.md
+"'
+
+echo "✅ QA aliases loaded! Use 'runqa' to execute all tests or 'qahelp' for commands."

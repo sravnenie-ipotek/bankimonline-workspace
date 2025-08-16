@@ -54,7 +54,7 @@ export function CodeVerification<
       // Mock email sending delay
       await new Promise(resolve => setTimeout(resolve, 1000))
       
-      ')
+      console.log('Email resend requested')
       
       // Start 60-second countdown
       setCanResendEmail(false)

@@ -12,7 +12,7 @@ const fs = require('fs');
 const NodeCache = require('node-cache');
 
 const app = express();
-const PORT = process.env.PORT || 8003;
+const PORT = process.env.PORT || 8004;
 
 // Initialize cache for content endpoints (5-minute TTL)
 const contentCache = new NodeCache({ 
@@ -26,6 +26,9 @@ const pool = createPool('main');
 
 // Content database connection (SECOND database for content/translations)
 const contentPool = createPool('content');
+
+// Management database connection (THIRD database for users/accounts/transactions/audit logs)
+const managementPool = createPool('management');
 
 // Test main database connection
 pool.query('SELECT NOW()', (err, res) => {
@@ -48,6 +51,29 @@ contentPool.query('SELECT NOW()', (err, res) => {
                 console.error('❌ Failed to delete test-content table:', dropErr.message);
             } else {
                 console.log('✅ Test content table cleanup completed');
+            }
+        });
+    }
+});
+
+// Test management database connection
+managementPool.query('SELECT NOW()', (err, res) => {
+    if (err) {
+        console.error('❌ Management Database connection failed:', err.message);
+    } else {
+        console.log('✅ Management Database connected successfully');
+        // Test if essential admin panel tables exist
+        managementPool.query('SELECT to_regclass(\'admin_users\') as admin_users, to_regclass(\'customer_applications\') as customer_apps, to_regclass(\'login_audit_log\') as audit_logs, to_regclass(\'bank_configurations\') as bank_config', (testErr, testRes) => {
+            if (testErr) {
+                console.error('❌ Failed to check management tables:', testErr.message);
+            } else {
+                const tables = testRes.rows[0];
+                console.log('✅ Management database admin panel tables:', {
+                    admin_users: tables.admin_users ? '✅' : '❌',
+                    customer_applications: tables.customer_apps ? '✅' : '❌', 
+                    audit_logs: tables.audit_logs ? '✅' : '❌',
+                    bank_configurations: tables.bank_config ? '✅' : '❌'
+                });
             }
         });
     }
@@ -9581,6 +9607,9 @@ app.get('/api/get-table-schema', async (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-    });
+    console.log(`🚀 Features System server running on port ${PORT}`);
+    console.log(`📱 Admin Panel: http://localhost:${PORT}/api/health`);
+    console.log(`🔗 API Base: http://localhost:${PORT}/api/`);
+});
 
 module.exports = app; 

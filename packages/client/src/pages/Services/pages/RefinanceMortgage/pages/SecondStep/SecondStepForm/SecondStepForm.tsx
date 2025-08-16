@@ -59,7 +59,7 @@ const SecondStepForm = () => {
   
   const displayUserData = userData?.nameSurname ? userData : fallbackUserData
   
-  :', displayUserData)
+  console.log('Display user data:', displayUserData)
 
   return (
     <FormContainer>

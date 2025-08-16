@@ -53,7 +53,7 @@ const sanitizeUrlForLog = (connectionString) => {
 
 /**
  * Get database configuration based on environment
- * @param {string} connectionType - 'content' or 'main'
+ * @param {string} connectionType - 'content', 'main', or 'management'
  * @returns {Object} Database configuration object
  */
 const getDatabaseConfig = (connectionType = 'content') => {
@@ -62,7 +62,11 @@ const getDatabaseConfig = (connectionType = 'content') => {
     
     if (isProduction || isRailwayProduction) {
         // Production: Local PostgreSQL on server
-        const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/bankim_content';
+        let dbName = 'bankim_content';
+        if (connectionType === 'main') dbName = 'bankim_core';
+        if (connectionType === 'management') dbName = 'bankim_management';
+        
+        const connectionString = process.env[`${connectionType.toUpperCase()}_DATABASE_URL`] || `postgresql://postgres:postgres@localhost:5432/${dbName}`;
         const config = {
             connectionString,
             ssl: false, // Local connections don't need SSL
@@ -75,7 +79,18 @@ const getDatabaseConfig = (connectionType = 'content') => {
     } else {
         // Development: Railway PostgreSQL or developer-provided URLs
         if (connectionType === 'content') {
-            const connectionString = process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway';
+            const connectionString = process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:[REDACTED]@shortline.proxy.rlwy.net:33452/railway';
+            const ssl = decideSslForConnection(connectionString, { isProd: false });
+            console.log(`📊 [${connectionType}] DB Config:`, sanitizeUrlForLog(connectionString), `| SSL: ` + (ssl ? 'on' : 'off'));
+            return {
+                connectionString,
+                ssl,
+                max: 10,
+                idleTimeoutMillis: 30000,
+                connectionTimeoutMillis: 5000
+            };
+        } else if (connectionType === 'management') {
+            const connectionString = process.env.MANAGEMENT_DATABASE_URL || 'postgresql://postgres:[REDACTED]@yamanote.proxy.rlwy.net:53119/railway';
             const ssl = decideSslForConnection(connectionString, { isProd: false });
             console.log(`📊 [${connectionType}] DB Config:`, sanitizeUrlForLog(connectionString), `| SSL: ` + (ssl ? 'on' : 'off'));
             return {
@@ -86,7 +101,7 @@ const getDatabaseConfig = (connectionType = 'content') => {
                 connectionTimeoutMillis: 5000
             };
         } else {
-            const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway';
+            const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:[REDACTED]@maglev.proxy.rlwy.net:43809/railway';
             const ssl = decideSslForConnection(connectionString, { isProd: false });
             console.log(`📊 [${connectionType}] DB Config:`, sanitizeUrlForLog(connectionString), `| SSL: ` + (ssl ? 'on' : 'off'));
             return {
@@ -102,7 +117,7 @@ const getDatabaseConfig = (connectionType = 'content') => {
 
 /**
  * Create database connection pool
- * @param {string} connectionType - 'content' or 'main'
+ * @param {string} connectionType - 'content', 'main', or 'management'
  * @returns {Pool} PostgreSQL connection pool
  */
 const createPool = (connectionType = 'content') => {

@@ -157,12 +157,12 @@ const FirstStepForm = () => {
       
       // If current initial payment is below the new minimum, set it to minimum
       if (values.initialFee < minPayment) {
-        `)
+        console.log(`Auto-adjusting initial fee from ${values.initialFee} to minimum ${minPayment}`)
         setFieldValue('initialFee', minPayment)
       }
       // If current initial payment is above maximum, set it to maximum
       else if (values.initialFee > maxPayment) {
-        `)
+        console.log(`Auto-adjusting initial fee from ${values.initialFee} to maximum ${maxPayment}`)
         setFieldValue('initialFee', maxPayment)
       }
     }
