@@ -3,13 +3,19 @@
 ## Repository Information
 
 ### Git Repositories
-- **Main Workspace**: `git@github.com:sravnenie-ipotek/bankimonline-workspace.git` (Primary)
+- **Main Workspace**: `git@github.com:sravnenie-ipotek/bankimonline-workspace.git` (Primary - Contains monorepo structure but NOT USED)
 - **API Repository**: `git@github.com:sravnenie-ipotek/bankimonline-api.git` (Backend deployment)
 - **Web Repository**: `git@github.com:sravnenie-ipotek/bankimonline-web.git` (Frontend deployment)
 - **Shared Docs**: `git@github.com:sravnenie-ipotek/bankimonline-shared.git` (Documentation)
 
+### ⚠️ IMPORTANT: Monorepo vs Legacy Structure
+- **Workspace contains**: Both monorepo (`packages/`) AND legacy structure (`server/`, `mainapp/`)
+- **Production USES**: Legacy structure ONLY (`server/server-db.js` and `mainapp/`)
+- **Monorepo status**: EXISTS but NOT ACTIVE - Ignore `packages/` directory
+- **What to use**: Always use `server/server-db.js` for backend and `mainapp/` for frontend
+
 ### Current Push Status
-✅ **Workspace Repository**: Updated with fixes (commit: c2c916f94)
+✅ **Workspace Repository**: Updated with fixes (commit: 5b62d4c94) - Contains both structures
 ⏳ **API Repository**: May need sync if used separately
 ⏳ **Web Repository**: May need sync if used separately
 ⏳ **Shared Repository**: Documentation can be updated if needed
@@ -207,10 +213,15 @@ If you encounter any issues during deployment:
 
 ## Important Notes
 
-### Monorepo Status
-- The monorepo structure (packages/) is NOT used in production
-- Production uses: `server/server-db.js` and `mainapp/`
-- Do NOT attempt to use packages/ directory in production
+### Monorepo Clarification
+⚠️ **CRITICAL UNDERSTANDING**:
+- **Workspace repository**: Contains BOTH monorepo (`packages/`) and legacy structures
+- **Monorepo (`packages/`)**: EXISTS in the repository but is NOT USED in production
+- **Production uses**: ONLY the legacy structure:
+  - Backend: `server/server-db.js` (NOT `packages/server/`)
+  - Frontend: `mainapp/` (NOT `packages/client/`)
+- **Do NOT**: Attempt to use or reference `packages/` directory in production
+- **Future plan**: Monorepo will be disabled (see DISABLE_MONOREPO_PLAN.md)
 
 ### Security Critical
 ⚠️ **JWT_SECRET MUST be set in production environment**
