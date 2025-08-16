@@ -23,6 +23,8 @@ const FieldOfActivity = ({ screenLocation }: FieldOfActivityProps) => {
     ? 'refinance_step3'
     : location.pathname.includes('other-borrowers')
     ? 'other_borrowers_step2'
+    : location.pathname.includes('borrowers-personal-data')
+    ? 'other_borrowers_step2'
     : 'credit_step3'
 
   const { getContent } = useContentApi(resolvedScreenLocation)

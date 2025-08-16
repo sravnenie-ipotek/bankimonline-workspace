@@ -111,11 +111,11 @@ const SecondStepForm = () => {
       <Row>
         <FamilyStatus />
         <Column>
-          {values.familyStatus === 'option_2' && <PartnerPayMortgage />}
+          {values.familyStatus === 'married' && <PartnerPayMortgage />}
         </Column>
         <Column>
           {values.partnerPayMortgage === 'yes' &&
-            values.familyStatus === 'option_2' && <AddPartner />}
+            values.familyStatus === 'married' && <AddPartner />}
         </Column>
       </Row>
     </FormContainer>

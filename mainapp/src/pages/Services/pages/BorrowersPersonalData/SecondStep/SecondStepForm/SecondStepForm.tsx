@@ -14,7 +14,7 @@ import { AdditionalIncome } from '@src/pages/Services/components/AdditionalIncom
 import { AdditionalIncomeAmount } from '@src/pages/Services/components/AdditionalIncomeAmount'
 import { MainSourceOfIncome } from '@src/pages/Services/components/MainSourceOfIncome'
 import { Obligation } from '@src/pages/Services/components/Obligation'
-import { componentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource'
+import { getComponentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource'
 import { componentsByObligation } from '@src/pages/Services/constants/componentsByObligation'
 import {
   deleteAdditionalIncomeModal,
@@ -40,6 +40,9 @@ const SecondStepForm = () => {
   const { mainSourceOfIncome, additionalIncome, obligation } = values
 
   const dispatch = useAppDispatch()
+  
+  // Get components with correct screen location for borrowers personal data
+  const componentsByIncomeSource = getComponentsByIncomeSource('other_borrowers_step2')
 
   const sourceOfIncomeValues = useAppSelector(
     (state) => state.borrowersPersonalData.sourceOfIncomeModal
@@ -97,7 +100,7 @@ const SecondStepForm = () => {
       <FormCaption title={t('borrowers_personal_data_title')} />
 
       <Row>
-        <MainSourceOfIncome />
+        <MainSourceOfIncome screenLocation="other_borrowers_step2" />
         {componentsByIncomeSource[mainSourceOfIncome] &&
           componentsByIncomeSource[mainSourceOfIncome].map(
             (Component, index) => (
@@ -110,9 +113,9 @@ const SecondStepForm = () => {
       <Divider />
 
       <Row>
-        <AdditionalIncome />
+        <AdditionalIncome screenLocation="other_borrowers_step2" />
         {additionalIncome && additionalIncome !== 'option_1' && (
-          <AdditionalIncomeAmount />
+          <AdditionalIncomeAmount screenLocation="other_borrowers_step2" />
         )}
         <Column />
       </Row>
@@ -142,7 +145,7 @@ const SecondStepForm = () => {
       <Divider />
 
       <Row>
-        <Obligation />
+        <Obligation screenLocation="other_borrowers_step2" />
         {componentsByObligation[obligation] &&
           componentsByObligation[obligation].map((Component, index) => (
             <React.Fragment key={index}>{Component}</React.Fragment>

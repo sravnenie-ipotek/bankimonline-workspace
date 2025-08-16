@@ -29,7 +29,7 @@ export const getValidationSchema = () => Yup.object().shape({
     .required(getValidationErrorSync('error_quantity_borrowers', 'Number of borrowers is required')),
   familyStatus: Yup.string().required(getValidationErrorSync('error_family_status_required', 'Family status is required')),
   partnerPayMortgage: Yup.string().when('familyStatus', {
-    is: 'Married', // This should be the actual option value, not translation key
+    is: 'married', // Database returns lowercase 'married'
     then: (shema) => shema.required(getValidationErrorSync('error_partner_mortgage_required', 'Partner mortgage information is required')),
     otherwise: (shema) => shema.notRequired(),
   }),

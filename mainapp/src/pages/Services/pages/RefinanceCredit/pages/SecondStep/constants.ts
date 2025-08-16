@@ -30,7 +30,7 @@ export const getValidationSchema = () => Yup.object().shape({
     .required(getValidationErrorSync('error_quantity_borrowers', 'Please specify number of borrowers')),
   familyStatus: Yup.string().required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
   partnerPayMortgage: Yup.string().when('familyStatus', {
-    is: 'option_2', // Compare with option value instead of translation
+    is: 'married', // Compare with database option value
     then: (shema) => shema.required(getValidationErrorSync('error_select_answer', 'Please select an answer')),
     otherwise: (shema) => shema.notRequired(),
   }),
