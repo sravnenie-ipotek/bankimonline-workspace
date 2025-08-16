@@ -60,6 +60,9 @@ server/docs/QA/refinanceMortgage1,2,3,4/instructions.md
 server/docs/QA/refinanceCredit1,2,3,4/instructions.md
 server/docs/QA/calculateCredit1,2,3,4/instructions.md
 
+# Test files with API tokens (NEVER commit!)
+test-jira-integration.js
+
 # Claude agents and sensitive files
 .claude/
 
