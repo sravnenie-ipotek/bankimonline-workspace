@@ -63,6 +63,10 @@ server/docs/QA/calculateCredit1,2,3,4/instructions.md
 # Test files with API tokens (NEVER commit!)
 test-jira-integration.js
 
+# Production configuration files (NEVER commit!)
+server/docs/prod/updateDumpFileProd.md
+server/docs/prod/updateDumpFileProd
+
 # Claude agents and sensitive files
 .claude/
 
