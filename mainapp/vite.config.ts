@@ -40,12 +40,19 @@ export default defineConfig({
         }
       }
     },
-    chunkSizeWarningLimit: 1000, // Increase limit to 1MB to reduce warnings
+    chunkSizeWarningLimit: 500, // Optimize for 500KB chunks
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    }
   },
   server: {
     proxy: {
       '/api': {
-        target: process.env.VITE_API_TARGET || 'http://localhost:8004',
+        target: process.env.VITE_API_TARGET || 'http://localhost:8003',
         changeOrigin: true,
         secure: false,
       },

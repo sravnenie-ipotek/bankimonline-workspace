@@ -2,6 +2,46 @@
 
 Complete reference for all development, testing, and deployment commands in the BankimOnline project.
 
+## 🚀 Quick Start: Two Ways to Launch Development
+
+### Method 1: Traditional NPM (Simple & Quick)
+```bash
+# Start both API server (port 8003) and file server (port 3001)
+npm run dev
+
+# Frontend in separate terminal
+cd mainapp && npm run dev  # Runs on port 5173
+```
+
+### Method 2: PM2 (Production-Like Environment)
+```bash
+# Start ALL services with PM2 (API, Files, Frontend)
+npm run pm2:dev
+
+# View logs from all services
+npm run pm2:logs
+
+# Check status
+npm run pm2:status
+
+# Stop all PM2 processes
+npm run pm2:stop
+```
+
+### Which Method Should You Use?
+
+| Use Case | Recommended Method | Command |
+|----------|-------------------|---------|
+| **Quick development** | NPM | `npm run dev` |
+| **Testing PM2 configs** | PM2 | `npm run pm2:dev` |
+| **Debugging production issues** | PM2 | `npm run pm2:dev` |
+| **Testing clustering** | PM2 | `npm run pm2:dev` |
+| **Simple code changes** | NPM | `npm run dev` |
+
+**Key Differences:**
+- **NPM Method**: Simple, direct output, easier debugging
+- **PM2 Method**: Production-like, log management, process monitoring, auto-restart
+
 ## =� Core Development Commands
 
 ./kill-ports.sh
