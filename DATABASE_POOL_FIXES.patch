@@ -1,0 +1,19 @@
+# Database Pool Fixes - Property Ownership Options
+# Apply these changes to server/server-db.js to fix database targeting
+
+# Fix 1: Property Ownership Options API (Line 2038)
+- const result = await pool.query(query, [language]);
++ const result = await contentPool.query(query, [language]);
+
+# Fix 2: Loan Calculator API (Line 2087)  
+- const ltvResult = await pool.query(ltvQuery, [property_ownership]);
++ const ltvResult = await contentPool.query(ltvQuery, [property_ownership]);
+
+# Fix 3: Calculation Parameters API (Line 9525)
+- const ltvResult = await pool.query(ltvQuery);
++ const ltvResult = await contentPool.query(ltvQuery);
+
+# Explanation:
+# These changes fix the database targeting issue where property_ownership_options
+# queries were using the main pool (MAGLEV/bankim_core) instead of the 
+# contentPool (SHORTLINE/bankim_content) where the table now correctly resides.

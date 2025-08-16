@@ -2035,7 +2035,7 @@ app.get('/api/customer/property-ownership-options', async (req, res) => {
             ORDER BY display_order
         `;
         
-        const result = await pool.query(query, [language]);
+        const result = await contentPool.query(query, [language]);
         
         res.json({
             status: 'success',
@@ -2084,7 +2084,7 @@ app.post('/api/customer/calculate-payment', async (req, res) => {
                 FROM property_ownership_options
                 WHERE option_key = $1 AND is_active = true
             `;
-            const ltvResult = await pool.query(ltvQuery, [property_ownership]);
+            const ltvResult = await contentPool.query(ltvQuery, [property_ownership]);
             ltv_info = ltvResult.rows[0] || null;
         }
         
@@ -9522,7 +9522,7 @@ app.get('/api/v1/calculation-parameters', async (req, res) => {
                 FROM property_ownership_options 
                 WHERE is_active = true
             `;
-            const ltvResult = await pool.query(ltvQuery);
+            const ltvResult = await contentPool.query(ltvQuery);
             ltvResult.rows.forEach(row => {
                 propertyOwnershipLtvs[row.option_key] = {
                     ltv: parseFloat(row.ltv_percentage),
