@@ -10,14 +10,14 @@ if ! command -v node &> /dev/null; then
     exit 1
 fi
 
-echo "📡 Backend will run on: http://localhost:8003"
+echo "📡 Backend will run on: http://localhost:8004"
 echo "🌐 Frontend will run on: http://localhost:5173"
-echo "🔗 API Proxy: Frontend → Backend (8003)"
+echo "🔗 API Proxy: Frontend → Backend (8004)"
 echo ""
 
 # Set environment variables for local development
-export PORT=8003
-export VITE_API_TARGET=http://localhost:8003
+export PORT=8004
+export VITE_API_TARGET=http://localhost:8004
 
 echo "✅ Environment variables set:"
 echo "   - PORT=$PORT"
@@ -35,7 +35,7 @@ cleanup() {
 # Set up signal handlers
 trap cleanup SIGINT SIGTERM
 
-echo "🖥️  Starting Backend Server (Port 8003)..."
+echo "🖥️  Starting Backend Server (Port 8004)..."
 node server/server-db.js &
 BACKEND_PID=$!
 
@@ -49,7 +49,7 @@ FRONTEND_PID=$!
 echo ""
 echo "✅ Local Development Environment Started!"
 echo "========================================"
-echo "📡 Backend API: http://localhost:8003"
+echo "📡 Backend API: http://localhost:8004"
 echo "🌐 Frontend: http://localhost:5173"
 echo "🔗 API calls from frontend will proxy to backend"
 echo ""

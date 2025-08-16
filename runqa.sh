@@ -205,6 +205,13 @@ create_failure_report() {
         .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
         .metric { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; }
         .metric-value { font-size: 24px; font-weight: bold; color: #dc3545; }
+        .media-section { background: #e3f2fd; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .media-buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 15px; }
+        .media-btn { padding: 12px 24px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
+        .screenshot-btn { background: #17a2b8; color: white; }
+        .video-btn { background: #6f42c1; color: white; }
+        .logs-btn { background: #6c757d; color: white; }
+        .media-btn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
@@ -254,12 +261,27 @@ create_failure_report() {
         <div class="critical-warning">
             <h3>🔧 Required Actions Before Production</h3>
             <ol>
-                <li><strong>Check Cypress logs</strong> in mainapp/cypress/screenshots and mainapp/cypress/videos</li>
-                <li><strong>Review failed test details</strong> in the Cypress dashboard</li>
+                <li><strong>Review test screenshots and videos</strong> using the buttons below</li>
+                <li><strong>Check detailed failure information</strong> in the debug section</li>
                 <li><strong>Fix the identified issues</strong> in the codebase</li>
                 <li><strong>Re-run QA tests</strong> using <code>runqa</code> command</li>
                 <li><strong>Ensure all tests pass</strong> before proceeding with deployment</li>
             </ol>
+        </div>
+        
+        <div class="media-section">
+            <h3>📸 Test Evidence</h3>
+            <div class="media-buttons">
+                <button class="media-btn screenshot-btn" onclick="openScreenshots()">
+                    📸 View Screenshots
+                </button>
+                <button class="media-btn video-btn" onclick="openVideos()">
+                    🎥 View Test Videos
+                </button>
+                <button class="media-btn logs-btn" onclick="openCypressLogs()">
+                    📋 View Cypress Logs
+                </button>
+            </div>
         </div>
         
         <div class="instructions">
