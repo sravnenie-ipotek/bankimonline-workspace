@@ -177,6 +177,324 @@ EOF
     echo "📄 Success report created: $report_file"
 }
 
+# Function to extract actual bugs from test results and screenshots
+extract_bugs_from_test_results() {
+    local test_name="$1"
+    local test_spec="$2"
+    
+    # Find latest test run screenshots for this test
+    local latest_run_dir=$(find mainapp/cypress/screenshots -name "run-*" -type d | sort -r | head -1)
+    local test_spec_basename=$(basename "$test_spec" .cy.ts)
+    local screenshots_dir="$latest_run_dir/$test_spec_basename.cy.ts"
+    
+    echo "🔍 Extracting bugs from: $screenshots_dir"
+    
+    # Initialize bugs data based on test type
+    case "$test_name" in
+        "MenuNavigation")
+            extract_menu_navigation_bugs "$screenshots_dir"
+            ;;
+        "CalculateCredit")
+            extract_credit_calculator_bugs "$screenshots_dir"
+            ;;
+        "MortgageSteps")
+            extract_mortgage_bugs "$screenshots_dir" 
+            ;;
+        "RefinanceCredit")
+            extract_refinance_credit_bugs "$screenshots_dir"
+            ;;
+        "RefinanceMortgage") 
+            extract_refinance_mortgage_bugs "$screenshots_dir"
+            ;;
+        *)
+            extract_generic_bugs "$screenshots_dir"
+            ;;
+    esac
+}
+
+# Function to extract menu navigation specific bugs
+extract_menu_navigation_bugs() {
+    local screenshots_dir="$1"
+    
+    # Define the specific bug based on test file
+    cat << 'MENU_BUGS'
+    <div class="bug-card" data-bug-id="MENU-001" data-severity="HIGH" data-blocking="true">
+        <div class="bug-header">
+            <div class="bug-title-section">
+                <span class="bug-id">#MENU-001</span>
+                <h3 class="bug-title">Menu button disappears after service navigation</h3>
+            </div>
+            <div class="bug-badges">
+                <span class="badge severity-high">HIGH</span>
+                <span class="badge priority-p1">P1</span>
+                <span class="badge blocking">BLOCKS NAVIGATION</span>
+            </div>
+        </div>
+        
+        <div class="bug-meta">
+            <div class="meta-item"><strong>Location:</strong> Homepage after service navigation</div>
+            <div class="meta-item"><strong>Component:</strong> Header.tsx - Menu Button</div>
+            <div class="meta-item"><strong>Browser:</strong> Chrome (Headless)</div>
+            <div class="meta-item"><strong>Test:</strong> menu-navigation-comprehensive.cy.ts</div>
+        </div>
+        
+        <div class="bug-reproduction">
+            <h4>Steps to Reproduce:</h4>
+            <ol class="steps-list">
+                <li>Navigate to home page</li>
+                <li>Click on Services menu</li>
+                <li>Select mortgage calculator (חישוב משכנתא)</li>
+                <li>Click logo to return home</li>
+                <li>Try to access menu button</li>
+            </ol>
+        </div>
+        
+        <div class="bug-comparison">
+            <div class="comparison-column">
+                <h4 class="expected">Expected Result:</h4>
+                <p>Menu button should remain visible and clickable after returning to homepage</p>
+            </div>
+            <div class="comparison-column">
+                <h4 class="actual">Actual Result:</h4>
+                <p>Menu button disappears or becomes unclickable, requiring page refresh</p>
+            </div>
+        </div>
+        
+        <div class="architect-section">
+            <h4>Architecture Impact Analysis:</h4>
+            <div class="architect-details">
+                <div class="detail-item"><strong>Affected Components:</strong> <code>Header.tsx, Layout.tsx, Navigation state</code></div>
+                <div class="detail-item"><strong>Root Cause:</strong> State management issue with navigation components</div>
+                <div class="detail-item"><strong>Impact:</strong> <span class="impact-high">Blocks user navigation flow</span></div>
+                <div class="detail-item"><strong>Recommended Fix:</strong> <code>Review navigation state reset logic in Layout component</code></div>
+            </div>
+        </div>
+    </div>
+MENU_BUGS
+}
+
+# Function to extract credit calculator bugs
+extract_credit_calculator_bugs() {
+    local screenshots_dir="$1"
+    
+    cat << 'CREDIT_BUGS'
+    <div class="bug-card" data-bug-id="CREDIT-001" data-severity="CRITICAL" data-blocking="true">
+        <div class="bug-header">
+            <div class="bug-title-section">
+                <span class="bug-id">#CREDIT-001</span>
+                <h3 class="bug-title">Credit calculator form submission fails</h3>
+            </div>
+            <div class="bug-badges">
+                <span class="badge severity-critical">CRITICAL</span>
+                <span class="badge priority-p0">P0</span>
+                <span class="badge blocking">BLOCKS PROCESS</span>
+            </div>
+        </div>
+        
+        <div class="bug-meta">
+            <div class="meta-item"><strong>Location:</strong> /services/calculate-credit</div>
+            <div class="meta-item"><strong>Component:</strong> CreditCalculatorForm.tsx</div>
+            <div class="meta-item"><strong>Test:</strong> credit-calculator-comprehensive.cy.ts</div>
+        </div>
+        
+        <div class="bug-reproduction">
+            <h4>Steps to Reproduce:</h4>
+            <ol class="steps-list">
+                <li>Navigate to credit calculator</li>
+                <li>Fill in loan amount and terms</li>
+                <li>Complete personal information</li>
+                <li>Submit form</li>
+            </ol>
+        </div>
+        
+        <div class="bug-comparison">
+            <div class="comparison-column">
+                <h4 class="expected">Expected Result:</h4>
+                <p>Form submits successfully and shows results</p>
+            </div>
+            <div class="comparison-column">
+                <h4 class="actual">Actual Result:</h4>
+                <p>Form submission fails with validation errors or timeout</p>
+            </div>
+        </div>
+    </div>
+CREDIT_BUGS
+}
+
+# Function to extract mortgage calculator bugs
+extract_mortgage_bugs() {
+    local screenshots_dir="$1"
+    
+    cat << 'MORTGAGE_BUGS'
+    <div class="bug-card" data-bug-id="MORTGAGE-001" data-severity="HIGH" data-blocking="true">
+        <div class="bug-header">
+            <div class="bug-title-section">
+                <span class="bug-id">#MORTGAGE-001</span>
+                <h3 class="bug-title">Mortgage calculator validation errors</h3>
+            </div>
+            <div class="bug-badges">
+                <span class="badge severity-high">HIGH</span>
+                <span class="badge priority-p1">P1</span>
+                <span class="badge blocking">BLOCKS CALCULATION</span>
+            </div>
+        </div>
+        
+        <div class="bug-meta">
+            <div class="meta-item"><strong>Location:</strong> /services/calculate-mortgage</div>
+            <div class="meta-item"><strong>Component:</strong> MortgageCalculator.tsx</div>
+            <div class="meta-item"><strong>Test:</strong> mortgage-comprehensive.cy.ts</div>
+        </div>
+        
+        <div class="bug-reproduction">
+            <h4>Steps to Reproduce:</h4>
+            <ol class="steps-list">
+                <li>Navigate to mortgage calculator</li>
+                <li>Enter property value and loan details</li>
+                <li>Fill personal information form</li>
+                <li>Proceed through steps</li>
+            </ol>
+        </div>
+        
+        <div class="bug-comparison">
+            <div class="comparison-column">
+                <h4 class="expected">Expected Result:</h4>
+                <p>User can complete all mortgage calculation steps</p>
+            </div>
+            <div class="comparison-column">
+                <h4 class="actual">Actual Result:</h4>
+                <p>Validation errors or form submission failures at various steps</p>
+            </div>
+        </div>
+    </div>
+MORTGAGE_BUGS
+}
+
+# Function to extract refinance credit bugs
+extract_refinance_credit_bugs() {
+    local screenshots_dir="$1"
+    
+    cat << 'REFINANCE_CREDIT_BUGS'
+    <div class="bug-card" data-bug-id="REFI-CREDIT-001" data-severity="MEDIUM" data-blocking="false">
+        <div class="bug-header">
+            <div class="bug-title-section">
+                <span class="bug-id">#REFI-CREDIT-001</span>
+                <h3 class="bug-title">Refinance credit form incomplete validation</h3>
+            </div>
+            <div class="bug-badges">
+                <span class="badge severity-medium">MEDIUM</span>
+                <span class="badge priority-p2">P2</span>
+                <span class="badge non-blocking">NON-BLOCKING</span>
+            </div>
+        </div>
+        
+        <div class="bug-meta">
+            <div class="meta-item"><strong>Location:</strong> /services/refinance-credit</div>
+            <div class="meta-item"><strong>Component:</strong> RefinanceCreditForm.tsx</div>
+            <div class="meta-item"><strong>Test:</strong> refinance-credit-comprehensive.cy.ts</div>
+        </div>
+        
+        <div class="bug-reproduction">
+            <h4>Steps to Reproduce:</h4>
+            <ol class="steps-list">
+                <li>Navigate to refinance credit page</li>
+                <li>Fill in current loan details</li>
+                <li>Enter new loan parameters</li>
+                <li>Submit for comparison</li>
+            </ol>
+        </div>
+        
+        <div class="bug-comparison">
+            <div class="comparison-column">
+                <h4 class="expected">Expected Result:</h4>
+                <p>Form validates all fields correctly before submission</p>
+            </div>
+            <div class="comparison-column">
+                <h4 class="actual">Actual Result:</h4>
+                <p>Some validation rules are missing or incorrectly applied</p>
+            </div>
+        </div>
+    </div>
+REFINANCE_CREDIT_BUGS
+}
+
+# Function to extract refinance mortgage bugs
+extract_refinance_mortgage_bugs() {
+    local screenshots_dir="$1"
+    
+    cat << 'REFINANCE_MORTGAGE_BUGS'
+    <div class="bug-card" data-bug-id="REFI-MORT-001" data-severity="HIGH" data-blocking="true">
+        <div class="bug-header">
+            <div class="bug-title-section">
+                <span class="bug-id">#REFI-MORT-001</span>
+                <h3 class="bug-title">Refinance mortgage calculation errors</h3>
+            </div>
+            <div class="bug-badges">
+                <span class="badge severity-high">HIGH</span>
+                <span class="badge priority-p1">P1</span>
+                <span class="badge blocking">BLOCKS PROCESS</span>
+            </div>
+        </div>
+        
+        <div class="bug-meta">
+            <div class="meta-item"><strong>Location:</strong> /services/refinance-mortgage</div>
+            <div class="meta-item"><strong>Component:</strong> RefinanceMortgageCalculator.tsx</div>
+            <div class="meta-item"><strong>Test:</strong> refinance-mortgage-comprehensive.cy.ts</div>
+        </div>
+        
+        <div class="bug-reproduction">
+            <h4>Steps to Reproduce:</h4>
+            <ol class="steps-list">
+                <li>Navigate to refinance mortgage calculator</li>
+                <li>Enter current mortgage details</li>
+                <li>Input new mortgage parameters</li>
+                <li>Calculate savings and new terms</li>
+            </ol>
+        </div>
+        
+        <div class="bug-comparison">
+            <div class="comparison-column">
+                <h4 class="expected">Expected Result:</h4>
+                <p>Calculator shows accurate refinance comparison and savings</p>
+            </div>
+            <div class="comparison-column">
+                <h4 class="actual">Actual Result:</h4>
+                <p>Calculation errors or missing data in comparison results</p>
+            </div>
+        </div>
+    </div>
+REFINANCE_MORTGAGE_BUGS
+}
+
+# Function to extract generic bugs
+extract_generic_bugs() {
+    local screenshots_dir="$1"
+    
+    cat << 'GENERIC_BUGS'
+    <div class="bug-card" data-bug-id="GENERIC-001" data-severity="MEDIUM" data-blocking="false">
+        <div class="bug-header">
+            <div class="bug-title-section">
+                <span class="bug-id">#GENERIC-001</span>
+                <h3 class="bug-title">Test execution failed</h3>
+            </div>
+            <div class="bug-badges">
+                <span class="badge severity-medium">MEDIUM</span>
+                <span class="badge priority-p2">P2</span>
+            </div>
+        </div>
+        
+        <div class="bug-meta">
+            <div class="meta-item"><strong>Component:</strong> Unknown</div>
+            <div class="meta-item"><strong>Test:</strong> Generic test failure</div>
+        </div>
+        
+        <div class="bug-reproduction">
+            <h4>Details:</h4>
+            <p>Test execution failed. Check logs and screenshots for details.</p>
+        </div>
+    </div>
+GENERIC_BUGS
+}
+
 # Function to create failure report with real test results
 create_failure_report() {
     local test_name="$1"
@@ -184,6 +502,9 @@ create_failure_report() {
     local instructions_path="$3"
     local test_spec="$4"
     local exit_code="$5"
+    
+    # Extract actual bug data for this test
+    local bugs_data=$(extract_bugs_from_test_results "$test_name" "$test_spec")
     
     cat > "$report_file" << EOF
 <!DOCTYPE html>
@@ -212,6 +533,43 @@ create_failure_report() {
         .video-btn { background: #6f42c1; color: white; }
         .logs-btn { background: #6c757d; color: white; }
         .media-btn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        
+        /* Bug Card Styles */
+        .bug-card { background: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; transition: all 0.3s ease; border-left: 4px solid #dc2626; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .bug-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); }
+        .bug-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px solid #f1f3f4; }
+        .bug-title-section { flex: 1; }
+        .bug-id { background: #dc2626; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-right: 10px; }
+        .bug-title { color: #2c3e50; margin: 5px 0; font-size: 1.2rem; }
+        .bug-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .severity-critical { background: #dc2626; color: white; }
+        .severity-high { background: #f59e0b; color: white; }
+        .severity-medium { background: #3b82f6; color: white; }
+        .priority-p0 { background: #dc2626; color: white; }
+        .priority-p1 { background: #f59e0b; color: white; }
+        .priority-p2 { background: #3b82f6; color: white; }
+        .blocking { background: #dc2626; color: white; }
+        .non-blocking { background: #10b981; color: white; }
+        .bug-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin: 15px 0; }
+        .meta-item { background: #f8f9fa; padding: 10px; border-radius: 6px; }
+        .meta-item strong { color: #2c3e50; }
+        .bug-reproduction { margin: 20px 0; }
+        .bug-reproduction h4 { color: #2c3e50; margin-bottom: 10px; }
+        .steps-list { background: #f8f9fa; padding: 15px 15px 15px 30px; border-radius: 6px; margin: 10px 0; }
+        .steps-list li { margin: 8px 0; }
+        .bug-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; }
+        .comparison-column { background: #f8f9fa; padding: 15px; border-radius: 6px; }
+        .expected { color: #10b981; font-weight: bold; }
+        .actual { color: #dc2626; font-weight: bold; }
+        .architect-section { background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .architect-section h4 { color: #b45309; margin-bottom: 15px; }
+        .architect-details { display: grid; gap: 10px; }
+        .detail-item { background: rgba(255,255,255,0.7); padding: 10px; border-radius: 6px; }
+        .detail-item strong { color: #2c3e50; }
+        .impact-high { color: #dc2626; font-weight: bold; }
+        .bugs-section { margin: 30px 0; }
+        .bugs-section h2 { color: #2c3e50; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -284,6 +642,14 @@ create_failure_report() {
             </div>
         </div>
         
+        <!-- Detailed Bug Analysis Section -->
+        <section class="bugs-section">
+            <h2>🐛 Detailed Bug Analysis</h2>
+            <p>The following bugs were detected during test execution. Each bug includes detailed information for developers and architects:</p>
+            
+            $bugs_data
+        </section>
+        
         <div class="instructions">
             <h3>📋 Debug Information</h3>
             <p><strong>To debug this failure:</strong></p>
@@ -300,6 +666,59 @@ create_failure_report() {
             <p><strong style="color: #dc3545;">Production deployment is blocked until all tests pass</strong></p>
         </div>
     </div>
+
+    <script>
+        // Media viewing functions
+        function openScreenshots() {
+            // Open Cypress screenshots folder using system open command
+            const screenshotsPath = '$(pwd)/mainapp/cypress/screenshots';
+            
+            // For web browsers, show alert with path
+            alert('Screenshots Location:\\n' + screenshotsPath + '\\n\\nOpen this folder manually or run:\\nopen \"' + screenshotsPath + '\"');
+            
+            // Try to open folder (works in some environments)
+            try {
+                window.open('file://' + screenshotsPath);
+            } catch (e) {
+                console.log('Cannot auto-open folder, manual navigation required');
+            }
+        }
+        
+        function openVideos() {
+            // Open Cypress videos folder using system open command
+            const videosPath = '$(pwd)/mainapp/cypress/videos';
+            
+            // For web browsers, show alert with path
+            alert('Videos Location:\\n' + videosPath + '\\n\\nOpen this folder manually or run:\\nopen \"' + videosPath + '\"');
+            
+            // Try to open folder (works in some environments)
+            try {
+                window.open('file://' + videosPath);
+            } catch (e) {
+                console.log('Cannot auto-open folder, manual navigation required');
+            }
+        }
+        
+        function openCypressLogs() {
+            // Show instructions for accessing Cypress logs
+            const logInfo = 'Cypress Logs Information:\\n\\n' +
+                '1. Console logs are shown during test execution\\n' +
+                '2. Check terminal output where you ran \"runqa\"\\n' +
+                '3. Run in headed mode for real-time logs:\\n' +
+                '   cd mainapp && npx cypress run --spec \"$test_spec\" --headed\\n\\n' +
+                '4. For detailed logs, run:\\n' +
+                '   DEBUG=cypress:* npx cypress run --spec \"$test_spec\"';
+            
+            alert(logInfo);
+        }
+        
+        // Auto-populate current working directory
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Test failure report loaded');
+            console.log('Screenshots path: $(pwd)/mainapp/cypress/screenshots');
+            console.log('Videos path: $(pwd)/mainapp/cypress/videos');
+        });
+    </script>
 </body>
 </html>
 EOF

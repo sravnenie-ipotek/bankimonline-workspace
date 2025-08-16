@@ -17,6 +17,13 @@
         .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
         .metric { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; }
         .metric-value { font-size: 24px; font-weight: bold; color: #dc3545; }
+        .media-section { background: #e3f2fd; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .media-buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 15px; }
+        .media-btn { padding: 12px 24px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
+        .screenshot-btn { background: #17a2b8; color: white; }
+        .video-btn { background: #6f42c1; color: white; }
+        .logs-btn { background: #6c757d; color: white; }
+        .media-btn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
@@ -66,12 +73,27 @@
         <div class="critical-warning">
             <h3>🔧 Required Actions Before Production</h3>
             <ol>
-                <li><strong>Check Cypress logs</strong> in mainapp/cypress/screenshots and mainapp/cypress/videos</li>
-                <li><strong>Review failed test details</strong> in the Cypress dashboard</li>
+                <li><strong>Review test screenshots and videos</strong> using the buttons below</li>
+                <li><strong>Check detailed failure information</strong> in the debug section</li>
                 <li><strong>Fix the identified issues</strong> in the codebase</li>
                 <li><strong>Re-run QA tests</strong> using <code>runqa</code> command</li>
                 <li><strong>Ensure all tests pass</strong> before proceeding with deployment</li>
             </ol>
+        </div>
+        
+        <div class="media-section">
+            <h3>📸 Test Evidence</h3>
+            <div class="media-buttons">
+                <button class="media-btn screenshot-btn" onclick="openScreenshots()">
+                    📸 View Screenshots
+                </button>
+                <button class="media-btn video-btn" onclick="openVideos()">
+                    🎥 View Test Videos
+                </button>
+                <button class="media-btn logs-btn" onclick="openCypressLogs()">
+                    📋 View Cypress Logs
+                </button>
+            </div>
         </div>
         
         <div class="instructions">
@@ -90,5 +112,58 @@
             <p><strong style="color: #dc3545;">Production deployment is blocked until all tests pass</strong></p>
         </div>
     </div>
+
+    <script>
+        // Media viewing functions
+        function openScreenshots() {
+            // Get current working directory and construct path
+            const screenshotsPath = '/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots';
+            
+            // Show alert with instructions
+            alert('Screenshots Location:\n' + screenshotsPath + '\n\nTo open manually:\n1. Open Finder\n2. Press Cmd+Shift+G\n3. Paste the path above\n\nOr run in terminal:\nopen "' + screenshotsPath + '"');
+            
+            // Try to open folder using file protocol
+            try {
+                window.open('file://' + screenshotsPath);
+            } catch (e) {
+                console.log('Cannot auto-open folder, manual navigation required');
+            }
+        }
+        
+        function openVideos() {
+            // Get current working directory and construct path
+            const videosPath = '/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/videos';
+            
+            // Show alert with instructions
+            alert('Videos Location:\n' + videosPath + '\n\nTo open manually:\n1. Open Finder\n2. Press Cmd+Shift+G\n3. Paste the path above\n\nOr run in terminal:\nopen "' + videosPath + '"');
+            
+            // Try to open folder using file protocol
+            try {
+                window.open('file://' + videosPath);
+            } catch (e) {
+                console.log('Cannot auto-open folder, manual navigation required');
+            }
+        }
+        
+        function openCypressLogs() {
+            // Show instructions for accessing Cypress logs
+            const logInfo = 'Cypress Logs Information:\n\n' +
+                '1. Console logs are shown during test execution\n' +
+                '2. Check terminal output where you ran "runqa"\n' +
+                '3. Run in headed mode for real-time logs:\n' +
+                '   cd mainapp && npx cypress run --spec "cypress/e2e/refinance-mortgage-comprehensive.cy.ts" --headed\n\n' +
+                '4. For detailed logs, run:\n' +
+                '   DEBUG=cypress:* npx cypress run --spec "cypress/e2e/refinance-mortgage-comprehensive.cy.ts"';
+            
+            alert(logInfo);
+        }
+        
+        // Auto-populate current working directory and log debug info
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('RefinanceMortgage test failure report loaded');
+            console.log('Screenshots path: /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots');
+            console.log('Videos path: /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/videos');
+        });
+    </script>
 </body>
 </html>

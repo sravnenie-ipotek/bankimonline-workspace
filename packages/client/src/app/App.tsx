@@ -19,8 +19,8 @@ import styles from './app.module.scss'
 const cx = classNames.bind(styles)
 
 const MainRoutes = lazy(() =>
-  import('./AppRoutes').then((module) => ({
-    default: module.MainRoutes,
+  import('./AppRoutes/MainRoutes').then((module) => ({
+    default: module.default,
   }))
 )
 

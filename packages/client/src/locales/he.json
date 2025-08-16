@@ -1,0 +1,43 @@
+{
+  "menu": {
+    "main": "ראשי",
+    "menu": "תפריט",
+    "mortgage": "משכנתא",
+    "mortgageRefi": "מחזור משכנתא",
+    "credit": "אשראי",
+    "creditRefi": "מחזור אשראי",
+    "general": "כללי",
+    "chat": "צ'אט",
+    "users": "משתמשים",
+    "userManagement": "ניהול משתמשים",
+    "rolesPermissions": "תפקידים והרשאות",
+    "activeSessions": "הפעלות פעילות",
+    "analytics": "אנליטיקה",
+    "dashboard": "לוח בקרה",
+    "reports": "דוחות",
+    "userStats": "סטטיסטיקת משתמשים",
+    "conversion": "המרה",
+    "settings": "הגדרות",
+    "generalSettings": "הגדרות כלליות",
+    "apiConfig": "הגדרות API",
+    "security": "אבטחה",
+    "integrations": "אינטגרציות",
+    "banks": "בנקים",
+    "banksList": "רשימת בנקים",
+    "bankSettings": "הגדרות בנק",
+    "systemLogs": "יומני מערכת",
+    "eventLog": "יומן אירועים",
+    "systemErrors": "שגיאות מערכת",
+    "auditActions": "פעולות ביקורת",
+    "calculatorFormula": "נוסחת מחשבון",
+    "contentSite": "תוכן האתר"
+  },
+  "auth": {
+    "logout": "התנתק",
+    "login": "התחבר",
+    "email": "אימייל",
+    "password": "סיסמה",
+    "role": "תפקיד"
+  },
+  "fill_form": "מלא טופס"
+}

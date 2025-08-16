@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MenuNavigation QA Report - FAILED</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 40px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; margin-bottom: 30px; }
+        .status { padding: 12px 24px; border-radius: 8px; font-weight: bold; margin: 20px 0; }
+        .status.failed { background: #f8d7da; color: #721c24; border: 2px solid #f5c6cb; }
+        .instructions { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .test-details { background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .critical-warning { background: #f8d7da; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #dc3545; }
+        code { background: #f1f3f4; padding: 2px 6px; border-radius: 4px; }
+        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .metric { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; }
+        .metric-value { font-size: 24px; font-weight: bold; color: #dc3545; }
+        .media-section { background: #e3f2fd; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .media-buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 15px; }
+        .media-btn { padding: 12px 24px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
+        .screenshot-btn { background: #17a2b8; color: white; }
+        .video-btn { background: #6f42c1; color: white; }
+        .logs-btn { background: #6c757d; color: white; }
+        .media-btn:hover { transform: scale(1.05); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MenuNavigation QA Report</h1>
+        
+        <div class="status failed">
+            ❌ TESTS FAILED - DO NOT DEPLOY TO PRODUCTION!
+        </div>
+        
+        <div class="critical-warning">
+            <h3>🚨 CRITICAL: Production Deployment Blocked</h3>
+            <p><strong>MenuNavigation tests have failed.</strong> This indicates critical issues that must be resolved before production deployment.</p>
+            <p><strong>Exit Code:</strong> 1</p>
+        </div>
+        
+        <div class="test-details">
+            <h3>🧪 Test Execution Details</h3>
+            <p><strong>Test Suite:</strong> MenuNavigation</p>
+            <p><strong>Test Spec:</strong> <code>cypress/e2e/menu-navigation-comprehensive.cy.ts</code></p>
+            <p><strong>Instructions:</strong> <code>/Users/michaelmishayev/Projects/bankDev2_standalone/server/docs/QA/menuQA/instructions.md</code></p>
+            <p><strong>Execution Time:</strong> Sat Aug 16 16:43:58 IDT 2025</p>
+            <p><strong>Browser:</strong> Chrome (Headless)</p>
+            <p><strong>Status:</strong> <span style="color: #dc3545; font-weight: bold;">FAILED</span></p>
+            <p><strong>Exit Code:</strong> 1</p>
+        </div>
+        
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value">❌</div>
+                <div>Test Status</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">1</div>
+                <div>Exit Code</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">BLOCKED</div>
+                <div>Production Status</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">CRITICAL</div>
+                <div>Issue Level</div>
+            </div>
+        </div>
+        
+        <div class="critical-warning">
+            <h3>🔧 Required Actions Before Production</h3>
+            <ol>
+                <li><strong>Review test screenshots and videos</strong> using the buttons below</li>
+                <li><strong>Check detailed failure information</strong> in the debug section</li>
+                <li><strong>Fix the identified issues</strong> in the codebase</li>
+                <li><strong>Re-run QA tests</strong> using <code>runqa</code> command</li>
+                <li><strong>Ensure all tests pass</strong> before proceeding with deployment</li>
+            </ol>
+        </div>
+        
+        <div class="media-section">
+            <h3>📸 Test Evidence</h3>
+            <div class="media-buttons">
+                <button class="media-btn screenshot-btn" onclick="openScreenshots()">
+                    📸 View Screenshots
+                </button>
+                <button class="media-btn video-btn" onclick="openVideos()">
+                    🎥 View Test Videos
+                </button>
+                <button class="media-btn logs-btn" onclick="openCypressLogs()">
+                    📋 View Cypress Logs
+                </button>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Debug Information</h3>
+            <p><strong>To debug this failure:</strong></p>
+            <ul>
+                <li>Run the specific test manually: <code>cd mainapp && npx cypress run --spec "cypress/e2e/menu-navigation-comprehensive.cy.ts"</code></li>
+                <li>Run in headed mode to see what's happening: <code>npx cypress run --spec "cypress/e2e/menu-navigation-comprehensive.cy.ts" --headed</code></li>
+                <li>Check the test instructions: <code>/Users/michaelmishayev/Projects/bankDev2_standalone/server/docs/QA/menuQA/instructions.md</code></li>
+                <li>Review screenshots and videos in the cypress folder</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee; color: #666; text-align: center;">
+            <p>Real Cypress test execution failed on Sat Aug 16 16:43:58 IDT 2025</p>
+            <p><strong style="color: #dc3545;">Production deployment is blocked until all tests pass</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // Media viewing functions
+        function openScreenshots() {
+            // Open Cypress screenshots folder using system open command
+            const screenshotsPath = '/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots';
+            
+            // For web browsers, show alert with path
+            alert('Screenshots Location:\n' + screenshotsPath + '\n\nOpen this folder manually or run:\nopen \"' + screenshotsPath + '\"');
+            
+            // Try to open folder (works in some environments)
+            try {
+                window.open('file://' + screenshotsPath);
+            } catch (e) {
+                console.log('Cannot auto-open folder, manual navigation required');
+            }
+        }
+        
+        function openVideos() {
+            // Open Cypress videos folder using system open command
+            const videosPath = '/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/videos';
+            
+            // For web browsers, show alert with path
+            alert('Videos Location:\n' + videosPath + '\n\nOpen this folder manually or run:\nopen \"' + videosPath + '\"');
+            
+            // Try to open folder (works in some environments)
+            try {
+                window.open('file://' + videosPath);
+            } catch (e) {
+                console.log('Cannot auto-open folder, manual navigation required');
+            }
+        }
+        
+        function openCypressLogs() {
+            // Show instructions for accessing Cypress logs
+            const logInfo = 'Cypress Logs Information:\n\n' +
+                '1. Console logs are shown during test execution\n' +
+                '2. Check terminal output where you ran \"runqa\"\n' +
+                '3. Run in headed mode for real-time logs:\n' +
+                '   cd mainapp && npx cypress run --spec \"cypress/e2e/menu-navigation-comprehensive.cy.ts\" --headed\n\n' +
+                '4. For detailed logs, run:\n' +
+                '   DEBUG=cypress:* npx cypress run --spec \"cypress/e2e/menu-navigation-comprehensive.cy.ts\"';
+            
+            alert(logInfo);
+        }
+        
+        // Auto-populate current working directory
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Test failure report loaded');
+            console.log('Screenshots path: /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots');
+            console.log('Videos path: /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/videos');
+        });
+    </script>
+</body>
+</html>

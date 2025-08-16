@@ -12,7 +12,7 @@ const fs = require('fs');
 const NodeCache = require('node-cache');
 
 const app = express();
-const PORT = process.env.PORT || 8004;
+const PORT = process.env.PORT || 8888;
 
 // Initialize cache for content endpoints (5-minute TTL)
 const contentCache = new NodeCache({ 

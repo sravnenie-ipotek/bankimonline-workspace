@@ -1,0 +1,43 @@
+{
+  "menu": {
+    "main": "Main",
+    "menu": "Menu",
+    "mortgage": "Mortgage",
+    "mortgageRefi": "Mortgage Refinancing",
+    "credit": "Credit",
+    "creditRefi": "Credit Refinancing",
+    "general": "General",
+    "chat": "Chat",
+    "users": "Users",
+    "userManagement": "User Management",
+    "rolesPermissions": "Roles & Permissions",
+    "activeSessions": "Active Sessions",
+    "analytics": "Analytics",
+    "dashboard": "Dashboard",
+    "reports": "Reports",
+    "userStats": "User Statistics",
+    "conversion": "Conversion",
+    "settings": "Settings",
+    "generalSettings": "General Settings",
+    "apiConfig": "API Configuration",
+    "security": "Security",
+    "integrations": "Integrations",
+    "banks": "Banks",
+    "banksList": "Banks List",
+    "bankSettings": "Bank Settings",
+    "systemLogs": "System Logs",
+    "eventLog": "Event Log",
+    "systemErrors": "System Errors",
+    "auditActions": "Audit Actions",
+    "calculatorFormula": "Calculator Formula",
+    "contentSite": "Site Content"
+  },
+  "auth": {
+    "logout": "Logout",
+    "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "role": "Role"
+  },
+  "fill_form": "Fill form"
+}

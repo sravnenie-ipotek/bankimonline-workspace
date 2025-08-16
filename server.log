@@ -1,3 +1,8 @@
+[dotenv@17.2.1] injecting env (5) from .env -- tip: 📡 observe env with Radar: https://dotenvx.com/radar
+✅ Environment loaded from: .env
+✅ Variables loaded: 3
+✅ Database URL configured: Yes
+✅ Environment: development
 📊 [main] DB Config: postgresql://***:***@maglev.proxy.rlwy.net:43809/railway | SSL: on
 📊 [content] DB Config: postgresql://***:***@shortline.proxy.rlwy.net:33452/railway | SSL: on
 ✅ Main Database connected successfully

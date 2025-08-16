@@ -5,6 +5,9 @@ import { ToastContainer } from 'react-toastify'
 import Layout from '@components/layout/Layout.tsx'
 import RegistrationLayout from '@components/layout/RegistrationLayout'
 import { Loader } from '@components/layout/Loader'
+import { AuthProvider } from '../../contexts/AuthContext'
+import { LanguageProvider } from '../../contexts/LanguageContext'
+import { NavigationProvider } from '../../contexts/NavigationContext'
 
 const Home = lazy(() => import('../../pages/Home/Home.tsx'))
 
@@ -231,6 +234,7 @@ const MobileDocumentUploadPage = lazy(() =>
 const AdminLogin = lazy(() => import('../../pages/Admin/AdminLogin'))
 const AdminDashboard = lazy(() => import('../../pages/Admin/AdminDashboard'))
 const BankWorkerManagement = lazy(() => import('../../pages/Admin/BankWorkerManagement'))
+const ContentManagement = lazy(() => import('../../pages/ContentManagement'))
 
 // Bank Worker Registration (Phase 3)
 const BankWorkerRegistration = lazy(() =>
@@ -438,15 +442,40 @@ const MainRoutes: React.FC = () => {
               </Route>
             </Route>
             
-            <Route element={<Layout />}>
-              {/* Admin Routes */}
-              <Route path="/admin">
-                <Route path="login" element={<AdminLogin />} />
-                <Route path="dashboard" element={<AdminDashboard />} />
-                <Route path="bank-workers" element={<BankWorkerManagement />} />
-                <Route index element={<Navigate replace to="/admin/login" />} />
-              </Route>
+            {/* Admin Routes */}
+            <Route path="/admin">
+              <Route path="login" element={<AdminLogin />} />
+              <Route path="dashboard" element={
+                <AuthProvider>
+                  <LanguageProvider>
+                    <NavigationProvider>
+                      <AdminDashboard />
+                    </NavigationProvider>
+                  </LanguageProvider>
+                </AuthProvider>
+              } />
+              <Route path="bank-workers" element={
+                <AuthProvider>
+                  <LanguageProvider>
+                    <NavigationProvider>
+                      <BankWorkerManagement />
+                    </NavigationProvider>
+                  </LanguageProvider>
+                </AuthProvider>
+              } />
+              <Route path="content-management" element={
+                <AuthProvider>
+                  <LanguageProvider>
+                    <NavigationProvider>
+                      <ContentManagement />
+                    </NavigationProvider>
+                  </LanguageProvider>
+                </AuthProvider>
+              } />
+              <Route index element={<Navigate replace to="/admin/login" />} />
+            </Route>
 
+            <Route element={<Layout />}>
               {/* Side Navigation Demo route */}
               <Route path="/side-navigation-demo" element={<SideNavigationDemo />} />
               
