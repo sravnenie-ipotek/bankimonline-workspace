@@ -1,164 +1,279 @@
-# Production Pull & Apply Instructions
+# 📥 PRODUCTION PULL INSTRUCTIONS - WHAT TO PULL FROM WHERE
 
 **Date**: August 16, 2025  
-**Commit**: 72445ba87  
-**Branch**: main
-
-## What's New in This Update
-
-1. **PM2 Development Configuration** - Match production's PM2 setup locally
-2. **Security Documentation** - Critical JWT_SECRET vulnerability identified
-3. **Production-Ops Subagent** - AI assistant that knows your PM2-dump architecture
-4. **Environment Comparison** - Clear documentation of dev vs prod differences
-
-## Files for Production Team
-
-### Critical Security Fix Required
-- **`SECURITY_WARNING_JWT.md`** - ⚠️ READ IMMEDIATELY
-  - Production is missing JWT_SECRET in PM2 dump
-  - Using weak hardcoded defaults
-  - Contains fix instructions
-
-### Production Update Guide
-- **`server/docs/prod/updateDumpFileProd.md`** - How to update PM2 environment variables
-  - Step-by-step instructions
-  - Backup procedures
-  - Rollback guide
-
-### Documentation
-- **`DEV_PROD_ENVIRONMENT_COMPARISON.md`** - Complete environment comparison
-- **`server/docs/prod/prodArchitecture.md`** - Your unique PM2-dump architecture explained
-
-## How to Pull These Changes to Production
-
-### Step 1: Backup Current State
-```bash
-# ALWAYS backup first!
-cd /var/www/bankim/online/api
-cp ~/.pm2/dump.pm2 /var/www/bankim/config-backups/pm2-dump-$(date +%Y%m%d_%H%M%S).pm2
-pm2 save
-```
-
-### Step 2: Pull Latest Changes
-```bash
-# Check current branch
-git branch
-
-# Pull latest from main
-git pull origin main
-
-# Verify the pull
-git log --oneline -5
-```
-
-### Step 3: Review Security Warning
-```bash
-# READ THE SECURITY WARNING
-cat SECURITY_WARNING_JWT.md
-
-# This file explains the JWT_SECRET vulnerability
-```
-
-### Step 4: Apply JWT_SECRET Fix (CRITICAL)
-```bash
-# Generate secure secrets
-JWT_SECRET=$(openssl rand -hex 64)
-JWT_BANK_SECRET=$(openssl rand -hex 64)
-
-echo "JWT_SECRET: $JWT_SECRET"
-echo "JWT_BANK_SECRET: $JWT_BANK_SECRET"
-
-# Delete current PM2 process
-pm2 delete bankim-online-server
-
-# Recreate with JWT secrets
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/bankim_core" \
-CONTENT_DATABASE_URL="postgresql://postgres:postgres@localhost:5432/bankim_content" \
-MANAGEMENT_DATABASE_URL="postgresql://postgres:postgres@localhost:5432/bankim_management" \
-JWT_SECRET="$JWT_SECRET" \
-JWT_BANK_SECRET="$JWT_BANK_SECRET" \
-PORT=8004 \
-NODE_ENV=production \
-pm2 start server/server-db.js --name bankim-online-server -i 2
-
-# CRITICAL: Save the new configuration
-pm2 save
-
-# Backup the new dump immediately
-cp ~/.pm2/dump.pm2 /var/www/bankim/config-backups/pm2-dump-JWT-FIXED-$(date +%Y%m%d).pm2
-```
-
-### Step 5: Verify the Fix
-```bash
-# Check JWT_SECRET is now set
-pm2 show bankim-online-server | grep JWT
-
-# Should see:
-# │ JWT_SECRET │ [your-generated-secret]
-# │ JWT_BANK_SECRET │ [your-generated-secret]
-
-# Test the application
-curl http://localhost:8004/api/health
-```
-
-### Step 6: Test System Restart
-```bash
-# Ensure changes survive restart
-sudo systemctl restart pm2-root
-sleep 5
-pm2 status
-
-# Verify JWT still set after restart
-pm2 show bankim-online-server | grep JWT
-```
-
-## What NOT to Do
-
-❌ **DON'T** edit .env files - Production ignores them  
-❌ **DON'T** skip `pm2 save` - Changes will be lost  
-❌ **DON'T** skip backup - Always backup before changes  
-❌ **DON'T** use weak JWT secrets - Use the openssl command  
-
-## Files You Can Ignore (Development Only)
-
-These files are for development environment only:
-- `ecosystem.dev.config.js` - Development PM2 config
-- `PM2_DEVELOPMENT.md` - Development PM2 guide
-- `.env.development-railway` - Development database config
-- `package.json` PM2 scripts - Development convenience
-
-## Support Files
-
-- **Production Architecture**: `server/docs/prod/prodArchitecture.md`
-- **Update Procedures**: `server/docs/prod/updateDumpFileProd.md`
-- **Subagent Help**: `.claude/agents/production-ops.md`
-
-## Emergency Rollback
-
-If something goes wrong:
-```bash
-# Stop PM2
-pm2 kill
-
-# Restore backup dump
-cp /var/www/bankim/config-backups/pm2-dump-[BACKUP-DATE].pm2 ~/.pm2/dump.pm2
-
-# Resurrect from backup
-pm2 resurrect
-
-# Verify
-pm2 status
-```
-
-## Summary
-
-1. **Pull the latest code** from main branch
-2. **READ** SECURITY_WARNING_JWT.md
-3. **FIX** the JWT_SECRET vulnerability immediately
-4. **BACKUP** before and after changes
-5. **TEST** that changes survive restart
-
-The system has been stable for 30+ days, but the JWT_SECRET vulnerability needs immediate attention!
+**Critical**: Follow these EXACT instructions for production deployment
 
 ---
-**Questions?** Review the documentation or use the production-ops subagent for guidance.
+
+## 🎯 QUICK ANSWER: WHAT TO PULL
+
+### For Production Server
+```bash
+# YOU DON'T PULL FROM WORKSPACE IN PRODUCTION!
+# Production uses THREE SEPARATE repositories:
+
+cd /var/www/bankim/online/web
+git pull origin main
+
+cd /var/www/bankim/online/api  
+git pull origin main
+
+cd /var/www/bankim/online/shared
+git pull origin main
+```
+
+**THAT'S IT!** Production pulls from three separate repos, NOT from workspace.
+
+---
+
+## 📦 UNDERSTANDING THE REPOSITORY STRUCTURE
+
+### What Each Repository Contains
+
+| Repository | Production Path | Contains | GitHub URL |
+|------------|----------------|----------|------------|
+| **bankimonline-web** | `/var/www/bankim/online/web/` | Frontend (mainapp/) | `git@github.com:sravnenie-ipotek/bankimonline-web.git` |
+| **bankimonline-api** | `/var/www/bankim/online/api/` | Backend (server/) | `git@github.com:sravnenie-ipotek/bankimonline-api.git` |
+| **bankimonline-shared** | `/var/www/bankim/online/shared/` | Documentation | `git@github.com:sravnenie-ipotek/bankimonline-shared.git` |
+
+### What About bankimonline-workspace?
+- **Development Only**: Used for local development
+- **NOT for Production**: Production doesn't pull from workspace
+- **Contains Everything**: Has all code but production uses separate repos
+
+---
+
+## 🚀 STEP-BY-STEP PRODUCTION DEPLOYMENT
+
+### Step 1: SSH to Production Server
+```bash
+ssh your-production-server
+```
+
+### Step 2: Navigate to Production Directory
+```bash
+cd /var/www/bankim/online/
+ls -la
+# You should see: web/ api/ shared/
+```
+
+### Step 3: Pull Frontend Updates
+```bash
+cd /var/www/bankim/online/web
+git status                    # Check current state
+git pull origin main          # Pull latest frontend
+```
+
+### Step 4: Pull Backend Updates
+```bash
+cd /var/www/bankim/online/api
+git status                    # Check current state
+git pull origin main          # Pull latest backend
+```
+
+### Step 5: Pull Documentation Updates (Optional)
+```bash
+cd /var/www/bankim/online/shared
+git status                    # Check current state
+git pull origin main          # Pull latest docs
+```
+
+### Step 6: Install Dependencies & Build
+```bash
+# Frontend dependencies and build
+cd /var/www/bankim/online/web/mainapp
+npm install                   # If package.json changed
+npm run build                 # Build production frontend
+
+# Backend dependencies
+cd /var/www/bankim/online/api
+npm install                   # If package.json changed
+```
+
+### Step 7: Restart Services with PM2
+```bash
+# Check current PM2 status
+pm2 status
+
+# Restart backend (runs on port 8004!)
+pm2 restart bankim-api
+
+# Or if you need to resurrect from dump
+pm2 resurrect
+
+# Check logs
+pm2 logs --lines 50
+```
+
+---
+
+## ⚠️ CRITICAL REMINDERS
+
+### Port Configuration
+- **Production Backend**: PORT 8004
+- **Development Backend**: PORT 8003
+- **Don't mix them up!**
+
+### PM2 Configuration
+- All config is in PM2 dump from Aug 14, 2025
+- No .env files needed
+- JWT_SECRET is in the dump
+- Database URLs are in the dump
+
+### Directory Structure
+```
+/var/www/bankim/online/
+├── web/                      # Frontend repo (separate)
+│   └── mainapp/             # React app here
+├── api/                      # Backend repo (separate)
+│   └── server/
+│       └── server-db.js     # Runs on port 8004
+└── shared/                   # Docs repo (separate)
+```
+
+---
+
+## 🔍 VERIFICATION CHECKLIST
+
+After pulling and deploying:
+
+### 1. Check Git Status
+```bash
+cd /var/www/bankim/online/web && git status
+cd /var/www/bankim/online/api && git status
+cd /var/www/bankim/online/shared && git status
+# All should show "Your branch is up to date"
+```
+
+### 2. Check PM2 Processes
+```bash
+pm2 status
+# Should show bankim-api as "online"
+```
+
+### 3. Test API Endpoints
+```bash
+# Remember: PORT 8004 in production!
+curl http://localhost:8004/api/v1/banks
+curl http://localhost:8004/api/v1/params
+```
+
+### 4. Check Frontend Build
+```bash
+ls -la /var/www/bankim/online/web/mainapp/build/
+# Should see index.html and assets/
+```
+
+### 5. Monitor Logs
+```bash
+pm2 logs --lines 100
+# Look for any errors
+```
+
+---
+
+## 🚫 WHAT NOT TO DO
+
+### DON'T Pull from Workspace
+```bash
+# WRONG - Don't do this in production:
+git pull workspace main  # ❌ NO!
+```
+
+### DON'T Use Monorepo Packages
+```bash
+# WRONG - These don't exist in production:
+cd packages/server  # ❌ Doesn't exist!
+cd packages/client  # ❌ Doesn't exist!
+```
+
+### DON'T Use Port 8003
+```bash
+# WRONG - Production uses 8004:
+curl http://localhost:8003/api  # ❌ Wrong port!
+```
+
+---
+
+## 📊 REPOSITORY MAPPING REFERENCE
+
+### If Developer Says Update Was Made To:
+| Developer Says | Pull From Repository | In Directory |
+|----------------|---------------------|--------------|
+| "mainapp/" | bankimonline-web | `/var/www/bankim/online/web/` |
+| "server/server-db.js" | bankimonline-api | `/var/www/bankim/online/api/` |
+| "server/migrations/" | bankimonline-api | `/var/www/bankim/online/api/` |
+| "docs/" | bankimonline-shared | `/var/www/bankim/online/shared/` |
+| "packages/" | IGNORE | Doesn't exist in production! |
+
+---
+
+## 🔄 QUICK COMMAND SUMMARY
+
+```bash
+# The ONLY commands you need for production deployment:
+
+# 1. Pull updates
+cd /var/www/bankim/online/web && git pull origin main
+cd /var/www/bankim/online/api && git pull origin main
+cd /var/www/bankim/online/shared && git pull origin main
+
+# 2. Build frontend
+cd /var/www/bankim/online/web/mainapp && npm run build
+
+# 3. Restart backend
+pm2 restart bankim-api
+
+# 4. Check status
+pm2 status
+pm2 logs --lines 50
+```
+
+---
+
+## 🆘 TROUBLESHOOTING
+
+### "Repository not found"
+```bash
+# Check your remotes
+git remote -v
+# Should show origin pointing to correct repo
+# If not, add it:
+git remote add origin git@github.com:sravnenie-ipotek/bankimonline-[web|api|shared].git
+```
+
+### "Port 8003 connection refused"
+```bash
+# WRONG PORT! Production uses 8004
+curl http://localhost:8004/api/v1/banks  # Correct!
+```
+
+### "Cannot find packages/ directory"
+```bash
+# It doesn't exist in production!
+# Use these instead:
+# /var/www/bankim/online/web/mainapp/  (frontend)
+# /var/www/bankim/online/api/server/    (backend)
+```
+
+---
+
+## 📝 SUMMARY
+
+**Production uses THREE SEPARATE REPOSITORIES:**
+1. **web** → Frontend at `/var/www/bankim/online/web/`
+2. **api** → Backend at `/var/www/bankim/online/api/`
+3. **shared** → Docs at `/var/www/bankim/online/shared/`
+
+**Production does NOT use:**
+- ❌ workspace repository directly
+- ❌ packages/ directory
+- ❌ monorepo structure
+- ❌ port 8003 (uses 8004)
+
+**Always pull from the three separate repos, not from workspace!**
+
+---
+
+**Last Updated**: August 16, 2025  
+**Status**: ACCURATE - Based on actual production structure
