@@ -10,6 +10,10 @@ node_modules
 .env.production
 .env.staging
 .env.test
+.env.qa
+.env.railway
+.env.development-railway
+.env.production-matched
 *.env
 mainapp/.env
 mainapp/.env.local
@@ -67,9 +71,20 @@ test-jira-integration.js
 server/docs/prod/updateDumpFileProd.md
 server/docs/prod/updateDumpFileProd
 
-# Claude agents and sensitive files
-.claude/
+# Claude agents and sensitive files (keep project-specific)
+# .claude/ - Commented out to keep project-specific agents
 
+# PM2 logs and files
+logs/
+*.log
+.pm2/
+pm2.log
+pm2-error.log
+pm2-out.log
+
+# QA automation artifacts
 .qa-stats.json
 .qa-results.log
+
+# Server environment
 server/.env
