@@ -1,0 +1,136 @@
+[
+  {
+    "id": "BUG-001",
+    "severity": "P0-BLOCKER",
+    "title": "Frontend Server Crashes - PM2 Process Instability",
+    "component": "Infrastructure",
+    "testFile": "menu-navigation-comprehensive.cy.ts",
+    "errorMessage": "Cypress could not verify that this server is running: http://localhost:5173",
+    "description": "Frontend Vite dev server running under PM2 is unstable and crashes during test execution",
+    "impact": "Complete test suite failure - cannot run any E2E tests",
+    "reproducibility": "100% - Happens on every test run",
+    "screenshots": [
+      "menu-navigation-comprehensive_undefined_2025-08-16T13-51-42.png"
+    ],
+    "rootCause": "PM2 process management conflict with Vite dev server hot reload",
+    "affectedTests": 5,
+    "firstSeen": "2025-08-16T13:51:42"
+  },
+  {
+    "id": "BUG-002",
+    "severity": "P0-BLOCKER",
+    "title": "Property Ownership Dropdown Missing Search Input",
+    "component": "Mortgage Calculator - Step 1",
+    "testFile": "mortgage-calculator-complete-journey.cy.ts",
+    "errorMessage": "AssertionError: Timed out retrying after 10000ms: Expected to find element: input[placeholder*=\"חיפוש\"], .dropdown-search input",
+    "description": "The property ownership dropdown in mortgage calculator Step 1 is missing the search input field that tests expect",
+    "impact": "Cannot complete mortgage calculator flow - core functionality broken",
+    "reproducibility": "100% - Consistent failure",
+    "screenshots": [
+      "mortgage-calculator-complete-journey_undefined_2025-08-16T20-41-12.png"
+    ],
+    "rootCause": "DOM structure changed - dropdown no longer has search functionality",
+    "affectedTests": 3,
+    "firstSeen": "2025-08-16T14:40:46"
+  },
+  {
+    "id": "BUG-003",
+    "severity": "P0-BLOCKER",
+    "title": "Refinance API Endpoints Not Responding",
+    "component": "Refinance Module - API",
+    "testFile": "refinance-mortgage-comprehensive.cy.ts",
+    "errorMessage": "Timed out waiting for refinanceParamsAPI route",
+    "description": "All refinance-related API endpoints are timing out or returning 404",
+    "impact": "Entire refinance feature is non-functional",
+    "reproducibility": "100% - All refinance tests fail",
+    "screenshots": [
+      "refinance-mortgage-phase0-step1-validation.png"
+    ],
+    "rootCause": "API routes not properly configured or backend service down",
+    "affectedTests": 21,
+    "firstSeen": "2025-08-16T20:42:06"
+  },
+  {
+    "id": "BUG-004",
+    "severity": "P1-CRITICAL",
+    "title": "Cookie Consent Banner Blocks Test Execution",
+    "component": "UI - Global",
+    "testFile": "multiple test files",
+    "errorMessage": "Element [data-cy=\"cookie-accept\"] not found",
+    "description": "Cookie consent banner either missing or using different selectors",
+    "impact": "Tests cannot proceed past initial page load",
+    "reproducibility": "80% - Intermittent",
+    "screenshots": [
+      "cookie-consent-missing.png"
+    ],
+    "rootCause": "Cookie consent component not loaded or selector changed",
+    "affectedTests": 4,
+    "firstSeen": "2025-08-16T13:51:29"
+  },
+  {
+    "id": "BUG-005",
+    "severity": "P0-BLOCKER",
+    "title": "Extreme Performance Degradation - 37.3s LCP",
+    "component": "Performance - Frontend",
+    "testFile": "performance metrics",
+    "errorMessage": "LCP: 37.3s (Target: <2.5s)",
+    "description": "Largest Contentful Paint taking 37+ seconds, indicating severe performance issues",
+    "impact": "Application unusable - users will abandon before page loads",
+    "reproducibility": "100% - Consistent in all performance tests",
+    "screenshots": [
+      "performance-metrics.png"
+    ],
+    "rootCause": "Bundle size 3.1MB, synchronous font loading, unoptimized API calls",
+    "affectedTests": "All tests affected by slow performance",
+    "firstSeen": "2025-08-16T16:34:01"
+  },
+  {
+    "id": "BUG-006",
+    "severity": "P1-CRITICAL",
+    "title": "File System Errors During Screenshot Capture",
+    "component": "Testing Infrastructure",
+    "testFile": "refinance tests",
+    "errorMessage": "ENOENT: no such file or directory, rename screenshots",
+    "description": "Cypress failing to rename/save screenshots during test execution",
+    "impact": "Cannot capture test evidence for debugging",
+    "reproducibility": "60% - Intermittent",
+    "screenshots": [],
+    "rootCause": "File system permissions or concurrent file access issues",
+    "affectedTests": 8,
+    "firstSeen": "2025-08-16T20:41:43"
+  },
+  {
+    "id": "BUG-007",
+    "severity": "P1-CRITICAL",
+    "title": "Dropdown Data Not Loading - API Returns Empty",
+    "component": "Forms - Global",
+    "testFile": "mortgage and credit calculators",
+    "errorMessage": "Dropdown options undefined or empty array",
+    "description": "Multiple dropdowns across forms not receiving data from API",
+    "impact": "Forms cannot be completed - no options to select",
+    "reproducibility": "100% - Consistent",
+    "screenshots": [
+      "dropdown-empty.png"
+    ],
+    "rootCause": "API endpoints returning empty arrays or undefined",
+    "affectedTests": 7,
+    "firstSeen": "2025-08-16T14:40:53"
+  },
+  {
+    "id": "BUG-008",
+    "severity": "P2-MAJOR",
+    "title": "Translation Keys Missing for Property Ownership",
+    "component": "i18n - Translations",
+    "testFile": "mortgage-calculator-step1",
+    "errorMessage": "Translation key calculate_mortgage_property_ownership not found",
+    "description": "Property ownership dropdown showing translation keys instead of actual text",
+    "impact": "Poor user experience - seeing technical keys instead of labels",
+    "reproducibility": "100% - All languages affected",
+    "screenshots": [
+      "translation-missing.png"
+    ],
+    "rootCause": "Translation files not synced or keys deleted",
+    "affectedTests": 3,
+    "firstSeen": "2025-08-16T14:40:43"
+  }
+]
