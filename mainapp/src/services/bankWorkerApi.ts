@@ -12,7 +12,7 @@
 import axios, { AxiosResponse } from 'axios'
 
 // Base API configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8003'
+const API_BASE_URL = process.env.REACT_APP_API_URL || (window.location.hostname === 'localhost' ? 'http://localhost:8003' : '/api')
 
 // Create axios instance with default configuration
 const apiClient = axios.create({

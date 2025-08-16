@@ -7,8 +7,8 @@ const getApiBaseUrl = () => {
     return '/api'
   }
   
-  // In production, use environment variable or fallback to production API
-  return import.meta.env.VITE_NODE_API_BASE_URL || 'https://bankimonline.com/api'
+  // In production, use environment variable or fallback to relative API path
+  return import.meta.env.VITE_NODE_API_BASE_URL || '/api'
 }
 
 export const api = createApi({
