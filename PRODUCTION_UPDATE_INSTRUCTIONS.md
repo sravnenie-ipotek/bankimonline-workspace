@@ -1,5 +1,19 @@
 # 🚨 PRODUCTION UPDATE INSTRUCTIONS - August 16, 2025
 
+## Repository Information
+
+### Git Repositories
+- **Main Workspace**: `git@github.com:sravnenie-ipotek/bankimonline-workspace.git` (Primary)
+- **API Repository**: `git@github.com:sravnenie-ipotek/bankimonline-api.git` (Backend deployment)
+- **Web Repository**: `git@github.com:sravnenie-ipotek/bankimonline-web.git` (Frontend deployment)
+- **Shared Docs**: `git@github.com:sravnenie-ipotek/bankimonline-shared.git` (Documentation)
+
+### Current Push Status
+✅ **Workspace Repository**: Updated with fixes (commit: c2c916f94)
+⏳ **API Repository**: May need sync if used separately
+⏳ **Web Repository**: May need sync if used separately
+⏳ **Shared Repository**: Documentation can be updated if needed
+
 ## Critical Bug Fixes Ready for Deployment
 
 ### Summary of Fixes
@@ -26,11 +40,20 @@ tar -czf backup-$(date +%Y%m%d-%H%M%S).tar.gz .
 
 ### Step 2: Pull Latest Changes
 ```bash
-# Pull from workspace repository (main monorepo)
+# Option A: Pull from workspace repository (main monorepo) - RECOMMENDED
 git pull workspace main
 
-# If you get permission errors, use:
+# Option B: If workspace remote is not configured, add it first:
+git remote add workspace git@github.com:sravnenie-ipotek/bankimonline-workspace.git
+git pull workspace main
+
+# Option C: Direct pull without adding remote:
 git pull git@github.com:sravnenie-ipotek/bankimonline-workspace.git main
+
+# If you need to pull from other repositories:
+git pull api main      # For API-specific changes
+git pull web main      # For frontend-specific changes
+git pull shared main   # For documentation updates
 ```
 
 ### Step 3: Update Dependencies
@@ -63,8 +86,14 @@ pm2 stop all
 pm2 save
 pm2 dump > pm2-backup-$(date +%Y%m%d).json
 
-# Start servers with updated code
+# Option A: Start servers individually
 pm2 start server/server-db.js --name bankim-api
+
+# Option B: Use PM2 development configuration (if available)
+npm run pm2:dev  # This uses ecosystem.dev.config.js if configured
+
+# Option C: Resurrect from PM2 dump (maintains all env variables)
+pm2 resurrect  # Uses the saved dump file
 
 # Verify processes are running
 pm2 status
@@ -216,7 +245,41 @@ pm2 monit
 
 ---
 
+## Repository Quick Reference
+
+### Adding Git Remotes (if needed)
+```bash
+# Add all remotes at once
+git remote add workspace git@github.com:sravnenie-ipotek/bankimonline-workspace.git
+git remote add api git@github.com:sravnenie-ipotek/bankimonline-api.git
+git remote add web git@github.com:sravnenie-ipotek/bankimonline-web.git
+git remote add shared git@github.com:sravnenie-ipotek/bankimonline-shared.git
+
+# Verify remotes are configured
+git remote -v
+```
+
+### PM2 Commands Reference
+```bash
+# Development
+npm run pm2:dev         # Start with ecosystem.dev.config.js
+npm run pm2:stop        # Stop all PM2 processes
+npm run pm2:restart     # Restart all processes
+npm run pm2:logs        # View logs
+npm run pm2:status      # Check status
+npm run pm2:monit       # Monitor processes
+npm run pm2:clean       # Clean all processes
+
+# Production (from PM2 dump)
+pm2 resurrect           # Restore from dump file
+pm2 save               # Save current state
+pm2 dump               # Create dump file
+```
+
+---
+
 **Last Updated**: August 16, 2025
-**Commit Hash**: 618615c8f
+**Primary Repository**: workspace (bankimonline-workspace)
+**Latest Commit**: c2c916f94
 **Verified By**: Code verification completed, all bugs fixed
 **Risk Level**: LOW - Only bug fixes, no breaking changes
