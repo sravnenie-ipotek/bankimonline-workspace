@@ -75,11 +75,17 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
       willShowBankFields: !checkIfNoObligationValue(value)
     })
     
-    // Simplified: Let Formik handle validation naturally
+    // Set the obligation value
     setFieldValue('obligation', value)
     setFieldTouched('obligation', true)
     
+    // Clear dependent fields when "no_obligations" is selected
+    if (checkIfNoObligationValue(value)) {
+      setFieldValue('bank', '')
+      setFieldValue('monthlyPaymentForAnotherBank', null)
+      setFieldValue('endDate', '')
     }
+  }
 
   // Simplified error display: Let Formik handle validation naturally
   const shouldShowError = touched.obligation && errors.obligation

@@ -1,0 +1,77 @@
+PRODUCTION QA REPORT - Sun Aug 17 10:38:13 IDT 2025
+Environment: https://dev2.bankimonline.com
+============================================
+
+SECTION: Page Accessibility
+----------------------------
+Test: Homepage
+  Result: PASS - HTTP 200
+
+Test: Mortgage Calculator Step 1
+  Result: PASS - HTTP 200
+
+Test: Mortgage Calculator Step 2
+  Result: PASS - HTTP 200
+
+Test: Credit Calculator
+  Result: PASS - HTTP 200
+
+
+SECTION: API Endpoints
+----------------------
+Test: Banks API
+  Result: PASS - Found expected content
+
+Test: Cities API
+  Result: WARNING - Expected content not found
+
+Test: Locales API
+  Result: WARNING - HTTP 404
+
+
+SECTION: Critical Dropdowns
+---------------------------
+Test Dropdown: Property Ownership (Step 1)
+  Result: PASS - Found dropdown with options
+
+Test Dropdown: When Needed (Step 1)
+  Result: PASS - Found dropdown with options
+
+Test Dropdown: First Home (Step 1)
+  Result: PASS - Found dropdown with options
+
+Test Dropdown: Family Status (Step 2)
+  Result: PASS - Found dropdown with options
+
+
+SECTION: Language Support
+-------------------------
+Test: Dropdowns API - en
+  Result: PASS - HTTP 200
+
+Test: Dropdowns API - he
+  Result: PASS - HTTP 200
+
+Test: Dropdowns API - ru
+  Result: PASS - HTTP 200
+
+
+SECTION: Calculation Parameters
+--------------------------------
+Test: Mortgage Parameters
+  Result: PASS - HTTP 200
+
+Test: Credit Parameters
+  Result: PASS - HTTP 200
+
+
+============================================
+TEST SUMMARY
+============================================
+Total Tests:    16
+Passed:         14
+Failed:         0
+Warnings:       2
+Pass Rate:      87%
+
+RESULT: PASSED WITH WARNINGS

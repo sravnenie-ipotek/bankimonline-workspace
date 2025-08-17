@@ -1,0 +1,61 @@
+[0;34m============================================[0m
+[0;34m    PRODUCTION QA TEST - QUICK CHECK[0m
+[0;34m    Environment: https://dev2.bankimonline.com[0m
+[0;34m    Sun Aug 17 10:38:13 IDT 2025[0m
+[0;34m============================================[0m
+
+[0;34m1. TESTING PAGE ACCESSIBILITY[0m
+[1;33mTesting: Homepage[0m
+  [0;32m✅ PASS - Endpoint responding (HTTP 200)[0m
+[1;33mTesting: Mortgage Calculator Step 1[0m
+  [0;32m✅ PASS - Endpoint responding (HTTP 200)[0m
+[1;33mTesting: Mortgage Calculator Step 2[0m
+  [0;32m✅ PASS - Endpoint responding (HTTP 200)[0m
+[1;33mTesting: Credit Calculator[0m
+  [0;32m✅ PASS - Endpoint responding (HTTP 200)[0m
+
+[0;34m2. TESTING API ENDPOINTS[0m
+[1;33mTesting: Banks API[0m
+  [0;32m✅ PASS - Found expected content[0m
+[1;33mTesting: Cities API[0m
+  [1;33m⚠️  WARNING - Expected content not found[0m
+[1;33mTesting: Locales API[0m
+  [1;33m⚠️  WARNING - HTTP 404[0m
+
+[0;34m3. TESTING CRITICAL DROPDOWNS[0m
+[1;33mTesting Dropdown: Property Ownership (Step 1)[0m
+  [0;32m✅ PASS - Dropdown has data[0m
+[1;33mTesting Dropdown: When Needed (Step 1)[0m
+  [0;32m✅ PASS - Dropdown has data[0m
+[1;33mTesting Dropdown: First Home (Step 1)[0m
+  [0;32m✅ PASS - Dropdown has data[0m
+[1;33mTesting Dropdown: Family Status (Step 2)[0m
+  [0;32m✅ PASS - Dropdown has data[0m
+
+[0;34m4. TESTING LANGUAGE SUPPORT[0m
+[1;33mTesting: Dropdowns API - en[0m
+  [0;32m✅ PASS - Endpoint responding (HTTP 200)[0m
+[1;33mTesting: Dropdowns API - he[0m
+  [0;32m✅ PASS - Endpoint responding (HTTP 200)[0m
+[1;33mTesting: Dropdowns API - ru[0m
+  [0;32m✅ PASS - Endpoint responding (HTTP 200)[0m
+
+[0;34m5. TESTING CALCULATION PARAMETERS[0m
+[1;33mTesting: Mortgage Parameters[0m
+  [0;32m✅ PASS - Endpoint responding (HTTP 200)[0m
+[1;33mTesting: Credit Parameters[0m
+  [0;32m✅ PASS - Endpoint responding (HTTP 200)[0m
+
+[0;34m============================================[0m
+[0;34m              TEST SUMMARY[0m
+[0;34m============================================[0m
+Total Tests:    16
+[0;32mPassed:         14[0m
+[0;31mFailed:         0[0m
+[1;33mWarnings:       2[0m
+Pass Rate:      87%
+
+[1;33m⚠️  TESTS PASSED WITH WARNINGS[0m
+
+[0;34mReport saved to: qa-report-20250817_103813.txt[0m
+

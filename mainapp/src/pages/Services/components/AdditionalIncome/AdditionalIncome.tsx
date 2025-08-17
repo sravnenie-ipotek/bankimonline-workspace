@@ -67,6 +67,11 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
     // Set the value first without triggering validation
     setFieldValue('additionalIncome', value, false) // false = don't validate
     
+    // Clear dependent field when "no additional income" is selected
+    if (checkIfNoAdditionalIncomeValue(value) || value === 'no_additional_income') {
+      setFieldValue('additionalIncomeAmount', null)
+    }
+    
     // For valid non-empty values, clear error and mark as untouched temporarily
     if (value && value !== '' && value !== null && value !== undefined) {
       // Clear any existing error
