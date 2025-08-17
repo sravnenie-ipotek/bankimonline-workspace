@@ -75,9 +75,10 @@ const getDatabaseConfig = (connectionType = 'content') => {
     } else {
         // Development: Railway PostgreSQL or developer-provided URLs
         if (connectionType === 'content') {
-            const connectionString = process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway';
-            const ssl = decideSslForConnection(connectionString, { isProd: false });
-            console.log(`📊 [${connectionType}] DB Config:`, sanitizeUrlForLog(connectionString), `| SSL: ` + (ssl ? 'on' : 'off'));
+            // 🚀 JSONB Migration: Using Neon for content database
+            const connectionString = process.env.NEON_CONTENT_URL || 'postgresql://neondb_owner:npg_jbzp4wqldAu7@ep-wild-feather-ad1lx42k.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require';
+            const ssl = { rejectUnauthorized: false }; // Neon requires SSL
+            console.log(`📊 [${connectionType}] DB Config: Neon JSONB`, `| SSL: on`);
             return {
                 connectionString,
                 ssl,
