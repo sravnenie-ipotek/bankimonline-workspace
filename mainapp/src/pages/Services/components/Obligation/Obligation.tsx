@@ -27,7 +27,7 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
     : 'credit_step3'
   const { t } = useTranslation()
   const { getContent } = useContentApi(resolvedScreenLocation)
-  const { values, setFieldValue, touched, errors, setFieldTouched } =
+  const { values, setFieldValue, touched, errors, setFieldTouched, setFieldError } =
     useFormikContext<FormTypes>()
 
   // Helper function to check if a value indicates "no obligation"
@@ -35,11 +35,25 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
     if (!value) return false
     const lowerValue = value.toLowerCase()
     return (
+      // English patterns
       lowerValue === 'option_1' ||
-      lowerValue === 'no_obligations' ||           // CRITICAL FIX: Database value (plural)
+      lowerValue === 'no_obligations' ||           // Database value (plural)
       lowerValue.includes('no_obligation') ||      // Legacy patterns
       lowerValue.includes('no obligation') ||
-      lowerValue.includes('none')
+      lowerValue.includes('none') ||
+      
+      // Hebrew patterns - CRITICAL FIX for Hebrew interface
+      value.includes('אין התחייבות') ||             // "No obligation" in Hebrew
+      value.includes('אין חובות') ||                // "No debts" in Hebrew  
+      value.includes('ללא התחייבות') ||              // "Without obligation" in Hebrew
+      value.includes('ללא חובות') ||                // "Without debts" in Hebrew
+      lowerValue.includes('ein') ||                 // Hebrew romanized
+      lowerValue.includes('לא') ||                  // "No" in Hebrew
+      
+      // Numeric patterns for database values
+      lowerValue === '1' ||                         // Often first option
+      lowerValue === '5' ||                         // Sometimes last option
+      lowerValue.startsWith('option_') && (lowerValue.endsWith('1') || lowerValue.endsWith('5'))
     )
   }
 
@@ -79,11 +93,24 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
     setFieldValue('obligation', value)
     setFieldTouched('obligation', true)
     
-    // Clear dependent fields when "no_obligations" is selected
+    // CRITICAL FIX: Clear dependent fields AND their validation state when "no_obligations" is selected
     if (checkIfNoObligationValue(value)) {
+      // Clear field values
       setFieldValue('bank', '')
       setFieldValue('monthlyPaymentForAnotherBank', null)
       setFieldValue('endDate', '')
+      
+      // CRITICAL: Clear touched state to prevent validation errors
+      setFieldTouched('bank', false)
+      setFieldTouched('monthlyPaymentForAnotherBank', false)
+      setFieldTouched('endDate', false)
+      
+      // CRITICAL: Clear any existing validation errors
+      setFieldError('bank', undefined)
+      setFieldError('monthlyPaymentForAnotherBank', undefined)
+      setFieldError('endDate', undefined)
+      
+      console.log('✅ Cleared all dependent fields and validation state for "no obligations"')
     }
   }
 

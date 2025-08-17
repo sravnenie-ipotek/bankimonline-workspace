@@ -18,7 +18,7 @@ interface AdditionalIncomeProps {
 const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome = false }: AdditionalIncomeProps) => {
   const { t, i18n } = useTranslation()
   const { getContent } = useContentApi(screenLocation)
-  const { values, setFieldValue, errors, setFieldTouched, touched, setFieldError, validateField } =
+  const { values, setFieldValue, errors, setFieldTouched, touched, setFieldError } =
     useFormikContext<FormTypes>()
 
   // Helper function to check if a value indicates "no additional income"
@@ -26,11 +26,25 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
     if (!value) return false
     const lowerValue = value.toLowerCase()
     return (
+      // English patterns
       lowerValue === 'option_1' ||
       lowerValue === '1' ||
       lowerValue.includes('no_additional') ||
       lowerValue.includes('no additional') ||
-      lowerValue.includes('none')
+      lowerValue.includes('none') ||
+      lowerValue === 'no_additional_income' ||
+      
+      // Hebrew patterns - CRITICAL FIX for Hebrew interface
+      value.includes('אין הכנסות נוספות') ||        // "No additional income" in Hebrew
+      value.includes('אין הכנסות') ||               // "No income" in Hebrew
+      value.includes('ללא הכנסות נוספות') ||         // "Without additional income" in Hebrew
+      value.includes('ללא הכנסות') ||               // "Without income" in Hebrew
+      lowerValue.includes('ein') ||                 // Hebrew romanized
+      lowerValue.includes('לא') ||                  // "No" in Hebrew
+      
+      // Numeric patterns for database values
+      lowerValue === '1' ||                         // Often first option
+      lowerValue.startsWith('option_') && lowerValue.endsWith('1')
     )
   }
 
@@ -63,32 +77,24 @@ const AdditionalIncome = ({ screenLocation = 'mortgage_step3', excludeNoIncome =
       willShowAmountField: !checkIfNoAdditionalIncomeValue(value)
     })
     
-    // CRITICAL FIX: Work WITH Formik's validation cycle instead of against it
-    // Set the value first without triggering validation
-    setFieldValue('additionalIncome', value, false) // false = don't validate
+    // Set the additional income value
+    setFieldValue('additionalIncome', value)
+    setFieldTouched('additionalIncome', true)
     
-    // Clear dependent field when "no additional income" is selected
+    // CRITICAL FIX: Clear dependent field AND validation state when "no additional income" is selected
     if (checkIfNoAdditionalIncomeValue(value) || value === 'no_additional_income') {
+      // Clear field value
       setFieldValue('additionalIncomeAmount', null)
+      
+      // CRITICAL: Clear touched state and validation errors
+      setFieldTouched('additionalIncomeAmount', false)
+      setFieldError('additionalIncomeAmount', undefined)
+      
+      console.log('✅ Cleared additionalIncomeAmount field and validation state for "no additional income"')
     }
     
-    // For valid non-empty values, clear error and mark as untouched temporarily
-    if (value && value !== '' && value !== null && value !== undefined) {
-      // Clear any existing error
-      setFieldError('additionalIncome', undefined)
-      
-      // Mark as touched but without validation
-      setFieldTouched('additionalIncome', true, false)
-      
-      // Use a microtask to ensure our error clear persists after React state updates
-      Promise.resolve().then(() => {
-        setFieldError('additionalIncome', undefined)
-      })
-      
-    } else {
-      // For empty values, allow normal validation
-      setFieldTouched('additionalIncome', true, true) // true = validate
-    }
+    // Clear any existing error for the dropdown itself
+    setFieldError('additionalIncome', undefined)
   }
 
   // CRITICAL FIX: Custom error display logic to prevent validation errors on valid selections
