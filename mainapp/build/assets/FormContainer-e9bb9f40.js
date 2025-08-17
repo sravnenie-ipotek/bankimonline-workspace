@@ -1,0 +1,1 @@
+import{j as r}from"./ui-vendor-19e4e52b.js";import{c as s}from"./index-40267bc7.js";const n={"form-container":"_form-container_bfdd0_1"},t=s.bind(n),c=({children:o})=>r.jsx("div",{className:t("form-container"),children:o});export{c as F};

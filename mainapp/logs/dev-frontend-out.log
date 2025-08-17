@@ -1,0 +1,1142 @@
+2025-08-16T23:36:03: 
+2025-08-16T23:36:03: > bankimonline@0.1.0 dev
+2025-08-16T23:36:03: > vite
+2025-08-16T23:36:03: 
+2025-08-16T23:36:03: Port 5173 is in use, trying another one...
+2025-08-16T23:36:03: 
+2025-08-16T23:36:03:   VITE v4.4.9  ready in 120 ms
+2025-08-16T23:36:03: 
+2025-08-16T23:36:03:   ➜  Local:   http://localhost:5174/
+2025-08-16T23:36:03:   ➜  Network: use --host to expose
+2025-08-16T23:40:29: 
+2025-08-16T23:40:29: > bankimonline@0.1.0 dev
+2025-08-16T23:40:29: > vite
+2025-08-16T23:40:29: 
+2025-08-16T23:40:29: 
+2025-08-16T23:40:29:   VITE v4.4.9  ready in 117 ms
+2025-08-16T23:40:29: 
+2025-08-16T23:40:29:   ➜  Local:   http://localhost:5173/
+2025-08-16T23:40:29:   ➜  Network: use --host to expose
+2025-08-16T23:40:52: 11:40:52 PM [vite] page reload cypress/downloads/downloads.html
+2025-08-16T23:40:57: 11:40:57 PM [vite] page reload cypress/downloads/downloads.html
+2025-08-16T23:41:01: 11:41:01 PM [vite] page reload cypress/downloads/downloads.html
+2025-08-16T23:41:04: 11:41:04 PM [vite] page reload cypress/downloads/downloads.html
+2025-08-16T23:41:47: 11:41:47 PM [vite] page reload cypress/downloads/downloads.html
+2025-08-16T23:41:51: 11:41:51 PM [vite] page reload cypress/downloads/downloads.html
+2025-08-16T23:41:56: 11:41:56 PM [vite] page reload cypress/downloads/downloads.html
+2025-08-16T23:41:59: 11:41:59 PM [vite] page reload cypress/downloads/downloads.html
+2025-08-16T23:42:22: 11:42:22 PM [vite] page reload cypress/downloads/downloads.html
+2025-08-16T23:42:30: 11:42:30 PM [vite] page reload cypress/downloads/downloads.html
+2025-08-16T23:42:35: 11:42:35 PM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:30:18: 12:30:18 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:30:22: 12:30:22 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:30:28: 12:30:28 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:30:28: 12:30:28 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:33:42: 12:33:42 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:33:42: 12:33:42 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:33:49: 12:33:49 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:33:52: 12:33:52 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:40:10: 12:40:10 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:40:11: 12:40:11 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:40:15: 12:40:15 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:40:21: 12:40:21 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:40:22: 12:40:22 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T00:40:23: 12:40:23 AM [vite] page reload cypress/downloads/downloads.html
+2025-08-17T01:59:30: 1:59:30 AM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T01:59:49: 1:59:49 AM [vite] page reload src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T02:00:08: 2:00:08 AM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T02:00:26: 2:00:26 AM [vite] hmr update /src/pages/Services/pages/RefinanceMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T02:00:51: 2:00:51 AM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/SecondStep/constants.ts
+2025-08-17T02:01:05: 2:01:05 AM [vite] hmr update /src/index.scss, /src/pages/Services/pages/RefinanceMortgage/pages/SecondStep/SecondStep.tsx
+2025-08-17T02:02:02: 2:02:02 AM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStep.tsx
+2025-08-17T02:02:29: 2:02:29 AM [vite] page reload src/pages/Services/pages/CalculateCredit/pages/SecondStep/constants.ts
+2025-08-17T02:09:20: 2:09:20 AM [vite] hmr update /src/pages/Services/components/FieldOfActivity/FieldOfActive.tsx, /src/index.scss
+2025-08-17T02:09:41: 2:09:41 AM [vite] hmr update /src/pages/Services/pages/BorrowersPersonalData/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T02:09:54: 2:09:54 AM [vite] hmr update /src/pages/Services/pages/BorrowersPersonalData/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T02:10:05: 2:10:05 AM [vite] hmr update /src/pages/Services/pages/BorrowersPersonalData/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T02:10:14: 2:10:14 AM [vite] hmr update /src/pages/Services/pages/BorrowersPersonalData/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T02:10:25: 2:10:25 AM [vite] hmr update /src/pages/Services/pages/BorrowersPersonalData/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T02:32:13: 2:32:13 AM [vite] page reload src/services/api.ts
+2025-08-17T02:32:18: 2:32:18 AM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/components/ui/CreditParams.tsx, /src/pages/Services/pages/RefinanceMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T02:32:24: 2:32:24 AM [vite] page reload src/services/bankWorkerApi.ts
+2025-08-17T02:32:32: 2:32:32 AM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/index.scss
+2025-08-17T02:32:33: 2:32:33 AM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/index.scss
+2025-08-17T11:05:54: 
+2025-08-17T11:05:54: > bankimonline@0.1.0 dev
+2025-08-17T11:05:54: > vite
+2025-08-17T11:05:54: 
+2025-08-17T11:05:54: 
+2025-08-17T11:05:54:   VITE v4.4.9  ready in 151 ms
+2025-08-17T11:05:54: 
+2025-08-17T11:05:54:   ➜  Local:   http://localhost:5173/
+2025-08-17T11:05:54:   ➜  Network: use --host to expose
+2025-08-17T11:10:21: 11:10:21 AM [vite] hmr update /src/pages/Services/components/Obligation/Obligation.tsx, /src/index.scss
+2025-08-17T11:10:32: 11:10:32 AM [vite] hmr update /src/pages/Services/components/AdditionalIncome/AdditionalIncome.tsx, /src/index.scss
+2025-08-17T11:10:50: 11:10:50 AM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx
+2025-08-17T11:11:10: 11:11:10 AM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx
+2025-08-17T11:11:47: 11:11:47 AM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx
+2025-08-17T11:12:25: 11:12:25 AM [vite] .env.production changed, restarting server...
+2025-08-17T11:12:25: 11:12:25 AM [vite] server restarted.
+2025-08-17T11:12:47: 11:12:47 AM [vite] page reload build/customer-approval-check.html
+2025-08-17T11:12:47: 11:12:47 AM [vite] page reload build/index.html
+2025-08-17T11:12:47: 11:12:47 AM [vite] page reload build/landing.html
+2025-08-17T11:12:50: 11:12:50 AM [vite] page reload build/index.html
+2025-08-17T11:22:21: 11:22:21 AM [vite] hmr update /src/pages/Services/components/Obligation/Obligation.tsx, /src/index.scss
+2025-08-17T11:22:33: 11:22:33 AM [vite] hmr update /src/pages/Services/components/Obligation/Obligation.tsx, /src/index.scss
+2025-08-17T11:22:42: 11:22:42 AM [vite] hmr update /src/pages/Services/components/AdditionalIncome/AdditionalIncome.tsx, /src/index.scss
+2025-08-17T11:22:59: 11:22:59 AM [vite] hmr update /src/pages/Services/components/AdditionalIncome/AdditionalIncome.tsx, /src/index.scss
+2025-08-17T11:23:12: 11:23:12 AM [vite] page reload build/customer-approval-check.html
+2025-08-17T11:23:12: 11:23:12 AM [vite] page reload build/index.html
+2025-08-17T11:23:12: 11:23:12 AM [vite] page reload build/landing.html
+2025-08-17T11:23:15: 11:23:15 AM [vite] page reload build/index.html
+2025-08-17T11:28:26: 11:28:26 AM [vite] page reload build/customer-approval-check.html
+2025-08-17T11:28:26: 11:28:26 AM [vite] page reload build/index.html
+2025-08-17T11:28:26: 11:28:26 AM [vite] page reload build/landing.html
+2025-08-17T11:28:29: 11:28:29 AM [vite] page reload build/index.html
+2025-08-17T11:58:37: 11:58:37 AM [vite] .env.production changed, restarting server...
+2025-08-17T11:58:37: 11:58:37 AM [vite] page reload build/index.html
+2025-08-17T11:58:37: 11:58:37 AM [vite] server restarted.
+2025-08-17T12:11:35: 12:11:35 PM [vite] hmr update /src/pages/Services/components/Filter/Filter.tsx, /src/index.scss
+2025-08-17T12:11:44: 12:11:44 PM [vite] hmr update /src/pages/Services/components/Filter/Filter.tsx, /src/index.scss
+2025-08-17T12:12:57: 12:12:57 PM [vite] hmr update /src/components/ui/BankCard/BankCard.tsx, /src/index.scss
+2025-08-17T12:13:14: 12:13:14 PM [vite] page reload build/customer-approval-check.html
+2025-08-17T12:13:14: 12:13:14 PM [vite] page reload build/index.html
+2025-08-17T12:13:14: 12:13:14 PM [vite] page reload build/landing.html
+2025-08-17T12:13:17: 12:13:17 PM [vite] page reload build/index.html
+2025-08-17T12:19:52: 12:19:52 PM [vite] hmr update /src/pages/Services/components/BankOffers/BankOffers.tsx, /src/index.scss
+2025-08-17T12:20:08: 12:20:08 PM [vite] page reload build/customer-approval-check.html
+2025-08-17T12:20:08: 12:20:08 PM [vite] page reload build/index.html
+2025-08-17T12:20:08: 12:20:08 PM [vite] page reload build/landing.html
+2025-08-17T12:20:11: 12:20:11 PM [vite] page reload build/index.html
+2025-08-17T12:32:12: 12:32:12 PM [vite] hmr update /src/components/ui/VideoPoster/VideoPoster.tsx, /src/index.scss
+2025-08-17T12:32:21: 12:32:21 PM [vite] hmr update /src/components/ui/VideoPoster/VideoPoster.tsx, /src/index.scss
+2025-08-17T12:32:30: 12:32:30 PM [vite] hmr update /src/components/ui/VideoPoster/VideoPoster.tsx, /src/index.scss
+2025-08-17T12:32:37: 12:32:37 PM [vite] hmr update /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/index.scss
+2025-08-17T12:32:45: 12:32:45 PM [vite] hmr update /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/index.scss
+2025-08-17T12:33:00: 12:33:00 PM [vite] hmr update /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload build/customer-approval-check.html
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload build/index.html
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload build/landing.html
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload index.html
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/App.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/app/App.css
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/app/App.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/app/AppRoutes/AuthRoutes.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/app/AppRoutes/MainRoutes.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/App.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/App.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/App.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/app/Errors/NotFound/NotFound.tsx, /src/index.scss, /src/app/Errors/NotFound/components/Body.tsx, /src/app/Errors/NotFound/components/Button.tsx, /src/app/Errors/NotFound/components/Greeting.tsx, /src/app/Errors/NotFound/components/Stripe.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/app/Errors/NotFound/NotFound.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/app/Errors/NotFound/components/Body.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/app/Errors/NotFound/components/Button.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/app/Errors/NotFound/components/Greeting.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/app/Errors/NotFound/components/Stripe.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/App.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/app/Errors/NotFound/types/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/app/App.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/AddUserIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/ArrowSquareOut/ArrowSquareOut.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/ArrowSquareOut/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/ArrowsOutSimpleIcon/ArrowsOutSimpleIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/VideoPoster/VideoPoster.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/BankIcon/BankIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/BankIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/CalendarBlankIcon/CalendarBlankIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/ProgrammCard/ProgrammCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/CalendarIcon/CalendarIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Calendar/Calendar.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/CancelIcon/CancelIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/MultiSelect/MultiSelect.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/CaretDownIcon/CaretDownIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Footer/Company/Company.tsx, /src/components/layout/Footer/Contacts/Contacts.tsx, /src/components/layout/Footer/Documents/Documents.tsx, /src/components/layout/Sidebar/MobileMenu/MobileCurrencySelector/MobileCurrencySelector.tsx, /src/components/layout/Sidebar/MobileMenu/MobileChangeLanguage/MobileChangeLanguage.tsx, /src/components/ui/ChangeLanguage/ChangeLanguage.tsx, /src/components/ui/DropdownMenu/Dropdown/Dropdown.tsx, /src/components/ui/MultiSelect/MultiSelect.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/CaretRightIcon/CaretRightIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Sidebar/SideberClosed/SidebarClosed.tsx, /src/components/layout/Sidebar/MobileMenu/Navigation/Navigation.tsx, /src/components/ui/Calendar/Calendar.tsx, /src/components/ui/DropdownCalendar/DropdownCalendar.tsx, /src/components/ui/TopServices/ServiceCard/ServiceCard.tsx, /src/components/ui/Swiper/SwiperNavButtonts/SwiperNavButtons.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/CaretUpIcon/CaretUpIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/ChangeLanguage/ChangeLanguage.tsx, /src/components/ui/DropdownMenu/Dropdown/Dropdown.tsx, /src/components/ui/MultiSelect/MultiSelect.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/ChartPieIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/CheckIcon/CheckIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Sidebar/MobileMenu/MobileCurrencySelector/MobileCurrencySelector.tsx, /src/components/layout/Sidebar/MobileMenu/MobileChangeLanguage/MobileChangeLanguage.tsx, /src/components/ui/ChangeLanguage/ChangeLanguage.tsx, /src/components/ui/ProgressBar/ProgressBar.tsx, /src/components/ui/DropdownMenu/Dropdown/Dropdown.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/ClockIcon/ClockIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/ClockIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/Close/Close.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/Close/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/Close.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/CurrencyIcon/CurrencyIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/CurrencyIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/Delete.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/DeleteIcon/DeleteIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/DeleteIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/Document.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/DotsTreeVertical.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/EnvelopeIcon/EnvelopeIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/EnvelopeIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/ErrorIcon/ErrorIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/ErrorBlock/ErrorBlock.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/FileLinesIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/FilePlusIcon/FilePlusIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/FilePlusIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/HandCoinsIcon/HandCoinsIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/HandCoinsIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/HandPointingIcon/HandPointingIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/HandPointingIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/HiddenEyeIcon/HiddenEyeIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/PasswordInput/PasswordInput.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/Home.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/IconPropsType.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/InfoIcon/InfoIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/TitleElement/TitleElement.tsx, /src/components/ui/ProgrammCard/ProgrammCard.tsx, /src/components/ui/Info/Info.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/IsraelFlagIcon/IsraelFlagIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Sidebar/MobileMenu/MobileChangeLanguage/MobileChangeLanguage.tsx, /src/components/ui/ChangeLanguage/ChangeLanguage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/LightningIcon/LightningIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/LightningIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/Logo.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/LogoPrimaryIcon/LogoPrimaryIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/pages/SignUp/SignUpForm/SignUpForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/Logout.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/MapPinIcon/MapPinIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/MapPinIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/MessageIcon/MessageIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/MessageIcon/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/PartnersIcon/PartnerCardFifth/PartnerCardFifth.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Swiper/Swiper.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/PartnersIcon/PartnerCardFirst/PartnerCardFirst.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Swiper/Swiper.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/PartnersIcon/PartnerCardFourth/PartnerCardFourth.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Swiper/Swiper.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/PartnersIcon/PartnerCardSecond/PartnerCardSecond.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Swiper/Swiper.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/PartnersIcon/PartnerCardSeventh/PartnerCardSeventh.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Swiper/Swiper.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/PartnersIcon/PartnerCardSixth/PartnerCardSixth.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Swiper/Swiper.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/PartnersIcon/PartnerCardThird/PartnerCardThird.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Swiper/Swiper.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/Payment.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/PencilIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/PencilSimple/PencilSimple.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/PersonalProfile/PersonalProfile.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/PercentIcon/PercentIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/ProgrammCard/ProgrammCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/PlayIcon/PlayIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/PlayIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/PlusIcon/PlusIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/AddButton/AddButton.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/PlusMinusIcon/PlusMinusIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/PlusMinusIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/RussiaFlagIcon/RussiaFlagIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Sidebar/MobileMenu/MobileChangeLanguage/MobileChangeLanguage.tsx, /src/components/ui/ChangeLanguage/ChangeLanguage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/ServiceCardIcons/ServiceCardFirst.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/TopServices/TopServices.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/Services.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/Settings.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/ShieldCheckIcon/ShieldCheckIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/Info/Info.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/SignOut/SIgnOut.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Head/LoginLanguage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/SlidersHorizontalIcon/SliderHorizontalIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/MortgageParameters/MortgageParameters.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/SpeakerOffIcon/SpeakerOffIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/VideoPoster/VideoPoster.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/SpeakerOnIcon/SpeakerOnIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/SpeakerOnIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/SuccessIcon/SuccessIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/pages/Success/Success.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/TargetIcon/TargetIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/TargetIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/USFlagIcon/USFlagIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Sidebar/MobileMenu/MobileChangeLanguage/MobileChangeLanguage.tsx, /src/components/ui/ChangeLanguage/ChangeLanguage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/UploadSimpleIcon/UploadSimpleIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/UploadSimpleIcon/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/UserProfile.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/assets/icons/UsersGroupIcon.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/WarningCircleICon/WarningCircleIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/AlertWarning/AlertWarning.tsx, /src/components/ui/Message/Message.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/magnifyingGlassIcon/MagnifyingGlassIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/DropdownMenu/Dropdown/Dropdown.tsx, /src/components/ui/MultiSelect/MultiSelect.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/assets/icons/warningOctagonIcon/WarningOctagonIcon.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Error/Error.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/SharedHeader/SharedHeader.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/SharedHeader/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/debug/TranslationDebug.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Dialog/Dialog.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Dialog/Dialog.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Flows/AuthFlow/AuthFlow.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Flows/AuthFlow/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Flows/RestoreFlow/RestoreFlow.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Flows/RestoreFlow/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Flows/SignUpFlow/SignUpFlow.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Flows/SignUpFlow/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Flows/validations/validationSchemaEN.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Flows/validations/validationSchemaHE.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Flows/validations/validationSchemaRU.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Company/Company.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Company/Company.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Footer/Company/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Contacts/Contacts.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Contacts/Contacts.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Footer/Contacts/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Documents/Documents.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Documents/Documents.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Footer/Documents/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Footer.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/InfoBlock/InfoBlock.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Footer/InfoBlock/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/InfoBlock/InfoBlock.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Logo/Logo.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Logo/Logo.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Social/Social.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Footer/Social/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Social/Social.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Footer/Footer.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Head/Header.tsx, /src/index.scss, /src/components/layout/Head/LoginLanguage.tsx, /src/components/layout/Head/Logo.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Head/Header.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Head/Login.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Head/LoginLanguage.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Head/Logo.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Head/Meta.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/LanguageSelect/Control.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/LanguageSelect/CustomSelect.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/LanguageSelect/Item.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/LanguageSwitcher/LanguageSwitcher.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Layout.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Loader/Loader.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Loader/Spinner.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx, /src/pages/Services/pages/CalculateCredit/CalculateCredit.tsx, /src/pages/Services/pages/CalculateMortgage/CalculateMortgage.tsx, /src/pages/Services/pages/OtherBorrowers/OtherBorrowers.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Loader/Loader.tsx, /src/index.scss, /src/components/layout/Loader/Spinner.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/RegistrationLayout/RegistrationLayout.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/RegistrationLayout/RegistrationLayout.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/SharedNavigation/SharedNavigation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/SharedNavigation/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/SharedNavigation/types.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/SharedSideNavigation/SharedSideNavigation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/SharedSideNavigation/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/SharedSideNavigation/types.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/Header/Header.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/Header/Header.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/MobileChangeLanguage/MobileChangeLanguage.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/MobileChangeLanguage/MobileChangeLanguage.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/MobileCurrencySelector/MobileCurrencySelector.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/MobileCurrencySelector/MobileCurrencySelector.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/MobileMenu.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/MobileMenu.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/Navigation/Navigation.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/Navigation/Navigation.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/Navigation/NavigationList/NavigationList.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/Navigation/NavigationList/NavigationList.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/Navigation/NavigationSubMenu/NavigationSubMenu.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/Navigation/NavigationSubMenu/NavigationSubMenu.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/SocialItem/SocialItem.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/SocialItem/SocialItem.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/SocialList/SocialList.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/MobileMenu/SocialList/SocialList.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Sidebar/MobileMenu/types/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Sidebar/MobileMenu/SocialList/SocialList.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/SideberClosed/SidebarClosed.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Layout.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/SideberClosed/SidebarClosed.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/SocialMedia/SocialMedia.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/SocialMedia/SocialMedia.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/SocialMediaItem/SocialMediaItem.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/SocialMediaItem/SocialMediaItem.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/SubSidebar/SubSidebar.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Sidebar/SubSidebar/SubSidebar.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Sidebar/debug-sidebar.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Sidebar/SideberClosed/SidebarClosed.tsx, /src/components/layout/Sidebar/MobileMenu/Navigation/Navigation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Sidebar/SideberClosed/SidebarClosed.tsx, /src/components/layout/Sidebar/MobileMenu/Navigation/Navigation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/Sidebar/types/menuItem.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/SuccessModal/SuccessModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/SuccessModal/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/layout/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/layout/Layout.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/test/DropdownTestComponent.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/AddButton/AddButton.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/AddButton/AddButton.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/components/AddPartner/AddPartner.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/AlertWarning/AlertWarning.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/AlertWarning/AlertWarning.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/AuthForm/AuthForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/AuthForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/BackButton/BackButton.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/BackButton/BackButton.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/BackButton/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/BankCard/BankCard.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/BankCard/BankCard.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/BankOffers/BankOffers.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Burger.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Button.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ButtonUI/Button.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ButtonUI/Button.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Head/LoginLanguage.tsx, /src/pages/AuthModal/pages/Success/Success.tsx, /src/pages/AuthModal/pages/NewPassword/NewPasswordForm/NewPasswordForm.tsx, /src/pages/AuthModal/pages/Auth/AuthForm/AuthForm.tsx, /src/pages/AuthModal/pages/ResetPassword/ResetPasswordForm/ResetPasswordForm.tsx, /src/pages/AuthModal/pages/Code/CodeForm/CodeForm.tsx, /src/pages/AuthModal/pages/SignUp/SignUpForm/SignUpForm.tsx, /src/pages/Services/components/SingleButton/SingleButton.tsx, /src/pages/Services/components/DoubleButtons/DoubleButtons.tsx, /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/components/ui/SkipCookie/SkipCookie.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Calendar/Calendar.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Calendar/Title.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Calendar/Calendar.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/EndDate/EndDate.tsx, /src/pages/Services/components/NoIncome/NoIncome.tsx, /src/pages/Services/components/StartDate/StartDate.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ChangeLanguage/ChangeLanguage.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ChangeLanguage/ChangeLanguage.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Head/LoginLanguage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/CodeInput/CodeInput.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/CodeInput/CodeInput.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/pages/Code/CodeForm/CodeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/CodeVerification/CodeVerification.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/CodeVerification/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Column/Column.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Column/Column.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/components/UserParams/UserParams.tsx, /src/pages/Services/components/Filter/Filter.tsx, /src/pages/Services/components/AdditionalIncomeAmount/AdittionalIncomeAmount.tsx, /src/pages/Services/components/AdditionalIncome/AdditionalIncome.tsx, /src/components/ui/UserProfileCard/UserProfileCard.tsx, /src/pages/Services/components/MainSourceOfIncome/MainSourceOfIncome.tsx, /src/pages/Services/components/Obligation/Obligation.tsx, /src/pages/Services/components/IsForeigner/IsForeigner.tsx, /src/pages/Services/components/Borrowers/Borrowers.tsx, /src/pages/Services/components/Childrens/Childrens.tsx, /src/pages/Services/components/Education/Education.tsx, /src/pages/Services/components/FamilyStatus/FamilyStatus.tsx, /src/pages/Services/components/CitizenshipsDropdown/CitizenshipsDropdown.tsx, /src/pages/Services/components/HowMuchChildrens/HowMuchChildrens.tsx, /src/pages/Services/components/Birthday/Birthday.tsx, /src/pages/Services/components/PublicPerson/PublicPerson.tsx, /src/pages/Services/components/Taxes/Taxes.tsx, /src/pages/Services/components/MedicalInsurance/MedicalInsurance.tsx, /src/pages/Services/components/CountriesPayTaxes/CountriesPayTaxes.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/components/Bank/Bank.tsx, /src/pages/Services/components/EndDate/EndDate.tsx, /src/pages/Services/components/MonthlyPayment/MonthlyPayment.tsx, /src/pages/Services/components/MonthlyIncome/MonthlyIncome.tsx, /src/pages/Services/components/NoIncome/NoIncome.tsx, /src/pages/Services/components/CompanyName/CompanyName.tsx, /src/pages/Services/components/StartDate/StartDate.tsx, /src/pages/Services/components/Profession/Profession.tsx, /src/pages/Services/components/FieldOfActivity/FieldOfActive.tsx, /src/pages/Services/components/PersonalProfile/PersonalProfile.tsx, /src/pages/Services/components/MortgageParameters/MortgageParameters.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/components/ui/CreditParams.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/ui/WhoAreYouForBorrowers/WhoAreYouForBorrowers.tsx, /src/pages/Services/components/OtherBorrowersObligation/OtherBorrowersObligation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Container/Container.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Container/Container.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Head/Header.tsx, /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStep.tsx, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStep.tsx, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStep.tsx, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx, /src/pages/Home/Home.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStep.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStep.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ContextButtons/AddInc/AddInc.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ContextButtons/CreditContextButton/CreditContextButton.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ContextButtons/IncomeContextButton/IncomeContextButton.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ContextButtons/InitialFeeContext/InitialFeeContext.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ContextButtons/InitialFeeContext/InitialFeeContext.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ContextButtons/InvceasePayment/IncreasePayment.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/CookiePolicyModal/CookiePolicyModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/CookiePolicyModal/CookiePolicyModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/CookiePolicyModal/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/CreditParams.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/CreditParams_updated.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/CurrencySelector/CurrencySelector.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/CustomButton/Button.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/CustomButton/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/CustomPhoneInput/PhoneInput.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/CustomPhoneInput/PhoneInput.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/pages/Auth/AuthForm/AuthForm.tsx, /src/pages/AuthModal/pages/ResetPassword/ResetPasswordForm/ResetPasswordForm.tsx, /src/pages/AuthModal/pages/SignUp/SignUpForm/SignUpForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/CustomSelect/Control.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/CustomSelect/CustomSelect.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/CustomSelect/Title.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Divider/Divider.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Divider/Divider.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/BankCard/BankCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/DropdownCalendar/DropdownCalendar.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/DropdownCalendar/DropdownCalendar.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Calendar/Calendar.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/DropdownMenu/Dropdown/Dropdown.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/DropdownMenu/Dropdown/Dropdown.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/DropdownMenu/DropdownMenu.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/DropdownMenu/DropdownMenu.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/components/Filter/Filter.tsx, /src/pages/Services/components/AdditionalIncome/AdditionalIncome.tsx, /src/pages/Services/components/MainSourceOfIncome/MainSourceOfIncome.tsx, /src/pages/Services/components/Obligation/Obligation.tsx, /src/pages/Services/components/Education/Education.tsx, /src/pages/Services/components/FamilyStatus/FamilyStatus.tsx, /src/pages/Services/components/Bank/Bank.tsx, /src/pages/Services/components/FieldOfActivity/FieldOfActive.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/components/OtherBorrowersObligation/OtherBorrowersObligation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Error/Error.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Error/Error.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/CustomPhoneInput/PhoneInput.tsx, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/components/Filter/Filter.tsx, /src/components/ui/YesNo/YesNo.tsx, /src/pages/Services/components/AdditionalIncomeAmount/AdittionalIncomeAmount.tsx, /src/pages/Services/components/AdditionalIncome/AdditionalIncome.tsx, /src/pages/Services/components/MainSourceOfIncome/MainSourceOfIncome.tsx, /src/pages/Services/components/Obligation/Obligation.tsx, /src/pages/Services/components/AddPartner/AddPartner.tsx, /src/pages/Services/components/Borrowers/Borrowers.tsx, /src/pages/Services/components/Education/Education.tsx, /src/pages/Services/components/FamilyStatus/FamilyStatus.tsx, /src/pages/Services/components/HowMuchChildrens/HowMuchChildrens.tsx, /src/pages/Services/components/Birthday/Birthday.tsx, /src/pages/Services/components/NameSurname/NameSurname.tsx, /src/pages/Services/components/Bank/Bank.tsx, /src/pages/Services/components/EndDate/EndDate.tsx, /src/pages/Services/components/MonthlyPayment/MonthlyPayment.tsx, /src/pages/Services/components/MonthlyIncome/MonthlyIncome.tsx, /src/pages/Services/components/NoIncome/NoIncome.tsx, /src/pages/Services/components/CompanyName/CompanyName.tsx, /src/pages/Services/components/StartDate/StartDate.tsx, /src/pages/Services/components/Profession/Profession.tsx, /src/pages/Services/components/FieldOfActivity/FieldOfActive.tsx, /src/components/ui/DropdownMenu/Dropdown/Dropdown.tsx, /src/components/ui/Calendar/Calendar.tsx, /src/components/ui/MultiSelect/MultiSelect.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/components/ui/CreditParams.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/ui/WhoAreYouForBorrowers/WhoAreYouForBorrowers.tsx, /src/pages/Services/components/OtherBorrowersObligation/OtherBorrowersObligation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ErrorBlock/ErrorBlock.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ErrorBlock/ErrorBlock.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/PasswordInput/PasswordInput.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/ExitModule/ExitModule.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/ExitModule/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/FeatureCard/FeatureCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/FeatureCard/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/FormCaption/FormCaption.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/FormCaption/FormCaption.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/FormCaption/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/FormContainer/FormContainer.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/FormContainer/FormContainer.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/FormDivider/Divider.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/FormattedInput/Control/Control.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/FormattedInput/Control/Control.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/FormattedInput/FormattedInput.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/FormattedInput/FormattedInput.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/components/AdditionalIncomeAmount/AdittionalIncomeAmount.tsx, /src/pages/Services/components/HowMuchChildrens/HowMuchChildrens.tsx, /src/pages/Services/components/MonthlyPayment/MonthlyPayment.tsx, /src/pages/Services/components/MonthlyIncome/MonthlyIncome.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Hint/Hint.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Hint/Hint.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Hint/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/HowItWorks/HowItWorks.css
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/HowItWorks/HowItWorks.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/HowItWorks/Step1.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/HowItWorks/Step2.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/HowItWorks/Step3.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/HowItWorks/index.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Info/Info.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/BankCard/BankCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Info/Info.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/InfoButton.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Message/Message.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/ContextButtons/InvceasePayment/IncreasePayment.tsx, /src/components/ui/ContextButtons/AddInc/AddInc.tsx, /src/components/ui/ContextButtons/CreditContextButton/CreditContextButton.tsx, /src/components/ui/ContextButtons/IncomeContextButton/IncomeContextButton.tsx, /src/components/ui/ContextButtons/InitialFeeContext/InitialFeeContext.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Message/Message.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Modal/Modal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/AuthModal.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationModal.tsx, /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/components/ui/ProgrammCard/BankInfoModal/BankInfoModal.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationModal.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Modal/Modal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/MultiSelect/MultiSelect.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/CitizenshipsDropdown/CitizenshipsDropdown.tsx, /src/pages/Services/components/CountriesPayTaxes/CountriesPayTaxes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/MultiSelect/MultiSelect.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/NewButton/NewButton.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/NewButton/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/PasswordInput/PasswordInput.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/PasswordInput/PasswordInput.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/pages/NewPassword/NewPasswordForm/NewPasswordForm.tsx, /src/pages/AuthModal/pages/Auth/AuthForm/AuthForm.tsx, /src/pages/AuthModal/pages/SignUp/SignUpForm/SignUpForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/PhoneConfirm/PhoneConfirm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/PhoneInput/Control/Control.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/PhoneInput/PhoneInput.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/PhoneInput/Title.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ProgrammCard/BankInfoModal/BankInfoModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ProgrammCard/BankInfoModal/BankInfoModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/ProgrammCard/ProgrammCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ProgrammCard/ProgrammCard.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/BankOffers/BankOffers.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ProgrammCard/ProgrammCard.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ProgressBar/ProgressBar.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/CalculateCredit.tsx, /src/pages/Services/pages/CalculateMortgage/CalculateMortgage.tsx, /src/pages/Services/pages/OtherBorrowers/OtherBorrowers.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/ProgressBar/ProgressBar.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Ranger/Handle.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Ranger/Ranger.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Ranger/Track.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/RestorePassword/RestorePassword.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/RestorePassword/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Row/Row.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/components/UserParams/UserParams.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/components/ui/CreditParams.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Row/Row.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/RowTwo/RowTwo.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/RowTwo/RowTwo.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/ServerModeWarning/ServerModeWarning.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/ServerModeWarning/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/SignUpForm/SignUpForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/SignUpForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/SkipCookie/SkipCookie.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/SkipCookie/SkipCookie.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/SliderInput/Ranger/Handle.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/SliderInput/Ranger/Ranger.tsx, /src/index.scss, /src/components/ui/SliderInput/Ranger/Handle.tsx, /src/components/ui/SliderInput/Ranger/Track.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/SliderInput/Ranger/Ranger.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/SliderInput/Ranger/Track.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/SliderInput/SliderInput.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/SliderInput/SliderInput.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/StringInput/Control/Control.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/StringInput/Control/Control.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/StringInput/Control/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/StringInput/StringInput.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Swiper/Swiper.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Swiper/SwiperNavButtonts/SwiperNavButtons.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Swiper/SwiperNavButtonts/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Swiper/SwiperNavButtonts/SwiperNavButtons.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Home/Home.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Swiper/Swiper.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Tab/Tab.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Tab/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Tabs/Tabs.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/Tabs/Tabs.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/pages/Auth/AuthForm/AuthForm.tsx, /src/pages/AuthModal/pages/ResetPassword/ResetPasswordForm/ResetPasswordForm.tsx, /src/components/ui/ProgrammCard/BankInfoModal/BankInfoModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/TextField/TextField.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/TextField/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/TextPage/TextPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/TextPage/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/TitleElement/TitleElement.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/PasswordInput/PasswordInput.tsx, /src/components/ui/StringInput/StringInput.tsx, /src/components/ui/CustomPhoneInput/PhoneInput.tsx, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/components/AddPartner/AddPartner.tsx, /src/pages/Services/components/AdditionalCitizenships/AdditionalCitizenships.tsx, /src/pages/Services/components/IsForeigner/IsForeigner.tsx, /src/pages/Services/components/Childrens/Childrens.tsx, /src/pages/Services/components/CitizenshipsDropdown/CitizenshipsDropdown.tsx, /src/pages/Services/components/PublicPerson/PublicPerson.tsx, /src/pages/Services/components/Taxes/Taxes.tsx, /src/pages/Services/components/PartnerPayMortgage/PartnerPayMortgage.tsx, /src/pages/Services/components/MedicalInsurance/MedicalInsurance.tsx, /src/pages/Services/components/CountriesPayTaxes/CountriesPayTaxes.tsx, /src/components/ui/Calendar/Calendar.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/TitleElement/TitleElement.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Tooltip/Tootip.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/Tooltip/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/TopServices/ServiceCard/ServiceCard.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/TopServices/TopServices.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/TopServices/ServiceCard/ServiceCard.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/TopServices/TopServices.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/TopServices/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/TopServices/TopServices.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/TypeVerify/TypeVerify.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/components/ui/TypeVerify/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/UserProfileCard/UserProfileCard.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/components/AddPartner/AddPartner.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/UserProfileCard/UserProfileCard.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/VideoPoster/VideoPoster.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/VideoPoster/VideoPoster.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/YesNo/YesNo.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/components/AdditionalCitizenships/AdditionalCitizenships.tsx, /src/pages/Services/components/IsForeigner/IsForeigner.tsx, /src/pages/Services/components/Childrens/Childrens.tsx, /src/pages/Services/components/PublicPerson/PublicPerson.tsx, /src/pages/Services/components/Taxes/Taxes.tsx, /src/pages/Services/components/PartnerPayMortgage/PartnerPayMortgage.tsx, /src/pages/Services/components/MedicalInsurance/MedicalInsurance.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/components/ui/YesNo/YesNo.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/config/i18n.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/context/ScreenLocationContext.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/hooks/__tests__/useDropdownData.test.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/App.tsx, /src/components/layout/Layout.tsx, /src/components/layout/Head/LoginLanguage.tsx, /src/components/ui/VideoPoster/VideoPoster.tsx, /src/components/ui/TopServices/ServiceCard/ServiceCard.tsx, /src/components/layout/Footer/Company/Company.tsx, /src/components/layout/Footer/Contacts/Contacts.tsx, /src/components/layout/Footer/Documents/Documents.tsx, /src/components/layout/Sidebar/MobileMenu/MobileCurrencySelector/MobileCurrencySelector.tsx, /src/pages/AuthModal/AuthModal.tsx, /src/components/ui/CurrencySelector/CurrencySelector.tsx, /src/components/layout/Sidebar/MobileMenu/MobileChangeLanguage/MobileChangeLanguage.tsx, /src/pages/AuthModal/pages/NewPassword/NewPassword.tsx, /src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModalDark.tsx, /src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModalDarkHe.tsx, /src/components/ui/ButtonUI/Button.tsx, /src/components/ui/ChangeLanguage/ChangeLanguage.tsx, /src/pages/AuthModal/pages/Code/Code.tsx, /src/pages/AuthModal/pages/Auth/Auth.tsx, /src/pages/AuthModal/pages/Success/Success.tsx, /src/pages/AuthModal/pages/ResetPassword/ResetPassword.tsx, /src/pages/AuthModal/pages/SignUp/SignUp.tsx, /src/pages/AuthModal/pages/Auth/AuthForm/AuthForm.tsx, /src/pages/AuthModal/pages/ResetPassword/ResetPasswordForm/ResetPasswordForm.tsx, /src/pages/AuthModal/pages/Code/CodeForm/CodeForm.tsx, /src/pages/AuthModal/pages/SignUp/SignUpForm/SignUpForm.tsx, /src/pages/Services/pages/CalculateCredit/CalculateCredit.tsx, /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStep.tsx, /src/components/ui/ProgressBar/ProgressBar.tsx, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStep.tsx, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStep.tsx, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx, /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal.tsx, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationModal.tsx, /src/pages/Services/components/Filter/Filter.tsx, /src/pages/Services/components/BankOffers/BankOffers.tsx, /src/pages/Services/components/AddPartner/AddPartner.tsx, /src/components/ui/FormattedInput/Control/Control.tsx, /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/components/ui/BankCard/BankCard.tsx, /src/pages/Home/Home.tsx, /src/pages/Services/pages/CalculateMortgage/CalculateMortgage.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/components/ui/CreditParams.tsx, /src/pages/Services/pages/OtherBorrowers/OtherBorrowers.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStep.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStep.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationModal.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/UserProfileCard/UserProfileCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Sidebar/MobileMenu/Navigation/Navigation.tsx, /src/pages/AuthModal/AuthModal.tsx, /src/components/layout/Sidebar/SideberClosed/SidebarClosed.tsx, /src/components/layout/Sidebar/MobileMenu/Navigation/NavigationList/NavigationList.tsx, /src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModalDarkHe.tsx, /src/pages/AuthModal/pages/Code/CodeForm/CodeForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationModal.tsx, /src/pages/Services/components/Filter/Filter.tsx, /src/pages/Services/components/BankOffers/BankOffers.tsx, /src/pages/Services/components/AdditionalIncome/AdditionalIncome.tsx, /src/pages/Services/components/MainSourceOfIncome/MainSourceOfIncome.tsx, /src/pages/Services/components/Obligation/Obligation.tsx, /src/pages/Services/components/AddPartner/AddPartner.tsx, /src/pages/Services/components/AdditionalCitizenships/AdditionalCitizenships.tsx, /src/pages/Services/components/IsForeigner/IsForeigner.tsx, /src/pages/Services/components/Borrowers/Borrowers.tsx, /src/pages/Services/components/Childrens/Childrens.tsx, /src/pages/Services/components/Education/Education.tsx, /src/pages/Services/components/FamilyStatus/FamilyStatus.tsx, /src/pages/Services/components/HowMuchChildrens/HowMuchChildrens.tsx, /src/pages/Services/components/Birthday/Birthday.tsx, /src/pages/Services/components/PublicPerson/PublicPerson.tsx, /src/pages/Services/components/Taxes/Taxes.tsx, /src/pages/Services/components/NameSurname/NameSurname.tsx, /src/pages/Services/components/PartnerPayMortgage/PartnerPayMortgage.tsx, /src/pages/Services/components/Info/Info.tsx, /src/pages/Services/components/MedicalInsurance/MedicalInsurance.tsx, /src/pages/Services/components/CountriesPayTaxes/CountriesPayTaxes.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/components/Bank/Bank.tsx, /src/pages/Services/components/EndDate/EndDate.tsx, /src/pages/Services/components/MonthlyPayment/MonthlyPayment.tsx, /src/pages/Services/components/FieldOfActivity/FieldOfActive.tsx, /src/pages/Services/components/PersonalProfile/PersonalProfile.tsx, /src/pages/Services/components/MortgageParameters/MortgageParameters.tsx, /src/components/ui/BankCard/BankCard.tsx, /src/components/ui/ProgrammCard/BankInfoModal/BankInfoModal.tsx, /src/pages/Home/Home.tsx, /src/components/ui/TopServices/TopServices.tsx, /src/components/ui/HowItWorks/Step1.tsx, /src/components/ui/HowItWorks/Step2.tsx, /src/pages/Services/pages/CalculateMortgage/CalculateMortgage.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationModal.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/ui/WhoAreYouForBorrowers/WhoAreYouForBorrowers.tsx, /src/pages/Services/components/OtherBorrowersObligation/OtherBorrowersObligation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/hooks/useDebounce.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Footer/Company/Company.tsx, /src/components/layout/Footer/Contacts/Contacts.tsx, /src/components/layout/Footer/Documents/Documents.tsx, /src/components/ui/ProgrammCard/ProgrammCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/Filter/Filter.tsx, /src/pages/Services/components/AdditionalIncome/AdditionalIncome.tsx, /src/pages/Services/components/MainSourceOfIncome/MainSourceOfIncome.tsx, /src/pages/Services/components/Obligation/Obligation.tsx, /src/pages/Services/components/Education/Education.tsx, /src/pages/Services/components/FamilyStatus/FamilyStatus.tsx, /src/pages/Services/components/FieldOfActivity/FieldOfActive.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/components/OtherBorrowersObligation/OtherBorrowersObligation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/hooks/useLanguageSync.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Dialog/Dialog.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Layout.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Head/Logo.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/BankOffers/BankOffers.tsx, /src/pages/Services/components/MortgageParameters/MortgageParameters.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Calendar/Calendar.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/hooks/useThrottle.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Layout.tsx, /src/components/layout/Sidebar/MobileMenu/Navigation/Navigation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Layout.tsx, /src/components/layout/Head/LoginLanguage.tsx, /src/components/ui/VideoPoster/VideoPoster.tsx, /src/components/ui/TopServices/ServiceCard/ServiceCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/About/About.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/AuthModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/AuthModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Layout.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/Auth/Auth.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/Auth/AuthForm/AuthForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/Auth/AuthForm/AuthForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/pages/Auth/Auth.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/AuthModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/Code/Code.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/Code/CodeForm/CodeForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/Code/CodeForm/CodeForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/pages/Code/Code.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/AuthModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/NewPassword/NewPassword.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/NewPassword/NewPasswordForm/NewPasswordForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/pages/NewPassword/NewPassword.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/NewPassword/NewPasswordForm/NewPasswordForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/AuthModal/pages/NewPassword/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModalDark.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModalDarkHe.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/AuthModal/pages/PhoneVerification/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModalDark.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/PhoneVerification/PhoneVerificationModalDarkHe.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/ResetPassword/ResetPassword.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/ResetPassword/ResetPasswordForm/ResetPasswordForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/pages/ResetPassword/ResetPassword.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/ResetPassword/ResetPasswordForm/ResetPasswordForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/AuthModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/SignUp/SignUp.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/SignUp/SignUpForm/SignUpForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/pages/SignUp/SignUp.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/SignUp/SignUpForm/SignUpForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/AuthModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/Success/Success.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/AuthModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/AuthModal/pages/Success/Success.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BankEmployeeRegistration/components/BankIMLogo.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BankEmployeeRegistration/components/BankNumberInput.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BankEmployeeRegistration/components/BankSelector.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BankEmployeeRegistration/components/BranchSelector.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BankEmployeeRegistration/components/LanguageSelector.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BankEmployeeRegistration/components/RegistrationStep1.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BankEmployeeRegistration/components/RegistrationStep2.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BankEmployeeRegistration/components/StepNavigation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BankEmployeeRegistration/components/SupportWidget.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BankEmployeeRegistration/components/TermsAgreement.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BankEmployeeRegistration/components/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Banks/pages/Apoalim/Apoalim.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Banks/pages/Beinleumi/Beinleumi.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Banks/pages/Discount/Discount.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Banks/pages/Jerusalem/Jerusalem.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Banks/pages/Leumi/Leumi.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Banks/pages/MercantileDiscount/MercantileDiscount.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/BrokerQuestionnaire/BrokerQuestionnaire.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Contacts/Contacts.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Cookie/Cookie.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Cooperation/Cooperation.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Home/Home.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Home/Home.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Home/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/LawyerQuestionnaireSuccess/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/AppointmentSchedulingPage/AppointmentSchedulingPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/AppointmentSchedulingPage/components/InteractiveMap/InteractiveMap.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/AppointmentSchedulingPage/components/InteractiveMap/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/AppointmentSchedulingPage/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/BankAuthorizationPage/BankAuthorizationPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/BankConfirmationPage/BankConfirmationPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/BankConfirmationPage/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/CoBorrowerIncomeDataPage/CoBorrowerIncomeDataPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/CoBorrowerPersonalDataPage/CoBorrowerPersonalDataPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/CreditHistoryConsentPage/CreditHistoryConsentPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/CreditHistoryPage/CreditHistoryPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/DocumentsPage/DocumentsPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/HiddenBankProgramSelectionPage/HiddenBankProgramSelectionPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/IncomeDataPage/IncomeDataPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/MainBorrowerPersonalDataPage/MainBorrowerPersonalDataPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/MainDashboard/MainDashboard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/NotificationDropdown/NotificationDropdown.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/NotificationsPage/NotificationsPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/PartnerPersonalDataPage/PartnerPersonalDataPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/PaymentsPage/PaymentsPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/PersonalCabinetLayout/PersonalCabinetLayout.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/ProgramSelectionCalculationPage/ProgramSelectionCalculationPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/ProgramSelectionPage/ProgramSelectionPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/QuestionnaireOverviewPage/QuestionnaireOverviewPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/ServiceSelectionDashboard/ServiceSelectionDashboard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/SettingsPage/SettingsPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/Sidebar/Sidebar.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/TopHeader/TopHeader.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/TransactionHistoryPage/TransactionHistoryPage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/AddCardModal/AddCardModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/AddCardModal/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/ApplicationAcceptedModal/ApplicationAcceptedModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/ApplicationAcceptedModal/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/BankMeetingConfirmationModal/BankMeetingConfirmationModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/BankMeetingConfirmationModal/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/CardDeleteModal/CardDeleteModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/CardDeleteModal/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/ChangeEmailModal/ChangeEmailModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/ChangeNameModal/ChangeNameModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/ChangePasswordModal/ChangePasswordModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/ChangePhoneModal/ChangePhoneModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/CoBorrowerDeleteModal/CoBorrowerDeleteModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/CoBorrowerSelectionModal/CoBorrowerSelectionModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/DocumentDeleteModal/DocumentDeleteModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/DocumentDeleteModal/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/DocumentPreviewModal/DocumentPreviewModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/DocumentPreviewModal/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/DocumentUploadModal/DocumentUploadModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/DocumentUploadModal/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/EmailSettingsModal/EmailSettingsModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/EmailVerificationModal/EmailVerificationModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/OfferModal/OfferModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/PaymentConfirmationModal/PaymentConfirmationModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/PaymentModal/PaymentModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/PhoneVerificationModal/PhoneVerificationModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/ProfilePhotoModal/ProfilePhotoModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/ProgramConditionsModal/ProgramConditionsModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/QRCodeUploadModal/QRCodeUploadModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PersonalCabinet/components/modals/UploadProfilePhotoModal/UploadProfilePhotoModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/PrivacyPolicy/PrivacyPolicy.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Refund/Refund.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/api/api.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/AddPartner/AddPartner.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/AdditionalCitizenships/AdditionalCitizenships.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/AdditionalIncome/AdditionalIncome.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/AdditionalIncomeAmount/AdittionalIncomeAmount.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/Address/Address.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/Address/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/AmountIncomeCurrentYear/AmountIncomeCurrentYear.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/AmountIncomeCurrentYear/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Bank/Bank.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationForm/ObligationForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/BankOffers/BankOffers.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/BankOffers/BankOffers.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Birthday/Birthday.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Borrowers/Borrowers.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Childrens/Childrens.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/CitizenshipsDropdown/CitizenshipsDropdown.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/CompanyName/CompanyName.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/CountriesPayTaxes/CountriesPayTaxes.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/DocumentIssueDate/DocumentIssueDate.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/DocumentIssueDate/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/DoubleButtons/DoubleButtons.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/DoubleButtons/DoubleButtons.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStep.tsx, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStep.tsx, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStep.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStep.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Education/Education.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/EndDate/EndDate.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationForm/ObligationForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/FamilyStatus/FamilyStatus.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/FieldOfActivity/FieldOfActive.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Filter/Filter.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Filter/Filter.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/Gender/Gender.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/Gender/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/HowMuchChildrens/HowMuchChildrens.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/IDDocument/IDDocument.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/IDDocument/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Info/Info.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Info/Info.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/IsForeigner/IsForeigner.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/MainSourceOfIncome/MainSourceOfIncome.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/MedicalInsurance/MedicalInsurance.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/MonthlyIncome/MonthlyIncome.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/MonthlyPayment/MonthlyPayment.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationForm/ObligationForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/MortgageParameters/MortgageParameters.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/UserParams/UserParams.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/MortgageParameters/MortgageParameters.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/NameSurname/NameSurname.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/NoIncome/NoIncome.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Obligation/Obligation.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationForm/ObligationForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/OtherBorrowersObligation/OtherBorrowersObligation.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/PartnerPayMortgage/PartnerPayMortgage.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/PersonalProfile/PersonalProfile.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/UserParams/UserParams.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/PersonalProfile/PersonalProfile.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/PhoneEdit/PhoneEdit.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/PhoneEdit/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Profession/Profession.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/PropertyOwnership/PropertyOwnership.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/components/PropertyOwnership/index.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/PublicPerson/PublicPerson.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/SingleButton/SingleButton.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/SingleButton/SingleButton.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/StartDate/StartDate.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/Taxes/Taxes.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/components/UserParams/UserParams.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationForm/ObligationForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/ApplicationSubmitted/ApplicationSubmitted.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/BorrowersPersonalData.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/FirstStep/FirstStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/FirstStep/FirstStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/FirstStep/constants.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/FirstStep/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/AdditionalIncomeModal/AdditionalIncomeForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/AdditionalIncomeModal/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/ObligationModal/ObligationForm/ObligationForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/ObligationModal/ObligationForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/ObligationModal/ObligationModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/ObligationModal/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/SourceOfIncomeModal/SourceOfIncomeForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/Modals/SourceOfIncomeModal/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/SecondStep/SecondStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/SecondStep/constants.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/SecondStep/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateCredit/CalculateCredit.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/CalculateCredit/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStep.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/CalculateCredit.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStep.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/CalculateCredit.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStep.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/CalculateCredit.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/CalculateCredit.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/CalculateMortgage.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStep.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/MortgagePhoneVerificationModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateMortgage/CalculateMortgage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStep.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStepForm/FourthStepForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/CalculateMortgage/pages/FourthStep/FourthStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateMortgage/CalculateMortgage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStep.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateMortgage/CalculateMortgage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStep.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateMortgage/CalculateMortgage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/Modals/LoginModal/LoginForm/LoginForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/Modals/LoginModal/LoginForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/Modals/LoginModal/LoginForm/ui/NameSurnameLogin/NameSurnameLogin.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/Modals/LoginModal/LoginForm/ui/NameSurnameLogin/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/Modals/LoginModal/LoginForm/ui/PhoneInput/PhoneInput.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/Modals/LoginModal/LoginForm/ui/PhoneInput/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/Modals/LoginModal/LoginModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/Modals/LoginModal/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/Modals/ObligationModal/ObligationModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/Modals/ObligationModal/ObligationModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStep.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/ui/WhoAreYouForBorrowers/WhoAreYouForBorrowers.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/OtherBorrowers.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeForm/AdditionalIncomeForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationForm/ObligationForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeForm/SourceOfIncomeForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/OtherBorrowers.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStep.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/OtherBorrowers/OtherBorrowers.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/RefinanceCredit.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/api/refinanceCredit.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/FirstStep/FirstStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/FirstStep/FirstStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/FirstStep/FirstStepForm/ui/CreditData/CreditData.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/FirstStep/FirstStepForm/ui/CreditData/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/FirstStep/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/FourthStep/FourthStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/FourthStep/FourthStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/FourthStep/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/SecondStep/SecondStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/SecondStep/constants.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/SecondStep/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/ThirdStep/ThirdStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/ThirdStep/ThirdStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/ThirdStep/constants.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/ThirdStep/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/RefinanceMortgage.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/api/refinanceMortgage.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/FirstStep/FirstStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/FirstStep/FirstStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/FirstStep/FirstStepForm/ui/MortgageData/MortgageData.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/FirstStep/FirstStepForm/ui/MortgageData/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/FirstStep/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/FourthStep/FourthStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/FourthStep/FourthStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/FourthStep/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/SecondStep/SecondStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/SecondStep/SecondStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/SecondStep/constants.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/SecondStep/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/ThirdStep/ThirdStep.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/ThirdStep/ThirdStepForm/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/ThirdStep/constants.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/ThirdStep/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/UploadReport/UploadReport.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/UploadReport/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/slices/activeField.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/slices/borrowersPersonalDataSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/slices/borrowersSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/slices/calculateCreditSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/slices/calculateMortgageSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/slices/filterSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/slices/loginSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/slices/modalSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/slices/otherBorrowersSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/slices/refinanceCredit.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/slices/refinanceMortgageSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/types/dropdownMenu.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Services/types/formTypes.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/UserProfileCard/UserProfileCard.tsx, /src/pages/Services/components/PersonalProfile/PersonalProfile.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationModal.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStepForm/ThirdStepForm.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStep.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStep.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationModal.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/SideNavigationDemo/SideNavigationDemo.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/TemporaryFranchise/TemporaryFranchise.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/TemporaryFranchise/components/LawyersFooter.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/TendersForBrokers/TendersForBrokers.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/TendersForLawyers/TendersForLawyers.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Vacancies/Vacancies.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Vacancies/VacancyDetail/VacancyDetail.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Vacancies/components/CategoryFilter/CategoryFilter.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Vacancies/components/VacancyCard/VacancyCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/pages/Vacancies/components/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/AppRoutes/MainRoutes.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/services/api.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/AuthModal/AuthModal.tsx, /src/pages/AuthModal/pages/Auth/Auth.tsx, /src/pages/AuthModal/pages/SignUp/SignUp.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/components/BankOffers/BankOffers.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/services/bankWorkerApi.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/services/calculationParametersApi.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/components/ui/CreditParams.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/services/lawyerFormApi.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/setupTests.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/layout/Layout.tsx, /src/components/layout/Head/LoginLanguage.tsx, /src/components/ui/VideoPoster/VideoPoster.tsx, /src/components/ui/TopServices/ServiceCard/ServiceCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/store/FilterSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/store/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/store/slices/adminSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/store/slices/authSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/store/slices/currencySlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/store/slices/dialogSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/store/slices/languageSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/store/slices/windowSizeSlice.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/types/google-maps.d.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/utils/__tests__/validationHelpers.test.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/utils/constants/mockData/Tabs.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/components/ui/CreditParams.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/components/ui/CreditParams.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/components/ui/CreditParams.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/components/ui/CreditParams.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/App.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/utils/helpers/fmt.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/ProgrammCard/ProgrammCard.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/utils/i18n/i18n-format.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/utils/i18n/index.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/utils/i18n/withTranslations.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/utils/performance.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/App.tsx, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStep.tsx, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStep.tsx, /src/pages/Services/pages/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/pages/Services/pages/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx, /src/pages/Services/pages/Modals/ObligationModal/ObligationModal.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStep.tsx, /src/pages/Services/pages/CalculateMortgage/pages/ThirdStep/ThirdStep.tsx, /src/pages/Services/pages/OtherBorrowers/FirstStep/FirstStep.tsx, /src/pages/Services/pages/OtherBorrowers/SecondStep/SecondStep.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/ObligationModal/ObligationModal.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/SourceOfIncomeModal/SourceOfIncomeModal.tsx, /src/pages/Services/pages/OtherBorrowers/Modals/AdditionalIncomeModal/AdditionalIncomeModal.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/app/App.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload src/vite-env.d.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload tailwind.config.js
+2025-08-17T12:33:18: 12:33:18 PM [vite] hmr update /src/index.scss, /src/components/ui/Calendar/Calendar.tsx
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload types/enums/authSteps.enum.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload types/enums/restorePasswordSteps.enum.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] page reload types/enums/signUpSteps.enum.ts
+2025-08-17T12:33:18: 12:33:18 PM [vite] vite.config.ts changed, restarting server...
+2025-08-17T12:33:18: 12:33:18 PM [vite] .env changed, restarting server...
+2025-08-17T12:33:18: 12:33:18 PM [vite] .env.production changed, restarting server...
+2025-08-17T12:33:18: 12:33:18 PM [vite] server restarted.
+2025-08-17T12:33:21: 12:33:21 PM [vite] page reload build/index.html
+2025-08-17T13:32:13: 1:32:13 PM [vite] page reload build/index.html
+2025-08-17T13:32:20: 1:32:20 PM [vite] page reload build/index.html
+2025-08-17T13:32:20: 1:32:20 PM [vite] hmr update /src/components/ui/BankCard/BankCard.tsx, /src/index.scss
+2025-08-17T13:32:20: 1:32:20 PM [vite] hmr update /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/index.scss
+2025-08-17T13:32:20: 1:32:20 PM [vite] hmr update /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/index.scss
+2025-08-17T13:32:20: 1:32:20 PM [vite] hmr update /src/components/ui/VideoPoster/VideoPoster.tsx, /src/index.scss
+2025-08-17T13:32:20: 1:32:20 PM [vite] hmr update /src/pages/Services/components/AdditionalIncome/AdditionalIncome.tsx, /src/index.scss
+2025-08-17T13:32:20: 1:32:20 PM [vite] hmr update /src/pages/Services/components/BankOffers/BankOffers.tsx, /src/index.scss
+2025-08-17T13:32:20: 1:32:20 PM [vite] hmr update /src/pages/Services/components/Filter/Filter.tsx, /src/index.scss
+2025-08-17T13:32:20: 1:32:20 PM [vite] hmr update /src/pages/Services/components/Obligation/Obligation.tsx, /src/index.scss
+2025-08-17T13:32:20: 1:32:20 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/ThirdStep/ThirdStep.tsx
+2025-08-17T13:32:31: 1:32:31 PM [vite] hmr update /src/components/ui/BankCard/BankCard.tsx, /src/index.scss
+2025-08-17T13:32:31: 1:32:31 PM [vite] hmr update /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/index.scss
+2025-08-17T13:32:31: 1:32:31 PM [vite] hmr update /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/index.scss
+2025-08-17T13:32:31: 1:32:31 PM [vite] hmr update /src/components/ui/VideoPoster/VideoPoster.tsx, /src/index.scss
+2025-08-17T13:32:31: 1:32:31 PM [vite] hmr update /src/pages/Services/components/BankOffers/BankOffers.tsx, /src/index.scss
+2025-08-17T13:32:31: 1:32:31 PM [vite] hmr update /src/pages/Services/components/Filter/Filter.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] page reload build/index.html
+2025-08-17T13:37:16: 1:37:16 PM [vite] page reload index.html
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/components/layout/Head/Header.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/components/layout/Layout.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/components/ui/BankCard/BankCard.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/components/ui/VideoPlayerModal/VideoPlayerModal.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/components/ui/VideoPoster/VideoPoster.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/pages/Services/components/BankOffers/BankOffers.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/pages/Services/components/FieldOfActivity/FieldOfActive.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] page reload src/App.tsx
+2025-08-17T13:37:16: 1:37:16 PM [vite] page reload src/utils/performance.ts
+2025-08-17T13:37:16: 1:37:16 PM [vite] vite.config.ts changed, restarting server...
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/pages/Services/components/Filter/Filter.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] page reload src/pages/Services/pages/BorrowersPersonalData/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/SecondStep/SecondStep.tsx
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx, /src/index.scss
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateMortgage/pages/SecondStep/SecondStep.tsx
+2025-08-17T13:37:16: 1:37:16 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T13:37:16: 1:37:16 PM [vite] page reload src/pages/Services/pages/RefinanceCredit/pages/SecondStep/constants.ts
+2025-08-17T13:37:16: 1:37:16 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/SecondStep/SecondStepForm/SecondStepForm.tsx
+2025-08-17T13:37:16: 1:37:16 PM [vite] page reload src/pages/Services/pages/RefinanceMortgage/pages/SecondStep/constants.ts
+2025-08-17T13:37:16: 1:37:16 PM [vite] page reload src/services/api.ts
+2025-08-17T13:37:16: 1:37:16 PM [vite] page reload src/services/bankWorkerApi.ts
+2025-08-17T13:37:16: 1:37:16 PM [vite] hmr update /src/index.scss, /src/pages/Services/pages/CalculateCredit/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/pages/Services/pages/CalculateMortgage/pages/FirstStep/FirstStepForm/FirstStepForm.tsx, /src/components/ui/CreditParams.tsx
+2025-08-17T13:37:16: 1:37:16 PM [vite] server restarted.
+2025-08-17T13:43:31: 1:43:31 PM [vite] page reload build/customer-approval-check.html
+2025-08-17T13:43:31: 1:43:31 PM [vite] page reload build/index.html
+2025-08-17T13:43:31: 1:43:31 PM [vite] page reload build/landing.html
+2025-08-17T13:43:32: 1:43:32 PM [vite] page reload build/index.html
+2025-08-17T13:45:59: 1:45:59 PM [vite] page reload src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T13:46:42: 1:46:42 PM [vite] page reload src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T14:18:11: 2:18:11 PM [vite] page reload src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T14:32:31: 2:32:31 PM [vite] page reload build/index.html
+2025-08-17T14:32:31: 2:32:31 PM [vite] page reload src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T14:32:38: 2:32:38 PM [vite] page reload src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T14:32:52: 2:32:52 PM [vite] page reload src/pages/Services/pages/CalculateCredit/pages/FourthStep/FourthStepForm/FourthStepForm.tsx
+2025-08-17T14:35:02: 2:35:02 PM [vite] page reload build/customer-approval-check.html
+2025-08-17T14:35:02: 2:35:02 PM [vite] page reload build/index.html
+2025-08-17T14:35:02: 2:35:02 PM [vite] page reload build/landing.html
+2025-08-17T14:35:03: 2:35:03 PM [vite] page reload build/index.html
+2025-08-17T14:41:19: 
+2025-08-17T14:41:19: > bankimonline@0.1.0 dev
+2025-08-17T14:41:19: > vite
+2025-08-17T14:41:19: 
+2025-08-17T14:41:19: 
+2025-08-17T14:41:19:   VITE v4.4.9  ready in 116 ms
+2025-08-17T14:41:19: 
+2025-08-17T14:41:19:   ➜  Local:   http://localhost:5173/
+2025-08-17T14:41:19:   ➜  Network: use --host to expose

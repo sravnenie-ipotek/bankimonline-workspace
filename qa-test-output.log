@@ -1,0 +1,69 @@
+🚀 Starting Comprehensive QA Automation Suite...
+======================================================
+📍 Test Environment: http://localhost:5173
+📅 Test Date: Sun Aug 17 00:33:20 IDT 2025
+⏰ Starting Time: 00:33:20
+
+🎯 Executing QA Test Suites...
+------------------------------
+🔄 Running MenuNavigation QA Tests...
+📋 Instructions: /Users/michaelmishayev/Projects/bankDev2_standalone/server/docs/QA/menuQA/instructions.md
+🔧 Starting real Cypress test execution for MenuNavigation...
+🍽️ Running Menu & Navigation tests...
+
+DevTools listening on ws://127.0.0.1:55468/devtools/browser/53378a7a-0987-4142-8de8-78e9016be49c
+Missing baseUrl in compilerOptions. tsconfig-paths will be skipped
+[dotenv@17.2.1] injecting env (5) from ../.env -- tip: 🔐 prevent building .env in docker: https://dotenvx.com/prebuild
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        14.5.4                                                                         │
+  │ Browser:        Chrome 139 (headless)                                                          │
+  │ Node Version:   v20.19.4 (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/nod │
+  │                 e/bin/node)                                                                    │
+  │ Specs:          1 found (menu-navigation-comprehensive.cy.ts)                                  │
+  │ Searched:       cypress/e2e/menu-navigation-comprehensive.cy.ts                                │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  menu-navigation-comprehensive.cy.ts                                             (1 of 1)
+Browserslist: browsers data (caniuse-lite) is 6 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+
+
+  Menu Navigation QA - Comprehensive Testing
+    Critical Navigation Bug Test (Fixed)
+      (Attempt 1 of 3) should maintain menu button visibility after service navigation
+      (Attempt 2 of 3) should maintain menu button visibility after service navigation
+      1) should maintain menu button visibility after service navigation
+    Main Navigation Menu Tests
+      (Attempt 1 of 3) should display and interact with main navigation menu
+      (Attempt 2 of 3) should display and interact with main navigation menu
+      2) should display and interact with main navigation menu
+      (Attempt 1 of 3) should navigate to services menu and display dropdown
+      (Attempt 2 of 3) should navigate to services menu and display dropdown
+      3) should navigate to services menu and display dropdown
+    Mobile Hamburger Menu Tests
+      (Attempt 1 of 3) should work on mobile viewport
+      (Attempt 2 of 3) should work on mobile viewport
+      4) should work on mobile viewport
+    All Menu Items Accessibility
+      (Attempt 1 of 3) should have accessible menu items
+      (Attempt 2 of 3) should have accessible menu items
+      5) should have accessible menu items
+    Service Navigation Tests
+      (Attempt 1 of 3) should navigate to Mortgage Calculator
+      (Attempt 2 of 3) should navigate to Mortgage Calculator
+      6) should navigate to Mortgage Calculator
+      (Attempt 1 of 3) should navigate to Credit Calculator
+      (Attempt 2 of 3) should navigate to Credit Calculator
+      7) should navigate to Credit Calculator
+      (Attempt 1 of 3) should navigate to Refinance Mortgage
+      (Attempt 2 of 3) should navigate to Refinance Mortgage
