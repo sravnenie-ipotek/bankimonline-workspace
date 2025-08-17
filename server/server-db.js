@@ -1455,6 +1455,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
 
             // Step 1 aliases: when_needed/first_home ↔ when/first (non-breaking copies)
             if (screen === 'mortgage_step1') {
+                // First, try the standard aliases
                 const aliasPairs = [
                     { source: 'when', alias: 'when_needed' },
                     { source: 'first', alias: 'first_home' }
@@ -1472,6 +1473,44 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                         }
                         response.dropdowns.push({ key: aliasKey, label: response.labels?.[aliasKey] || alias.replace(/_/g, ' ') });
                     }
+                }
+                
+                // Special handling for legacy database keys
+                // Map calculate_mortgage_when to mortgage_step1_when_needed
+                if (!response.options['mortgage_step1_when_needed']) {
+                    // Always provide hardcoded values for when_needed since database structure is inconsistent
+                    const whenOptions = [
+                        { value: 'within_3_months', label: language === 'he' ? 'תוך 3 חודשים' : 'Within 3 months' },
+                        { value: '3_to_6_months', label: language === 'he' ? '3-6 חודשים' : '3 to 6 months' },
+                        { value: '6_to_12_months', label: language === 'he' ? '6-12 חודשים' : '6 to 12 months' },
+                        { value: 'more_than_12_months', label: language === 'he' ? 'יותר מ-12 חודשים' : 'More than 12 months' }
+                    ];
+                    
+                    response.options['mortgage_step1_when_needed'] = whenOptions;
+                    response.labels['mortgage_step1_when_needed'] = language === 'he' ? 'מתי תזדקק למשכנתא?' : 'When do you need the mortgage?';
+                    response.placeholders['mortgage_step1_when_needed'] = language === 'he' ? 'בחר מסגרת זמן' : 'Select timing';
+                    response.dropdowns.push({ 
+                        key: 'mortgage_step1_when_needed', 
+                        label: response.labels['mortgage_step1_when_needed'] 
+                    });
+                }
+                
+                // Map calculate_mortgage_first to mortgage_step1_first_home
+                if (!response.options['mortgage_step1_first_home']) {
+                    // Always provide hardcoded values for first_home since database structure is inconsistent
+                    const firstOptions = [
+                        { value: 'yes', label: language === 'he' ? 'כן, דירה ראשונה' : 'Yes, first home' },
+                        { value: 'no', label: language === 'he' ? 'לא, דירה נוספת' : 'No, additional property' },
+                        { value: 'investment', label: language === 'he' ? 'נכס להשקעה' : 'Investment property' }
+                    ];
+                    
+                    response.options['mortgage_step1_first_home'] = firstOptions;
+                    response.labels['mortgage_step1_first_home'] = language === 'he' ? 'האם מדובר בדירה ראשונה?' : 'Is this your first home?';
+                    response.placeholders['mortgage_step1_first_home'] = language === 'he' ? 'בחר אפשרות' : 'Select option';
+                    response.dropdowns.push({ 
+                        key: 'mortgage_step1_first_home', 
+                        label: response.labels['mortgage_step1_first_home'] 
+                    });
                 }
             }
         } catch (aliasErr) {
