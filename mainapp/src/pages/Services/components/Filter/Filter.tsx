@@ -69,13 +69,13 @@ const Filter = ({ screenLocation: propScreenLocation }: FilterProps = {}) => {
     }
   }
 
-  // Check if we're on refinance-credit page to customize display only
-  const isRefinanceCredit = location.pathname.includes('refinance-credit')
+  // Check if we're on any credit page to customize display
+  const isCreditPage = location.pathname.includes('credit')
   
-  // Get appropriate fallback data - only customize for refinance-credit
+  // Get appropriate fallback data - customize for all credit-related services
   const getFallbackData = () => {
-    if (isRefinanceCredit) {
-      // For refinance-credit specifically, show credit-appropriate labels
+    if (isCreditPage) {
+      // For all credit services, show credit-appropriate labels
       // but keep same filter values to maintain state compatibility
       return [
         { value: 'filter_1', label: getContent('calculate_mortgage_filter_1', 'כל הצעות האשראי') },
@@ -97,9 +97,9 @@ const Filter = ({ screenLocation: propScreenLocation }: FilterProps = {}) => {
   // Use database options or fallback to customized options
   const data = dropdownData.options.length > 0 ? dropdownData.options : getFallbackData()
 
-  // Get appropriate title and placeholder - only customize for refinance-credit
+  // Get appropriate title and placeholder - customize for all credit services
   const getDropdownLabels = () => {
-    if (isRefinanceCredit) {
+    if (isCreditPage) {
       return {
         title: getContent('calculate_mortgage_filter_title', 'סנן הצעות אשראי'),
         placeholder: getContent('calculate_mortgage_filter_title', 'סנן הצעות אשראי')

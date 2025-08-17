@@ -276,7 +276,7 @@ const BankOffers = () => {
               <BankCard
                 key={bank.bank_id || index}
                 title={bank.bank_name || `${getContent('bank_name', 'Bank')} #${index + 1}`}
-                infoTitle={isCredit ? getContent('bank_offers_credit_register', 'Credit Registration') : getContent('mortgage_register', 'Mortgage Registration')}
+                infoTitle={isCredit ? getContent('bank_offers_credit_register', 'bank_offers_credit_register') : getContent('mortgage_register', 'Mortgage Registration')}
                 mortgageAmount={bank.loan_amount}
                 totalAmount={bank.total_payment}
                 mothlyPayment={bank.monthly_payment}
