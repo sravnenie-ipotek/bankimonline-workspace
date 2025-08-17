@@ -56,10 +56,12 @@ const VideoPoster: React.FC<TypeProps> = ({
     }
     
     setIsMuted((prevIsMuted) => {
-      if (audioElementRef.current) {
+      if (audioElementRef.current && !isMobile) {
         if (prevIsMuted) {
           audioElementRef.current.volume = 0.5
-          audioElementRef.current.play()
+          audioElementRef.current.play().catch(err => {
+            console.warn('Audio play failed:', err)
+          })
         } else {
           audioElementRef.current.pause()
           audioElementRef.current.currentTime = 0
@@ -80,7 +82,14 @@ const VideoPoster: React.FC<TypeProps> = ({
   return (
     <>
     <div className={cx('video', videoClasses)}>
-      <video loop muted autoPlay poster="/static/Background.png">
+      <video 
+        loop 
+        muted 
+        playsInline
+        preload="metadata"
+        poster="/static/Background.png"
+        autoPlay={!isMobile}
+      >
         <source src="/static/promo.mp4" type="video/mp4" />
         <source src="/static/promo.webm" type="video/webm" />
       </video>
@@ -112,10 +121,12 @@ const VideoPoster: React.FC<TypeProps> = ({
           </div>
         </div>
       </div>
-      <audio loop ref={audioElementRef}>
-        <source src="/static/promo.ogg" type="audio/ogg" />
-        <source src="/static/promo.mp3" type="audio/mpeg" />
-      </audio>
+      {!isMobile && (
+        <audio loop ref={audioElementRef}>
+          <source src="/static/promo.ogg" type="audio/ogg" />
+          <source src="/static/promo.mp3" type="audio/mpeg" />
+        </audio>
+      )}
     </div>
       <VideoPlayerModal
         isOpen={isPlayerOpen}

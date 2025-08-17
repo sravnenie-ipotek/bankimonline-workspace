@@ -195,6 +195,8 @@ const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ isOpen, onClose, vi
           src={videoSrc}
           autoPlay
           loop
+          playsInline
+          controls={false}
           onTimeUpdate={handleTimeUpdate}
           onLoadedMetadata={handleLoadedMetadata}
           onPlay={handlePlay}
