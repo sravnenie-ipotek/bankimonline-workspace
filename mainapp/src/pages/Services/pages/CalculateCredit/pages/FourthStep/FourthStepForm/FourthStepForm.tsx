@@ -12,20 +12,20 @@ import { UserParams } from '@src/pages/Services/components/UserParams'
 
 const FourthStepForm = () => {
   const { t, i18n } = useTranslation()
-  const { getContent } = useContentApi('mortgage_step4')
+  const { getContent } = useContentApi('credit_step4')
 
   const userData = useAppSelector((state) => state.login.loginData)
   const creditParameters = useAppSelector((state) => state.credit)
 
   return (
     <FormContainer>
-      <FormCaption title={getContent('calculate_credit_final', t('calculate_credit_final'))} />
+      <FormCaption title={getContent('credit_final', t('calculate_credit_final'))} />
       <UserParams
         credit={creditParameters.loanAmount}
         nameSurname={userData?.nameSurname}
         phoneNumber={userData?.phoneNumber}
       />
-      <AlertWarning text={getContent('calculate_credit_warning', t('calculate_credit_warning'))} />
+      <AlertWarning text={getContent('credit_warning', t('calculate_credit_warning'))} />
       <Row>
         <Filter />
       </Row>
