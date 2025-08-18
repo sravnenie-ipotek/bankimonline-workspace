@@ -1,0 +1,1422 @@
+[dotenv@17.2.1] injecting env (5) from .env -- tip: ⚙️  write to custom object with { processEnv: myObject }
+📊 [main] DB Config: postgresql://***:***@maglev.proxy.rlwy.net:43809/railway | SSL: on
+📊 [content] DB Config: Neon JSONB | SSL: on
+✅ Main Database connected successfully
+✅ Content Database connected successfully
+✅ Test content table cleanup completed
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step1/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step1'
+📊 DEBUG SQL: Query returned 21 rows
+🔍 DEBUG: Query returned 21 rows from dropdown_configs
+🔍 DEBUG: Response will have 21 dropdowns
+✅ JSONB Response cached for mortgage_step1/he with 21 dropdowns
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 396.549 ms - 13637[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 232.918 ms - 7203[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.436 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.372 ms - -[0m
+❄️  Cache MISS for calculation-parameters: mortgage (1755479576050)
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.887 ms - 13637[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 214.228 ms - 8083[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.437 ms - 13637[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.326 ms - 8082[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.290 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.329 ms - -[0m
+[0mGET /api/get-cities?lang=he [32m200[0m 1266.782 ms - 1607[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 1268.717 ms - 5341[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 1269.253 ms - 852[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.451 ms - 851[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.677 ms - 5340[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.357 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.233 ms - -[0m
+Property ownership options table not found, using fallback values
+💾 Cached calculation-parameters for: mortgage (TTL: 5min)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1349.181 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479577403)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.929 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479577406)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.282 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479577409)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.254 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479577412)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.212 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479577417)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.356 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479577420)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.231 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479577423)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.216 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 159.826 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.243 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.192 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.264 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step2/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step2'
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 0.175 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.253 ms - -[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 0.161 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.150 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step2/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step2'
+✅ Cache HIT for calculation-parameters: mortgage (1755479603313)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.319 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.382 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [36m304[0m 0.208 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.209 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479603318)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.318 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.267 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [36m304[0m 0.297 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479603323)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.590 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.397 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.313 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479603327)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.183 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.210 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479603331)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.286 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479603334)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.185 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479603337)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.145 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479603339)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.193 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 208.436 ms - -[0m
+📊 DEBUG SQL: Query returned 27 rows
+🔍 DEBUG: Query returned 27 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 5
+🔍 DEBUG: Response will have 27 dropdowns
+✅ JSONB Response cached for mortgage_step2/he with 27 dropdowns
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 317.965 ms - 18126[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 320.791 ms - 17450[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.234 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.212 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.239 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.172 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.212 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.238 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.251 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.195 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.192 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.247 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.299 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.282 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.239 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.392 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.313 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.229 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.190 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.221 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.219 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.237 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.189 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.258 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.319 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.242 ms - -[0m
+[0mGET /api/content/mortgage_step2/he [36m304[0m 0.194 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 158.814 ms - -[0m
+📊 DEBUG SQL: Query returned 27 rows
+🔍 DEBUG: Query returned 27 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 5
+🔍 DEBUG: Response will have 27 dropdowns
+✅ JSONB Response cached for mortgage_step2/he with 27 dropdowns
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 401.274 ms - 18126[0m
+🚀 Using JSONB dropdowns for mortgage_step2/he (production mode)
+✅ JSONB Cache HIT for mortgage_step2/he
+[0mGET /api/dropdowns/mortgage_step2/he [36m304[0m 0.335 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.239 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.140 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.287 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step3/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step3/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step3'
+[0mGET /api/content/validation_errors/he [36m304[0m 0.163 ms - -[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 0.297 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.154 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.251 ms - -[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 0.240 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.362 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.231 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.258 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step3/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step3/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step3'
+✅ Cache HIT for calculation-parameters: mortgage (1755479631042)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.285 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.343 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [36m304[0m 0.317 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.121 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479631047)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.243 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [36m304[0m 0.302 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.397 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.166 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479631056)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.259 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.307 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479631059)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.489 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.253 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479631064)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.980 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479631067)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.321 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479631070)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.184 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479631073)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.167 ms - -[0m
+[0mGET /api/content/common/he [32m200[0m 169.201 ms - 2068[0m
+[0mGET /api/content/common/he [32m200[0m 0.186 ms - 2067[0m
+[0mGET /api/content/common/he [36m304[0m 0.171 ms - -[0m
+[0mGET /api/content/common/he [36m304[0m 0.243 ms - -[0m
+[0mGET /api/content/common/he [36m304[0m 0.121 ms - -[0m
+[0mGET /api/content/common/he [36m304[0m 0.125 ms - -[0m
+📊 DEBUG SQL: Query returned 26 rows
+🔍 DEBUG: Query returned 26 rows from dropdown_configs
+🔍 DEBUG: Response will have 26 dropdowns
+✅ JSONB Response cached for mortgage_step3/he with 26 dropdowns
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 325.768 ms - 17336[0m
+[0mGET /api/content/mortgage_step3/he [32m200[0m 330.510 ms - 16579[0m
+[0mGET /api/content/mortgage_step3/he [32m200[0m 0.262 ms - 16578[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 0.462 ms - -[0m
+📊 DEBUG SQL: Query returned 26 rows
+🔍 DEBUG: Query returned 26 rows from dropdown_configs
+🔍 DEBUG: Response will have 26 dropdowns
+✅ JSONB Response cached for mortgage_step3/he with 26 dropdowns
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 313.860 ms - 17336[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 0.233 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step3/he (production mode)
+✅ JSONB Cache HIT for mortgage_step3/he
+[0mGET /api/dropdowns/mortgage_step3/he [36m304[0m 0.314 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 0.437 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 0.373 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 0.202 ms - -[0m
+[0mGET /api/content/mortgage_step3/he [36m304[0m 0.285 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 1155.428 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 162.351 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step3/he (production mode)
+✅ JSONB Cache HIT for mortgage_step3/he
+[0mGET /api/dropdowns/mortgage_step3/he [36m304[0m 0.337 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.215 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.170 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.233 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step4/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step4/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step4'
+[0mGET /api/customer/mortgage-programs [32m200[0m 0.574 ms - 2946[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 0.341 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.158 ms - -[0m
+[0mGET /api/content/mortgage_calculation/he [36m304[0m 0.188 ms - -[0m
+[0mGET /api/customer/mortgage-programs [36m304[0m 0.153 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.095 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step4/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step4/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step4'
+✅ Cache HIT for calculation-parameters: mortgage (1755479659236)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.293 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.176 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [36m304[0m 0.334 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 161.477 ms - 4504[0m
+[0mGET /api/content/bank_offers/he [32m200[0m 165.010 ms - 739[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.221 ms - -[0m
+📊 DEBUG SQL: Query returned 4 rows
+🔍 DEBUG: Query returned 4 rows from dropdown_configs
+🔍 DEBUG: Response will have 4 dropdowns
+✅ JSONB Response cached for mortgage_step4/he with 4 dropdowns
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 167.610 ms - 3063[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479659339)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.277 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.347 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [36m304[0m 0.359 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [32m200[0m 0.432 ms - 4503[0m
+[0mGET /api/content/bank_offers/he [32m200[0m 0.377 ms - 738[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.440 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479659353)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.303 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.378 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 0.193 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479659357)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.320 ms - -[0m
+[0mGET /api/content/mortgage_step1/he [36m304[0m 0.188 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 0.255 ms - -[0m
+📊 DEBUG SQL: Query returned 4 rows
+🔍 DEBUG: Query returned 4 rows from dropdown_configs
+🔍 DEBUG: Response will have 4 dropdowns
+✅ JSONB Response cached for mortgage_step4/he with 4 dropdowns
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 155.868 ms - 3063[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479659364)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.249 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 0.292 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479659368)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.200 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 0.308 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479659372)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.354 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 0.268 ms - -[0m
+[0mGET /api/content/mortgage_step4/he [36m304[0m 0.192 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479659375)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.277 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 223.911 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 158.873 ms - -[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 705.439 ms - 176[0m
+[0mPOST /api/customer/compare-banks [33m400[0m 809.254 ms - 176[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.314 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.197 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.274 ms - -[0m
+❄️  Cache MISS for calculation-parameters: credit (1755479684288)
+✅ Cache HIT for calculation-parameters: mortgage (1755479684289)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.241 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.409 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479684293)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.272 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.121 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.126 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.173 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 157.366 ms - -[0m
+[0mGET /api/content/calculate_credit_1/he [32m200[0m 157.938 ms - 126[0m
+[0mGET /api/content/calculate_credit_1/he [32m200[0m 0.380 ms - 125[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 180.777 ms - -[0m
+Property ownership options table not found, using fallback values
+💾 Cached calculation-parameters for: credit (TTL: 5min)
+[0mGET /api/v1/calculation-parameters?business_path=credit [32m200[0m 420.223 ms - 2089[0m
+✅ Cache HIT for calculation-parameters: credit (1755479684713)
+[0mGET /api/v1/calculation-parameters?business_path=credit [36m304[0m 0.331 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.284 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.224 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.223 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.138 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.259 ms - -[0m
+✅ Cache HIT for calculation-parameters: credit (1755479703176)
+[0mGET /api/v1/calculation-parameters?business_path=credit [36m304[0m 0.387 ms - -[0m
+[0mGET /api/content/calculate_credit_1/he [36m304[0m 0.315 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479703179)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.299 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.235 ms - -[0m
+✅ Cache HIT for calculation-parameters: credit (1755479703180)
+[0mGET /api/v1/calculation-parameters?business_path=credit [36m304[0m 0.246 ms - -[0m
+[0mGET /api/content/calculate_credit_1/he [36m304[0m 0.247 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479703184)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.373 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.251 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 156.277 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 169.205 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.229 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.176 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.317 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.169 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.270 ms - -[0m
+✅ Cache HIT for calculation-parameters: credit (1755479722941)
+[0mGET /api/v1/calculation-parameters?business_path=credit [36m304[0m 0.286 ms - -[0m
+[0mGET /api/content/calculate_credit_1/he [36m304[0m 0.339 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479722942)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.184 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.193 ms - -[0m
+✅ Cache HIT for calculation-parameters: credit (1755479722947)
+[0mGET /api/v1/calculation-parameters?business_path=credit [36m304[0m 0.289 ms - -[0m
+[0mGET /api/content/calculate_credit_1/he [36m304[0m 0.397 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479722948)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.235 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.193 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 155.413 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 156.737 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.207 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.178 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.218 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.173 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.186 ms - -[0m
+✅ Cache HIT for calculation-parameters: credit (1755479743644)
+[0mGET /api/v1/calculation-parameters?business_path=credit [36m304[0m 0.385 ms - -[0m
+[0mGET /api/content/calculate_credit_1/he [36m304[0m 0.386 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479743644)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.278 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.180 ms - -[0m
+✅ Cache HIT for calculation-parameters: credit (1755479743650)
+[0mGET /api/v1/calculation-parameters?business_path=credit [36m304[0m 0.196 ms - -[0m
+[0mGET /api/content/calculate_credit_1/he [36m304[0m 0.107 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479743650)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.138 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.338 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 236.275 ms - -[0m
+[0mGET /api/get-cities?lang=he [36m304[0m 156.704 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.769 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.230 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.259 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479759233)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.419 ms - -[0m
+🚀 Using JSONB dropdowns for refinance_step1/he (production mode)
+⚡ JSONB Cache MISS for refinance_step1/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'refinance_step1'
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.772 ms - -[0m
+🚀 Using JSONB dropdowns for refinance_step1/he (production mode)
+⚡ JSONB Cache MISS for refinance_step1/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'refinance_step1'
+✅ Cache HIT for calculation-parameters: mortgage (1755479759240)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.195 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.270 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479759243)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.342 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.406 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479759247)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.295 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.365 ms - -[0m
+📊 DEBUG SQL: Query returned 21 rows
+🔍 DEBUG: Query returned 21 rows from dropdown_configs
+🔍 DEBUG: Response will have 21 dropdowns
+✅ JSONB Response cached for refinance_step1/he with 21 dropdowns
+[0mGET /api/dropdowns/refinance_step1/he [32m200[0m 373.058 ms - 14358[0m
+[0mGET /api/content/refinance_step1/he [32m200[0m 1244.763 ms - 6479[0m
+[0mGET /api/content/refinance_step1/he [32m200[0m 0.285 ms - 6478[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.452 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.151 ms - -[0m
+📊 DEBUG SQL: Query returned 21 rows
+🔍 DEBUG: Query returned 21 rows from dropdown_configs
+🔍 DEBUG: Response will have 21 dropdowns
+✅ JSONB Response cached for refinance_step1/he with 21 dropdowns
+[0mGET /api/dropdowns/refinance_step1/he [32m200[0m 1415.791 ms - 14358[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.322 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.184 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.262 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.162 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.104 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479784095)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.440 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.416 ms - -[0m
+🚀 Using JSONB dropdowns for refinance_step1/he (production mode)
+✅ JSONB Cache HIT for refinance_step1/he
+[0mGET /api/dropdowns/refinance_step1/he [36m304[0m 0.199 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.205 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479784101)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.307 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.399 ms - -[0m
+🚀 Using JSONB dropdowns for refinance_step1/he (production mode)
+✅ JSONB Cache HIT for refinance_step1/he
+[0mGET /api/dropdowns/refinance_step1/he [36m304[0m 0.288 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.376 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.214 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479784105)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.314 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479784109)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.244 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.130 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.223 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.155 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.246 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.193 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.136 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479811184)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.335 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.402 ms - -[0m
+🚀 Using JSONB dropdowns for refinance_step1/he (production mode)
+✅ JSONB Cache HIT for refinance_step1/he
+[0mGET /api/dropdowns/refinance_step1/he [36m304[0m 0.258 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.311 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479811190)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.260 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.352 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.098 ms - -[0m
+🚀 Using JSONB dropdowns for refinance_step1/he (production mode)
+✅ JSONB Cache HIT for refinance_step1/he
+[0mGET /api/dropdowns/refinance_step1/he [36m304[0m 0.215 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.194 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479811195)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.271 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479811198)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.189 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.266 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.316 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.179 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.230 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.148 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.136 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.311 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479839809)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.435 ms - -[0m
+🚀 Using JSONB dropdowns for refinance_step1/he (production mode)
+✅ JSONB Cache HIT for refinance_step1/he
+[0mGET /api/dropdowns/refinance_step1/he [36m304[0m 0.564 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.111 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.237 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479839815)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.280 ms - -[0m
+🚀 Using JSONB dropdowns for refinance_step1/he (production mode)
+✅ JSONB Cache HIT for refinance_step1/he
+[0mGET /api/dropdowns/refinance_step1/he [36m304[0m 0.382 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.500 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.242 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479839820)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.385 ms - -[0m
+[0mGET /api/content/refinance_step1/he [36m304[0m 0.192 ms - -[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755479839823)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [36m304[0m 0.324 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.188 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.152 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.228 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.181 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.197 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.155 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.324 ms - -[0m
+[0mGET /api/content/refinance_credit_1/he [32m200[0m 1344.486 ms - 8015[0m
+[0mGET /api/content/refinance_credit_1/he [32m200[0m 0.237 ms - 8014[0m
+[0mGET /api/content/refinance_credit_1/he [36m304[0m 0.170 ms - -[0m
+[0mGET /api/content/refinance_credit_1/he [36m304[0m 0.150 ms - -[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 1443.571 ms - 7203[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.227 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.178 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 1291.493 ms - 852[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.237 ms - 851[0m
+[0mGET /api/content/sidebar/he [32m200[0m 1302.493 ms - 3878[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.265 ms - 3877[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.219 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.544 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.249 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.266 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.284 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.257 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.228 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.211 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.265 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.190 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.226 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.182 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.127 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.167 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.219 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.179 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.193 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.391 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.277 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.200 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.181 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.289 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.147 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.117 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.224 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.191 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.196 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.241 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.185 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.190 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.259 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.153 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.263 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.266 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.311 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.210 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.106 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.148 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.084 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.135 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.195 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.342 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.294 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.134 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.149 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.291 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.239 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.215 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.261 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.133 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.186 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.229 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.239 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.255 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.195 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.231 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.199 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.140 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.300 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.211 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.311 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.208 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.137 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.213 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.090 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.232 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.228 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.166 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.164 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.208 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.143 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.205 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.478 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.287 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.240 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.132 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.238 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.195 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.126 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.196 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.211 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.233 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.184 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.140 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.203 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.178 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.221 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.216 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.105 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.277 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.132 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.169 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.255 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.213 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.149 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.241 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.237 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.282 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.184 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.362 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.160 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.126 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.146 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.153 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.170 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.187 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.177 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.212 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.238 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.116 ms - -[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step1/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step1'
+📊 DEBUG SQL: Query returned 21 rows
+🔍 DEBUG: Query returned 21 rows from dropdown_configs
+🔍 DEBUG: Response will have 21 dropdowns
+✅ JSONB Response cached for mortgage_step1/he with 21 dropdowns
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 1451.762 ms - 13637[0m
+🚀 Using JSONB dropdowns for mortgage_step2/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step2'
+📊 DEBUG SQL: Query returned 27 rows
+🔍 DEBUG: Query returned 27 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 5
+🔍 DEBUG: Response will have 27 dropdowns
+✅ JSONB Response cached for mortgage_step2/he with 27 dropdowns
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 166.815 ms - 18126[0m
+🚀 Using JSONB dropdowns for mortgage_step3/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step3/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step3'
+📊 DEBUG SQL: Query returned 26 rows
+🔍 DEBUG: Query returned 26 rows from dropdown_configs
+🔍 DEBUG: Response will have 26 dropdowns
+✅ JSONB Response cached for mortgage_step3/he with 26 dropdowns
+[0mGET /api/dropdowns/mortgage_step3/he [32m200[0m 169.183 ms - 17336[0m
+🚀 Using JSONB dropdowns for mortgage_step4/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step4/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step4'
+📊 DEBUG SQL: Query returned 4 rows
+🔍 DEBUG: Query returned 4 rows from dropdown_configs
+🔍 DEBUG: Response will have 4 dropdowns
+✅ JSONB Response cached for mortgage_step4/he with 4 dropdowns
+[0mGET /api/dropdowns/mortgage_step4/he [32m200[0m 174.921 ms - 3063[0m
+🚀 Using JSONB dropdowns for credit_step1/he (production mode)
+⚡ JSONB Cache MISS for credit_step1/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'credit_step1'
+📊 DEBUG SQL: Query returned 5 rows
+🔍 DEBUG: Query returned 5 rows from dropdown_configs
+🔍 DEBUG: Response will have 5 dropdowns
+✅ JSONB Response cached for credit_step1/he with 5 dropdowns
+[0mGET /api/dropdowns/credit_step1/he [32m200[0m 162.109 ms - 3273[0m
+🚀 Using JSONB dropdowns for credit_step2/he (production mode)
+⚡ JSONB Cache MISS for credit_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'credit_step2'
+📊 DEBUG SQL: Query returned 4 rows
+🔍 DEBUG: Query returned 4 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 3
+🔍 DEBUG: Response will have 4 dropdowns
+✅ JSONB Response cached for credit_step2/he with 4 dropdowns
+[0mGET /api/dropdowns/credit_step2/he [32m200[0m 165.969 ms - 2838[0m
+🚀 Using JSONB dropdowns for credit_step3/he (production mode)
+⚡ JSONB Cache MISS for credit_step3/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'credit_step3'
+📊 DEBUG SQL: Query returned 9 rows
+🔍 DEBUG: Query returned 9 rows from dropdown_configs
+🔍 DEBUG: Response will have 9 dropdowns
+✅ JSONB Response cached for credit_step3/he with 9 dropdowns
+[0mGET /api/dropdowns/credit_step3/he [32m200[0m 195.599 ms - 6123[0m
+🚀 Using JSONB dropdowns for refinance_step1/he (production mode)
+⚡ JSONB Cache MISS for refinance_step1/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'refinance_step1'
+📊 DEBUG SQL: Query returned 21 rows
+🔍 DEBUG: Query returned 21 rows from dropdown_configs
+🔍 DEBUG: Response will have 21 dropdowns
+✅ JSONB Response cached for refinance_step1/he with 21 dropdowns
+[0mGET /api/dropdowns/refinance_step1/he [32m200[0m 168.621 ms - 14358[0m
+🚀 Using JSONB dropdowns for refinance_step2/he (production mode)
+⚡ JSONB Cache MISS for refinance_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'refinance_step2'
+📊 DEBUG SQL: Query returned 13 rows
+🔍 DEBUG: Query returned 13 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 3
+🔍 DEBUG: Response will have 13 dropdowns
+✅ JSONB Response cached for refinance_step2/he with 13 dropdowns
+[0mGET /api/dropdowns/refinance_step2/he [32m200[0m 167.887 ms - 9305[0m
+🚀 Using JSONB dropdowns for refinance_step3/he (production mode)
+⚡ JSONB Cache MISS for refinance_step3/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'refinance_step3'
+📊 DEBUG SQL: Query returned 7 rows
+🔍 DEBUG: Query returned 7 rows from dropdown_configs
+🔍 DEBUG: Response will have 7 dropdowns
+✅ JSONB Response cached for refinance_step3/he with 7 dropdowns
+[0mGET /api/dropdowns/refinance_step3/he [32m200[0m 175.092 ms - 4808[0m
+🚀 Using JSONB dropdowns for refinance_mortgage_step1/he (production mode)
+⚡ JSONB Cache MISS for refinance_mortgage_step1/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'refinance_mortgage_step1'
+📊 DEBUG SQL: Query returned 5 rows
+🔍 DEBUG: Query returned 5 rows from dropdown_configs
+🔍 DEBUG: Response will have 5 dropdowns
+✅ JSONB Response cached for refinance_mortgage_step1/he with 5 dropdowns
+[0mGET /api/dropdowns/refinance_mortgage_step1/he [32m200[0m 177.878 ms - 3525[0m
+🚀 Using JSONB dropdowns for refinance_mortgage_step2/he (production mode)
+⚡ JSONB Cache MISS for refinance_mortgage_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'refinance_mortgage_step2'
+📊 DEBUG SQL: Query returned 4 rows
+🔍 DEBUG: Query returned 4 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 3
+🔍 DEBUG: Response will have 4 dropdowns
+✅ JSONB Response cached for refinance_mortgage_step2/he with 4 dropdowns
+[0mGET /api/dropdowns/refinance_mortgage_step2/he [32m200[0m 166.715 ms - 3042[0m
+🚀 Using JSONB dropdowns for refinance_mortgage_step3/he (production mode)
+⚡ JSONB Cache MISS for refinance_mortgage_step3/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'refinance_mortgage_step3'
+📊 DEBUG SQL: Query returned 3 rows
+🔍 DEBUG: Query returned 3 rows from dropdown_configs
+🔍 DEBUG: Response will have 3 dropdowns
+✅ JSONB Response cached for refinance_mortgage_step3/he with 3 dropdowns
+[0mGET /api/dropdowns/refinance_mortgage_step3/he [32m200[0m 173.747 ms - 2295[0m
+🚀 Using JSONB dropdowns for refinance_credit_step1/he (production mode)
+⚡ JSONB Cache MISS for refinance_credit_step1/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'refinance_credit_step1'
+📊 DEBUG SQL: Query returned 5 rows
+🔍 DEBUG: Query returned 5 rows from dropdown_configs
+🔍 DEBUG: Response will have 5 dropdowns
+✅ JSONB Response cached for refinance_credit_step1/he with 5 dropdowns
+[0mGET /api/dropdowns/refinance_credit_step1/he [32m200[0m 166.080 ms - 3483[0m
+🚀 Using JSONB dropdowns for refinance_credit_step2/he (production mode)
+⚡ JSONB Cache MISS for refinance_credit_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'refinance_credit_step2'
+📊 DEBUG SQL: Query returned 4 rows
+🔍 DEBUG: Query returned 4 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 3
+🔍 DEBUG: Response will have 4 dropdowns
+✅ JSONB Response cached for refinance_credit_step2/he with 4 dropdowns
+[0mGET /api/dropdowns/refinance_credit_step2/he [32m200[0m 165.947 ms - 3008[0m
+🚀 Using JSONB dropdowns for refinance_credit_step3/he (production mode)
+⚡ JSONB Cache MISS for refinance_credit_step3/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'refinance_credit_step3'
+📊 DEBUG SQL: Query returned 3 rows
+🔍 DEBUG: Query returned 3 rows from dropdown_configs
+🔍 DEBUG: Response will have 3 dropdowns
+✅ JSONB Response cached for refinance_credit_step3/he with 3 dropdowns
+[0mGET /api/dropdowns/refinance_credit_step3/he [32m200[0m 182.503 ms - 2269[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.236 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.160 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.219 ms - -[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.190 ms - 3877[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.256 ms - 851[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.180 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.321 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.237 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.181 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.257 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.221 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.185 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.266 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.298 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.168 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.240 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.213 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.123 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.196 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.297 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.141 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.170 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.267 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.195 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.188 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.194 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 1244.035 ms - 852[0m
+[0mGET /api/content/sidebar/he [32m200[0m 1246.056 ms - 3878[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 1455.989 ms - 7203[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.176 ms - 851[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.228 ms - 3877[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.163 ms - 7202[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.317 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.124 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.145 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.202 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.158 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.132 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.147 ms - -[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.202 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.158 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.282 ms - -[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.227 ms - 3877[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.337 ms - 851[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.130 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.238 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.199 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.225 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.171 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.155 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.163 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.185 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.186 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.197 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.236 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.225 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.157 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.227 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.116 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.131 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.133 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.239 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.142 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.184 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.205 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.215 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.168 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.204 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.256 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.111 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.155 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.111 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.171 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.215 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.213 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.188 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.165 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.147 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.208 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.152 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.249 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.191 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.157 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.162 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.157 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.152 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.132 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.169 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.251 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.221 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.159 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.199 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.161 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.202 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.209 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.224 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.144 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.084 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.127 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.251 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.150 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.220 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.179 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.112 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.191 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.168 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.202 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.231 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.137 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.182 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.095 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.188 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.147 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.153 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.203 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.116 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.119 ms - -[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 1255.531 ms - 7203[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.261 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.208 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 1254.459 ms - 852[0m
+[0mGET /api/content/sidebar/he [32m200[0m 1259.726 ms - 3878[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.203 ms - 851[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.291 ms - 3877[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.180 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.171 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.182 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.191 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.179 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.176 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.218 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.268 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.260 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.183 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.163 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.179 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.165 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.126 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.163 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.244 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.189 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.185 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.185 ms - -[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.234 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.204 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.299 ms - -[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.477 ms - 3877[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.406 ms - 851[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.211 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.233 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.257 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.163 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.186 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.204 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.245 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.270 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.196 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.440 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.263 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.275 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.189 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.197 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.134 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.160 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.165 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.189 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.196 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.140 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.142 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.182 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.171 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.186 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.185 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.198 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.220 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.097 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.173 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.301 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.264 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.157 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.181 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.174 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.190 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.168 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.260 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.216 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.129 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.164 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.095 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.118 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.212 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.126 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.168 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.157 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.173 ms - -[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 2052.032 ms - 7203[0m
+[0mGET /api/content/sidebar/he [32m200[0m 1693.955 ms - 3878[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 1691.285 ms - 852[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.298 ms - 7202[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.221 ms - 3877[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.289 ms - 851[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.318 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.201 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.326 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.182 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.218 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.358 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.252 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.259 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.133 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.278 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.195 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.140 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.389 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.087 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.152 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.139 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.146 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.189 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.203 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.256 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.213 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.150 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.185 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.191 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.148 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.114 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.122 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.119 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.108 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.141 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.180 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.193 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.169 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.200 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.274 ms - -[0m
+[0mGET /api/content/validation_errors/he [36m304[0m 0.175 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.155 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.179 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.144 ms - -[0m
+[0mGET /api/content/sms_code_verification/he [36m304[0m 0.112 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.177 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.228 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.315 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.170 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.171 ms - -[0m
+[0mGET /api/content/sidebar/he [36m304[0m 0.139 ms - -[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 1188.236 ms - 7203[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 1891.833 ms - 7203[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 1939.810 ms - 7203[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 170.833 ms - 17450[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.650 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.452 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.455 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.394 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.352 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.583 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.380 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1338.711 ms - 17450[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1346.228 ms - 17450[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1354.499 ms - 17450[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.480 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.432 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 319.671 ms - 17450[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 322.741 ms - 17450[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.246 ms - 17449[0m
+🚀 Using JSONB dropdowns for mortgage_step2/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step2'
+[0mGET /api/content/mortgage_step2/he [32m200[0m 2.020 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.779 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 2.325 ms - 17449[0m
+🚀 Using JSONB dropdowns for mortgage_step2/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step2'
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.260 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.033 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.252 ms - 17449[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 172.479 ms - 5341[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.527 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.149 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.808 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.415 ms - 17449[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 163.017 ms - 852[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 162.253 ms - 5341[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 161.775 ms - 852[0m
+📊 DEBUG SQL: Query returned 27 rows
+🔍 DEBUG: Query returned 27 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 5
+🔍 DEBUG: Response will have 27 dropdowns
+✅ JSONB Response cached for mortgage_step2/he with 27 dropdowns
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 193.836 ms - 18126[0m
+📊 DEBUG SQL: Query returned 27 rows
+🔍 DEBUG: Query returned 27 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 5
+🔍 DEBUG: Response will have 27 dropdowns
+✅ JSONB Response cached for mortgage_step2/he with 27 dropdowns
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 189.660 ms - 18126[0m
+🚀 Using JSONB dropdowns for mortgage_step2/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step2'
+[0mGET /api/content/validation_errors/he [32m200[0m 3984.816 ms - 7203[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 3875.609 ms - 7203[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 381.322 ms - 17450[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.795 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.464 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.840 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.379 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.392 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.382 ms - 17449[0m
+🚀 Using JSONB dropdowns for mortgage_step2/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step2'
+[0mGET /api/content/mortgage_step2/he [32m200[0m 413.009 ms - 17450[0m
+🚀 Using JSONB dropdowns for mortgage_step2/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step2/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step2'
+[0mGET /api/content/mortgage_step2/he [32m200[0m 4327.478 ms - 17450[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.453 ms - 17449[0m
+📊 DEBUG SQL: Query returned 27 rows
+🔍 DEBUG: Query returned 27 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 5
+🔍 DEBUG: Response will have 27 dropdowns
+✅ JSONB Response cached for mortgage_step2/he with 27 dropdowns
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 4407.824 ms - 18126[0m
+📊 DEBUG SQL: Query returned 27 rows
+🔍 DEBUG: Query returned 27 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 5
+🔍 DEBUG: Response will have 27 dropdowns
+✅ JSONB Response cached for mortgage_step2/he with 27 dropdowns
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 257.934 ms - 18126[0m
+📊 DEBUG SQL: Query returned 27 rows
+🔍 DEBUG: Query returned 27 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 5
+🔍 DEBUG: Response will have 27 dropdowns
+✅ JSONB Response cached for mortgage_step2/he with 27 dropdowns
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 264.425 ms - 18126[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 314.072 ms - 852[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 319.214 ms - 5341[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 404.303 ms - 5341[0m
+❌ Failed to get content for screen: Connection terminated due to connection timeout
+[0mGET /api/content/validation_errors/he [31m500[0m 5003.763 ms - 126[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 3.245 ms - 851[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.407 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 2.341 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 2.653 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 6.811 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.779 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 1.431 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 2.159 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.247 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.540 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.894 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.816 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.241 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.511 ms - 17449[0m
+[0mGET /api/content/mortgage_step2/he [32m200[0m 0.211 ms - 17449[0m
+❌ Failed to get content for screen: Connection terminated due to connection timeout
+[0mGET /api/content/mortgage_step2/he [31m500[0m 5002.371 ms - 126[0m
+❌ Failed to get content for screen: Connection terminated due to connection timeout
+[0mGET /api/content/mortgage_step2/he [31m500[0m 5001.071 ms - 126[0m
+[0mGET /api/content/home_page/he [32m200[0m 269.122 ms - 3389[0m
+[0mGET /api/content/sidebar/he [32m200[0m 269.353 ms - 3878[0m
+[0mGET /api/content/sidebar/he [32m200[0m 269.896 ms - 3878[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.209 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.385 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.417 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.162 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.220 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.239 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.145 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.159 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.233 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.124 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.125 ms - 3388[0m
+[0mGET /api/content/home_page/he [32m200[0m 278.720 ms - 3389[0m
+[0mGET /api/content/sidebar/he [32m200[0m 2988.626 ms - 3878[0m
+❄️  Cache MISS for calculation-parameters: mortgage (1755506422819)
+❄️  Cache MISS for calculation-parameters: mortgage (1755506422820)
+❄️  Cache MISS for calculation-parameters: mortgage (1755506422821)
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step1/he - Querying dropdown_configs
+🔍 DEBUG SQL: Executing query for screen_location = 'mortgage_step1'
+❄️  Cache MISS for calculation-parameters: mortgage (1755506422832)
+[0mGET /api/content/mortgage_step1/he [32m200[0m 367.265 ms - 8083[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.248 ms - 851[0m
+📊 DEBUG SQL: Query returned 21 rows
+🔍 DEBUG: Query returned 21 rows from dropdown_configs
+🔍 DEBUG: Response will have 21 dropdowns
+✅ JSONB Response cached for mortgage_step1/he with 21 dropdowns
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 669.235 ms - 13637[0m
+[0mGET /api/get-cities?lang=he [32m200[0m 604.838 ms - 1607[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.623 ms - 8082[0m
+❄️  Cache MISS for calculation-parameters: mortgage (1755506423807)
+Property ownership options table not found, using fallback values
+💾 Cached calculation-parameters for: mortgage (TTL: 5min)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 4539.786 ms - 2781[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.249 ms - 5340[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506427382)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.304 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.405 ms - 8082[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.387 ms - 13637[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506427389)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.289 ms - 2781[0m
+Get calculation parameters error: Error: Connection terminated due to connection timeout
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+  [cause]: Error: Connection terminated unexpectedly
+      at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+      at Object.onceWrapper (node:events:621:28)
+      at Connection.emit (node:events:507:28)
+      at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+      at Socket.emit (node:events:507:28)
+      at TCP.<anonymous> (node:net:346:12)
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 5003.023 ms - 759[0m
+Get calculation parameters error: Error: Connection terminated due to connection timeout
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+  [cause]: Error: Connection terminated unexpectedly
+      at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+      at Object.onceWrapper (node:events:621:28)
+      at Connection.emit (node:events:507:28)
+      at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+      at Socket.emit (node:events:507:28)
+      at TCP.<anonymous> (node:net:346:12)
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 5004.171 ms - 759[0m
+Get calculation parameters error: Error: Connection terminated due to connection timeout
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+  [cause]: Error: Connection terminated unexpectedly
+      at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+      at Object.onceWrapper (node:events:621:28)
+      at Connection.emit (node:events:507:28)
+      at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+      at Socket.emit (node:events:507:28)
+      at TCP.<anonymous> (node:net:346:12)
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 5004.843 ms - 759[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506427824)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.286 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.466 ms - 8082[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.351 ms - 851[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.165 ms - 5340[0m
+[0mGET /api/get-cities?lang=he [32m200[0m 590.779 ms - 1607[0m
+Get calculation parameters error: Error: Connection terminated due to connection timeout
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+  [cause]: Error: Connection terminated unexpectedly
+      at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+      at Object.onceWrapper (node:events:621:28)
+      at Connection.emit (node:events:507:28)
+      at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+      at Socket.emit (node:events:507:28)
+      at TCP.<anonymous> (node:net:346:12)
+}
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 5003.495 ms - 759[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.557 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.751 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.470 ms - 7202[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506476666)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.759 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506476668)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1.347 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506476669)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 1.257 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 1.481 ms - 8082[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 1.750 ms - 13637[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506476673)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.805 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.615 ms - 8082[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.634 ms - 851[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.115 ms - 851[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506476676)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.122 ms - 2781[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.180 ms - 5340[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506476676)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.231 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.203 ms - 8082[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.307 ms - 13637[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506476678)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.197 ms - 2781[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.270 ms - 851[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506476680)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.359 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.445 ms - 8082[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.221 ms - 851[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.402 ms - 5340[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.326 ms - 3877[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.541 ms - 3877[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.281 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.471 ms - 3388[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.343 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 1.017 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 3.468 ms - 3388[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.293 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.238 ms - 3877[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.645 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.654 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.848 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.252 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.681 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.495 ms - 3388[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.348 ms - 3388[0m
+Error fetching cities from database: Error: Connection terminated due to connection timeout
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:2494:24 {
+  [cause]: Error: Connection terminated unexpectedly
+      at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+      at Object.onceWrapper (node:events:621:28)
+      at Connection.emit (node:events:507:28)
+      at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+      at Socket.emit (node:events:507:28)
+      at TCP.<anonymous> (node:net:346:12)
+}
+[0mGET /api/get-cities?lang=he [32m200[0m 5007.498 ms - 1091[0m
+Error fetching cities from database: Error: Connection terminated due to connection timeout
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:2494:24 {
+  [cause]: Error: Connection terminated unexpectedly
+      at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+      at Object.onceWrapper (node:events:621:28)
+      at Connection.emit (node:events:507:28)
+      at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+      at Socket.emit (node:events:507:28)
+      at TCP.<anonymous> (node:net:346:12)
+}
+[0mGET /api/get-cities?lang=he [32m200[0m 5018.659 ms - 1091[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.225 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.643 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.691 ms - 7202[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.197 ms - 3877[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.247 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.110 ms - 3388[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.142 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.176 ms - 3877[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.202 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.265 ms - 3388[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.199 ms - 3388[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.215 ms - 851[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.223 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.112 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.198 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.122 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.169 ms - 3877[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.133 ms - 851[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.191 ms - 3388[0m
+[0mGET /api/content/sidebar/he [32m200[0m 0.179 ms - 3877[0m
+[0mGET /api/content/home_page/he [32m200[0m 0.242 ms - 3388[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506546551)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.398 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506546552)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.213 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506546552)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.303 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.175 ms - 8082[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.327 ms - 8082[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.169 ms - 851[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506546556)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.477 ms - 2781[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.398 ms - 5340[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.294 ms - 851[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.263 ms - 13637[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.306 ms - 5340[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506546564)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 10.912 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 11.278 ms - 8082[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.223 ms - 8082[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506546578)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.363 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506546579)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.201 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506546580)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.200 ms - 2781[0m
+[0mGET /api/get-cities?lang=he [32m200[0m 3206.426 ms - 1607[0m
+Error fetching cities from database: Error: Connection terminated due to connection timeout
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:2494:24 {
+  [cause]: Error: Connection terminated unexpectedly
+      at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+      at Object.onceWrapper (node:events:621:28)
+      at Connection.emit (node:events:507:28)
+      at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+      at Socket.emit (node:events:507:28)
+      at TCP.<anonymous> (node:net:346:12)
+}
+[0mGET /api/get-cities?lang=he [32m200[0m 5003.001 ms - 1091[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.705 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 1.525 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.212 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.242 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.323 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.768 ms - 7202[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506627733)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.462 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506627734)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.482 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.954 ms - 8082[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.188 ms - 8082[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.291 ms - 13637[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506627740)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.209 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.508 ms - 8082[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.278 ms - 13637[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.122 ms - 851[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.172 ms - 851[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.193 ms - 5340[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.123 ms - 5340[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.430 ms - 8082[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.359 ms - 851[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506627747)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.230 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506627747)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.341 ms - 2781[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.122 ms - 851[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506627749)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.171 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506627749)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.232 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506627752)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.224 ms - 2781[0m
+[0mGET /api/get-cities?lang=he [32m200[0m 4890.905 ms - 1607[0m
+Error fetching cities from database: Error: Connection terminated due to connection timeout
+    at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:2494:24 {
+  [cause]: Error: Connection terminated unexpectedly
+      at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+      at Object.onceWrapper (node:events:621:28)
+      at Connection.emit (node:events:507:28)
+      at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+      at Socket.emit (node:events:507:28)
+      at TCP.<anonymous> (node:net:346:12)
+}
+[0mGET /api/get-cities?lang=he [32m200[0m 5005.071 ms - 1091[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.397 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 1.167 ms - 7202[0m
+[0mGET /api/content/validation_errors/he [32m200[0m 0.267 ms - 7202[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506654431)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.253 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506654433)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.250 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506654434)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.333 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.486 ms - 8082[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.264 ms - 13637[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506654434)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.294 ms - 2781[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.201 ms - 8082[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.297 ms - 851[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.167 ms - 851[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.493 ms - 5340[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.445 ms - 8082[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506654438)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.276 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506654438)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.104 ms - 2781[0m
+🚀 Using JSONB dropdowns for mortgage_step1/he (production mode)
+✅ JSONB Cache HIT for mortgage_step1/he
+[0mGET /api/dropdowns/mortgage_step1/he [32m200[0m 0.222 ms - 13637[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.112 ms - 851[0m
+[0mGET /api/content/mortgage_step1/he [32m200[0m 0.129 ms - 8082[0m
+[0mGET /api/content/sms_code_verification/he [32m200[0m 0.095 ms - 851[0m
+[0mGET /api/content/mortgage_calculation/he [32m200[0m 0.166 ms - 5340[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506654442)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.141 ms - 2781[0m
+✅ Cache HIT for calculation-parameters: mortgage (1755506654443)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 0.114 ms - 2781[0m
+[0mGET /api/get-cities?lang=he [32m200[0m 287.759 ms - 1607[0m
+[0mGET /api/get-cities?lang=he [32m200[0m 2628.100 ms - 1607[0m

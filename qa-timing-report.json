@@ -1,0 +1,48 @@
+{
+  "startTime": "2025-08-17T13:12:53.765Z",
+  "tests": [
+    {
+      "test": "JIRA Server Health Check (failed)",
+      "duration": 12,
+      "durationFormatted": "12ms"
+    },
+    {
+      "test": "Browser Launch",
+      "duration": 278,
+      "durationFormatted": "278ms"
+    },
+    {
+      "test": "JavaScript Error Check",
+      "duration": 24655,
+      "durationFormatted": "24.66s"
+    },
+    {
+      "test": "Core Web Vitals",
+      "duration": 3006,
+      "durationFormatted": "3.01s"
+    },
+    {
+      "test": "Responsive Design (3 viewports)",
+      "duration": 1597,
+      "durationFormatted": "1.60s"
+    },
+    {
+      "test": "Accessibility Checks",
+      "duration": 3740,
+      "durationFormatted": "3.74s"
+    },
+    {
+      "test": "Font Loading Check",
+      "duration": 3068,
+      "durationFormatted": "3.07s"
+    },
+    {
+      "test": "Browser Cleanup",
+      "duration": 100,
+      "durationFormatted": "100ms"
+    }
+  ],
+  "endTime": "2025-08-17T13:13:30.165Z",
+  "totalDuration": 36390,
+  "totalDurationFormatted": "36.39s"
+}

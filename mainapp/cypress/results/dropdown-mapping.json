@@ -1,0 +1,602 @@
+{
+  "timestamp": "2025-08-18T06:41:16.791Z",
+  "processes": [
+    {
+      "name": "Calculate Mortgage",
+      "path": "/calculate-mortgage",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 1,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        },
+        {
+          "stepNumber": 2,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 2,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        },
+        {
+          "stepNumber": 3,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 3,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        },
+        {
+          "stepNumber": 4,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 4,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        }
+      ],
+      "dropdowns": [
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 1,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        },
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 2,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        },
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 3,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        },
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 4,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        }
+      ],
+      "stats": {
+        "total": 4,
+        "working": 4,
+        "empty": 0,
+        "byType": {
+          "customDropdownMenu": 0,
+          "reactDropdownSelect": 4,
+          "nativeSelect": 0,
+          "unknown": 0
+        }
+      },
+      "summary": {
+        "totalDropdowns": 0,
+        "workingDropdowns": 0,
+        "emptyDropdowns": 0,
+        "successRate": "0"
+      }
+    },
+    {
+      "name": "Calculate Credit",
+      "path": "/calculate-credit",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 1,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        },
+        {
+          "stepNumber": 2,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 2,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        },
+        {
+          "stepNumber": 3,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 3,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        }
+      ],
+      "dropdowns": [
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 1,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        },
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 2,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        },
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 3,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        }
+      ],
+      "stats": {
+        "total": 3,
+        "working": 3,
+        "empty": 0,
+        "byType": {
+          "customDropdownMenu": 0,
+          "reactDropdownSelect": 3,
+          "nativeSelect": 0,
+          "unknown": 0
+        }
+      },
+      "summary": {
+        "totalDropdowns": 0,
+        "workingDropdowns": 0,
+        "emptyDropdowns": 0,
+        "successRate": "0"
+      }
+    },
+    {
+      "name": "Refinance Mortgage",
+      "path": "/refinance-mortgage",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 1,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        },
+        {
+          "stepNumber": 2,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 2,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        },
+        {
+          "stepNumber": 3,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 3,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        }
+      ],
+      "dropdowns": [
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 1,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        },
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 2,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        },
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 3,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        }
+      ],
+      "stats": {
+        "total": 3,
+        "working": 3,
+        "empty": 0,
+        "byType": {
+          "customDropdownMenu": 0,
+          "reactDropdownSelect": 3,
+          "nativeSelect": 0,
+          "unknown": 0
+        }
+      },
+      "summary": {
+        "totalDropdowns": 0,
+        "workingDropdowns": 0,
+        "emptyDropdowns": 0,
+        "successRate": "0"
+      }
+    },
+    {
+      "name": "Refinance Credit",
+      "path": "/refinance-credit",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 1,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        },
+        {
+          "stepNumber": 2,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 2,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        },
+        {
+          "stepNumber": 3,
+          "dropdowns": [
+            {
+              "type": "reactDropdownSelect",
+              "selector": ".react-dropdown-select",
+              "index": 0,
+              "step": 3,
+              "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+              "textContent": "שקל (₪)",
+              "hasContent": true,
+              "isEmpty": false
+            }
+          ]
+        }
+      ],
+      "dropdowns": [
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 1,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        },
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 2,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        },
+        {
+          "type": "reactDropdownSelect",
+          "selector": ".react-dropdown-select",
+          "index": 0,
+          "step": 3,
+          "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+          "textContent": "שקל (₪)",
+          "hasContent": true,
+          "isEmpty": false
+        }
+      ],
+      "stats": {
+        "total": 3,
+        "working": 3,
+        "empty": 0,
+        "byType": {
+          "customDropdownMenu": 0,
+          "reactDropdownSelect": 3,
+          "nativeSelect": 0,
+          "unknown": 0
+        }
+      },
+      "summary": {
+        "totalDropdowns": 0,
+        "workingDropdowns": 0,
+        "emptyDropdowns": 0,
+        "successRate": "0"
+      }
+    }
+  ],
+  "allDropdowns": [
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 1,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Calculate Mortgage",
+      "path": "/calculate-mortgage"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 2,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Calculate Mortgage",
+      "path": "/calculate-mortgage"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 3,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Calculate Mortgage",
+      "path": "/calculate-mortgage"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 4,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Calculate Mortgage",
+      "path": "/calculate-mortgage"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 1,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Calculate Credit",
+      "path": "/calculate-credit"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 2,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Calculate Credit",
+      "path": "/calculate-credit"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 3,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Calculate Credit",
+      "path": "/calculate-credit"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 1,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Refinance Mortgage",
+      "path": "/refinance-mortgage"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 2,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Refinance Mortgage",
+      "path": "/refinance-mortgage"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 3,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Refinance Mortgage",
+      "path": "/refinance-mortgage"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 1,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Refinance Credit",
+      "path": "/refinance-credit"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 2,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Refinance Credit",
+      "path": "/refinance-credit"
+    },
+    {
+      "type": "reactDropdownSelect",
+      "selector": ".react-dropdown-select",
+      "index": 0,
+      "step": 3,
+      "className": "react-dropdown-select css-888b0n-ReactDropdownSelect e1gzf2xs0",
+      "textContent": "שקל (₪)",
+      "hasContent": true,
+      "isEmpty": false,
+      "process": "Refinance Credit",
+      "path": "/refinance-credit"
+    }
+  ],
+  "summary": {
+    "totalProcesses": 4,
+    "totalPages": 0,
+    "totalDropdowns": 0,
+    "workingDropdowns": 0,
+    "emptyDropdowns": 0,
+    "dropdownsByType": {
+      "customDropdownMenu": 0,
+      "reactDropdownSelect": 0,
+      "nativeSelect": 0,
+      "unknown": 0
+    },
+    "successRate": "0"
+  }
+}

@@ -33,15 +33,39 @@ npm run push:shared   # Shared documents
 - PostgreSQL access (Railway hosted)
 - Git access to all three synchronized repositories
 
-### Start Development Environment
+### Start Development Environment - CORRECT Modern Method
+
+**⚠️ IMPORTANT: Always use the two-terminal approach for development**
+
 ```bash
-# Start both API server (port 8003) and file server (port 3001)
+# Terminal 1 - Backend servers (API on 8003, Files on 3001)
 npm run dev
 
-# Alternative: start servers individually
-node server/server-db.js  # API server only (correct path)
-node server/serve.js      # Static file server only
+# Terminal 2 - Frontend development server (Vite on 5173)
+cd mainapp
+npm run dev
 ```
+
+**Alternative: Use PM2 for process management**
+```bash
+npm run pm2:dev    # Start all services with PM2
+npm run pm2:status # Check status
+npm run pm2:logs   # View logs
+```
+
+**Alternative: Use the startup script**
+```bash
+./start-correct.sh  # Automated correct launch
+```
+
+**🚫 NEVER USE**: 
+- `npm run dev:all` - Deprecated monorepo command
+- `npm run client:dev` - Legacy workspace command
+- `npm run server:dev` - Legacy workspace command
+- Single terminal for both frontend and backend
+- Direct node commands without proper environment setup
+
+**📚 See DEVELOPMENT.md for detailed launch instructions and troubleshooting**
 
 ### Port Configuration Issues
 ⚠️ **CRITICAL**: The frontend Cypress config uses port 5174, while package.json dev scripts expect port 5173. This can cause proxy issues.
@@ -176,6 +200,17 @@ npm run cypress:component
 npm run test:translations
 npm run test:translations:full
 npm run test:translations:screenshots
+
+# Visual regression testing with Percy
+npm run test:visual              # All visual tests
+npm run test:visual:mortgage     # Mortgage calculator only
+npm run test:visual:credit       # Credit calculator only
+npm run test:visual:baseline     # Update visual baselines
+
+# Dropdown comprehensive testing
+npm run test:dropdowns:comprehensive         # Comprehensive dropdown tests (headed)
+npm run test:dropdowns:comprehensive:headless # Comprehensive dropdown tests (headless)
+npm run test:dropdowns:interactive           # Interactive dropdown testing
 ```
 
 #### Backend Testing (Playwright)
@@ -648,6 +683,13 @@ node mainapp/check_content_items_schema.js
 # Database content validation
 node mainapp/test-content-tables.js
 node mainapp/test-all-dropdown-apis.js
+
+# QA Automation Testing (Bankim Automation Tool)
+npm run smoke:forms              # Quick sanity check for critical dropdowns
+npm run qa:server               # Serve QA reports on localhost
+npm run qa:generate-refinance   # Generate refinance-specific HTML reports
+npm run qa:generate-credit      # Generate credit-specific HTML reports
+node comprehensive-e2e-automation.js  # Full E2E automation suite
 ```
 
 ## MCP Integration
@@ -675,6 +717,10 @@ The `.mcp.json` file contains server configurations for development workflow aut
 npm run kill-ports:all
 npm run kill-ports:node
 npm run kill-ports:process
+
+# Check PM2 managed processes
+npm run pm2:status
+npm run pm2:delete  # If processes are stuck
 ```
 
 #### Database Connection Issues
@@ -744,3 +790,42 @@ The project includes extensive testing infrastructure:
 - Redux state persistence for user experience
 - API response caching implemented via RTK Query
 - Lazy loading for route-based code splitting
+
+## Advanced Features
+
+### PM2 Process Management
+Production-ready process management with ecosystem configuration:
+```bash
+# PM2 Configuration in ecosystem.config.js
+- bankim-dev-api (port 8003) - API server with auto-restart and monitoring
+- bankim-dev-files (port 3001) - File server for uploads/static content
+- Automatic restart on crashes (max 5 restarts)
+- Memory limit monitoring (500M for API server)
+- Structured logging with timestamps
+```
+
+### Feature Flags & JSONB Dropdowns
+Dynamic dropdown system with feature flag control:
+- `USE_JSONB_DROPDOWNS=true` environment variable enables new dropdown system
+- Database-driven dropdown configuration with real-time updates
+- Backward compatibility with legacy dropdown implementations
+
+### QA Automation Framework
+Comprehensive testing infrastructure with visual evidence capture:
+- **Smoke Testing**: Quick validation of critical dropdown functionality
+- **Full E2E Testing**: Complete workflow validation with screenshots/videos
+- **Interactive Reports**: HTML dashboards with embedded evidence
+- **JIRA Integration**: Automated bug reporting with visual evidence
+
+### Content Management System
+Progressive migration from static translations to dynamic content:
+- **Content Tables**: `content_items`, `content_translations`, `content_pages`
+- **Multi-language Support**: Structured content with fallback mechanisms
+- **API Integration**: Real-time content updates without deployment
+- **Migration Utilities**: Tools for safe content migration and validation
+
+### Cross-Browser Testing Infrastructure
+- Playwright-based testing across Chrome, Firefox, Safari
+- Visual regression testing with Percy integration
+- Mobile-responsive validation across multiple viewports
+- Performance monitoring with Core Web Vitals tracking

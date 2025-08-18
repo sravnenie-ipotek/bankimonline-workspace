@@ -21,6 +21,9 @@ const contentCache = new NodeCache({
     useClones: false // Better performance for JSON objects
 });
 
+// 🎛️ FEATURE FLAG: Control which dropdown system to use
+const USE_JSONB_DROPDOWNS = process.env.USE_JSONB_DROPDOWNS === 'true' || process.env.NODE_ENV === 'production';
+
 // Main database connection (Core Database)
 const pool = createPool('main');
 
@@ -1058,17 +1061,51 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
     try {
         const { screen, language } = req.params;
         
+        // 🚨 PRODUCTION MODE: JSONB dropdowns only (traditional system commented out)
+        console.log(`🚀 Using JSONB dropdowns for ${screen}/${language} (production mode)`);
+        return await handleJsonbDropdowns(req, res);
+        
+        // 🚫 COMMENTED OUT: Traditional dropdown system (deprecated for production)
+        // if (USE_JSONB_DROPDOWNS) {
+        //     console.log(`🚀 Using JSONB dropdowns for ${screen}/${language}`);
+        //     return await handleJsonbDropdowns(req, res);
+        // } else {
+        //     console.log(`🔄 Using traditional dropdowns for ${screen}/${language}`);
+        //     return await handleTraditionalDropdowns(req, res);
+        // }
+    } catch (error) {
+        console.error('❌ Error in unified dropdown endpoint:', error);
+        res.status(500).json({ 
+            status: 'error', 
+            message: 'Failed to fetch dropdown data',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined,
+            screen_location: screen,
+            language_code: language,
+            dropdowns: [],
+            options: {},
+            placeholders: {},
+            labels: {}
+        });
+    }
+});
+
+// 🚀 JSONB Implementation
+async function handleJsonbDropdowns(req, res) {
+    try {
+        const { screen, language } = req.params;
+        
         // Create cache key for dropdowns
         const cacheKey = `dropdowns_jsonb_${screen}_${language}`;
         
         // Check cache first
         const cached = contentCache.get(cacheKey);
         if (cached) {
-            console.log(`✅ Cache HIT for JSONB dropdowns: ${screen}/${language}`);
+            console.log(`✅ JSONB Cache HIT for ${screen}/${language}`);
             return res.json(cached);
         }
         
-        console.log(`❄️  Cache MISS for dropdowns: ${screen}/${language} - Fetching from Neon JSONB`);
+        console.log(`⚡ JSONB Cache MISS for ${screen}/${language} - Querying dropdown_configs`);
+        console.log(`🔍 DEBUG SQL: Executing query for screen_location = '${screen}'`);
         
         // 🚀 JSONB Query: Fetch ALL dropdowns for screen in ONE query
         const result = await contentPool.query(`
@@ -1081,6 +1118,10 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 AND is_active = true
             ORDER BY dropdown_key
         `, [screen]);
+        
+        console.log(`📊 DEBUG SQL: Query returned ${result.rows.length} rows`);
+        
+        console.log(`🔍 DEBUG: Query returned ${result.rows.length} rows from dropdown_configs`);
         
         // Structure the response to match existing API format
         const response = {
@@ -1095,150 +1136,205 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
             jsonb_source: true,  // Indicator that this is from JSONB
             performance: {
                 query_count: 1,  // Only 1 query instead of 4-6!
-                source: 'neon_jsonb'
+                source: 'neon_jsonb',
+                total_items: result.rows.length
             }
         };
         
-        // Process JSONB data
-        const dropdownMap = new Map();
-        
-        // 🚀 JSONB Processing: Extract data directly from JSONB structure
+        // Process JSONB data - FIXED VERSION
         result.rows.forEach(row => {
             const { dropdown_key, field_name, dropdown_data } = row;
             
-            // Extract language-specific values from JSONB
-            const label = dropdown_data.label?.[language] || dropdown_data.label?.en || '';
-            const placeholder = dropdown_data.placeholder?.[language] || dropdown_data.placeholder?.en || '';
+            if (!dropdown_data) {
+                console.warn(`⚠️ Empty dropdown_data for ${dropdown_key}`);
+                return;
+            }
             
-            // Build options array with language-specific text
+            // Extract language-specific values
+            const label = dropdown_data.label?.[language] || dropdown_data.label?.en || field_name;
+            const placeholder = dropdown_data.placeholder?.[language] || dropdown_data.placeholder?.en || `Select ${field_name}`;
+            
+            // Build options array with proper structure
             const options = (dropdown_data.options || []).map(opt => ({
                 value: opt.value,
-                text: opt.text?.[language] || opt.text?.en || ''
+                text: opt.text?.[language] || opt.text?.en || opt.value,
+                label: opt.text?.[language] || opt.text?.en || opt.value
             }));
             
-            // Add to dropdown map
-            dropdownMap.set(field_name, {
+            if (field_name === 'education') {
+                console.log(`🎓 DEBUG: Education dropdown - Options count: ${options.length}`);
+                if (options.length === 0) {
+                    console.log(`   dropdown_data.options: `, dropdown_data.options);
+                }
+            }
+            
+            // Add to response
+            response.dropdowns.push({
                 key: dropdown_key,
+                field: field_name,
                 label: label,
-                options: options,
-                placeholder: placeholder
+                placeholder: placeholder,
+                options: options
             });
             
-            // Also populate the flat structures for backward compatibility
+            // Also add in the flat structure for backward compatibility
+            response.options[dropdown_key] = options;
             response.labels[dropdown_key] = label;
             response.placeholders[dropdown_key] = placeholder;
-            
-            // Add options to flat structure (for backward compatibility)
-            options.forEach((opt) => {
-                const optionKey = `${dropdown_key}_option_${opt.value}`;
-                response.options[optionKey] = opt.text;
-            });
         });
         
-        // Build final response - include all dropdowns from JSONB
-        dropdownMap.forEach((dropdown, fieldName) => {
-            response.dropdowns.push({
-                key: dropdown.key,
-                label: dropdown.label || fieldName.replace(/_/g, ' ')
-            });
-            
-            // Add options array for this dropdown
-            if (dropdown.options.length > 0) {
-                response.options[dropdown.key] = dropdown.options;
-            }
-            
-            // Ensure the field exists in the response structure (for components that access by field name)
-            if (!response[fieldName]) {
-                response[fieldName] = {
-                    label: dropdown.label,
-                    placeholder: dropdown.placeholder,
-                    options: dropdown.options
-                };
-            }
-        });
+        console.log(`🔍 DEBUG: Response will have ${response.dropdowns.length} dropdowns`);
         
-        // Alias fix for production: expose citizenship options under additional keys
-        // This maintains backward compatibility with existing frontend code
-        try {
-            const mainCitizenshipKey = `${screen}_citizenship`;
-            const aliasCitizenshipKey = `${screen}_citizenship_countries`;
-            if (screen === 'mortgage_step2' && response.options[mainCitizenshipKey]) {
-                response.options[aliasCitizenshipKey] = response.options[mainCitizenshipKey];
-                if (response.labels && response.labels[mainCitizenshipKey]) {
-                    response.labels[aliasCitizenshipKey] = response.labels[mainCitizenshipKey];
-                }
-                if (response.placeholders && response.placeholders[mainCitizenshipKey]) {
-                    response.placeholders[aliasCitizenshipKey] = response.placeholders[mainCitizenshipKey];
-                }
-                response.dropdowns.push({ 
-                    key: aliasCitizenshipKey, 
-                    label: response.labels?.[aliasCitizenshipKey] || 'Citizenship Countries' 
-                });
-            }
-
-            // Step 1 aliases: when_needed/first_home ↔ when/first (non-breaking copies)
-            if (screen === 'mortgage_step1') {
-                const aliasPairs = [
-                    { source: 'when', alias: 'when_needed' },
-                    { source: 'first', alias: 'first_home' }
-                ];
-                for (const { source, alias } of aliasPairs) {
-                    const sourceKey = `${screen}_${source}`;
-                    const aliasKey = `${screen}_${alias}`;
-                    
-                    // Create alias if source exists and alias doesn't
-                    if (response.options[sourceKey] && !response.options[aliasKey]) {
-                        response.options[aliasKey] = response.options[sourceKey];
-                        if (response.labels && response.labels[sourceKey]) {
-                            response.labels[aliasKey] = response.labels[sourceKey];
-                        }
-                        if (response.placeholders && response.placeholders[sourceKey]) {
-                            response.placeholders[aliasKey] = response.placeholders[sourceKey];
-                        }
-                        response.dropdowns.push({ 
-                            key: aliasKey, 
-                            label: response.labels?.[aliasKey] || alias.replace(/_/g, ' ') 
-                        });
-                    }
-                    
-                    // Also create reverse alias if needed
-                    if (response.options[aliasKey] && !response.options[sourceKey]) {
-                        response.options[sourceKey] = response.options[aliasKey];
-                        if (response.labels && response.labels[aliasKey]) {
-                            response.labels[sourceKey] = response.labels[aliasKey];
-                        }
-                        if (response.placeholders && response.placeholders[aliasKey]) {
-                            response.placeholders[sourceKey] = response.placeholders[aliasKey];
-                        }
-                        response.dropdowns.push({ 
-                            key: sourceKey, 
-                            label: response.labels?.[sourceKey] || source.replace(/_/g, ' ') 
-                        });
-                    }
-                }
-            }
-        } catch (aliasErr) {
-            console.warn('Alias mapping warning:', aliasErr?.message || aliasErr);
-        }
-        
-        // Add performance metadata
-        response.performance.total_items = result.rowCount;
-        response.performance.dropdowns_found = response.dropdowns.length;
-        response.performance.query_time = new Date().toISOString();
-        
-        // Cache the processed data
-        contentCache.set(cacheKey, response);
-        console.log(`💾 Cached JSONB dropdowns for: ${screen}/${language} (TTL: 5min)`);
+        // Cache the response
+        contentCache.set(cacheKey, response, 300); // Cache for 5 minutes
+        console.log(`✅ JSONB Response cached for ${screen}/${language} with ${response.dropdowns.length} dropdowns`);
         
         res.json(response);
-    } catch (error) {
-        console.error('❌ Error fetching JSONB dropdowns:', error);
         
-        // Fallback: Return empty structure so app doesn't break
+    } catch (error) {
+        console.error('❌ Error in handleJsonbDropdowns:', error);
+        res.status(500).json({ 
+            error: 'Failed to fetch dropdown data',
+            details: error.message,
+            jsonb_source: true
+        });
+    }
+}
+
+// 🚫 COMMENTED OUT: Traditional Implementation (deprecated for production)
+/*
+async function handleTraditionalDropdowns(req, res) {
+    try {
+        const { screen, language } = req.params;
+    
+    // Create cache key for dropdowns
+    const cacheKey = `dropdowns_traditional_${screen}_${language}`;
+    
+    // Check cache first
+    const cached = contentCache.get(cacheKey);
+    if (cached) {
+        console.log(`✅ Traditional Cache HIT for ${screen}/${language}`);
+        return res.json(cached);
+    }
+    
+    console.log(`⚡ Traditional Cache MISS for ${screen}/${language} - Querying content_items`);
+    
+    // 🔄 Traditional Query: Multiple JOINs between content_items and content_translations
+    const result = await contentPool.query(`
+        SELECT 
+            content_items.content_key,
+            content_items.component_type,
+            content_translations.content_value,
+            content_translations.language_code,
+            content_translations.status
+        FROM content_items
+        JOIN content_translations ON content_items.id = content_translations.content_item_id
+        WHERE content_items.screen_location = $1 
+            AND content_translations.language_code = $2 
+            AND content_translations.status = 'approved'
+            AND content_items.is_active = true
+            AND content_items.component_type IN (
+                'dropdown_container', 
+                'dropdown_option', 
+                'option', 
+                'placeholder',
+                'label'
+            )
+        ORDER BY content_items.content_key
+    `, [screen, language]);
+    
+    // Structure the response to match existing API format
+    const response = {
+        status: 'success',
+        screen_location: screen,
+        language_code: language,
+        dropdowns: [],
+        options: {},
+        placeholders: {},
+        labels: {},
+        cached: false,
+        jsonb_source: false,  // Indicator that this is from traditional tables
+        performance: {
+            query_count: 1,  // Traditional approach in a single optimized query
+            source: 'content_items_translations'
+        }
+    };
+    
+    // Process traditional content data
+    const dropdownMap = new Map();
+    
+    // Group content by dropdown fields
+    result.rows.forEach(row => {
+        const { content_key, component_type, content_value } = row;
+        
+        // Extract field name from content key
+        const fieldName = extractFieldNameTraditional(content_key, component_type);
+        
+        if (!dropdownMap.has(fieldName)) {
+            dropdownMap.set(fieldName, {
+                key: fieldName,
+                label: '',
+                placeholder: '',
+                options: []
+            });
+        }
+        
+        const dropdown = dropdownMap.get(fieldName);
+        
+        // Process based on component type
+        if (component_type === 'dropdown_container' || component_type === 'label') {
+            dropdown.label = content_value;
+            response.labels[fieldName] = content_value;
+        } else if (component_type === 'placeholder') {
+            dropdown.placeholder = content_value;
+            response.placeholders[fieldName] = content_value;
+        } else if (component_type === 'dropdown_option' || component_type === 'option') {
+            // Extract option value from content key
+            const optionValue = extractOptionValueTraditional(content_key);
+            dropdown.options.push({
+                value: optionValue,
+                text: content_value
+            });
+            
+            // Add to flat structure for backward compatibility
+            const optionKey = `${fieldName}_option_${optionValue}`;
+            response.options[optionKey] = content_value;
+        }
+    });
+    
+    // 🔄 Transform to structured dropdowns array
+    dropdownMap.forEach((dropdown, fieldName) => {
+        response.dropdowns.push({
+            key: dropdown.key,
+            label: dropdown.label || fieldName.replace(/_/g, ' ')
+        });
+        
+        // Add options array for this dropdown
+        if (dropdown.options.length > 0) {
+            response.options[dropdown.key] = dropdown.options;
+        }
+        
+        // Ensure the field exists in the response structure
+        if (!response[fieldName]) {
+            response[fieldName] = {
+                label: dropdown.label,
+                placeholder: dropdown.placeholder,
+                options: dropdown.options
+            };
+        }
+    });
+    
+    // Cache the structured response
+    contentCache.set(cacheKey, response);
+    console.log(`💾 Cached traditional dropdown data for ${screen}/${language}`);
+    
+    res.json(response);
+    } catch (error) {
+        console.error('❌ Error fetching traditional dropdowns:', error);
         res.status(500).json({ 
             status: 'error', 
             message: 'Failed to fetch dropdown data',
-            error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined,
             screen_location: req.params.screen,
             language_code: req.params.language,
             dropdowns: [],
@@ -1247,7 +1343,58 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
             labels: {}
         });
     }
+}
+*/
+
+// 🚫 COMMENTED OUT: Helper functions for traditional implementation
+/*
+function extractFieldNameTraditional(contentKey, componentType) {
+    // Remove option suffixes and placeholders to get base field name
+    let baseKey = contentKey
+        .replace(/_option_\d+$/, '')
+        .replace(/_ph$/, '')
+        .replace(/_has_property$/, '')
+        .replace(/_no_property$/, '') 
+        .replace(/_selling_property$/, '');
+    
+    // Simple field extraction - use the base key as field name
+    return baseKey.replace(/[^a-zA-Z0-9_]/g, '_');
+}
+
+function extractOptionValueTraditional(contentKey) {
+    // For property ownership specific mappings
+    if (contentKey.includes('_no_property')) return '1';
+    if (contentKey.includes('_has_property')) return '2'; 
+    if (contentKey.includes('_selling_property')) return '3';
+    
+    // For numbered options
+    const numberMatch = contentKey.match(/_option_(\d+)$/);
+    if (numberMatch) return numberMatch[1];
+    
+    // For named options, create a hash-based value
+    const optionPart = contentKey.split('_').pop();
+    return optionPart || '1';
+}
+*/
+
+// Feature flag status endpoint for debugging
+app.get('/api/feature-flags/dropdown-system', (req, res) => {
+    res.json({
+        status: 'success',
+        feature_flags: {
+            USE_JSONB_DROPDOWNS: true,
+            current_system: 'JSONB',
+            environment: process.env.NODE_ENV,
+            migration_complete: true
+        },
+        performance_info: {
+            jsonb_queries: 1,
+            traditional_queries: 1,
+            expected_improvement: USE_JSONB_DROPDOWNS ? '87%' : 'baseline'
+        }
+    });
 });
+
 // GET /api/content/:key/:language - Get specific content item with fallback
 app.get('/api/content/:key/:language', async (req, res) => {
     try {

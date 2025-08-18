@@ -1,0 +1,159 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Automation - JIRA Bug Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #2196F3, #21CBF3); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; }
+        .header h1 { font-size: 2.5em; margin-bottom: 10px; }
+        .header p { font-size: 1.2em; opacity: 0.9; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; }
+        .stat-number { font-size: 2.5em; font-weight: bold; margin-bottom: 5px; }
+        .critical { color: #f44336; }
+        .major { color: #ff9800; }
+        .minor { color: #2196f3; }
+        .total { color: #4caf50; }
+        .issues-grid { display: grid; gap: 20px; }
+        .issue-card { background: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }
+        .issue-header { padding: 20px; border-left: 5px solid; }
+        .issue-header.critical { border-left-color: #f44336; background: #ffebee; }
+        .issue-header.major { border-left-color: #ff9800; background: #fff3e0; }
+        .issue-header.minor { border-left-color: #2196f3; background: #e3f2fd; }
+        .issue-title { font-size: 1.3em; font-weight: bold; margin-bottom: 10px; }
+        .issue-meta { display: flex; gap: 15px; font-size: 0.9em; color: #666; }
+        .issue-body { padding: 20px; }
+        .issue-description { line-height: 1.6; margin-bottom: 15px; }
+        .labels { display: flex; gap: 5px; flex-wrap: wrap; }
+        .label { background: #e0e0e0; padding: 4px 8px; border-radius: 15px; font-size: 0.8em; }
+        .jira-btn { background: #0052cc; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin-top: 15px; }
+        .jira-btn:hover { background: #0041a8; }
+        .footer { text-align: center; margin-top: 40px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🐛 QA Automation - JIRA Bug Report</h1>
+            <p>Generated on 8/17/2025 at 5:02:56 PM</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number total">3</div>
+                <div>Total Issues</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number critical">1</div>
+                <div>Critical</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number major">1</div>
+                <div>Major</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number minor">1</div>
+                <div>Minor</div>
+            </div>
+        </div>
+
+        <div class="issues-grid">
+            
+                <div class="issue-card">
+                    <div class="issue-header highest">
+                        <div class="issue-title">[JavaScript Errors] 3 console errors detected on Homepage</div>
+                        <div class="issue-meta">
+                            <span>🆔 BANK-1755439376373</span>
+                            <span>⚡ Highest</span>
+                            <span>📅 8/17/2025</span>
+                            <span>🌍 Production</span>
+                        </div>
+                    </div>
+                    <div class="issue-body">
+                        <div class="issue-description">**Test Failure Report**<br><br>**Category:** JavaScript Errors<br>**Page:** Homepage<br>**Issue:** 3 console errors detected<br>**Severity:** critical<br><br>**Details:**<br>Multiple JavaScript errors found on homepage affecting functionality<br><br>**Steps to Reproduce:**<br>1. Navigate to homepage<br>2. Open browser console<br>3. Observe error messages<br><br>**Expected Result:** No JavaScript errors<br>**Actual Result:** 3 errors in console<br><br>**Browser:** Chrome<br>**Viewport:** Desktop<br>**Timestamp:** 2025-08-17T14:02:56.373Z<br><br>*🤖 Generated automatically by QA Automation System*</div>
+                        <div class="labels">
+                            <span class="label">automation</span><span class="label">qa</span><span class="label">javascript-errors</span><span class="label">chrome</span><span class="label">viewport-desktop</span>
+                        </div>
+                        <button class="jira-btn" onclick="openInJIRA('BANK-1755439376373')">
+                            📝 Create in JIRA
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="issue-card">
+                    <div class="issue-header high">
+                        <div class="issue-title">[Accessibility] 16/24 images missing alt text on Mortgage Calculator</div>
+                        <div class="issue-meta">
+                            <span>🆔 BANK-1755439376374</span>
+                            <span>⚡ High</span>
+                            <span>📅 8/17/2025</span>
+                            <span>🌍 Production</span>
+                        </div>
+                    </div>
+                    <div class="issue-body">
+                        <div class="issue-description">**Test Failure Report**<br><br>**Category:** Accessibility<br>**Page:** Mortgage Calculator<br>**Issue:** 16/24 images missing alt text<br>**Severity:** major<br><br>**Details:**<br>Images lack proper alt text attributes for screen readers<br><br><br>**Browser:** Firefox<br>**Viewport:** Mobile<br>**Timestamp:** 2025-08-17T14:02:56.374Z<br><br>*🤖 Generated automatically by QA Automation System*</div>
+                        <div class="labels">
+                            <span class="label">automation</span><span class="label">qa</span><span class="label">accessibility</span><span class="label">firefox</span><span class="label">viewport-mobile</span>
+                        </div>
+                        <button class="jira-btn" onclick="openInJIRA('BANK-1755439376374')">
+                            📝 Create in JIRA
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="issue-card">
+                    <div class="issue-header medium">
+                        <div class="issue-title">[Responsive Design] Horizontal scroll on mobile on Credit Calculator</div>
+                        <div class="issue-meta">
+                            <span>🆔 BANK-1755439376374</span>
+                            <span>⚡ Medium</span>
+                            <span>📅 8/17/2025</span>
+                            <span>🌍 Production</span>
+                        </div>
+                    </div>
+                    <div class="issue-body">
+                        <div class="issue-description">**Test Failure Report**<br><br>**Category:** Responsive Design<br>**Page:** Credit Calculator<br>**Issue:** Horizontal scroll on mobile<br>**Severity:** minor<br><br>**Details:**<br>Page overflows horizontally on 320px viewport<br><br><br>**Browser:** Safari<br>**Viewport:** Mobile_XSmall<br>**Timestamp:** 2025-08-17T14:02:56.374Z<br><br>*🤖 Generated automatically by QA Automation System*</div>
+                        <div class="labels">
+                            <span class="label">automation</span><span class="label">qa</span><span class="label">responsive-design</span><span class="label">safari</span><span class="label">viewport-mobile_xsmall</span>
+                        </div>
+                        <button class="jira-btn" onclick="openInJIRA('BANK-1755439376374')">
+                            📝 Create in JIRA
+                        </button>
+                    </div>
+                </div>
+            
+        </div>
+
+        <div class="footer">
+            <p>🤖 Generated by QA Automation System v2.0 | JIRA Integration Active</p>
+        </div>
+    </div>
+
+    <script>
+        function openInJIRA(issueId) {
+            // In a real implementation, this would make an API call to create the JIRA issue
+            alert('Creating JIRA issue: ' + issueId + '\n\nThis would integrate with your actual JIRA instance.');
+            
+            // Mock JIRA creation
+            fetch('/api/jira/create', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ issueId: issueId })
+            }).then(response => {
+                if (response.ok) {
+                    alert('✅ Issue created in JIRA successfully!');
+                } else {
+                    alert('❌ Failed to create issue in JIRA');
+                }
+            }).catch(error => {
+                console.log('JIRA integration demo - issue would be created:', issueId);
+            });
+        }
+    </script>
+</body>
+</html>

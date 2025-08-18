@@ -48,7 +48,6 @@ const PhoneVerificationModalDarkHe: React.FC<PhoneVerificationModalDarkHeProps> 
       return t('name_letters_only')
     }
     if (name.trim().length < 2) {
-      .length) // Debug log
       return t('name_min_length')
     }
     // Debug log

@@ -84,7 +84,10 @@
     "test:visual:all": "percy exec -- cypress run --spec 'cypress/e2e/visual/*.cy.ts'",
     "test:visual:baseline": "percy exec -- cypress run --spec 'cypress/e2e/visual/*.cy.ts' --env updateSnapshots=true",
     "percy:approve": "percy build:approve",
-    "percy:finalize": "percy build:finalize"
+    "percy:finalize": "percy build:finalize",
+    "test:dropdowns:comprehensive": "cypress run --spec 'cypress/e2e/ultra-comprehensive-dropdown-automation.cy.ts' --browser chrome --headed",
+    "test:dropdowns:comprehensive:headless": "cypress run --spec 'cypress/e2e/ultra-comprehensive-dropdown-automation.cy.ts' --browser chrome",
+    "test:dropdowns:interactive": "cypress open --spec 'cypress/e2e/ultra-comprehensive-dropdown-automation.cy.ts'"
   },
   "browserslist": {
     "production": [

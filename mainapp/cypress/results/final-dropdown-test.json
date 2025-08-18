@@ -1,0 +1,103 @@
+{
+  "timestamp": "2025-08-18T06:10:27.649Z",
+  "processes": [
+    {
+      "name": "Calculate Mortgage",
+      "path": "/calculate-mortgage",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "dropdowns": []
+        },
+        {
+          "stepNumber": 2,
+          "dropdowns": []
+        },
+        {
+          "stepNumber": 3,
+          "dropdowns": []
+        },
+        {
+          "stepNumber": 4,
+          "dropdowns": []
+        }
+      ],
+      "totalDropdowns": 0,
+      "workingDropdowns": 0,
+      "emptyDropdowns": 0
+    },
+    {
+      "name": "Calculate Credit",
+      "path": "/calculate-credit",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "dropdowns": []
+        },
+        {
+          "stepNumber": 2,
+          "dropdowns": []
+        },
+        {
+          "stepNumber": 3,
+          "dropdowns": []
+        }
+      ],
+      "totalDropdowns": 0,
+      "workingDropdowns": 0,
+      "emptyDropdowns": 0
+    },
+    {
+      "name": "Refinance Mortgage",
+      "path": "/refinance-mortgage",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "dropdowns": []
+        },
+        {
+          "stepNumber": 2,
+          "dropdowns": []
+        },
+        {
+          "stepNumber": 3,
+          "dropdowns": []
+        }
+      ],
+      "totalDropdowns": 0,
+      "workingDropdowns": 0,
+      "emptyDropdowns": 0
+    },
+    {
+      "name": "Refinance Credit",
+      "path": "/refinance-credit",
+      "steps": [
+        {
+          "stepNumber": 1,
+          "dropdowns": []
+        },
+        {
+          "stepNumber": 2,
+          "dropdowns": []
+        },
+        {
+          "stepNumber": 3,
+          "dropdowns": []
+        }
+      ],
+      "totalDropdowns": 0,
+      "workingDropdowns": 0,
+      "emptyDropdowns": 0
+    }
+  ],
+  "apiCalls": [],
+  "summary": {
+    "totalProcesses": 4,
+    "totalSteps": 13,
+    "totalDropdowns": 0,
+    "workingDropdowns": 0,
+    "emptyDropdowns": 0,
+    "missingDropdowns": [],
+    "successRate": "0"
+  }
+}

@@ -132,9 +132,37 @@ let testActionLog: string[] = []
 let testSteps: any[] = []
 let currentTestUrl = ''
 
-// Add command logging
+// Add command logging with null safety
 Cypress.on('command:start', (command) => {
-  const action = `[${new Date().toISOString()}] ${command.attributes.name}: ${command.attributes.args ? JSON.stringify(command.attributes.args).slice(0, 100) : ''}`
+  if (!command || !command.attributes) {
+    return // Skip if command is malformed
+  }
+  
+  // Safely stringify args, avoiding circular references
+  let argsStr = '';
+  try {
+    if (command.attributes.args) {
+      // Filter out DOM elements and circular references
+      const safeArgs = command.attributes.args.map((arg: any) => {
+        if (typeof arg === 'object' && arg !== null) {
+          if (arg.nodeType || arg.jquery) {
+            return '[DOM Element]';
+          }
+          try {
+            return JSON.stringify(arg).slice(0, 50);
+          } catch {
+            return '[Complex Object]';
+          }
+        }
+        return arg;
+      });
+      argsStr = JSON.stringify(safeArgs).slice(0, 100);
+    }
+  } catch {
+    argsStr = '[Unable to stringify]';
+  }
+  
+  const action = `[${new Date().toISOString()}] ${command.attributes.name}: ${argsStr}`
   testActionLog.push(action)
   
   // Track test steps for structured reporting
@@ -147,8 +175,13 @@ Cypress.on('command:start', (command) => {
   })
 })
 
-// Track command failures
+// Track command failures with null safety
 Cypress.on('command:failed', (command, err) => {
+  if (!command || !command.attributes) {
+    testActionLog.push(`[${new Date().toISOString()}] FAILED - Unknown command: ${err?.message || 'Unknown error'}`)
+    return
+  }
+  
   const failureAction = `[${new Date().toISOString()}] FAILED - ${command.attributes.name}: ${err.message}`
   testActionLog.push(failureAction)
   

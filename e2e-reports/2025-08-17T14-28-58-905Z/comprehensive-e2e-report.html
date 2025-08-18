@@ -1,0 +1,422 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive E2E Test Report</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f7fa; line-height: 1.6; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        
+        .header { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; padding: 40px; border-radius: 15px; margin-bottom: 30px; 
+            text-align: center; position: relative;
+        }
+        .header h1 { font-size: 3em; margin-bottom: 10px; }
+        .header .subtitle { font-size: 1.3em; opacity: 0.9; }
+        .header .meta { position: absolute; top: 20px; right: 30px; text-align: right; }
+        
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .metric-card { 
+            background: white; padding: 30px; border-radius: 15px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1); text-align: center; 
+            border-top: 5px solid;
+        }
+        .metric-card.workflows { border-top-color: #4caf50; }
+        .metric-card.api { border-top-color: #2196f3; }
+        .metric-card.performance { border-top-color: #ff9800; }
+        .metric-card.bugs { border-top-color: #f44336; }
+        
+        .metric-value { font-size: 3em; font-weight: bold; margin: 15px 0; }
+        .metric-label { color: #666; font-size: 1.1em; }
+        .success { color: #4caf50; }
+        .warning { color: #ff9800; }
+        .error { color: #f44336; }
+        
+        .progress-bar { 
+            width: 100%; height: 8px; background: #eee; border-radius: 4px; 
+            margin: 15px 0; overflow: hidden;
+        }
+        .progress-fill { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
+        .progress-fill.success { background: #4caf50; }
+        .progress-fill.warning { background: #ff9800; }
+        .progress-fill.error { background: #f44336; }
+        
+        .section { 
+            background: white; border-radius: 15px; padding: 30px; margin: 25px 0; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08); 
+        }
+        .section h2 { color: #333; margin-bottom: 25px; font-size: 1.8em; border-bottom: 3px solid #e0e0e0; padding-bottom: 15px; }
+        
+        .workflow-item, .api-item, .bug-item { 
+            border: 1px solid #e0e0e0; border-radius: 10px; 
+            margin: 20px 0; overflow: hidden; transition: all 0.3s ease;
+        }
+        .workflow-item:hover, .api-item:hover, .bug-item:hover { 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateY(-2px); 
+        }
+        
+        .item-header { 
+            padding: 20px; font-weight: bold; cursor: pointer; 
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .item-header.passed { background: #e8f5e8; color: #2e7d32; }
+        .item-header.failed { background: #ffebee; color: #c62828; }
+        .item-header.warning { background: #fff3e0; color: #ef6c00; }
+        
+        .item-content { padding: 0; max-height: 0; overflow: hidden; transition: all 0.3s ease; }
+        .item-content.expanded { padding: 20px; max-height: 1000px; }
+        
+        .step-list { margin: 15px 0; }
+        .step-item { 
+            padding: 15px; margin: 10px 0; border-radius: 8px; 
+            border-left: 4px solid; display: flex; justify-content: space-between; align-items: center;
+        }
+        .step-item.passed { border-left-color: #4caf50; background: #f1f8e9; }
+        .step-item.failed { border-left-color: #f44336; background: #fce4ec; }
+        .step-item.running { border-left-color: #ff9800; background: #fff3e0; }
+        
+        .screenshot-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; margin: 20px 0; }
+        .screenshot-item { 
+            border-radius: 10px; overflow: hidden; cursor: pointer; 
+            transition: transform 0.3s ease; border: 2px solid #e0e0e0;
+        }
+        .screenshot-item:hover { transform: scale(1.05); }
+        .screenshot-item img { width: 100%; height: 150px; object-fit: cover; }
+        .screenshot-item .caption { padding: 10px; background: #f8f9fa; text-align: center; font-size: 0.9em; }
+        
+        .jira-button { 
+            background: #0052cc; color: white; border: none; padding: 12px 20px; 
+            border-radius: 6px; cursor: pointer; font-size: 0.9em; 
+            transition: background 0.3s ease; margin: 10px 0;
+        }
+        .jira-button:hover { background: #0041a8; }
+        
+        .video-player { width: 100%; max-width: 800px; margin: 20px auto; border-radius: 10px; overflow: hidden; }
+        
+        .collapsible { cursor: pointer; user-select: none; }
+        .collapsible:after { content: ' ▼'; font-size: 0.8em; color: #666; }
+        .collapsible.collapsed:after { content: ' ▶'; }
+        
+        .tag { 
+            display: inline-block; padding: 4px 8px; border-radius: 12px; 
+            font-size: 0.8em; margin: 2px; color: white;
+        }
+        .tag.critical { background: #f44336; }
+        .tag.high { background: #ff9800; }
+        .tag.medium { background: #2196f3; }
+        .tag.low { background: #4caf50; }
+        
+        .modal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;
+        }
+        .modal.active { display: flex; }
+        .modal img { max-width: 90%; max-height: 90%; border-radius: 10px; }
+        
+        .footer { text-align: center; margin-top: 50px; color: #666; padding: 30px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="meta">
+                <div>🕒 8/17/2025, 5:28:58 PM</div>
+                <div>⏱️ 51s execution</div>
+            </div>
+            <h1>🚀 Comprehensive E2E Test Report</h1>
+            <div class="subtitle">Complete Business Workflow Testing with API Integration</div>
+        </div>
+        
+        <div class="dashboard">
+            <div class="metric-card workflows">
+                <div class="metric-value error">
+                    0/1
+                </div>
+                <div class="metric-label">Workflows Passed</div>
+                <div class="progress-bar">
+                    <div class="progress-fill error" 
+                         style="width: 0%"></div>
+                </div>
+                <div>0.0% Success Rate</div>
+            </div>
+            
+            <div class="metric-card api">
+                <div class="metric-value error">
+                    0/3
+                </div>
+                <div class="metric-label">API Tests Passed</div>
+                <div class="progress-bar">
+                    <div class="progress-fill error" 
+                         style="width: 0%"></div>
+                </div>
+                <div>0.0% Success Rate</div>
+            </div>
+            
+            <div class="metric-card performance">
+                <div class="metric-value warning">51s</div>
+                <div class="metric-label">Total Execution Time</div>
+                <div class="progress-bar">
+                    <div class="progress-fill warning" style="width: 16.929333333333332%"></div>
+                </div>
+                <div>0.8 minutes</div>
+            </div>
+            
+            <div class="metric-card bugs">
+                <div class="metric-value error">
+                    1
+                </div>
+                <div class="metric-label">Bugs Detected</div>
+                <div class="progress-bar">
+                    <div class="progress-fill error" 
+                         style="width: 100%"></div>
+                </div>
+                <div>Issues Found</div>
+            </div>
+        </div>
+        
+        
+        <div class="section">
+            <h2>🔄 Complete Business Workflows</h2>
+            
+                <div class="workflow-item">
+                    <div class="item-header failed" onclick="toggleContent(this)">
+                        <div>
+                            <span>Mortgage Calculation Workflow</span>
+                            <span class="tag critical">FAILED</span>
+                        </div>
+                        <div>0s</div>
+                    </div>
+                    <div class="item-content">
+                        <div class="step-list">
+                            
+                        </div>
+                        
+                            <button class="jira-button" onclick="createJiraBug('Mortgage Calculation Workflow', 'locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByText('Tel Aviv')[22m
+', 'workflow')">
+                                📝 Create JIRA Bug
+                            </button>
+                        
+                    </div>
+                </div>
+            
+        </div>
+        
+        <div class="section">
+            <h2>🌐 API Integration Tests</h2>
+            
+                <div class="api-item">
+                    <div class="item-header failed" onclick="toggleContent(this)">
+                        <div>
+                            <span>Cities API</span>
+                            <span class="tag critical">GET</span>
+                            <span class="tag medium">404</span>
+                        </div>
+                        <div>115ms</div>
+                    </div>
+                    <div class="item-content">
+                        <div><strong>URL:</strong> /api/get-cities?lang=he</div>
+                        <div><strong>Method:</strong> GET</div>
+                        <div><strong>Response Time:</strong> 115ms</div>
+                        <div class="error"><strong>Error:</strong> Request failed with status code 404</div>
+                        
+                        
+                            <button class="jira-button" onclick="createJiraBug('Cities API', 'Request failed with status code 404', 'api')">
+                                📝 Create JIRA Bug
+                            </button>
+                        
+                    </div>
+                </div>
+            
+                <div class="api-item">
+                    <div class="item-header failed" onclick="toggleContent(this)">
+                        <div>
+                            <span>Calculation Parameters</span>
+                            <span class="tag critical">GET</span>
+                            <span class="tag medium">404</span>
+                        </div>
+                        <div>75ms</div>
+                    </div>
+                    <div class="item-content">
+                        <div><strong>URL:</strong> /api/v1/calculation-parameters?business_path=mortgage</div>
+                        <div><strong>Method:</strong> GET</div>
+                        <div><strong>Response Time:</strong> 75ms</div>
+                        <div class="error"><strong>Error:</strong> Request failed with status code 404</div>
+                        
+                        
+                            <button class="jira-button" onclick="createJiraBug('Calculation Parameters', 'Request failed with status code 404', 'api')">
+                                📝 Create JIRA Bug
+                            </button>
+                        
+                    </div>
+                </div>
+            
+                <div class="api-item">
+                    <div class="item-header failed" onclick="toggleContent(this)">
+                        <div>
+                            <span>Bank Comparison</span>
+                            <span class="tag critical">POST</span>
+                            <span class="tag medium">404</span>
+                        </div>
+                        <div>99ms</div>
+                    </div>
+                    <div class="item-content">
+                        <div><strong>URL:</strong> /api/customer/compare-banks</div>
+                        <div><strong>Method:</strong> POST</div>
+                        <div><strong>Response Time:</strong> 99ms</div>
+                        <div class="error"><strong>Error:</strong> Request failed with status code 404</div>
+                        
+                        
+                            <button class="jira-button" onclick="createJiraBug('Bank Comparison', 'Request failed with status code 404', 'api')">
+                                📝 Create JIRA Bug
+                            </button>
+                        
+                    </div>
+                </div>
+            
+        </div>
+        
+        <div class="section">
+            <h2>🐛 Detected Issues</h2>
+            
+                <div class="bug-item">
+                    <div class="item-header failed" onclick="toggleContent(this)">
+                        <div>
+                            <span>Mortgage Workflow Failure</span>
+                            <span class="tag critical">CRITICAL</span>
+                        </div>
+                        <div>5:29:49 PM</div>
+                    </div>
+                    <div class="item-content">
+                        <div><strong>Description:</strong> Complete mortgage calculation workflow failed: locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByText('Tel Aviv')[22m
+</div>
+                        <div><strong>Workflow:</strong> mortgage</div>
+                        <div><strong>URL:</strong> https://dev2.bankimonline.com/services/calculate-mortgage/1</div>
+                        <div><strong>Browser:</strong> Chromium</div>
+                        <div><strong>Environment:</strong> Production</div>
+                        
+                            <details>
+                                <summary>Error Details</summary>
+                                <pre>locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByText('Tel Aviv')[22m
+
+    at ComprehensiveE2EAutomation.fillMortgageStep1 (/Users/michaelmishayev/Projects/bankDev2_standalone/comprehensive-e2e-automation.js:305:48)
+    at async ComprehensiveE2EAutomation.testMortgageWorkflow (/Users/michaelmishayev/Projects/bankDev2_standalone/comprehensive-e2e-automation.js:219:7)
+    at async ComprehensiveE2EAutomation.runAllTests (/Users/michaelmishayev/Projects/bankDev2_standalone/comprehensive-e2e-automation.js:1290:7)</pre>
+                            </details>
+                        
+                        <button class="jira-button" onclick="createJiraBug('Mortgage Workflow Failure', 'Complete mortgage calculation workflow failed: locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for getByText('Tel Aviv')[22m
+', 'critical')">
+                            📝 Create in JIRA
+                        </button>
+                    </div>
+                </div>
+            
+        </div>
+        
+        <div class="section">
+            <h2>📸 Visual Evidence</h2>
+            <div class="screenshot-gallery">
+                
+                    <div class="screenshot-item" onclick="openModal('screenshots/mortgage-step1-initial-2025-08-17T14-29-18-782Z.png')">
+                        <img src="screenshots/mortgage-step1-initial-2025-08-17T14-29-18-782Z.png" alt="mortgage-step1-initial" loading="lazy">
+                        <div class="caption">
+                            <div><strong>mortgage-step1-initial</strong></div>
+                            <div>Invalid Date</div>
+                        </div>
+                    </div>
+                
+                    <div class="screenshot-item" onclick="openModal('screenshots/mortgage-workflow-error-2025-08-17T14-29-49-325Z.png')">
+                        <img src="screenshots/mortgage-workflow-error-2025-08-17T14-29-49-325Z.png" alt="mortgage-workflow-error" loading="lazy">
+                        <div class="caption">
+                            <div><strong>mortgage-workflow-error</strong></div>
+                            <div>Invalid Date</div>
+                        </div>
+                    </div>
+                
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🤖 Generated by Comprehensive E2E Automation System v3.0</p>
+            <p>Complete business workflow testing with interactive reporting and JIRA integration</p>
+        </div>
+    </div>
+    
+    <div class="modal" id="screenshotModal" onclick="closeModal()">
+        <img id="modalImage" src="" alt="Screenshot">
+    </div>
+    
+    <script>
+        
+        function toggleContent(header) {
+            const content = header.nextElementSibling;
+            content.classList.toggle('expanded');
+            header.classList.toggle('collapsed');
+        }
+        
+        function openModal(imageSrc) {
+            const modal = document.getElementById('screenshotModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.classList.add('active');
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('screenshotModal');
+            modal.classList.remove('active');
+        }
+        
+        function createJiraBug(title, description, type) {
+            // Mock JIRA integration - in real implementation, this would call JIRA API
+            const bugData = {
+                title: title,
+                description: description,
+                type: type,
+                timestamp: new Date().toISOString(),
+                environment: 'Production',
+                browser: 'Chromium',
+                project: 'TVKC'
+            };
+            
+            // Show confirmation
+            if (confirm('Create JIRA bug: "' + title + '"?\n\nThis will create a new issue in JIRA with screenshots and details.')) {
+                // In real implementation, call JIRA API here
+                fetch('/api/jira/create-bug', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(bugData)
+                }).then(response => {
+                    if (response.ok) {
+                        alert('✅ JIRA bug created successfully!');
+                    } else {
+                        alert('❌ Failed to create JIRA bug');
+                    }
+                }).catch(error => {
+                    console.log('JIRA integration demo - bug would be created:', bugData);
+                    alert('📋 JIRA integration demo\n\nBug would be created with:\nTitle: ' + title + '\nType: ' + type);
+                });
+            }
+        }
+        
+        // Auto-expand failed items
+        document.addEventListener('DOMContentLoaded', function() {
+            const failedItems = document.querySelectorAll('.item-header.failed');
+            failedItems.forEach(item => {
+                item.click(); // Auto-expand failed items
+            });
+        });
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,1135 @@
+{
+  "timestamp": "2025-08-18T05:56:56.910Z",
+  "total_dropdowns": 194,
+  "missing_count": 0,
+  "unique_fields_to_fix": [],
+  "screen_statistics": {
+    "calculate_credit_3": {
+      "total": 3,
+      "has_data": 3,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "has_additional",
+          "status": "HAS_DATA",
+          "options": 7
+        },
+        {
+          "field": "main_source",
+          "status": "HAS_DATA",
+          "options": 7
+        },
+        {
+          "field": "types",
+          "status": "HAS_DATA",
+          "options": 5
+        }
+      ]
+    },
+    "credit_step1": {
+      "total": 5,
+      "has_data": 5,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "city",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "loan_amount",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "loan_period",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "loan_purpose",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when_needed",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "credit_step2": {
+      "total": 4,
+      "has_data": 4,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "citizenship",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "family_status",
+          "status": "HAS_DATA",
+          "options": 4
+        },
+        {
+          "field": "how_much_childrens",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "credit_step3": {
+      "total": 9,
+      "has_data": 9,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "additional_income",
+          "status": "HAS_DATA",
+          "options": 1
+        },
+        {
+          "field": "field_of_activity",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "field_of_activity_label",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "field_of_activity_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "main_source",
+          "status": "HAS_DATA",
+          "options": 5
+        },
+        {
+          "field": "obligations",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "professional_sphere",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "professional_sphere_label",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "professional_sphere_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "mortgage_calculation": {
+      "total": 2,
+      "has_data": 2,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "first_home",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when_needed",
+          "status": "HAS_DATA",
+          "options": 4
+        }
+      ]
+    },
+    "mortgage_step1": {
+      "total": 21,
+      "has_data": 21,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "city",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "city_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "first",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "first_home",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "first_home_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "initial_fee",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "initial_payment",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "period",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "price",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "property_ownership",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "property_ownership_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "type",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "type_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when_3_to_6_months",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when_6_to_12_months",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when_more_than_12_months",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when_needed",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when_needed_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when_next_3_months",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when_options",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "mortgage_step2": {
+      "total": 27,
+      "has_data": 27,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "birth_date",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "borrowers",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "children18",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "citizenship",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "citizenship_canada",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "citizenship_france",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "citizenship_germany",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "citizenship_israel",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "citizenship_other",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "citizenship_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "citizenship_russia",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "citizenship_ukraine",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "citizenship_united_kingdom",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "citizenship_united_states",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education",
+          "status": "HAS_DATA",
+          "options": 5
+        },
+        {
+          "field": "education_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "family_status",
+          "status": "HAS_DATA",
+          "options": 4
+        },
+        {
+          "field": "family_status_commonlaw",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "family_status_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "how_much_childrens",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "is_foreigner",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "is_medinsurance",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "is_public",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "name_surname",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "name_surname_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "partner_pay_mortgage",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "tax",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "mortgage_step3": {
+      "total": 26,
+      "has_data": 26,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "additional_income",
+          "status": "HAS_DATA",
+          "options": 1
+        },
+        {
+          "field": "additional_income_label",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "bank",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "bank_container",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "bank_discount",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "bank_hapoalim",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "bank_leumi",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "bank_massad",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "debt_types",
+          "status": "HAS_DATA",
+          "options": 5
+        },
+        {
+          "field": "debt_types_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "field_of_activity",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "field_of_activity_label",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "field_of_activity_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "has_additional_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "main_source",
+          "status": "HAS_DATA",
+          "options": 5
+        },
+        {
+          "field": "main_source_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "monthly_income_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "obligation_container",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "obligation_discount",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "obligation_hapoalim",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "obligation_leumi",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "obligation_mizrahi",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "obligation_other",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "obligations",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "profession_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "sfere",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "mortgage_step4": {
+      "total": 4,
+      "has_data": 4,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "filter_all_mortgage_programs",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "filter_fixed_rate_mortgages",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "filter_prime_rate_mortgages",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "filter_variable_rate_mortgages",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "other_borrowers": {
+      "total": 1,
+      "has_data": 1,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "obligations",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "other_borrowers_step2": {
+      "total": 11,
+      "has_data": 11,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "additional_income",
+          "status": "HAS_DATA",
+          "options": 1
+        },
+        {
+          "field": "field_of_activity",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "field_of_activity_label",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "field_of_activity_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "main_source",
+          "status": "HAS_DATA",
+          "options": 5
+        },
+        {
+          "field": "main_source_placeholder",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "obligations",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "obligations_placeholder",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "professional_sphere",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "professional_sphere_label",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "professional_sphere_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "refinance_credit_2": {
+      "total": 16,
+      "has_data": 16,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "add_partner_as_primary_borrower",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "add_partner_as_secondary_borrower",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "add_partner_no",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_bachelors",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_doctorate",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_elementary",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_high_school",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_high_school_diploma",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_masters",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_professional",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "family_status_cohabiting",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "family_status_divorced",
+          "status": "HAS_DATA",
+          "options": 1
+        },
+        {
+          "field": "family_status_married",
+          "status": "HAS_DATA",
+          "options": 1
+        },
+        {
+          "field": "family_status_separated",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "family_status_single",
+          "status": "HAS_DATA",
+          "options": 1
+        },
+        {
+          "field": "family_status_widowed",
+          "status": "HAS_DATA",
+          "options": 1
+        }
+      ]
+    },
+    "refinance_credit_step1": {
+      "total": 5,
+      "has_data": 5,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "city",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "loan_amount",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "loan_period",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "loan_purpose",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when_needed",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "refinance_credit_step2": {
+      "total": 4,
+      "has_data": 4,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "citizenship",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "family_status",
+          "status": "HAS_DATA",
+          "options": 4
+        },
+        {
+          "field": "how_much_childrens",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "refinance_credit_step3": {
+      "total": 3,
+      "has_data": 3,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "additional_income",
+          "status": "HAS_DATA",
+          "options": 1
+        },
+        {
+          "field": "main_source",
+          "status": "HAS_DATA",
+          "options": 5
+        },
+        {
+          "field": "obligations",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "refinance_mortgage_step1": {
+      "total": 5,
+      "has_data": 5,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "city",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "loan_amount",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "loan_period",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "loan_purpose",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "when_needed",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "refinance_mortgage_step2": {
+      "total": 4,
+      "has_data": 4,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "citizenship",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "family_status",
+          "status": "HAS_DATA",
+          "options": 4
+        },
+        {
+          "field": "how_much_childrens",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "refinance_mortgage_step3": {
+      "total": 3,
+      "has_data": 3,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "additional_income",
+          "status": "HAS_DATA",
+          "options": 1
+        },
+        {
+          "field": "main_source",
+          "status": "HAS_DATA",
+          "options": 5
+        },
+        {
+          "field": "obligations",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "refinance_step1": {
+      "total": 21,
+      "has_data": 21,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "bank_discount",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "bank_hapoalim",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "bank_leumi",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "bank_massad",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "program_fixed_interest",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "program_mixed_interest",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "program_other",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "program_prime_interest",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "program_variable_interest",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "property_type_apartment",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "property_type_commercial",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "property_type_land",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "property_type_other",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "property_type_private_house",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "registration_land",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "registration_no_not_registered",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "why_cash_out_refinance",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "why_consolidate_debts",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "why_lower_interest_rate",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "why_reduce_monthly_payment",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "why_shorten_mortgage_term",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "refinance_step2": {
+      "total": 13,
+      "has_data": 13,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "education",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_bachelors",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_doctorate",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_full_certificate",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_full_high_school_certificate",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_label",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_masters",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_no_certificate",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_no_high_school_certificate",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_partial_certificate",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_partial_high_school_certificat",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_post_secondary",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "education_postsecondary_education",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    },
+    "refinance_step3": {
+      "total": 7,
+      "has_data": 7,
+      "missing": 0,
+      "fields": [
+        {
+          "field": "additional_income",
+          "status": "HAS_DATA",
+          "options": 1
+        },
+        {
+          "field": "field_of_activity",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "field_of_activity_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "main_source",
+          "status": "HAS_DATA",
+          "options": 5
+        },
+        {
+          "field": "main_source_label",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "main_source_ph",
+          "status": "HAS_DATA",
+          "options": 3
+        },
+        {
+          "field": "obligations",
+          "status": "HAS_DATA",
+          "options": 3
+        }
+      ]
+    }
+  },
+  "missing_dropdowns": [],
+  "patterns": {
+    "borrower": [],
+    "income": [],
+    "property": [],
+    "loan": [],
+    "bank": [],
+    "purpose": [],
+    "other": []
+  }
+}

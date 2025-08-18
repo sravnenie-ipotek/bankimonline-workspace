@@ -14,7 +14,8 @@ const cx = classNames.bind(styles)
 
 interface DropdownValue {
   value: string
-  label: string
+  label?: string
+  text?: string
 }
 
 interface DropdownProps
@@ -66,7 +67,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     }
   }, [])
 
-  const handleSelectItem = (item: { value: string; label: string }) => {
+  const handleSelectItem = (item: { value: string; label?: string; text?: string }) => {
     onChange?.(item.value)
     setIsOpen(false)
   }
@@ -76,9 +77,10 @@ const Dropdown: React.FC<DropdownProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [handleClickOutside])
 
-  const filteredOptions = (data || []).filter((item) =>
-    item.label.toLowerCase().includes(searchTerm.toLowerCase())
-  )
+  const filteredOptions = (data || []).filter((item) => {
+    const displayText = item.label || item.text || ''
+    return displayText.toLowerCase().includes(searchTerm.toLowerCase())
+  })
 
   return (
     <>
@@ -104,7 +106,8 @@ const Dropdown: React.FC<DropdownProps> = ({
             className={cx('dropdown-input', 'truncate', className)}
             id={id}
             placeholder={placeholder}
-            value={(data || []).find((item) => item.value === value)?.label || ''}
+            value={(data || []).find((item) => item.value === value)?.label || 
+                   (data || []).find((item) => item.value === value)?.text || ''}
           />
           {isOpen ? (
             <CaretUpIcon
@@ -149,7 +152,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                   onClick={() => handleSelectItem(item)}
                   data-testid={`${dataTestId}-item-${item.value}`}
                 >
-                  {item.label}
+                  {item.label || item.text}
                   {value === item.value && <CheckIcon />}
                 </div>
               ))

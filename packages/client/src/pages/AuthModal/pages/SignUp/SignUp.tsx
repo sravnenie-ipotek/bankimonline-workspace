@@ -74,8 +74,6 @@ const SignUp = () => {
     try {
       const response = await signUp(requestData).unwrap()
       
-      )
-      
       // Store user data in localStorage for immediate login
       localStorage.setItem('USER_DATA', JSON.stringify(response.data))
       

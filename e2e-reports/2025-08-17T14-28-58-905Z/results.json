@@ -1,0 +1,119 @@
+{
+  "workflows": [
+    {
+      "name": "Mortgage Calculation Workflow",
+      "steps": [],
+      "startTime": 1755440939368,
+      "status": "failed",
+      "errors": [
+        {
+          "message": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Tel Aviv')\u001b[22m\n",
+          "stack": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Tel Aviv')\u001b[22m\n\n    at ComprehensiveE2EAutomation.fillMortgageStep1 (/Users/michaelmishayev/Projects/bankDev2_standalone/comprehensive-e2e-automation.js:305:48)\n    at async ComprehensiveE2EAutomation.testMortgageWorkflow (/Users/michaelmishayev/Projects/bankDev2_standalone/comprehensive-e2e-automation.js:219:7)\n    at async ComprehensiveE2EAutomation.runAllTests (/Users/michaelmishayev/Projects/bankDev2_standalone/comprehensive-e2e-automation.js:1290:7)",
+          "timestamp": 1755440989325,
+          "url": "https://dev2.bankimonline.com/services/calculate-mortgage/1"
+        }
+      ],
+      "screenshots": [],
+      "apiCalls": []
+    }
+  ],
+  "apiTests": [
+    {
+      "name": "Cities API",
+      "url": "/api/get-cities?lang=he",
+      "method": "GET",
+      "startTime": 1755440989405,
+      "status": "failed",
+      "response": {
+        "status": 404,
+        "responseTime": 115
+      },
+      "error": "Request failed with status code 404",
+      "endTime": 1755440989520,
+      "duration": 115
+    },
+    {
+      "name": "Calculation Parameters",
+      "url": "/api/v1/calculation-parameters?business_path=mortgage",
+      "method": "GET",
+      "startTime": 1755440989520,
+      "status": "failed",
+      "response": {
+        "status": 404,
+        "responseTime": 75
+      },
+      "error": "Request failed with status code 404",
+      "endTime": 1755440989595,
+      "duration": 75
+    },
+    {
+      "name": "Bank Comparison",
+      "url": "/api/customer/compare-banks",
+      "method": "POST",
+      "startTime": 1755440989595,
+      "status": "failed",
+      "response": {
+        "status": 404,
+        "responseTime": 99
+      },
+      "error": "Request failed with status code 404",
+      "endTime": 1755440989694,
+      "duration": 99
+    }
+  ],
+  "screenshots": [
+    {
+      "name": "mortgage-step1-initial",
+      "filename": "mortgage-step1-initial-2025-08-17T14-29-18-782Z.png",
+      "filepath": "e2e-reports/2025-08-17T14-28-58-905Z/screenshots/mortgage-step1-initial-2025-08-17T14-29-18-782Z.png",
+      "timestamp": "2025-08-17T14-29-18-782Z",
+      "metadata": {
+        "step": 1,
+        "action": "page_load"
+      },
+      "url": "https://dev2.bankimonline.com/services/calculate-mortgage/1",
+      "size": 249419
+    },
+    {
+      "name": "mortgage-workflow-error",
+      "filename": "mortgage-workflow-error-2025-08-17T14-29-49-325Z.png",
+      "filepath": "e2e-reports/2025-08-17T14-28-58-905Z/screenshots/mortgage-workflow-error-2025-08-17T14-29-49-325Z.png",
+      "timestamp": "2025-08-17T14-29-49-325Z",
+      "metadata": {
+        "step": "error",
+        "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Tel Aviv')\u001b[22m\n"
+      },
+      "url": "https://dev2.bankimonline.com/services/calculate-mortgage/1",
+      "size": 238194
+    }
+  ],
+  "videos": [],
+  "bugs": [
+    {
+      "id": "E2E-1755440989405",
+      "title": "Mortgage Workflow Failure",
+      "description": "Complete mortgage calculation workflow failed: locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByText('Tel Aviv')\u001b[22m\n",
+      "severity": "critical",
+      "workflow": "mortgage",
+      "timestamp": "2025-08-17T14:29:49.405Z",
+      "error": {
+        "name": "TimeoutError"
+      },
+      "screenshots": [],
+      "url": "https://dev2.bankimonline.com/services/calculate-mortgage/1",
+      "browser": "Chromium",
+      "environment": "Production"
+    }
+  ],
+  "summary": {
+    "totalWorkflows": 1,
+    "passedWorkflows": 0,
+    "failedWorkflows": 1,
+    "totalApiTests": 3,
+    "passedApiTests": 0,
+    "failedApiTests": 3,
+    "totalTime": 50788,
+    "startTime": "2025-08-17T14:28:58.906Z",
+    "endTime": "2025-08-17T14:29:49.694Z"
+  }
+}

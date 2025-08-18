@@ -1,0 +1,3633 @@
+{
+  "timestamp": "2025-08-18T06:01:16.953Z",
+  "summary": {
+    "totalScreens": 16,
+    "successfulScreens": 16,
+    "totalFields": 161,
+    "emptyFieldCount": 0,
+    "successRate": "100.0"
+  },
+  "results": [
+    {
+      "screen": "mortgage_step1",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 21,
+      "fields": [
+        {
+          "field": "mortgage_step1_city",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_city_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_first",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_first_home",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_first_home_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_initial_fee",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_initial_payment",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_period",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_price",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_property_ownership",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אני לא בעלים של נכס",
+              "label": "אני לא בעלים של נכס"
+            },
+            {
+              "value": "2",
+              "text": "אני בעלים של נכס",
+              "label": "אני בעלים של נכס"
+            },
+            {
+              "value": "3",
+              "text": "אני מוכר נכס",
+              "label": "אני מוכר נכס"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_property_ownership_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_type",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_type_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_when",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_when_3_to_6_months",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_when_6_to_12_months",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_when_more_than_12_months",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_when_needed",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_when_needed_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_when_next_3_months",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step1_when_options",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "mortgage_step2",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 27,
+      "fields": [
+        {
+          "field": "mortgage_step2_birth_date",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_borrowers",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_children18",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_citizenship",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_citizenship_canada",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_citizenship_france",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_citizenship_germany",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_citizenship_israel",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_citizenship_other",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_citizenship_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_citizenship_russia",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_citizenship_ukraine",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_citizenship_united_kingdom",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_citizenship_united_states",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_education",
+          "isEmpty": false,
+          "optionCount": 5,
+          "sampleOptions": [
+            {
+              "value": "high_school",
+              "text": "תיכון",
+              "label": "תיכון"
+            },
+            {
+              "value": "bachelor",
+              "text": "תואר ראשון",
+              "label": "תואר ראשון"
+            },
+            {
+              "value": "master",
+              "text": "תואר שני",
+              "label": "תואר שני"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_education_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_family_status",
+          "isEmpty": false,
+          "optionCount": 4,
+          "sampleOptions": [
+            {
+              "value": "4",
+              "text": "רווק/רווקה",
+              "label": "רווק/רווקה"
+            },
+            {
+              "value": "5",
+              "text": "נשוי/נשואה",
+              "label": "נשוי/נשואה"
+            },
+            {
+              "value": "6",
+              "text": "גרוש/גרושה",
+              "label": "גרוש/גרושה"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_family_status_commonlaw",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_family_status_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_how_much_childrens",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_is_foreigner",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_is_medinsurance",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_is_public",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_name_surname",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_name_surname_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_partner_pay_mortgage",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step2_tax",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "mortgage_step3",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 26,
+      "fields": [
+        {
+          "field": "mortgage_step3_additional_income",
+          "isEmpty": false,
+          "optionCount": 1,
+          "sampleOptions": [
+            {
+              "value": "10",
+              "text": "קצבת פנסיה",
+              "label": "קצבת פנסיה"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_additional_income_label",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_bank",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_bank_container",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_bank_discount",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_bank_hapoalim",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_bank_leumi",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_bank_massad",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_debt_types",
+          "isEmpty": false,
+          "optionCount": 5,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "No obligations",
+              "label": "No obligations"
+            },
+            {
+              "value": "2",
+              "text": "Credit card debt",
+              "label": "Credit card debt"
+            },
+            {
+              "value": "3",
+              "text": "Bank loan",
+              "label": "Bank loan"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_debt_types_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_field_of_activity",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_field_of_activity_label",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_field_of_activity_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_has_additional_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_main_source",
+          "isEmpty": false,
+          "optionCount": 5,
+          "sampleOptions": [
+            {
+              "value": "8",
+              "text": "עובד שכיר",
+              "label": "עובד שכיר"
+            },
+            {
+              "value": "9",
+              "text": "עצמאי",
+              "label": "עצמאי"
+            },
+            {
+              "value": "10",
+              "text": "פנסיונר",
+              "label": "פנסיונר"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_main_source_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_monthly_income_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_obligation_container",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_obligation_discount",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_obligation_hapoalim",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_obligation_leumi",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_obligation_mizrahi",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_obligation_other",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_obligations",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_profession_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step3_sfere",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "mortgage_step4",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 4,
+      "fields": [
+        {
+          "field": "mortgage_step4_filter_all_mortgage_programs",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step4_filter_fixed_rate_mortgages",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step4_filter_prime_rate_mortgages",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "mortgage_step4_filter_variable_rate_mortgages",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "credit_step1",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 5,
+      "fields": [
+        {
+          "field": "credit_step1_city",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step1_loan_amount",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step1_loan_period",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step1_loan_purpose",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step1_when_needed",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "credit_step2",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 4,
+      "fields": [
+        {
+          "field": "credit_step2_citizenship",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step2_education",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step2_family_status",
+          "isEmpty": false,
+          "optionCount": 4,
+          "sampleOptions": [
+            {
+              "value": "4",
+              "text": "רווק/ה",
+              "label": "רווק/ה"
+            },
+            {
+              "value": "5",
+              "text": "נשוי/אה",
+              "label": "נשוי/אה"
+            },
+            {
+              "value": "6",
+              "text": "גרוש/ה",
+              "label": "גרוש/ה"
+            }
+          ]
+        },
+        {
+          "field": "credit_step2_how_much_childrens",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "credit_step3",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 9,
+      "fields": [
+        {
+          "field": "credit_step3_additional_income",
+          "isEmpty": false,
+          "optionCount": 1,
+          "sampleOptions": [
+            {
+              "value": "10",
+              "text": "פנסיה",
+              "label": "פנסיה"
+            }
+          ]
+        },
+        {
+          "field": "credit_step3_field_of_activity",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step3_field_of_activity_label",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step3_field_of_activity_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step3_main_source",
+          "isEmpty": false,
+          "optionCount": 5,
+          "sampleOptions": [
+            {
+              "value": "8",
+              "text": "עובד שכיר",
+              "label": "עובד שכיר"
+            },
+            {
+              "value": "9",
+              "text": "עצמאי",
+              "label": "עצמאי"
+            },
+            {
+              "value": "10",
+              "text": "פנסיה",
+              "label": "פנסיה"
+            }
+          ]
+        },
+        {
+          "field": "credit_step3_obligations",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step3_professional_sphere",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step3_professional_sphere_label",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "credit_step3_professional_sphere_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "refinance_step1",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 21,
+      "fields": [
+        {
+          "field": "refinance_step1_bank_discount",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_bank_hapoalim",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_bank_leumi",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_bank_massad",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_program_fixed_interest",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_program_mixed_interest",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_program_other",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_program_prime_interest",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_program_variable_interest",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_property_type_apartment",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_property_type_commercial",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_property_type_land",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_property_type_other",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_property_type_private_house",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_registration_land",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_registration_no_not_registered",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_why_cash_out_refinance",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_why_consolidate_debts",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_why_lower_interest_rate",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_why_reduce_monthly_payment",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step1_why_shorten_mortgage_term",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "refinance_step2",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 13,
+      "fields": [
+        {
+          "field": "refinance_step2_education",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_bachelors",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_doctorate",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_full_certificate",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_full_high_school_certificate",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_label",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_masters",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_no_certificate",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_no_high_school_certificate",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_partial_certificate",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_partial_high_school_certificat",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_post_secondary",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step2_education_postsecondary_education",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "refinance_step3",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 7,
+      "fields": [
+        {
+          "field": "refinance_step3_additional_income",
+          "isEmpty": false,
+          "optionCount": 1,
+          "sampleOptions": [
+            {
+              "value": "10",
+              "text": "קצבת פנסיה",
+              "label": "קצבת פנסיה"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step3_field_of_activity",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step3_field_of_activity_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step3_main_source",
+          "isEmpty": false,
+          "optionCount": 5,
+          "sampleOptions": [
+            {
+              "value": "8",
+              "text": "עובד שכיר",
+              "label": "עובד שכיר"
+            },
+            {
+              "value": "9",
+              "text": "עצמאי",
+              "label": "עצמאי"
+            },
+            {
+              "value": "10",
+              "text": "פנסיונר",
+              "label": "פנסיונר"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step3_main_source_label",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step3_main_source_ph",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_step3_obligations",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "refinance_mortgage_step1",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 5,
+      "fields": [
+        {
+          "field": "refinance_mortgage_step1_city",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_mortgage_step1_loan_amount",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_mortgage_step1_loan_period",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_mortgage_step1_loan_purpose",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_mortgage_step1_when_needed",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "refinance_mortgage_step2",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 4,
+      "fields": [
+        {
+          "field": "refinance_mortgage_step2_citizenship",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_mortgage_step2_education",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_mortgage_step2_family_status",
+          "isEmpty": false,
+          "optionCount": 4,
+          "sampleOptions": [
+            {
+              "value": "4",
+              "text": "רווק/ה",
+              "label": "רווק/ה"
+            },
+            {
+              "value": "5",
+              "text": "נשוי/אה",
+              "label": "נשוי/אה"
+            },
+            {
+              "value": "6",
+              "text": "גרוש/ה",
+              "label": "גרוש/ה"
+            }
+          ]
+        },
+        {
+          "field": "refinance_mortgage_step2_how_much_childrens",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "refinance_mortgage_step3",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 3,
+      "fields": [
+        {
+          "field": "refinance_mortgage_step3_additional_income",
+          "isEmpty": false,
+          "optionCount": 1,
+          "sampleOptions": [
+            {
+              "value": "10",
+              "text": "פנסיה",
+              "label": "פנסיה"
+            }
+          ]
+        },
+        {
+          "field": "refinance_mortgage_step3_main_source",
+          "isEmpty": false,
+          "optionCount": 5,
+          "sampleOptions": [
+            {
+              "value": "8",
+              "text": "עובד שכיר",
+              "label": "עובד שכיר"
+            },
+            {
+              "value": "9",
+              "text": "עצמאי",
+              "label": "עצמאי"
+            },
+            {
+              "value": "10",
+              "text": "פנסיה",
+              "label": "פנסיה"
+            }
+          ]
+        },
+        {
+          "field": "refinance_mortgage_step3_obligations",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "refinance_credit_step1",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 5,
+      "fields": [
+        {
+          "field": "refinance_credit_step1_city",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_credit_step1_loan_amount",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_credit_step1_loan_period",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_credit_step1_loan_purpose",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_credit_step1_when_needed",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "refinance_credit_step2",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 4,
+      "fields": [
+        {
+          "field": "refinance_credit_step2_citizenship",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_credit_step2_education",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        },
+        {
+          "field": "refinance_credit_step2_family_status",
+          "isEmpty": false,
+          "optionCount": 4,
+          "sampleOptions": [
+            {
+              "value": "4",
+              "text": "רווק/ה",
+              "label": "רווק/ה"
+            },
+            {
+              "value": "5",
+              "text": "נשוי/אה",
+              "label": "נשוי/אה"
+            },
+            {
+              "value": "6",
+              "text": "גרוש/ה",
+              "label": "גרוש/ה"
+            }
+          ]
+        },
+        {
+          "field": "refinance_credit_step2_how_much_childrens",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "refinance_credit_step3",
+      "success": true,
+      "hasOptions": true,
+      "optionCount": 3,
+      "fields": [
+        {
+          "field": "refinance_credit_step3_additional_income",
+          "isEmpty": false,
+          "optionCount": 1,
+          "sampleOptions": [
+            {
+              "value": "10",
+              "text": "פנסיה",
+              "label": "פנסיה"
+            }
+          ]
+        },
+        {
+          "field": "refinance_credit_step3_main_source",
+          "isEmpty": false,
+          "optionCount": 5,
+          "sampleOptions": [
+            {
+              "value": "8",
+              "text": "עובד שכיר",
+              "label": "עובד שכיר"
+            },
+            {
+              "value": "9",
+              "text": "עצמאי",
+              "label": "עצמאי"
+            },
+            {
+              "value": "10",
+              "text": "פנסיה",
+              "label": "פנסיה"
+            }
+          ]
+        },
+        {
+          "field": "refinance_credit_step3_obligations",
+          "isEmpty": false,
+          "optionCount": 3,
+          "sampleOptions": [
+            {
+              "value": "1",
+              "text": "אפשרות 1",
+              "label": "אפשרות 1"
+            },
+            {
+              "value": "2",
+              "text": "אפשרות 2",
+              "label": "אפשרות 2"
+            },
+            {
+              "value": "3",
+              "text": "אפשרות 3",
+              "label": "אפשרות 3"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "emptyDropdowns": []
+}

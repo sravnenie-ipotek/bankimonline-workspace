@@ -1,0 +1,875 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Enhanced QA Report - 2025-08-17T13-58-55-400Z</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 20px; background: #f5f5f5; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; margin-bottom: 30px; }
+        h1 { margin: 0; font-size: 2.5em; }
+        .subtitle { opacity: 0.9; margin-top: 10px; }
+        .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0; }
+        .summary-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .summary-card h3 { margin-top: 0; color: #333; }
+        .summary-card .number { font-size: 2.5em; font-weight: bold; margin: 10px 0; }
+        .pass { color: #10b981; }
+        .fail { color: #ef4444; }
+        .warn { color: #f59e0b; }
+        .section { background: white; padding: 25px; border-radius: 10px; margin: 20px 0; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .section h2 { color: #333; border-bottom: 2px solid #e5e5e5; padding-bottom: 10px; }
+        .test-item { padding: 10px; margin: 5px 0; border-left: 4px solid #e5e5e5; background: #fafafa; }
+        .test-item.pass { border-left-color: #10b981; }
+        .test-item.fail { border-left-color: #ef4444; background: #fef2f2; }
+        .test-item.warn { border-left-color: #f59e0b; background: #fffbeb; }
+        .badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 0.85em; font-weight: 600; margin-left: 10px; }
+        .badge.pass { background: #d1fae5; color: #065f46; }
+        .badge.fail { background: #fee2e2; color: #991b1b; }
+        .badge.warn { background: #fed7aa; color: #92400e; }
+        .enhanced-features { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 10px; margin: 30px 0; }
+        .enhanced-features h3 { margin-top: 0; }
+        .enhanced-features ul { margin: 10px 0; padding-left: 20px; }
+        .enhanced-features li { margin: 5px 0; }
+        .footer { text-align: center; color: #666; margin-top: 50px; padding-top: 20px; border-top: 1px solid #e5e5e5; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 Enhanced QA Automation Report</h1>
+        <div class="subtitle">Complete Website Testing with Priority 1 Features</div>
+        <div class="subtitle">8/17/2025, 5:03:21 PM | https://dev2.bankimonline.com</div>
+    </div>
+    
+    <div class="enhanced-features">
+        <h3>✨ Enhanced Testing Capabilities</h3>
+        <ul>
+            <li>✅ Responsive Design Testing (9 viewports: mobile, tablet, desktop)</li>
+            <li>✅ Cross-Browser Testing (Chrome, Firefox, Safari, Edge, Mobile browsers)</li>
+            <li>✅ JavaScript Error Monitoring (console errors, uncaught exceptions, promise rejections)</li>
+            <li>✅ Core Web Vitals Tracking (LCP, FCP, CLS, FID, TBT, TTFB)</li>
+            <li>✅ Basic Accessibility Testing (WCAG 2.1 Level A compliance)</li>
+        </ul>
+    </div>
+    
+    <div class="summary">
+        <div class="summary-card">
+            <h3>✅ Passed</h3>
+            <div class="number pass">120</div>
+        </div>
+        <div class="summary-card">
+            <h3>❌ Failed</h3>
+            <div class="number fail">23</div>
+        </div>
+        <div class="summary-card">
+            <h3>⚠️ Warnings</h3>
+            <div class="number warn">46</div>
+        </div>
+        <div class="summary-card">
+            <h3>📊 Total Tests</h3>
+            <div class="number">189</div>
+        </div>
+    </div>
+    
+    
+      <div class="section">
+        <h2>JavaScript Errors 
+          <span class="badge pass">2 passed</span>
+          <span class="badge fail">4 failed</span>
+          <span class="badge warn">0 warnings</span>
+        </h2>
+        
+          <div class="test-item fail">
+            <strong>Homepage</strong>: 3 JS errors found: ; ; 
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Mortgage Calculator</strong>: 3 JS errors found: ; ; 
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Credit Calculator</strong>: 3 JS errors found: ; ; 
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Personal Cabinet</strong>: 2 JS errors found: Failed to load resource: the server responded with a status of 404 (); Failed to load resource: the server responded with a status of 404 ()
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Bank Pages</strong>: No JavaScript errors detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page</strong>: No JavaScript errors detected
+          </div>
+        
+      </div>
+      <div class="section">
+        <h2>Core Web Vitals 
+          <span class="badge pass">10 passed</span>
+          <span class="badge fail">2 failed</span>
+          <span class="badge warn">0 warnings</span>
+        </h2>
+        
+          <div class="test-item pass">
+            <strong>Homepage - FCP</strong>: FCP: 44ms (Good)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Homepage - CLS</strong>: CLS: 0.000 (Good)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Homepage - TTFB</strong>: TTFB: 0ms (Good)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Homepage - TBT</strong>: TBT: 0ms (Good)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Homepage - Memory</strong>: Heap usage: 9.54MB / 12.78MB
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Mortgage Calculator</strong>: page.waitForLoadState: Timeout 30000ms exceeded.
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Credit Calculator</strong>: page.waitForLoadState: Timeout 30000ms exceeded.
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page - FCP</strong>: FCP: 48ms (Good)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page - CLS</strong>: CLS: 0.000 (Good)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page - TTFB</strong>: TTFB: 0ms (Good)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page - TBT</strong>: TBT: 0ms (Good)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page - Memory</strong>: Heap usage: 9.54MB / 12.78MB
+          </div>
+        
+      </div>
+      <div class="section">
+        <h2>Responsive Design 
+          <span class="badge pass">73 passed</span>
+          <span class="badge fail">13 failed</span>
+          <span class="badge warn">28 warnings</span>
+        </h2>
+        
+          <div class="test-item fail">
+            <strong>Mobile_XSmall - Homepage Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_XSmall - Mobile Menu</strong>: Hamburger menu present
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_XSmall - Touch Targets</strong>: 5 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_XSmall - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Mobile_XSmall - Mortgage Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_XSmall - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_XSmall - Touch Targets</strong>: 2 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_XSmall - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Mobile_XSmall - Credit Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_XSmall - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_XSmall - Touch Targets</strong>: 2 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_XSmall - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_XSmall - Contact Page No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_XSmall - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_XSmall - Touch Targets</strong>: 5 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_XSmall - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Small - Homepage No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Small - Mobile Menu</strong>: Hamburger menu present
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Small - Touch Targets</strong>: 5 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Small - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Mobile_Small - Mortgage Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Small - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Small - Touch Targets</strong>: 2 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Small - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Mobile_Small - Credit Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Small - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Small - Touch Targets</strong>: 2 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Small - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Small - Contact Page No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Small - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Small - Touch Targets</strong>: 5 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Small - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Medium - Homepage No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Medium - Mobile Menu</strong>: Hamburger menu present
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Medium - Touch Targets</strong>: 5 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Medium - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Mobile_Medium - Mortgage Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Medium - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Medium - Touch Targets</strong>: 2 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Medium - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Mobile_Medium - Credit Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Medium - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Medium - Touch Targets</strong>: 2 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Medium - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Medium - Contact Page No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Medium - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Medium - Touch Targets</strong>: 5 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Medium - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Large - Homepage No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Large - Mobile Menu</strong>: Hamburger menu present
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Large - Touch Targets</strong>: 5 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Mobile_Large - Mortgage Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Large - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Large - Touch Targets</strong>: 2 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Mobile_Large - Credit Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Large - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Large - Touch Targets</strong>: 2 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Large - Contact Page No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Large - Mobile Menu</strong>: No mobile menu found
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mobile_Large - Touch Targets</strong>: 5 touch targets below 48px
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Small - Homepage No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Small - Desktop Nav</strong>: Desktop navigation present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Small - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Tablet_Small - Mortgage Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Small - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Tablet_Small - Credit Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Small - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Small - Contact Page No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Small - Desktop Nav</strong>: Desktop navigation present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Small - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Large - Homepage No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Large - Desktop Nav</strong>: Desktop navigation present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Tablet_Large - Mortgage Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Tablet_Large - Credit Calculator Horizontal Scroll</strong>: Horizontal scroll detected!
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Large - Contact Page No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Large - Desktop Nav</strong>: Desktop navigation present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Tablet_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Laptop - Homepage No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Laptop - Desktop Nav</strong>: Desktop navigation present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Laptop - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Laptop - Mortgage Calculator No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Laptop - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Laptop - Credit Calculator No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Laptop - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Laptop - Contact Page No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Laptop - Desktop Nav</strong>: Desktop navigation present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Laptop - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Medium - Homepage No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Medium - Desktop Nav</strong>: Desktop navigation present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Medium - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Medium - Mortgage Calculator No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Medium - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Medium - Credit Calculator No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Medium - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Medium - Contact Page No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Medium - Desktop Nav</strong>: Desktop navigation present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Medium - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Large - Homepage No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Large - Desktop Nav</strong>: Desktop navigation present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Large - Mortgage Calculator No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Large - Credit Calculator No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Large - Contact Page No Horizontal Scroll</strong>: No horizontal scroll detected
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Large - Desktop Nav</strong>: Desktop navigation present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Desktop_Large - Text Size</strong>: Font size 16px is readable
+          </div>
+        
+      </div>
+      <div class="section">
+        <h2>Accessibility 
+          <span class="badge pass">23 passed</span>
+          <span class="badge fail">4 failed</span>
+          <span class="badge warn">17 warnings</span>
+        </h2>
+        
+          <div class="test-item fail">
+            <strong>Homepage - Alt Text</strong>: 16/24 images missing alt text
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Homepage - Form Labels</strong>: 1/1 inputs may lack proper labels
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Homepage - H1 Tag</strong>: Page has 0 H1 tags (should be 1)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Homepage - Heading Order</strong>: Proper heading hierarchy (2→3)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Homepage - Keyboard Nav</strong>: 48 keyboard-navigable elements
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Homepage - Skip Link</strong>: No skip to content link found
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Homepage - Main Landmark</strong>: Main content landmark present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Homepage - Landmarks</strong>: 4 ARIA landmarks, 0 live regions
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Homepage - Color Contrast</strong>: 3 elements may have low contrast
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Homepage - Focus Indicators</strong>: 1/20 elements may lack focus indicators
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Homepage - Language</strong>: Page language set: he, dir: rtl
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Mortgage Calculator - Alt Text</strong>: 1/1 images missing alt text
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mortgage Calculator - Form Labels</strong>: 4/10 inputs may lack proper labels
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mortgage Calculator - H1 Tag</strong>: Page has 0 H1 tags (should be 1)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mortgage Calculator - Heading Order</strong>: Proper heading hierarchy (2)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mortgage Calculator - Keyboard Nav</strong>: 19 keyboard-navigable elements
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mortgage Calculator - Skip Link</strong>: No skip to content link found
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mortgage Calculator - Main Landmark</strong>: Main content landmark present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mortgage Calculator - Landmarks</strong>: 2 ARIA landmarks, 0 live regions
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mortgage Calculator - Color Contrast</strong>: 20/20 elements have good contrast
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Mortgage Calculator - Focus Indicators</strong>: 6/20 elements may lack focus indicators
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mortgage Calculator - Language</strong>: Page language set: he, dir: rtl
+          </div>
+        
+          <div class="test-item fail">
+            <strong>Contact Page - Alt Text</strong>: 14/15 images missing alt text
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Contact Page - Form Labels</strong>: 1/1 inputs may lack proper labels
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page - H1 Tag</strong>: Page has exactly one H1
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page - Heading Order</strong>: Proper heading hierarchy (1→2→3→4)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page - Keyboard Nav</strong>: 46 keyboard-navigable elements
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Contact Page - Skip Link</strong>: No skip to content link found
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page - Main Landmark</strong>: Main content landmark present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page - Landmarks</strong>: 4 ARIA landmarks, 0 live regions
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Contact Page - Color Contrast</strong>: 3 elements may have low contrast
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Contact Page - Focus Indicators</strong>: 1/20 elements may lack focus indicators
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Contact Page - Language</strong>: Page language set: he, dir: rtl
+          </div>
+        
+          <div class="test-item fail">
+            <strong>About Page - Alt Text</strong>: 15/16 images missing alt text
+          </div>
+        
+          <div class="test-item warn">
+            <strong>About Page - Form Labels</strong>: 1/1 inputs may lack proper labels
+          </div>
+        
+          <div class="test-item pass">
+            <strong>About Page - H1 Tag</strong>: Page has exactly one H1
+          </div>
+        
+          <div class="test-item pass">
+            <strong>About Page - Heading Order</strong>: Proper heading hierarchy (1→2→3)
+          </div>
+        
+          <div class="test-item pass">
+            <strong>About Page - Keyboard Nav</strong>: 27 keyboard-navigable elements
+          </div>
+        
+          <div class="test-item warn">
+            <strong>About Page - Skip Link</strong>: No skip to content link found
+          </div>
+        
+          <div class="test-item pass">
+            <strong>About Page - Main Landmark</strong>: Main content landmark present
+          </div>
+        
+          <div class="test-item pass">
+            <strong>About Page - Landmarks</strong>: 4 ARIA landmarks, 0 live regions
+          </div>
+        
+          <div class="test-item warn">
+            <strong>About Page - Color Contrast</strong>: 3 elements may have low contrast
+          </div>
+        
+          <div class="test-item warn">
+            <strong>About Page - Focus Indicators</strong>: 1/20 elements may lack focus indicators
+          </div>
+        
+          <div class="test-item pass">
+            <strong>About Page - Language</strong>: Page language set: he, dir: rtl
+          </div>
+        
+      </div>
+      <div class="section">
+        <h2>Cross-Browser 
+          <span class="badge pass">12 passed</span>
+          <span class="badge fail">0 failed</span>
+          <span class="badge warn">1 warnings</span>
+        </h2>
+        
+          <div class="test-item pass">
+            <strong>Chromium - Homepage Load</strong>: Page loaded successfully
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Chromium - JavaScript</strong>: JavaScript is functional
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Chromium - CSS</strong>: CSS loaded correctly
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile Chrome - iPhone 13</strong>: Mobile simulation successful
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile Chrome - Android Pixel 5</strong>: Android simulation successful
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Firefox - Homepage Load</strong>: Page loaded successfully
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Firefox - JavaScript</strong>: JavaScript is functional
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Firefox - CSS</strong>: CSS loaded correctly
+          </div>
+        
+          <div class="test-item pass">
+            <strong>WebKit (Safari) - Homepage Load</strong>: Page loaded successfully
+          </div>
+        
+          <div class="test-item pass">
+            <strong>WebKit (Safari) - JavaScript</strong>: JavaScript is functional
+          </div>
+        
+          <div class="test-item pass">
+            <strong>WebKit (Safari) - CSS</strong>: CSS loaded correctly
+          </div>
+        
+          <div class="test-item pass">
+            <strong>Mobile Safari - iPad Pro</strong>: iPad Safari simulation successful
+          </div>
+        
+          <div class="test-item warn">
+            <strong>Microsoft Edge</strong>: Edge not available for testing
+          </div>
+        
+      </div>
+    
+    <div class="footer">
+        <p>Enhanced QA Automation System v2.0 | Powered by Playwright</p>
+        <p>Coverage: Responsive, Cross-Browser, Performance, Accessibility, JavaScript Errors</p>
+    </div>
+</body>
+</html>

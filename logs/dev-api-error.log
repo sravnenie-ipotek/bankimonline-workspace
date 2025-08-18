@@ -176,3 +176,753 @@
 2025-08-17T12:07:11: Property ownership options table not found, using fallback values
 2025-08-17T12:07:11: Property ownership options table not found, using fallback values
 2025-08-17T13:43:59: Property ownership options table not found, using fallback values
+2025-08-18T00:51:21: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1445
+2025-08-18T00:51:21:         });
+2025-08-18T00:51:21:         ^
+2025-08-18T00:51:21: 
+2025-08-18T00:51:21: SyntaxError: Unexpected token '}'
+2025-08-18T00:51:21:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:51:21:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:51:21:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:21:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:21:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:21:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:51:21:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:51:21:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:21:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:21:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:21: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1445
+2025-08-18T00:51:21:         });
+2025-08-18T00:51:21:         ^
+2025-08-18T00:51:21: 
+2025-08-18T00:51:21: SyntaxError: Unexpected token '}'
+2025-08-18T00:51:21:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:51:21:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:51:21:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:21:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:21:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:21:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:51:21:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:51:21:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:21:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:21:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:21: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1445
+2025-08-18T00:51:21:         });
+2025-08-18T00:51:21:         ^
+2025-08-18T00:51:21: 
+2025-08-18T00:51:21: SyntaxError: Unexpected token '}'
+2025-08-18T00:51:21:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:51:21:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:51:21:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:21:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:21:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:21:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:51:21:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:51:21:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:21:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:21:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:21: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1445
+2025-08-18T00:51:21:         });
+2025-08-18T00:51:21:         ^
+2025-08-18T00:51:21: 
+2025-08-18T00:51:21: SyntaxError: Unexpected token '}'
+2025-08-18T00:51:21:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:51:21:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:51:21:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:21:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:21:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:21:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:51:21:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:51:21:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:21:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:21:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:22: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1445
+2025-08-18T00:51:22:         });
+2025-08-18T00:51:22:         ^
+2025-08-18T00:51:22: 
+2025-08-18T00:51:22: SyntaxError: Unexpected token '}'
+2025-08-18T00:51:22:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:51:22:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:51:22:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:22:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:22:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:22:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:51:22:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:51:22:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:22:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:22:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:31: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1164
+2025-08-18T00:51:31:             } else {
+2025-08-18T00:51:31:             ^
+2025-08-18T00:51:31: 
+2025-08-18T00:51:31: SyntaxError: Unexpected token '}'
+2025-08-18T00:51:31:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:51:31:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:51:31:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:31:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:31:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:31:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:51:31:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:51:31:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:31:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:31:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:31: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1164
+2025-08-18T00:51:31:             } else {
+2025-08-18T00:51:31:             ^
+2025-08-18T00:51:31: 
+2025-08-18T00:51:31: SyntaxError: Unexpected token '}'
+2025-08-18T00:51:31:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:51:31:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:51:31:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:31:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:31:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:31:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:51:31:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:51:31:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:31:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:31:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:31: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1164
+2025-08-18T00:51:31:             } else {
+2025-08-18T00:51:31:             ^
+2025-08-18T00:51:31: 
+2025-08-18T00:51:31: SyntaxError: Unexpected token '}'
+2025-08-18T00:51:31:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:51:31:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:51:31:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:31:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:31:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:31:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:51:31:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:51:31:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:31:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:31:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:31: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1164
+2025-08-18T00:51:31:             } else {
+2025-08-18T00:51:31:             ^
+2025-08-18T00:51:31: 
+2025-08-18T00:51:31: SyntaxError: Unexpected token '}'
+2025-08-18T00:51:31:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:51:31:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:51:31:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:31:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:31:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:31:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:51:31:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:51:31:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:31:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:31:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:31: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1164
+2025-08-18T00:51:31:             } else {
+2025-08-18T00:51:31:             ^
+2025-08-18T00:51:31: 
+2025-08-18T00:51:31: SyntaxError: Unexpected token '}'
+2025-08-18T00:51:31:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:51:31:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:51:31:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:31:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:31:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:51:31:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:51:31:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:51:31:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:51:31:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:51:31:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:52:26: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1177
+2025-08-18T00:52:26:             }
+2025-08-18T00:52:26:             ^
+2025-08-18T00:52:26: 
+2025-08-18T00:52:26: SyntaxError: Missing catch or finally after try
+2025-08-18T00:52:26:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:52:26:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:52:26:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:52:26:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:52:26:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:52:26:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:52:26:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:52:26:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:52:26:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:52:26:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:52:26: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1177
+2025-08-18T00:52:26:             }
+2025-08-18T00:52:26:             ^
+2025-08-18T00:52:26: 
+2025-08-18T00:52:26: SyntaxError: Missing catch or finally after try
+2025-08-18T00:52:26:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:52:26:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:52:26:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:52:26:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:52:26:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:52:26:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:52:26:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:52:26:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:52:26:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:52:26:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:52:27: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1177
+2025-08-18T00:52:27:             }
+2025-08-18T00:52:27:             ^
+2025-08-18T00:52:27: 
+2025-08-18T00:52:27: SyntaxError: Missing catch or finally after try
+2025-08-18T00:52:27:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:52:27:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:52:27:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:52:27:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:52:27:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:52:27:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:52:27:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:52:27:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:52:27:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:52:27:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:52:27: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1177
+2025-08-18T00:52:27:             }
+2025-08-18T00:52:27:             ^
+2025-08-18T00:52:27: 
+2025-08-18T00:52:27: SyntaxError: Missing catch or finally after try
+2025-08-18T00:52:27:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:52:27:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:52:27:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:52:27:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:52:27:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:52:27:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:52:27:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:52:27:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:52:27:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:52:27:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:52:27: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1177
+2025-08-18T00:52:27:             }
+2025-08-18T00:52:27:             ^
+2025-08-18T00:52:27: 
+2025-08-18T00:52:27: SyntaxError: Missing catch or finally after try
+2025-08-18T00:52:27:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T00:52:27:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T00:52:27:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:52:27:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:52:27:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T00:52:27:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T00:52:27:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T00:52:27:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T00:52:27:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T00:52:27:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:10:30: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1264
+2025-08-18T02:10:30:     } catch (error) {
+2025-08-18T02:10:30:       ^^^^^
+2025-08-18T02:10:30: 
+2025-08-18T02:10:30: SyntaxError: Unexpected token 'catch'
+2025-08-18T02:10:30:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:10:30:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:10:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:10:30:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:10:30:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:10:30:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:10:30:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:10:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:10:30:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:10:30:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:10:30: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1264
+2025-08-18T02:10:30:     } catch (error) {
+2025-08-18T02:10:30:       ^^^^^
+2025-08-18T02:10:30: 
+2025-08-18T02:10:30: SyntaxError: Unexpected token 'catch'
+2025-08-18T02:10:30:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:10:30:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:10:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:10:30:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:10:30:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:10:30:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:10:30:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:10:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:10:30:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:10:30:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:10:30: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1264
+2025-08-18T02:10:30:     } catch (error) {
+2025-08-18T02:10:30:       ^^^^^
+2025-08-18T02:10:30: 
+2025-08-18T02:10:30: SyntaxError: Unexpected token 'catch'
+2025-08-18T02:10:30:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:10:30:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:10:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:10:30:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:10:30:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:10:30:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:10:30:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:10:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:10:30:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:10:30:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:10:30: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1264
+2025-08-18T02:10:30:     } catch (error) {
+2025-08-18T02:10:30:       ^^^^^
+2025-08-18T02:10:30: 
+2025-08-18T02:10:30: SyntaxError: Unexpected token 'catch'
+2025-08-18T02:10:30:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:10:30:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:10:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:10:30:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:10:30:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:10:30:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:10:30:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:10:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:10:30:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:10:30:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:10:30: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1264
+2025-08-18T02:10:30:     } catch (error) {
+2025-08-18T02:10:30:       ^^^^^
+2025-08-18T02:10:30: 
+2025-08-18T02:10:30: SyntaxError: Unexpected token 'catch'
+2025-08-18T02:10:30:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:10:30:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:10:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:10:30:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:10:30:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:10:30:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:10:30:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:10:30:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:10:30:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:10:30:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:11:16: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1264
+2025-08-18T02:11:16:     } catch (error) {
+2025-08-18T02:11:16:       ^^^^^
+2025-08-18T02:11:16: 
+2025-08-18T02:11:16: SyntaxError: Unexpected token 'catch'
+2025-08-18T02:11:16:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:11:16:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:11:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:11:16:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:11:16:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:11:16:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:11:16:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:11:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:11:16:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:11:16:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:11:16: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1264
+2025-08-18T02:11:16:     } catch (error) {
+2025-08-18T02:11:16:       ^^^^^
+2025-08-18T02:11:16: 
+2025-08-18T02:11:16: SyntaxError: Unexpected token 'catch'
+2025-08-18T02:11:16:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:11:16:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:11:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:11:16:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:11:16:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:11:16:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:11:16:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:11:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:11:16:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:11:16:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:11:16: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1264
+2025-08-18T02:11:16:     } catch (error) {
+2025-08-18T02:11:16:       ^^^^^
+2025-08-18T02:11:16: 
+2025-08-18T02:11:16: SyntaxError: Unexpected token 'catch'
+2025-08-18T02:11:16:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:11:16:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:11:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:11:16:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:11:16:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:11:16:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:11:16:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:11:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:11:16:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:11:16:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:11:16: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1264
+2025-08-18T02:11:16:     } catch (error) {
+2025-08-18T02:11:16:       ^^^^^
+2025-08-18T02:11:16: 
+2025-08-18T02:11:16: SyntaxError: Unexpected token 'catch'
+2025-08-18T02:11:16:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:11:16:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:11:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:11:16:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:11:16:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:11:16:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:11:16:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:11:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:11:16:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:11:16:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:11:16: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1264
+2025-08-18T02:11:16:     } catch (error) {
+2025-08-18T02:11:16:       ^^^^^
+2025-08-18T02:11:16: 
+2025-08-18T02:11:16: SyntaxError: Unexpected token 'catch'
+2025-08-18T02:11:16:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:11:16:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:11:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:11:16:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:11:16:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:11:16:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:11:16:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:11:16:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:11:16:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:11:16:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:12:36: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1410
+2025-08-18T02:12:36: }
+2025-08-18T02:12:36: ^
+2025-08-18T02:12:36: 
+2025-08-18T02:12:36: SyntaxError: Missing catch or finally after try
+2025-08-18T02:12:36:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:12:36:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:12:36:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:12:36:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:12:36:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:12:36:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:12:36:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:12:36:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:12:36:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:12:36:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:12:36: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1410
+2025-08-18T02:12:36: }
+2025-08-18T02:12:36: ^
+2025-08-18T02:12:36: 
+2025-08-18T02:12:36: SyntaxError: Missing catch or finally after try
+2025-08-18T02:12:36:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:12:36:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:12:36:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:12:36:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:12:36:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:12:36:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:12:36:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:12:36:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:12:36:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:12:36:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:12:36: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1410
+2025-08-18T02:12:36: }
+2025-08-18T02:12:36: ^
+2025-08-18T02:12:36: 
+2025-08-18T02:12:36: SyntaxError: Missing catch or finally after try
+2025-08-18T02:12:36:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:12:36:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:12:36:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:12:36:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:12:36:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:12:36:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:12:36:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:12:36:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:12:36:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:12:36:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:12:36: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1410
+2025-08-18T02:12:36: }
+2025-08-18T02:12:36: ^
+2025-08-18T02:12:36: 
+2025-08-18T02:12:36: SyntaxError: Missing catch or finally after try
+2025-08-18T02:12:36:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:12:36:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:12:36:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:12:36:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:12:36:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:12:36:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:12:36:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:12:36:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:12:36:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:12:36:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:12:36: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1410
+2025-08-18T02:12:36: }
+2025-08-18T02:12:36: ^
+2025-08-18T02:12:36: 
+2025-08-18T02:12:36: SyntaxError: Missing catch or finally after try
+2025-08-18T02:12:36:     at wrapSafe (node:internal/modules/cjs/loader:1472:18)
+2025-08-18T02:12:36:     at Module._compile (node:internal/modules/cjs/loader:1501:20)
+2025-08-18T02:12:36:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:12:36:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:12:36:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:12:36:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:12:36:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T02:12:36:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T02:12:36:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T02:12:36:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T02:24:34: Property ownership options table not found, using fallback values
+2025-08-18T02:24:35: Property ownership options table not found, using fallback values
+2025-08-18T02:24:35: Property ownership options table not found, using fallback values
+2025-08-18T02:24:35: Property ownership options table not found, using fallback values
+2025-08-18T02:24:35: Property ownership options table not found, using fallback values
+2025-08-18T02:30:02: Property ownership options table not found, using fallback values
+2025-08-18T02:38:21: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1432
+2025-08-18T02:38:21:     const result = await contentPool.query(`
+2025-08-18T02:38:21:                    ^^^^^
+2025-08-18T02:38:21: 
+2025-08-18T02:38:21: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2025-08-18T02:38:21:     at wrapSafe (node:internal/modules/cjs/loader:1666:18)
+2025-08-18T02:38:21:     at Module._compile (node:internal/modules/cjs/loader:1708:20)
+2025-08-18T02:38:21:     at Object..js (node:internal/modules/cjs/loader:1899:10)
+2025-08-18T02:38:21:     at Module.load (node:internal/modules/cjs/loader:1469:32)
+2025-08-18T02:38:21:     at Module._load (node:internal/modules/cjs/loader:1286:12)
+2025-08-18T02:38:21:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:38:21:     at Module._compile (node:internal/modules/cjs/loader:1734:14)
+2025-08-18T02:38:21:     at Object..js (node:internal/modules/cjs/loader:1899:10)
+2025-08-18T02:38:21:     at Module.load (node:internal/modules/cjs/loader:1469:32)
+2025-08-18T02:38:21:     at Module._load (node:internal/modules/cjs/loader:1286:12)
+2025-08-18T02:38:21: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1432
+2025-08-18T02:38:21:     const result = await contentPool.query(`
+2025-08-18T02:38:21:                    ^^^^^
+2025-08-18T02:38:21: 
+2025-08-18T02:38:21: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2025-08-18T02:38:21:     at wrapSafe (node:internal/modules/cjs/loader:1666:18)
+2025-08-18T02:38:21:     at Module._compile (node:internal/modules/cjs/loader:1708:20)
+2025-08-18T02:38:21:     at Object..js (node:internal/modules/cjs/loader:1899:10)
+2025-08-18T02:38:21:     at Module.load (node:internal/modules/cjs/loader:1469:32)
+2025-08-18T02:38:21:     at Module._load (node:internal/modules/cjs/loader:1286:12)
+2025-08-18T02:38:21:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:38:21:     at Module._compile (node:internal/modules/cjs/loader:1734:14)
+2025-08-18T02:38:21:     at Object..js (node:internal/modules/cjs/loader:1899:10)
+2025-08-18T02:38:21:     at Module.load (node:internal/modules/cjs/loader:1469:32)
+2025-08-18T02:38:21:     at Module._load (node:internal/modules/cjs/loader:1286:12)
+2025-08-18T02:38:21: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1432
+2025-08-18T02:38:21:     const result = await contentPool.query(`
+2025-08-18T02:38:21:                    ^^^^^
+2025-08-18T02:38:21: 
+2025-08-18T02:38:21: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2025-08-18T02:38:21:     at wrapSafe (node:internal/modules/cjs/loader:1666:18)
+2025-08-18T02:38:21:     at Module._compile (node:internal/modules/cjs/loader:1708:20)
+2025-08-18T02:38:21:     at Object..js (node:internal/modules/cjs/loader:1899:10)
+2025-08-18T02:38:21:     at Module.load (node:internal/modules/cjs/loader:1469:32)
+2025-08-18T02:38:21:     at Module._load (node:internal/modules/cjs/loader:1286:12)
+2025-08-18T02:38:21:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:38:21:     at Module._compile (node:internal/modules/cjs/loader:1734:14)
+2025-08-18T02:38:21:     at Object..js (node:internal/modules/cjs/loader:1899:10)
+2025-08-18T02:38:21:     at Module.load (node:internal/modules/cjs/loader:1469:32)
+2025-08-18T02:38:21:     at Module._load (node:internal/modules/cjs/loader:1286:12)
+2025-08-18T02:38:22: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1432
+2025-08-18T02:38:22:     const result = await contentPool.query(`
+2025-08-18T02:38:22:                    ^^^^^
+2025-08-18T02:38:22: 
+2025-08-18T02:38:22: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2025-08-18T02:38:22:     at wrapSafe (node:internal/modules/cjs/loader:1666:18)
+2025-08-18T02:38:22:     at Module._compile (node:internal/modules/cjs/loader:1708:20)
+2025-08-18T02:38:22:     at Object..js (node:internal/modules/cjs/loader:1899:10)
+2025-08-18T02:38:22:     at Module.load (node:internal/modules/cjs/loader:1469:32)
+2025-08-18T02:38:22:     at Module._load (node:internal/modules/cjs/loader:1286:12)
+2025-08-18T02:38:22:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:38:22:     at Module._compile (node:internal/modules/cjs/loader:1734:14)
+2025-08-18T02:38:22:     at Object..js (node:internal/modules/cjs/loader:1899:10)
+2025-08-18T02:38:22:     at Module.load (node:internal/modules/cjs/loader:1469:32)
+2025-08-18T02:38:22:     at Module._load (node:internal/modules/cjs/loader:1286:12)
+2025-08-18T02:38:22: /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:1432
+2025-08-18T02:38:22:     const result = await contentPool.query(`
+2025-08-18T02:38:22:                    ^^^^^
+2025-08-18T02:38:22: 
+2025-08-18T02:38:22: SyntaxError: await is only valid in async functions and the top level bodies of modules
+2025-08-18T02:38:22:     at wrapSafe (node:internal/modules/cjs/loader:1666:18)
+2025-08-18T02:38:22:     at Module._compile (node:internal/modules/cjs/loader:1708:20)
+2025-08-18T02:38:22:     at Object..js (node:internal/modules/cjs/loader:1899:10)
+2025-08-18T02:38:22:     at Module.load (node:internal/modules/cjs/loader:1469:32)
+2025-08-18T02:38:22:     at Module._load (node:internal/modules/cjs/loader:1286:12)
+2025-08-18T02:38:22:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23)
+2025-08-18T02:38:22:     at Module._compile (node:internal/modules/cjs/loader:1734:14)
+2025-08-18T02:38:22:     at Object..js (node:internal/modules/cjs/loader:1899:10)
+2025-08-18T02:38:22:     at Module.load (node:internal/modules/cjs/loader:1469:32)
+2025-08-18T02:38:22:     at Module._load (node:internal/modules/cjs/loader:1286:12)
+2025-08-18T02:42:56: Property ownership options table not found, using fallback values
+2025-08-18T02:42:56: Property ownership options table not found, using fallback values
+2025-08-18T02:42:57: Property ownership options table not found, using fallback values
+2025-08-18T02:42:57: Property ownership options table not found, using fallback values
+2025-08-18T02:45:35: Property ownership options table not found, using fallback values
+2025-08-18T02:45:35: Property ownership options table not found, using fallback values
+2025-08-18T02:45:36: Property ownership options table not found, using fallback values
+2025-08-18T02:45:37: Property ownership options table not found, using fallback values
+2025-08-18T02:52:34: ❌ Content Database connection failed: Connection terminated due to connection timeout
+2025-08-18T03:01:35: Property ownership options table not found, using fallback values
+2025-08-18T03:01:48: Property ownership options table not found, using fallback values
+2025-08-18T03:09:16: Property ownership options table not found, using fallback values
+2025-08-18T03:22:15: Property ownership options table not found, using fallback values
+2025-08-18T03:29:38: Property ownership options table not found, using fallback values
+2025-08-18T03:29:47: Property ownership options table not found, using fallback values
+2025-08-18T03:41:31: Property ownership options table not found, using fallback values
+2025-08-18T03:43:19: Property ownership options table not found, using fallback values
+2025-08-18T11:42:10: Error: listen EADDRINUSE: address already in use :::8003
+2025-08-18T11:42:10:     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+2025-08-18T11:42:10:     at listenInCluster (node:net:1965:12)
+2025-08-18T11:42:10:     at Server.listen (node:net:2067:7)
+2025-08-18T11:42:10:     at Function.listen (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/express/lib/application.js:635:24)
+2025-08-18T11:42:10:     at Object.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9530:5)
+2025-08-18T11:42:10:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T11:42:10:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T11:42:10:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T11:42:10:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T11:42:10:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23) {
+2025-08-18T11:42:10:   code: 'EADDRINUSE',
+2025-08-18T11:42:10:   errno: -48,
+2025-08-18T11:42:10:   syscall: 'listen',
+2025-08-18T11:42:10:   address: '::',
+2025-08-18T11:42:10:   port: 8003
+2025-08-18T11:42:10: }
+2025-08-18T11:42:10: Error: listen EADDRINUSE: address already in use :::8003
+2025-08-18T11:42:10:     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+2025-08-18T11:42:10:     at listenInCluster (node:net:1965:12)
+2025-08-18T11:42:10:     at Server.listen (node:net:2067:7)
+2025-08-18T11:42:10:     at Function.listen (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/express/lib/application.js:635:24)
+2025-08-18T11:42:10:     at Object.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9530:5)
+2025-08-18T11:42:10:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T11:42:10:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T11:42:10:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T11:42:10:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T11:42:10:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23) {
+2025-08-18T11:42:10:   code: 'EADDRINUSE',
+2025-08-18T11:42:10:   errno: -48,
+2025-08-18T11:42:10:   syscall: 'listen',
+2025-08-18T11:42:10:   address: '::',
+2025-08-18T11:42:10:   port: 8003
+2025-08-18T11:42:10: }
+2025-08-18T11:42:10: Error: listen EADDRINUSE: address already in use :::8003
+2025-08-18T11:42:10:     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+2025-08-18T11:42:10:     at listenInCluster (node:net:1965:12)
+2025-08-18T11:42:10:     at Server.listen (node:net:2067:7)
+2025-08-18T11:42:10:     at Function.listen (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/express/lib/application.js:635:24)
+2025-08-18T11:42:10:     at Object.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9530:5)
+2025-08-18T11:42:10:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T11:42:10:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T11:42:10:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T11:42:10:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T11:42:10:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23) {
+2025-08-18T11:42:10:   code: 'EADDRINUSE',
+2025-08-18T11:42:10:   errno: -48,
+2025-08-18T11:42:10:   syscall: 'listen',
+2025-08-18T11:42:10:   address: '::',
+2025-08-18T11:42:10:   port: 8003
+2025-08-18T11:42:10: }
+2025-08-18T11:42:11: Error: listen EADDRINUSE: address already in use :::8003
+2025-08-18T11:42:11:     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+2025-08-18T11:42:11:     at listenInCluster (node:net:1965:12)
+2025-08-18T11:42:11:     at Server.listen (node:net:2067:7)
+2025-08-18T11:42:11:     at Function.listen (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/express/lib/application.js:635:24)
+2025-08-18T11:42:11:     at Object.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9530:5)
+2025-08-18T11:42:11:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T11:42:11:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T11:42:11:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T11:42:11:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T11:42:11:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23) {
+2025-08-18T11:42:11:   code: 'EADDRINUSE',
+2025-08-18T11:42:11:   errno: -48,
+2025-08-18T11:42:11:   syscall: 'listen',
+2025-08-18T11:42:11:   address: '::',
+2025-08-18T11:42:11:   port: 8003
+2025-08-18T11:42:11: }
+2025-08-18T11:42:11: Error: listen EADDRINUSE: address already in use :::8003
+2025-08-18T11:42:11:     at Server.setupListenHandle [as _listen2] (node:net:1908:16)
+2025-08-18T11:42:11:     at listenInCluster (node:net:1965:12)
+2025-08-18T11:42:11:     at Server.listen (node:net:2067:7)
+2025-08-18T11:42:11:     at Function.listen (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/express/lib/application.js:635:24)
+2025-08-18T11:42:11:     at Object.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9530:5)
+2025-08-18T11:42:11:     at Module._compile (node:internal/modules/cjs/loader:1529:14)
+2025-08-18T11:42:11:     at Module._extensions..js (node:internal/modules/cjs/loader:1613:10)
+2025-08-18T11:42:11:     at Module.load (node:internal/modules/cjs/loader:1275:32)
+2025-08-18T11:42:11:     at Module._load (node:internal/modules/cjs/loader:1096:12)
+2025-08-18T11:42:11:     at Object.<anonymous> (/opt/homebrew/lib/node_modules/pm2/lib/ProcessContainerFork.js:33:23) {
+2025-08-18T11:42:11:   code: 'EADDRINUSE',
+2025-08-18T11:42:11:   errno: -48,
+2025-08-18T11:42:11:   syscall: 'listen',
+2025-08-18T11:42:11:   address: '::',
+2025-08-18T11:42:11:   port: 8003
+2025-08-18T11:42:11: }
+2025-08-18T11:46:01: Get calculation parameters error: Error: Connection terminated due to connection timeout
+2025-08-18T11:46:01:     at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+2025-08-18T11:46:01:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-08-18T11:46:01:     at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+2025-08-18T11:46:01:   [cause]: Error: Connection terminated unexpectedly
+2025-08-18T11:46:01:       at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+2025-08-18T11:46:01:       at Object.onceWrapper (node:events:638:28)
+2025-08-18T11:46:01:       at Connection.emit (node:events:524:28)
+2025-08-18T11:46:01:       at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+2025-08-18T11:46:01:       at Socket.emit (node:events:524:28)
+2025-08-18T11:46:01:       at TCP.<anonymous> (node:net:343:12)
+2025-08-18T11:46:01: }
+2025-08-18T11:46:01: Get calculation parameters error: Error: Connection terminated due to connection timeout
+2025-08-18T11:46:01:     at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+2025-08-18T11:46:01:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-08-18T11:46:01:     at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+2025-08-18T11:46:01:   [cause]: Error: Connection terminated unexpectedly
+2025-08-18T11:46:01:       at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+2025-08-18T11:46:01:       at Object.onceWrapper (node:events:638:28)
+2025-08-18T11:46:01:       at Connection.emit (node:events:524:28)
+2025-08-18T11:46:01:       at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+2025-08-18T11:46:01:       at Socket.emit (node:events:536:35)
+2025-08-18T11:46:01:       at TCP.<anonymous> (node:net:343:12)
+2025-08-18T11:46:01: }
+2025-08-18T11:46:01: Get calculation parameters error: Error: Connection terminated due to connection timeout
+2025-08-18T11:46:01:     at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+2025-08-18T11:46:01:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-08-18T11:46:01:     at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+2025-08-18T11:46:01:   [cause]: Error: Connection terminated unexpectedly
+2025-08-18T11:46:01:       at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+2025-08-18T11:46:01:       at Object.onceWrapper (node:events:638:28)
+2025-08-18T11:46:01:       at Connection.emit (node:events:524:28)
+2025-08-18T11:46:01:       at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+2025-08-18T11:46:01:       at Socket.emit (node:events:536:35)
+2025-08-18T11:46:01:       at TCP.<anonymous> (node:net:343:12)
+2025-08-18T11:46:01: }
+2025-08-18T11:46:01: Get calculation parameters error: Error: Connection terminated due to connection timeout
+2025-08-18T11:46:01:     at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+2025-08-18T11:46:01:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-08-18T11:46:01:     at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+2025-08-18T11:46:01:   [cause]: Error: Connection terminated unexpectedly
+2025-08-18T11:46:01:       at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+2025-08-18T11:46:01:       at Object.onceWrapper (node:events:638:28)
+2025-08-18T11:46:01:       at Connection.emit (node:events:524:28)
+2025-08-18T11:46:01:       at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+2025-08-18T11:46:01:       at Socket.emit (node:events:536:35)
+2025-08-18T11:46:01:       at TCP.<anonymous> (node:net:343:12)
+2025-08-18T11:46:01: }
+2025-08-18T11:46:03: Get calculation parameters error: Error: Connection terminated due to connection timeout
+2025-08-18T11:46:03:     at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+2025-08-18T11:46:03:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-08-18T11:46:03:     at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+2025-08-18T11:46:03:   [cause]: Error: Connection terminated unexpectedly
+2025-08-18T11:46:03:       at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+2025-08-18T11:46:03:       at Object.onceWrapper (node:events:638:28)
+2025-08-18T11:46:03:       at Connection.emit (node:events:524:28)
+2025-08-18T11:46:03:       at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+2025-08-18T11:46:03:       at Socket.emit (node:events:524:28)
+2025-08-18T11:46:03:       at TCP.<anonymous> (node:net:343:12)
+2025-08-18T11:46:03: }
+2025-08-18T11:46:06: Get calculation parameters error: Error: Connection terminated due to connection timeout
+2025-08-18T11:46:06:     at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+2025-08-18T11:46:06:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-08-18T11:46:06:     at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+2025-08-18T11:46:06:   [cause]: Error: Connection terminated unexpectedly
+2025-08-18T11:46:06:       at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+2025-08-18T11:46:06:       at Object.onceWrapper (node:events:638:28)
+2025-08-18T11:46:06:       at Connection.emit (node:events:524:28)
+2025-08-18T11:46:06:       at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+2025-08-18T11:46:06:       at Socket.emit (node:events:524:28)
+2025-08-18T11:46:06:       at TCP.<anonymous> (node:net:343:12)
+2025-08-18T11:46:06: }
+2025-08-18T11:46:06: Get calculation parameters error: Error: Connection terminated due to connection timeout
+2025-08-18T11:46:06:     at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+2025-08-18T11:46:06:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-08-18T11:46:06:     at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+2025-08-18T11:46:06:   [cause]: Error: Connection terminated unexpectedly
+2025-08-18T11:46:06:       at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+2025-08-18T11:46:06:       at Object.onceWrapper (node:events:638:28)
+2025-08-18T11:46:06:       at Connection.emit (node:events:524:28)
+2025-08-18T11:46:06:       at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+2025-08-18T11:46:06:       at Socket.emit (node:events:524:28)
+2025-08-18T11:46:06:       at TCP.<anonymous> (node:net:343:12)
+2025-08-18T11:46:06: }
+2025-08-18T11:46:06: Get calculation parameters error: Error: Connection terminated due to connection timeout
+2025-08-18T11:46:06:     at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+2025-08-18T11:46:06:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-08-18T11:46:06:     at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+2025-08-18T11:46:06:   [cause]: Error: Connection terminated unexpectedly
+2025-08-18T11:46:06:       at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+2025-08-18T11:46:06:       at Object.onceWrapper (node:events:638:28)
+2025-08-18T11:46:06:       at Connection.emit (node:events:524:28)
+2025-08-18T11:46:06:       at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+2025-08-18T11:46:06:       at Socket.emit (node:events:524:28)
+2025-08-18T11:46:06:       at TCP.<anonymous> (node:net:343:12)
+2025-08-18T11:46:06: }
+2025-08-18T11:46:27: Property ownership options table not found, using fallback values
+2025-08-18T11:46:27: Property ownership options table not found, using fallback values
+2025-08-18T11:46:27: Property ownership options table not found, using fallback values
+2025-08-18T11:46:28: Property ownership options table not found, using fallback values
+2025-08-18T11:46:29: Get calculation parameters error: Error: Connection terminated due to connection timeout
+2025-08-18T11:46:29:     at /Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg-pool/index.js:45:11
+2025-08-18T11:46:29:     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+2025-08-18T11:46:29:     at async /Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9386:24 {
+2025-08-18T11:46:29:   [cause]: Error: Connection terminated unexpectedly
+2025-08-18T11:46:29:       at Connection.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/client.js:136:73)
+2025-08-18T11:46:29:       at Object.onceWrapper (node:events:638:28)
+2025-08-18T11:46:29:       at Connection.emit (node:events:524:28)
+2025-08-18T11:46:29:       at Socket.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/pg/lib/connection.js:62:12)
+2025-08-18T11:46:29:       at Socket.emit (node:events:524:28)
+2025-08-18T11:46:29:       at TCP.<anonymous> (node:net:343:12)
+2025-08-18T11:46:29: }
+2025-08-18T11:46:57: ❌ Failed to get content for screen: Connection terminated due to connection timeout
+2025-08-18T11:47:05: ❌ Main Database connection failed: Connection terminated due to connection timeout
+2025-08-18T11:47:24: ❌ Failed to get content for screen: Connection terminated due to connection timeout
+2025-08-18T11:47:25: ❌ Failed to get content for screen: Connection terminated due to connection timeout
+2025-08-18T11:51:41: ❌ Content Database connection failed: Connection terminated due to connection timeout

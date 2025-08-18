@@ -1,0 +1,1926 @@
+{
+  "test_execution": {
+    "timestamp": "2025-08-18T01:12:54.626Z",
+    "start_time": 1755479574627,
+    "duration_minutes": 3,
+    "browser": "chrome-headed",
+    "environment": "localhost:5173",
+    "jsonb_system_active": true,
+    "test_completed": false,
+    "crash_count": 0
+  },
+  "overall_status": "FAIL",
+  "summary": {
+    "total_processes_tested": 3,
+    "successful_processes": 3,
+    "failed_processes": 0,
+    "total_steps_tested": 12,
+    "total_dropdowns_tested": 172,
+    "total_empty_dropdowns": 124,
+    "total_working_dropdowns": 48,
+    "total_critical_issues": 0
+  },
+  "processes": {
+    "calculate_mortgage": {
+      "status": "PASS",
+      "steps_completed": 4,
+      "dropdowns_tested": 76,
+      "empty_dropdowns": [
+        {
+          "name": "calculate_mortgage_step1_dropdown3",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown4",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown5",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown6",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown7",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown8",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown9",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown10",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown11",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown12",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown0",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown1",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown2",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown3",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step1_dropdown4",
+          "step": 1
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown3",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown4",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown5",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown6",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown7",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown8",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown9",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown10",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown11",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown12",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown0",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown1",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown2",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown3",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step2_dropdown4",
+          "step": 2
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown3",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown4",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown5",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown6",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown7",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown8",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown9",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown10",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown11",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown12",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown0",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown1",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown2",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown3",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step3_dropdown4",
+          "step": 3
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown3",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown4",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown5",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown6",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown7",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown8",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown9",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown10",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown11",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown12",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown0",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown1",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown2",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown3",
+          "step": 4
+        },
+        {
+          "name": "calculate_mortgage_step4_dropdown4",
+          "step": 4
+        }
+      ],
+      "errors": []
+    },
+    "calculate_credit": {
+      "status": "PASS",
+      "steps_completed": 4,
+      "dropdowns_tested": 40,
+      "empty_dropdowns": [
+        {
+          "name": "calculate_credit_step1_dropdown3",
+          "step": 1
+        },
+        {
+          "name": "calculate_credit_step1_dropdown4",
+          "step": 1
+        },
+        {
+          "name": "calculate_credit_step1_dropdown5",
+          "step": 1
+        },
+        {
+          "name": "calculate_credit_step1_dropdown6",
+          "step": 1
+        },
+        {
+          "name": "calculate_credit_step1_dropdown7",
+          "step": 1
+        },
+        {
+          "name": "calculate_credit_step1_dropdown8",
+          "step": 1
+        },
+        {
+          "name": "calculate_credit_step2_dropdown3",
+          "step": 2
+        },
+        {
+          "name": "calculate_credit_step2_dropdown4",
+          "step": 2
+        },
+        {
+          "name": "calculate_credit_step2_dropdown5",
+          "step": 2
+        },
+        {
+          "name": "calculate_credit_step2_dropdown6",
+          "step": 2
+        },
+        {
+          "name": "calculate_credit_step2_dropdown7",
+          "step": 2
+        },
+        {
+          "name": "calculate_credit_step2_dropdown8",
+          "step": 2
+        },
+        {
+          "name": "calculate_credit_step3_dropdown3",
+          "step": 3
+        },
+        {
+          "name": "calculate_credit_step3_dropdown4",
+          "step": 3
+        },
+        {
+          "name": "calculate_credit_step3_dropdown5",
+          "step": 3
+        },
+        {
+          "name": "calculate_credit_step3_dropdown6",
+          "step": 3
+        },
+        {
+          "name": "calculate_credit_step3_dropdown7",
+          "step": 3
+        },
+        {
+          "name": "calculate_credit_step3_dropdown8",
+          "step": 3
+        },
+        {
+          "name": "calculate_credit_step4_dropdown3",
+          "step": 4
+        },
+        {
+          "name": "calculate_credit_step4_dropdown4",
+          "step": 4
+        },
+        {
+          "name": "calculate_credit_step4_dropdown5",
+          "step": 4
+        },
+        {
+          "name": "calculate_credit_step4_dropdown6",
+          "step": 4
+        },
+        {
+          "name": "calculate_credit_step4_dropdown7",
+          "step": 4
+        },
+        {
+          "name": "calculate_credit_step4_dropdown8",
+          "step": 4
+        }
+      ],
+      "errors": []
+    },
+    "refinance_mortgage": {
+      "status": "PASS",
+      "steps_completed": 4,
+      "dropdowns_tested": 56,
+      "empty_dropdowns": [
+        {
+          "name": "refinance_mortgage_step1_dropdown3",
+          "step": 1
+        },
+        {
+          "name": "refinance_mortgage_step1_dropdown4",
+          "step": 1
+        },
+        {
+          "name": "refinance_mortgage_step1_dropdown5",
+          "step": 1
+        },
+        {
+          "name": "refinance_mortgage_step1_dropdown6",
+          "step": 1
+        },
+        {
+          "name": "refinance_mortgage_step1_dropdown7",
+          "step": 1
+        },
+        {
+          "name": "refinance_mortgage_step1_dropdown8",
+          "step": 1
+        },
+        {
+          "name": "refinance_mortgage_step1_dropdown9",
+          "step": 1
+        },
+        {
+          "name": "refinance_mortgage_step1_dropdown10",
+          "step": 1
+        },
+        {
+          "name": "refinance_mortgage_step1_dropdown11",
+          "step": 1
+        },
+        {
+          "name": "refinance_mortgage_step1_dropdown12",
+          "step": 1
+        },
+        {
+          "name": "refinance_mortgage_step2_dropdown3",
+          "step": 2
+        },
+        {
+          "name": "refinance_mortgage_step2_dropdown4",
+          "step": 2
+        },
+        {
+          "name": "refinance_mortgage_step2_dropdown5",
+          "step": 2
+        },
+        {
+          "name": "refinance_mortgage_step2_dropdown6",
+          "step": 2
+        },
+        {
+          "name": "refinance_mortgage_step2_dropdown7",
+          "step": 2
+        },
+        {
+          "name": "refinance_mortgage_step2_dropdown8",
+          "step": 2
+        },
+        {
+          "name": "refinance_mortgage_step2_dropdown9",
+          "step": 2
+        },
+        {
+          "name": "refinance_mortgage_step2_dropdown10",
+          "step": 2
+        },
+        {
+          "name": "refinance_mortgage_step2_dropdown11",
+          "step": 2
+        },
+        {
+          "name": "refinance_mortgage_step2_dropdown12",
+          "step": 2
+        },
+        {
+          "name": "refinance_mortgage_step3_dropdown3",
+          "step": 3
+        },
+        {
+          "name": "refinance_mortgage_step3_dropdown4",
+          "step": 3
+        },
+        {
+          "name": "refinance_mortgage_step3_dropdown5",
+          "step": 3
+        },
+        {
+          "name": "refinance_mortgage_step3_dropdown6",
+          "step": 3
+        },
+        {
+          "name": "refinance_mortgage_step3_dropdown7",
+          "step": 3
+        },
+        {
+          "name": "refinance_mortgage_step3_dropdown8",
+          "step": 3
+        },
+        {
+          "name": "refinance_mortgage_step3_dropdown9",
+          "step": 3
+        },
+        {
+          "name": "refinance_mortgage_step3_dropdown10",
+          "step": 3
+        },
+        {
+          "name": "refinance_mortgage_step3_dropdown11",
+          "step": 3
+        },
+        {
+          "name": "refinance_mortgage_step3_dropdown12",
+          "step": 3
+        },
+        {
+          "name": "refinance_mortgage_step4_dropdown3",
+          "step": 4
+        },
+        {
+          "name": "refinance_mortgage_step4_dropdown4",
+          "step": 4
+        },
+        {
+          "name": "refinance_mortgage_step4_dropdown5",
+          "step": 4
+        },
+        {
+          "name": "refinance_mortgage_step4_dropdown6",
+          "step": 4
+        },
+        {
+          "name": "refinance_mortgage_step4_dropdown7",
+          "step": 4
+        },
+        {
+          "name": "refinance_mortgage_step4_dropdown8",
+          "step": 4
+        },
+        {
+          "name": "refinance_mortgage_step4_dropdown9",
+          "step": 4
+        },
+        {
+          "name": "refinance_mortgage_step4_dropdown10",
+          "step": 4
+        },
+        {
+          "name": "refinance_mortgage_step4_dropdown11",
+          "step": 4
+        },
+        {
+          "name": "refinance_mortgage_step4_dropdown12",
+          "step": 4
+        }
+      ],
+      "errors": []
+    },
+    "refinance_credit": {
+      "status": "NOT_TESTED",
+      "steps_completed": 0,
+      "dropdowns_tested": 0,
+      "empty_dropdowns": [],
+      "errors": []
+    }
+  },
+  "critical_issues": [
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown9"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown10"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown11"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown12"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown0"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown1"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown2"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_mortgage_step1_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown9"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown10"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown11"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown12"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown0"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown1"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown2"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_mortgage_step2_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown9"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown10"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown11"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown12"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown0"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown1"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown2"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_mortgage_step3_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown9"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown10"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown11"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown12"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown0"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown1"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown2"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_mortgage_step4_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_credit_step1_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_credit_step1_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_credit_step1_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_credit_step1_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_credit_step1_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 1,
+      "issue": "Empty dropdown: calculate_credit_step1_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_credit_step2_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_credit_step2_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_credit_step2_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_credit_step2_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_credit_step2_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 2,
+      "issue": "Empty dropdown: calculate_credit_step2_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_credit_step3_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_credit_step3_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_credit_step3_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_credit_step3_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_credit_step3_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 3,
+      "issue": "Empty dropdown: calculate_credit_step3_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_credit_step4_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_credit_step4_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_credit_step4_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_credit_step4_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_credit_step4_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "calculate_credit",
+      "step": 4,
+      "issue": "Empty dropdown: calculate_credit_step4_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: refinance_mortgage_step1_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: refinance_mortgage_step1_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: refinance_mortgage_step1_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: refinance_mortgage_step1_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: refinance_mortgage_step1_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: refinance_mortgage_step1_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: refinance_mortgage_step1_dropdown9"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: refinance_mortgage_step1_dropdown10"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: refinance_mortgage_step1_dropdown11"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 1,
+      "issue": "Empty dropdown: refinance_mortgage_step1_dropdown12"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: refinance_mortgage_step2_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: refinance_mortgage_step2_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: refinance_mortgage_step2_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: refinance_mortgage_step2_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: refinance_mortgage_step2_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: refinance_mortgage_step2_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: refinance_mortgage_step2_dropdown9"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: refinance_mortgage_step2_dropdown10"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: refinance_mortgage_step2_dropdown11"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 2,
+      "issue": "Empty dropdown: refinance_mortgage_step2_dropdown12"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: refinance_mortgage_step3_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: refinance_mortgage_step3_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: refinance_mortgage_step3_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: refinance_mortgage_step3_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: refinance_mortgage_step3_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: refinance_mortgage_step3_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: refinance_mortgage_step3_dropdown9"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: refinance_mortgage_step3_dropdown10"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: refinance_mortgage_step3_dropdown11"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 3,
+      "issue": "Empty dropdown: refinance_mortgage_step3_dropdown12"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: refinance_mortgage_step4_dropdown3"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: refinance_mortgage_step4_dropdown4"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: refinance_mortgage_step4_dropdown5"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: refinance_mortgage_step4_dropdown6"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: refinance_mortgage_step4_dropdown7"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: refinance_mortgage_step4_dropdown8"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: refinance_mortgage_step4_dropdown9"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: refinance_mortgage_step4_dropdown10"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: refinance_mortgage_step4_dropdown11"
+    },
+    {
+      "severity": "CRITICAL",
+      "process": "refinance_mortgage",
+      "step": 4,
+      "issue": "Empty dropdown: refinance_mortgage_step4_dropdown12"
+    }
+  ],
+  "empty_dropdowns_detail": [
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown3"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown4"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown5"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown6"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown7"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown8"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown9"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown10"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown11"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown12"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown0"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown1"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown2"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown3"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 1,
+      "dropdown": "calculate_mortgage_step1_dropdown4"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown3"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown4"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown5"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown6"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown7"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown8"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown9"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown10"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown11"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown12"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown0"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown1"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown2"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown3"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 2,
+      "dropdown": "calculate_mortgage_step2_dropdown4"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown3"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown4"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown5"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown6"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown7"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown8"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown9"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown10"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown11"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown12"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown0"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown1"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown2"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown3"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 3,
+      "dropdown": "calculate_mortgage_step3_dropdown4"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown3"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown4"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown5"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown6"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown7"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown8"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown9"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown10"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown11"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown12"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown0"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown1"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown2"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown3"
+    },
+    {
+      "process": "calculate_mortgage",
+      "step": 4,
+      "dropdown": "calculate_mortgage_step4_dropdown4"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 1,
+      "dropdown": "calculate_credit_step1_dropdown3"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 1,
+      "dropdown": "calculate_credit_step1_dropdown4"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 1,
+      "dropdown": "calculate_credit_step1_dropdown5"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 1,
+      "dropdown": "calculate_credit_step1_dropdown6"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 1,
+      "dropdown": "calculate_credit_step1_dropdown7"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 1,
+      "dropdown": "calculate_credit_step1_dropdown8"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 2,
+      "dropdown": "calculate_credit_step2_dropdown3"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 2,
+      "dropdown": "calculate_credit_step2_dropdown4"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 2,
+      "dropdown": "calculate_credit_step2_dropdown5"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 2,
+      "dropdown": "calculate_credit_step2_dropdown6"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 2,
+      "dropdown": "calculate_credit_step2_dropdown7"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 2,
+      "dropdown": "calculate_credit_step2_dropdown8"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 3,
+      "dropdown": "calculate_credit_step3_dropdown3"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 3,
+      "dropdown": "calculate_credit_step3_dropdown4"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 3,
+      "dropdown": "calculate_credit_step3_dropdown5"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 3,
+      "dropdown": "calculate_credit_step3_dropdown6"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 3,
+      "dropdown": "calculate_credit_step3_dropdown7"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 3,
+      "dropdown": "calculate_credit_step3_dropdown8"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 4,
+      "dropdown": "calculate_credit_step4_dropdown3"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 4,
+      "dropdown": "calculate_credit_step4_dropdown4"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 4,
+      "dropdown": "calculate_credit_step4_dropdown5"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 4,
+      "dropdown": "calculate_credit_step4_dropdown6"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 4,
+      "dropdown": "calculate_credit_step4_dropdown7"
+    },
+    {
+      "process": "calculate_credit",
+      "step": 4,
+      "dropdown": "calculate_credit_step4_dropdown8"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 1,
+      "dropdown": "refinance_mortgage_step1_dropdown3"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 1,
+      "dropdown": "refinance_mortgage_step1_dropdown4"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 1,
+      "dropdown": "refinance_mortgage_step1_dropdown5"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 1,
+      "dropdown": "refinance_mortgage_step1_dropdown6"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 1,
+      "dropdown": "refinance_mortgage_step1_dropdown7"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 1,
+      "dropdown": "refinance_mortgage_step1_dropdown8"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 1,
+      "dropdown": "refinance_mortgage_step1_dropdown9"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 1,
+      "dropdown": "refinance_mortgage_step1_dropdown10"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 1,
+      "dropdown": "refinance_mortgage_step1_dropdown11"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 1,
+      "dropdown": "refinance_mortgage_step1_dropdown12"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 2,
+      "dropdown": "refinance_mortgage_step2_dropdown3"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 2,
+      "dropdown": "refinance_mortgage_step2_dropdown4"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 2,
+      "dropdown": "refinance_mortgage_step2_dropdown5"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 2,
+      "dropdown": "refinance_mortgage_step2_dropdown6"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 2,
+      "dropdown": "refinance_mortgage_step2_dropdown7"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 2,
+      "dropdown": "refinance_mortgage_step2_dropdown8"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 2,
+      "dropdown": "refinance_mortgage_step2_dropdown9"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 2,
+      "dropdown": "refinance_mortgage_step2_dropdown10"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 2,
+      "dropdown": "refinance_mortgage_step2_dropdown11"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 2,
+      "dropdown": "refinance_mortgage_step2_dropdown12"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 3,
+      "dropdown": "refinance_mortgage_step3_dropdown3"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 3,
+      "dropdown": "refinance_mortgage_step3_dropdown4"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 3,
+      "dropdown": "refinance_mortgage_step3_dropdown5"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 3,
+      "dropdown": "refinance_mortgage_step3_dropdown6"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 3,
+      "dropdown": "refinance_mortgage_step3_dropdown7"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 3,
+      "dropdown": "refinance_mortgage_step3_dropdown8"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 3,
+      "dropdown": "refinance_mortgage_step3_dropdown9"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 3,
+      "dropdown": "refinance_mortgage_step3_dropdown10"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 3,
+      "dropdown": "refinance_mortgage_step3_dropdown11"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 3,
+      "dropdown": "refinance_mortgage_step3_dropdown12"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 4,
+      "dropdown": "refinance_mortgage_step4_dropdown3"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 4,
+      "dropdown": "refinance_mortgage_step4_dropdown4"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 4,
+      "dropdown": "refinance_mortgage_step4_dropdown5"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 4,
+      "dropdown": "refinance_mortgage_step4_dropdown6"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 4,
+      "dropdown": "refinance_mortgage_step4_dropdown7"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 4,
+      "dropdown": "refinance_mortgage_step4_dropdown8"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 4,
+      "dropdown": "refinance_mortgage_step4_dropdown9"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 4,
+      "dropdown": "refinance_mortgage_step4_dropdown10"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 4,
+      "dropdown": "refinance_mortgage_step4_dropdown11"
+    },
+    {
+      "process": "refinance_mortgage",
+      "step": 4,
+      "dropdown": "refinance_mortgage_step4_dropdown12"
+    }
+  ],
+  "api_validation": {
+    "endpoints_tested": 1,
+    "successful_responses": 1,
+    "failed_responses": 0,
+    "empty_data_responses": 0
+  }
+}

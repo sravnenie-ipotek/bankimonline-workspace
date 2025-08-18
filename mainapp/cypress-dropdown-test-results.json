@@ -1,0 +1,139 @@
+
+DevTools listening on ws://127.0.0.1:59798/devtools/browser/4d5ce3f1-dd5b-46cf-a80b-e5e34e5f1239
+Missing baseUrl in compilerOptions. tsconfig-paths will be skipped
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        14.5.4                                                                         │
+  │ Browser:        Electron 130 (headless)                                                        │
+  │ Node Version:   v20.19.4 (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/nod │
+  │                 e/bin/node)                                                                    │
+  │ Specs:          1 found (comprehensive-dropdown-test.cy.ts)                                    │
+  │ Searched:       cypress/e2e/comprehensive-dropdown-test.cy.ts                                  │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  comprehensive-dropdown-test.cy.ts                                               (1 of 1)
+Browserslist: browsers data (caniuse-lite) is 6 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+{
+  "stats": {
+    "suites": 1,
+    "tests": 4,
+    "passes": 4,
+    "pending": 0,
+    "failures": 0,
+    "start": "2025-08-18T06:41:16.807Z",
+    "end": "2025-08-18T06:41:29.812Z",
+    "duration": 13005
+  },
+  "tests": [
+    {
+      "title": "Maps all dropdowns in Calculate Mortgage",
+      "fullTitle": "Comprehensive Custom Dropdown Detection Test Maps all dropdowns in Calculate Mortgage",
+      "file": null,
+      "duration": 3443,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "Maps all dropdowns in Calculate Credit",
+      "fullTitle": "Comprehensive Custom Dropdown Detection Test Maps all dropdowns in Calculate Credit",
+      "file": null,
+      "duration": 3109,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "Maps all dropdowns in Refinance Mortgage",
+      "fullTitle": "Comprehensive Custom Dropdown Detection Test Maps all dropdowns in Refinance Mortgage",
+      "file": null,
+      "duration": 3097,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "Maps all dropdowns in Refinance Credit",
+      "fullTitle": "Comprehensive Custom Dropdown Detection Test Maps all dropdowns in Refinance Credit",
+      "file": null,
+      "duration": 3094,
+      "currentRetry": 0,
+      "err": {}
+    }
+  ],
+  "pending": [],
+  "failures": [],
+  "passes": [
+    {
+      "title": "Maps all dropdowns in Calculate Mortgage",
+      "fullTitle": "Comprehensive Custom Dropdown Detection Test Maps all dropdowns in Calculate Mortgage",
+      "file": null,
+      "duration": 3443,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "Maps all dropdowns in Calculate Credit",
+      "fullTitle": "Comprehensive Custom Dropdown Detection Test Maps all dropdowns in Calculate Credit",
+      "file": null,
+      "duration": 3109,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "Maps all dropdowns in Refinance Mortgage",
+      "fullTitle": "Comprehensive Custom Dropdown Detection Test Maps all dropdowns in Refinance Mortgage",
+      "file": null,
+      "duration": 3097,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "Maps all dropdowns in Refinance Credit",
+      "fullTitle": "Comprehensive Custom Dropdown Detection Test Maps all dropdowns in Refinance Credit",
+      "file": null,
+      "duration": 3094,
+      "currentRetry": 0,
+      "err": {}
+    }
+  ]
+}
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        4                                                                                │
+  │ Passing:      4                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        true                                                                             │
+  │ Duration:     13 seconds                                                                       │
+  │ Spec Ran:     comprehensive-dropdown-test.cy.ts                                                │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Video)
+
+  -  Video output: /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/videos/comprehensive-dropdown-test.cy.ts.mp4
+
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✔  comprehensive-dropdown-test.cy.ts        00:13        4        4        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✔  All specs passed!                        00:13        4        4        -        -        -  
+

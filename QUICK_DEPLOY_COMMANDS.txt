@@ -1,0 +1,33 @@
+# QUICK JSONB DEPLOYMENT COMMANDS
+# Copy and paste these commands into your SSH session on 185.253.72.80
+
+# 1. Navigate to project and pull latest code
+cd /var/www/bankimonline
+git fetch origin
+git checkout feature/jsonb-dropdowns
+git pull origin feature/jsonb-dropdowns
+
+# 2. Add Neon environment variable
+echo "NEON_CONTENT_URL=postgresql://neondb_owner:npg_jbzp4wqldAu7@ep-wild-feather-ad1lx42k.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require" >> .env
+
+# 3. Build frontend
+cd mainapp && npm run build && cd ..
+
+# 4. Restart server
+pkill -f "node.*server-db.js"
+nohup node server/server-db.js > server.log 2>&1 &
+
+# 5. Test API (wait 5 seconds first)
+sleep 5
+curl -s "http://localhost:8003/api/dropdowns/mortgage_step1/en" | jq '.status, .jsonb_source, .performance'
+
+# 6. Check logs
+tail -f server.log
+
+# ============================================
+# TO ROLLBACK IF NEEDED:
+# ============================================
+cd /var/www/bankimonline
+git checkout main
+pkill -f "node.*server-db.js"
+nohup node server/server-db.js > server.log 2>&1 &

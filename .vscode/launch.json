@@ -1,0 +1,65 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "✅ Modern: Backend + Frontend",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "presentation": {
+        "group": "modern",
+        "order": 1
+      }
+    },
+    {
+      "name": "✅ Modern: Frontend Only",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/mainapp",
+      "preLaunchTask": "npm: dev - mainapp",
+      "presentation": {
+        "group": "modern",
+        "order": 2
+      }
+    },
+    {
+      "name": "✅ Modern: PM2 All Services",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "pm2:dev"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "presentation": {
+        "group": "modern",
+        "order": 3
+      }
+    },
+    {
+      "name": "❌ DEPRECATED: Old Monorepo",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/legacy-warning.js",
+      "presentation": {
+        "group": "deprecated",
+        "hidden": true
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "🚀 Full Stack Development (Modern)",
+      "configurations": ["✅ Modern: Backend + Frontend"],
+      "stopAll": true,
+      "presentation": {
+        "group": "modern",
+        "order": 1
+      }
+    }
+  ]
+}

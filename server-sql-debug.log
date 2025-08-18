@@ -1,0 +1,14 @@
+[dotenv@17.2.1] injecting env (5) from .env -- tip: ⚙️  suppress all logs with { quiet: true }
+📊 [main] DB Config: postgresql://***:***@maglev.proxy.rlwy.net:43809/railway | SSL: on
+📊 [content] DB Config: Neon JSONB | SSL: on
+✅ Main Database connected successfully
+✅ Content Database connected successfully
+✅ Test content table cleanup completed
+🚀 Using JSONB dropdowns for mortgage_step2/he (production mode)
+⚡ JSONB Cache MISS for mortgage_step2/he - Querying dropdown_configs
+🔍 DEBUG: Query returned 27 rows from dropdown_configs
+🎓 DEBUG: Education dropdown - Options count: 0
+   dropdown_data.options:  []
+🔍 DEBUG: Response will have 27 dropdowns
+✅ JSONB Response cached for mortgage_step2/he with 27 dropdowns
+[0mGET /api/dropdowns/mortgage_step2/he [32m200[0m 340.673 ms - 10016[0m

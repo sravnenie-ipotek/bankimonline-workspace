@@ -1,0 +1,81 @@
+{
+  "summary": {
+    "totalIssues": 3,
+    "criticalIssues": 1,
+    "majorIssues": 1,
+    "minorIssues": 1,
+    "executionTime": 19,
+    "timestamp": "2025-08-17T14:02:56.374Z"
+  },
+  "issues": [
+    {
+      "id": "BANK-1755439376373",
+      "summary": "[JavaScript Errors] 3 console errors detected on Homepage",
+      "description": "**Test Failure Report**\n\n**Category:** JavaScript Errors\n**Page:** Homepage\n**Issue:** 3 console errors detected\n**Severity:** critical\n\n**Details:**\nMultiple JavaScript errors found on homepage affecting functionality\n\n**Steps to Reproduce:**\n1. Navigate to homepage\n2. Open browser console\n3. Observe error messages\n\n**Expected Result:** No JavaScript errors\n**Actual Result:** 3 errors in console\n\n**Browser:** Chrome\n**Viewport:** Desktop\n**Timestamp:** 2025-08-17T14:02:56.373Z\n\n*🤖 Generated automatically by QA Automation System*",
+      "priority": "Highest",
+      "labels": [
+        "automation",
+        "qa",
+        "javascript-errors",
+        "chrome",
+        "viewport-desktop"
+      ],
+      "assignee": "auto-qa-system",
+      "reporter": "QA Automation",
+      "created": "2025-08-17T14:02:56.374Z",
+      "screenshot": null,
+      "environment": "Production"
+    },
+    {
+      "id": "BANK-1755439376374",
+      "summary": "[Accessibility] 16/24 images missing alt text on Mortgage Calculator",
+      "description": "**Test Failure Report**\n\n**Category:** Accessibility\n**Page:** Mortgage Calculator\n**Issue:** 16/24 images missing alt text\n**Severity:** major\n\n**Details:**\nImages lack proper alt text attributes for screen readers\n\n\n**Browser:** Firefox\n**Viewport:** Mobile\n**Timestamp:** 2025-08-17T14:02:56.374Z\n\n*🤖 Generated automatically by QA Automation System*",
+      "priority": "High",
+      "labels": [
+        "automation",
+        "qa",
+        "accessibility",
+        "firefox",
+        "viewport-mobile"
+      ],
+      "assignee": "auto-qa-system",
+      "reporter": "QA Automation",
+      "created": "2025-08-17T14:02:56.374Z",
+      "screenshot": null,
+      "environment": "Production"
+    },
+    {
+      "id": "BANK-1755439376374",
+      "summary": "[Responsive Design] Horizontal scroll on mobile on Credit Calculator",
+      "description": "**Test Failure Report**\n\n**Category:** Responsive Design\n**Page:** Credit Calculator\n**Issue:** Horizontal scroll on mobile\n**Severity:** minor\n\n**Details:**\nPage overflows horizontally on 320px viewport\n\n\n**Browser:** Safari\n**Viewport:** Mobile_XSmall\n**Timestamp:** 2025-08-17T14:02:56.374Z\n\n*🤖 Generated automatically by QA Automation System*",
+      "priority": "Medium",
+      "labels": [
+        "automation",
+        "qa",
+        "responsive-design",
+        "safari",
+        "viewport-mobile_xsmall"
+      ],
+      "assignee": "auto-qa-system",
+      "reporter": "QA Automation",
+      "created": "2025-08-17T14:02:56.374Z",
+      "screenshot": null,
+      "environment": "Production"
+    }
+  ],
+  "metadata": {
+    "generatedBy": "QA Automation System v2.0",
+    "jiraConfig": {
+      "baseUrl": "http://localhost:3000",
+      "project": "BANK",
+      "issueType": "Bug",
+      "priority": {
+        "critical": "Highest",
+        "major": "High",
+        "minor": "Medium",
+        "trivial": "Low"
+      }
+    },
+    "environment": "Production"
+  }
+}
