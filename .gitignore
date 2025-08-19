@@ -55,3 +55,14 @@ server/docs/QA/jira/jiraIntegration.md
 # Claude agents and sensitive files
 .claude/
 
+
+# Security: Files with API tokens and secrets
+test-atlassian-connection.js
+mainapp/cypress/e2e/figma-access-test.cy.ts
+mainapp/cypress/support/figma-file-config.ts
+mainapp/scripts/test-figma-access.js
+mainapp/scripts/extract-figma-nodes.js
+
+# Large video files from QA reports
+qa-reports/*/videos/*.webm
+qa-reports/*/videos/*.mp4
