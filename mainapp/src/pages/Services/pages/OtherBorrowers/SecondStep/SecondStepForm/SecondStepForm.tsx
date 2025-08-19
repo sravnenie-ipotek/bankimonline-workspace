@@ -53,12 +53,35 @@ const SecondStepForm = () => {
   // This ensures FieldOfActivity calls /api/dropdowns/other_borrowers_step2/he instead of /api/dropdowns/auto-detect/he
   const componentsByIncomeSource = getComponentsByIncomeSource('other_borrowers_step2')
 
-  // Direct mapping: dropdown values match componentsByIncomeSource keys exactly
-  const incomeSourceKey = mainSourceOfIncome || ''
+  // ✅ FIXED: Map numeric dropdown values to semantic keys for componentsByIncomeSource
+  // MainSourceOfIncome returns numeric values ('1', '2', '3') but componentsByIncomeSource expects semantic keys
+  const getIncomeSourceKey = (optionValue: string): string => {
+    // If already semantic, return as-is (future-proofing)
+    if (optionValue && !optionValue.match(/^\d+$/)) {
+      return optionValue
+    }
+    
+    // Numeric-to-semantic mapping for main source income dropdown
+    const numericMapping: { [key: string]: string } = {
+      '1': 'employee',        // שכיר - Employee
+      '2': 'selfemployed',    // עצמאי - Self-employed
+      '3': 'pension',         // פנסיה - Pension
+      '4': 'student',         // סטודנט - Student
+      '5': 'unpaid_leave',    // חופשה ללא תשלום - Unpaid leave
+      '6': 'unemployed',      // ללא הכנסה - Unemployed
+      '7': 'other'            // אחר - Other
+    }
+    return numericMapping[optionValue] || ''
+  }
+  
+  const incomeSourceKey = getIncomeSourceKey(mainSourceOfIncome || '')
 
   // Debug logging for conditional field rendering
   console.log('OtherBorrowers SecondStep debug:', {
-    incomeSourceKey,
+    originalValue: mainSourceOfIncome,
+    mappedKey: incomeSourceKey,
+    hasComponents: !!componentsByIncomeSource[incomeSourceKey],
+    componentsCount: componentsByIncomeSource[incomeSourceKey]?.length || 0,
     allFormValues: values
   })
 

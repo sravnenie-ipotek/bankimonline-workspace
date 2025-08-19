@@ -16,7 +16,7 @@ import { AdditionalIncome } from '@src/pages/Services/components/AdditionalIncom
 import { AdditionalIncomeAmount } from '@src/pages/Services/components/AdditionalIncomeAmount'
 import { MainSourceOfIncome } from '@src/pages/Services/components/MainSourceOfIncome'
 import { Obligation } from '@src/pages/Services/components/Obligation'
-import { componentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource'
+import { getComponentsByIncomeSource } from '@src/pages/Services/constants/componentsByIncomeSource'
 import { componentsByObligation } from '@src/pages/Services/constants/componentsByObligation'
 import {
   createAdditionalIncomeModal,
@@ -109,35 +109,35 @@ const SecondStepForm = () => {
       <FormCaption title={`${getContent('app.other_borrowers.step2.borrowers_income_title', 'Borrower\'s Income')}#${pageId}`} />
 
       <Row>
-        <MainSourceOfIncome screenLocation="mortgage_step3" />
-        {/* Map legacy and semantic values to componentsByIncomeSource keys */}
+        <MainSourceOfIncome screenLocation="other_borrowers_step2" />
+        {/* ✅ FIXED: Use screen-specific components and proper mapping */}
         {(() => {
-          const incomeMapping: { [key: string]: string } = {
-            employee: 'employee',
-            selfemployed: 'selfemployed',
-            pension: 'pension',
-            student: 'student',
-            unemployed: 'unemployed',
-            unpaid_leave: 'unpaid_leave',
-            other: 'other',
-            '1': 'employee',
-            '2': 'selfemployed',
-            '3': 'selfemployed',
-            '4': 'pension',
-            '5': 'student',
-            '6': 'unemployed',
-            '7': 'other',
-            option_1: 'employee',
-            option_2: 'selfemployed',
-            option_3: 'selfemployed',
-            option_4: 'pension',
-            option_5: 'student',
-            option_6: 'unemployed',
-            option_7: 'other',
+          const componentsByIncomeSource = getComponentsByIncomeSource('other_borrowers_step2')
+          
+          // Map numeric dropdown values to semantic keys for componentsByIncomeSource
+          const getIncomeSourceKey = (optionValue: string): string => {
+            // If already semantic, return as-is (future-proofing)
+            if (optionValue && !optionValue.match(/^\d+$/)) {
+              return optionValue
+            }
+            
+            // Numeric-to-semantic mapping for main source income dropdown
+            const numericMapping: { [key: string]: string } = {
+              '1': 'employee',        // שכיר - Employee
+              '2': 'selfemployed',    // עצמאי - Self-employed
+              '3': 'pension',         // פנסיה - Pension
+              '4': 'student',         // סטודנט - Student
+              '5': 'unpaid_leave',    // חופשה ללא תשלום - Unpaid leave
+              '6': 'unemployed',      // ללא הכנסה - Unemployed
+              '7': 'other'            // אחר - Other
+            }
+            return numericMapping[optionValue] || ''
           }
-          const incomeKey = incomeMapping[String(mainSourceOfIncome)] || ''
-          return incomeKey && componentsByIncomeSource[incomeKey]
-            ? componentsByIncomeSource[incomeKey].map((Component, index) => (
+          
+          const incomeSourceKey = getIncomeSourceKey(mainSourceOfIncome || '')
+          
+          return incomeSourceKey && componentsByIncomeSource[incomeSourceKey]
+            ? componentsByIncomeSource[incomeSourceKey].map((Component, index) => (
                 <React.Fragment key={index}>{Component}</React.Fragment>
               ))
             : null
