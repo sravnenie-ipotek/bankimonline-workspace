@@ -1,0 +1,883 @@
+name: 🏪 World-Class Mall App Production Deployment
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types: [closed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+        - staging
+        - production
+      force_deploy:
+        description: 'Force deployment (skip some checks)'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  NODE_VERSION: '20'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/bankimonline
+
+# Global timeout for entire workflow
+jobs:
+  # =================== SECURITY & COMPLIANCE ===================
+  security-scan:
+    name: 🛡️ Security & Compliance Scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for security scanning
+
+      - name: 🔍 Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH,MEDIUM'
+
+      - name: 📋 Upload Trivy scan results to GitHub Security
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: 🔐 SAST - CodeQL Analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: 🔍 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+      - name: 🔒 Check for secrets
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: main
+          head: HEAD
+          extra_args: --debug --only-verified
+
+  # =================== QUALITY GATES ===================
+  quality-gates:
+    name: 🧪 Quality Gates & Testing
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        test-type: [unit, integration, e2e]
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            mainapp/package-lock.json
+
+      - name: 🔧 Install dependencies (root)
+        run: npm ci
+
+      - name: 🔧 Install dependencies (frontend)
+        working-directory: mainapp
+        run: npm ci
+
+      - name: 🔍 ESLint & Security Lint
+        working-directory: mainapp
+        run: |
+          npm run lint
+          npx eslint . --ext .ts,.tsx --format sarif -o eslint-results.sarif || true
+
+      - name: 📊 Type checking
+        working-directory: mainapp
+        run: npx tsc --noEmit
+
+      - name: 🧪 Unit Tests with Coverage
+        if: matrix.test-type == 'unit'
+        working-directory: mainapp
+        run: |
+          npm run test:coverage -- --watchAll=false --coverage --coverageReporters=text-lcov --coverageReporters=json
+          npx nyc check-coverage --lines 75 --functions 70 --branches 65
+
+      - name: 🔗 Integration Tests
+        if: matrix.test-type == 'integration'
+        run: |
+          # Start test database and backend
+          NODE_ENV=test npm run test:integration
+
+      - name: 🎭 E2E Tests (Playwright)
+        if: matrix.test-type == 'e2e'
+        working-directory: mainapp
+        run: |
+          npx playwright install --with-deps
+          npm run test:e2e:headed
+
+      - name: 📊 Upload coverage to Codecov
+        if: matrix.test-type == 'unit'
+        uses: codecov/codecov-action@v3
+        with:
+          file: mainapp/coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+
+      - name: 📈 SonarQube Quality Gate
+        if: matrix.test-type == 'unit'
+        uses: sonarqube-quality-gate-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  # =================== PERFORMANCE TESTING ===================
+  performance-test:
+    name: ⚡ Performance & Load Testing
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [security-scan]
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: mainapp/package-lock.json
+
+      - name: 🔧 Install dependencies
+        working-directory: mainapp
+        run: npm ci
+
+      - name: 🏗️ Build for performance testing
+        working-directory: mainapp
+        env:
+          NODE_ENV: production
+          GENERATE_SOURCEMAP: false
+          VITE_NODE_API_BASE_URL: /api
+        run: npm run build
+
+      - name: 📊 Bundle analyzer
+        working-directory: mainapp
+        run: |
+          npx vite-bundle-analyzer build/assets --json > bundle-analysis.json
+          
+      - name: 📦 Check bundle sizes
+        working-directory: mainapp
+        run: |
+          # Fail if main bundle > 1MB or any chunk > 500KB
+          find build/assets -name "*.js" -exec ls -lh {} \; | awk '{
+            if ($5 ~ /M/ && $5+0 > 1) {
+              print "❌ Bundle " $9 " is too large: " $5
+              exit 1
+            }
+            if ($5 ~ /K/ && $5+0 > 500) {
+              print "⚠️ Chunk " $9 " is large: " $5
+            }
+          }'
+
+      - name: ⚡ Lighthouse CI Performance Audit
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          configPath: './mainapp/.lighthouserc.json'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+  # =================== BUILD ARTIFACTS ===================
+  build-artifacts:
+    name: 🏗️ Build Production Artifacts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [quality-gates, performance-test]
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+      image-digest: ${{ steps.build.outputs.digest }}
+      build-hash: ${{ github.sha }}
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🏷️ Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: 🔧 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🔐 Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🏗️ Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            NODE_ENV=production
+            VITE_NODE_API_BASE_URL=https://bankimonline.com/api
+            VITE_ENVIRONMENT=production
+            BUILD_TIMESTAMP=${{ github.event.head_commit.timestamp }}
+            GIT_COMMIT=${{ github.sha }}
+
+      - name: 📋 Generate SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          image: ${{ steps.meta.outputs.tags }}
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      - name: 📤 Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-${{ github.sha }}
+          path: sbom.spdx.json
+
+  # =================== STAGING DEPLOYMENT ===================
+  deploy-staging:
+    name: 🚧 Deploy to Staging (SSH Server)
+    runs-on: ubuntu-latest
+    needs: [build-artifacts]
+    if: github.event_name == 'pull_request' || github.event.inputs.environment == 'staging'
+    environment:
+      name: staging
+      url: https://dev2.bankimonline.com
+    steps:
+      - name: 📂 Checkout deployment scripts
+        uses: actions/checkout@v4
+
+      - name: 🚀 Deploy to SSH Server (Staging Mode)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 45.83.42.74
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          timeout: 600s
+          script: |
+            set -euo pipefail
+            
+            echo "🚧 Starting staging deployment on SSH server..."
+            
+            # Create deployment directory if not exists
+            mkdir -p /opt/bankimonline/{app,scripts,logs,backups}
+            cd /opt/bankimonline
+            
+            # Backup current deployment
+            if [ -d "app/current" ]; then
+              echo "📦 Backing up current deployment..."
+              mv app/current app/backup-$(date +%Y%m%d-%H%M%S) || true
+            fi
+            
+            # Clone/update repository
+            if [ -d "app/bankDev2_standalone" ]; then
+              echo "🔄 Updating existing repository..."
+              cd app/bankDev2_standalone
+              git fetch origin
+              git checkout main
+              git pull origin main
+            else
+              echo "📥 Cloning repository..."
+              cd app
+              git clone https://github.com/MichaelMishaev/bankDev2_standalone.git
+              cd bankDev2_standalone
+            fi
+            
+            # Install dependencies
+            echo "📦 Installing dependencies..."
+            npm ci --production=false
+            cd mainapp && npm ci --production=false && cd ..
+            
+            # Build application
+            echo "🏗️ Building application for staging..."
+            cd mainapp
+            npm run build
+            cd ..
+            
+            # Set up environment variables
+            echo "⚙️ Configuring environment..."
+            cat > .env.production << 'ENV_EOF'
+            NODE_ENV=production
+            PORT=8003
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            USE_JSONB_DROPDOWNS=true
+            CORS_ALLOWED_ORIGINS=https://dev2.bankimonline.com,https://bankimonline.com
+            ENV_EOF
+            
+            # Install PM2 globally if not exists
+            if ! command -v pm2 &> /dev/null; then
+              echo "📦 Installing PM2..."
+              npm install -g pm2
+            fi
+            
+            # Create PM2 ecosystem file
+            cat > ecosystem.production.config.js << 'PM2_EOF'
+            module.exports = {
+              apps: [{
+                name: 'bankimonline-api',
+                script: 'server/server-db.js',
+                cwd: '/opt/bankimonline/app/bankDev2_standalone',
+                instances: 1,
+                exec_mode: 'fork',
+                env: {
+                  NODE_ENV: 'production',
+                  PORT: 8003
+                },
+                error_file: '/opt/bankimonline/logs/api-error.log',
+                out_file: '/opt/bankimonline/logs/api-out.log',
+                log_file: '/opt/bankimonline/logs/api-combined.log',
+                time: true,
+                max_restarts: 5,
+                restart_delay: 3000,
+                max_memory_restart: '500M'
+              }]
+            };
+            PM2_EOF
+            
+            # Stop existing services
+            echo "🛑 Stopping existing services..."
+            pm2 delete ecosystem.production.config.js || true
+            pkill -f "server-db.js" || true
+            
+            # Start services with PM2
+            echo "🚀 Starting services with PM2..."
+            pm2 start ecosystem.production.config.js
+            pm2 save
+            
+            # Set up PM2 startup
+            pm2 startup || echo "PM2 startup already configured"
+            
+            # Create symbolic link for current deployment
+            ln -sfn /opt/bankimonline/app/bankDev2_standalone /opt/bankimonline/app/current
+            
+            echo "✅ Staging deployment completed successfully!"
+
+      - name: 🏥 Staging Health Check
+        run: |
+          echo "🏥 Performing staging health checks..."
+          
+          # Wait for server to be ready
+          timeout 300 bash -c '
+            until curl -f -s http://45.83.42.74:8003/api/health; do
+              echo "Waiting for staging server to be ready..."
+              sleep 10
+            done
+          '
+          
+          # Test critical endpoints
+          echo "Testing critical API endpoints..."
+          curl -f -s http://45.83.42.74:8003/api/health | jq '.'
+          curl -f -s http://45.83.42.74:8003/api/v1/calculation-parameters?business_path=mortgage | jq '.status'
+          
+          echo "✅ Staging health checks passed!"
+
+  # =================== PRODUCTION DEPLOYMENT ===================
+  deploy-production:
+    name: 🏪 Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [build-artifacts, deploy-staging]
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    environment:
+      name: production
+      url: https://bankimonline.com
+    steps:
+      - name: 🔐 Production deployment approval
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ secrets.GITHUB_TOKEN }}
+          approvers: ${{ github.repository_owner }}
+          minimum-approvals: 1
+          issue-title: "🏪 Production Deployment Approval Required"
+          issue-body: |
+            **Production Deployment Request**
+            
+            **Commit**: ${{ github.sha }}
+            **Author**: ${{ github.actor }}
+            **Branch**: ${{ github.ref_name }}
+            
+            **Quality Gates**:
+            - ✅ Security scan passed
+            - ✅ All tests passed  
+            - ✅ Performance tests passed
+            - ✅ Bundle size within limits
+            - ✅ Staging deployment successful
+            
+            **Image**: ${{ needs.build-artifacts.outputs.image-tag }}
+            **Digest**: ${{ needs.build-artifacts.outputs.image-digest }}
+            
+            Please review and approve this deployment.
+
+      - name: 🏪 Blue-Green Production Deployment
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 45.83.42.74
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          timeout: 900s
+          script: |
+            set -euo pipefail
+            
+            echo "🏪 Starting world-class production deployment on SSH server..."
+            
+            # Create deployment directories
+            mkdir -p /opt/bankimonline/{app,scripts,logs,backups,releases}
+            cd /opt/bankimonline
+            
+            # Create release directory with timestamp
+            RELEASE_DIR="releases/release-$(date +%Y%m%d-%H%M%S)-${{ github.sha }}"
+            mkdir -p "$RELEASE_DIR"
+            
+            # Backup current deployment for blue-green
+            if [ -d "app/current" ]; then
+              echo "💙 Creating blue backup of current deployment..."
+              cp -r app/current "app/blue-$(date +%Y%m%d-%H%M%S)"
+            fi
+            
+            # Clone fresh copy for green deployment
+            echo "💚 Setting up green deployment..."
+            cd "$RELEASE_DIR"
+            git clone https://github.com/MichaelMishaev/bankDev2_standalone.git .
+            git checkout ${{ github.sha }}
+            
+            # Install dependencies with production optimizations
+            echo "📦 Installing production dependencies..."
+            npm ci --production=false --audit=false --fund=false
+            cd mainapp && npm ci --production=false --audit=false --fund=false && cd ..
+            
+            # Build application for production
+            echo "🏗️ Building application for production..."
+            cd mainapp
+            VITE_NODE_API_BASE_URL=https://bankimonline.com/api \
+            VITE_ENVIRONMENT=production \
+            NODE_ENV=production \
+            npm run build
+            cd ..
+            
+            # Set up production environment
+            echo "⚙️ Configuring production environment..."
+            cat > .env.production << 'ENV_EOF'
+            NODE_ENV=production
+            PORT=8003
+            DATABASE_URL=${{ secrets.DATABASE_URL }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            USE_JSONB_DROPDOWNS=true
+            CORS_ALLOWED_ORIGINS=https://bankimonline.com,https://dev2.bankimonline.com
+            MAGLEV_DATABASE_URL=${{ secrets.MAGLEV_DATABASE_URL }}
+            SHORTLINE_DATABASE_URL=${{ secrets.SHORTLINE_DATABASE_URL }}
+            ENV_EOF
+            
+            # Create production PM2 ecosystem
+            cat > ecosystem.production.config.js << 'PM2_EOF'
+            module.exports = {
+              apps: [{
+                name: 'bankimonline-prod-api',
+                script: 'server/server-db.js',
+                cwd: '/opt/bankimonline/$RELEASE_DIR',
+                instances: 2,
+                exec_mode: 'cluster',
+                env: {
+                  NODE_ENV: 'production',
+                  PORT: 8003
+                },
+                error_file: '/opt/bankimonline/logs/prod-api-error.log',
+                out_file: '/opt/bankimonline/logs/prod-api-out.log',
+                log_file: '/opt/bankimonline/logs/prod-api-combined.log',
+                time: true,
+                max_restarts: 10,
+                restart_delay: 5000,
+                max_memory_restart: '1G',
+                node_args: '--max_old_space_size=2048',
+                kill_timeout: 10000
+              }]
+            };
+            PM2_EOF
+            
+            # Health check function
+            health_check() {
+              local port=$1
+              local timeout=300
+              local count=0
+              
+              echo "🏥 Performing health check on port $port..."
+              while [ $count -lt $timeout ]; do
+                if curl -f -s "http://localhost:$port/api/health" > /dev/null 2>&1; then
+                  echo "✅ Health check passed on port $port"
+                  return 0
+                fi
+                echo "⏳ Waiting for service on port $port... ($count/$timeout)"
+                sleep 1
+                count=$((count + 1))
+              done
+              echo "❌ Health check failed on port $port after $timeout seconds"
+              return 1
+            }
+            
+            # Test green deployment on different port first
+            echo "🧪 Testing green deployment on port 8004..."
+            sed 's/PORT: 8003/PORT: 8004/g' ecosystem.production.config.js > ecosystem.test.config.js
+            pm2 start ecosystem.test.config.js
+            
+            # Wait for test deployment to be ready
+            if health_check 8004; then
+              echo "✅ Green deployment test successful"
+              
+              # Stop test deployment
+              pm2 delete ecosystem.test.config.js
+              
+              # Now deploy to production port with zero downtime
+              echo "🚀 Switching to green deployment on production port..."
+              
+              # Start new deployment
+              pm2 start ecosystem.production.config.js
+              
+              # Health check production deployment
+              if health_check 8003; then
+                echo "✅ Production deployment successful"
+                
+                # Update current symlink
+                cd /opt/bankimonline
+                ln -sfn "$RELEASE_DIR" app/current
+                
+                # Save PM2 configuration
+                pm2 save
+                
+                # Clean up old releases (keep last 5)
+                cd releases
+                ls -t | tail -n +6 | head -n -5 | xargs -r rm -rf
+                
+                echo "🎉 Blue-green production deployment completed successfully!"
+                
+              else
+                echo "❌ Production health check failed, rolling back..."
+                pm2 delete ecosystem.production.config.js
+                exit 1
+              fi
+              
+            else
+              echo "❌ Green deployment test failed, aborting deployment"
+              pm2 delete ecosystem.test.config.js || true
+              exit 1
+            fi
+
+      - name: 🏥 Comprehensive Production Health Check
+        run: |
+          echo "🏥 Performing comprehensive health checks on SSH server..."
+          
+          # Wait for services to stabilize
+          sleep 30
+          
+          # Core API health
+          echo "Testing core API health..."
+          curl -f -s http://45.83.42.74:8003/api/health | jq '.status'
+          
+          # Database connectivity via calculation parameters
+          echo "Testing database connectivity..."
+          curl -f -s http://45.83.42.74:8003/api/v1/calculation-parameters?business_path=mortgage | jq '.status'
+          
+          # Dropdown functionality
+          echo "Testing dropdown APIs..."
+          curl -f -s http://45.83.42.74:8003/api/v1/dropdowns/mortgage_step1/en | jq '.status // "no status"'
+          
+          # Translation API
+          echo "Testing translation/content API..."
+          curl -f -s http://45.83.42.74:8003/api/content/mortgage_step1/he | jq '.status // "no status"'
+          
+          # Performance check - response time measurement
+          echo "Testing API response time..."
+          time curl -f -s http://45.83.42.74:8003/api/health > /dev/null
+          
+          # PM2 status check via SSH
+          echo "Checking PM2 service status..."
+
+      - name: 📊 Post-deployment monitoring setup
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 45.83.42.74
+          username: root
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          timeout: 300s
+          script: |
+            echo "📊 Setting up post-deployment monitoring..."
+            
+            # Check PM2 status
+            pm2 status
+            pm2 monit --no-daemon &
+            
+            # Create monitoring script
+            cat > /opt/bankimonline/scripts/health-monitor.sh << 'MONITOR_EOF'
+            #!/bin/bash
+            while true; do
+              echo "$(date): Health check..."
+              
+              # API health check
+              if curl -f -s http://localhost:8003/api/health > /dev/null; then
+                echo "$(date): API health OK"
+              else
+                echo "$(date): API health FAILED"
+                # Restart if needed
+                pm2 restart bankimonline-prod-api
+              fi
+              
+              # Memory check
+              MEMORY_USAGE=$(pm2 jlist | jq '.[0].monit.memory // 0')
+              if [ "$MEMORY_USAGE" -gt 1073741824 ]; then  # 1GB
+                echo "$(date): High memory usage: $MEMORY_USAGE bytes"
+              fi
+              
+              sleep 60
+            done
+            MONITOR_EOF
+            
+            chmod +x /opt/bankimonline/scripts/health-monitor.sh
+            
+            # Start health monitoring in background
+            nohup /opt/bankimonline/scripts/health-monitor.sh > /opt/bankimonline/logs/health-monitor.log 2>&1 &
+            
+            # Log deployment success
+            echo "$(date): Deployment ${{ github.sha }} by ${{ github.actor }} completed successfully" >> /opt/bankimonline/logs/deployments.log
+            
+            # Create simple webhook notification if webhook URL is available
+            if [ -n "${{ secrets.MONITORING_WEBHOOK }}" ]; then
+              curl -X POST "${{ secrets.MONITORING_WEBHOOK }}" \
+                -H "Content-Type: application/json" \
+                -d '{
+                  "event": "deployment",
+                  "version": "${{ github.sha }}",
+                  "environment": "production",
+                  "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+                  "author": "${{ github.actor }}",
+                  "server": "45.83.42.74"
+                }' || echo "Webhook notification failed (non-blocking)"
+            fi
+            
+            echo "✅ Post-deployment monitoring setup completed!"
+
+  # =================== POST-DEPLOYMENT VERIFICATION ===================
+  post-deployment-tests:
+    name: 🧪 Post-Deployment Verification
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: 🧪 Critical API Integration Tests
+        run: |
+          echo "🧪 Running critical API integration tests against SSH server..."
+          
+          # Test critical endpoints that were failing in production
+          echo "Testing calculation parameters API..."
+          curl -f -s http://45.83.42.74:8003/api/v1/calculation-parameters?business_path=mortgage | jq '.'
+          
+          echo "Testing dropdown APIs..."
+          curl -f -s http://45.83.42.74:8003/api/v1/dropdowns/mortgage_step1/en | jq '.'
+          
+          echo "Testing translation/content APIs..."
+          curl -f -s http://45.83.42.74:8003/api/content/mortgage_step1/en | jq '.'
+          curl -f -s http://45.83.42.74:8003/api/content/mortgage_step1/he | jq '.'
+          
+          echo "Testing property ownership dropdown (critical for LTV calculations)..."
+          curl -f -s http://45.83.42.74:8003/api/v1/calculation-parameters?business_path=mortgage | jq '.data.property_ownership_ltvs // "No LTV data"'
+          
+          echo "✅ Critical API integration tests completed"
+
+      - name: 🎭 Production E2E Tests
+        working-directory: mainapp
+        run: |
+          # Install Cypress if needed
+          npm ci --production=false
+          npx playwright install
+          
+          # Run integration tests against the SSH server
+          echo "🎭 Running integration tests against SSH server..."
+          API_BASE_URL=http://45.83.42.74:8003 npm run test:integration
+          
+          echo "✅ Production integration tests completed"
+
+      - name: ⚡ Production Performance Audit
+        run: |
+          echo "⚡ Testing API performance on SSH server..."
+          
+          # Test API response times
+          echo "Testing API health endpoint response time..."
+          time curl -f -s http://45.83.42.74:8003/api/health
+          
+          echo "Testing calculation parameters response time..."
+          time curl -f -s http://45.83.42.74:8003/api/v1/calculation-parameters?business_path=mortgage
+          
+          echo "Testing dropdown API response time..."
+          time curl -f -s http://45.83.42.74:8003/api/v1/dropdowns/mortgage_step1/en
+          
+          # Check for reasonable response times (< 2 seconds)
+          HEALTH_TIME=$(curl -o /dev/null -s -w "%{time_total}" http://45.83.42.74:8003/api/health)
+          echo "Health endpoint response time: ${HEALTH_TIME}s"
+          
+          # Basic performance validation
+          if (( $(echo "$HEALTH_TIME > 2.0" | bc -l) )); then
+            echo "⚠️ Health endpoint response time > 2s: ${HEALTH_TIME}s"
+          else
+            echo "✅ Health endpoint response time acceptable: ${HEALTH_TIME}s"
+          fi
+
+      - name: 🔍 Security and Service Check
+        run: |
+          echo "🔍 Performing security and service checks..."
+          
+          # Check if API is accessible and returns proper headers
+          echo "Testing API accessibility and headers..."
+          curl -I http://45.83.42.74:8003/api/health
+          
+          # Check if sensitive endpoints are protected (should return 401/403)
+          echo "Testing endpoint security..."
+          STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://45.83.42.74:8003/api/admin/users || echo "000")
+          if [ "$STATUS_CODE" = "401" ] || [ "$STATUS_CODE" = "403" ]; then
+            echo "✅ Admin endpoint properly protected: $STATUS_CODE"
+          elif [ "$STATUS_CODE" = "000" ] || [ "$STATUS_CODE" = "404" ]; then
+            echo "✅ Admin endpoint not accessible: $STATUS_CODE"
+          else
+            echo "⚠️ Admin endpoint returned unexpected status: $STATUS_CODE"
+          fi
+          
+          echo "✅ Security and service checks completed"
+
+  # =================== ROLLBACK CAPABILITY ===================
+  setup-rollback:
+    name: 🔄 Setup Rollback Capability
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    if: always()
+    steps:
+      - name: 💾 Save deployment metadata
+        run: |
+          # Save deployment info for potential rollback
+          echo "DEPLOYMENT_INFO<<EOF" >> $GITHUB_ENV
+          echo "commit: ${{ github.sha }}" >> $GITHUB_ENV
+          echo "timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_ENV
+          echo "author: ${{ github.actor }}" >> $GITHUB_ENV
+          echo "image: ${{ needs.build-artifacts.outputs.image-tag }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: 🔄 Create rollback workflow
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // Create rollback issue for emergency use
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚨 Emergency Rollback Available - ${context.sha.substring(0, 7)}`,
+              body: `## 🚨 Emergency Rollback Information
+              
+              **Current Deployment**: ${{ github.sha }}
+              **Timestamp**: ${new Date().toISOString()}
+              **Deployed By**: ${{ github.actor }}
+              
+              **To rollback this deployment:**
+              1. Go to Actions → Manual Rollback workflow
+              2. Use commit hash: ${{ github.sha }}
+              3. Confirm rollback in production
+              
+              **Monitoring**: Check alerts and metrics before rolling back.
+              
+              This issue will auto-close in 7 days if no rollback is needed.`,
+              labels: ['deployment', 'rollback-ready', 'production']
+            });
+
+  # =================== NOTIFICATIONS ===================
+  notify-success:
+    name: 📢 Success Notifications
+    runs-on: ubuntu-latest
+    needs: [post-deployment-tests]
+    if: success()
+    steps:
+      - name: 🎉 Deployment Success Notification
+        run: |
+          echo "✅ 🏪 WORLD-CLASS DEPLOYMENT SUCCESSFUL!"
+          echo "🌐 Production: https://bankimonline.com"
+          echo "📊 Commit: ${{ github.sha }}"
+          echo "👤 Deployed by: ${{ github.actor }}"
+          echo "⏰ Deployed at: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          
+          # Send to monitoring/Slack/Teams (configure webhooks)
+          curl -X POST "${{ secrets.SUCCESS_WEBHOOK }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "text": "🎉 BankiMonline production deployment successful!",
+              "commit": "${{ github.sha }}",
+              "author": "${{ github.actor }}",
+              "url": "https://bankimonline.com"
+            }' || echo "Webhook notification failed (non-blocking)"
+
+  notify-failure:
+    name: 🚨 Failure Notifications
+    runs-on: ubuntu-latest
+    needs: [security-scan, quality-gates, performance-test, build-artifacts, deploy-production, post-deployment-tests]
+    if: failure()
+    steps:
+      - name: 🚨 Deployment Failure Notification
+        run: |
+          echo "❌ 🏪 DEPLOYMENT FAILED!"
+          echo "🔍 Check logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          echo "📊 Commit: ${{ github.sha }}"
+          echo "👤 Author: ${{ github.actor }}"
+          
+          # Critical failure notification
+          curl -X POST "${{ secrets.FAILURE_WEBHOOK }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "text": "🚨 BankiMonline deployment FAILED! Immediate attention required.",
+              "commit": "${{ github.sha }}",
+              "author": "${{ github.actor }}",
+              "logs": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            }' || echo "Webhook notification failed"

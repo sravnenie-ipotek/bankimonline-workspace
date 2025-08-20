@@ -40,6 +40,8 @@
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
     "test:report": "playwright show-report",
+    "test:integration": "playwright test tests/integration --config=playwright.integration.config.js",
+    "test:integration:headed": "playwright test tests/integration --config=playwright.integration.config.js --headed",
     "test:dropdowns": "node scripts/test-dropdowns.js",
     "runqa": "bash runqa.sh",
     "qa:all": "bash runqa.sh",

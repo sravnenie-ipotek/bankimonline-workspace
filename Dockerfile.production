@@ -1,0 +1,114 @@
+# Multi-stage Docker build for world-class production deployment
+# Stage 1: Build frontend
+FROM node:20-alpine AS frontend-builder
+
+# Install security updates
+RUN apk update && apk upgrade && apk add --no-cache git
+
+# Set working directory
+WORKDIR /app/frontend
+
+# Copy package files
+COPY mainapp/package*.json ./
+
+# Install dependencies with exact versions for security
+RUN npm ci --only=production --no-audit --no-fund
+
+# Copy source code
+COPY mainapp/ ./
+
+# Build arguments for build-time configuration
+ARG NODE_ENV=production
+ARG VITE_NODE_API_BASE_URL
+ARG VITE_ENVIRONMENT=production
+ARG BUILD_TIMESTAMP
+ARG GIT_COMMIT
+
+ENV NODE_ENV=$NODE_ENV
+ENV VITE_NODE_API_BASE_URL=$VITE_NODE_API_BASE_URL
+ENV VITE_ENVIRONMENT=$VITE_ENVIRONMENT
+ENV BUILD_TIMESTAMP=$BUILD_TIMESTAMP
+ENV GIT_COMMIT=$GIT_COMMIT
+
+# Build frontend
+RUN npm run build
+
+# Verify critical files exist
+RUN ls -la build/ && \
+    test -f build/index.html && \
+    find build -name "*.js" | head -5
+
+# Stage 2: Build backend
+FROM node:20-alpine AS backend-builder
+
+WORKDIR /app/backend
+
+# Copy backend files
+COPY server/ ./
+COPY package*.json ./
+
+# Install production dependencies only
+RUN if [ -f package.json ]; then npm ci --only=production --no-audit --no-fund; fi
+
+# Stage 3: Production runtime
+FROM node:20-alpine AS production
+
+# Security: Create non-root user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S bankimonline -u 1001 -G nodejs
+
+# Install production runtime dependencies
+RUN apk update && apk upgrade && \
+    apk add --no-cache \
+    dumb-init \
+    curl \
+    jq && \
+    rm -rf /var/cache/apk/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy built frontend
+COPY --from=frontend-builder --chown=bankimonline:nodejs /app/frontend/build ./public
+
+# Copy backend and dependencies
+COPY --from=backend-builder --chown=bankimonline:nodejs /app/backend ./
+
+# Create necessary directories with proper permissions
+RUN mkdir -p logs uploads temp && \
+    chown -R bankimonline:nodejs logs uploads temp
+
+# Health check script
+COPY --chown=bankimonline:nodejs <<EOF /app/healthcheck.sh
+#!/bin/sh
+set -eo pipefail
+curl -f http://localhost:\${PORT:-8003}/api/health || exit 1
+EOF
+
+RUN chmod +x /app/healthcheck.sh
+
+# Security: Switch to non-root user
+USER bankimonline
+
+# Expose port
+EXPOSE 8003
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+  CMD /app/healthcheck.sh
+
+# Environment defaults
+ENV NODE_ENV=production
+ENV PORT=8003
+
+# Use dumb-init for proper signal handling
+ENTRYPOINT ["dumb-init", "--"]
+
+# Start application
+CMD ["node", "server-db.js"]
+
+# Metadata
+LABEL maintainer="BankiMonline DevOps Team"
+LABEL version="1.0.0"
+LABEL description="BankiMonline production banking application"
+LABEL org.opencontainers.image.source="https://github.com/MichaelMishaev/bankDev2_standalone"

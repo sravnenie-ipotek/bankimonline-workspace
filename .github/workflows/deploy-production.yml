@@ -78,7 +78,8 @@ jobs:
         env:
           NODE_ENV: production
           GENERATE_SOURCEMAP: false
-          VITE_NODE_API_BASE_URL: /api
+          VITE_NODE_API_BASE_URL: https://bankimonline.com/api
+          VITE_ENVIRONMENT: production
         run: npm run build
 
       - name: 🔧 Install backend dependencies  
@@ -234,7 +235,7 @@ jobs:
             sleep 10
             
             # Check if application is responding
-            if curl -f -s "http://localhost:${PORT:-8004}/api/health" >/dev/null; then
+            if curl -f -s "http://localhost:${PORT:-8003}/api/health" >/dev/null; then
               echo "✅ Application health check passed"
             else
               echo "⚠️ Application health check failed - but deployment completed"
