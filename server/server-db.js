@@ -1231,7 +1231,38 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 }
             }
             
-            // Pattern 4: refinance_step1_{fieldname} (handles both container and options)
+            // Pattern 4: app.refinance.step1.{fieldname} (handles dot notation for refinance)
+            if (!fieldName) {
+                // For labels like: app.refinance.step1.why_label → why
+                match = row.content_key.match(/app\.refinance\.step1\.(.+)_label$/);
+                if (match) {
+                    // Map specific field names to match expected API response keys
+                    const fieldMapping = {
+                        'why': 'why',
+                        'property_type': 'property_type', 
+                        'registered': 'registration',
+                        'current_bank': 'bank',
+                        'balance': 'balance',
+                        'property_value': 'property_value',
+                        'start_date': 'start_date'
+                    };
+                    fieldName = fieldMapping[match[1]] || match[1];
+                } else {
+                    // For options like: app.refinance.step1.why_option_1 → why
+                    match = row.content_key.match(/app\.refinance\.step1\.(.+)_option_\d+$/);
+                    if (match) {
+                        const fieldMapping = {
+                            'why': 'why',
+                            'property_type': 'property_type',
+                            'registered': 'registration', 
+                            'current_bank': 'bank'
+                        };
+                        fieldName = fieldMapping[match[1]] || match[1];
+                    }
+                }
+            }
+
+            // Pattern 5: refinance_step1_{fieldname} (handles both container and options)
             if (!fieldName) {
                 // For options like: refinance_step1_why_lower_interest_rate
                 match = row.content_key.match(/refinance_step1_([^_]+(?:_[^_]+)*)_(?:lower_interest_rate|reduce_monthly_payment|shorten_mortgage_term|cash_out_refinance|consolidate_debts|fixed_interest|variable_interest|prime_interest|mixed_interest|other|apartment|private_house|commercial|land|other|land|no_not_registered|hapoalim|leumi|discount|massad)/);
@@ -1246,7 +1277,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 }
             }
             
-            // Pattern 4.5: refinance_step2_{fieldname} (handles both container and options)
+            // Pattern 6: refinance_step2_{fieldname} (handles both container and options)
             if (!fieldName) {
                 // For options like: refinance_step2_education_bachelors, refinance_step2_education_masters, etc.
                 match = row.content_key.match(/refinance_step2_([^_]+(?:_[^_]+)*)_(?:bachelors|masters|doctorate|full_certificate|partial_certificate|no_certificate|post_secondary|postsecondary_education|full_high_school_certificate|partial_high_school_certificate|no_high_school_certificate)/);
@@ -1261,7 +1292,7 @@ app.get('/api/dropdowns/:screen/:language', async (req, res) => {
                 }
             }
 
-            // Pattern 5: Simple field name extraction from various patterns
+            // Pattern 7: Simple field name extraction from various patterns
             if (!fieldName) {
                 // Try to extract from patterns like field_name_option_X or field_name_ph
                 match = row.content_key.match(/([^._]+)(?:_option_|_ph|$)/);

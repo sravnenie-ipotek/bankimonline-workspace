@@ -1,0 +1,2712 @@
+
+DevTools listening on ws://127.0.0.1:51482/devtools/browser/8fd3e251-8d42-4d7b-b6e2-0f1787829842
+Missing baseUrl in compilerOptions. tsconfig-paths will be skipped
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        14.5.4                                                                         │
+  │ Browser:        Electron 130 (headless)                                                        │
+  │ Node Version:   v20.19.4 (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/nod │
+  │                 e/bin/node)                                                                    │
+  │ Specs:          1 found (refinance-mortgage-qa.cy.ts)                                          │
+  │ Searched:       cypress/e2e/refinance-mortgage-qa.cy.ts                                        │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+                                                                                                    
+  Running:  refinance-mortgage-qa.cy.ts                                                     (1 of 1)
+Browserslist: browsers data (caniuse-lite) is 6 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+{
+  "stats": {
+    "suites": 6,
+    "tests": 7,
+    "passes": 1,
+    "pending": 0,
+    "failures": 6,
+    "start": "2025-08-20T15:10:15.478Z",
+    "end": "2025-08-20T15:10:28.164Z",
+    "duration": 12686
+  },
+  "tests": [
+    {
+      "title": "should verify API endpoints are functioning",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 1. Initial Page Load & API Health Check should verify API endpoints are functioning",
+      "file": null,
+      "duration": 954,
+      "currentRetry": 0,
+      "err": {}
+    },
+    {
+      "title": "should check \"Why are you refinancing?\" dropdown",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 2. Refinance Mortgage Page - Dropdown Headers should check \"Why are you refinancing?\" dropdown",
+      "file": null,
+      "duration": 624,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `2. Refinance Mortgage Page ...`",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `2. Refinance Mortgage Page ...`\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:80:9)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 80,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 80,
+          "column": 10,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  78 |   describe('2. Refinance Mortgage Page - Dropdown Headers', () => {\n  79 |     beforeEach(() => {\n> 80 |       cy.visit(refinanceUrl);\n     |          ^\n  81 |       cy.wait(1000); // Wait for translations to load\n  82 |     });\n  83 |",
+          "language": "ts"
+        }
+      }
+    },
+    {
+      "title": "should test fallback when API fails",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 3. Translation Fallback Mechanism should test fallback when API fails",
+      "file": null,
+      "duration": 640,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:292:9)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 292,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 292,
+          "column": 10,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  290 |       cy.intercept('GET', '/api/dropdowns/**', { statusCode: 500 });\n  291 |       \n> 292 |       cy.visit(refinanceUrl);\n      |          ^\n  293 |       cy.wait(1000);\n  294 |       \n  295 |       // Check if fallback translations are working",
+          "language": "ts"
+        }
+      }
+    },
+    {
+      "title": "should verify translations in en",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 4. Multi-Language Support should verify translations in en",
+      "file": null,
+      "duration": 644,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=en\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=en\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:341:11)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1?lang=en",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 341,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 341,
+          "column": 12,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  339 |     languages.forEach(lang => {\n  340 |       it(`should verify translations in ${lang}`, () => {\n> 341 |         cy.visit(`${refinanceUrl}?lang=${lang}`);\n      |            ^\n  342 |         cy.wait(1000);\n  343 |         \n  344 |         // Check for language-specific issues",
+          "language": "ts"
+        }
+      }
+    },
+    {
+      "title": "should verify translations in he",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 4. Multi-Language Support should verify translations in he",
+      "file": null,
+      "duration": 645,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=he\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=he\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:341:11)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1?lang=he",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 341,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 341,
+          "column": 12,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  339 |     languages.forEach(lang => {\n  340 |       it(`should verify translations in ${lang}`, () => {\n> 341 |         cy.visit(`${refinanceUrl}?lang=${lang}`);\n      |            ^\n  342 |         cy.wait(1000);\n  343 |         \n  344 |         // Check for language-specific issues",
+          "language": "ts"
+        }
+      }
+    },
+    {
+      "title": "should verify translations in ru",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 4. Multi-Language Support should verify translations in ru",
+      "file": null,
+      "duration": 634,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=ru\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=ru\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:341:11)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1?lang=ru",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 341,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 341,
+          "column": 12,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  339 |     languages.forEach(lang => {\n  340 |       it(`should verify translations in ${lang}`, () => {\n> 341 |         cy.visit(`${refinanceUrl}?lang=${lang}`);\n      |            ^\n  342 |         cy.wait(1000);\n  343 |         \n  344 |         // Check for language-specific issues",
+          "language": "ts"
+        }
+      }
+    },
+    {
+      "title": "should check for translation errors in console",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 5. Console Error Check should check for translation errors in console",
+      "file": null,
+      "duration": 634,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:390:9)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 390,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 390,
+          "column": 10,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  388 |   describe('5. Console Error Check', () => {\n  389 |     it('should check for translation errors in console', () => {\n> 390 |       cy.visit(refinanceUrl, {\n      |          ^\n  391 |         onBeforeLoad(win) {\n  392 |           cy.spy(win.console, 'error');\n  393 |           cy.spy(win.console, 'warn');",
+          "language": "ts"
+        }
+      }
+    }
+  ],
+  "pending": [],
+  "failures": [
+    {
+      "title": "\"before each\" hook for \"should check \"Why are you refinancing?\" dropdown\"",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 2. Refinance Mortgage Page - Dropdown Headers \"before each\" hook for \"should check \"Why are you refinancing?\" dropdown\"",
+      "file": null,
+      "duration": 640,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `2. Refinance Mortgage Page ...`",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n\nBecause this error occurred during a `before each` hook we are skipping the remaining tests in the current suite: `2. Refinance Mortgage Page ...`\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:80:9)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 80,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 80,
+          "column": 10,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  78 |   describe('2. Refinance Mortgage Page - Dropdown Headers', () => {\n  79 |     beforeEach(() => {\n> 80 |       cy.visit(refinanceUrl);\n     |          ^\n  81 |       cy.wait(1000); // Wait for translations to load\n  82 |     });\n  83 |",
+          "language": "ts"
+        }
+      }
+    },
+    {
+      "title": "should test fallback when API fails",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 3. Translation Fallback Mechanism should test fallback when API fails",
+      "file": null,
+      "duration": 645,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:292:9)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 292,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 292,
+          "column": 10,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  290 |       cy.intercept('GET', '/api/dropdowns/**', { statusCode: 500 });\n  291 |       \n> 292 |       cy.visit(refinanceUrl);\n      |          ^\n  293 |       cy.wait(1000);\n  294 |       \n  295 |       // Check if fallback translations are working",
+          "language": "ts"
+        }
+      }
+    },
+    {
+      "title": "should verify translations in en",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 4. Multi-Language Support should verify translations in en",
+      "file": null,
+      "duration": 641,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=en\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=en\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:341:11)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1?lang=en",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 341,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 341,
+          "column": 12,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  339 |     languages.forEach(lang => {\n  340 |       it(`should verify translations in ${lang}`, () => {\n> 341 |         cy.visit(`${refinanceUrl}?lang=${lang}`);\n      |            ^\n  342 |         cy.wait(1000);\n  343 |         \n  344 |         // Check for language-specific issues",
+          "language": "ts"
+        }
+      }
+    },
+    {
+      "title": "should verify translations in he",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 4. Multi-Language Support should verify translations in he",
+      "file": null,
+      "duration": 640,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=he\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=he\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:341:11)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1?lang=he",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 341,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 341,
+          "column": 12,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  339 |     languages.forEach(lang => {\n  340 |       it(`should verify translations in ${lang}`, () => {\n> 341 |         cy.visit(`${refinanceUrl}?lang=${lang}`);\n      |            ^\n  342 |         cy.wait(1000);\n  343 |         \n  344 |         // Check for language-specific issues",
+          "language": "ts"
+        }
+      }
+    },
+    {
+      "title": "should verify translations in ru",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 4. Multi-Language Support should verify translations in ru",
+      "file": null,
+      "duration": 636,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=ru\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1?lang=ru\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:341:11)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1?lang=ru",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 341,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 341,
+          "column": 12,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  339 |     languages.forEach(lang => {\n  340 |       it(`should verify translations in ${lang}`, () => {\n> 341 |         cy.visit(`${refinanceUrl}?lang=${lang}`);\n      |            ^\n  342 |         cy.wait(1000);\n  343 |         \n  344 |         // Check for language-specific issues",
+          "language": "ts"
+        }
+      }
+    },
+    {
+      "title": "should check for translation errors in console",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 5. Console Error Check should check for translation errors in console",
+      "file": null,
+      "duration": 632,
+      "currentRetry": 2,
+      "err": {
+        "message": "`cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer",
+        "name": "CypressError",
+        "stack": "CypressError: `cy.visit()` failed trying to load:\n\nhttp://localhost:5174/services/refinance-mortgage/1\n\nWe attempted to make an http request to this URL but the request failed without a response.\n\nWe received this error at the network level:\n\n  > Error: connect ECONNREFUSED 127.0.0.1:5174\n\nCommon situations why this would fail:\n  - you don't have internet access\n  - you forgot to run / boot your web server\n  - your web server isn't accessible\n  - you have weird network configuration settings on your computer\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135198:74)\n    at visitFailedByErr (http://localhost:5174/__cypress/runner/cypress_runner.js:134588:12)\n    at <unknown> (http://localhost:5174/__cypress/runner/cypress_runner.js:135197:11)\n    at tryCatcher (http://localhost:5174/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (http://localhost:5174/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (http://localhost:5174/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (http://localhost:5174/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (http://localhost:5174/__cypress/runner/cypress_runner.js:1667:18)\n    at _drainQueueStep (http://localhost:5174/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (http://localhost:5174/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (http://localhost:5174/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts:390:9)\n\nFrom Node.js Internals:\n  Error: connect ECONNREFUSED 127.0.0.1:5174\n      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)",
+        "parsedStack": [
+          {
+            "message": "CypressError: `cy.visit()` failed trying to load:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "http://localhost:5174/services/refinance-mortgage/1",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We attempted to make an http request to this URL but the request failed without a response.",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "We received this error at the network level:",
+            "whitespace": ""
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "> Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "Common situations why this would fail:",
+            "whitespace": ""
+          },
+          {
+            "message": "- you don't have internet access",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you forgot to run / boot your web server",
+            "whitespace": "  "
+          },
+          {
+            "message": "- your web server isn't accessible",
+            "whitespace": "  "
+          },
+          {
+            "message": "- you have weird network configuration settings on your computer",
+            "whitespace": "  "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135198,
+            "column": 74,
+            "whitespace": "    "
+          },
+          {
+            "function": "visitFailedByErr",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 134588,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "<unknown>",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 135197,
+            "column": 11,
+            "whitespace": "    "
+          },
+          {
+            "function": "tryCatcher",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1777,
+            "column": 23,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromiseFromHandler",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1489,
+            "column": 31,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1546,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromise0",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1591,
+            "column": 10,
+            "whitespace": "    "
+          },
+          {
+            "function": "Promise._settlePromises",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 1667,
+            "column": 18,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueueStep",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2377,
+            "column": 12,
+            "whitespace": "    "
+          },
+          {
+            "function": "_drainQueue",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2370,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async._drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2386,
+            "column": 5,
+            "whitespace": "    "
+          },
+          {
+            "function": "Async.drainQueues",
+            "fileUrl": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "originalFile": "http://localhost:5174/__cypress/runner/cypress_runner.js",
+            "line": 2256,
+            "column": 14,
+            "whitespace": "    "
+          },
+          {
+            "message": "From Your Spec Code:",
+            "whitespace": ""
+          },
+          {
+            "function": "Context.eval",
+            "fileUrl": "http://localhost:5174/__cypress/tests?p=cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "originalFile": "webpack://bankimonline/./cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "relativeFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+            "line": 390,
+            "column": 9,
+            "whitespace": "    "
+          },
+          {
+            "message": "",
+            "whitespace": ""
+          },
+          {
+            "message": "From Node.js Internals:",
+            "whitespace": ""
+          },
+          {
+            "message": "Error: connect ECONNREFUSED 127.0.0.1:5174",
+            "whitespace": "  "
+          },
+          {
+            "function": "TCPConnectWrap.afterConnect [as oncomplete]",
+            "fileUrl": "node:net",
+            "originalFile": "node:net",
+            "relativeFile": "node:net",
+            "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/node:net",
+            "line": 1611,
+            "column": 16,
+            "whitespace": "      "
+          }
+        ],
+        "codeFrame": {
+          "line": 390,
+          "column": 10,
+          "originalFile": "cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "relativeFile": "mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "absoluteFile": "/Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/e2e/refinance-mortgage-qa.cy.ts",
+          "frame": "  388 |   describe('5. Console Error Check', () => {\n  389 |     it('should check for translation errors in console', () => {\n> 390 |       cy.visit(refinanceUrl, {\n      |          ^\n  391 |         onBeforeLoad(win) {\n  392 |           cy.spy(win.console, 'error');\n  393 |           cy.spy(win.console, 'warn');",
+          "language": "ts"
+        }
+      }
+    }
+  ],
+  "passes": [
+    {
+      "title": "should verify API endpoints are functioning",
+      "fullTitle": "Refinance Mortgage Translation System - Full QA Report 1. Initial Page Load & API Health Check should verify API endpoints are functioning",
+      "file": null,
+      "duration": 954,
+      "currentRetry": 0,
+      "err": {}
+    }
+  ]
+}
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        10                                                                               │
+  │ Passing:      1                                                                                │
+  │ Failing:      6                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      3                                                                                │
+  │ Screenshots:  12                                                                               │
+  │ Video:        true                                                                             │
+  │ Duration:     12 seconds                                                                       │
+  │ Spec Ran:     refinance-mortgage-qa.cy.ts                                                      │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Screenshots)
+
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-17.png                                                                    
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-18.png                                                                    
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-19.png                                                                    
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-20.png                                                                    
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-21.png                                                                    
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-22.png                                                                    
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-23.png                                                                    
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-24.png                                                                    
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-25.png                                                                    
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-26.png                                                                    
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-27.png                                                                    
+  -  /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/screenshots/    (2560x1440)
+     run-2025-08-20T15-10-13/refinance-mortgage-qa.cy.ts/refinance-mortgage-qa_undefi               
+     ned_2025-08-20T15-10-28.png                                                                    
+
+
+  (Video)
+
+  -  Video output: /Users/michaelmishayev/Projects/bankDev2_standalone/mainapp/cypress/videos/refinance-mortgage-qa.cy.ts.mp4
+
+
+Opening `/dev/tty` failed (6): Device not configured
+================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped  
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✖  refinance-mortgage-qa.cy.ts              00:12       10        1        6        -        3 │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✖  1 of 1 failed (100%)                     00:12       10        1        6        -        3  
+

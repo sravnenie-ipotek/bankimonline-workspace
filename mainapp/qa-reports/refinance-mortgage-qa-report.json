@@ -1,0 +1,12 @@
+{
+  "testDate": "2025-08-20T20:29:50.757Z",
+  "url": "http://localhost:5173/services/refinance-mortgage/1",
+  "totalBugs": 0,
+  "bugsBySeverity": {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0
+  },
+  "bugs": []
+}
