@@ -39,6 +39,28 @@ jobs:
               ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
               "echo '✅ SSH connection successful'"
               
+      - name: 🧹 Clean up disk space
+        run: |
+          echo "Checking disk space before cleanup..."
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "df -h /"
+          
+          echo "Cleaning up old releases (keeping last 2)..."
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "cd /var/www/bankim/releases 2>/dev/null && ls -t | tail -n +3 | xargs -r rm -rf || true"
+          
+          echo "Cleaning npm cache..."
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "npm cache clean --force 2>/dev/null || true"
+          
+          echo "Disk space after cleanup..."
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "df -h /"
+              
       - name: 📦 Create deployment directory
         run: |
           ssh -i ~/.ssh/deploy_key \
@@ -64,15 +86,15 @@ jobs:
                 -e "ssh -i ~/.ssh/deploy_key" \
                 ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:$RELEASE_DIR/
           
-          # Install dependencies
+          # Install dependencies (using npm install for now due to lock file sync issues)
           ssh -i ~/.ssh/deploy_key \
               ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-              "cd $RELEASE_DIR && npm ci --production"
+              "cd $RELEASE_DIR && npm install --production"
           
           # Build frontend
           ssh -i ~/.ssh/deploy_key \
               ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
-              "cd $RELEASE_DIR/mainapp && npm ci && npm run build"
+              "cd $RELEASE_DIR/mainapp && npm install && npm run build"
           
           # Update symlink
           ssh -i ~/.ssh/deploy_key \
