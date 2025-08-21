@@ -1,1 +1,0 @@
-import{j as o}from"./ui-vendor-99260b86.js";import{c as r}from"./index-18f68479.js";const s={row:"_row_o77wy_1"},i=r.bind(s),d=({children:r})=>o.jsx("div",{className:i("row"),children:r});export{d as R};

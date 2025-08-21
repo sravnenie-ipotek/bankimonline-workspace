@@ -744,3 +744,4 @@ The project includes extensive testing infrastructure:
 - Redux state persistence for user experience
 - API response caching implemented via RTK Query
 - Lazy loading for route-based code splitting
+- add memory: each db migration you do, must be placed in: /Users/michaelmishayev/Projects/bankDev2_standalone/server/migrationDB , the name must contain the dbname op operation, table name, date of run
