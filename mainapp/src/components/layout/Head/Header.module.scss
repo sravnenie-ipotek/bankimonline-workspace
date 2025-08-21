@@ -26,6 +26,13 @@
   gap: 8px;
 }
 
+.logo-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
 .logo {
   cursor: pointer;
   @media screen and (max-width: 1240px) {

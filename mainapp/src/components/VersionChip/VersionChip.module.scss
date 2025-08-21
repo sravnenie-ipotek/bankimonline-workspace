@@ -1,0 +1,121 @@
+.versionChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 6px;
+  background: rgba(255, 215, 0, 0.08); // Very subtle gold background
+  border: 1px solid rgba(255, 215, 0, 0.2); // Gold border matching logo
+  border-radius: 10px;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
+  font-size: 9px;
+  color: rgba(255, 215, 0, 0.85); // Gold color matching the logo
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+  cursor: default;
+  user-select: none;
+  white-space: nowrap;
+  margin-top: -2px; // Slight negative margin to bring closer to logo
+  position: relative;
+  
+  // Glow effect
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  &:hover {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: rgba(255, 215, 0, 0.4);
+    transform: translateY(-1px);
+    
+    .versionNumber {
+      color: #ffd700;
+    }
+  }
+
+  .versionLabel {
+    color: rgba(255, 215, 0, 0.6);
+    font-weight: 500;
+    font-size: 8px;
+    text-transform: lowercase;
+  }
+
+  .versionNumber {
+    color: rgba(255, 215, 0, 0.9);
+    font-weight: 600;
+    font-size: 9px;
+    transition: color 0.2s ease;
+  }
+
+  .versionTimestamp {
+    color: rgba(255, 215, 0, 0.45);
+    font-size: 8px;
+    margin-left: 2px;
+    font-weight: 400;
+    
+    &::before {
+      content: '_';
+      color: rgba(255, 215, 0, 0.3);
+      margin-right: 2px;
+    }
+  }
+
+  // Responsive design
+  @media (max-width: 768px) {
+    padding: 2px 5px;
+    font-size: 8px;
+    margin-top: -1px;
+    
+    .versionLabel {
+      font-size: 7px;
+    }
+    
+    .versionNumber {
+      font-size: 8px;
+    }
+    
+    .versionTimestamp {
+      display: none; // Hide timestamp on mobile for space
+    }
+  }
+
+  // Dark mode adjustments
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    border-color: rgba(255, 215, 0, 0.4);
+  }
+
+  // Animation on mount
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  animation: fadeInScale 0.3s ease-out;
+}
+
+// Alternative minimal style
+.versionChipMinimal {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  background: rgba(255, 215, 0, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 4px;
+  font-size: 10px;
+  color: rgba(255, 215, 0, 0.8);
+  font-family: monospace;
+  margin-left: 8px;
+}

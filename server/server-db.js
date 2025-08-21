@@ -40,58 +40,6 @@ console.log(`✅ Database URL configured: ${process.env.DATABASE_URL ? 'Yes' : '
 console.log(`✅ Environment: ${process.env.NODE_ENV || 'development'}`);
 
 // 🚨 CRITICAL DATABASE SAFETY CHECK
-const checkDatabaseSafety = () => {
-    const mainDB = process.env.DATABASE_URL || '';
-    const contentDB = process.env.CONTENT_DATABASE_URL || '';
-    const isRailway = mainDB.includes('rlwy.net') || contentDB.includes('rlwy.net');
-    const isLocal = mainDB.includes('localhost') || contentDB.includes('localhost');
-    
-    console.log('\n' + '='.repeat(60));
-    
-    if (isRailway) {
-        // HUGE RED WARNING FOR RAILWAY
-        console.log('\x1b[41m%s\x1b[0m', '🔴'.repeat(30));
-        console.log('\x1b[41m%s\x1b[0m', '⛔⛔⛔ DANGER: RAILWAY DATABASE DETECTED ⛔⛔⛔');
-        console.log('\x1b[41m%s\x1b[0m', '🔴'.repeat(30));
-        console.log('\x1b[31m%s\x1b[0m', '\n❌ FORBIDDEN: Railway databases are NOT allowed!');
-        console.log('\x1b[31m%s\x1b[0m', '❌ Main DB: ' + (mainDB.includes('rlwy.net') ? mainDB.split('@')[1] : 'OK'));
-        console.log('\x1b[31m%s\x1b[0m', '❌ Content DB: ' + (contentDB.includes('rlwy.net') ? contentDB.split('@')[1] : 'OK'));
-        console.log('\x1b[33m%s\x1b[0m', '\n⚠️ WARNING: Using Railway will cause:');
-        console.log('\x1b[33m%s\x1b[0m', '   - Network latency (500-3000ms)');
-        console.log('\x1b[33m%s\x1b[0m', '   - Connection timeouts');
-        console.log('\x1b[33m%s\x1b[0m', '   - Data sync issues');
-        console.log('\x1b[33m%s\x1b[0m', '   - Security vulnerabilities');
-        console.log('\x1b[31m%s\x1b[0m', '\n🔴 IMMEDIATELY RUN: npm run use-local-db');
-        console.log('\x1b[41m%s\x1b[0m', '🔴'.repeat(30));
-        
-        // Set global flag for UI warning
-        global.RAILWAY_DETECTED = true;
-        global.DATABASE_MODE = 'RAILWAY_FORBIDDEN';
-    } else if (isLocal) {
-        // GREEN SUCCESS FOR LOCAL
-        console.log('\x1b[42m%s\x1b[0m', '🟢'.repeat(30));
-        console.log('\x1b[42m%s\x1b[0m', '✅ USING LOCAL DATABASES - SAFE MODE');
-        console.log('\x1b[42m%s\x1b[0m', '🟢'.repeat(30));
-        console.log('\x1b[32m%s\x1b[0m', '\n✅ Main Database: localhost:5432/' + (mainDB.split('/').pop() || 'bankim_core'));
-        console.log('\x1b[32m%s\x1b[0m', '✅ Content Database: localhost:5432/' + (contentDB.split('/').pop() || 'bankim_content'));
-        console.log('\x1b[32m%s\x1b[0m', '\n🟢 ALL LOCAL DATABASES CONFIGURED');
-        console.log('\x1b[32m%s\x1b[0m', '🟢 RAILWAY PREVENTION: ACTIVE');
-        console.log('\x1b[32m%s\x1b[0m', '🟢 SAFE MODE: ENABLED');
-        
-        global.RAILWAY_DETECTED = false;
-        global.DATABASE_MODE = 'LOCAL_SAFE';
-    } else {
-        // YELLOW WARNING FOR UNKNOWN
-        console.log('\x1b[43m%s\x1b[0m', '⚠️'.repeat(30));
-        console.log('\x1b[33m%s\x1b[0m', '⚠️ WARNING: Unknown database configuration');
-        console.log('\x1b[33m%s\x1b[0m', 'Please configure local databases in .env');
-    }
-    
-    console.log('='.repeat(60) + '\n');
-};
-
-// Run the safety check
-checkDatabaseSafety();
 
 const express = require('express');
 const cors = require('cors');
@@ -118,33 +66,21 @@ const pool = createPool('main');
 // Content database connection (SECOND database for content/translations)
 const contentPool = createPool('content');
 
-// Test main database connection with colored output
+// Test main database connection
 pool.query('SELECT NOW()', (err, res) => {
     if (err) {
-        console.error('\x1b[31m%s\x1b[0m', '❌ Main Database connection failed:', err.message);
+        console.error('❌ Main Database connection failed:', err.message);
     } else {
-        if (global.DATABASE_MODE === 'LOCAL_SAFE') {
-            console.log('\x1b[32m%s\x1b[0m', '✅ Main Database connected successfully (LOCAL)');
-        } else if (global.DATABASE_MODE === 'RAILWAY_FORBIDDEN') {
-            console.log('\x1b[31m%s\x1b[0m', '⚠️ Main Database connected (RAILWAY - FORBIDDEN!)');
-        } else {
-            console.log('✅ Main Database connected successfully');
-        }
+        console.log('✅ Main Database connected successfully');
     }
 });
 
-// Test content database connection with colored output
+// Test content database connection
 contentPool.query('SELECT NOW()', (err, res) => {
     if (err) {
-        console.error('\x1b[31m%s\x1b[0m', '❌ Content Database connection failed:', err.message);
+        console.error('❌ Content Database connection failed:', err.message);
     } else {
-        if (global.DATABASE_MODE === 'LOCAL_SAFE') {
-            console.log('\x1b[32m%s\x1b[0m', '✅ Content Database connected successfully (LOCAL)');
-        } else if (global.DATABASE_MODE === 'RAILWAY_FORBIDDEN') {
-            console.log('\x1b[31m%s\x1b[0m', '⚠️ Content Database connected (RAILWAY - FORBIDDEN!)');
-        } else {
-            console.log('✅ Content Database connected successfully');
-        }
+        console.log('✅ Content Database connected successfully');
         // Delete test-content table if it exists (cleanup)
         contentPool.query('DROP TABLE IF EXISTS "test-content" CASCADE', (dropErr, dropRes) => {
             if (dropErr) {
@@ -301,32 +237,6 @@ app.get('/api/health', (req, res) => {
     });
 });
 
-// Database safety check endpoint for UI warning chip
-app.get('/api/database-safety', (req, res) => {
-    const mainDB = process.env.DATABASE_URL || '';
-    const contentDB = process.env.CONTENT_DATABASE_URL || '';
-    
-    res.json({
-        safe: !global.RAILWAY_DETECTED,
-        mode: global.DATABASE_MODE || 'UNKNOWN',
-        warning: global.RAILWAY_DETECTED ? '⚠️ RAILWAY DATABASE DETECTED - SWITCH TO LOCAL!' : null,
-        databases: {
-            main: {
-                type: mainDB.includes('localhost') ? 'local' : mainDB.includes('rlwy.net') ? 'railway' : 'unknown',
-                host: mainDB.includes('@') ? mainDB.split('@')[1].split('/')[0] : 'unknown',
-                safe: mainDB.includes('localhost')
-            },
-            content: {
-                type: contentDB.includes('localhost') ? 'local' : contentDB.includes('rlwy.net') ? 'railway' : 'unknown',
-                host: contentDB.includes('@') ? contentDB.split('@')[1].split('/')[0] : 'unknown',
-                safe: contentDB.includes('localhost')
-            }
-        },
-        message: global.RAILWAY_DETECTED 
-            ? 'Using Railway databases will cause timeouts, latency, and sync issues!' 
-            : 'Local databases are configured correctly'
-    });
-});
 
 // Content database health check
 app.get('/api/content-db/health', async (req, res) => {
@@ -1041,6 +951,242 @@ app.post('/api/content/fix-status', async (req, res) => {
         res.status(500).json({
             status: 'error',
             message: 'Failed to update translation status',
+            error: error.message
+        });
+    }
+});
+
+// DEBUG ENDPOINT: Comprehensive scan for missing database content
+app.get('/api/debug/missing-content', async (req, res) => {
+    try {
+        console.log('🔍 Starting comprehensive content scan...');
+        
+        const { format } = req.query; // Check if CSV format requested
+        const languages = ['en', 'he', 'ru'];
+        const missingContent = {
+            total_json_keys: 0,
+            total_db_keys: 0,
+            missing_keys: [],
+            fallback_apis: {
+                cities: false,
+                regions: false,
+                professions: false
+            },
+            summary: {
+                by_language: {},
+                by_category: {},
+                by_screen: {}
+            }
+        };
+
+        // 1. Load all JSON translation keys
+        const jsonKeys = new Set();
+        const jsonKeyDetails = {};
+        
+        for (const lang of languages) {
+            const translationPath = path.join(__dirname, '../mainapp/public/locales', lang, 'translation.json');
+            try {
+                const translationData = JSON.parse(fs.readFileSync(translationPath, 'utf8'));
+                
+                // Recursive function to extract all keys with dot notation
+                const extractKeys = (obj, prefix = '') => {
+                    for (const [key, value] of Object.entries(obj)) {
+                        const fullKey = prefix ? `${prefix}.${key}` : key;
+                        
+                        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+                            extractKeys(value, fullKey);
+                        } else {
+                            jsonKeys.add(fullKey);
+                            if (!jsonKeyDetails[fullKey]) {
+                                jsonKeyDetails[fullKey] = {
+                                    key: fullKey,
+                                    languages: {},
+                                    category: fullKey.split('_')[0] || fullKey.split('.')[0],
+                                    screen: fullKey.includes('calculate_mortgage') ? 'mortgage' :
+                                           fullKey.includes('calculate_credit') ? 'credit' :
+                                           fullKey.includes('refinance') ? 'refinance' :
+                                           fullKey.includes('personal_cabinet') ? 'personal_cabinet' :
+                                           fullKey.includes('bank_worker') ? 'bank_worker' :
+                                           fullKey.includes('admin') ? 'admin' : 'general'
+                                };
+                            }
+                            jsonKeyDetails[fullKey].languages[lang] = value;
+                        }
+                    }
+                };
+                
+                extractKeys(translationData);
+                console.log(`✅ Loaded ${jsonKeys.size} keys from ${lang} translation file`);
+                
+            } catch (error) {
+                console.error(`❌ Error loading ${lang} translation file:`, error.message);
+            }
+        }
+        
+        missingContent.total_json_keys = jsonKeys.size;
+        console.log(`📊 Total unique JSON keys found: ${jsonKeys.size}`);
+
+        // 2. Get all content keys from database
+        const dbKeysResult = await contentPool.query(`
+            SELECT DISTINCT 
+                ci.content_key,
+                ci.screen_location,
+                ci.category,
+                ci.component_type,
+                array_agg(DISTINCT ct.language_code) as available_languages
+            FROM content_items ci
+            LEFT JOIN content_translations ct ON ci.id = ct.content_item_id
+            WHERE ci.is_active = true
+            GROUP BY ci.content_key, ci.screen_location, ci.category, ci.component_type
+        `);
+        
+        const dbKeys = new Set(dbKeysResult.rows.map(row => row.content_key));
+        missingContent.total_db_keys = dbKeys.size;
+        console.log(`📊 Total database keys found: ${dbKeys.size}`);
+
+        // 3. Find missing keys (in JSON but not in DB)
+        for (const jsonKey of jsonKeys) {
+            if (!dbKeys.has(jsonKey)) {
+                const keyDetail = jsonKeyDetails[jsonKey];
+                missingContent.missing_keys.push({
+                    key: jsonKey,
+                    category: keyDetail.category,
+                    screen: keyDetail.screen,
+                    values: keyDetail.languages,
+                    type: jsonKey.includes('_option_') ? 'dropdown_option' :
+                          jsonKey.includes('_ph') ? 'placeholder' :
+                          jsonKey.includes('_label') ? 'label' :
+                          jsonKey.includes('error_') ? 'validation' : 'text'
+                });
+
+                // Update summaries
+                if (!missingContent.summary.by_category[keyDetail.category]) {
+                    missingContent.summary.by_category[keyDetail.category] = 0;
+                }
+                missingContent.summary.by_category[keyDetail.category]++;
+
+                if (!missingContent.summary.by_screen[keyDetail.screen]) {
+                    missingContent.summary.by_screen[keyDetail.screen] = 0;
+                }
+                missingContent.summary.by_screen[keyDetail.screen]++;
+
+                for (const lang of Object.keys(keyDetail.languages)) {
+                    if (!missingContent.summary.by_language[lang]) {
+                        missingContent.summary.by_language[lang] = 0;
+                    }
+                    missingContent.summary.by_language[lang]++;
+                }
+            }
+        }
+
+        // 4. Check specific APIs that use JSON fallback
+        // Check cities API
+        try {
+            const citiesResult = await contentPool.query(`
+                SELECT COUNT(*) as count FROM cities WHERE is_active = true
+            `);
+            missingContent.fallback_apis.cities = citiesResult.rows[0].count === 0;
+        } catch (error) {
+            missingContent.fallback_apis.cities = true; // Assume fallback if query fails
+        }
+
+        // Check regions API
+        try {
+            const regionsResult = await contentPool.query(`
+                SELECT COUNT(*) as count FROM regions WHERE is_active = true
+            `);
+            missingContent.fallback_apis.regions = regionsResult.rows[0].count === 0;
+        } catch (error) {
+            missingContent.fallback_apis.regions = true;
+        }
+
+        // Check professions API
+        try {
+            const professionsResult = await contentPool.query(`
+                SELECT COUNT(*) as count FROM professions WHERE is_active = true
+            `);
+            missingContent.fallback_apis.professions = professionsResult.rows[0].count === 0;
+        } catch (error) {
+            missingContent.fallback_apis.professions = true;
+        }
+
+        // 5. Add critical missing keys analysis
+        const criticalPatterns = [
+            'property_ownership',
+            'family_status',
+            'gender',
+            'education',
+            'employment_type',
+            'bank_account',
+            'citizenship_status'
+        ];
+
+        missingContent.critical_missing = missingContent.missing_keys.filter(item => 
+            criticalPatterns.some(pattern => item.key.includes(pattern))
+        );
+
+        // 6. Generate recommendations
+        missingContent.recommendations = [];
+        
+        if (missingContent.missing_keys.length > 100) {
+            missingContent.recommendations.push('⚠️ High number of missing keys. Consider batch migration.');
+        }
+        
+        if (missingContent.critical_missing.length > 0) {
+            missingContent.recommendations.push('🚨 Critical dropdown/form keys missing. Priority migration needed.');
+        }
+        
+        if (Object.values(missingContent.fallback_apis).some(v => v)) {
+            missingContent.recommendations.push('📍 Some APIs still using JSON fallback (cities/regions/professions).');
+        }
+
+        // 7. Sort missing keys by importance
+        missingContent.missing_keys.sort((a, b) => {
+            // Prioritize dropdowns and form fields
+            const priorityA = a.type === 'dropdown_option' ? 0 : a.type === 'placeholder' ? 1 : 2;
+            const priorityB = b.type === 'dropdown_option' ? 0 : b.type === 'placeholder' ? 1 : 2;
+            return priorityA - priorityB;
+        });
+
+        console.log(`✅ Content scan complete. Found ${missingContent.missing_keys.length} missing keys.`);
+
+        // If CSV format requested, return as CSV
+        if (format === 'csv') {
+            let csv = 'Key,Category,Screen,Type,English,Hebrew,Russian\n';
+            for (const item of missingContent.missing_keys) {
+                csv += `"${item.key}","${item.category}","${item.screen}","${item.type}",`;
+                csv += `"${item.values.en || ''}","${item.values.he || ''}","${item.values.ru || ''}"\n`;
+            }
+            
+            res.setHeader('Content-Type', 'text/csv');
+            res.setHeader('Content-Disposition', 'attachment; filename="missing-content-report.csv"');
+            return res.send(csv);
+        }
+
+        res.json({
+            status: 'success',
+            scan_timestamp: new Date().toISOString(),
+            statistics: {
+                total_json_keys: missingContent.total_json_keys,
+                total_db_keys: missingContent.total_db_keys,
+                missing_count: missingContent.missing_keys.length,
+                coverage_percentage: ((missingContent.total_db_keys / missingContent.total_json_keys) * 100).toFixed(2) + '%'
+            },
+            fallback_apis: missingContent.fallback_apis,
+            summary: missingContent.summary,
+            critical_missing_count: missingContent.critical_missing.length,
+            critical_missing: missingContent.critical_missing.slice(0, 20), // First 20 critical
+            missing_keys: missingContent.missing_keys.slice(0, 100), // First 100 for readability
+            total_missing: missingContent.missing_keys.length,
+            recommendations: missingContent.recommendations,
+            download_full_report: '/api/debug/missing-content?format=csv'
+        });
+
+    } catch (error) {
+        console.error('❌ Content scan error:', error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to scan for missing content',
             error: error.message
         });
     }
@@ -2753,11 +2899,46 @@ app.options('*', (req, res) => {
     res.sendStatus(200);
 });
 
-// Banks endpoint
+// Banks endpoint  
 app.get('/api/v1/banks', async (req, res) => {
     try {
-        const result = await pool.query('SELECT id, name_ru as name, name_en, name_he, logo, url FROM banks ORDER BY priority');
-        res.json({ data: result.rows, status: 'success' });
+        // Get banks from core_db (business logic) and join with translations from content_db
+        const banksResult = await pool.query('SELECT id, logo, url, priority FROM banks WHERE is_active = true ORDER BY priority');
+        const banks = [];
+        
+        // For each bank, get its translations from content_db
+        for (const bank of banksResult.rows) {
+            try {
+                const translationResult = await contentPool.query(
+                    'SELECT name_en, name_he, name_ru FROM banks_translations WHERE bank_id = $1',
+                    [bank.id]
+                );
+                
+                const translation = translationResult.rows[0] || {};
+                banks.push({
+                    id: bank.id,
+                    name: translation.name_ru || translation.name_en || `Bank ${bank.id}`, // Default to Russian, fallback to English
+                    name_en: translation.name_en,
+                    name_he: translation.name_he,
+                    name_ru: translation.name_ru,
+                    logo: bank.logo,
+                    url: bank.url
+                });
+            } catch (translationErr) {
+                console.warn(`No translation found for bank ${bank.id}`);
+                banks.push({
+                    id: bank.id,
+                    name: `Bank ${bank.id}`,
+                    name_en: null,
+                    name_he: null, 
+                    name_ru: null,
+                    logo: bank.logo,
+                    url: bank.url
+                });
+            }
+        }
+        
+        res.json({ data: banks, status: 'success' });
     } catch (err) {
         console.error('Error fetching banks:', err);
         res.status(500).json({ error: 'Internal server error' });
@@ -2847,7 +3028,7 @@ app.get('/api/get-regions', async (req, res) => {
 
     try {
         const query = `SELECT id, key, ${nameColumn} as name FROM regions WHERE is_active = true ORDER BY ${nameColumn}`;
-        const result = await pool.query(query);
+        const result = await contentPool.query(query);
         
         res.json({
             status: 'success',
@@ -2916,7 +3097,7 @@ app.get('/api/get-professions', async (req, res) => {
         }
         
         query += ` ORDER BY ${nameColumn}`;
-        const result = await pool.query(query, params);
+        const result = await contentPool.query(query, params);
         
         res.json({
             status: 'success',
