@@ -10,6 +10,7 @@ import { initializeUserData, setIsLogin } from '@src/pages/Services/slices/login
 import { updateWindowSize } from '@src/store/slices/windowSizeSlice.ts'
 import { initializeValidationLanguageListener } from '@src/utils/validationHelpers'
 import '@src/utils/yupLocale'
+import RailwayWarningChip from '@src/components/RailwayWarningChip'
 
 import { RootState } from '../store'
 import { debounce } from '../utils/helpers/debounce.ts'
@@ -148,6 +149,7 @@ const App = () => {
       dir={direction}
     >
       <ErrorBoundary>
+        <RailwayWarningChip />
         <MainRoutes />
         <Dialog />
       </ErrorBoundary>

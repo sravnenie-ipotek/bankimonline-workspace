@@ -1,32 +1,14 @@
+[dotenv@17.2.1] injecting env (5) from .env -- tip: 🛠️  run anywhere with `dotenvx run -- yourcommand`
 ✅ Environment loaded from: .env
 ✅ Variables loaded: 3
 ✅ Database URL configured: Yes
 ✅ Environment: development
 📊 [main] DB Config: postgresql://***:***@maglev.proxy.rlwy.net:43809/railway | SSL: on
 📊 [content] DB Config: postgresql://***:***@shortline.proxy.rlwy.net:33452/railway | SSL: on
-node:events:485
-      throw er; // Unhandled 'error' event
-      ^
-
-Error: listen EADDRINUSE: address already in use :::8003
-    at Server.setupListenHandle [as _listen2] (node:net:1940:16)
-    at listenInCluster (node:net:1997:12)
-    at Server.listen (node:net:2102:7)
-    at app.listen (/Users/michaelmishayev/Projects/bankDev2_standalone/node_modules/express/lib/application.js:635:24)
-    at Object.<anonymous> (/Users/michaelmishayev/Projects/bankDev2_standalone/server/server-db.js:9708:5)
-    at Module._compile (node:internal/modules/cjs/loader:1734:14)
-    at Object..js (node:internal/modules/cjs/loader:1899:10)
-    at Module.load (node:internal/modules/cjs/loader:1469:32)
-    at Module._load (node:internal/modules/cjs/loader:1286:12)
-    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
-Emitted 'error' event on Server instance at:
-    at emitErrorNT (node:net:1976:8)
-    at process.processTicksAndRejections (node:internal/process/task_queues:90:21) {
-  code: 'EADDRINUSE',
-  errno: -48,
-  syscall: 'listen',
-  address: '::',
-  port: 8003
-}
-
-Node.js v24.2.0
+✅ Content Database connected successfully
+✅ Test content table cleanup completed
+✅ Main Database connected successfully
+❄️  Cache MISS for calculation-parameters: mortgage (1755761644185)
+Property ownership options table not found, using fallback values
+💾 Cached calculation-parameters for: mortgage (TTL: 5min)
+[0mGET /api/v1/calculation-parameters?business_path=mortgage [32m200[0m 289.184 ms - 2781[0m
