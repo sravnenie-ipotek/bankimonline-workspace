@@ -1,0 +1,63 @@
+{
+  "timestamp": "2025-08-21T11:37:35.302Z",
+  "tests": [
+    {
+      "name": "Database Connections",
+      "status": "PASS",
+      "duration": 11,
+      "result": {
+        "core": {
+          "timestamp": "2025-08-21T11:37:35.310Z",
+          "db": "bankim_core"
+        },
+        "content": {
+          "timestamp": "2025-08-21T11:37:35.314Z",
+          "db": "bankim_content"
+        }
+      }
+    },
+    {
+      "name": "Core Database Tables",
+      "status": "PASS",
+      "duration": 3,
+      "result": {
+        "expectedTables": [
+          "property_ownership_options",
+          "content_items",
+          "content_translations",
+          "dropdown_configs"
+        ],
+        "actualTables": [],
+        "count": 0
+      }
+    },
+    {
+      "name": "Content Database Tables",
+      "status": "PASS",
+      "duration": 3,
+      "result": {
+        "expectedTables": [
+          "content_items",
+          "content_translations"
+        ],
+        "actualTables": [
+          "content_items",
+          "content_translations"
+        ],
+        "count": 2
+      }
+    },
+    {
+      "name": "Property Ownership Data",
+      "status": "FAIL",
+      "error": "relation \"property_ownership_options\" does not exist"
+    }
+  ],
+  "errors": [
+    {
+      "name": "Property Ownership Data",
+      "error": "relation \"property_ownership_options\" does not exist"
+    }
+  ],
+  "summary": {}
+}

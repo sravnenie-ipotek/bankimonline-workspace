@@ -1,0 +1,202 @@
+{
+  "timestamp": "2025-08-21T11:40:10.392Z",
+  "tests": [
+    {
+      "name": "Database Connections",
+      "status": "PASS",
+      "duration": 18,
+      "result": {
+        "core": {
+          "timestamp": "2025-08-21T11:40:10.404Z",
+          "db": "bankim_core"
+        },
+        "content": {
+          "timestamp": "2025-08-21T11:40:10.411Z",
+          "db": "bankim_content"
+        }
+      }
+    },
+    {
+      "name": "Core Database Tables",
+      "status": "PASS",
+      "duration": 6,
+      "result": {
+        "expectedBusinessTables": [
+          "property_ownership_rules"
+        ],
+        "actualBusinessTables": [
+          "property_ownership_rules"
+        ],
+        "migratedTables": [
+          "migrated_content_items",
+          "migrated_content_translations",
+          "migrated_dropdown_configs",
+          "migrated_locales",
+          "migrated_property_ownership_options"
+        ],
+        "businessTableCount": 1,
+        "circuitBreakerActive": true
+      }
+    },
+    {
+      "name": "Content Database Tables",
+      "status": "PASS",
+      "duration": 6,
+      "result": {
+        "expectedTables": [
+          "content_items",
+          "content_translations"
+        ],
+        "actualTables": [
+          "content_items",
+          "content_translations"
+        ],
+        "count": 2
+      }
+    },
+    {
+      "name": "Property Ownership Data",
+      "status": "PASS",
+      "duration": 6,
+      "result": {
+        "count": 3,
+        "expectedKeys": [
+          "no_property",
+          "has_property",
+          "selling_property"
+        ],
+        "actualKeys": [
+          "no_property",
+          "has_property",
+          "selling_property"
+        ],
+        "ltvValidation": true,
+        "hasTranslations": false,
+        "data": [
+          {
+            "option_key": "no_property",
+            "ltv_percentage": "75.00",
+            "financing_percentage": "75.00",
+            "option_text_en": null,
+            "option_text_he": null,
+            "option_text_ru": null,
+            "is_active": true
+          },
+          {
+            "option_key": "has_property",
+            "ltv_percentage": "50.00",
+            "financing_percentage": "50.00",
+            "option_text_en": null,
+            "option_text_he": null,
+            "option_text_ru": null,
+            "is_active": true
+          },
+          {
+            "option_key": "selling_property",
+            "ltv_percentage": "70.00",
+            "financing_percentage": "70.00",
+            "option_text_en": null,
+            "option_text_he": null,
+            "option_text_ru": null,
+            "is_active": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Translation Data Completeness",
+      "status": "PASS",
+      "duration": 1,
+      "result": {
+        "coreCount": 0,
+        "contentCount": 7638,
+        "total": 7638
+      }
+    },
+    {
+      "name": "Calculation Parameters API",
+      "status": "PASS",
+      "duration": 6,
+      "result": {
+        "status": "success",
+        "hasPropertyOwnership": true,
+        "ltvKeys": [
+          "no_property",
+          "has_property",
+          "selling_property"
+        ],
+        "currentRate": 5
+      }
+    },
+    {
+      "name": "Property Ownership API",
+      "status": "PASS",
+      "duration": 1,
+      "result": {
+        "status": "API_NOT_FOUND",
+        "note": "Property ownership API not implemented yet"
+      }
+    },
+    {
+      "name": "LTV Calculations",
+      "status": "PASS",
+      "duration": 6,
+      "result": {
+        "calculations": {
+          "no_property": {
+            "ltv": 75,
+            "financing": 75,
+            "minDownPayment": 25
+          },
+          "has_property": {
+            "ltv": 50,
+            "financing": 50,
+            "minDownPayment": 50
+          },
+          "selling_property": {
+            "ltv": 70,
+            "financing": 70,
+            "minDownPayment": 30
+          }
+        },
+        "validations": {
+          "no_property": true,
+          "has_property": true,
+          "selling_property": true
+        },
+        "allValid": true
+      }
+    },
+    {
+      "name": "Hebrew Translations",
+      "status": "PASS",
+      "duration": 5,
+      "result": {
+        "propertyOwnershipHebrew": 3,
+        "mortgageCalculatorHebrew": 128,
+        "hasHebrewContent": true
+      }
+    },
+    {
+      "name": "Multi-language Support",
+      "status": "PASS",
+      "duration": 3,
+      "result": {
+        "languages": {
+          "en": 2571,
+          "he": 2571,
+          "ru": 2496
+        },
+        "hasAllLanguages": true
+      }
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "successRate": "100.0%",
+    "status": "ALL_PASS"
+  }
+}

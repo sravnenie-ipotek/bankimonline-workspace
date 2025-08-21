@@ -1,0 +1,237 @@
+{
+  "timestamp": "2025-08-21T11:47:01.547Z",
+  "architecture": {
+    "businessLogic": {
+      "coreContentTablesRemoved": true,
+      "businessTablesPresent": true,
+      "businessTables": [
+        "banking_standards",
+        "calculation_parameters",
+        "property_ownership_rules"
+      ]
+    },
+    "circuitBreaker": {
+      "active": true,
+      "migratedTables": [
+        "migrated_content_items",
+        "migrated_content_translations",
+        "migrated_dropdown_configs",
+        "migrated_locales",
+        "migrated_property_ownership_options"
+      ]
+    },
+    "contentSeparation": {
+      "contentTablesPresent": true,
+      "contentTables": [
+        "content_items",
+        "content_translations",
+        "dropdown_configs",
+        "locales"
+      ]
+    }
+  },
+  "translations": {
+    "coverage": {
+      "byLanguage": {
+        "en": {
+          "count": 5,
+          "uniqueKeys": 5
+        },
+        "he": {
+          "count": 5,
+          "uniqueKeys": 5
+        },
+        "ru": {
+          "count": 5,
+          "uniqueKeys": 5
+        }
+      },
+      "missingTranslationsCount": 20,
+      "missingTranslations": [
+        {
+          "content_key": "about_desc",
+          "screen_location": "about",
+          "available_languages": null,
+          "language_count": "0"
+        },
+        {
+          "content_key": "about_how_it_work",
+          "screen_location": "about",
+          "available_languages": null,
+          "language_count": "0"
+        },
+        {
+          "content_key": "about_how_it_work_text",
+          "screen_location": "about",
+          "available_languages": null,
+          "language_count": "0"
+        },
+        {
+          "content_key": "about_how_it_work_text_second",
+          "screen_location": "about",
+          "available_languages": null,
+          "language_count": "0"
+        },
+        {
+          "content_key": "about_title",
+          "screen_location": "about",
+          "available_languages": null,
+          "language_count": "0"
+        },
+        {
+          "content_key": "about_why_bank",
+          "screen_location": "about",
+          "available_languages": null,
+          "language_count": "0"
+        },
+        {
+          "content_key": "about_why_bank_title",
+          "screen_location": "about",
+          "available_languages": null,
+          "language_count": "0"
+        },
+        {
+          "content_key": "about_why_credit",
+          "screen_location": "about",
+          "available_languages": null,
+          "language_count": "0"
+        },
+        {
+          "content_key": "about_why_credit_title",
+          "screen_location": "about",
+          "available_languages": null,
+          "language_count": "0"
+        },
+        {
+          "content_key": "about_why_fast",
+          "screen_location": "about",
+          "available_languages": null,
+          "language_count": "0"
+        }
+      ]
+    },
+    "integrity": {
+      "mortgageTranslations": [],
+      "propertyOwnershipComplete": true,
+      "hebrewContentValid": true
+    },
+    "languages": {
+      "propertyOwnership": {
+        "1": {
+          "en": "I don't own any property",
+          "he": "אני לא בעלים של נכס",
+          "ru": "Я не владею недвижимостью"
+        },
+        "2": {
+          "en": "I own a property",
+          "he": "אני בעלים של נכס",
+          "ru": "Я владею недвижимостью"
+        },
+        "3": {
+          "en": "I'm selling a property",
+          "he": "אני מוכר נכס",
+          "ru": "Я продаю недвижимость"
+        }
+      }
+    }
+  },
+  "dropdowns": {
+    "configuration": {
+      "totalConfigs": 2,
+      "configsByField": {
+        "first_apartment": 1,
+        "property_ownership": 1
+      },
+      "propertyOwnershipConfigured": true
+    },
+    "apiEndpoints": {
+      "/api/v1/dropdowns": {
+        "status": 404,
+        "error": "Request failed with status code 404"
+      },
+      "/api/v1/dropdowns/property_ownership": {
+        "status": 404,
+        "error": "Request failed with status code 404"
+      },
+      "/api/v1/calculation-parameters?business_path=mortgage": {
+        "status": 200,
+        "hasData": true,
+        "dataKeys": [
+          "status",
+          "data"
+        ]
+      }
+    },
+    "functionality": {
+      "allEndpointsWorking": false
+    }
+  },
+  "apiValidation": {
+    "endpoints": {
+      "/api/v1/calculation-parameters?business_path=mortgage": {
+        "status": 200,
+        "responseTime": 1755776821585,
+        "dataSize": 2781,
+        "hasData": true
+      },
+      "/api/v1/banks": {
+        "status": 200,
+        "responseTime": 1755776821593,
+        "dataSize": 3272,
+        "hasData": true
+      },
+      "/api/v1/cities": {
+        "status": 200,
+        "responseTime": 1755776821593,
+        "dataSize": 108,
+        "hasData": true
+      }
+    },
+    "allWorking": true,
+    "workingCount": 3,
+    "totalCount": 3
+  },
+  "summary": {
+    "overallStatus": "ISSUES_FOUND",
+    "issueCount": 1,
+    "issues": [
+      "20 missing translations"
+    ],
+    "validationAreas": {
+      "architecture": true,
+      "translations": false,
+      "dropdowns": false,
+      "apiEndpoints": true,
+      "businessLogic": true
+    }
+  },
+  "businessLogic": {
+    "ltvRules": {
+      "count": 3,
+      "calculations": {
+        "no_property": {
+          "ltv": 75,
+          "financing": 75,
+          "minDownPayment": 25,
+          "valid": true
+        },
+        "has_property": {
+          "ltv": 50,
+          "financing": 50,
+          "minDownPayment": 50,
+          "valid": true
+        },
+        "selling_property": {
+          "ltv": 70,
+          "financing": 70,
+          "minDownPayment": 30,
+          "valid": true
+        }
+      },
+      "allValid": true
+    },
+    "bankingStandards": {
+      "activeCount": 61
+    }
+  }
+}

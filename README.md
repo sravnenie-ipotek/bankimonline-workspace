@@ -1,582 +1,325 @@
-# 📦 Bankimonline Shared
+# 🏦 Bankimonline - Standalone Banking Application
 
-**Cross-Platform Shared Package**
+**Modern Israeli Banking Services Platform**
 
-This repository contains the **shared types, utilities, and constants** used across the Bankimonline application ecosystem. This is automatically synchronized from the [`bankimonline-workspace`](https://github.com/sravnenie-ipotek/bankimonline-workspace) development monorepo.
-
-## ⚠️ Development Notice
-
-**🚨 DO NOT develop directly in this repository!**
-
-- **Development**: Happens in [`bankimonline-workspace`](https://github.com/sravnenie-ipotek/bankimonline-workspace)
-- **Deployment**: This repository is automatically updated via dual-push workflow
-- **Issues**: Report bugs and feature requests in the workspace repository
+A comprehensive full-stack banking application providing mortgage calculations, credit assessments, refinancing services, and customer management for Israeli financial institutions.
 
 ## 🏗️ Architecture
 
-This repository is part of the **Hybrid 4-Repository System**:
-
-- 🔧 **bankimonline-workspace** - Development hub (source of truth)
-- 🌐 **bankimonline-web** - Client deployment
-- 🔧 **bankimonline-api** - Server deployment  
-- 📍 **bankimonline-shared** (this repo) - Shared package
-
-## 📦 Package Contents
-
-### Core Shared Components
-
-- **🔷 TypeScript Interfaces** - API contracts and data models
-- **🛠️ Utility Functions** - Cross-platform helper functions
-- **📋 Validation Schemas** - Yup schemas for form validation
-- **🌐 Translation Management** - Multi-language content system
-- **⚙️ Constants** - Banking logic, routes, and configuration
-- **🎨 Design Tokens** - UI constants and theme definitions
-
-## 📁 Package Structure
+This is a **standalone application** with a unified repository containing both frontend and backend components:
 
 ```
-src/
-├── types/                   # TypeScript type definitions
-│   ├── api.ts              # API request/response interfaces
-│   ├── content.ts          # Content management types
-│   ├── banking.ts          # Banking domain types
-│   ├── user.ts             # User and authentication types
-│   └── common.ts           # Common utility types
-│
-├── schemas/                # Validation schemas
-│   ├── mortgage.ts         # Mortgage form validation
-│   ├── credit.ts           # Credit form validation
-│   ├── auth.ts             # Authentication validation
-│   └── profile.ts          # User profile validation
-│
-├── constants/              # Application constants
-│   ├── banking.ts          # Banking business rules
-│   ├── routes.ts           # API and frontend routes
-│   ├── validation.ts       # Validation constants
-│   └── ui.ts               # UI constants and themes
-│
-├── utils/                  # Utility functions
-│   ├── format.ts           # Number/date formatting
-│   ├── validation.ts       # Custom validation helpers
-│   ├── currency.ts         # Currency conversion utilities
-│   ├── hebrew.ts           # Hebrew/RTL text utilities
-│   └── api.ts              # API helper functions
-│
-├── locales/               # Translation files
-│   ├── en/                # English translations
-│   ├── he/                # Hebrew translations (RTL)
-│   └── ru/                # Russian translations
-│
-└── hooks/                 # Shared React hooks (client-side)
-    ├── useContentApi.ts   # Database-first content system
-    ├── useValidation.ts   # Form validation hooks
-    └── useFormatting.ts   # Number/currency formatting
+├── mainapp/          # React frontend application
+├── server/           # Node.js backend API
+├── locales/          # Multi-language support (Hebrew/English/Russian)
+├── migrations/       # Database schema migrations
+└── uploads/          # File upload storage
 ```
 
-## 🔷 TypeScript Interfaces
+## 🚀 Quick Start
 
-### API Contracts
+### Prerequisites
+- Node.js 20.x or higher
+- PostgreSQL database
+- Git
 
-```typescript
-// User authentication
-export interface LoginRequest {
-  phone: string;
-  verificationCode: string;
-}
-
-export interface LoginResponse {
-  token: string;
-  user: UserProfile;
-  expiresAt: string;
-}
-
-// Banking services
-export interface MortgageCalculationRequest {
-  propertyValue: number;
-  downPayment: number;
-  loanTerm: number;
-  interestRate?: number;
-}
-
-export interface BankOffer {
-  bankId: string;
-  bankName: string;
-  interestRate: number;
-  maxLoanAmount: number;
-  terms: LoanTerms;
-}
-```
-
-### Content Management Types
-
-```typescript
-// Database-first content system
-export interface ContentItem {
-  content_key: string;
-  component_type: 'text' | 'button' | 'dropdown_option' | 'placeholder';
-  category: string;
-  screen_location: string;
-  status: 'active' | 'inactive';
-}
-
-export interface ContentTranslation {
-  content_item_id: number;
-  language_code: 'en' | 'he' | 'ru';
-  content_value: string;
-  status: 'approved' | 'pending' | 'draft';
-}
-```
-
-## 🛠️ Utility Functions
-
-### Currency & Formatting
-
-```typescript
-import { formatCurrency, formatPercentage } from '@bankimonline/shared/utils/format';
-
-// Usage examples
-const amount = formatCurrency(250000, 'ILS'); // "₪250,000"
-const rate = formatPercentage(0.045); // "4.5%"
-```
-
-### Hebrew & RTL Support
-
-```typescript
-import { isHebrewText, formatHebrewNumber } from '@bankimonline/shared/utils/hebrew';
-
-// RTL text detection and formatting
-const isRTL = isHebrewText(text);
-const hebrewNumber = formatHebrewNumber(12345); // "12,345" with RTL formatting
-```
-
-### Validation Utilities
-
-```typescript
-import { validateIsraeliPhone, validateIsraeliID } from '@bankimonline/shared/utils/validation';
-
-// Israeli-specific validation
-const isValidPhone = validateIsraeliPhone('0501234567'); // true
-const isValidID = validateIsraeliID('123456789'); // validates checksum
-```
-
-## 📋 Validation Schemas
-
-### Mortgage Form Validation
-
-```typescript
-import { mortgageCalculationSchema } from '@bankimonline/shared/schemas/mortgage';
-
-// Yup schema for mortgage forms
-const validationSchema = mortgageCalculationSchema;
-
-// Usage with Formik
-<Formik
-  initialValues={initialValues}
-  validationSchema={validationSchema}
-  onSubmit={handleSubmit}
->
-  {/* Form components */}
-</Formik>
-```
-
-### Multi-Language Error Messages
-
-```typescript
-// Validation schemas include multi-language error messages
-export const phoneValidation = yup
-  .string()
-  .required(t('error_phone_required'))
-  .matches(/^05\d{8}$/, t('error_phone_format'));
-```
-
-## 🌐 Translation System
-
-### Multi-Language Content
-
-The shared package manages translations for all supported languages:
-
-- **English (en)** - Primary language
-- **Hebrew (he)** - Right-to-left support  
-- **Russian (ru)** - Cyrillic character support
-
-### Translation File Structure
-
-```javascript
-// locales/en/common.json
-{
-  "buttons": {
-    "continue": "Continue",
-    "back": "Back",
-    "calculate": "Calculate",
-    "submit": "Submit"
-  },
-  "validation": {
-    "required": "This field is required",
-    "invalid_email": "Please enter a valid email",
-    "invalid_phone": "Please enter a valid Israeli phone number"
-  }
-}
-
-// locales/he/common.json (RTL)
-{
-  "buttons": {
-    "continue": "המשך",
-    "back": "חזור",
-    "calculate": "חשב",
-    "submit": "שלח"
-  }
-}
-```
-
-## ⚙️ Constants & Configuration
-
-### Banking Business Rules
-
-```typescript
-// constants/banking.ts
-export const BANKING_RULES = {
-  PROPERTY_OWNERSHIP: {
-    NO_PROPERTY: {
-      max_ltv: 0.75,
-      min_down_payment: 0.25
-    },
-    HAS_PROPERTY: {
-      max_ltv: 0.50,
-      min_down_payment: 0.50
-    },
-    SELLING_PROPERTY: {
-      max_ltv: 0.70,
-      min_down_payment: 0.30
-    }
-  },
-  LOAN_TERMS: {
-    MIN_YEARS: 4,
-    MAX_YEARS: 30,
-    DEFAULT_RATE: 0.05 // 5%
-  }
-};
-```
-
-### API Route Constants
-
-```typescript
-// constants/routes.ts
-export const API_ROUTES = {
-  AUTH: {
-    SMS_LOGIN: '/api/sms-login',
-    VERIFY_CODE: '/api/sms-code-login',
-    REFRESH_TOKEN: '/api/refresh-token'
-  },
-  BANKING: {
-    COMPARE_BANKS: '/api/customer/compare-banks',
-    MORTGAGE_PROGRAMS: '/api/customer/mortgage-programs',
-    SUBMIT_APPLICATION: '/api/customer/submit-application'
-  },
-  CONTENT: {
-    GET_CONTENT: '/api/content/:screen/:language',
-    CACHE_STATS: '/api/content/cache/stats'
-  }
-} as const;
-```
-
-## 🎨 Design System Integration
-
-### UI Constants
-
-```typescript
-// constants/ui.ts
-export const THEME = {
-  colors: {
-    primary: '#1976d2',
-    secondary: '#dc004e',
-    success: '#2e7d32',
-    error: '#d32f2f',
-    warning: '#ed6c02',
-    info: '#0288d1'
-  },
-  breakpoints: {
-    xs: 0,
-    sm: 600,
-    md: 900,
-    lg: 1200,
-    xl: 1536
-  },
-  spacing: {
-    unit: 8, // Material-UI spacing unit
-    section: 24,
-    component: 16
-  }
-} as const;
-```
-
-### Component Props
-
-```typescript
-// types/common.ts
-export interface BaseComponentProps {
-  className?: string;
-  testId?: string;
-  ariaLabel?: string;
-}
-
-export interface LoadingState {
-  isLoading: boolean;
-  error?: string | null;
-}
-
-export interface LanguageSupport {
-  language: 'en' | 'he' | 'ru';
-  direction: 'ltr' | 'rtl';
-}
-```
-
-## 🔧 Installation & Usage
-
-### NPM Installation
+### Installation
 
 ```bash
-# Install as dependency
-npm install @bankimonline/shared
+# Clone the repository
+git clone https://github.com/YourOrg/bankDev2_standalone.git
+cd bankDev2_standalone
 
-# Or as dev dependency for types only
-npm install -D @bankimonline/shared
+# Install dependencies
+npm install
+
+# Frontend dependencies
+cd mainapp && npm install && cd ..
+
+# Set up environment variables
+cp .env.example .env
+# Edit .env with your database credentials and API keys
 ```
 
-### TypeScript Usage
-
-```typescript
-// Import types
-import type { MortgageCalculationRequest, BankOffer } from '@bankimonline/shared/types/banking';
-
-// Import utilities
-import { formatCurrency, validateIsraeliPhone } from '@bankimonline/shared/utils';
-
-// Import constants
-import { BANKING_RULES, API_ROUTES } from '@bankimonline/shared/constants';
-
-// Import validation schemas
-import { mortgageSchema } from '@bankimonline/shared/schemas';
-```
-
-### React Integration
-
-```typescript
-// Import React hooks
-import { useContentApi } from '@bankimonline/shared/hooks';
-
-const MyComponent = () => {
-  const { getContent } = useContentApi('home_page');
-  
-  return (
-    <div>
-      <h1>{getContent('title', 'Default Title')}</h1>
-      <p>{getContent('description', 'Default description...')}</p>
-    </div>
-  );
-};
-```
-
-## 📊 Package Dependencies
-
-### Runtime Dependencies
-
-```json
-{
-  "yup": "^1.0.0",
-  "i18next": "^22.0.0",
-  "date-fns": "^2.29.0"
-}
-```
-
-### Peer Dependencies
-
-```json
-{
-  "react": "^18.0.0",
-  "typescript": "^4.9.0"
-}
-```
-
-## 🔄 Content Management Integration
-
-### Database-First Content System
-
-The shared package provides the interface for the database-first content system:
-
-```typescript
-// Integration with content API
-export interface ContentApiResponse {
-  status: 'success' | 'error';
-  screen_location: string;
-  language_code: string;
-  content_count: number;
-  content: Record<string, ContentValue>;
-}
-
-export interface ContentValue {
-  value: string;
-  component_type: string;
-  category: string;
-}
-```
-
-### Fallback Hierarchy
-
-1. **Cache** - NodeCache (5-minute TTL)
-2. **Database** - PostgreSQL content tables
-3. **File System** - Static translation files
-4. **Default Values** - Hardcoded fallbacks in components
-
-## 🛡️ Security Features
-
-### Input Validation
-
-```typescript
-// Sanitization utilities
-export const sanitizeInput = (input: string): string => {
-  return input.trim().replace(/[<>]/g, '');
-};
-
-// Phone number validation with Israeli format
-export const validateIsraeliPhone = (phone: string): boolean => {
-  const cleanPhone = phone.replace(/[^\d]/g, '');
-  return /^05\d{8}$/.test(cleanPhone);
-};
-```
-
-### Data Masking
-
-```typescript
-// Sensitive data masking
-export const maskPhoneNumber = (phone: string): string => {
-  return phone.replace(/(\d{3})\d{3}(\d{3})/, '$1***$2');
-};
-
-export const maskEmail = (email: string): string => {
-  const [username, domain] = email.split('@');
-  const maskedUsername = username.charAt(0) + '*'.repeat(username.length - 2) + username.charAt(username.length - 1);
-  return `${maskedUsername}@${domain}`;
-};
-```
-
-## 📈 Performance Optimizations
-
-### Tree Shaking Support
-
-The package is optimized for tree shaking with ESM exports:
-
-```typescript
-// Individual imports (recommended)
-import { formatCurrency } from '@bankimonline/shared/utils/format';
-import { mortgageSchema } from '@bankimonline/shared/schemas/mortgage';
-
-// Avoid importing entire package
-// import * from '@bankimonline/shared'; // ❌ Not recommended
-```
-
-### Bundle Size Optimization
-
-- **Modular Exports**: Each utility can be imported individually
-- **No Runtime Dependencies**: Minimal external dependencies
-- **TypeScript-First**: Optimized compilation and type checking
-
-## 🧪 Testing Support
-
-### Test Utilities
-
-```typescript
-// Test data factories
-export const createMockUser = (overrides?: Partial<UserProfile>): UserProfile => {
-  return {
-    id: '123',
-    phone: '0501234567',
-    firstName: 'Test',
-    lastName: 'User',
-    ...overrides
-  };
-};
-
-export const createMockBankOffer = (overrides?: Partial<BankOffer>): BankOffer => {
-  return {
-    bankId: 'bank-1',
-    bankName: 'Test Bank',
-    interestRate: 0.045,
-    maxLoanAmount: 1000000,
-    terms: { minYears: 4, maxYears: 30 },
-    ...overrides
-  };
-};
-```
-
-## 📱 Mobile & Responsive Support
-
-### Device Detection
-
-```typescript
-// Device and viewport utilities
-export const getDeviceType = (): 'mobile' | 'tablet' | 'desktop' => {
-  const width = window.innerWidth;
-  if (width < 768) return 'mobile';
-  if (width < 1024) return 'tablet';
-  return 'desktop';
-};
-
-export const isTouchDevice = (): boolean => {
-  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-};
-```
-
-### Responsive Constants
-
-```typescript
-// Breakpoint utilities
-export const BREAKPOINTS = {
-  mobile: { max: 767 },
-  tablet: { min: 768, max: 1023 },
-  desktop: { min: 1024 }
-} as const;
-```
-
-## 🚀 Publishing & Versioning
-
-### NPM Publishing
+### Development Setup
 
 ```bash
-# Build package
-npm run build
+# Start both API server (port 8003) and file server (port 3001)
+npm run dev
 
-# Publish to NPM registry
-npm publish
-
-# Publish beta version
-npm publish --tag beta
+# Frontend development server (port 5173)
+cd mainapp && npm run dev
 ```
 
-### Version Management
+### Production Deployment
 
-The package follows semantic versioning:
-- **Major**: Breaking API changes
-- **Minor**: New features, backward compatible
-- **Patch**: Bug fixes, backward compatible
+```bash
+# Build frontend for production
+cd mainapp && npm run build
+
+# Start production server
+npm start
+```
+
+## 🌐 Application URLs
+
+- **Frontend Development**: http://localhost:5173
+- **API Server**: http://localhost:8003
+- **File Server**: http://localhost:3001 (development only)
+
+## 📦 Core Features
+
+### 🏠 Financial Services
+- **Mortgage Calculator** - Multi-step mortgage calculation with bank comparison
+- **Credit Calculator** - Personal and business credit assessment
+- **Refinancing Services** - Mortgage and credit refinancing options
+- **Bank Comparison** - Real-time comparison of Israeli bank offers
+
+### 👥 User Management
+- **SMS Authentication** - Israeli phone number verification
+- **Customer Portal** - Personal financial dashboard
+- **Document Upload** - Secure document management
+- **Multi-Language Support** - Hebrew (RTL), English, Russian
+
+### 🏢 Admin Features
+- **Bank Worker Management** - Staff registration and management
+- **Content Management** - Dynamic content and translations
+- **Analytics Dashboard** - User engagement and conversion metrics
+
+## 🛠️ Technology Stack
+
+### Frontend (mainapp/)
+- **React 18** - Modern React with Hooks
+- **TypeScript** - Type-safe development
+- **Vite** - Fast development and build tool
+- **Redux Toolkit** - State management with persistence
+- **Material-UI** - React component library
+- **Tailwind CSS** - Utility-first CSS framework
+- **i18next** - Internationalization with RTL support
+- **Formik + Yup** - Form handling and validation
+
+### Backend (server/)
+- **Node.js + Express** - RESTful API server
+- **PostgreSQL** - Primary database
+- **JWT** - Authentication and authorization
+- **Multer** - File upload handling
+- **Morgan** - Request logging
+- **CORS** - Cross-origin resource sharing
+
+### Database
+- **PostgreSQL** - Hosted on Railway
+- **Migration System** - Numbered SQL migration files
+- **Content Management** - Database-first translation system
+
+## 📝 Development Commands
+
+### Root Level Commands
+```bash
+# Development servers
+npm run dev                    # Start both API and file servers
+npm start                      # Production server
+
+# Database
+npm run sync-translations      # Sync translation files
+npm run verify:database        # Test database connection
+
+# Testing
+npm test                       # Playwright backend tests
+npm run test:headed           # Playwright with browser visible
+npm run test:integration      # Integration test suite
+```
+
+### Frontend Commands (mainapp/)
+```bash
+# Development
+npm run dev                    # Vite dev server (port 5173)
+npm run build                  # Production build
+npm run preview               # Preview production build
+
+# Testing
+npm run cypress               # Cypress E2E tests (interactive)
+npx cypress run               # Cypress E2E tests (headless)
+npm run test:translations     # Translation validation tests
+
+# Code Quality
+npm run lint                  # ESLint code analysis
+npm run format               # Prettier code formatting
+```
+
+## 🌍 Multi-Language Support
+
+The application supports three languages with complete localization:
+
+- **Hebrew (he)** - Primary language with RTL support
+- **English (en)** - International language
+- **Russian (ru)** - Russian-speaking community
+
+### Translation Management
+- Translation files in `/locales/{language}/translation.json`
+- Database-backed content system for dynamic content
+- Automated translation sync between frontend and backend
+- RTL layout support for Hebrew interface
+
+## 📊 Testing Strategy
+
+### End-to-End Testing (Cypress)
+```bash
+# Run comprehensive test suite
+npx cypress run --spec "cypress/e2e/**/*.cy.ts"
+
+# Test specific functionality
+npx cypress run --spec "cypress/e2e/mortgage-simple-test.cy.ts"
+npx cypress run --spec "cypress/e2e/test-server-connection.cy.ts"
+```
+
+### Backend Testing (Playwright)
+```bash
+# Full test suite
+npm run test
+
+# Specific test categories
+npm run test:integration      # API integration tests
+npm run test:dropdowns       # Dropdown functionality tests
+```
+
+## 🗂️ Database Schema
+
+### Core Tables
+- `users` - Admin/staff accounts (email authentication)
+- `clients` - Customer accounts (SMS authentication) 
+- `banks` - Israeli banking institution data
+- `locales` - Multi-language content storage
+- `content_items` - Content management system
+- `params` - Application configuration
+
+### Migration System
+- Sequential numbered migrations in `migrations/`
+- Database-first approach for production safety
+- Rollback support for critical changes
+
+## 🔒 Security Features
+
+### Authentication
+- **SMS Verification** - Israeli phone number authentication
+- **JWT Tokens** - Secure API authentication
+- **Role-Based Access** - Customer vs. Admin permissions
+
+### Data Protection
+- **Input Sanitization** - XSS and injection prevention
+- **CORS Configuration** - Controlled cross-origin access
+- **File Upload Security** - Type and size validation
+- **Environment Variables** - Secure configuration management
+
+## 🚀 Deployment
+
+### Environment Configuration
+```bash
+# Required environment variables
+DATABASE_URL=postgresql://username:password@host:port/database
+JWT_SECRET=your-jwt-secret
+NODE_ENV=production
+PORT=8003
+
+# Optional
+CORS_ALLOWED_ORIGINS=https://yourdomain.com
+VITE_API_TARGET=https://api.yourdomain.com
+```
+
+### Production Deployment
+1. **Database Setup** - Create PostgreSQL database and run migrations
+2. **Environment Variables** - Configure production environment
+3. **Build Frontend** - `cd mainapp && npm run build`
+4. **Start Services** - `npm start` or use PM2 for process management
+5. **SSL Certificate** - Configure HTTPS for production security
+
+## 📈 Performance Features
+
+### Frontend Optimization
+- **Code Splitting** - Lazy-loaded routes and components
+- **Bundle Optimization** - Manual chunks for optimal loading
+- **Cache Strategy** - Redux persistence for user data
+- **Asset Optimization** - Compressed images and fonts
+
+### Backend Optimization  
+- **Database Connection Pooling** - Efficient PostgreSQL connections
+- **Response Caching** - API response caching with TTL
+- **File Serving** - Optimized static file delivery
+- **Request Logging** - Morgan for performance monitoring
+
+## 🛠️ Development Workflow
+
+### Branch Strategy
+- `main` - Production-ready code
+- `develop` - Development integration
+- `feature/*` - Feature development branches
+
+### Code Quality
+- **ESLint** - JavaScript/TypeScript linting
+- **Prettier** - Code formatting
+- **TypeScript** - Static type checking
+- **Husky** - Git hooks for quality enforcement
+
+### Commit Guidelines
+- Follow conventional commit format
+- Include tests for new features
+- Update documentation for API changes
+- Verify all tests pass before merging
+
+## 🔍 Debugging
+
+### Common Issues
+```bash
+# Port conflicts
+npm run kill-ports:all        # Kill all development ports
+
+# Database connectivity
+node test-railway-simple.js   # Test database connection
+
+# Translation sync
+npm run sync-translations     # Sync translation files
+
+# Cache clearing
+# Frontend: Delete mainapp/node_modules/.cache
+# Browser: Hard refresh (Ctrl/Cmd + Shift + R)
+```
+
+### Development Tools
+- **Database Admin** - Use PostgreSQL admin tools for database inspection
+- **API Testing** - Test API endpoints at http://localhost:8003/api/v1/
+- **Log Analysis** - Check server logs for debugging information
+
+## 📞 Support & Documentation
+
+### Getting Help
+- **Issues** - Create GitHub issues for bugs and feature requests
+- **Documentation** - Check `/docs` directory for detailed guides
+- **Code Comments** - Inline documentation in critical functions
+
+### Contributing
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes with tests
+4. Submit a pull request with description
+5. Ensure all checks pass
 
 ---
 
-## 🔗 Related Repositories
+## 📋 Architecture Decision Records
 
-- **Development**: [`bankimonline-workspace`](https://github.com/sravnenie-ipotek/bankimonline-workspace)
-- **Frontend**: [`bankimonline-web`](https://github.com/sravnenie-ipotek/bankimonline-web)
-- **Backend**: [`bankimonline-api`](https://github.com/sravnenie-ipotek/bankimonline-api)
+### Why Standalone Architecture?
+- **Simplified Deployment** - Single repository for both frontend and backend
+- **Unified Development** - Consistent tooling and dependency management  
+- **Reduced Complexity** - No monorepo configuration or workspace management
+- **Developer Experience** - Easier onboarding and development workflow
 
-## 📞 Support
-
-- **Issues**: Report in [`bankimonline-workspace`](https://github.com/sravnenie-ipotek/bankimonline-workspace/issues)
-- **Documentation**: See workspace repository for comprehensive documentation
-- **API Changes**: Check CHANGELOG.md for version updates
+### Technology Choices
+- **React + TypeScript** - Type safety and modern React patterns
+- **Node.js + Express** - JavaScript ecosystem consistency
+- **PostgreSQL** - Robust relational database for financial data
+- **Vite** - Fast development experience over Webpack
 
 ---
 
-**🚨 Remember**: This is a deployment repository. All development happens in the workspace!
-
-**Package Version**: 1.0.0  
-**Last Sync**: Automatic via dual-push  
-**Registry Status**: [![NPM Version](https://img.shields.io/npm/v/@bankimonline/shared)](https://www.npmjs.com/package/@bankimonline/shared)
+**Version**: 5.0.0 (Standalone Architecture)  
+**Last Updated**: August 2025  
+**License**: Private - Banking Application

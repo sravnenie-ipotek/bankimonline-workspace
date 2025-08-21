@@ -1,0 +1,200 @@
+{
+  "timestamp": "2025-08-21T11:31:30.999Z",
+  "tests": [
+    {
+      "name": "Database Connections",
+      "status": "PASS",
+      "duration": 17,
+      "result": {
+        "core": {
+          "timestamp": "2025-08-21T11:31:31.010Z",
+          "db": "bankim_core"
+        },
+        "content": {
+          "timestamp": "2025-08-21T11:31:31.017Z",
+          "db": "bankim_content"
+        }
+      }
+    },
+    {
+      "name": "Core Database Tables",
+      "status": "PASS",
+      "duration": 5,
+      "result": {
+        "expectedTables": [
+          "property_ownership_options",
+          "content_items",
+          "content_translations",
+          "dropdown_configs"
+        ],
+        "actualTables": [
+          "content_items",
+          "content_translations",
+          "dropdown_configs",
+          "property_ownership_options"
+        ],
+        "count": 4
+      }
+    },
+    {
+      "name": "Content Database Tables",
+      "status": "PASS",
+      "duration": 3,
+      "result": {
+        "expectedTables": [
+          "content_items",
+          "content_translations"
+        ],
+        "actualTables": [
+          "content_items",
+          "content_translations"
+        ],
+        "count": 2
+      }
+    },
+    {
+      "name": "Property Ownership Data",
+      "status": "PASS",
+      "duration": 1,
+      "result": {
+        "count": 3,
+        "expectedKeys": [
+          "no_property",
+          "has_property",
+          "selling_property"
+        ],
+        "actualKeys": [
+          "no_property",
+          "has_property",
+          "selling_property"
+        ],
+        "ltvValidation": true,
+        "hasTranslations": true,
+        "data": [
+          {
+            "option_key": "no_property",
+            "ltv_percentage": "75.00",
+            "financing_percentage": "75.00",
+            "option_text_en": "No, I do not currently own property",
+            "option_text_he": "לא, אני לא בעלים של נכס כרגע",
+            "option_text_ru": "Нет, я пока не владею недвижимостью",
+            "is_active": true
+          },
+          {
+            "option_key": "has_property",
+            "ltv_percentage": "50.00",
+            "financing_percentage": "50.00",
+            "option_text_en": "Yes, I already own property",
+            "option_text_he": "כן, כבר יש לי נכס",
+            "option_text_ru": "Да, у меня уже есть недвижимость",
+            "is_active": true
+          },
+          {
+            "option_key": "selling_property",
+            "ltv_percentage": "70.00",
+            "financing_percentage": "70.00",
+            "option_text_en": "I plan to sell my only property within two years to use the capital for a new purchase",
+            "option_text_he": "אני מתכנן למכור את הנכס היחיד שלי בתוך שנתיים כדי להשתמש בהון לרכישה חדשה",
+            "option_text_ru": "Я собираюсь продать единственную недвижимость в ближайшие два года, чтобы использовать полученный капитал для приобретения новой",
+            "is_active": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "Translation Data Completeness",
+      "status": "PASS",
+      "duration": 2,
+      "result": {
+        "coreCount": 2131,
+        "contentCount": 7638,
+        "total": 9769
+      }
+    },
+    {
+      "name": "Calculation Parameters API",
+      "status": "PASS",
+      "duration": 7,
+      "result": {
+        "status": "success",
+        "hasPropertyOwnership": true,
+        "ltvKeys": [
+          "no_property",
+          "has_property",
+          "selling_property"
+        ],
+        "currentRate": 5
+      }
+    },
+    {
+      "name": "Property Ownership API",
+      "status": "PASS",
+      "duration": 1,
+      "result": {
+        "status": "API_NOT_FOUND",
+        "note": "Property ownership API not implemented yet"
+      }
+    },
+    {
+      "name": "LTV Calculations",
+      "status": "PASS",
+      "duration": 1,
+      "result": {
+        "calculations": {
+          "no_property": {
+            "ltv": 75,
+            "financing": 75,
+            "minDownPayment": 25
+          },
+          "has_property": {
+            "ltv": 50,
+            "financing": 50,
+            "minDownPayment": 50
+          },
+          "selling_property": {
+            "ltv": 70,
+            "financing": 70,
+            "minDownPayment": 30
+          }
+        },
+        "validations": {
+          "no_property": true,
+          "has_property": true,
+          "selling_property": true
+        },
+        "allValid": true
+      }
+    },
+    {
+      "name": "Hebrew Translations",
+      "status": "PASS",
+      "duration": 2,
+      "result": {
+        "propertyOwnershipHebrew": 3,
+        "mortgageCalculatorHebrew": 213,
+        "hasHebrewContent": true
+      }
+    },
+    {
+      "name": "Multi-language Support",
+      "status": "PASS",
+      "duration": 2,
+      "result": {
+        "languages": {
+          "en": 727,
+          "he": 702,
+          "ru": 702
+        },
+        "hasAllLanguages": true
+      }
+    }
+  ],
+  "errors": [],
+  "summary": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "successRate": "100.0%",
+    "status": "ALL_PASS"
+  }
+}
