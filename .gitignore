@@ -1,0 +1,7 @@
+
+# Build output (should never be committed)
+/build/
+/dist/
+/mainapp/build/
+/packages/client/build/
+*.js.map

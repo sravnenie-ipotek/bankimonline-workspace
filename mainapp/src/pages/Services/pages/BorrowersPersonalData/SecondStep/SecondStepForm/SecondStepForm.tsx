@@ -114,13 +114,17 @@ const SecondStepForm = () => {
 
       <Row>
         <AdditionalIncome screenLocation="other_borrowers_step2" />
-        {additionalIncome && additionalIncome !== 'option_1' && (
+        {additionalIncome && 
+         !['option_1', 'no_additional_income', '1'].includes(additionalIncome) &&
+         !additionalIncome.includes('אין הכנסות נוספות') && (
           <AdditionalIncomeAmount screenLocation="other_borrowers_step2" />
         )}
         <Column />
       </Row>
 
-      {additionalIncome && additionalIncome !== 'option_1' && (
+      {additionalIncome && 
+       !['option_1', 'no_additional_income', '1'].includes(additionalIncome) &&
+       !additionalIncome.includes('אין הכנסות נוספות') && (
         <Row>
           <Column>
             {additionalIncomeValues.map((item) => (
@@ -153,7 +157,9 @@ const SecondStepForm = () => {
         <Column />
       </Row>
 
-      {obligation && obligation !== 'option_1' && (
+      {obligation && 
+       !['option_1', 'no_obligations', '1'].includes(obligation) &&
+       !obligation.includes('אין התחייבויות') && (
         <Row>
           <Column>
             {obligationValues.map((item) => (

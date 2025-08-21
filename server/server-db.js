@@ -94,14 +94,29 @@ contentPool.query('SELECT NOW()', (err, res) => {
 
 // Server mode identification endpoint
 app.get('/api/server-mode', (req, res) => {
-    res.json({
-        mode: 'modern',
-        server: 'packages',
-        file: 'packages/server/src/server.js',
-        warning: false,
-        message: 'MODERN MODE - PACKAGES SERVER',
-        status: 'PRODUCTION READY'
-    });
+    // Check if we're using Railway databases
+    const isRailway = process.env.DATABASE_URL && process.env.DATABASE_URL.includes('railway');
+    
+    if (isRailway) {
+        res.json({
+            mode: 'railway',
+            server: 'railway',
+            file: 'server-db.js (Railway Cloud)',
+            warning: true,
+            message: 'RAILWAY MODE - CLOUD DATABASE',
+            status: 'PRODUCTION',
+            recommendedSwitch: 'Use local DB for development'
+        });
+    } else {
+        res.json({
+            mode: 'local',
+            server: 'local',
+            file: 'server-db.js (Local)',
+            warning: false,
+            message: 'LOCAL MODE - DEVELOPMENT DATABASE',
+            status: 'DEVELOPMENT'
+        });
+    }
 });
 
 // Helper function for content database queries
@@ -227,9 +242,14 @@ app.get('/', (req, res) => {
 
 // Health check
 app.get('/api/health', (req, res) => {
+    // Detect if using Railway database
+    const databaseUrl = process.env.DATABASE_URL || '';
+    const isRailway = databaseUrl.includes('railway') || databaseUrl.includes('rlwy.net');
+    
     res.json({ 
         status: 'ok', 
-        database: 'connected',
+        database: isRailway ? 'railway' : 'local',
+        databaseHost: isRailway ? 'railway.app' : 'localhost',
         version: '5.2.0-regex-greedy-fix',
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV || 'development',
@@ -237,6 +257,23 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+
+// V1 Health check (for VersionChip component)
+app.get('/api/v1/health', (req, res) => {
+    // Detect if using Railway database
+    const databaseUrl = process.env.DATABASE_URL || '';
+    const isRailway = databaseUrl.includes('railway') || databaseUrl.includes('rlwy.net');
+    
+    res.json({ 
+        status: 'ok', 
+        database: isRailway ? 'railway' : 'local',
+        databaseHost: isRailway ? 'railway.app' : 'localhost',
+        version: '5.2.0-regex-greedy-fix',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development',
+        corsEnabled: true
+    });
+});
 
 // Content database health check
 app.get('/api/content-db/health', async (req, res) => {

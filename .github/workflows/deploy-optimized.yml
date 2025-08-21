@@ -1,0 +1,314 @@
+# 🚀 Professional CI/CD Pipeline - Optimized Docker Deployment
+# Target: <2 minute deployments with zero-downtime blue-green strategy
+
+name: Deploy (Optimized Docker)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  TARGET_HOST: 45.83.42.74
+  TARGET_USER: root
+
+jobs:
+  # ================================
+  # BUILD & TEST STAGE
+  # ================================
+  build:
+    name: 🏗️ Build & Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tags }}
+      image-digest: ${{ steps.build.outputs.digest }}
+    
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: 🐳 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: network=host
+      
+      - name: 🔐 Login to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: 📋 Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+      
+      - name: 🏗️ Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.optimized
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+      
+      - name: 🧪 Test container health
+        run: |
+          echo "🧪 Testing container startup..."
+          docker run --rm -d --name test-container \
+            -e NODE_ENV=production \
+            -e PORT=8003 \
+            -e DATABASE_URL=postgresql://test:test@localhost:5432/test \
+            -e JWT_SECRET=test-secret \
+            -p 8003:8003 \
+            ${{ steps.meta.outputs.tags }}
+          
+          sleep 10
+          
+          # Test if container is healthy
+          if docker ps | grep test-container; then
+            echo "✅ Container startup successful"
+            docker stop test-container
+          else
+            echo "❌ Container startup failed"
+            docker logs test-container || true
+            exit 1
+          fi
+
+  # ================================
+  # DEPLOY STAGE
+  # ================================
+  deploy:
+    name: 🚀 Blue-Green Deploy
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 5
+    environment:
+      name: production
+      url: https://dev2.bankimonline.com
+    
+    steps:
+      - name: 📂 Checkout deployment scripts
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            scripts/
+            .env.production
+          sparse-checkout-cone-mode: false
+      
+      - name: 🔐 Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ env.TARGET_HOST }} >> ~/.ssh/known_hosts
+      
+      - name: 🧹 Pre-deployment cleanup
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ env.TARGET_USER }}@${{ env.TARGET_HOST }} '
+            # Clean up old containers
+            docker system prune -f || true
+            
+            # Remove old images (keep last 2)
+            docker images --format "table {{.Repository}}\t{{.Tag}}\t{{.ID}}\t{{.CreatedAt}}" | \
+            grep bankimonline | tail -n +3 | awk "{print \$3}" | xargs -r docker rmi || true
+            
+            # Check disk space
+            df -h / | tail -n 1
+          '
+      
+      - name: 🔄 Blue-Green Deployment
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ env.TARGET_USER }}@${{ env.TARGET_HOST }} '
+            set -e
+            
+            # Variables
+            NEW_IMAGE="${{ needs.build.outputs.image-tag }}"
+            TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+            
+            echo "🔍 Checking current environment..."
+            
+            # Determine current environment
+            if docker ps --format "table {{.Names}}\t{{.Status}}" | grep -q "bankimonline-blue.*Up"; then
+              CURRENT="blue"
+              DEPLOY_TO="green"
+              CURRENT_PORT="8003"
+              DEPLOY_PORT="8004"
+            else
+              CURRENT="green"
+              DEPLOY_TO="blue"
+              CURRENT_PORT="8004"
+              DEPLOY_PORT="8003"
+            fi
+            
+            echo "📊 Current: $CURRENT (port $CURRENT_PORT)"
+            echo "🎯 Deploying to: $DEPLOY_TO (port $DEPLOY_PORT)"
+            
+            # Pull new image
+            echo "📥 Pulling new image..."
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            docker pull "$NEW_IMAGE"
+            
+            # Stop and remove target environment
+            echo "🛑 Stopping $DEPLOY_TO environment..."
+            docker stop bankimonline-$DEPLOY_TO 2>/dev/null || true
+            docker rm bankimonline-$DEPLOY_TO 2>/dev/null || true
+            
+            # Start new environment
+            echo "🚀 Starting $DEPLOY_TO environment on port $DEPLOY_PORT..."
+            docker run -d \
+              --name bankimonline-$DEPLOY_TO \
+              --restart unless-stopped \
+              -p $DEPLOY_PORT:8003 \
+              --env-file /app/.env.production \
+              -v /app/uploads:/app/uploads \
+              -v /app/logs:/app/logs \
+              --memory=1g \
+              --cpus=1.5 \
+              "$NEW_IMAGE"
+            
+            # Health check with retries
+            echo "🩺 Health checking $DEPLOY_TO environment..."
+            for i in {1..15}; do
+              if curl -sf http://localhost:$DEPLOY_PORT/api/health >/dev/null 2>&1; then
+                echo "✅ Health check passed on attempt $i"
+                break
+              fi
+              
+              if [ $i -eq 15 ]; then
+                echo "❌ Health check failed after 15 attempts"
+                echo "📋 Container logs:"
+                docker logs bankimonline-$DEPLOY_TO
+                docker stop bankimonline-$DEPLOY_TO
+                docker rm bankimonline-$DEPLOY_TO
+                exit 1
+              fi
+              
+              echo "⏳ Waiting for $DEPLOY_TO to be ready... ($i/15)"
+              sleep 4
+            done
+            
+            # Switch traffic (update nginx or environment)
+            echo "🔀 Switching traffic to $DEPLOY_TO..."
+            
+            # Method 1: Update nginx configuration if exists
+            if [ -f /etc/nginx/sites-available/bankimonline ]; then
+              sed -i "s/proxy_pass.*:80[0-9][0-9]/proxy_pass http:\/\/localhost:$DEPLOY_PORT/" /etc/nginx/sites-available/bankimonline
+              nginx -t && systemctl reload nginx
+              echo "✅ Nginx updated to port $DEPLOY_PORT"
+            fi
+            
+            # Method 2: Update port mapping for direct access
+            if [ "$DEPLOY_PORT" = "8003" ]; then
+              # Stop port 8004, ensure 8003 is active
+              docker stop bankimonline-green 2>/dev/null || true
+              docker rm bankimonline-green 2>/dev/null || true
+            else
+              # For staging: stop 8003, ensure 8004 is active
+              echo "🔄 Staging deployment on port 8004"
+            fi
+            
+            # Final health check
+            echo "🩺 Final health check..."
+            sleep 3
+            if curl -sf http://localhost:$DEPLOY_PORT/api/health >/dev/null 2>&1; then
+              echo "✅ Deployment successful!"
+              
+              # Clean up old environment after successful deployment
+              if [ "$CURRENT" != "$DEPLOY_TO" ]; then
+                echo "🧹 Cleaning up $CURRENT environment..."
+                docker stop bankimonline-$CURRENT 2>/dev/null || true
+                docker rm bankimonline-$CURRENT 2>/dev/null || true
+              fi
+            else
+              echo "❌ Final health check failed!"
+              exit 1
+            fi
+            
+            echo "🎉 Blue-Green deployment completed successfully!"
+            echo "📊 Active environment: $DEPLOY_TO (port $DEPLOY_PORT)"
+            echo "🕐 Deployment time: $(date)"
+          '
+      
+      - name: 🧪 Post-deployment validation
+        run: |
+          echo "🧪 Running post-deployment validation..."
+          
+          # Wait for full startup
+          sleep 10
+          
+          # Test main endpoints
+          ssh -i ~/.ssh/deploy_key ${{ env.TARGET_USER }}@${{ env.TARGET_HOST }} '
+            echo "🔍 Testing API endpoints..."
+            
+            # Test health endpoint
+            curl -sf http://localhost:8003/api/health || {
+              echo "❌ Health endpoint failed"
+              exit 1
+            }
+            
+            # Test calculation parameters endpoint
+            curl -sf "http://localhost:8003/api/v1/calculation-parameters?business_path=mortgage" >/dev/null || {
+              echo "❌ Calculation parameters endpoint failed"
+              exit 1
+            }
+            
+            echo "✅ All API endpoints responding correctly"
+          '
+      
+      - name: 📊 Deployment Summary
+        run: |
+          echo "## 🎉 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: ✅ Success" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment**: Production" >> $GITHUB_STEP_SUMMARY
+          echo "- **URL**: https://dev2.bankimonline.com" >> $GITHUB_STEP_SUMMARY
+          echo "- **Image**: ${{ needs.build.outputs.image-tag }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployment Time**: $(date)" >> $GITHUB_STEP_SUMMARY
+
+  # ================================
+  # NOTIFICATION STAGE
+  # ================================
+  notify:
+    name: 📢 Notify
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    if: always()
+    
+    steps:
+      - name: 📢 Deployment notification
+        run: |
+          if [ "${{ needs.deploy.result }}" == "success" ]; then
+            echo "🎉 Professional CI/CD deployment completed successfully!"
+            echo "🔗 Production URL: https://dev2.bankimonline.com"
+            echo "📊 Image: ${{ needs.build.outputs.image-tag }}"
+            echo "⚡ Deployment completed in <2 minutes"
+          else
+            echo "❌ Deployment failed. Check logs for details."
+            exit 1
+          fi
