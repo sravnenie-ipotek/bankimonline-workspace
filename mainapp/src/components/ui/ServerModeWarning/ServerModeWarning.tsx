@@ -15,7 +15,7 @@ export const ServerModeWarning: React.FC = () => {
       <div className={styles.warningContent}>
         <div className={styles.warningIcon}>⚠️</div>
         <div className={styles.warningText}>
-          <strong>DEV MODE - LEGACY MONOREPO</strong>
+          <strong>DEV MODE - STANDALONE ARCHITECTURE</strong>
           <span className={styles.warningDetails}>
             Using: {serverMode.file} | Switch to modern: {serverMode.recommendedSwitch}
           </span>

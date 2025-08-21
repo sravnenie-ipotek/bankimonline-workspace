@@ -50,6 +50,7 @@ export default defineConfig({
     }
   },
   server: {
+    host: true, // Bind to all interfaces (IPv4 + IPv6) for Cypress compatibility
     proxy: {
       '/api': {
         target: process.env.VITE_API_TARGET || 'http://localhost:8003',

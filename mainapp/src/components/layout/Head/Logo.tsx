@@ -17,7 +17,7 @@ const Logo: React.FC = () => {
       <a className={cx('logo')} onClick={() => navigate('/')}>
         <img alt="" src="/static/primary-logo05-1.svg" className={'logo'} />
       </a>
-      {/* Server mode badge - shows when using legacy/monorepo server */}
+      {/* Server mode badge - shows when using development server */}
       {!loading && serverMode && serverMode.mode === 'legacy' && (
         <div className={cx('server-mode-badge')} style={{ zIndex: 9998 }}>
           <span className={cx('server-mode-text')}>

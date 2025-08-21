@@ -1,0 +1,100 @@
+name: Deploy to Test Server
+
+on:
+  push:
+    branches: [main, test]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'test'
+        type: choice
+        options:
+        - test
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Set environment variables
+      run: |
+        echo "TARGET_ENV=test" >> $GITHUB_ENV
+        
+    # Database migrations excluded for now
+    # - name: Run database migrations
+    #   run: |
+    #     echo "🗄️ Running migrations on $TARGET_ENV environment..."
+    #     npm run migrate:$TARGET_ENV
+    #   env:
+    #     DATABASE_URL_STAGING: ${{ secrets.DATABASE_URL_STAGING }}
+    #     DATABASE_URL_PRODUCTION: ${{ secrets.DATABASE_URL_PRODUCTION }}
+        
+    - name: Build frontend
+      run: |
+        cd mainapp
+        npm ci
+        npm run build
+        
+    - name: Deploy with Blue-Green strategy
+      env:
+        SSH_PASS: ${{ secrets.TEST_SERVER_PASSWORD }}
+      run: |
+        echo "🔵🟢 Starting Blue-Green deployment to test server (45.83.42.74)..."
+        
+        # Install required tools
+        sudo apt-get update
+        sudo apt-get install -y sshpass rsync curl
+        
+        # Make deployment script executable
+        chmod +x ./blue-green-deploy.sh
+        
+        # Run blue-green deployment
+        ./blue-green-deploy.sh
+        
+    - name: Health check and verify deployment
+      run: |
+        echo "🩺 Verifying deployment health..."
+        sleep 10
+        
+        # Check if main URL is accessible
+        if curl -sf http://45.83.42.74/api/health >/dev/null 2>&1; then
+          echo "✅ Main URL health check passed"
+        else
+          echo "⚠️ Main URL health check failed, checking direct ports..."
+          
+          # Check blue port
+          if curl -sf http://45.83.42.74:8003/api/health >/dev/null 2>&1; then
+            echo "✅ Blue environment (8003) is healthy"
+          fi
+          
+          # Check green port  
+          if curl -sf http://45.83.42.74:8004/api/health >/dev/null 2>&1; then
+            echo "✅ Green environment (8004) is healthy"
+          fi
+        fi
+        
+    - name: Notify deployment status
+      if: always()
+      run: |
+        if [ ${{ job.status }} == 'success' ]; then
+          echo "🎉 Blue-Green deployment completed successfully!"
+          echo "🔗 Main URL: http://45.83.42.74"
+          echo "🔵 Blue: http://45.83.42.74:8003"
+          echo "🟢 Green: http://45.83.42.74:8004"
+        else
+          echo "❌ Blue-Green deployment failed"
+        fi

@@ -2177,28 +2177,51 @@ app.get('/api/property-ownership-ltv', async (req, res) => {
 // FORM SESSION MANAGEMENT & PROPERTY OWNERSHIP ENDPOINTS
 // ===============================================
 
-// Get property ownership options (Confluence Action #12)
+// Get property ownership options (Confluence Action #12) - UPDATED FOR SEPARATED ARCHITECTURE
 app.get('/api/customer/property-ownership-options', async (req, res) => {
     try {
         const { language = 'en' } = req.query;
         
-        const query = `
+        // Get business rules from bankim_core
+        const businessQuery = `
             SELECT 
                 option_key,
-                CASE 
-                    WHEN $1 = 'ru' THEN option_text_ru
-                    WHEN $1 = 'he' THEN option_text_he
-                    ELSE option_text_en
-                END as option_text,
                 ltv_percentage,
                 financing_percentage,
                 display_order
-            FROM property_ownership_options
+            FROM property_ownership_rules
             WHERE is_active = true
             ORDER BY display_order
         `;
         
-        const result = await contentPool.query(query, [language]);
+        const businessResult = await pool.query(businessQuery);
+        
+        // Get translations from bankim_content
+        const translationsQuery = `
+            SELECT ci.content_key, ct.content_value
+            FROM content_items ci
+            JOIN content_translations ct ON ci.id = ct.content_item_id
+            WHERE ci.content_key LIKE 'property_ownership_%'
+            AND ct.language_code = $1
+            AND ci.screen_location = 'mortgage_step1'
+        `;
+        
+        const translationsResult = await contentPool.query(translationsQuery, [language]);
+        
+        // Create translation map
+        const translations = {};
+        translationsResult.rows.forEach(row => {
+            translations[row.content_key] = row.content_value;
+        });
+        
+        // Combine business logic with translations
+        const options = businessResult.rows.map(row => ({
+            option_key: row.option_key,
+            option_text: translations[`property_ownership_${row.option_key}`] || row.option_key,
+            ltv_percentage: row.ltv_percentage,
+            financing_percentage: row.financing_percentage,
+            display_order: row.display_order
+        }));
         
         res.json({
             status: 'success',
@@ -2235,20 +2258,24 @@ app.post('/api/customer/calculate-payment', async (req, res) => {
         const result = await contentPool.query(query, [loan_amount, term_years]);
         const calculation = result.rows[0];
         
-        // Get LTV ratio if property ownership provided
+        // Get LTV ratio if property ownership provided - UPDATED FOR SEPARATED ARCHITECTURE
         let ltv_info = null;
         if (property_ownership) {
             const ltvQuery = `
                 SELECT 
                     option_key,
-                    option_text_en as description,
                     ltv_percentage,
                     financing_percentage
-                FROM property_ownership_options
+                FROM property_ownership_rules
                 WHERE option_key = $1 AND is_active = true
             `;
-            const ltvResult = await contentPool.query(ltvQuery, [property_ownership]);
-            ltv_info = ltvResult.rows[0] || null;
+            const ltvResult = await pool.query(ltvQuery, [property_ownership]);
+            if (ltvResult.rows[0]) {
+                ltv_info = {
+                    ...ltvResult.rows[0],
+                    description: `Property ownership: ${property_ownership}`
+                };
+            }
         }
         
         const monthlyPayment = parseFloat(calculation.monthly_payment);
@@ -9682,10 +9709,10 @@ app.get('/api/v1/calculation-parameters', async (req, res) => {
                     option_key,
                     ltv_percentage,
                     min_down_payment_percentage
-                FROM property_ownership_options 
+                FROM property_ownership_rules 
                 WHERE is_active = true
             `;
-            const ltvResult = await contentPool.query(ltvQuery);
+            const ltvResult = await pool.query(ltvQuery);
             ltvResult.rows.forEach(row => {
                 propertyOwnershipLtvs[row.option_key] = {
                     ltv: parseFloat(row.ltv_percentage),

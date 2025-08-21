@@ -1,6 +1,7 @@
 {
   "name": "bankimonline-standalone",
   "version": "5.0.0",
+  "description": "Standalone banking application with React frontend and Node.js backend for Israeli financial services",
   "private": true,
   "engines": {
     "node": ">=20.x"
@@ -32,6 +33,10 @@
     "pm2:clean": "npx pm2 delete all && npx pm2 kill",
     "sync-translations": "node scripts/sync-translations.js",
     "translations": "node scripts/sync-translations.js",
+    "deploy": "./deploy.sh test",
+    "deploy:test": "./deploy.sh test",
+    "deploy:blue-green": "./blue-green-deploy.sh",
+    "setup:blue-green": "./setup-blue-green.sh",
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",

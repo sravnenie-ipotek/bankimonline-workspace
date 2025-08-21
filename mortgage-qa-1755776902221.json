@@ -1,0 +1,144 @@
+{
+  "timestamp": "2025-08-21T11:48:22.159Z",
+  "tests": [
+    {
+      "name": "Architecture Separation",
+      "status": "PASS",
+      "duration": 24,
+      "result": {
+        "coreClean": true,
+        "contentComplete": true,
+        "businessLogicPresent": true
+      }
+    },
+    {
+      "name": "Property Ownership Business Logic",
+      "status": "PASS",
+      "duration": 1,
+      "result": {
+        "ruleCount": 3,
+        "validationResults": {
+          "no_property": {
+            "ltvValid": true,
+            "downValid": true
+          },
+          "has_property": {
+            "ltvValid": true,
+            "downValid": true
+          },
+          "selling_property": {
+            "ltvValid": true,
+            "downValid": true
+          }
+        }
+      }
+    },
+    {
+      "name": "Property Ownership Translations",
+      "status": "FAIL",
+      "duration": 7,
+      "error": "Expected 5 translation keys, found 0"
+    },
+    {
+      "name": "Property Ownership Dropdown Config",
+      "status": "PASS",
+      "duration": 1,
+      "result": {
+        "configExists": true,
+        "optionCount": 3,
+        "languageSupport": [
+          "en",
+          "he",
+          "ru"
+        ],
+        "optionValues": [
+          "no_property",
+          "has_property",
+          "selling_property"
+        ]
+      }
+    },
+    {
+      "name": "Mortgage Calculator API",
+      "status": "PASS",
+      "duration": 24,
+      "result": {
+        "status": 200,
+        "hasPropertyOwnershipLTVs": true,
+        "ltvValues": {
+          "no_property": {
+            "ltv": 75,
+            "min_down_payment": 25
+          },
+          "has_property": {
+            "ltv": 50,
+            "min_down_payment": 50
+          },
+          "selling_property": {
+            "ltv": 70,
+            "min_down_payment": 30
+          }
+        },
+        "hasStandards": true,
+        "currentRate": 5
+      }
+    },
+    {
+      "name": "Hebrew RTL Support",
+      "status": "FAIL",
+      "duration": 1,
+      "error": "No Hebrew translations found"
+    },
+    {
+      "name": "LTV Calculation Logic",
+      "status": "PASS",
+      "duration": 1,
+      "result": {
+        "testCases": [
+          {
+            "propertyOwnership": "no_property",
+            "ltvPercentage": 75,
+            "downPayment": 25,
+            "valid": true
+          },
+          {
+            "propertyOwnership": "has_property",
+            "ltvPercentage": 50,
+            "downPayment": 50,
+            "valid": true
+          },
+          {
+            "propertyOwnership": "selling_property",
+            "ltvPercentage": 70,
+            "downPayment": 30,
+            "valid": true
+          }
+        ],
+        "allValid": true
+      }
+    },
+    {
+      "name": "Circuit Breaker Active",
+      "status": "PASS",
+      "duration": 1,
+      "result": {
+        "migratedTableCount": 5,
+        "migratedTables": [
+          "migrated_content_items",
+          "migrated_content_translations",
+          "migrated_dropdown_configs",
+          "migrated_locales",
+          "migrated_property_ownership_options"
+        ],
+        "circuitBreakerActive": true
+      }
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "passed": 6,
+    "failed": 2,
+    "successRate": "75.0%",
+    "status": "HAS_FAILURES"
+  }
+}
