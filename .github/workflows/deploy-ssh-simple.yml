@@ -1,4 +1,4 @@
-name: Deploy to SSH Server (Simple)
+name: Deploy to SSH Server (Simple Backup)
 
 on:
   workflow_dispatch:
@@ -6,16 +6,14 @@ on:
       environment:
         description: 'Target environment'
         required: true
-        default: 'production'
+        default: 'test'
         type: choice
         options:
-          - production
-          - staging
-  push:
-    branches:
-      - main
-      - production
-      - feature/unified-translation-system
+          - test
+  # Disabled automatic trigger - use blue-green deployment instead
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
   deploy:
