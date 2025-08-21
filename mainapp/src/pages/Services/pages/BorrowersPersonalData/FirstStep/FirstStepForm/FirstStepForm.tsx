@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { FormContainer } from '@components/ui/FormContainer'
 import { Column } from '@components/ui/Column'
+import { Row } from '@components/ui/Row'
 import Divider from '@src/components/ui/Divider/Divider'
 import FormCaption from '@src/components/ui/FormCaption/FormCaption'
 import { AdditionalCitizenship } from '@src/pages/Services/components/AdditionalCitizenships'
@@ -31,41 +32,64 @@ const FirstStepForm = () => {
       {/* Alert bar with green styling - matches Figma */}
       <Info />
       
-      {/* Single column layout - matches Figma */}
-      <Column>
+      {/* Row-based layout for desktop, responsive for mobile */}
+      <Row>
         {/* Name and Surname */}
         <NameSurname />
         
         {/* Birth date */}
         <Birthday />
-        
+      </Row>
+      
+      <Row>
         {/* Education dropdown */}
         <Education />
         
         {/* Additional citizenship question */}
         <AdditionalCitizenship />
-        {values.additionalCitizenships === 'yes' && <CitizenshipsDropdown />}
-        
+      </Row>
+      
+      {values.additionalCitizenships === 'yes' && (
+        <Row>
+          <CitizenshipsDropdown />
+        </Row>
+      )}
+      
+      <Row>
         {/* Tax payment question with tooltip */}
         <Taxes />
-        {values.taxes === 'yes' && <CountriesPayTaxes />}
         
         {/* Children question */}
         <Childrens />
-        {values.childrens === 'yes' && <HowMuchChildrens />}
-        
-        {/* Divider line - matches Figma */}
-        <Divider />
-        
+      </Row>
+      
+      {values.taxes === 'yes' && (
+        <Row>
+          <CountriesPayTaxes />
+        </Row>
+      )}
+      
+      {values.childrens === 'yes' && (
+        <Row>
+          <HowMuchChildrens />
+        </Row>
+      )}
+      
+      {/* Divider line */}
+      <Divider />
+      
+      <Row>
         {/* Medical insurance question */}
         <MedicalInsurance />
         
         {/* Foreign resident question with tooltip */}
         <IsForeigner />
-        
+      </Row>
+      
+      <Row>
         {/* Public person question with tooltip */}
         <PublicPerson />
-      </Column>
+      </Row>
     </FormContainer>
   )
 }

@@ -60,43 +60,30 @@ const getDatabaseConfig = (connectionType = 'content') => {
     const isProduction = process.env.NODE_ENV === 'production';
     const isRailwayProduction = process.env.RAILWAY_ENVIRONMENT === 'production';
     
-    if (isProduction || isRailwayProduction) {
-        // Production: Local PostgreSQL on server
-        const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/bankim_content';
-        const config = {
+    // Always use Railway PostgreSQL databases (test environment setup)
+    // Production and development both connect to Railway infrastructure
+    if (connectionType === 'content') {
+        const connectionString = process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:[REDACTED]@shortline.proxy.rlwy.net:33452/railway';
+        const ssl = decideSslForConnection(connectionString, { isProd: isProduction });
+        console.log(`📊 [${connectionType}] DB Config:`, sanitizeUrlForLog(connectionString), `| SSL: ` + (ssl ? 'on' : 'off'));
+        return {
             connectionString,
-            ssl: false, // Local connections don't need SSL
+            ssl,
             max: 20,
             idleTimeoutMillis: 30000,
-            connectionTimeoutMillis: 2000
+            connectionTimeoutMillis: isProduction ? 10000 : 5000 // Longer timeout for production
         };
-        console.log(`📊 [${connectionType}] DB Config:`, sanitizeUrlForLog(connectionString), '| SSL: off');
-        return config;
     } else {
-        // Development: Railway PostgreSQL or developer-provided URLs
-        if (connectionType === 'content') {
-            const connectionString = process.env.CONTENT_DATABASE_URL || 'postgresql://postgres:[REDACTED]@shortline.proxy.rlwy.net:33452/railway';
-            const ssl = decideSslForConnection(connectionString, { isProd: false });
-            console.log(`📊 [${connectionType}] DB Config:`, sanitizeUrlForLog(connectionString), `| SSL: ` + (ssl ? 'on' : 'off'));
-            return {
-                connectionString,
-                ssl,
-                max: 20, // ⚡ PERFORMANCE: Increased from 10 to 20 (match production)
-                idleTimeoutMillis: 30000,
-                connectionTimeoutMillis: 5000
-            };
-        } else {
-            const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:[REDACTED]@maglev.proxy.rlwy.net:43809/railway';
-            const ssl = decideSslForConnection(connectionString, { isProd: false });
-            console.log(`📊 [${connectionType}] DB Config:`, sanitizeUrlForLog(connectionString), `| SSL: ` + (ssl ? 'on' : 'off'));
-            return {
-                connectionString,
-                ssl,
-                max: 20, // ⚡ PERFORMANCE: Increased from 10 to 20 (match production)
-                idleTimeoutMillis: 30000,
-                connectionTimeoutMillis: 5000
-            };
-        }
+        const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:[REDACTED]@maglev.proxy.rlwy.net:43809/railway';
+        const ssl = decideSslForConnection(connectionString, { isProd: isProduction });
+        console.log(`📊 [${connectionType}] DB Config:`, sanitizeUrlForLog(connectionString), `| SSL: ` + (ssl ? 'on' : 'off'));
+        return {
+            connectionString,
+            ssl,
+            max: 20,
+            idleTimeoutMillis: 30000,
+            connectionTimeoutMillis: isProduction ? 10000 : 5000 // Longer timeout for production
+        };
     }
 };
 
@@ -111,20 +98,31 @@ const createPool = (connectionType = 'content') => {
 };
 
 /**
- * Test database connection
+ * Test database connection with retry logic
  * @param {Pool} pool - Database connection pool
  * @param {string} poolName - Name for logging
+ * @param {number} maxRetries - Maximum number of retry attempts
  * @returns {Promise<boolean>} Connection success status
  */
-const testConnection = async (pool, poolName) => {
-    try {
-        const result = await pool.query('SELECT NOW() as current_time, version() as db_version');
-        console.log(`✅ ${poolName} connected:`, result.rows[0].db_version.split(' ')[0] + ' ' + result.rows[0].db_version.split(' ')[1]);
-        return true;
-    } catch (error) {
-        console.error(`❌ ${poolName} connection failed:`, error.message);
-        return false;
+const testConnection = async (pool, poolName, maxRetries = 3) => {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            const result = await pool.query('SELECT NOW() as current_time, version() as db_version');
+            console.log(`✅ ${poolName} connected:`, result.rows[0].db_version.split(' ')[0] + ' ' + result.rows[0].db_version.split(' ')[1]);
+            return true;
+        } catch (error) {
+            console.error(`❌ ${poolName} connection attempt ${attempt}/${maxRetries} failed:`, error.message);
+            
+            if (attempt < maxRetries) {
+                const delay = Math.pow(2, attempt) * 1000; // Exponential backoff
+                console.log(`⏳ Retrying in ${delay}ms...`);
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+        }
     }
+    
+    console.error(`❌ ${poolName} connection failed after ${maxRetries} attempts`);
+    return false;
 };
 
 /**
@@ -142,6 +140,47 @@ const closePool = async (pool, poolName) => {
 };
 
 /**
+ * Execute query with timeout and retry logic
+ * @param {Pool} pool - Database connection pool
+ * @param {string} query - SQL query
+ * @param {Array} params - Query parameters
+ * @param {Object} options - Options object
+ * @returns {Promise<Object>} Query result
+ */
+const queryWithRetry = async (pool, query, params = [], options = {}) => {
+    const { 
+        maxRetries = 2, 
+        timeoutMs = 15000, 
+        poolName = 'database' 
+    } = options;
+    
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+        try {
+            // Create a timeout promise
+            const timeoutPromise = new Promise((_, reject) => {
+                setTimeout(() => reject(new Error(`Query timeout after ${timeoutMs}ms`)), timeoutMs);
+            });
+            
+            // Race between query and timeout
+            const queryPromise = pool.query(query, params);
+            const result = await Promise.race([queryPromise, timeoutPromise]);
+            
+            return result;
+        } catch (error) {
+            console.error(`❌ ${poolName} query attempt ${attempt}/${maxRetries} failed:`, error.message);
+            
+            if (attempt < maxRetries) {
+                const delay = Math.pow(2, attempt) * 500; // Exponential backoff starting at 1s
+                console.log(`⏳ Retrying query in ${delay}ms...`);
+                await new Promise(resolve => setTimeout(resolve, delay));
+            } else {
+                throw error; // Re-throw after all retries exhausted
+            }
+        }
+    }
+};
+
+/**
  * Get database health status
  * @param {Pool} pool - Database connection pool
  * @param {string} poolName - Name for logging
@@ -149,7 +188,11 @@ const closePool = async (pool, poolName) => {
  */
 const getHealthStatus = async (pool, poolName) => {
     try {
-        const result = await pool.query('SELECT NOW() as current_time, version() as db_version');
+        const result = await queryWithRetry(pool, 'SELECT NOW() as current_time, version() as db_version', [], {
+            poolName,
+            timeoutMs: 5000,
+            maxRetries: 2
+        });
         return {
             status: 'ok',
             message: `${poolName} connected successfully`,
@@ -174,7 +217,8 @@ module.exports = {
     createPool,
     testConnection,
     closePool,
-    getHealthStatus
+    getHealthStatus,
+    queryWithRetry
 };
 
 // Default exports for backward compatibility
@@ -183,5 +227,6 @@ module.exports.default = {
     createPool,
     testConnection,
     closePool,
-    getHealthStatus
+    getHealthStatus,
+    queryWithRetry
 };

@@ -1,0 +1,97 @@
+# 🚀 Optimized Multi-Stage Dockerfile for Professional CI/CD
+# Target: <2 minute deployments with zero-downtime blue-green strategy
+
+# ================================
+# Stage 1: Dependencies (Cached Layer)
+# ================================
+FROM node:20-alpine AS dependencies
+
+# Install system dependencies for build
+RUN apk add --no-cache python3 make g++ curl
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files for dependency resolution
+COPY package*.json ./
+COPY mainapp/package*.json ./mainapp/
+
+# Install dependencies with optimization flags
+# Root dependencies (server)
+RUN npm ci --only=production --no-audit --prefer-offline
+
+# Frontend dependencies  
+WORKDIR /app/mainapp
+RUN npm ci --only=production --no-audit --prefer-offline
+
+# ================================
+# Stage 2: Build Environment
+# ================================
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy dependencies from previous stage
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY --from=dependencies /app/mainapp/node_modules ./mainapp/node_modules
+
+# Copy source code
+COPY . .
+
+# Build frontend with optimizations
+WORKDIR /app/mainapp
+RUN npm run build
+
+# Verify build artifacts
+RUN ls -la build/ && echo "✅ Frontend build completed"
+
+# ================================
+# Stage 3: Production Runtime
+# ================================
+FROM node:20-alpine AS production
+
+# Install PM2 globally and runtime dependencies
+RUN npm install -g pm2@latest && \
+    apk add --no-cache curl tini && \
+    rm -rf /var/cache/apk/*
+
+# Create app user for security
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S bankapp -u 1001 -G nodejs
+
+# Set working directory and permissions
+WORKDIR /app
+RUN chown nodejs:nodejs /app
+
+# Copy production dependencies
+COPY --from=dependencies --chown=nodejs:nodejs /app/node_modules ./node_modules
+
+# Copy server code and built frontend
+COPY --from=builder --chown=nodejs:nodejs /app/server ./server
+COPY --from=builder --chown=nodejs:nodejs /app/mainapp/build ./mainapp/build
+COPY --from=builder --chown=nodejs:nodejs /app/locales ./locales
+COPY --from=builder --chown=nodejs:nodejs /app/migrations ./migrations
+COPY --from=builder --chown=nodejs:nodejs /app/package.json ./package.json
+
+# Copy optimized PM2 ecosystem
+COPY --chown=nodejs:nodejs ecosystem.production.js ./ecosystem.config.js
+
+# Create required directories
+RUN mkdir -p /app/uploads /app/logs && \
+    chown -R nodejs:nodejs /app/uploads /app/logs
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8003/api/health || exit 1
+
+# Security: Switch to non-root user
+USER nodejs
+
+# Expose port
+EXPOSE 8003
+
+# Use tini for proper signal handling
+ENTRYPOINT ["/sbin/tini", "--"]
+
+# Start application with PM2
+CMD ["pm2-runtime", "start", "ecosystem.config.js", "--env", "production"]

@@ -42,8 +42,13 @@ export const validationSchema = Yup.object().shape({
     (value) => value !== null && value !== undefined && value !== ''
   ),
   additionalIncomeAmount: Yup.number().when('additionalIncome', {
-    is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+    is: (value: string) => {
+      if (!value || value === null || value === undefined || value === '') return false;
+      // Check for "no additional income" patterns from API
+      return !['option_1', 'no_additional_income', '1'].includes(value) && 
+             !value.includes('אין הכנסות נוספות') && 
+             !value.includes('no_additional');
+    },
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
@@ -51,20 +56,35 @@ export const validationSchema = Yup.object().shape({
     getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')
   ),
   bank: Yup.string().when('obligation', {
-    is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+    is: (value: string) => {
+      if (!value || value === null || value === undefined || value === '') return false;
+      // Check for "no obligations" patterns from API
+      return !['option_1', 'no_obligations', '1'].includes(value) && 
+             !value.includes('אין התחייבויות') && 
+             !value.includes('no_obligation');
+    },
     then: (shema) => shema.required(getValidationErrorSync('error_select_bank', 'Please select a bank')),
     otherwise: (shema) => shema.notRequired(),
   }),
   monthlyPaymentForAnotherBank: Yup.number().when('obligation', {
-    is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+    is: (value: string) => {
+      if (!value || value === null || value === undefined || value === '') return false;
+      // Check for "no obligations" patterns from API
+      return !['option_1', 'no_obligations', '1'].includes(value) && 
+             !value.includes('אין התחייבויות') && 
+             !value.includes('no_obligation');
+    },
     then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
     otherwise: (shema) => shema.notRequired(),
   }),
   endDate: Yup.string().when('obligation', {
-    is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && value !== 'option_1',
+    is: (value: string) => {
+      if (!value || value === null || value === undefined || value === '') return false;
+      // Check for "no obligations" patterns from API
+      return !['option_1', 'no_obligations', '1'].includes(value) && 
+             !value.includes('אין התחייבויות') && 
+             !value.includes('no_obligation');
+    },
     then: (schema) => schema.required(getValidationErrorSync('error_date', 'Please enter a valid date')),
     otherwise: (schema) => schema.notRequired(),
   }),
