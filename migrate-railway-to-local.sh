@@ -1,60 +1,35 @@
 #!/bin/bash
 
-# Railway to Local PostgreSQL Migration Script
-# Based on actual Railway URLs from the codebase
+echo "🚀 Railway to Local Database Migration Script"
+echo "============================================="
+echo ""
 
-echo "🚀 Starting Railway to Local PostgreSQL Migration..."
+# Railway database URLs
+RAILWAY_MAIN="postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway"
+RAILWAY_CONTENT="postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway"
 
-# Set Railway URLs (from your codebase)
-export PGSSLMODE=require
-export DATABASE_URL="postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway"
-export CONTENT_DATABASE_URL="postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway"
-export MANAGEMENT_DATABASE_URL="postgresql://postgres:hNmqRehjTLTuTGysRIYrvPPaQBDrmNQA@yamanote.proxy.rlwy.net:53119/railway"
+# Test connection with timeout
+echo "Testing Railway database connections..."
+timeout 5 psql "$RAILWAY_MAIN" -c "SELECT 1;" > /dev/null 2>&1
+MAIN_STATUS=$?
 
-# Local database URLs
-LOCAL_CORE="postgresql://michaelmishayev@localhost:5432/bankim_core"
-LOCAL_CONTENT="postgresql://michaelmishayev@localhost:5432/bankim_content"
-LOCAL_MANAGEMENT="postgresql://michaelmishayev@localhost:5432/bankim_management"
+timeout 5 psql "$RAILWAY_CONTENT" -c "SELECT 1;" > /dev/null 2>&1
+CONTENT_STATUS=$?
 
-echo "📊 Migrating 3 databases from Railway to Local..."
+if [ $MAIN_STATUS -eq 0 ]; then
+    echo "✅ Railway Main DB is accessible"
+else
+    echo "❌ Railway Main DB is NOT accessible"
+fi
 
-# 1. Dump from Railway
-echo "📤 Dumping from Railway..."
-pg_dump -Fc --no-owner --no-privileges "$DATABASE_URL" -f ~/maglev.dump
-pg_dump -Fc --no-owner --no-privileges "$CONTENT_DATABASE_URL" -f ~/shortline.dump
-pg_dump -Fc --no-owner --no-privileges "$MANAGEMENT_DATABASE_URL" -f ~/yamanote.dump
+if [ $CONTENT_STATUS -eq 0 ]; then
+    echo "✅ Railway Content DB is accessible"
+else
+    echo "❌ Railway Content DB is NOT accessible"
+fi
 
-# 2. Restore to Local
-echo "📥 Restoring to Local..."
-pg_restore --clean --if-exists --no-owner --no-privileges -d "$LOCAL_CORE" ~/maglev.dump
-pg_restore --clean --if-exists --no-owner --no-privileges -d "$LOCAL_CONTENT" ~/shortline.dump
-pg_restore --clean --if-exists --no-owner --no-privileges -d "$LOCAL_MANAGEMENT" ~/yamanote.dump
-
-# 3. Verify
-echo "✅ Verifying migration..."
-echo "Core DB tables:"
-psql "$LOCAL_CORE" -c "\dt" | head -20
-
-echo "Content DB tables:"
-psql "$LOCAL_CONTENT" -c "\dt" | head -20
-
-echo "Management DB tables:"
-psql "$LOCAL_MANAGEMENT" -c "\dt" | head -20
-
-# 4. Create .env for local development
-echo "🔧 Creating local .env file..."
-cat > .env.local << EOF
-# Local Database Configuration
-DATABASE_URL=$LOCAL_CORE
-CONTENT_DATABASE_URL=$LOCAL_CONTENT
-MANAGEMENT_DATABASE_URL=$LOCAL_MANAGEMENT
-NODE_ENV=development
-EOF
-
-echo "🎉 Migration complete! Use .env.local for local development."
-echo "📁 Dump files saved: ~/maglev.dump, ~/shortline.dump, ~/yamanote.dump"
-
-
-
-
-
+echo ""
+echo "Alternative migration methods:"
+echo "1. Use Railway CLI: railway connect postgres"
+echo "2. Download backup from Railway dashboard"
+echo "3. Use Railway's database backup feature"

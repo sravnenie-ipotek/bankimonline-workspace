@@ -1,0 +1,396 @@
+[
+  {
+    "database": "bankim_core",
+    "started": "2025-08-21T07:39:54.520Z",
+    "success": [
+      {
+        "table": "admin_audit_log",
+        "rows": 2,
+        "sourceCount": 2,
+        "targetCount": 2
+      },
+      {
+        "table": "admin_users",
+        "rows": 9,
+        "sourceCount": 9,
+        "targetCount": 9
+      },
+      {
+        "table": "application_contexts",
+        "rows": 4,
+        "sourceCount": 4,
+        "targetCount": 4
+      },
+      {
+        "table": "bank_config",
+        "rows": 1,
+        "sourceCount": 1,
+        "targetCount": 1
+      },
+      {
+        "table": "bank_configurations",
+        "rows": 18,
+        "sourceCount": 18,
+        "targetCount": 18
+      },
+      {
+        "table": "bank_fallback_config",
+        "rows": 1,
+        "sourceCount": 1,
+        "targetCount": 1
+      },
+      {
+        "table": "banking_standards",
+        "rows": 61,
+        "sourceCount": 61,
+        "targetCount": 61
+      },
+      {
+        "table": "banking_standards_history",
+        "rows": 89,
+        "sourceCount": 89,
+        "targetCount": 89
+      },
+      {
+        "table": "banks",
+        "rows": 18,
+        "sourceCount": 18,
+        "targetCount": 18
+      },
+      {
+        "table": "calculation_parameters",
+        "rows": 10,
+        "sourceCount": 10,
+        "targetCount": 10
+      },
+      {
+        "table": "cities",
+        "rows": 30,
+        "sourceCount": 30,
+        "targetCount": 30
+      },
+      {
+        "table": "client_form_sessions",
+        "rows": 467,
+        "sourceCount": 467,
+        "targetCount": 467
+      },
+      {
+        "table": "client_identity",
+        "rows": 1,
+        "sourceCount": 1,
+        "targetCount": 1
+      },
+      {
+        "table": "clients",
+        "rows": 251,
+        "sourceCount": 251,
+        "targetCount": 251
+      },
+      {
+        "table": "content_items",
+        "rows": 724,
+        "sourceCount": 724,
+        "targetCount": 724
+      },
+      {
+        "table": "content_test",
+        "rows": 1,
+        "sourceCount": 1,
+        "targetCount": 1
+      },
+      {
+        "table": "content_translations",
+        "rows": 2113,
+        "sourceCount": 2113,
+        "targetCount": 2113
+      },
+      {
+        "table": "content_translations_backup_1753881004876",
+        "rows": 999,
+        "sourceCount": 999,
+        "targetCount": 999
+      }
+    ],
+    "warnings": [],
+    "errors": [
+      {
+        "table": "dropdown_configs",
+        "error": "relation \"dropdown_configs_id_seq\" does not exist"
+      },
+      {
+        "table": "interest_rate_rules",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "israeli_bank_numbers",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "lawyer_applications",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "loan_applications",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "locales",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "params",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "professions",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "property_ownership_options",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "regions",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "registration_form_config",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "registration_validation_rules",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "risk_parameters",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "services",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "session",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "test1",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "test_users",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "users",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "vacancies",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "vacancy_applications",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      }
+    ],
+    "skipped": [
+      {
+        "table": "11111",
+        "reason": "empty"
+      },
+      {
+        "table": "approval_matrix",
+        "reason": "empty"
+      },
+      {
+        "table": "bank_analytics",
+        "reason": "empty"
+      },
+      {
+        "table": "bank_branches",
+        "reason": "empty"
+      },
+      {
+        "table": "bank_employee_sessions",
+        "reason": "empty"
+      },
+      {
+        "table": "bank_employees",
+        "reason": "empty"
+      },
+      {
+        "table": "bank_standards_overrides",
+        "reason": "empty"
+      },
+      {
+        "table": "calculation_rules",
+        "reason": "empty"
+      },
+      {
+        "table": "client_assets",
+        "reason": "empty"
+      },
+      {
+        "table": "client_credit_history",
+        "reason": "empty"
+      },
+      {
+        "table": "client_debts",
+        "reason": "empty"
+      },
+      {
+        "table": "client_documents",
+        "reason": "empty"
+      },
+      {
+        "table": "client_employment",
+        "reason": "empty"
+      },
+      {
+        "table": "loan_calculations",
+        "reason": "empty"
+      },
+      {
+        "table": "mortgage_calculation_cache",
+        "reason": "empty"
+      },
+      {
+        "table": "properties",
+        "reason": "empty"
+      },
+      {
+        "table": "registration_invitations",
+        "reason": "empty"
+      },
+      {
+        "table": "tttt",
+        "reason": "empty"
+      },
+      {
+        "table": "worker_approval_queue",
+        "reason": "empty"
+      }
+    ],
+    "summary": {
+      "totalTables": 57,
+      "synced": 18,
+      "failed": 20,
+      "skipped": 19,
+      "warnings": 0,
+      "totalRows": 4799
+    },
+    "ended": "2025-08-21T07:40:05.198Z",
+    "duration": 10.678
+  },
+  {
+    "database": "bankim_content",
+    "started": "2025-08-21T07:40:05.198Z",
+    "success": [],
+    "warnings": [
+      {
+        "table": "admin_users",
+        "sourceCount": 2,
+        "targetCount": 0,
+        "difference": 2
+      }
+    ],
+    "errors": [
+      {
+        "table": "admin_users",
+        "error": "column \"password_hash\" of relation \"admin_users\" does not exist",
+        "row": 0
+      },
+      {
+        "table": "admin_users",
+        "error": "current transaction is aborted, commands ignored until end of transaction block",
+        "row": 0
+      },
+      {
+        "table": "bank_configurations",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "banks",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "cities",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "client_form_sessions",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "clients",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "content_categories",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "content_items",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "content_test",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "content_translations",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "credit_data_backup_20250127",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "dropdown_configs",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "languages",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "navigation_mapping",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      },
+      {
+        "table": "session",
+        "error": "current transaction is aborted, commands ignored until end of transaction block"
+      }
+    ],
+    "skipped": [
+      {
+        "table": "11111",
+        "reason": "empty"
+      },
+      {
+        "table": "content_audit_log",
+        "reason": "empty"
+      },
+      {
+        "table": "login_audit_log",
+        "reason": "empty"
+      },
+      {
+        "table": "test11",
+        "reason": "empty"
+      }
+    ],
+    "summary": {
+      "totalTables": 20,
+      "synced": 0,
+      "failed": 16,
+      "skipped": 4,
+      "warnings": 1,
+      "totalRows": 0
+    },
+    "ended": "2025-08-21T07:40:08.314Z",
+    "duration": 3.116
+  }
+]

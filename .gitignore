@@ -36,6 +36,11 @@ backups/db/*.dump
 secrets/
 .secrets/
 
+# SSH connection credentials (NEVER commit!)
+server/docs/sshConnect/
+**/sshConnect/
+connect-to-server.sh
+
 # Local configuration files
 config.local.js
 config.local.json
@@ -89,3 +94,6 @@ pm2-out.log
 # Server environment
 server/.env
 mainapp/.env.production
+
+# Server migrations (database scripts)
+server/migrations/

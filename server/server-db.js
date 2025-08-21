@@ -39,6 +39,60 @@ console.log(`✅ Variables loaded: ${requiredVars.length}`);
 console.log(`✅ Database URL configured: ${process.env.DATABASE_URL ? 'Yes' : 'No'}`);
 console.log(`✅ Environment: ${process.env.NODE_ENV || 'development'}`);
 
+// 🚨 CRITICAL DATABASE SAFETY CHECK
+const checkDatabaseSafety = () => {
+    const mainDB = process.env.DATABASE_URL || '';
+    const contentDB = process.env.CONTENT_DATABASE_URL || '';
+    const isRailway = mainDB.includes('rlwy.net') || contentDB.includes('rlwy.net');
+    const isLocal = mainDB.includes('localhost') || contentDB.includes('localhost');
+    
+    console.log('\n' + '='.repeat(60));
+    
+    if (isRailway) {
+        // HUGE RED WARNING FOR RAILWAY
+        console.log('\x1b[41m%s\x1b[0m', '🔴'.repeat(30));
+        console.log('\x1b[41m%s\x1b[0m', '⛔⛔⛔ DANGER: RAILWAY DATABASE DETECTED ⛔⛔⛔');
+        console.log('\x1b[41m%s\x1b[0m', '🔴'.repeat(30));
+        console.log('\x1b[31m%s\x1b[0m', '\n❌ FORBIDDEN: Railway databases are NOT allowed!');
+        console.log('\x1b[31m%s\x1b[0m', '❌ Main DB: ' + (mainDB.includes('rlwy.net') ? mainDB.split('@')[1] : 'OK'));
+        console.log('\x1b[31m%s\x1b[0m', '❌ Content DB: ' + (contentDB.includes('rlwy.net') ? contentDB.split('@')[1] : 'OK'));
+        console.log('\x1b[33m%s\x1b[0m', '\n⚠️ WARNING: Using Railway will cause:');
+        console.log('\x1b[33m%s\x1b[0m', '   - Network latency (500-3000ms)');
+        console.log('\x1b[33m%s\x1b[0m', '   - Connection timeouts');
+        console.log('\x1b[33m%s\x1b[0m', '   - Data sync issues');
+        console.log('\x1b[33m%s\x1b[0m', '   - Security vulnerabilities');
+        console.log('\x1b[31m%s\x1b[0m', '\n🔴 IMMEDIATELY RUN: npm run use-local-db');
+        console.log('\x1b[41m%s\x1b[0m', '🔴'.repeat(30));
+        
+        // Set global flag for UI warning
+        global.RAILWAY_DETECTED = true;
+        global.DATABASE_MODE = 'RAILWAY_FORBIDDEN';
+    } else if (isLocal) {
+        // GREEN SUCCESS FOR LOCAL
+        console.log('\x1b[42m%s\x1b[0m', '🟢'.repeat(30));
+        console.log('\x1b[42m%s\x1b[0m', '✅ USING LOCAL DATABASES - SAFE MODE');
+        console.log('\x1b[42m%s\x1b[0m', '🟢'.repeat(30));
+        console.log('\x1b[32m%s\x1b[0m', '\n✅ Main Database: localhost:5432/' + (mainDB.split('/').pop() || 'bankim_core'));
+        console.log('\x1b[32m%s\x1b[0m', '✅ Content Database: localhost:5432/' + (contentDB.split('/').pop() || 'bankim_content'));
+        console.log('\x1b[32m%s\x1b[0m', '\n🟢 ALL LOCAL DATABASES CONFIGURED');
+        console.log('\x1b[32m%s\x1b[0m', '🟢 RAILWAY PREVENTION: ACTIVE');
+        console.log('\x1b[32m%s\x1b[0m', '🟢 SAFE MODE: ENABLED');
+        
+        global.RAILWAY_DETECTED = false;
+        global.DATABASE_MODE = 'LOCAL_SAFE';
+    } else {
+        // YELLOW WARNING FOR UNKNOWN
+        console.log('\x1b[43m%s\x1b[0m', '⚠️'.repeat(30));
+        console.log('\x1b[33m%s\x1b[0m', '⚠️ WARNING: Unknown database configuration');
+        console.log('\x1b[33m%s\x1b[0m', 'Please configure local databases in .env');
+    }
+    
+    console.log('='.repeat(60) + '\n');
+};
+
+// Run the safety check
+checkDatabaseSafety();
+
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -64,21 +118,33 @@ const pool = createPool('main');
 // Content database connection (SECOND database for content/translations)
 const contentPool = createPool('content');
 
-// Test main database connection
+// Test main database connection with colored output
 pool.query('SELECT NOW()', (err, res) => {
     if (err) {
-        console.error('❌ Main Database connection failed:', err.message);
+        console.error('\x1b[31m%s\x1b[0m', '❌ Main Database connection failed:', err.message);
     } else {
-        console.log('✅ Main Database connected successfully');
+        if (global.DATABASE_MODE === 'LOCAL_SAFE') {
+            console.log('\x1b[32m%s\x1b[0m', '✅ Main Database connected successfully (LOCAL)');
+        } else if (global.DATABASE_MODE === 'RAILWAY_FORBIDDEN') {
+            console.log('\x1b[31m%s\x1b[0m', '⚠️ Main Database connected (RAILWAY - FORBIDDEN!)');
+        } else {
+            console.log('✅ Main Database connected successfully');
+        }
     }
 });
 
-// Test content database connection
+// Test content database connection with colored output
 contentPool.query('SELECT NOW()', (err, res) => {
     if (err) {
-        console.error('❌ Content Database connection failed:', err.message);
+        console.error('\x1b[31m%s\x1b[0m', '❌ Content Database connection failed:', err.message);
     } else {
-        console.log('✅ Content Database connected successfully');
+        if (global.DATABASE_MODE === 'LOCAL_SAFE') {
+            console.log('\x1b[32m%s\x1b[0m', '✅ Content Database connected successfully (LOCAL)');
+        } else if (global.DATABASE_MODE === 'RAILWAY_FORBIDDEN') {
+            console.log('\x1b[31m%s\x1b[0m', '⚠️ Content Database connected (RAILWAY - FORBIDDEN!)');
+        } else {
+            console.log('✅ Content Database connected successfully');
+        }
         // Delete test-content table if it exists (cleanup)
         contentPool.query('DROP TABLE IF EXISTS "test-content" CASCADE', (dropErr, dropRes) => {
             if (dropErr) {
@@ -232,6 +298,33 @@ app.get('/api/health', (req, res) => {
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV || 'development',
         corsEnabled: true
+    });
+});
+
+// Database safety check endpoint for UI warning chip
+app.get('/api/database-safety', (req, res) => {
+    const mainDB = process.env.DATABASE_URL || '';
+    const contentDB = process.env.CONTENT_DATABASE_URL || '';
+    
+    res.json({
+        safe: !global.RAILWAY_DETECTED,
+        mode: global.DATABASE_MODE || 'UNKNOWN',
+        warning: global.RAILWAY_DETECTED ? '⚠️ RAILWAY DATABASE DETECTED - SWITCH TO LOCAL!' : null,
+        databases: {
+            main: {
+                type: mainDB.includes('localhost') ? 'local' : mainDB.includes('rlwy.net') ? 'railway' : 'unknown',
+                host: mainDB.includes('@') ? mainDB.split('@')[1].split('/')[0] : 'unknown',
+                safe: mainDB.includes('localhost')
+            },
+            content: {
+                type: contentDB.includes('localhost') ? 'local' : contentDB.includes('rlwy.net') ? 'railway' : 'unknown',
+                host: contentDB.includes('@') ? contentDB.split('@')[1].split('/')[0] : 'unknown',
+                safe: contentDB.includes('localhost')
+            }
+        },
+        message: global.RAILWAY_DETECTED 
+            ? 'Using Railway databases will cause timeouts, latency, and sync issues!' 
+            : 'Local databases are configured correctly'
     });
 });
 

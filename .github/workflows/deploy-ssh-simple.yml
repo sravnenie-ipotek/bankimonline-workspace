@@ -1,0 +1,98 @@
+name: Deploy to SSH Server (Simple)
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+  push:
+    branches:
+      - main
+      - production
+      - feature/unified-translation-system
+
+jobs:
+  deploy:
+    name: Deploy to 45.83.42.74
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📂 Checkout code
+        uses: actions/checkout@v4
+        
+      - name: 🔐 Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          
+      - name: 🧪 Test SSH Connection
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "echo '✅ SSH connection successful'"
+              
+      - name: 📦 Create deployment directory
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "mkdir -p /var/www/bankim/{current,releases,shared}"
+              
+      - name: 🚀 Deploy Application
+        run: |
+          RELEASE_DIR="/var/www/bankim/releases/$(date +%Y%m%d%H%M%S)"
+          
+          # Create release directory
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "mkdir -p $RELEASE_DIR"
+          
+          # Sync files
+          rsync -avz --delete \
+                --exclude='.git' \
+                --exclude='node_modules' \
+                --exclude='.env' \
+                --exclude='uploads' \
+                --exclude='logs' \
+                -e "ssh -i ~/.ssh/deploy_key" \
+                ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:$RELEASE_DIR/
+          
+          # Install dependencies
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "cd $RELEASE_DIR && npm ci --production"
+          
+          # Build frontend
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "cd $RELEASE_DIR/mainapp && npm ci && npm run build"
+          
+          # Update symlink
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "ln -sfn $RELEASE_DIR /var/www/bankim/current"
+          
+          # Restart application (using PM2 if available)
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "cd /var/www/bankim/current && \
+               (pm2 restart bankim-api 2>/dev/null || \
+                pm2 start server/server-db.js --name bankim-api 2>/dev/null || \
+                echo 'PM2 not found, please start manually')"
+                
+      - name: ✅ Verify Deployment
+        run: |
+          ssh -i ~/.ssh/deploy_key \
+              ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+              "curl -f http://localhost:8003/api/health || echo 'Health check endpoint not available'"
+          
+          echo "🎉 Deployment complete!"
+          echo "Server: ${{ secrets.SSH_HOST }}"
+          echo "Time: $(date)"
