@@ -2,6 +2,7 @@
 
 /**
  * MIGRATION BASELINE TEST
+ * Version: 0.1_1755776000000
  * Tests all dropdown and translation functionality before/after migration
  * Run before each phase to ensure no regressions
  */

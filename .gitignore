@@ -95,5 +95,28 @@ pm2-out.log
 server/.env
 mainapp/.env.production
 
-# Server migrations (database scripts)
+# Server migrations and database scripts
 server/migrations/
+server/migrationDB/
+
+# Database files and scripts (NEVER commit!)
+*.sql
+*.backup
+*.dump
+*.restore
+*backup*.sql
+*dump*.sql
+*restore*.sql
+
+# Railway sync and database management scripts
+sync-railway-to-local-server.js
+*railway*sync*.js
+*sync*railway*.js
+setup-databases.sh
+check-deployment.sh
+deploy-with-timestamp.sh
+
+# Database architecture and backup files
+DATABASE_ARCHITECTURE.md
+backup_*.sql
+restore_*.sql

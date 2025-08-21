@@ -3,6 +3,7 @@ import React from 'react'
 import { useNavigate } from 'react-router'
 
 import { useServerMode } from '@src/hooks/useServerMode'
+import VersionChip from '@src/components/VersionChip/VersionChip'
 import styles from './Header.module.scss'
 
 const cx = classNames.bind(styles)
@@ -14,9 +15,13 @@ const Logo: React.FC = () => {
 
   return (
     <div className={cx('logo-container')}>
-      <a className={cx('logo')} onClick={() => navigate('/')}>
-        <img alt="" src="/static/primary-logo05-1.svg" className={'logo'} />
-      </a>
+      <div className={cx('logo-wrapper')}>
+        <a className={cx('logo')} onClick={() => navigate('/')}>
+          <img alt="" src="/static/primary-logo05-1.svg" className={'logo'} />
+        </a>
+        {/* Version chip - displays app version under the logo */}
+        <VersionChip version="0.1" />
+      </div>
       {/* Server mode badge - shows when using development server */}
       {!loading && serverMode && serverMode.mode === 'legacy' && (
         <div className={cx('server-mode-badge')} style={{ zIndex: 9998 }}>

@@ -54,7 +54,7 @@ module.exports = {
       repo: 'https://github.com/MichaelMishaev/bankDev2_standalone.git',
       path: '/var/www/bankim',
       'pre-deploy-local': '',
-      'post-deploy': 'npm install && cd mainapp && npm install && npm run build && cd .. && pm2 reload ecosystem.config.js --env production',
+      'post-deploy': 'npm install && cd mainapp && npm install && npm run prebuild && npm run build && cd .. && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
     }
   }
