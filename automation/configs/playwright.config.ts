@@ -5,7 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
  * This config supports the main banking app and admin panel testing
  */
 export default defineConfig({
-  testDir: './tests',
+  testDir: '../tests/integration',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -70,12 +70,12 @@ export default defineConfig({
   webServer: [
     {
       command: 'npm run dev',
-      cwd: './mainapp',
+      cwd: '../../mainapp',
       port: 5173,
       reuseExistingServer: !process.env.CI,
     },
     {
-      command: 'node server/server-db.js',
+      command: 'node ../../server/server-db.js',
       port: 8003,
       reuseExistingServer: !process.env.CI,
     }

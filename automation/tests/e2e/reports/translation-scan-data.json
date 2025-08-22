@@ -1,0 +1,1934 @@
+{
+  "he": {
+    "issues": [
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "f",
+        "type": "Translation key",
+        "element": "button"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "f",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Hebrew",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Product Designer",
+        "type": "English in Hebrew",
+        "element": "h3"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Hebrew",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Frontend Developer",
+        "type": "English in Hebrew",
+        "element": "h3"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Hebrew",
+        "element": "span"
+      },
+      {
+        "page": "Services",
+        "path": "/services",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Lawyers",
+        "path": "/tenders-for-lawyers",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Real Estate",
+        "path": "/Real-Estate-Brokerage",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Mortgage Step 1",
+        "path": "/services/calculate-mortgage/1",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Mortgage Step 2",
+        "path": "/services/calculate-mortgage/2",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Mortgage Step 3",
+        "path": "/services/calculate-mortgage/3",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Mortgage Step 4",
+        "path": "/services/calculate-mortgage/4",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Mortgage 1",
+        "path": "/services/refinance-mortgage/1",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Mortgage 2",
+        "path": "/services/refinance-mortgage/2",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Mortgage 3",
+        "path": "/services/refinance-mortgage/3",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Credit Step 2",
+        "path": "/services/calculate-credit/2",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Credit Step 3",
+        "path": "/services/calculate-credit/3",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Credit 1",
+        "path": "/services/refinance-credit/1",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Credit 2",
+        "path": "/services/refinance-credit/2",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Credit 3",
+        "path": "/services/refinance-credit/3",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "X",
+        "type": "Translation key",
+        "element": "button"
+      }
+    ],
+    "summary": {
+      "Home": 14,
+      "About": 9,
+      "Contacts": 11,
+      "Vacancies": 14,
+      "Services": 1,
+      "Cooperation": 14,
+      "Brokers": 9,
+      "Lawyers": 1,
+      "Real Estate": 1,
+      "Mortgage Step 1": 1,
+      "Mortgage Step 2": 1,
+      "Mortgage Step 3": 1,
+      "Mortgage Step 4": 1,
+      "Refinance Mortgage 1": 1,
+      "Refinance Mortgage 2": 1,
+      "Refinance Mortgage 3": 1,
+      "Credit Step 2": 1,
+      "Credit Step 3": 1,
+      "Refinance Credit 1": 1,
+      "Refinance Credit 2": 1,
+      "Refinance Credit 3": 1,
+      "Other Borrowers 1": 14,
+      "Other Borrowers 2": 14,
+      "Login": 9,
+      "Registration": 10
+    }
+  },
+  "ru": {
+    "issues": [
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Home",
+        "path": "/",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "About",
+        "path": "/about",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "f",
+        "type": "Translation key",
+        "element": "button"
+      },
+      {
+        "page": "Contacts",
+        "path": "/contacts",
+        "text": "f",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Russian",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Product Designer",
+        "type": "English in Russian",
+        "element": "h3"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Russian",
+        "element": "span"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Frontend Developer",
+        "type": "English in Russian",
+        "element": "h3"
+      },
+      {
+        "page": "Vacancies",
+        "path": "/vacancies",
+        "text": "Tel Aviv",
+        "type": "English in Russian",
+        "element": "span"
+      },
+      {
+        "page": "Services",
+        "path": "/services",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Cooperation",
+        "path": "/cooperation",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Brokers",
+        "path": "/tenders-for-brokers",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Lawyers",
+        "path": "/tenders-for-lawyers",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Real Estate",
+        "path": "/Real-Estate-Brokerage",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Mortgage Step 1",
+        "path": "/services/calculate-mortgage/1",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Mortgage Step 2",
+        "path": "/services/calculate-mortgage/2",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Mortgage Step 3",
+        "path": "/services/calculate-mortgage/3",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Mortgage Step 4",
+        "path": "/services/calculate-mortgage/4",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Mortgage 1",
+        "path": "/services/refinance-mortgage/1",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Mortgage 2",
+        "path": "/services/refinance-mortgage/2",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Mortgage 3",
+        "path": "/services/refinance-mortgage/3",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Credit Step 1",
+        "path": "/services/calculate-credit/1",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Credit Step 2",
+        "path": "/services/calculate-credit/2",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Credit Step 3",
+        "path": "/services/calculate-credit/3",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Credit 1",
+        "path": "/services/refinance-credit/1",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Credit 2",
+        "path": "/services/refinance-credit/2",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Refinance Credit 3",
+        "path": "/services/refinance-credit/3",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 1",
+        "path": "/services/other-borrowers/1/?pageId=1",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "calculator_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "fill_form_description",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Other Borrowers 2",
+        "path": "/services/other-borrowers/2/?pageId=1",
+        "text": "get_program_text_tablet",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Login",
+        "path": "/login",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "v",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_instagram",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_youtube",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_facebook",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "span"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "social_twitter",
+        "type": "Translation key",
+        "element": "a"
+      },
+      {
+        "page": "Registration",
+        "path": "/registration",
+        "text": "X",
+        "type": "Translation key",
+        "element": "button"
+      }
+    ],
+    "summary": {
+      "Home": 14,
+      "About": 9,
+      "Contacts": 11,
+      "Vacancies": 14,
+      "Services": 1,
+      "Cooperation": 14,
+      "Brokers": 9,
+      "Lawyers": 1,
+      "Real Estate": 1,
+      "Mortgage Step 1": 1,
+      "Mortgage Step 2": 1,
+      "Mortgage Step 3": 1,
+      "Mortgage Step 4": 1,
+      "Refinance Mortgage 1": 1,
+      "Refinance Mortgage 2": 1,
+      "Refinance Mortgage 3": 1,
+      "Credit Step 1": 1,
+      "Credit Step 2": 1,
+      "Credit Step 3": 1,
+      "Refinance Credit 1": 1,
+      "Refinance Credit 2": 1,
+      "Refinance Credit 3": 1,
+      "Other Borrowers 1": 14,
+      "Other Borrowers 2": 14,
+      "Login": 9,
+      "Registration": 10
+    }
+  }
+}

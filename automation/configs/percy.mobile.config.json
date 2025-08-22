@@ -1,0 +1,26 @@
+{
+  "version": 2,
+  "snapshot": {
+    "widths": [320, 375, 390, 414, 428],
+    "minHeight": 600,
+    "enableJavaScript": true,
+    "disableAnimation": true,
+    "percyCSS": ".mobile-button-fix { position: sticky !important; bottom: 20px !important; z-index: 1000 !important; margin: 10px auto !important; } .percy-mobile-stable { transform: none !important; transition: none !important; animation: none !important; }"
+  },
+  "discovery": {
+    "allowedHostnames": ["localhost", "127.0.0.1"],
+    "networkIdleTimeout": 300,
+    "requestHeaders": {
+      "Accept-Language": "he-IL,he;q=0.9,en;q=0.8,ru;q=0.7",
+      "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15"
+    }
+  },
+  "staticSnapshots": false,
+  "defer": false,
+  "dryRun": false,
+  "percy": {
+    "css": "@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap'); body { font-family: 'Heebo', -apple-system, BlinkMacSystemFont, sans-serif; } .percy-hide { visibility: hidden !important; } .percy-mask { filter: blur(8px) !important; color: transparent !important; background: #cccccc !important; } [data-percy-sensitive] { filter: blur(10px) !important; background: #f0f0f0 !important; color: transparent !important; } .button-overflow-indicator { border: 3px solid red !important; box-shadow: 0 0 10px red !important; }"
+  },
+  "clientInfo": "percy-mobile-banking/1.0.0",
+  "environmentInfo": "cypress-mobile"
+}

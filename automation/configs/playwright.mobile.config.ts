@@ -5,7 +5,7 @@ import { defineConfig, devices } from '@playwright/test';
  * Dedicated configuration for mobile viewport and device testing
  */
 export default defineConfig({
-  testDir: './tests/mobile',
+  testDir: '../tests/mobile',
   testMatch: ['**/*mobile*.spec.ts', '**/mobile/**/*.spec.ts'],
   
   /* Mobile-specific settings */
@@ -214,13 +214,13 @@ export default defineConfig({
   webServer: [
     {
       command: 'npm run dev',
-      cwd: './mainapp',
+      cwd: '../../mainapp',
       port: 5173,
       timeout: 120000,
       reuseExistingServer: !process.env.CI,
     },
     {
-      command: 'node server/server-db.js',
+      command: 'node ../../server/server-db.js',
       port: 8003,
       timeout: 120000,
       reuseExistingServer: !process.env.CI,

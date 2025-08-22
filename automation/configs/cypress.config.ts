@@ -8,7 +8,7 @@ import axios from 'axios'
 import FormData from 'form-data'
 
 // Load environment variables
-dotenv.config({ path: path.resolve(__dirname, '../.env') })
+dotenv.config({ path: path.resolve(__dirname, '../../.env') })
 
 // Jira integration functions
 function jiraClient() {
@@ -100,7 +100,7 @@ export default defineConfig({
     viewportHeight: 1080,
     video: true,
     screenshotOnRunFailure: true,
-    screenshotsFolder: 'cypress/screenshots',
+    screenshotsFolder: '../screenshots',
     trashAssetsBeforeRuns: false,
     chromeWebSecurity: false,
     defaultCommandTimeout: 10000,
@@ -197,14 +197,43 @@ export default defineConfig({
           return fs.existsSync(fullPath)
         },
 
-        // Visual regression Jira integration
+        // Enhanced Visual regression Jira integration
         async createVisualRegressionJira(issue: any) {
-          const { PercyJiraIntegration } = require('./cypress/support/percy-jira-integration')
+          const { PercyJiraIntegration } = require('../tests/e2e/support/percy-jira-integration')
           
           try {
             const jiraIntegration = new PercyJiraIntegration()
             const result = await jiraIntegration.createOrUpdateVisualRegressionIssue(issue)
             console.log(`🎨 Visual regression Jira issue: ${result.issueKey}`)
+            
+            // Also create standard test failure issue if this was a test failure
+            if (issue.testFailure) {
+              const standardIssue = await this.createOrUpdateJira({
+                spec: issue.specFile,
+                testTitle: `Visual Regression: ${issue.testName}`,
+                errorMessage: `Percy visual differences detected: ${issue.visualDifferences?.map(d => d.elementName).join(', ')}`,
+                appUrl: issue.percyBuildUrl,
+                browser: 'Multiple',
+                os: 'CI/CD',
+                screenshotPaths: issue.screenshots,
+                actionLog: [
+                  `Percy build: ${issue.percyBuildUrl}`,
+                  `Visual differences: ${issue.visualDifferences?.length || 0}`,
+                  `Affected languages: ${issue.affectedLanguages?.join(', ')}`,
+                  `Affected viewports: ${issue.affectedViewports?.join(', ')}`
+                ],
+                currentUrl: issue.percyComparisonUrl,
+                testSteps: [{
+                  action: 'Percy visual regression test',
+                  success: false,
+                  error: 'Visual differences detected'
+                }],
+                filePath: issue.specFile
+              })
+              
+              result.standardIssueKey = standardIssue.issueKey
+            }
+            
             return result
           } catch (error: any) {
             console.error('❌ Visual regression Jira integration failed:', error.message)
@@ -680,10 +709,10 @@ export default defineConfig({
     ],
     
     // Test file patterns
-    specPattern: 'cypress/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
+    specPattern: '../tests/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
     
     // Support file
-    supportFile: 'cypress/support/e2e.ts',
+    supportFile: '../tests/e2e/support/e2e.ts',
     
     // Retry configuration for flaky tests
     retries: {
@@ -698,6 +727,6 @@ export default defineConfig({
       bundler: 'vite',
     },
     specPattern: 'src/**/*.cy.{js,jsx,ts,tsx}',
-    supportFile: 'cypress/support/component.ts',
+    supportFile: '../tests/e2e/support/component.ts',
   },
 })
