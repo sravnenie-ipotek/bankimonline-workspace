@@ -5,9 +5,9 @@
 
 // This will be replaced during build with actual timestamp
 export const BUILD_INFO = {
-  version: '0.1.0',
-  buildTime: '22.08.2025 11:47',
+  version: '5.2.1',
+  buildTime: '23.08.2025 02:13',
   environment: import.meta.env.MODE || 'development',
-  buildNumber: 'local',
-  commit: 'local'
+  buildNumber: '9999',
+  commit: 'abc123d'
 };
