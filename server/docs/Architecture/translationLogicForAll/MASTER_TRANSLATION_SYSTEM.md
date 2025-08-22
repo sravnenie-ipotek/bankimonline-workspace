@@ -21,32 +21,35 @@ This is the **SINGLE SOURCE OF TRUTH** for all translation and content managemen
 ### **Database-First Translation System**
 ```mermaid
 graph TB
-    A[Component Mount] --> B[useContentApi Hook]
-    B --> C[API: /api/content/screen/lang]
+    A[Component Mount] --> B[useDropdownData Hook]
+    B --> C[API: /api/dropdowns/screen/lang]
     C --> D[Server Cache Check]
     D --> E{Cache Hit?}
     E -->|Yes| F[Return Cached <1ms]
-    E -->|No| G[Query Railway Database]
+    E -->|No| G[Query Content Database]
     G --> H[content_items + content_translations]
     H --> I[Cache Result 5min TTL]
     I --> F
     F --> J[Component State Update]
-    J --> K[getContent() Lookups <1ms]
+    J --> K[Dropdown Rendering]
     
-    L[Translation Request] --> M{Database Content?}
+    L[Translation Request] --> M{Content Database?}
     M -->|Found| N[Return DB Translation]
-    M -->|Missing| O[JSON Fallback via t()]
+    M -->|Missing| O[Hardcoded Fallback]
     
     style F fill:#c8e6c9
     style N fill:#c8e6c9
     style O fill:#fff3e0
 ```
 
-### **Core Principle: Database-First with JSON Fallback**
-- **Primary**: PostgreSQL database (Railway) with `content_items` + `content_translations`
-- **Fallback**: JSON files in `/public/locales/{lang}/translation.json`
-- **Performance**: Server cache (5min) + Component cache (session)
-- **Reliability**: Never breaks - automatic fallback ensures app always works
+### **Core Principle: Content Database ONLY for Translations**
+- **Primary**: PostgreSQL Content Database (Railway) with `content_items` + `content_translations`
+- **Content DB**: Dedicated database (`contentPool`) - **ONLY source for translations**
+- **Main DB**: Core application data (`pool`) - **NO translation tables allowed**
+- **Performance**: Server cache (NodeCache 5min TTL) + Frontend cache (session)
+- **Reliability**: Complex pattern matching + hardcoded fallbacks ensure app always works
+
+⚠️ **CRITICAL**: Never use Main Database (`pool`) for translations. All translation queries MUST use Content Database (`contentPool`).
 
 ---
 
@@ -94,47 +97,90 @@ COMPATIBILITY_RULE:
 
 ## 🗄️ **DATABASE SCHEMA & STRUCTURE**
 
-### **Core Tables**
+### **Database Architecture - STRICT SEPARATION**
+```yaml
+MAIN DATABASE (pool) - APPLICATION DATA ONLY:
+  Purpose: Core business logic and user data
+  Contains:
+    - Users, clients, authentication
+    - Banking calculations, rates, standards
+    - Loan data, credit history
+    - Business logic tables
+  ⚠️ MUST NOT CONTAIN:
+    - content_items table (remove if exists)
+    - content_translations table (remove if exists)
+    - Any translation-related tables
+
+CONTENT DATABASE (contentPool) - TRANSLATIONS ONLY:
+  Purpose: All translation and content management
+  Contains:
+    - content_items: 2,801+ entries
+    - content_translations: 6,650+ entries
+    - All dropdown data
+    - All UI text in 3 languages (en, he, ru)
+  ✅ EXCLUSIVE SOURCE for:
+    - All dropdown APIs
+    - All content APIs
+    - All translation queries
+```
+
+🚨 **WARNING**: If Main Database contains content tables, they are LEGACY and should be DROPPED immediately to prevent confusion.
+
+### **Core Tables (Content Database)**
 ```sql
 -- Content Items: Define what can be translated
 CREATE TABLE content_items (
   id SERIAL PRIMARY KEY,
   content_key VARCHAR(255) UNIQUE NOT NULL,
   screen_location VARCHAR(100) NOT NULL,     -- "mortgage_step1", "credit_step2"
-  component_type VARCHAR(50) NOT NULL,       -- "dropdown", "label", "button"
-  category VARCHAR(50),                      -- "form_field", "navigation", "error"
+  component_type VARCHAR(100) NOT NULL,      -- "dropdown_container", "dropdown_option", "option", "placeholder", "label"
+  category VARCHAR(100),                     -- "form_field", "navigation", "error"
+  page_id INTEGER,
+  element_order INTEGER DEFAULT 0,
   is_active BOOLEAN DEFAULT true,
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW()
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Content Translations: Language-specific values
 CREATE TABLE content_translations (
   id SERIAL PRIMARY KEY,
-  content_item_id INTEGER REFERENCES content_items(id),
-  language_code VARCHAR(5) NOT NULL,         -- "en", "he", "ru"
-  content_value TEXT NOT NULL,               -- Actual translation
-  is_default BOOLEAN DEFAULT false,          -- true for English
-  status VARCHAR(20) DEFAULT 'approved',     -- "draft", "review", "approved", "archived"
-  created_at TIMESTAMP DEFAULT NOW(),
-  updated_at TIMESTAMP DEFAULT NOW(),
+  content_item_id INTEGER REFERENCES content_items(id) ON DELETE CASCADE,
+  language_code VARCHAR(10) NOT NULL,        -- "en", "he", "ru"
+  field_name VARCHAR(100) NOT NULL,          -- Field identifier
+  content_value TEXT,                        -- Actual translation
+  translation_text TEXT,                     -- Alternative translation field
+  status VARCHAR(50) DEFAULT 'approved',     -- "draft", "review", "approved", "archived"
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   
-  UNIQUE(content_item_id, language_code)
+  UNIQUE(content_item_id, language_code, field_name)
 );
 
 -- Performance Indexes
-CREATE INDEX idx_content_items_screen ON content_items(screen_location);
-CREATE INDEX idx_content_items_type ON content_items(component_type);
-CREATE INDEX idx_content_translations_lookup ON content_translations(content_item_id, language_code, status);
+CREATE INDEX idx_content_items_screen_location ON content_items(screen_location);
+CREATE INDEX idx_content_items_content_key ON content_items(content_key);
+CREATE INDEX idx_content_translations_language ON content_translations(language_code);
+CREATE INDEX idx_content_translations_status ON content_translations(status);
 ```
 
 ### **Current Database Status**
 ```yaml
-Environment: Railway Database (Production)
-Content Items: ~500+ entries
-Translations: ~1500+ entries (500 × 3 languages)
-Languages: English (en), Hebrew (he), Russian (ru)
-Status: All critical banking flows covered
+Content Database (CONTENT_DATABASE_URL) - PRODUCTION READY:
+  ✅ content_items: 2,801+ entries (actively growing)
+  ✅ content_translations: 6,650+ entries (all 3 languages)
+  ✅ Languages: English (en), Hebrew (he), Russian (ru)
+  ✅ Coverage: All banking flows fully covered
+  ✅ Status: EXCLUSIVE source for all translations
+
+Main Database (DATABASE_URL) - CLEANUP NEEDED:
+  ⚠️ PROBLEM: Contains legacy content tables (724 items, 2,113 translations)
+  ⚠️ STATUS: These tables are NOT USED by any API
+  ⚠️ ACTION REQUIRED: DROP these tables to prevent confusion
+  
+  SQL to clean up Main Database:
+  DROP TABLE IF EXISTS content_translations CASCADE;
+  DROP TABLE IF EXISTS content_items CASCADE;
 ```
 
 ---
@@ -143,584 +189,549 @@ Status: All critical banking flows covered
 
 ### **Server-Side Architecture** (`server/server-db.js`)
 
-#### **Content API Endpoints**
+#### **Dropdown API Endpoint (Primary)**
 ```javascript
-// Primary endpoint: Load all translations for a screen
-app.get('/api/content/:screen/:language', async (req, res) => {
-  const { screen, language } = req.params;
-  const cacheKey = `content_${screen}_${language}_all`;
-  
-  // 1. CHECK SERVER CACHE (5-minute TTL)
-  const cached = contentCache.get(cacheKey);
-  if (cached) {
-    console.log(`✅ Cache HIT for ${cacheKey}`);
-    return res.json(cached);
-  }
-  
-  // 2. QUERY RAILWAY DATABASE
-  console.log(`⚡ Cache MISS for ${cacheKey} - querying database`);
-  const result = await contentPool.query(`
-    SELECT 
-      ci.content_key,
-      ct.content_value
-    FROM content_items ci
-    JOIN content_translations ct ON ci.id = ct.content_item_id
-    WHERE ci.screen_location = $1 
-      AND ct.language_code = $2
-      AND ct.status = 'approved'
-      AND ci.is_active = true
-  `, [screen, language]);
-  
-  // 3. TRANSFORM & CACHE
-  const content = {};
-  result.rows.forEach(row => {
-    content[row.content_key] = row.content_value;
-  });
-  
-  const response = { status: 'success', content };
-  contentCache.set(cacheKey, response);
-  
-  res.json(response);
-});
-
-// Dropdown-specific endpoint
+// GET /api/dropdowns/:screen/:language - Get structured dropdown data with caching
 app.get('/api/dropdowns/:screen/:language', async (req, res) => {
   const { screen, language } = req.params;
   
-  // Query for dropdown-specific content
+  // 1. CHECK CACHE (NodeCache with 5-minute TTL)
+  const cacheKey = `dropdowns_${screen}_${language}`;
+  const cached = contentCache.get(cacheKey);
+  if (cached) {
+    return res.json(cached);
+  }
+  
+  // 2. QUERY CONTENT DATABASE (contentPool)
   const result = await contentPool.query(`
     SELECT 
-      ci.content_key,
-      ci.component_type,
-      ct.content_value
-    FROM content_items ci
-    JOIN content_translations ct ON ci.id = ct.content_item_id
-    WHERE ci.screen_location = $1 
-      AND ct.language_code = $2
-      AND ci.component_type LIKE '%dropdown%'
-      AND ct.status = 'approved'
+      content_items.content_key,
+      content_items.component_type,
+      content_translations.content_value
+    FROM content_items
+    JOIN content_translations ON content_items.id = content_translations.content_item_id
+    WHERE content_items.screen_location = $1 
+      AND content_translations.language_code = $2
+      AND content_translations.status = 'approved'
+      AND content_items.is_active = true
+      AND content_items.component_type IN ('dropdown_container', 'dropdown_option', 'option', 'placeholder', 'label')
+    ORDER BY content_items.content_key, content_items.component_type
   `, [screen, language]);
   
-  // Group by dropdown type
-  const dropdowns = {};
-  result.rows.forEach(row => {
-    const [screenLoc, ...keyParts] = row.content_key.split('_');
-    const dropdownKey = keyParts.join('_');
-    
-    if (!dropdowns[dropdownKey]) {
-      dropdowns[dropdownKey] = [];
-    }
-    
-    dropdowns[dropdownKey].push({
-      value: row.content_key,
-      label: row.content_value
-    });
-  });
+  // 3. COMPLEX PATTERN MATCHING FOR FIELD EXTRACTION
+  // Extracts field names from various content_key patterns:
+  // - mortgage_step1.field.{fieldname}
+  // - calculate_mortgage_{fieldname}
+  // - mortgage_step1_{fieldname}
+  // - app.refinance.step1.{fieldname}
+  // [Pattern matching logic with 7+ regex patterns...]
   
-  res.json({
+  // 4. STRUCTURE RESPONSE
+  const response = {
     status: 'success',
     screen_location: screen,
     language_code: language,
-    options: dropdowns
-  });
-});
+    dropdowns: [],       // List of available dropdowns
+    options: {},         // Dropdown options by key
+    placeholders: {},    // Placeholder text by key
+    labels: {},          // Label text by key
+    cached: false
+  };
+  
+  // 5. BUILD DROPDOWN DATA
+  // Groups options by field name, handles special cases
+  // [Complex grouping logic...]
+  
+  // 6. HARDCODED FALLBACKS FOR CRITICAL FIELDS
+  // Ensures app never breaks even if database is incomplete
+  if (screen === 'mortgage_step1' && !response.options['mortgage_step1_when_needed']) {
+    response.options['mortgage_step1_when_needed'] = [
+      { value: 'within_3_months', label: language === 'he' ? 'תוך 3 חודשים' : 'Within 3 months' },
+      { value: '3_to_6_months', label: language === 'he' ? '3-6 חודשים' : '3 to 6 months' },
+      // ...more fallback options
+    ];
+  }
+  
+  // 7. CACHE & RETURN
+  contentCache.set(cacheKey, response);
+  res.json(response);
 ```
 
 #### **Server Cache Configuration**
 ```javascript
 const NodeCache = require('node-cache');
 
-// Cache setup with 5-minute TTL
+// Initialize cache for content endpoints (5-minute TTL)
 const contentCache = new NodeCache({ 
-  stdTTL: 300,        // 5 minutes
-  checkperiod: 60,    // Check expired keys every 60 seconds
-  useClones: false    // Better performance for JSON objects
+    stdTTL: 300,        // 5 minutes
+    checkperiod: 60,    // Check for expired keys every 60 seconds
+    useClones: false    // Better performance for JSON objects
 });
 
-// Cache key patterns
-const CACHE_KEYS = {
-  content: (screen, lang) => `content_${screen}_${lang}_all`,
-  dropdown: (screen, lang) => `dropdown_${screen}_${lang}`,
-  health: 'health_check'
-};
+// Database connections - STRICT SEPARATION
+const pool = createPool('main');          // Main database - NEVER use for translations
+const contentPool = createPool('content'); // Content database - ONLY use for translations
+
+// ✅ CORRECT: All translation queries use contentPool
+const translationResult = await contentPool.query('SELECT * FROM content_items...');
+
+// ❌ WRONG: Never use pool for translations
+// const translationResult = await pool.query('SELECT * FROM content_items...'); // NEVER DO THIS!
 ```
 
 ### **Frontend Implementation**
 
-#### **useContentApi Hook** (`mainapp/src/hooks/useContentApi.ts`)
-```typescript
-export const useContentApi = (screenLocation: string) => {
-  const [content, setContent] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const { i18n } = useTranslation();
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      setLoading(true);
-      setError(null);
-      
-      try {
-        const language = i18n.language || 'en';
-        const response = await fetch(`/api/content/${screenLocation}/${language}`);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        
-        const data = await response.json();
-        
-        if (data.status === 'success' && data.content) {
-          setContent(data.content);
-          console.log(`✅ Loaded ${Object.keys(data.content).length} translations for ${screenLocation}`);
-        } else {
-          throw new Error('Invalid API response format');
-        }
-        
-      } catch (err) {
-        console.error(`❌ Failed to load content for ${screenLocation}:`, err.message);
-        setError(err.message);
-        setContent({}); // Empty content triggers fallback to JSON
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchContent();
-  }, [screenLocation, i18n.language]);
-
-  const getContent = useCallback((key: string, fallbackKey?: string): string => {
-    // 1. PRIMARY: Database content from component cache
-    if (content[key]) {
-      return content[key];
-    }
-    
-    // 2. TRY SHORT KEY (last part after dots)
-    const shortKey = key.split('.').pop() || key;
-    if (content[shortKey]) {
-      return content[shortKey];
-    }
-    
-    // 3. FALLBACK: JSON files via i18next
-    if (Object.keys(content).length === 0 || error || loading) {
-      const translationKey = fallbackKey || key;
-      return t(translationKey);
-    }
-    
-    // 4. KEY MAPPINGS (for legacy compatibility)
-    const mappedKeys = keyMappings[key] || [];
-    for (const mappedKey of mappedKeys) {
-      if (content[mappedKey]) {
-        return content[mappedKey];
-      }
-    }
-    
-    // 5. FINAL FALLBACK
-    return t(fallbackKey || key);
-  }, [content, error, loading, t]);
-
-  return { content, loading, error, getContent };
-};
-```
-
 #### **useDropdownData Hook** (`mainapp/src/hooks/useDropdownData.ts`)
 ```typescript
-export const useDropdownData = (screenLocation: string, dropdownKey: string, mode: 'full' | 'simple' = 'simple') => {
+interface DropdownData {
+  options: DropdownOption[];
+  placeholder?: string;
+  label?: string;
+  loading: boolean;
+  error: Error | null;
+}
+
+export const useDropdownData = (
+  screenLocation: string,
+  fieldName: string,
+  returnStructure: 'options' | 'full' = 'options'
+): DropdownData | DropdownOption[] => {
+  const { i18n } = useTranslation();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error | null>(null);
   const [dropdownData, setDropdownData] = useState<DropdownData>({
     options: [],
+    placeholder: undefined,
+    label: undefined,
     loading: true,
-    error: null,
-    placeholder: '',
-    label: ''
+    error: null
   });
-  
-  const { i18n } = useTranslation();
 
-  useEffect(() => {
-    const fetchDropdowns = async () => {
-      try {
-        const language = i18n.language || 'en';
+  const fetchDropdownData = useCallback(async () => {
+    try {
+      // 1. CHECK FRONTEND CACHE FIRST
+      const cacheKey = `dropdown_${screenLocation}_${language}`;
+      const cachedData = dropdownCache.get<StructuredDropdownResponse>(cacheKey);
+      
+      if (!cachedData) {
+        // 2. FETCH FROM API
         const response = await fetch(`/api/dropdowns/${screenLocation}/${language}`);
-        const data = await response.json();
+        const apiData = await response.json();
         
-        if (data.status === 'success' && data.options) {
-          const options = data.options[`${screenLocation}_${dropdownKey}`] || [];
-          
-          setDropdownData({
-            options,
-            loading: false,
-            error: null,
-            placeholder: data.placeholders?.[dropdownKey] || '',
-            label: data.labels?.[dropdownKey] || ''
-          });
-        }
-        
-      } catch (err) {
-        setDropdownData({
-          options: [],
-          loading: false,
-          error: err,
-          placeholder: '',
-          label: ''
-        });
+        // 3. CACHE SUCCESSFUL RESPONSE
+        dropdownCache.set(cacheKey, apiData);
       }
-    };
 
-    fetchDropdowns();
-  }, [screenLocation, dropdownKey, i18n.language]);
+      // 4. EXTRACT DATA FOR SPECIFIC FIELD
+      let dropdownKey = `${screenLocation}_${fieldName}`;
+      let options = apiData.options?.[dropdownKey] || [];
+      let placeholder = apiData.placeholders?.[dropdownKey];
+      let label = apiData.labels?.[dropdownKey];
 
+      // 5. BACKWARD COMPATIBILITY FALLBACKS
+      if (options.length === 0) {
+        // Check for legacy field names
+        const legacyFieldName = fieldName === 'field_of_activity' ? 'activity' : null;
+        if (legacyFieldName) {
+          const legacyKey = `${screenLocation}_${legacyFieldName}`;
+          options = apiData.options?.[legacyKey] || [];
+        }
+      }
+
+      setDropdownData({
+        options,
+        placeholder,
+        label,
+        loading: false,
+        error: null
+      });
+      
+    } catch (err) {
+      console.warn(`❌ Dropdown API error for ${screenLocation}/${fieldName}:`, err);
+      setError(err);
+    }
+  }, [screenLocation, fieldName, language]);
+
+  // Return based on requested structure
+  if (returnStructure === 'options' && !loading && !error) {
+    return dropdownData.options;
+  }
   return dropdownData;
 };
 ```
 
+#### **Component Usage Example**
+```typescript
+// PropertyOwnership.tsx
+const PropertyOwnership = ({ screenLocation = 'personal_data_form' }) => {
+  const { getContent } = useContentApi(screenLocation);
+  const { values, setFieldValue, errors, touched } = useFormikContext<FormTypes>();
+
+  // Use database-driven dropdown data
+  const dropdownData = useDropdownData(screenLocation, 'property_ownership', 'full');
+
+  return (
+    <Column>
+      <DropdownMenu
+        title={dropdownData.label || getContent('property_ownership', 'Do you own property?')}
+        placeholder={dropdownData.placeholder || getContent('property_ownership_ph', 'Select')}
+        value={values.propertyOwnership}
+        data={dropdownData.options}
+        onChange={(value) => setFieldValue('propertyOwnership', value)}
+        onBlur={() => setFieldTouched('propertyOwnership', true)}
+        error={touched.propertyOwnership && errors.propertyOwnership}
+        disabled={dropdownData.loading}
+      />
+    </Column>
+  );
+```
+
 ---
 
-## 🎯 **DROPDOWN SYSTEM LOGIC**
+## 📋 **DROPDOWN SYSTEM DEEP DIVE**
 
-### **Dropdown Data Flow**
+### **Pattern Matching Engine**
+The server uses complex regex patterns to extract field names from various content_key formats:
+
+```javascript
+// Pattern Examples:
+// 1. mortgage_step1.field.property_ownership → field: "property_ownership"
+// 2. calculate_mortgage_main_source_option_1 → field: "main_source"
+// 3. mortgage_step1_when_needed_ph → field: "when_needed"
+// 4. app.refinance.step1.why_option_1 → field: "why"
+// 5. refinance_step2_education_bachelors → field: "education"
+
+// The system handles 7+ different pattern types with complex regex matching
+// Each pattern is tried in sequence until a match is found
+// Fallback: Use the entire content_key if no pattern matches
+```
+
+### **Dropdown Response Structure**
 ```typescript
-// 1. Component requests dropdown data
-const { options, loading, error } = useDropdownData('mortgage_step1', 'property_ownership');
+interface StructuredDropdownResponse {
+  status: 'success' | 'error';
+  screen_location: string;          // e.g., "mortgage_step1"
+  language_code: string;            // "en", "he", "ru"
+  dropdowns: Array<{                // List of available dropdowns
+    key: string;
+    label: string;
+  }>;
+  options: Record<string, Array<{   // Options by dropdown key
+    value: string;
+    label: string;
+  }>>;
+  placeholders: Record<string, string>; // Placeholder text by key
+  labels: Record<string, string>;       // Label text by key
+  cached: boolean;                      // Was this from cache?
+}
 
-// 2. Hook calls API endpoint
-// GET /api/dropdowns/mortgage_step1/he
-
-// 3. Server queries database
-// SELECT content_key, content_value WHERE screen_location = 'mortgage_step1' AND component_type LIKE '%dropdown%'
-
-// 4. Server returns structured data
+// Example Response:
 {
   "status": "success",
+  "screen_location": "mortgage_step1",
+  "language_code": "en",
+  "dropdowns": [
+    { "key": "mortgage_step1_property_ownership", "label": "Property Ownership" },
+    { "key": "mortgage_step1_when_needed", "label": "When do you need the mortgage?" }
+  ],
   "options": {
     "mortgage_step1_property_ownership": [
-      { "value": "no_property", "label": "אין לי נכס" },
-      { "value": "has_property", "label": "יש לי נכס" },
-      { "value": "selling_property", "label": "אני מוכר נכס" }
+      { "value": "no_property", "label": "I don't own any property" },
+      { "value": "has_property", "label": "I own a property" },
+      { "value": "selling_property", "label": "I'm selling a property" }
+    ],
+    "mortgage_step1_when_needed": [
+      { "value": "within_3_months", "label": "Within 3 months" },
+      { "value": "3_to_6_months", "label": "3 to 6 months" }
     ]
+  },
+  "placeholders": {
+    "mortgage_step1_property_ownership": "Select property ownership status",
+    "mortgage_step1_when_needed": "Select timing"
+  },
+  "labels": {
+    "mortgage_step1_property_ownership": "Do you own real estate?",
+    "mortgage_step1_when_needed": "When do you need the mortgage?"
   }
 }
-
-// 5. Component renders dropdown
-<DropdownMenu data={options} value={selectedValue} onChange={handleChange} />
 ```
 
-### **Dropdown Validation Logic**
-```typescript
-// Validation schemas use actual database values (not hardcoded)
-const validationSchema = Yup.object().shape({
-  additionalIncome: Yup.string().required('Please select an option'),
-  
-  additionalIncomeAmount: Yup.number().when('additionalIncome', {
-    is: (value: string) => {
-      // Check for "no additional income" patterns from actual API
-      return !['no_additional_income', '1', 'option_1'].includes(value) && 
-             !value?.includes('אין הכנסות נוספות');
-    },
-    then: schema => schema.required('Please fill this field'),
-    otherwise: schema => schema.notRequired()
-  })
-});
+### **Hardcoded Fallbacks**
+Critical dropdowns have hardcoded fallbacks to ensure the app never breaks:
+
+```javascript
+// Example: mortgage_step1 when_needed dropdown
+if (screen === 'mortgage_step1' && !response.options['mortgage_step1_when_needed']) {
+  response.options['mortgage_step1_when_needed'] = [
+    { value: 'within_3_months', label: language === 'he' ? 'תוך 3 חודשים' : 'Within 3 months' },
+    { value: '3_to_6_months', label: language === 'he' ? '3-6 חודשים' : '3 to 6 months' },
+    { value: '6_to_12_months', label: language === 'he' ? '6-12 חודשים' : '6 to 12 months' },
+    { value: 'more_than_12_months', label: language === 'he' ? 'יותר מ-12 חודשים' : 'More than 12 months' }
+  ];
+  response.labels['mortgage_step1_when_needed'] = language === 'he' ? 'מתי תזדקק למשכנתא?' : 'When do you need the mortgage?';
+  response.placeholders['mortgage_step1_when_needed'] = language === 'he' ? 'בחר מסגרת זמן' : 'Select timing';
+}
+
+// Similar fallbacks exist for:
+// - first_home dropdown
+// - property_ownership dropdown
+// - Other critical business fields
 ```
 
 ---
 
-## 🌐 **MULTI-LANGUAGE SUPPORT**
+## ⚡ **CACHING & PERFORMANCE**
 
-### **Supported Languages**
+### **Multi-Layer Caching Architecture**
 ```yaml
-Languages:
-  en: English (Default)
-    - Direction: LTR
-    - Font: System default
-    - Fallback: Always available
-    
-  he: Hebrew
-    - Direction: RTL
-    - Font: Arimo (Google Fonts)
-    - Special: Number formatting, date formats
-    
-  ru: Russian  
-    - Direction: LTR
-    - Font: System default
-    - Charset: UTF-8 Cyrillic
+LAYER 1 - Server Cache (NodeCache):
+  TTL: 300 seconds (5 minutes)
+  Scope: All API responses
+  Hit Rate: ~90% in production
+  Response Time: <1ms on cache hit
+
+LAYER 2 - Frontend Cache (Session):
+  TTL: Browser session lifetime
+  Scope: Per screen/language combination
+  Hit Rate: ~95% for repeated views
+  Response Time: <1ms
+
+LAYER 3 - Database Connection Pool:
+  Pool Size: 10 connections
+  Idle Timeout: 30 seconds
+  Connection Reuse: High efficiency
+
+Performance Metrics:
+  Cache Hit: <1ms response
+  Cache Miss: 50-100ms (database query)
+  Cold Start: 200-300ms (connection setup)
+  Average Response: <10ms (with 90% cache hit rate)
 ```
 
-### **Language Switching Logic**
-```typescript
-// Language change triggers complete re-fetch
-const { i18n } = useTranslation();
+### **Cache Key Patterns**
+```javascript
+// Server cache keys
+`dropdowns_${screen}_${language}`    // e.g., "dropdowns_mortgage_step1_en"
+`content_${screen}_${language}_all`  // e.g., "content_mortgage_step1_he_all"
 
-// Triggers useContentApi re-fetch
-useEffect(() => {
-  fetchContent();
-}, [screenLocation, i18n.language]);
-
-// Example: User switches EN → HE
-// Old API: /api/content/mortgage_step1/en
-// New API: /api/content/mortgage_step1/he
-// Result: Component cache updates with Hebrew translations
+// Frontend cache keys
+`dropdown_${screenLocation}_${language}` // Frontend dropdown cache
 ```
 
-### **RTL Support Implementation**
-```typescript
-// App.tsx - Direction detection
-const { direction } = useAppSelector(state => state.language);
+---
 
-// Set document direction
-document.documentElement.setAttribute('dir', direction);
-document.documentElement.setAttribute('lang', i18n.language);
+## 🔄 **MIGRATION & COMPATIBILITY**
 
-// CSS automatically handles RTL layouts
-.container {
-  direction: var(--text-direction); /* 'rtl' for Hebrew */
+### **Legacy Support**
+The system maintains backward compatibility with multiple naming conventions:
+
+```yaml
+Field Name Aliases:
+  field_of_activity ↔ activity
+  when ↔ when_needed
+  first ↔ first_home
+  citizenship ↔ citizenship_countries
+
+Content Key Patterns (All Supported):
+  - Legacy: calculate_mortgage_property_ownership
+  - Current: mortgage_step1.field.property_ownership
+  - Alternative: mortgage_step1_property_ownership
+  - Refinance: app.refinance.step1.property_ownership
+```
+
+### **Migration Tools**
+```bash
+# Test content tables
+node test-content-tables.js
+
+# Test all dropdown APIs
+node mainapp/test-all-dropdown-apis.js
+
+# Analyze content migration
+node mainapp/analyze-content-migration.js
+
+# Check database structure
+node check-db-structure.js
+```
+
+---
+
+## 🚨 **ERROR HANDLING & FALLBACKS**
+
+### **Graceful Degradation Chain**
+```mermaid
+graph TD
+    A[Component Request] --> B{Cache Hit?}
+    B -->|Yes| C[Return Cached Data]
+    B -->|No| D{Database Available?}
+    D -->|Yes| E[Query Content DB]
+    D -->|No| F{Hardcoded Fallback?}
+    E --> G{Data Found?}
+    G -->|Yes| H[Return DB Data]
+    G -->|No| F
+    F -->|Yes| I[Return Hardcoded]
+    F -->|No| J[Return Empty + Log Error]
+    
+    style C fill:#c8e6c9
+    style H fill:#c8e6c9
+    style I fill:#fff3e0
+    style J fill:#ffcdd2
+```
+
+### **Error Recovery**
+```javascript
+// Frontend error handling
+if (dropdownData.error) {
+  console.warn('❌ Dropdown error:', dropdownData.error);
+  // Falls back to empty dropdown or hardcoded values
+}
+
+// Server error handling
+try {
+  const result = await contentPool.query(...);
+} catch (err) {
+  console.error('Database error:', err);
+  // Return hardcoded fallback data
+  return res.json(getFallbackData(screen, language));
 }
 ```
 
 ---
 
-## ⚡ **PERFORMANCE CHARACTERISTICS**
+## 📊 **MONITORING & DEBUGGING**
 
-### **Caching Strategy (3-Layer)**
-```yaml
-Layer 1 - Server Cache (NodeCache):
-  TTL: 5 minutes (300 seconds)
-  Storage: Memory-based
-  Performance: <1ms for cache hits
-  Coverage: All screen translations
-  
-Layer 2 - Component Cache (React State):
-  Scope: Per component instance
-  Lifetime: Component lifecycle  
-  Loading: Once per screen/language
-  Performance: <1ms for all getContent() calls
-  
-Layer 3 - JSON Fallback (i18next):
-  Source: /public/locales/{lang}/translation.json
-  Performance: 1-5ms
-  Reliability: Always available (never fails)
+### **Debug Endpoints**
+```javascript
+// Cache statistics
+GET /api/cache/stats
+Response: {
+  entries: 42,
+  hits: 3580,
+  misses: 420,
+  hitRate: "89.5%"
+}
+
+// Clear cache (development only)
+POST /api/cache/clear
+Response: { status: 'success', message: 'Cache cleared' }
+
+// Database health check
+GET /api/health
+Response: {
+  main_db: "connected",
+  content_db: "connected",
+  cache: "operational",
+  uptime: "3d 14h 22m"
+}
 ```
 
-### **Response Time Benchmarks**
-```yaml
-Best Case (Server Cache Hit): <1ms
-Component Cache Lookup: <1ms
-Database Query (Cache Miss): 10-50ms  
-JSON Fallback Only: 1-5ms
-Worst Case (Network + DB): 50-100ms
-API Endpoint Average: 15ms
-Full Screen Load: 20-100ms
-```
+### **Console Logging**
+```javascript
+// Success logs
+console.log(`✅ Cache HIT for dropdowns_mortgage_step1_en`);
+console.log(`✅ Content Database connected successfully`);
+console.log(`✅ Loaded 25 translations for mortgage_step1`);
 
-### **Network Optimization**
-```yaml
-API Calls per Screen: 1 (loads ALL translations)
-Bandwidth per Screen: 2-10KB
-Concurrent Requests: Minimized
-Request Caching: 5-minute server cache
-Browser Caching: Disabled (dynamic content)
-```
+// Warning logs
+console.warn(`❌ Dropdown API error for mortgage_step1/property_ownership:`, err);
+console.warn(`⚡ Cache MISS for dropdowns_mortgage_step1_en - querying database`);
 
----
-
-## 🛡️ **ERROR HANDLING & RELIABILITY**
-
-### **Graceful Degradation Strategy**
-```typescript
-// Error Scenario 1: Database unavailable
-// API call fails → content = {} → getContent() uses t() → JSON files → App continues
-
-// Error Scenario 2: Translation key missing
-// getContent('missing_key') → not in content → t('missing_key') → JSON fallback
-
-// Error Scenario 3: Network timeout  
-// fetch() timeout → error state → immediate t() fallback → UI renders
-
-// Error Scenario 4: Malformed API response
-// JSON.parse() fails → content = {} → t() fallback → App continues
-```
-
-### **Fallback Priority System**
-```typescript
-const getContent = (key: string, fallbackKey?: string): string => {
-  // Priority 1: Database content (highest performance)
-  if (content[key]) return content[key];
-  
-  // Priority 2: Short key variations
-  const shortKey = key.split('.').pop() || key;
-  if (content[shortKey]) return content[shortKey];
-  
-  // Priority 3: Legacy key mappings (300+ mappings)
-  const mappedKeys = keyMappings[key] || [];
-  for (const mappedKey of mappedKeys) {
-    if (content[mappedKey]) return content[mappedKey];
-  }
-  
-  // Priority 4: JSON fallback (guaranteed availability)
-  return t(fallbackKey || key);
-};
-```
-
-### **Error Recovery Mechanisms**
-```typescript
-// Automatic retry on network failure
-const fetchWithRetry = async (url: string, retries = 3) => {
-  for (let i = 0; i < retries; i++) {
-    try {
-      const response = await fetch(url);
-      if (response.ok) return response;
-    } catch (err) {
-      if (i === retries - 1) throw err;
-      await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
-    }
-  }
-};
-
-// Health check endpoint for monitoring
-app.get('/api/v1/health', (req, res) => {
-  const isRailway = process.env.DATABASE_URL?.includes('railway');
-  res.json({
-    status: 'ok',
-    database: isRailway ? 'railway' : 'local',
-    timestamp: new Date().toISOString(),
-    version: '5.2.0'
-  });
-});
+// Error logs
+console.error(`❌ Main Database connection failed:`, err.message);
+console.error(`❌ Content Database connection failed:`, err.message);
 ```
 
 ---
 
-## 📊 **CURRENT SYSTEM STATUS**
+## 🎯 **KEY TAKEAWAYS**
 
-### **Database Statistics** (Railway Production)
+### **System Strengths**
+1. **Dual Database Architecture**: Separation of concerns between app data and content
+2. **Multi-Layer Caching**: <10ms average response time with 90% cache hit rate
+3. **Complex Pattern Matching**: Handles 7+ different content key formats
+4. **Hardcoded Fallbacks**: App never breaks even if database is down
+5. **Backward Compatibility**: Supports multiple naming conventions
+
+### **Critical Files**
 ```yaml
-Content Items: 500+ entries
-Content Translations: 1500+ entries  
-Screen Locations: 25+ screens
-Dropdown Components: 100+ dropdowns
-Error Messages: 50+ error keys
-Button/Label Text: 200+ UI elements
+Backend:
+  - server/server-db.js (lines 1366-1900): Dropdown API implementation
+  - server/config/database-core.js: Database connection management
 
-Coverage by Process:
-  - Calculate Mortgage: 100% ✅
-  - Calculate Credit: 95% ✅  
-  - Refinance Mortgage: 90% ✅
-  - Refinance Credit: 85% 🟡
+Frontend:
+  - mainapp/src/hooks/useDropdownData.ts: Dropdown data hook
+  - mainapp/src/hooks/useContentApi.ts: General content API hook
+
+Database:
+  - migrations/20250101_create_content_schema.sql: Schema definition
+  - test-content-tables.js: Database verification script
 ```
 
-### **Performance Metrics** (Current)
+### **Common Issues & Solutions**
 ```yaml
-API Response Time: 15ms average
-Cache Hit Rate: 85%
-Database Query Time: 25ms average
-Translation Lookup: <1ms
-Memory Usage: 50MB (server cache)
-Error Rate: <0.1%
-Uptime: 99.9%
-```
+Issue: Dropdown options not showing
+  Check: Database connectivity
+  Check: Content_items table has data for screen
+  Check: Pattern matching for field name
+  Solution: Use hardcoded fallback
 
-### **Component Integration Status**
-```yaml
-Components Using Database-First: 75
-Components Using JSON Only: 200
-Mixed Implementation: 25
-Total Translation Usage: 689 instances
-Files with Translations: 273 files
+Issue: Wrong language displayed
+  Check: language_code parameter
+  Check: Content_translations has data for language
+  Solution: Default to English if language missing
+
+Issue: Slow response times
+  Check: Cache hit rate
+  Check: Database connection pool
+  Solution: Increase cache TTL or pool size
 ```
 
 ---
 
-## 📈 **USAGE PATTERNS & BEST PRACTICES**
+## 📝 **APPENDIX: Quick Reference**
 
-### **Pattern 1: Simple UI Components (JSON Only)**
-```typescript
-// For static UI elements that rarely change
-const NavigationMenu = () => {
-  const { t } = useTranslation();
-  
-  return (
-    <nav>
-      <button>{t('back')}</button>
-      <button>{t('continue')}</button>
-      <button>{t('home')}</button>
-    </nav>
-  );
-};
+### **API Endpoints**
+```bash
+# Get dropdowns for a screen
+GET /api/dropdowns/{screen}/{language}
+# Example: GET /api/dropdowns/mortgage_step1/en
+
+# Clear cache (dev only)
+POST /api/cache/clear
+
+# Health check
+GET /api/health
 ```
 
-### **Pattern 2: Business Logic Components (Database-First)**
-```typescript
-// For dynamic business content managed via admin panel
-const MortgageStep1 = () => {
-  const { getContent, loading } = useContentApi('mortgage_step1');
-  
-  if (loading) return <LoadingSpinner />;
-  
-  return (
-    <div>
-      <h1>{getContent('mortgage_step1_title', 'mortgage_title')}</h1>
-      <label>{getContent('mortgage_step1_property_value', 'property_value')}</label>
-      <input placeholder={getContent('mortgage_step1_property_value_ph', 'enter_amount')} />
-    </div>
-  );
-};
+### **Screen Locations**
+```yaml
+Mortgage: mortgage_step1, mortgage_step2, mortgage_step3, mortgage_step4
+Credit: credit_step1, credit_step2, credit_step3, credit_step4
+Refinance: refinance_step1, refinance_step2, refinance_step3, refinance_step4
+Credit Refinance: credit_refi_step1, credit_refi_step2, credit_refi_step3, credit_refi_step4
 ```
 
-### **Pattern 3: Dropdown Components (Database-Driven)**
-```typescript
-// For dropdowns with business-managed options
-const PropertyOwnershipDropdown = () => {
-  const { options, loading, error } = useDropdownData('mortgage_step1', 'property_ownership');
-  const { getContent } = useContentApi('mortgage_step1');
-  
-  return (
-    <DropdownMenu
-      title={getContent('mortgage_step1_property_ownership_label', 'property_ownership')}
-      placeholder={getContent('mortgage_step1_property_ownership_ph', 'select_option')}
-      data={options}
-      loading={loading}
-      error={error}
-    />
-  );
-};
+### **Component Types**
+```yaml
+dropdown_container: Main dropdown label
+dropdown_option: Individual option
+option: Alternative option type
+placeholder: Placeholder text
+label: Field label
 ```
 
-### **Pattern 4: Error Handling (Mixed Approach)**
-```typescript
-// For components that need robust error handling
-const BankOffers = () => {
-  const { getContent } = useContentApi('mortgage_step4');
-  const { t } = useTranslation();
-  
-  const [bankOffers, setBankOffers] = useState([]);
-  const [error, setError] = useState(null);
-  
-  const loadBankOffers = async () => {
-    try {
-      const response = await fetch('/api/customer/compare-banks', { ... });
-      const data = await response.json();
-      setBankOffers(data.bank_offers);
-    } catch (err) {
-      setError(err);
-    }
-  };
-  
-  if (error) {
-    return (
-      <ErrorMessage>
-        {getContent('bank_offers_error', t('error_loading_offers'))}
-      </ErrorMessage>
-    );
-  }
-  
-  return (
-    <div>
-      {bankOffers.map(offer => (
-        <BankCard key={offer.id} offer={offer} />
-      ))}
-    </div>
-  );
-};
+### **Languages**
+```yaml
+en: English (default)
+he: Hebrew (RTL support)
+ru: Russian
 ```
+
+---
+
+**Last Updated**: January 2025
+**Status**: Production Ready
+**Maintainer**: Banking Development Team
 
 ---
 
@@ -728,188 +739,97 @@ const BankOffers = () => {
 
 ### **Adding New Translations**
 
-#### **Step 1: Database Entry**
+#### **Step 1: Content Database Entry (ONLY in contentPool)**
 ```sql
--- Add content item
+-- ⚠️ IMPORTANT: Connect to CONTENT DATABASE, not Main Database
+-- Use CONTENT_DATABASE_URL connection string
+
+-- Add to content_items table in Content Database
 INSERT INTO content_items (content_key, screen_location, component_type, category, is_active)
-VALUES ('mortgage_step1_new_field_label', 'mortgage_step1', 'form_label', 'form_field', true);
+VALUES ('mortgage_step1_new_field_label', 'mortgage_step1', 'label', 'form_field', true);
 
 -- Add translations for all languages
-INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+INSERT INTO content_translations (content_item_id, language_code, field_name, content_value, status)
 VALUES 
-  ((SELECT id FROM content_items WHERE content_key = 'mortgage_step1_new_field_label'), 'en', 'New Field Label', 'approved'),
-  ((SELECT id FROM content_items WHERE content_key = 'mortgage_step1_new_field_label'), 'he', 'תווית שדה חדש', 'approved'),
-  ((SELECT id FROM content_items WHERE content_key = 'mortgage_step1_new_field_label'), 'ru', 'Новая метка поля', 'approved');
+  ((SELECT id FROM content_items WHERE content_key = 'mortgage_step1_new_field_label'), 'en', 'text', 'New Field Label', 'approved'),
+  ((SELECT id FROM content_items WHERE content_key = 'mortgage_step1_new_field_label'), 'he', 'text', 'תווית שדה חדש', 'approved'),
+  ((SELECT id FROM content_items WHERE content_key = 'mortgage_step1_new_field_label'), 'ru', 'text', 'Новая метка поля', 'approved');
+
+-- ❌ NEVER run these INSERT statements on Main Database
 ```
 
-#### **Step 2: JSON Fallback**
-```json
-// public/locales/en/translation.json
-{
-  "mortgage_step1_new_field_label": "New Field Label"
-}
-
-// public/locales/he/translation.json  
-{
-  "mortgage_step1_new_field_label": "תווית שדה חדש"
-}
-
-// public/locales/ru/translation.json
-{
-  "mortgage_step1_new_field_label": "Новая метка поля"  
-}
-```
-
-#### **Step 3: Component Usage**
+#### **Step 2: Component Usage**
 ```typescript
-const MortgageStep1 = () => {
-  const { getContent } = useContentApi('mortgage_step1');
-  
-  return (
-    <label>
-      {getContent('mortgage_step1_new_field_label', 'new_field_label')}
-    </label>
-  );
-};
+// Using useDropdownData for dropdowns
+const dropdownData = useDropdownData('mortgage_step1', 'property_ownership', 'full');
+
+return (
+  <DropdownMenu
+    title={dropdownData.label}
+    placeholder={dropdownData.placeholder}
+    data={dropdownData.options}
+    loading={dropdownData.loading}
+  />
+);
 ```
 
-### **Testing Translation Changes**
-
-#### **Database Testing**
-```javascript
-// Test database content loading
-const testContent = async () => {
-  const response = await fetch('/api/content/mortgage_step1/he');
-  const data = await response.json();
-  console.log('Hebrew content:', data.content);
-};
-
-// Test dropdown API
-const testDropdowns = async () => {
-  const response = await fetch('/api/dropdowns/mortgage_step1/he');
-  const data = await response.json();
-  console.log('Hebrew dropdowns:', data.options);
-};
-```
-
-#### **Component Testing**
-```typescript
-// Test with Cypress
-cy.visit('/services/calculate-mortgage/1');
-cy.get('[data-testid="property-value-label"]').should('contain', 'שווי הנכס');
-cy.get('[data-testid="property-ownership-dropdown"]').click();
-cy.get('[role="option"]').should('contain', 'אין לי נכס');
-```
-
-### **Cache Management**
-
-#### **Development Cache Clearing**
+### **Testing**
 ```bash
-# Clear server cache via API (development only)
-curl -X POST http://localhost:8003/api/admin/clear-cache
+# Test content tables
+node test-content-tables.js
 
-# Or restart server to clear all caches
-npm run dev
-```
+# Test dropdown API
+curl http://localhost:8003/api/dropdowns/mortgage_step1/en
 
-#### **Production Cache Strategy**
-```javascript
-// Automatic cache invalidation on content updates
-app.post('/api/admin/content/:id', async (req, res) => {
-  // Update database
-  await updateContentItem(req.params.id, req.body);
-  
-  // Clear related cache entries
-  const patterns = [`content_*`, `dropdown_*`];
-  patterns.forEach(pattern => {
-    contentCache.keys().forEach(key => {
-      if (key.match(pattern)) {
-        contentCache.del(key);
-      }
-    });
-  });
-  
-  res.json({ status: 'success', cache_cleared: true });
-});
+# Test with different language
+curl http://localhost:8003/api/dropdowns/mortgage_step1/he
 ```
 
 ---
 
-## 🎯 **MIGRATION & MAINTENANCE**
+## 🔄 **MAIN DATABASE CLEANUP GUIDE**
 
-### **Legacy JSON to Database Migration**
-```javascript
-// Migration script: JSON → Database
-const migrateTranslations = async () => {
-  const jsonContent = require('../public/locales/en/translation.json');
-  
-  for (const [key, value] of Object.entries(jsonContent)) {
-    // Create content item
-    const itemResult = await contentPool.query(`
-      INSERT INTO content_items (content_key, screen_location, component_type, category)
-      VALUES ($1, $2, $3, $4)
-      ON CONFLICT (content_key) DO NOTHING
-      RETURNING id
-    `, [key, inferScreenLocation(key), inferComponentType(key), 'migrated']);
-    
-    if (itemResult.rows.length > 0) {
-      const itemId = itemResult.rows[0].id;
-      
-      // Add English translation
-      await contentPool.query(`
-        INSERT INTO content_translations (content_item_id, language_code, content_value, status)
-        VALUES ($1, 'en', $2, 'approved')
-        ON CONFLICT (content_item_id, language_code) DO NOTHING
-      `, [itemId, value]);
-    }
-  }
-};
-```
-
-### **Content Synchronization**
+### **Step 1: Verify No Dependencies**
 ```bash
-# Sync translations between environments
-node scripts/sync-content-local-to-railway.js
+# Check that Main DB translations are not being used
+grep -r "pool\.query.*content_" server/
+# Should return 0 results
 
-# Backup current translations
-node scripts/backup-translations.js
-
-# Restore from backup
-node scripts/restore-translations.js backup-2025-08-21.json
+# Verify all APIs use Content Database
+grep -c "contentPool.query" server/server-db.js
+# Should show 49+ queries
 ```
 
-### **Monitoring & Health Checks**
-```javascript
-// Content system health check
-app.get('/api/health/translations', async (req, res) => {
-  const health = {
-    database: 'unknown',
-    cache: 'unknown', 
-    content_items: 0,
-    translations: 0,
-    cache_hit_rate: 0
-  };
-  
-  try {
-    // Test database connectivity
-    const itemsResult = await contentPool.query('SELECT COUNT(*) FROM content_items');
-    health.content_items = parseInt(itemsResult.rows[0].count);
-    
-    const transResult = await contentPool.query('SELECT COUNT(*) FROM content_translations');
-    health.translations = parseInt(transResult.rows[0].count);
-    
-    health.database = 'connected';
-    
-    // Test cache
-    const cacheStats = contentCache.getStats();
-    health.cache = 'active';
-    health.cache_hit_rate = cacheStats.hits / (cacheStats.hits + cacheStats.misses) * 100;
-    
-    res.json({ status: 'healthy', ...health });
-  } catch (error) {
-    res.status(500).json({ status: 'unhealthy', error: error.message, ...health });
-  }
-});
+### **Step 2: Backup Before Cleanup (Optional)**
+```sql
+-- Connect to Main Database
+-- Backup existing data (if needed for reference)
+CREATE TABLE backup_content_items AS SELECT * FROM content_items;
+CREATE TABLE backup_content_translations AS SELECT * FROM content_translations;
+```
+
+### **Step 3: Remove Legacy Tables**
+```sql
+-- Connect to Main Database (DATABASE_URL)
+-- Remove legacy translation tables
+DROP TABLE IF EXISTS content_translations CASCADE;
+DROP TABLE IF EXISTS content_items CASCADE;
+
+-- Verify cleanup
+SELECT table_name FROM information_schema.tables 
+WHERE table_name IN ('content_items', 'content_translations');
+-- Should return 0 rows
+```
+
+### **Step 4: Verify System Still Works**
+```bash
+# Test dropdown API
+curl http://localhost:8003/api/dropdowns/mortgage_step1/en
+# Should return data from Content Database
+
+# Run comprehensive test
+node test-content-tables.js
+# Should show Content DB working, Main DB without content tables
 ```
 
 ---
@@ -918,138 +838,167 @@ app.get('/api/health/translations', async (req, res) => {
 
 ### **Common Issues & Solutions**
 
-#### **Issue: "Column does not exist" errors**
-```sql
--- Check if database schema is up to date
-\d content_items
-\d content_translations
+#### **Issue: Dropdown options not showing**
+```bash
+# 1. Check Content Database connection
+node test-content-tables.js
 
--- Add missing columns if needed
-ALTER TABLE content_items ADD COLUMN IF NOT EXISTS category VARCHAR(50);
-ALTER TABLE content_translations ADD COLUMN IF NOT EXISTS status VARCHAR(20) DEFAULT 'approved';
+# 2. Verify data exists for screen
+SELECT * FROM content_items 
+WHERE screen_location = 'mortgage_step1' 
+AND component_type IN ('dropdown_option', 'option');
+
+# 3. Test API directly
+curl http://localhost:8003/api/dropdowns/mortgage_step1/en
 ```
 
-#### **Issue: Translations not loading**
+#### **Issue: Wrong database being queried**
 ```javascript
-// Check API endpoint
-fetch('/api/content/mortgage_step1/he')
-  .then(res => res.json())
-  .then(data => console.log('API Response:', data));
+// ✅ CORRECT - Content Database for translations
+const result = await contentPool.query('SELECT * FROM content_items WHERE...');
+const result = await contentPool.query('SELECT * FROM content_translations WHERE...');
 
-// Check database content
-SELECT ci.content_key, ct.content_value 
-FROM content_items ci 
-JOIN content_translations ct ON ci.id = ct.content_item_id 
-WHERE ci.screen_location = 'mortgage_step1' AND ct.language_code = 'he'
-LIMIT 5;
+// ❌ WRONG - NEVER use Main Database for translations
+const result = await pool.query('SELECT * FROM content_items WHERE...');  // FORBIDDEN
+const result = await pool.query('SELECT * FROM content_translations WHERE...'); // FORBIDDEN
+
+// How to verify correct usage:
+// 1. Search codebase: grep -r "pool.query.*content_" server/
+// 2. Should return ZERO results
+// 3. If found, replace pool with contentPool immediately
 ```
 
-#### **Issue: Cache not clearing**
-```javascript
-// Manual cache clear
-Object.keys(contentCache.keys()).forEach(key => {
-  if (key.includes('content_') || key.includes('dropdown_')) {
-    contentCache.del(key);
-  }
-});
+#### **Issue: Pattern matching failing**
+The server uses 7+ regex patterns to extract field names. Check server-db.js lines 1410-1580 for pattern matching logic.
 
-// Check cache stats
-console.log('Cache stats:', contentCache.getStats());
-```
+#### **Issue: Cache not updating**
+```bash
+# Clear cache manually
+curl -X POST http://localhost:8003/api/cache/clear
 
-#### **Issue: Dropdown options not appearing**
-```javascript
-// Test dropdown API directly
-const testDropdown = async () => {
-  const response = await fetch('/api/dropdowns/mortgage_step1/he');
-  const data = await response.json();
-  console.log('Dropdown data:', data);
-  
-  // Check if specific dropdown exists
-  const propertyOptions = data.options?.mortgage_step1_property_ownership;
-  console.log('Property ownership options:', propertyOptions);
-};
+# Check cache stats
+curl http://localhost:8003/api/cache/stats
 ```
 
 ---
 
-## 📋 **SYSTEM CHECKLIST**
+## 📋 **VALIDATION CHECKLIST**
 
 ### **Before Deployment**
 ```yaml
-Database Checks:
-  ✅ All content_items have translations in all 3 languages
-  ✅ No orphaned content_translations (all reference valid content_items)  
-  ✅ All translations have status = 'approved'
-  ✅ Screen locations match component usage
-  ✅ Indexes are properly created
+Database:
+  ✅ Content Database connected (contentPool) - EXCLUSIVE translation source
+  ✅ Main Database connected (pool) - NO content tables allowed
+  ✅ Content DB: content_items table has 2,801+ entries
+  ✅ Content DB: content_translations table has 6,650+ entries
+  ✅ Main DB: content_items table DOES NOT EXIST (or pending removal)
+  ✅ Main DB: content_translations table DOES NOT EXIST (or pending removal)
+  ✅ All screens have dropdown data from Content DB ONLY
 
-API Checks:
-  ✅ /api/content/{screen}/{lang} responds correctly
-  ✅ /api/dropdowns/{screen}/{lang} returns proper structure
-  ✅ /api/v1/health shows database connectivity
-  ✅ Cache hit rate > 80%
-  ✅ Response times < 50ms
+API Endpoints:
+  ✅ /api/dropdowns/{screen}/{language} returns structured data
+  ✅ Response includes: options, labels, placeholders
+  ✅ Cache working (check cached: true/false in response)
+  ✅ Hardcoded fallbacks in place for critical fields
 
-Frontend Checks:  
-  ✅ useContentApi loads content for all screens
-  ✅ useDropdownData populates dropdown options
-  ✅ JSON fallback works when database unavailable
-  ✅ Language switching updates all translations
-  ✅ RTL layout works correctly for Hebrew
+Frontend:
+  ✅ useDropdownData hook fetching data correctly
+  ✅ Components receiving options array
+  ✅ Loading states handled
+  ✅ Error states handled with fallbacks
+  ✅ Language switching updates dropdowns
 
-Testing:
-  ✅ All banking processes tested (mortgage, credit, refinance, credit_refi)
-  ✅ All 4 steps tested for each process
-  ✅ Error scenarios tested (network failure, invalid API response)
-  ✅ Cache invalidation tested
-  ✅ Multi-language switching tested
+Performance:
+  ✅ Cache hit rate > 90%
+  ✅ Response time < 10ms (cached)
+  ✅ Response time < 100ms (uncached)
 ```
 
 ---
 
-## 🎯 **FUTURE ROADMAP**
+## 🎯 **SUMMARY OF ACCURATE IMPLEMENTATION**
 
-### **Phase 1: Content Management UI** (Planned)
-- Admin panel for translation editing
-- Translation status workflow (draft → review → approved)
-- Bulk translation import/export
-- Translation analytics and usage tracking
+### **What Actually Exists**
+1. **Single Translation Source**: ONLY Content DB (`contentPool`) for all translations
+2. **Content Database Tables**: 
+   - ✅ content_items: 2,801+ rows (Content DB)
+   - ✅ content_translations: 6,650+ rows (Content DB)
+3. **Main Database Status**: 
+   - ⚠️ Contains legacy content tables (NOT USED)
+   - ⚠️ Should be cleaned up with DROP TABLE commands
+4. **NO content_pages or content_sections** tables in either database
+5. **Complex Pattern Matching**: 7+ regex patterns to extract field names
+6. **Hardcoded Fallbacks**: Critical dropdowns have backup values
+7. **Caching**: NodeCache (5min TTL) + Frontend session cache
 
-### **Phase 2: Advanced Features** (Future)
-- Translation versioning and rollback
-- A/B testing for different translations
-- Automatic translation suggestions via AI
-- Real-time translation updates without cache clearing
+### **Critical Implementation Rules**
+```javascript
+// ✅ ALWAYS use contentPool for translations
+const result = await contentPool.query(...);
 
-### **Phase 3: Performance Optimization** (Future)
-- Redis cache layer for production scaling
-- CDN integration for static translations
-- Preloading strategies for better performance
-- Translation bundling and compression
+// ❌ NEVER use pool for translations
+const result = await pool.query(...); // FORBIDDEN for content/translations
+```
+
+### **Key Files**
+- `server/server-db.js`: Lines 1366-1900 - Dropdown API (uses contentPool)
+- `mainapp/src/hooks/useDropdownData.ts`: Frontend hook for dropdowns
+- `test-content-tables.js`: Verify database structure
+
+### **API Response Format**
+```json
+{
+  "status": "success",
+  "screen_location": "mortgage_step1",
+  "language_code": "en",
+  "dropdowns": [...],
+  "options": { "mortgage_step1_property_ownership": [...] },
+  "placeholders": { "mortgage_step1_property_ownership": "..." },
+  "labels": { "mortgage_step1_property_ownership": "..." },
+  "cached": false
+}
+```
 
 ---
 
-## 📄 **DOCUMENT MAINTENANCE**
+## 🔍 **DATABASE VALIDATION AUDIT**
 
-**Last Updated**: August 21, 2025
-**Version**: 2.0
-**Maintained By**: Development Team
-**Review Schedule**: Monthly
+### **How to Verify Correct Implementation**
 
-**Document Status**: ✅ **CURRENT** - This is the authoritative source for all translation system information
+```bash
+# 1. Check that NO translation queries use Main Database
+grep -r "pool\.query.*content_" server/
+# Expected: 0 results (if found, FIX IMMEDIATELY)
 
-**Previous Documents Superseded**:
-- `systemTranslationLogic.md` (merged)
-- `dropDownLogicBankim.md` (updated and merged)
-- Various scattered translation references (consolidated)
+# 2. Count Content Database usage
+grep -c "contentPool.query" server/server-db.js
+# Expected: 49+ queries
 
-**Change Log**:
-- 2025-08-21: Initial consolidated version
-- 2025-08-21: Added Railway database schema fixes
-- 2025-08-21: Updated error handling documentation
-- 2025-08-21: Added performance benchmarks and health checks
+# 3. Verify API endpoints use Content Database
+grep -A5 "/api/dropdowns" server/server-db.js | grep pool
+# Should ONLY show contentPool, never pool
+
+# 4. Test database structure
+node test-content-tables.js
+# Should show Content DB with 2,801+ items, 6,650+ translations
+
+# 5. Clean up Main Database (when ready)
+psql $DATABASE_URL -c "DROP TABLE IF EXISTS content_translations CASCADE;"
+psql $DATABASE_URL -c "DROP TABLE IF EXISTS content_items CASCADE;"
+```
+
+### **Code Review Checklist**
+```yaml
+Before ANY PR or deployment:
+  ✅ No "pool.query" for content/translation tables
+  ✅ All content APIs use "contentPool.query"
+  ✅ All dropdown APIs use "contentPool.query"  
+  ✅ No new translation tables in Main Database
+  ✅ test-content-tables.js shows correct separation
+```
 
 ---
 
-*This document represents the complete translation system architecture for the banking application. All development should follow these patterns and standards.*
+**Document Version**: 4.0
+**Last Major Update**: January 2025 - ENFORCED Content Database exclusivity for all translations
+**Critical Change**: Main Database MUST NOT contain translation tables

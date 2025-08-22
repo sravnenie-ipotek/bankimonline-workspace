@@ -34,7 +34,9 @@ const VideoPoster: React.FC<TypeProps> = ({
   const soundControlsRef = useRef<HTMLDivElement | null>(null)
   const [isMuted, setIsMuted] = useState(true)
   const [isPlayerOpen, setIsPlayerOpen] = useState(false)
+  const [videoLoaded, setVideoLoaded] = useState(false)
   const { isMobile } = useWindowResize()
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   const videoClasses = {
     [size]: true,
@@ -48,6 +50,40 @@ const VideoPoster: React.FC<TypeProps> = ({
       audioElementRef.current.setAttribute('loop', 'true')
     }
   }, [])
+
+  // Handle mobile autoplay
+  useEffect(() => {
+    if (videoRef.current && isMobile) {
+      const video = videoRef.current
+      
+      // Set up video for mobile autoplay
+      video.muted = true
+      video.playsInline = true
+      video.loop = true
+      
+      // Try to autoplay on mobile
+      const playPromise = video.play()
+      
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log('✅ Video autoplay successful on mobile')
+            setVideoLoaded(true)
+          })
+          .catch((error) => {
+            console.warn('⚠️ Mobile autoplay failed, will retry on user interaction:', error)
+            // Add click listener to start video on first user interaction
+            const handleFirstInteraction = () => {
+              video.play().catch(err => console.warn('Retry autoplay failed:', err))
+              document.removeEventListener('touchstart', handleFirstInteraction)
+              document.removeEventListener('click', handleFirstInteraction)
+            }
+            document.addEventListener('touchstart', handleFirstInteraction, { once: true })
+            document.addEventListener('click', handleFirstInteraction, { once: true })
+          })
+      }
+    }
+  }, [isMobile])
 
   const handleMute = () => {
     // Call parent callback if provided (Действие #4)
@@ -79,21 +115,37 @@ const VideoPoster: React.FC<TypeProps> = ({
     setIsPlayerOpen(true)
   }
 
+  const handleVideoClick = () => {
+    // If video isn't playing on mobile, try to start it
+    if (videoRef.current && isMobile && videoRef.current.paused) {
+      videoRef.current.play().catch(err => console.warn('Manual play failed:', err))
+    }
+  }
+
   return (
     <>
     <div className={cx('video', videoClasses)}>
       <video 
+        ref={videoRef}
         loop 
         muted 
         playsInline
         preload="metadata"
         poster="/static/Background.png"
-        autoPlay={!isMobile}
+        autoPlay={true}
+        onClick={handleVideoClick}
+        style={{ cursor: isMobile ? 'pointer' : 'default' }}
       >
         <source src="/static/promo.mp4" type="video/mp4" />
         <source src="/static/promo.webm" type="video/webm" />
       </video>
       <div className={cx('video-wrapper')}>
+        {/* Mobile autoplay indicator */}
+        {isMobile && !videoLoaded && (
+          <div className={cx('mobile-autoplay-hint')}>
+            <span>Tap to start video</span>
+          </div>
+        )}
         <div className={cx('video-titles')}>
           <h2 className={cx('video-titles__title')}>{title}</h2>
           <p className={cx('video-titles__subtitle')}>{subtitle}</p>

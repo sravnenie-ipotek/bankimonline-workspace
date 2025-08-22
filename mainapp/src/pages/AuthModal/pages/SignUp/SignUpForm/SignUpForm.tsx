@@ -8,6 +8,7 @@ import { CustomPhoneInput } from '@src/components/ui/CustomPhoneInput'
 import { PasswordInput } from '@src/components/ui/PasswordInput'
 import StringInput from '@src/components/ui/StringInput/StringInput'
 // import { Tabs } from '@src/components/ui/Tabs'
+import { useContentApi } from '@src/hooks/useContentApi'
 import { useAppDispatch } from '@src/hooks/store'
 import {
   setActiveModal,
@@ -19,8 +20,13 @@ import styles from './signUpForm.module.scss'
 
 const cx = classNames.bind(styles)
 
-const SignUpForm = () => {
+interface SignUpFormProps {
+  isProcessing?: boolean
+}
+
+const SignUpForm: React.FC<SignUpFormProps> = ({ isProcessing = false }) => {
   const { t, i18n } = useTranslation()
+  const { getContent } = useContentApi('auth_modal')
 
   // const activeTab = useAppSelector((state) => state.login.activeTab)
   const dispatch = useAppDispatch()
@@ -142,10 +148,13 @@ const SignUpForm = () => {
             type="submit"
             className={cx('login-form__desc-button')}
             variant="primary"
-            isDisabled={!isValid}
+            isDisabled={!isValid || isProcessing}
             onClick={() => handleSubmit()}
           >
-            {t('enter')}
+            {isProcessing 
+              ? getContent('auth_modal_processing', t('processing', 'Обрабатывается...'))
+              : getContent('auth_modal_continue', t('enter', 'Войти'))
+            }
           </Button>
           <div className={cx('login-form__desc-footer')}>
             <span>{t('has_account')}</span>

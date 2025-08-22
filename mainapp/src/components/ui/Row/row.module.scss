@@ -1,10 +1,11 @@
 .row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   width: 100%;
-  row-gap: 2rem;
+  row-gap: 1.5rem;
+  column-gap: 2rem;
 }
 
 @media (max-width: 1140px) {

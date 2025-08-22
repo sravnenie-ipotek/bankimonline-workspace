@@ -54,6 +54,10 @@ export const validationSchema = Yup.object().shape({
   }),
   obligation: Yup.string().required(
     getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')
+  ).test(
+    'not-empty',
+    getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options'),
+    (value) => value !== null && value !== undefined && value !== ''
   ),
   bank: Yup.string().when('obligation', {
     is: (value: string) => {
