@@ -1,7 +1,9 @@
+import React, { useState } from 'react'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import YupPassword from 'yup-password'
 
+import { useContentApi } from '@src/hooks/useContentApi'
 import { useAppDispatch } from '@src/hooks/store'
 import {
   // setActiveModal,
@@ -25,31 +27,30 @@ export type SignUpFormType = {
 const SignUp = () => {
   const dispatch = useAppDispatch()
   const [signUp] = useSignUpMutation()
+  const [isProcessing, setIsProcessing] = useState(false)
+  const { getContent } = useContentApi('auth_modal')
 
   const initialValues: SignUpFormType = {
     phoneNumber: '',
     email: '',
     password: '',
-    repeatPassword: '',
     nameSurname: '',
+    repeatPassword: '',
   }
 
-  // const activeTab = useAppSelector((state) => state.login.activeTab)
-
   const getAccountUrl = () => {
-    // Check if we're running on localhost (development)
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      return 'http://localhost:3001/'
-    }
+    // Get the current URL path to determine the service flow
+    const currentPath = window.location.pathname
     
-    // Use environment variable if available
-    if (import.meta.env.VITE_ACCOUNT_URL) {
-      return import.meta.env.VITE_ACCOUNT_URL
-    }
-    
-    // If we're on production domain, stay on the same domain
-    if (window.location.hostname.includes('bankimonline.com')) {
-      return window.location.origin + '/'
+    // If we're in a service flow, redirect to that service's completion page
+    if (currentPath.includes('/services/calculate-mortgage')) {
+      return window.location.origin + '/services/calculate-mortgage/4'
+    } else if (currentPath.includes('/services/calculate-credit')) {
+      return window.location.origin + '/services/calculate-credit/4'
+    } else if (currentPath.includes('/services/refinance-mortgage')) {
+      return window.location.origin + '/services/refinance-mortgage/4'
+    } else if (currentPath.includes('/services/refinance-credit')) {
+      return window.location.origin + '/services/refinance-credit/4'
     }
     
     // Default fallback
@@ -57,21 +58,26 @@ const SignUp = () => {
   }
 
   const handleRegisterPhone = async (values: SignUpFormType) => {
-    // Ensure phone number has + prefix
-    let phoneNumber = values.phoneNumber
-    if (phoneNumber && !phoneNumber.startsWith('+')) {
-      phoneNumber = '+' + phoneNumber
-    }
+    // Prevent multiple submissions
+    if (isProcessing) return
     
-    const requestData = {
-      name: values.nameSurname,
-      mobile_number: phoneNumber,
-      email: values.email,
-      password: values.password,
-      password_confirmation: values.repeatPassword,
-    }
+    setIsProcessing(true)
     
     try {
+      // Ensure phone number has + prefix
+      let phoneNumber = values.phoneNumber
+      if (phoneNumber && !phoneNumber.startsWith('+')) {
+        phoneNumber = '+' + phoneNumber
+      }
+      
+      const requestData = {
+        name: values.nameSurname,
+        mobile_number: phoneNumber,
+        email: values.email,
+        password: values.password,
+        password_confirmation: values.repeatPassword,
+      }
+      
       const response = await signUp(requestData).unwrap()
       
       console.log('SignUp response:', response)
@@ -84,8 +90,9 @@ const SignUp = () => {
       // Update registration data in Redux
       dispatch(updateRegistrationData(response.data))
       
-      // Show success message
-      alert('Добро пожаловать! Вы успешно вошли в систему.')
+      // Show success message with proper translation
+      const successMessage = getContent('registration_success_message', 'Добро пожаловать! Вы успешно вошли в систему.')
+      alert(successMessage)
       
       // Close the modal
       dispatch(closeModal())
@@ -93,110 +100,13 @@ const SignUp = () => {
     } catch (error: any) {
       console.error('SignUp error:', error)
       
-      // Handle 409 Conflict - User already exists, treat as success
-      // Check multiple possible locations for the status code
-      const statusCode = error?.status || error?.data?.status || error?.response?.status
-      
-      if (statusCode === 409 || error?.status === 409) {
-        console.log('User already exists, continuing with flow...')
-        
-        // Create user data object from form values for consistency
-        const userData = {
-          name: values.nameSurname,
-          mobile_number: phoneNumber,
-          email: values.email,
-          // Add any additional fields that might be expected
-        }
-        
-        // Store user data in localStorage 
-        localStorage.setItem('USER_DATA', JSON.stringify(userData))
-        
-        // Verify localStorage save
-        const savedData = localStorage.getItem('USER_DATA')
-        console.log('Saved user data:', savedData)
-        
-        // Update registration data in Redux
-        dispatch(updateRegistrationData(userData))
-        
-        // Show success message
-        alert('Добро пожаловать! Вы успешно вошли в систему.')
-        
-        // Close the modal
-        dispatch(closeModal())
-        
-        return // Exit successfully
-      }
-      
-      // Handle other errors normally
-      console.error('🔴 SignUp - Registration error:', error)
-      
-      // Show more specific error messages
-      if (statusCode === 400) {
-        alert('Ошибка данных. Проверьте правильность заполнения полей.')
-      } else if (statusCode === 500) {
-        alert('Ошибка сервера. Попробуйте позже.')
-      } else {
-        alert('Ошибка регистрации. Попробуйте еще раз.')
-      }
+      // Show error message with proper translation
+      const errorMessage = getContent('registration_error_message', 'Ошибка при регистрации. Попробуйте еще раз.')
+      alert(errorMessage)
+    } finally {
+      setIsProcessing(false)
     }
   }
-
-  /* const handleRegisterEmail = async (values: SignUpFormType) => {
-    // Ensure phone number has + prefix
-    let phoneNumber = values.phoneNumber
-    if (phoneNumber && !phoneNumber.startsWith('+')) {
-      phoneNumber = '+' + phoneNumber
-    }
-    
-    const requestData = {
-      name: values.nameSurname,
-      mobile_number: phoneNumber,
-      email: values.email,
-      password: values.password,
-      password_confirmation: values.repeatPassword,
-    }
-    
-    try {
-      const response = await signUp(requestData).unwrap()
-      
-      // Store user data in localStorage for immediate login
-      localStorage.setItem('USER_DATA', JSON.stringify(response.data))
-      
-      // Update registration data in Redux
-      dispatch(updateRegistrationData(response.data))
-      
-      // Show success message and redirect to Personal Account
-      alert('Регистрация успешна! Перенаправляем в Личный кабинет...')
-      
-      // Redirect to Personal Account
-      window.location.href = getAccountUrl()
-      
-    } catch (error) {
-      console.error('Registration error:', error)
-      alert('Ошибка регистрации. Попробуйте еще раз.')
-    }
-  } */
-
-  const fullValidatorForSchema =
-    (
-      schema: Yup.ObjectSchema<SignUpFormType>
-    ) =>
-    (values: SignUpFormType) =>
-      schema
-        .validate(values, {
-          abortEarly: false,
-          strict: false,
-        })
-        .then(() => ({}))
-        .catch(({ inner }) =>
-          inner.reduce(
-            (memo: Record<string, string[]>, { path, message }: { path: string; message: string }) => ({
-              ...memo,
-              [path]: (memo[path] || []).concat(message),
-            }),
-            {}
-          )
-        )
 
   const validationSchema = Yup.object().shape({
     nameSurname: Yup.string()
@@ -224,14 +134,14 @@ const SignUp = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validate={fullValidatorForSchema(validationSchema)}
+      validationSchema={validationSchema}
       onSubmit={(values) => {
         // Always use the same registration logic since we need both phone and email
         handleRegisterPhone(values)
       }}
     >
       <Form>
-        <SignUpForm />
+        <SignUpForm isProcessing={isProcessing} />
       </Form>
     </Formik>
   )

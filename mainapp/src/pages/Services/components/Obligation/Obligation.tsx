@@ -1,3 +1,4 @@
+import React from 'react'
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
@@ -40,13 +41,17 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
       lowerValue === 'no_obligations' ||           // Database value (plural)
       lowerValue.includes('no_obligation') ||      // Legacy patterns
       lowerValue.includes('no obligation') ||
+      lowerValue.includes('no financial obligation') ||
       lowerValue.includes('none') ||
       
-      // Hebrew patterns - CRITICAL FIX for Hebrew interface
+      // Hebrew patterns - ENHANCED for UI validation fix
       value.includes('אין התחייבות') ||             // "No obligation" in Hebrew
+      value.includes('אין התחייבויות') ||           // "No obligations" (plural) in Hebrew - CRITICAL FIX
       value.includes('אין חובות') ||                // "No debts" in Hebrew  
       value.includes('ללא התחייבות') ||              // "Without obligation" in Hebrew
+      value.includes('ללא התחייבויות') ||            // "Without obligations" (plural) in Hebrew
       value.includes('ללא חובות') ||                // "Without debts" in Hebrew
+
       lowerValue.includes('ein') ||                 // Hebrew romanized
       lowerValue.includes('לא') ||                  // "No" in Hebrew
       
@@ -63,11 +68,45 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
 
   // Handle both DropdownData object and DropdownOption[] array
   const isDropdownDataObject = 'loading' in dropdownData
-  const dropdownOptions = isDropdownDataObject ? dropdownData.options : dropdownData
+  const rawDropdownOptions = isDropdownDataObject ? dropdownData.options : dropdownData
   const isLoading = isDropdownDataObject ? dropdownData.loading : false
   const hasError = isDropdownDataObject ? dropdownData.error : null
   const dropdownLabel = isDropdownDataObject ? dropdownData.label : null
   const dropdownPlaceholder = isDropdownDataObject ? dropdownData.placeholder : null
+
+  // CRITICAL FIX: Deduplicate dropdown options to prevent duplicate "אין התחייבויות כספיות"
+  const dropdownOptions = React.useMemo(() => {
+    if (!rawDropdownOptions || !Array.isArray(rawDropdownOptions)) {
+      return rawDropdownOptions
+    }
+
+    // Create a map to track seen labels (both Hebrew and English)
+    const seenLabels = new Set()
+    const uniqueOptions = []
+
+    rawDropdownOptions.forEach(option => {
+      const label = option.label || option.text || option.value || ''
+      const value = option.value || ''
+      
+      // Create a normalized key for deduplication
+      const normalizedLabel = label.toLowerCase().trim()
+      
+      // Check if we've seen this label before
+      if (!seenLabels.has(normalizedLabel) && !seenLabels.has(value.toLowerCase())) {
+        seenLabels.add(normalizedLabel)
+        seenLabels.add(value.toLowerCase())
+        uniqueOptions.push(option)
+      } else {
+        console.log(`🔄 Removing duplicate option: "${label}" (value: "${value}")`)
+      }
+    })
+
+    if (uniqueOptions.length !== rawDropdownOptions.length) {
+      console.log(`✅ Deduplicated obligations: ${rawDropdownOptions.length} → ${uniqueOptions.length} options`)
+    }
+
+    return uniqueOptions
+  }, [rawDropdownOptions])
 
   // Phase 4: Handle loading and error states
   if (isLoading) {
@@ -86,7 +125,8 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
   const handleValueChange = (value: string) => {
     console.log('Obligation value changed:', {
       value,
-      willShowBankFields: !checkIfNoObligationValue(value)
+      willShowBankFields: !checkIfNoObligationValue(value),
+      isNoObligationValue: checkIfNoObligationValue(value)
     })
     
     // Set the obligation value
@@ -105,10 +145,13 @@ const Obligation = ({ screenLocation }: ObligationProps) => {
       setFieldTouched('monthlyPaymentForAnotherBank', false)
       setFieldTouched('endDate', false)
       
-      // CRITICAL: Clear any existing validation errors
+      // CRITICAL: Clear any existing validation errors for all related fields
       setFieldError('bank', undefined)
       setFieldError('monthlyPaymentForAnotherBank', undefined)
       setFieldError('endDate', undefined)
+      
+      // NEW FIX: Also clear the obligation field validation error since a valid "no obligations" option was selected
+      setFieldError('obligation', undefined)
       
       console.log('✅ Cleared all dependent fields and validation state for "no obligations"')
     }

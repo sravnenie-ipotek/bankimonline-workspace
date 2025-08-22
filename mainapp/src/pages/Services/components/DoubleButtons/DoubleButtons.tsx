@@ -21,7 +21,8 @@ const DoubleButtons: React.FC = () => {
     console.log('Form validation state:', {
       isValid,
       errorCount: Object.keys(errors).length,
-      touchedCount: Object.keys(touched).length
+      touchedCount: Object.keys(touched).length,
+      isMobile: window.innerWidth <= 890
     })
     
     // Log specific validation errors
@@ -36,8 +37,11 @@ const DoubleButtons: React.FC = () => {
         <div className={cx('buttons')}>
           <Button
             variant="modalBase"
-            type="submit"
-            onClick={() => navigate(-1)}
+            type="button"
+            onClick={(e) => {
+              e.preventDefault()
+              navigate(-1)
+            }}
             size="full"
           >
             {t('button_back')}
@@ -45,7 +49,13 @@ const DoubleButtons: React.FC = () => {
           <Button
             type="submit"
             isDisabled={!isValid}
-            onClick={handleSubmit as () => void}
+            onClick={(e) => {
+              e.preventDefault()
+              console.log('Next button clicked, isValid:', isValid)
+              if (isValid) {
+                handleSubmit()
+              }
+            }}
             size="full"
           >
             {t('button_next_save')}

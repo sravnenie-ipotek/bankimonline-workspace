@@ -1,0 +1,180 @@
+name: Deploy to Test & Production
+
+on:
+  push:
+    branches:
+      - main  # Deploy to test on main push
+      - production  # Deploy to prod on production branch
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment Environment'
+        required: true
+        default: 'test'
+        type: choice
+        options:
+          - test
+          - production
+          - both
+
+env:
+  TEST_HOST: 45.83.42.74
+  PROD_HOST: 185.253.72.80
+  TEST_PATH: /var/www/bank-dev2
+  PROD_PATH: /var/www/bank-prod
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci --only=production
+          cd mainapp && npm ci
+
+      - name: Build frontend
+        run: |
+          cd mainapp
+          npm run build
+        env:
+          CI: false
+          VITE_NODE_API_BASE_URL: ${{ github.ref == 'refs/heads/production' && 'https://bankimonline.com/api' || 'https://dev2.bankimonline.com/api' }}
+
+      - name: Create deployment package
+        run: |
+          tar -czf deploy.tar.gz \
+            --exclude=node_modules \
+            --exclude=.git \
+            --exclude=mainapp/node_modules \
+            --exclude=mainapp/src \
+            --exclude=mainapp/cypress \
+            server \
+            mainapp/build \
+            locales \
+            migrations \
+            package*.json \
+            ecosystem.config.js
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-package
+          path: deploy.tar.gz
+
+  deploy-test:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.event.inputs.environment == 'test' || github.event.inputs.environment == 'both'
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: deployment-package
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.TEST_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ env.TEST_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to Test Server
+        run: |
+          # Transfer deployment package
+          scp deploy.tar.gz root@${{ env.TEST_HOST }}:/tmp/
+          
+          # Deploy and restart
+          ssh root@${{ env.TEST_HOST }} << 'EOF'
+            cd ${{ env.TEST_PATH }}
+            tar -xzf /tmp/deploy.tar.gz
+            npm install --production
+            pm2 restart bankim-api || pm2 start server/server-db.js --name bankim-api
+            rm /tmp/deploy.tar.gz
+            
+            # Health check
+            sleep 5
+            curl -f http://localhost:8003/api/health || exit 1
+          EOF
+
+      - name: Notify deployment
+        run: echo "✅ Deployed to TEST environment - https://dev2.bankimonline.com"
+
+  deploy-production:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/production' || github.event.inputs.environment == 'production' || github.event.inputs.environment == 'both'
+    environment:
+      name: production
+      url: https://bankimonline.com
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: deployment-package
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.PROD_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ env.PROD_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Backup current production
+        run: |
+          ssh root@${{ env.PROD_HOST }} << 'EOF'
+            cd ${{ env.PROD_PATH }}
+            tar -czf /tmp/backup-$(date +%Y%m%d-%H%M%S).tar.gz \
+              --exclude=node_modules \
+              --exclude=uploads \
+              .
+          EOF
+
+      - name: Deploy to Production Server
+        run: |
+          # Transfer deployment package
+          scp deploy.tar.gz root@${{ env.PROD_HOST }}:/tmp/
+          
+          # Deploy and restart
+          ssh root@${{ env.PROD_HOST }} << 'EOF'
+            cd ${{ env.PROD_PATH }}
+            tar -xzf /tmp/deploy.tar.gz
+            npm install --production
+            pm2 restart bankim-api || pm2 start server/server-db.js --name bankim-api
+            rm /tmp/deploy.tar.gz
+            
+            # Health check
+            sleep 5
+            curl -f http://localhost:8003/api/health || exit 1
+          EOF
+
+      - name: Validate production
+        run: |
+          sleep 10
+          curl -f https://bankimonline.com/api/health || exit 1
+          echo "✅ Production deployment successful!"
+
+      - name: Rollback on failure
+        if: failure()
+        run: |
+          ssh root@${{ env.PROD_HOST }} << 'EOF'
+            echo "⚠️ Deployment failed, initiating rollback..."
+            cd ${{ env.PROD_PATH }}
+            LATEST_BACKUP=$(ls -t /tmp/backup-*.tar.gz | head -1)
+            if [ -f "$LATEST_BACKUP" ]; then
+              tar -xzf "$LATEST_BACKUP"
+              pm2 restart bankim-api
+              echo "✅ Rollback completed"
+            else
+              echo "❌ No backup found for rollback"
+              exit 1
+            fi
+          EOF

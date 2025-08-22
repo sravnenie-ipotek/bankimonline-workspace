@@ -10042,6 +10042,300 @@ app.get('/api/get-table-schema', async (req, res) => {
     }
 });
 
+// API endpoint to fix duplicate financial obligations
+app.post('/api/fix-duplicate-obligations', async (req, res) => {
+    try {
+        console.log('🔧 Fixing duplicate financial obligations dropdown...');
+        
+        // Check current state
+        const currentQuery = `
+            SELECT 
+                co.option_key,
+                co.order_index,
+                ct.language_code,
+                ct.content_value
+            FROM content_items ci
+            JOIN dropdown_options co ON ci.id = co.content_item_id  
+            JOIN content_translations ct ON co.id = ct.content_item_id
+            WHERE ci.content_key = 'other_borrowers_step2_obligations'
+                AND ci.screen_location = 'other_borrowers_step2'
+                AND ct.status = 'approved'
+            ORDER BY co.order_index, ct.language_code;
+        `;
+        
+        const currentResult = await contentPool.query(currentQuery);
+        
+        if (currentResult.rows.length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'No obligations dropdown found'
+            });
+        }
+        
+        // Group by option_key to identify duplicates
+        const optionGroups = {};
+        currentResult.rows.forEach(row => {
+            if (!optionGroups[row.option_key]) {
+                optionGroups[row.option_key] = [];
+            }
+            optionGroups[row.option_key].push(row);
+        });
+        
+        // Identify problematic numeric duplicates
+        const problematicKeys = ['1', '2', '3', '4', '5'];
+        const toRemove = [];
+        
+        problematicKeys.forEach(key => {
+            if (optionGroups[key]) {
+                const englishLabel = optionGroups[key].find(row => row.language_code === 'en')?.content_value;
+                
+                // Check if semantic equivalent exists
+                let semanticEquivalent = null;
+                if (englishLabel?.toLowerCase().includes('no obligations') || englishLabel?.toLowerCase().includes('no financial')) {
+                    semanticEquivalent = 'no_obligations';
+                } else if (englishLabel?.toLowerCase().includes('bank loan')) {
+                    semanticEquivalent = 'bank_loan';
+                } else if (englishLabel?.toLowerCase().includes('credit card')) {
+                    semanticEquivalent = 'credit_card';
+                } else if (englishLabel?.toLowerCase().includes('consumer credit')) {
+                    semanticEquivalent = 'consumer_credit';
+                } else if (englishLabel?.toLowerCase().includes('other')) {
+                    semanticEquivalent = 'other';
+                }
+                
+                if (semanticEquivalent && optionGroups[semanticEquivalent]) {
+                    console.log(`Will remove duplicate "${key}": "${englishLabel}" (semantic equivalent: "${semanticEquivalent}")`);
+                    toRemove.push(key);
+                }
+            }
+        });
+        
+        if (toRemove.length === 0) {
+            return res.json({
+                status: 'success',
+                message: 'No duplicates found to remove',
+                current_options: Object.keys(optionGroups)
+            });
+        }
+        
+        let removedCount = 0;
+        
+        // Remove duplicates
+        for (const optionKey of toRemove) {
+            console.log(`Removing option "${optionKey}"...`);
+            
+            // Get the dropdown option IDs to remove
+            const getOptionsQuery = `
+                SELECT co.id, co.content_item_id
+                FROM content_items ci
+                JOIN dropdown_options co ON ci.id = co.content_item_id  
+                WHERE ci.content_key = 'other_borrowers_step2_obligations'
+                    AND ci.screen_location = 'other_borrowers_step2'
+                    AND co.option_key = $1
+            `;
+            
+            const optionsResult = await contentPool.query(getOptionsQuery, [optionKey]);
+            
+            for (const option of optionsResult.rows) {
+                // Remove translations for this option
+                await contentPool.query(`
+                    DELETE FROM content_translations 
+                    WHERE content_item_id = $1
+                `, [option.id]);
+                
+                // Remove the dropdown option
+                await contentPool.query(`
+                    DELETE FROM dropdown_options 
+                    WHERE id = $1
+                `, [option.id]);
+                
+                // Remove the content item if it was auto-created for this option
+                const contentItemCheck = await contentPool.query(`
+                    SELECT COUNT(*) as count 
+                    FROM dropdown_options 
+                    WHERE content_item_id = $1
+                `, [option.content_item_id]);
+                
+                if (parseInt(contentItemCheck.rows[0].count) === 0) {
+                    await contentPool.query(`
+                        DELETE FROM content_items 
+                        WHERE id = $1
+                    `, [option.content_item_id]);
+                }
+                
+                removedCount++;
+            }
+        }
+        
+        // Verify the fix
+        const verifyResult = await contentPool.query(currentQuery);
+        
+        const finalOptionGroups = {};
+        verifyResult.rows.forEach(row => {
+            if (!finalOptionGroups[row.option_key]) {
+                finalOptionGroups[row.option_key] = [];
+            }
+            finalOptionGroups[row.option_key].push(row);
+        });
+        
+        const finalOptions = Object.keys(finalOptionGroups).map(key => {
+            const englishEntry = finalOptionGroups[key].find(row => row.language_code === 'en');
+            const hebrewEntry = finalOptionGroups[key].find(row => row.language_code === 'he');
+            return {
+                key,
+                english: englishEntry?.content_value || 'NO EN',
+                hebrew: hebrewEntry?.content_value || 'NO HE'
+            };
+        });
+        
+        res.json({
+            status: 'success',
+            message: 'Financial obligations dropdown duplicates fixed',
+            removed_options: toRemove,
+            removed_count: removedCount,
+            final_options: finalOptions
+        });
+        
+    } catch (error) {
+        console.error('❌ Error fixing obligations:', error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to fix obligations dropdown',
+            error: error.message
+        });
+    }
+});
+
+// API endpoint to add auth modal processing translations
+app.post('/api/add-auth-modal-translations', async (req, res) => {
+    try {
+        console.log('🌍 Adding auth modal processing translations...');
+        
+        // Define translation keys following the system pattern
+        const translations = [
+            {
+                content_key: 'auth_modal_processing',
+                screen_location: 'auth_modal',
+                component_type: 'button_text',
+                category: 'form_action',
+                translations: {
+                    'en': 'Processing...',
+                    'he': 'מעבד...',
+                    'ru': 'Обрабатывается...'
+                }
+            },
+            {
+                content_key: 'auth_modal_continue',
+                screen_location: 'auth_modal',
+                component_type: 'button_text',
+                category: 'form_action',
+                translations: {
+                    'en': 'Continue',
+                    'he': 'המשך',
+                    'ru': 'Продолжить'
+                }
+            },
+            {
+                content_key: 'registration_success_message',
+                screen_location: 'auth_modal',
+                component_type: 'message',
+                category: 'feedback',
+                translations: {
+                    'en': 'Welcome! You have successfully logged in.',
+                    'he': 'ברוכים הבאים! נכנסת בהצלחה למערכת.',
+                    'ru': 'Добро пожаловать! Вы успешно вошли в систему.'
+                }
+            },
+            {
+                content_key: 'registration_error_message',
+                screen_location: 'auth_modal',
+                component_type: 'message',
+                category: 'error',
+                translations: {
+                    'en': 'Registration error. Please try again.',
+                    'he': 'שגיאה ברישום. אנא נסה שוב.',
+                    'ru': 'Ошибка при регистрации. Попробуйте еще раз.'
+                }
+            }
+        ];
+
+        const results = [];
+        
+        for (const item of translations) {
+            console.log(`Adding translation: ${item.content_key}`);
+            
+            // Check if content item already exists
+            const existingCheck = await contentPool.query(`
+                SELECT id FROM content_items WHERE content_key = $1
+            `, [item.content_key]);
+            
+            let contentItemId;
+            
+            if (existingCheck.rows.length > 0) {
+                contentItemId = existingCheck.rows[0].id;
+            } else {
+                // Create content item
+                const contentResult = await contentPool.query(`
+                    INSERT INTO content_items (content_key, screen_location, component_type, category, is_active)
+                    VALUES ($1, $2, $3, $4, true)
+                    RETURNING id
+                `, [item.content_key, item.screen_location, item.component_type, item.category]);
+                
+                contentItemId = contentResult.rows[0].id;
+            }
+            
+            // Add translations for all languages
+            const languageResults = {};
+            for (const [langCode, translation] of Object.entries(item.translations)) {
+                // Check if translation already exists
+                const translationCheck = await contentPool.query(`
+                    SELECT id FROM content_translations 
+                    WHERE content_item_id = $1 AND language_code = $2
+                `, [contentItemId, langCode]);
+                
+                if (translationCheck.rows.length > 0) {
+                    // Update existing translation
+                    await contentPool.query(`
+                        UPDATE content_translations 
+                        SET content_value = $1, updated_at = NOW()
+                        WHERE content_item_id = $2 AND language_code = $3
+                    `, [translation, contentItemId, langCode]);
+                    languageResults[langCode] = 'updated';
+                } else {
+                    // Insert new translation
+                    await contentPool.query(`
+                        INSERT INTO content_translations (content_item_id, language_code, content_value, status)
+                        VALUES ($1, $2, $3, 'approved')
+                    `, [contentItemId, langCode, translation]);
+                    languageResults[langCode] = 'created';
+                }
+            }
+            
+            results.push({
+                content_key: item.content_key,
+                content_item_id: contentItemId,
+                languages: languageResults
+            });
+        }
+        
+        res.json({
+            status: 'success',
+            message: 'Auth modal processing translations added successfully',
+            translations_added: results.length,
+            results: results
+        });
+        
+    } catch (error) {
+        console.error('❌ Error adding auth modal translations:', error);
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to add auth modal translations',
+            error: error.message
+        });
+    }
+});
+
+
 // Start server
 app.listen(PORT, () => {
     });
