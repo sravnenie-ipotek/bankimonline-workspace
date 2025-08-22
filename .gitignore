@@ -1,7 +1,44 @@
 dist
 node_modules
 /.idea/
-# /build/ - Allow build for production deployment
+
+# Build files (ignore for development, CI/CD handles production)
+mainapp/build/
+mainapp/dist/
+
+# Test artifacts and reports  
+*-test-results*.md
+*-test-results*.json
+*-test-report*.html
+*_TEST_*.md
+*_REPORT*.md
+*_SUMMARY*.md
+*_FIX*.md
+automation-test-report.html
+cypress/reports/
+cypress/screenshots/
+cypress/videos/
+mainapp/cypress/reports/
+mainapp/cypress/screenshots/
+mainapp/cypress/videos/
+
+# Temporary test configs
+cypress.production.config.ts
+cypress.dev2.config.ts
+mainapp/cypress.production.config.ts
+mainapp/cypress.dev2.config.ts
+
+# Temporary test scripts
+test-*.js
+quick-*.js
+full-*.js
+pre-*.js
+fix-*.js
+check-*.js
+run-*.sh
+
+# Migration scripts (obsolete)
+migrate-*.sh
 
 # Environment variables (NEVER commit these!)
 .env
@@ -28,95 +65,26 @@ backups/db/*.dump
 !backups/restore_db.sh
 !backups/README.md
 
-# Security sensitive files
-.railway-token
-*.pem
-*.key
-*.crt
-secrets/
-.secrets/
+# Mac OS
+.DS_Store
 
-# SSH connection credentials (NEVER commit!)
-server/docs/sshConnect/
-**/sshConnect/
-connect-to-server.sh
+# Editor directories
+.vscode/
+.idea/
 
-# Local configuration files
-config.local.js
-config.local.json
-
-# Playwright Test Artifacts
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-
-# Environment files with secrets
-.env.whatsapp
-.env.whatsapp.demo
-.env.whatsapp.template
-.env.jira
-
-# Jira integration files with credentials (NEVER commit!)
-server/docs/QA/jira/jiraIntegration.md
-**/jiraIntegration.md
-
-# QA instruction files with API tokens (NEVER commit!)
-server/docs/QA/*/instructions.md
-server/docs/QA/menuQA/instructions.md
-server/docs/QA/mortgageStep1,2,3,4/instructions.md
-server/docs/QA/refinanceMortgage1,2,3,4/instructions.md
-server/docs/QA/refinanceCredit1,2,3,4/instructions.md
-server/docs/QA/calculateCredit1,2,3,4/instructions.md
-
-# Test files with API tokens (NEVER commit!)
-test-jira-integration.js
-
-# Production configuration files (NEVER commit!)
-server/docs/prod/updateDumpFileProd.md
-server/docs/prod/updateDumpFileProd
-
-# Claude agents and sensitive files (keep project-specific)
-# .claude/ - Commented out to keep project-specific agents
-
-# PM2 logs and files
-logs/
+# Logs
+logs
 *.log
-.pm2/
-pm2.log
-pm2-error.log
-pm2-out.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+server.log
 
-# QA automation artifacts
-.qa-stats.json
-.qa-results.log
+# Temporary files
+*.tmp
+*.temp
+.cache/
 
-# Server environment
-server/.env
-mainapp/.env.production
-
-# Server migrations and database scripts
-server/migrations/
-server/migrationDB/
-
-# Database files and scripts (NEVER commit!)
-*.sql
-*.backup
-*.dump
-*.restore
-*backup*.sql
-*dump*.sql
-*restore*.sql
-
-# Railway sync and database management scripts
-sync-railway-to-local-server.js
-*railway*sync*.js
-*sync*railway*.js
-setup-databases.sh
-check-deployment.sh
-deploy-with-timestamp.sh
-
-# Database architecture and backup files
-DATABASE_ARCHITECTURE.md
-backup_*.sql
-restore_*.sql
+# Keep important config files
+!ecosystem.config.js
+!.github/workflows/*.yml
