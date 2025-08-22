@@ -1757,6 +1757,11 @@
   "app.refinance.step1.why_label": "Why are you refinancing?",
   "app.refinance.step1.property_type_label": "Property Type",
   "app.refinance.step1.registered_label": "Property Registration",
+  "auth_modal_processing": "Processing...",
+  "auth_modal_continue": "Continue",
+  "registration_success_message": "Welcome! You have successfully logged in.",
+  "registration_error_message": "Registration error. Please try again.",
+  "processing": "Processing...",
   "app.refinance.step1.current_bank_label": "Current Bank",
   "app.refinance.step1.title": "Mortgage Refinancing Application",
   "mortgage_refinance_balance": "Current Mortgage Balance"

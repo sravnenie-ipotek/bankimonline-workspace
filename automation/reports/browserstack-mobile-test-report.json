@@ -1,0 +1,76 @@
+{
+  "timestamp": "2025-08-22T09:01:54.683Z",
+  "summary": {
+    "totalTests": 4,
+    "passedTests": 0,
+    "failedTests": 4,
+    "passRate": "0.0"
+  },
+  "devicesTestedCount": 1,
+  "scenariosTestedCount": 4,
+  "results": [
+    {
+      "device": "iPhone 15 Pro",
+      "scenario": "Mortgage Calculator Step 1",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "buttons": [],
+      "passed": false,
+      "errors": [
+        "Test execution error: Waiting for title to contain \"בנקים\"\nWait timed out after 10325ms"
+      ]
+    },
+    {
+      "device": "iPhone 15 Pro",
+      "scenario": "Mortgage Calculator Step 2",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "buttons": [],
+      "passed": false,
+      "errors": [
+        "Test execution error: Waiting for title to contain \"בנקים\"\nWait timed out after 10337ms"
+      ]
+    },
+    {
+      "device": "iPhone 15 Pro",
+      "scenario": "Credit Calculator Step 1",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "buttons": [],
+      "passed": false,
+      "errors": [
+        "Test execution error: Waiting for title to contain \"בנקים\"\nWait timed out after 10069ms"
+      ]
+    },
+    {
+      "device": "iPhone 15 Pro",
+      "scenario": "Personal Cabinet",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "buttons": [],
+      "passed": false,
+      "errors": [
+        "Test execution error: Waiting for title to contain \"בנקים\"\nWait timed out after 10038ms"
+      ]
+    }
+  ],
+  "criticalIssues": [],
+  "mobileButtonFixes": {
+    "implemented": true,
+    "cssChanges": [
+      "position: sticky → position: fixed",
+      "Added iPhone safe area support",
+      "Added z-index for proper layering",
+      "Container bottom padding increased"
+    ],
+    "validation": "NEEDS_ATTENTION"
+  }
+}

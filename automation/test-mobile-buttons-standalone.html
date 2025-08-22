@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>בנקים אונליין - Mobile Button Test</title>
+    <style>
+        body {
+            font-family: 'Heebo', Arial, sans-serif;
+            direction: rtl;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 80vh;
+        }
+        
+        .header {
+            background: #6B46C1;
+            color: white;
+            padding: 20px;
+            margin: -20px -20px 20px -20px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            direction: rtl;
+            text-align: right;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #6B46C1;
+        }
+        
+        /* CRITICAL: Mobile button positioning - the fixes we implemented */
+        .single-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+        }
+        
+        .single-button button {
+            width: 100%;
+            background: #F59E0B;
+            color: white;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+            min-height: 44px; /* iOS touch target minimum */
+            touch-action: manipulation;
+        }
+        
+        .single-button button:hover {
+            background: #D97706;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+        }
+        
+        .single-button button:active {
+            transform: translateY(0);
+        }
+        
+        /* Ensure content doesn't hide under fixed button */
+        .content-spacer {
+            height: 120px;
+            padding-bottom: env(safe-area-inset-bottom, 0);
+        }
+        
+        /* Additional test buttons for overflow detection */
+        .test-buttons {
+            margin-top: 30px;
+        }
+        
+        .test-button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #10B981;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            min-height: 44px;
+            cursor: pointer;
+        }
+        
+        .danger-button {
+            background: #EF4444;
+        }
+        
+        .info-button {
+            background: #3B82F6;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 375px) {
+            .container {
+                padding: 15px;
+                margin: 0 10px;
+            }
+            
+            .single-button {
+                left: 10px;
+                right: 10px;
+                bottom: 15px;
+            }
+        }
+        
+        /* iPhone X and newer safe area support */
+        @media (max-width: 414px) and (min-height: 812px) {
+            .single-button {
+                padding-bottom: calc(20px + env(safe-area-inset-bottom, 0));
+            }
+            
+            .content-spacer {
+                padding-bottom: calc(120px + env(safe-area-inset-bottom, 0));
+            }
+        }
+        
+        .debug-info {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-family: monospace;
+            z-index: 2000;
+            direction: ltr;
+            text-align: left;
+        }
+    </style>
+    
+    <!-- Google Fonts for Hebrew -->
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="debug-info" id="debugInfo">
+        <div>Screen: <span id="screenSize"></span></div>
+        <div>Viewport: <span id="viewportSize"></span></div>
+        <div>Safe Area: <span id="safeArea"></span></div>
+        <div>Button Bottom: <span id="buttonBottom"></span></div>
+    </div>
+
+    <div class="container">
+        <h1 class="header">בנקים אונליין - בדיקת כפתורים</h1>
+        
+        <div class="form-group">
+            <label for="propertyValue">שווי הנכס</label>
+            <input type="number" id="propertyValue" placeholder="למשל: 1,500,000 ₪" value="1500000">
+        </div>
+        
+        <div class="form-group">
+            <label for="propertyOwnership">בעלות על נכס</label>
+            <select id="propertyOwnership">
+                <option value="">בחר אפשרות</option>
+                <option value="no_property">אין לי נכס</option>
+                <option value="has_property">יש לי נכס</option>
+                <option value="selling_property">אני מוכר נכס</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="monthlyIncome">הכנסה חודשית</label>
+            <input type="number" id="monthlyIncome" placeholder="למשל: 18,000 ₪" value="18000">
+        </div>
+        
+        <div class="form-group">
+            <label for="downPayment">מקדמה</label>
+            <input type="number" id="downPayment" placeholder="למשל: 375,000 ₪" value="375000">
+        </div>
+        
+        <div class="test-buttons">
+            <button class="test-button" onclick="testButtonClick('save')">שמור נתונים</button>
+            <button class="test-button info-button" onclick="testButtonClick('info')">מידע נוסף</button>
+            <button class="test-button danger-button" onclick="testButtonClick('cancel')">ביטול</button>
+        </div>
+        
+        <div class="content-spacer"></div>
+    </div>
+
+    <!-- CRITICAL: The main action button that was causing overflow -->
+    <div class="single-button">
+        <button type="submit" onclick="testButtonClick('continue')">שמור והמשך</button>
+    </div>
+
+    <script>
+        function testButtonClick(action) {
+            alert(`כפתור ${action} נלחץ בהצלחה!\n\nButton ${action} clicked successfully!`);
+        }
+        
+        function updateDebugInfo() {
+            const screen = window.screen;
+            const viewport = {
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+            
+            const safeAreaTop = getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-top, 0)');
+            const safeAreaBottom = getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-bottom, 0)');
+            
+            const button = document.querySelector('.single-button button');
+            const buttonRect = button ? button.getBoundingClientRect() : null;
+            
+            document.getElementById('screenSize').textContent = `${screen.width}x${screen.height}`;
+            document.getElementById('viewportSize').textContent = `${viewport.width}x${viewport.height}`;
+            document.getElementById('safeArea').textContent = `T:${safeAreaTop} B:${safeAreaBottom}`;
+            document.getElementById('buttonBottom').textContent = buttonRect ? 
+                `${Math.round(buttonRect.bottom)}px (overflow: ${buttonRect.bottom > viewport.height ? 'YES' : 'NO'})` : 'N/A';
+        }
+        
+        // Update debug info on load and resize
+        window.addEventListener('load', updateDebugInfo);
+        window.addEventListener('resize', updateDebugInfo);
+        window.addEventListener('orientationchange', () => setTimeout(updateDebugInfo, 500));
+        
+        // Auto-select property ownership for testing
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('propertyOwnership').value = 'no_property';
+                updateDebugInfo();
+            }, 1000);
+        });
+        
+        // Log button positions for debugging
+        setTimeout(() => {
+            const buttons = document.querySelectorAll('button');
+            console.log('Button Analysis:');
+            buttons.forEach((button, index) => {
+                const rect = button.getBoundingClientRect();
+                console.log(`Button ${index + 1} (${button.textContent.trim()}):`, {
+                    bottom: rect.bottom,
+                    height: rect.height,
+                    width: rect.width,
+                    isOverflow: rect.bottom > window.innerHeight,
+                    isTooSmall: rect.width < 44 || rect.height < 44
+                });
+            });
+        }, 2000);
+    </script>
+</body>
+</html>

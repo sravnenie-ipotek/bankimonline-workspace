@@ -14,7 +14,7 @@ const VersionChip: React.FC<VersionChipProps> = ({
   // Check if using Railway database
   useEffect(() => {
     // Check backend API to see if Railway is active
-    fetch('/api/v1/health')
+    fetch('/api/health')
       .then(res => res.json())
       .then(data => {
         // Check if database URL contains Railway domain

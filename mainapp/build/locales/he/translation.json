@@ -1683,5 +1683,10 @@
   "app.refinance.step1.registered_label": "רישום נכס",
   "app.refinance.step1.current_bank_label": "בנק נוכחי",
   "app.refinance.step1.title": "בקשה למחזור משכנתא",
-  "mortgage_refinance_balance": "יתרת משכנתא נוכחית"
+  "mortgage_refinance_balance": "יתרת משכנתא נוכחית",
+  "auth_modal_processing": "מעבד...",
+  "auth_modal_continue": "המשך",
+  "registration_success_message": "ברוכים הבאים! נכנסת בהצלחה למערכת.",
+  "registration_error_message": "שגיאה ברישום. אנא נסה שוב.",
+  "processing": "מעבד..."
 }

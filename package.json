@@ -122,6 +122,8 @@
     "verify:mobile": "node automation/scripts/verify-mobile-fixes.js"
   },
   "devDependencies": {
+    "@percy/cli": "^1.31.1",
+    "@percy/cypress": "^3.1.6",
     "@playwright/mcp": "^0.0.29",
     "@playwright/test": "^1.54.1",
     "@typescript-eslint/eslint-plugin": "^8.36.0",
