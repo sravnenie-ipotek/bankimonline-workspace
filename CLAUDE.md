@@ -202,12 +202,26 @@ node check-db-structure.js
 node test-login-flow.js
 ```
 
-### Docker Deployment
+### Deployment
+
+**⚠️ CRITICAL: All deployments MUST be handled through the existing CI/CD pipeline. NEVER use SSH deployment or manual deployment unless explicitly requested by the user.**
+
+#### CI/CD Deployment Process (REQUIRED)
+The project uses an automated CI/CD pipeline for all deployments:
+- **Test Environment**: Automatically deploys on push to `production` branch
+- **Production Environment**: Requires manual approval in CI/CD pipeline
+- **Rollback**: Built-in rollback capability in the pipeline
+- **Health Checks**: Automated health checks after deployment
+- **Zero Downtime**: PM2-based blue-green deployment strategy
+
+#### Local Docker Testing (Development Only)
 ```bash
-# Build and run with Docker
+# Build and run with Docker locally for testing
 docker build -t bankdev .
 docker run -p 8003:8003 bankdev
 ```
+
+**Note**: Docker containers are for local development only. Production deployments MUST use the CI/CD pipeline.
 
 ### Database Migrations & Content Management
 ```bash
