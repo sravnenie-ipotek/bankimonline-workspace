@@ -31,6 +31,11 @@ const VersionChip: React.FC<VersionChipProps> = ({
   // Use build info for version and timestamp
   const displayVersion = version || BUILD_INFO.version;
   const timestamp = BUILD_INFO.buildTime;
+  const buildNumber = BUILD_INFO.buildNumber;
+  const commit = BUILD_INFO.commit;
+  
+  // Create detailed tooltip
+  const tooltipText = `Deployed: ${timestamp}\nBuild: #${buildNumber}\nCommit: ${commit}`;
   
   return (
     <div className={styles.versionContainer}>
@@ -40,10 +45,13 @@ const VersionChip: React.FC<VersionChipProps> = ({
           <span className={styles.warningText}>RAILWAY</span>
         </div>
       )}
-      <div className={styles.versionChip} title={`Deployed: ${timestamp}`}>
+      <div className={styles.versionChip} title={tooltipText}>
         <span className={styles.versionLabel}>v</span>
         <span className={styles.versionNumber}>{displayVersion}</span>
         <span className={styles.versionTimestamp}>{timestamp}</span>
+        {buildNumber !== 'local' && (
+          <span className={styles.buildNumber}>#{buildNumber}</span>
+        )}
       </div>
     </div>
   );

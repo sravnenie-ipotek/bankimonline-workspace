@@ -48,6 +48,8 @@ jobs:
         env:
           CI: false
           VITE_NODE_API_BASE_URL: ${{ github.ref == 'refs/heads/production' && 'https://bankimonline.com/api' || 'https://dev2.bankimonline.com/api' }}
+          GITHUB_RUN_NUMBER: ${{ github.run_number }}
+          GITHUB_SHA: ${{ github.sha }}
 
       - name: Create deployment package
         run: |
