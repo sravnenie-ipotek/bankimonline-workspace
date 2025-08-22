@@ -51,18 +51,22 @@ jobs:
 
       - name: Create deployment package
         run: |
+          # Create list of files to include
+          FILES_TO_PACKAGE="server mainapp/build locales migrations package*.json"
+          
+          # Add ecosystem config if it exists
+          if [ -f ecosystem.config.js ]; then
+            FILES_TO_PACKAGE="$FILES_TO_PACKAGE ecosystem.config.js"
+          fi
+          
+          # Create the tar package
           tar -czf deploy.tar.gz \
             --exclude=node_modules \
             --exclude=.git \
             --exclude=mainapp/node_modules \
             --exclude=mainapp/src \
             --exclude=mainapp/cypress \
-            server \
-            mainapp/build \
-            locales \
-            migrations \
-            package*.json \
-            ecosystem.config.js
+            $FILES_TO_PACKAGE
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
