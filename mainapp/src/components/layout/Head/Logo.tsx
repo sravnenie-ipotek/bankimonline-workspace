@@ -20,7 +20,7 @@ const Logo: React.FC = () => {
           <img alt="" src="/static/primary-logo05-1.svg" className={'logo'} />
         </a>
         {/* Version chip - displays app version under the logo */}
-        <VersionChip version="0.1" />
+        <VersionChip />
       </div>
       {/* Server mode badge - shows when using development server */}
       {!loading && serverMode && serverMode.mode === 'legacy' && (
