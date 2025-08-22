@@ -56,7 +56,7 @@
   "scripts": {
     "dev": "vite",
     "prebuild": "node scripts/set-build-time.js",
-    "build": "vite build",
+    "build": "npm run prebuild && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview --port 5173 --host",
     "format": "prettier --write \"./src/**/*.{js,ts,jsx,tsx,css,md,json}\"",
@@ -86,7 +86,17 @@
     "test:visual:all": "percy exec -- cypress run --spec 'cypress/e2e/visual/*.cy.ts'",
     "test:visual:baseline": "percy exec -- cypress run --spec 'cypress/e2e/visual/*.cy.ts' --env updateSnapshots=true",
     "percy:approve": "percy build:approve",
-    "percy:finalize": "percy build:finalize"
+    "percy:finalize": "percy build:finalize",
+    "test:mobile": "cypress run --config-file cypress.mobile.config.ts",
+    "test:mobile:open": "cypress open --config-file cypress.mobile.config.ts",
+    "test:mobile:iphone": "cypress run --config-file cypress.mobile.config.ts --env device=iphone-x",
+    "test:mobile:android": "cypress run --config-file cypress.mobile.config.ts --env device=samsung-s10",
+    "test:mobile:tablet": "cypress run --config viewportWidth=768,viewportHeight=1024",
+    "test:mobile:all": "npm run test:mobile && npm run test:mobile:tablet",
+    "test:responsive": "cypress run --spec 'cypress/e2e/mobile-viewport-test.cy.ts'",
+    "test:viewport:small": "cypress run --config viewportWidth=375,viewportHeight=667",
+    "test:viewport:medium": "cypress run --config viewportWidth=768,viewportHeight=1024",
+    "test:viewport:large": "cypress run --config viewportWidth=1920,viewportHeight=1080"
   },
   "browserslist": {
     "production": [

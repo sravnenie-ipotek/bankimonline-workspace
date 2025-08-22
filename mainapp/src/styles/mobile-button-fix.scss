@@ -1,0 +1,87 @@
+// Mobile Button Overflow Fix
+// Fixes the issue where submit buttons appear outside viewport on mobile devices
+
+@media (max-width: 768px) {
+  // Fix for form containers to ensure buttons stay in viewport
+  .form-container,
+  form {
+    padding-bottom: 100px !important; // Space for fixed button
+    min-height: calc(100vh - 60px); // Account for header
+  }
+
+  // Make submit buttons sticky at bottom on mobile
+  button[type="submit"],
+  .submit-button,
+  .continue-button,
+  button.yellow-button,
+  button[class*="submit"],
+  button[class*="continue"] {
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 100% !important;
+    
+    // Ensure button is always visible
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  // Specific fix for refinance mortgage form
+  .refinance-mortgage-form,
+  [class*="refinance"] form {
+    padding-bottom: 120px !important;
+  }
+
+  // RTL support for Hebrew
+  html[dir="rtl"] {
+    button[type="submit"] {
+      left: 0;
+      right: 0;
+    }
+  }
+
+  // Ensure content doesn't go under fixed button
+  .form-content,
+  .form-body,
+  [class*="form-content"] {
+    padding-bottom: 80px !important;
+  }
+
+  // Handle safe area for iPhone X and newer
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    button[type="submit"] {
+      padding-bottom: env(safe-area-inset-bottom);
+      bottom: env(safe-area-inset-bottom, 0);
+    }
+    
+    .form-container {
+      padding-bottom: calc(100px + env(safe-area-inset-bottom)) !important;
+    }
+  }
+}
+
+// Small phones (iPhone SE, etc.)
+@media (max-width: 375px) and (max-height: 667px) {
+  .form-container {
+    padding-bottom: 90px !important;
+  }
+}
+
+// Landscape orientation fix
+@media (max-width: 896px) and (max-height: 414px) and (orientation: landscape) {
+  button[type="submit"] {
+    position: sticky !important;
+    bottom: 0;
+  }
+  
+  .form-container {
+    padding-bottom: 60px !important;
+  }
+}
