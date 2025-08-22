@@ -35,6 +35,7 @@ const VideoPoster: React.FC<TypeProps> = ({
   const [isMuted, setIsMuted] = useState(true)
   const [isPlayerOpen, setIsPlayerOpen] = useState(false)
   const [videoLoaded, setVideoLoaded] = useState(false)
+  const [autoplayAttempted, setAutoplayAttempted] = useState(false)
   const { isMobile } = useWindowResize()
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -51,39 +52,100 @@ const VideoPoster: React.FC<TypeProps> = ({
     }
   }, [])
 
-  // Handle mobile autoplay
+  // Enhanced mobile autoplay logic
   useEffect(() => {
-    if (videoRef.current && isMobile) {
+    if (videoRef.current && isMobile && !autoplayAttempted) {
       const video = videoRef.current
+      
+      console.log('🎬 Attempting mobile video autoplay...')
       
       // Set up video for mobile autoplay
       video.muted = true
       video.playsInline = true
       video.loop = true
+      video.preload = 'auto'
       
-      // Try to autoplay on mobile
-      const playPromise = video.play()
+      // Wait for video to be ready
+      const handleCanPlay = () => {
+        console.log('✅ Video can play, attempting autoplay...')
+        
+        const playPromise = video.play()
+        
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              console.log('✅ Video autoplay successful on mobile')
+              setVideoLoaded(true)
+              setAutoplayAttempted(true)
+            })
+            .catch((error) => {
+              console.warn('⚠️ Mobile autoplay failed:', error.message)
+              setAutoplayAttempted(true)
+              
+              // Add multiple interaction listeners for better compatibility
+              const handleInteraction = () => {
+                console.log('👆 User interaction detected, trying to play video...')
+                video.play()
+                  .then(() => {
+                    console.log('✅ Video started on user interaction')
+                    setVideoLoaded(true)
+                  })
+                  .catch(err => console.warn('❌ Manual play failed:', err))
+                
+                // Remove listeners after first successful interaction
+                document.removeEventListener('touchstart', handleInteraction)
+                document.removeEventListener('click', handleInteraction)
+                document.removeEventListener('touchend', handleInteraction)
+              }
+              
+              document.addEventListener('touchstart', handleInteraction, { once: true })
+              document.addEventListener('click', handleInteraction, { once: true })
+              document.addEventListener('touchend', handleInteraction, { once: true })
+            })
+        }
+      }
       
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            console.log('✅ Video autoplay successful on mobile')
-            setVideoLoaded(true)
-          })
-          .catch((error) => {
-            console.warn('⚠️ Mobile autoplay failed, will retry on user interaction:', error)
-            // Add click listener to start video on first user interaction
-            const handleFirstInteraction = () => {
-              video.play().catch(err => console.warn('Retry autoplay failed:', err))
-              document.removeEventListener('touchstart', handleFirstInteraction)
-              document.removeEventListener('click', handleFirstInteraction)
-            }
-            document.addEventListener('touchstart', handleFirstInteraction, { once: true })
-            document.addEventListener('click', handleFirstInteraction, { once: true })
-          })
+      // Handle video load events
+      video.addEventListener('canplay', handleCanPlay, { once: true })
+      video.addEventListener('loadeddata', () => {
+        console.log('📹 Video data loaded')
+      })
+      video.addEventListener('error', (e) => {
+        console.error('❌ Video error:', e)
+      })
+      video.addEventListener('play', () => {
+        console.log('▶️ Video started playing')
+        setVideoLoaded(true)
+      })
+      video.addEventListener('pause', () => {
+        console.log('⏸️ Video paused')
+      })
+      
+      // Fallback: try to play after a short delay
+      const fallbackTimer = setTimeout(() => {
+        if (!videoLoaded && !autoplayAttempted) {
+          console.log('⏰ Fallback autoplay attempt...')
+          video.play().catch(err => console.warn('Fallback autoplay failed:', err))
+        }
+      }, 1000)
+      
+      // Additional fallback for iOS Safari
+      const iosFallbackTimer = setTimeout(() => {
+        if (!videoLoaded && !autoplayAttempted) {
+          console.log('🍎 iOS fallback autoplay attempt...')
+          // Force reload and retry
+          video.load()
+          video.play().catch(err => console.warn('iOS fallback autoplay failed:', err))
+        }
+      }, 2000)
+      
+      return () => {
+        clearTimeout(fallbackTimer)
+        clearTimeout(iosFallbackTimer)
+        video.removeEventListener('canplay', handleCanPlay)
       }
     }
-  }, [isMobile])
+  }, [isMobile, autoplayAttempted, videoLoaded])
 
   const handleMute = () => {
     // Call parent callback if provided (Действие #4)
@@ -116,9 +178,19 @@ const VideoPoster: React.FC<TypeProps> = ({
   }
 
   const handleVideoClick = () => {
-    // If video isn't playing on mobile, try to start it
-    if (videoRef.current && isMobile && videoRef.current.paused) {
-      videoRef.current.play().catch(err => console.warn('Manual play failed:', err))
+    if (videoRef.current && isMobile) {
+      if (videoRef.current.paused) {
+        console.log('👆 Video clicked, attempting to play...')
+        videoRef.current.play()
+          .then(() => {
+            console.log('✅ Video started on click')
+            setVideoLoaded(true)
+          })
+          .catch(err => console.warn('❌ Click play failed:', err))
+      } else {
+        console.log('⏸️ Video is playing, pausing...')
+        videoRef.current.pause()
+      }
     }
   }
 
@@ -130,7 +202,7 @@ const VideoPoster: React.FC<TypeProps> = ({
         loop 
         muted 
         playsInline
-        preload="metadata"
+        preload="auto"
         poster="/static/Background.png"
         autoPlay={true}
         onClick={handleVideoClick}
