@@ -69,7 +69,7 @@ jobs:
             $FILES_TO_PACKAGE
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: deployment-package
           path: deploy.tar.gz
@@ -80,7 +80,7 @@ jobs:
     if: github.ref == 'refs/heads/main' || github.event.inputs.environment == 'test' || github.event.inputs.environment == 'both'
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: deployment-package
 
@@ -121,7 +121,7 @@ jobs:
       url: https://bankimonline.com
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: deployment-package
 
