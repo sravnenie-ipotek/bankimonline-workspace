@@ -291,17 +291,15 @@ Cypress.Commands.add('waitForBankingPageLoad', () => {
   // Wait for dropdowns to load
   cy.wait(1000)
   
-  // Wait for any loading spinners to disappear
-  cy.get('[class*="loading"], [class*="spinner"]', { timeout: 5000 })
-    .should('not.exist')
-    .then(() => {
-      // Additional wait for any dynamic content
-      cy.wait(500)
-    })
-    .catch(() => {
-      // No loading elements found, proceed
-      cy.wait(500)
-    })
+  // Wait for any loading spinners to disappear (optional)
+  cy.get('body').then(($body) => {
+    if ($body.find('[class*="loading"], [class*="spinner"]').length > 0) {
+      cy.get('[class*="loading"], [class*="spinner"]', { timeout: 5000 })
+        .should('not.exist')
+    }
+    // Additional wait for any dynamic content
+    cy.wait(500)
+  })
 })
 
 /**

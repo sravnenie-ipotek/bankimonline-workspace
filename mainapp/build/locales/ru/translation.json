@@ -1644,5 +1644,10 @@
   "app.refinance.step1.registered_label": "Регистрация недвижимости",
   "app.refinance.step1.current_bank_label": "Текущий банк",
   "app.refinance.step1.title": "Заявка на рефинансирование ипотеки",
-  "mortgage_refinance_balance": "Текущий баланс ипотеки"
+  "mortgage_refinance_balance": "Текущий баланс ипотеки",
+  "auth_modal_processing": "Обрабатывается...",
+  "auth_modal_continue": "Продолжить",
+  "registration_success_message": "Добро пожаловать! Вы успешно вошли в систему.",
+  "registration_error_message": "Ошибка при регистрации. Попробуйте еще раз.",
+  "processing": "Обрабатывается..."
 }

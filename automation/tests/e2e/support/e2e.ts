@@ -135,28 +135,32 @@ let currentTestUrl = ''
 
 // Add command logging
 Cypress.on('command:start', (command) => {
-  const action = `[${new Date().toISOString()}] ${command.attributes.name}: ${command.attributes.args ? JSON.stringify(command.attributes.args).slice(0, 100) : ''}`
-  testActionLog.push(action)
+  if (command && command.attributes) {
+    const action = `[${new Date().toISOString()}] ${command.attributes.name}: ${command.attributes.args ? JSON.stringify(command.attributes.args).slice(0, 100) : ''}`
+    testActionLog.push(action)
   
-  // Track test steps for structured reporting
-  testSteps.push({
-    action: command.attributes.name,
-    args: command.attributes.args,
-    selector: command.attributes.selector,
-    timestamp: new Date().toISOString(),
-    success: true // Will be updated if command fails
-  })
+    // Track test steps for structured reporting
+    testSteps.push({
+      action: command.attributes.name,
+      args: command.attributes.args,
+      selector: command.attributes.selector,
+      timestamp: new Date().toISOString(),
+      success: true // Will be updated if command fails
+    })
+  }
 })
 
 // Track command failures
 Cypress.on('command:failed', (command, err) => {
-  const failureAction = `[${new Date().toISOString()}] FAILED - ${command.attributes.name}: ${err.message}`
-  testActionLog.push(failureAction)
-  
-  // Update last step as failed
-  if (testSteps.length > 0) {
-    testSteps[testSteps.length - 1].success = false
-    testSteps[testSteps.length - 1].error = err.message
+  if (command && command.attributes) {
+    const failureAction = `[${new Date().toISOString()}] FAILED - ${command.attributes.name}: ${err.message}`
+    testActionLog.push(failureAction)
+    
+    // Update last step as failed
+    if (testSteps.length > 0) {
+      testSteps[testSteps.length - 1].success = false
+      testSteps[testSteps.length - 1].error = err.message
+    }
   }
 })
 

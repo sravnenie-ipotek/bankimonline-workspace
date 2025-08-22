@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-08-22T09:31:11.401Z",
+  "summary": {
+    "total": 4,
+    "passed": 0,
+    "failed": 4
+  },
+  "results": {
+    "mobile": {
+      "status": "failed",
+      "timestamp": "2025-08-22T09:31:02.630Z"
+    },
+    "e2e": {
+      "status": "failed",
+      "timestamp": "2025-08-22T09:31:08.500Z"
+    },
+    "integration": {
+      "status": "failed",
+      "timestamp": "2025-08-22T09:31:09.142Z"
+    },
+    "qa": {
+      "status": "failed",
+      "timestamp": "2025-08-22T09:31:11.401Z"
+    }
+  }
+}

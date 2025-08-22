@@ -16,9 +16,9 @@ export default defineConfig({
     
     // Mobile-specific test pattern
     specPattern: [
-      '../tests/mobile/**/*.cy.{js,ts}',
-      '../tests/e2e/mobile-viewport-test.cy.ts',
-      '../tests/e2e/**/*mobile*.cy.{js,ts}'
+      './tests/mobile/**/*.cy.{js,ts}',
+      './tests/e2e/mobile-viewport-test.cy.ts',
+      './tests/e2e/**/*mobile*.cy.{js,ts}'
     ],
     
     // Mobile user agent (optional - for sites that detect mobile via UA)

@@ -39,6 +39,7 @@ const PropertyOwnership = ({ screenLocation = 'personal_data_form' }: PropertyOw
         onBlur={() => setFieldTouched('propertyOwnership', true)}
         error={touched.propertyOwnership && errors.propertyOwnership}
         disabled={dropdownData.loading}
+        dataTestId="property-ownership-dropdown"
       />
       {dropdownData.error && (
         <Error error={getContent('error_dropdown_load_failed', 'Failed to load property ownership options. Please refresh the page.')} />
