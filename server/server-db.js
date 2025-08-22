@@ -218,14 +218,14 @@ const uploadFile = multer({
 // Serve static files from React build
 
 // Serve React build files (for Railway deployment)
-app.use(express.static(path.join(__dirname, 'mainapp/build')));
+app.use(express.static(path.join(__dirname, '../mainapp/build')));
 
 // Serve root static files (admin.html, etc.)
 app.use(express.static(__dirname));
 
 // Root endpoint - serve React app
 app.get('/', (req, res) => {
-    const reactIndexPath = path.join(__dirname, 'mainapp/build/index.html');
+    const reactIndexPath = path.join(__dirname, '../mainapp/build/index.html');
     
     // Check if React build exists, otherwise serve API info
     if (fs.existsSync(reactIndexPath)) {
