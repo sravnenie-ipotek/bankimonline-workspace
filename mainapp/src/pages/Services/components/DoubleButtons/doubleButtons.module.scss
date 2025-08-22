@@ -40,11 +40,24 @@
     margin: 0;
     background: theme("colors.base.secondary");
     padding: 1.5rem 20px;
-    position: sticky;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: 999;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+    
+    // Support for iPhone X and newer safe areas
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0));
+  }
+  
+  // Small screens (iPhone SE)
+  @media screen and (max-width: 375px) {
+    padding: 1rem 15px;
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0));
+    
+    .buttons {
+      gap: 1rem;
+    }
   }
 }
