@@ -11,3 +11,12 @@
     padding: 0 20px;
   }
 }
+
+@media (max-width: 890px) {
+  .container {
+    // Add padding bottom to prevent content hiding under fixed button
+    padding-bottom: 120px;
+    // Add safe area support for iPhone X and newer
+    padding-bottom: calc(120px + env(safe-area-inset-bottom, 0));
+  }
+}
