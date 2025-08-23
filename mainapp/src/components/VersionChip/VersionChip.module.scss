@@ -65,6 +65,13 @@
       margin-right: 2px;
     }
   }
+  
+  .buildNumber {
+    color: rgba(255, 215, 0, 0.35);
+    font-size: 7px;
+    margin-left: 3px;
+    font-weight: 400;
+  }
 
   // Responsive design
   @media (max-width: 768px) {
@@ -81,7 +88,15 @@
     }
     
     .versionTimestamp {
-      display: none; // Hide timestamp on mobile for space
+      font-size: 7px;
+      color: rgba(255, 215, 0, 0.5);
+      margin-left: 3px;
+      // Show timestamp on mobile as requested
+      display: inline;
+    }
+    
+    .buildNumber {
+      display: none; // Hide build number on mobile to save space
     }
   }
 
