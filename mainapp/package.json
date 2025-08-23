@@ -80,6 +80,8 @@
     "test:e2e:4-services": "cd ../automation && npx cypress run --spec 'cypress/e2e/comprehensive-4-services-mobile.cy.ts' --config viewportWidth=390,viewportHeight=844",
     "test:e2e:4-services:headed": "cd ../automation && node comprehensive-mobile-test-headed.js",
     "test:e2e:mobile-comprehensive": "cd ../automation && npx cypress run --spec 'cypress/e2e/comprehensive-4-services-mobile.cy.ts'",
+    "test:e2e:live-site": "cd ../automation && node live-site-e2e-with-screenshots.js",
+    "test:e2e:dev2": "cd ../automation && node live-site-e2e-with-screenshots.js",
     "test:translations": "cypress run --spec 'cypress/e2e/translation-checker.cy.ts'",
     "test:translations:full": "cypress run --spec 'cypress/e2e/full-translation-scan.cy.ts'",
     "test:translations:visual": "cypress open --spec 'cypress/e2e/translation-checker.cy.ts'",
