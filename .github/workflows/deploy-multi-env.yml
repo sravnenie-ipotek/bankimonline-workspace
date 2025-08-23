@@ -19,9 +19,9 @@ on:
 
 env:
   TEST_HOST: 45.83.42.74
-  PROD_HOST: 185.253.72.80
+  PROD_HOST: 45.83.42.74
   TEST_PATH: /var/www/bank-dev2
-  PROD_PATH: /var/www/bank-prod
+  PROD_PATH: /var/www/bank-dev2
 
 jobs:
   build:
