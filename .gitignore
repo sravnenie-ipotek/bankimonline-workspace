@@ -69,16 +69,25 @@ migrate-*.sh
 .env.railway
 .env.development-railway
 .env.production-matched
+.env.backup.*
 *.env
 mainapp/.env
 mainapp/.env.local
 
 # Database backups (contain sensitive data)
 backups/
+railway_backups_*/
 *.sql
 *.backup
 *.dump
 comprehensive_content_search.json
+
+# Generated analysis reports and data files
+hebrew-analysis-report-*.json
+hebrew-comparison-table-*.csv
+hebrew-comparison-table-*.html
+word-analysis-*.json
+railway_content_backup_*.sql
 
 # Bug reports and media files
 bug-screenshots/
