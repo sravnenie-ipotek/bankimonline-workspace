@@ -41,6 +41,12 @@ jobs:
           npm ci --only=production
           cd mainapp && npm ci
 
+      - name: Auto-increment version
+        id: version
+        run: |
+          node scripts/auto-version.js auto
+          echo "VERSION=$(node -p "require('./mainapp/package.json').version")" >> $GITHUB_ENV
+          
       - name: Build frontend
         run: |
           cd mainapp
