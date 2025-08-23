@@ -22,8 +22,9 @@ const Header: React.FC<PropsTypes> = ({ onOpenMobileMenu, isMobile }) => {
   const isService = pathMap.includes('services')
   const isHomePage = location.pathname === '/' || location.pathname === ''
   
-  // Show burger menu on homepage always, or on desktop when not on service pages
-  const shouldShowBurger = isHomePage || (!isMobile && !isService)
+  // FIXED: Always show burger menu on mobile, regardless of page
+  // On desktop: show on homepage or non-service pages
+  const shouldShowBurger = isMobile || isHomePage || !isService
 
   return (
     <div style={{ width: '100%', borderBottom: '1px solid #333535' }}>
@@ -32,7 +33,8 @@ const Header: React.FC<PropsTypes> = ({ onOpenMobileMenu, isMobile }) => {
           display: 'flex',
           height: '94px',
           alignItems: 'center',
-          maxWidth: 'auto',
+          maxWidth: isMobile ? '100%' : 'auto',  // MOBILE FIX: Full width on mobile
+          padding: isMobile ? '0 16px' : '0 20px',  // MOBILE FIX: Adequate edge padding for burger menu
         }}
       >
         <div
@@ -40,10 +42,9 @@ const Header: React.FC<PropsTypes> = ({ onOpenMobileMenu, isMobile }) => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            width: '100%',  // FIX: Responsive width for mobile
-            maxWidth: '70.63rem',  // Limit width on desktop only
+            width: '100%',
+            maxWidth: isMobile ? 'none' : '70.63rem',  // MOBILE FIX: No max width on mobile
             margin: '0 auto',
-            padding: isMobile ? '0 1rem' : 0,  // Add padding on mobile to prevent edge cut-off
           }}
         >
           <Logo />

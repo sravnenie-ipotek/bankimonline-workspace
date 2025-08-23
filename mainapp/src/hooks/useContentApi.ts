@@ -161,6 +161,10 @@ export const useContentApi = (screenLocation: string) => {
       'calculate_mortgage_period_units_max': ['app.mortgage.form.calculate_mortgage_period_units_max'],
       'calculate_mortgage_initial_payment': ['app.mortgage.form.calculate_mortgage_initial_payment'],
       
+      // Video poster content mappings
+      'video_calculate_mortgage_title': ['app.mortgage.video.title', 'video_calculate_mortgage_title'],
+      'show_offers': ['app.mortgage.video.show_offers', 'show_offers'],
+      
       // Mortgage Step 2 content mappings
       'calculate_mortgage_step2_title': ['app.mortgage.step2.title'],
       'third_persons': ['app.mortgage.step2.privacy_notice'],
