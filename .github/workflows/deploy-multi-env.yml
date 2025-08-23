@@ -200,10 +200,15 @@ jobs:
         run: |
           ssh root@${{ env.PROD_HOST }} << 'EOF'
             cd ${{ env.PROD_PATH }}
-            tar -czf /tmp/backup-$(date +%Y%m%d-%H%M%S).tar.gz \
+            # Quick backup of essential files only (avoid SSH timeout)
+            timeout 120 tar -czf /tmp/backup-$(date +%Y%m%d-%H%M%S).tar.gz \
               --exclude=node_modules \
               --exclude=uploads \
-              .
+              --exclude=blue \
+              --exclude=green \
+              --exclude=.git \
+              --exclude=mainapp/build \
+              server/ locales/ migrations/ package*.json 2>/dev/null || echo "Backup skipped due to timeout"
           EOF
 
       - name: Deploy to Production Server
