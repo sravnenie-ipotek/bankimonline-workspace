@@ -1,6 +1,9 @@
 import React from 'react'
 import { Handles, Rail, Slider, Tracks } from 'react-compound-slider'
 
+// ORPHAN CSS FIX: Import critical slider styling (yellow theme, touch handling, accessibility)
+import './Ranger.css'
+
 // Эти компоненты можно создать или настроить в соответствии с вашими требованиями
 import Track from '@components/ui/Ranger/Track.tsx'
 

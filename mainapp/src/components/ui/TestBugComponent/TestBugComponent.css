@@ -1,0 +1,76 @@
+/**
+ * TEST BUG CSS - ORPHANED FILE
+ * This CSS file contains critical styling but is NOT imported by the component
+ * This simulates the mobile-button-fix.scss ULTRA BUG pattern
+ * Detection system should identify this as ULTRA RISK
+ */
+
+.test-bug-container {
+  width: 100%;
+  padding: 1rem;
+  background: #f0f0f0;
+}
+
+.test-critical-button {
+  /* CRITICAL STYLING - button positioning and appearance */
+  position: fixed !important;
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 9999 !important;
+  
+  background-color: #ff4444;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  
+  /* Mobile-specific fixes */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  
+  /* Visibility controls */
+  display: block !important;
+  visibility: visible !important;
+}
+
+.test-critical-button:hover {
+  background-color: #cc0000;
+  transform: scale(1.05);
+}
+
+.test-mobile-element {
+  /* MOBILE RESPONSIVE CRITICAL FEATURES */
+  display: block;
+  width: 100%;
+  
+  @media (max-width: 768px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 50px;
+    background: #fbe54d;
+    z-index: 1000;
+  }
+}
+
+/* Additional critical mobile fixes */
+@media (max-width: 480px) {
+  .test-critical-button {
+    bottom: 10px !important;
+    right: 10px !important;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  .test-mobile-element {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-weight: bold;
+  }
+}

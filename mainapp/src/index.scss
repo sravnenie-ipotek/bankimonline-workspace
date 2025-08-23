@@ -1,6 +1,7 @@
 @tailwind base;
 
-
+// ULTRA BUG FIX: Import mobile button fix to restore continue buttons on smartphones
+@import './styles/mobile-button-fix.scss';
 
 @tailwind components;
 @tailwind utilities;

@@ -9,6 +9,21 @@ mainapp/dist/
 # AUTOMATION DIRECTORY - COMPLETELY IGNORED (CAUSES CI/CD TIMEOUTS)
 automation/
 
+# LARGE TEST ARTIFACTS AND REPORTS (CAUSES CI/CD TIMEOUTS)
+qa-reports/
+production-package/
+youtrackPages/
+ultra-detailed-reports/
+e2e-reports/
+mainapp/detailed-test-reports/
+mainapp/build/static/*.mp4
+mainapp/build/static/*.webm
+mainapp/build/static/*.mov
+*.tar.gz
+*.pkg
+*-report.html
+*screenshots*.html
+
 # Test artifacts and reports  
 *-test-results*.md
 *-test-results*.json
@@ -59,9 +74,16 @@ mainapp/.env
 mainapp/.env.local
 
 # Database backups (contain sensitive data)
-backups/db/*.backup
-backups/db/*.sql
-backups/db/*.dump
+backups/
+*.sql
+*.backup
+*.dump
+comprehensive_content_search.json
+
+# Bug reports and media files
+bug-screenshots/
+*.ogg
+*.mp3
 
 # Keep backup documentation and scripts
 !backups/BACKUP_INFO.md
