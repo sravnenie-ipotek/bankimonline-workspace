@@ -140,9 +140,20 @@ jobs:
             pm2 stop bankim-$TARGET 2>/dev/null || true
             pm2 start server/server-db.js --name bankim-$TARGET
             
-            # Health check new deployment
-            sleep 5
-            curl -f http://localhost:8003/api/health || exit 1
+            # Wait longer for PM2 process to fully initialize
+            sleep 10
+            
+            # Health check new deployment with retries
+            for i in {1..5}; do
+              if curl -f http://localhost:8003/api/health; then
+                echo "Health check passed on attempt $i"
+                break
+              else
+                echo "Health check failed, attempt $i/5, retrying in 3 seconds..."
+                sleep 3
+                if [ $i -eq 5 ]; then exit 1; fi
+              fi
+            done
             
             # Switch symlink to new deployment
             ln -sfn ${{ env.TEST_PATH }}/$TARGET ${{ env.TEST_PATH }}/current
@@ -238,9 +249,20 @@ jobs:
             pm2 stop bankim-$TARGET 2>/dev/null || true
             pm2 start server/server-db.js --name bankim-$TARGET
             
-            # Health check new deployment
-            sleep 5
-            curl -f http://localhost:8003/api/health || exit 1
+            # Wait longer for PM2 process to fully initialize
+            sleep 10
+            
+            # Health check new deployment with retries
+            for i in {1..5}; do
+              if curl -f http://localhost:8003/api/health; then
+                echo "Health check passed on attempt $i"
+                break
+              else
+                echo "Health check failed, attempt $i/5, retrying in 3 seconds..."
+                sleep 3
+                if [ $i -eq 5 ]; then exit 1; fi
+              fi
+            done
             
             # Switch symlink to new deployment
             ln -sfn ${{ env.PROD_PATH }}/$TARGET ${{ env.PROD_PATH }}/current
