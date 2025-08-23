@@ -5,6 +5,15 @@ import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  define: {
+    // Prevent Vite from inlining BUILD_INFO values
+    '__BUILD_INFO__': JSON.stringify({
+      version: process.env.npm_package_version || '5.2.1',
+      buildTime: new Date().toISOString(),
+      buildNumber: process.env.GITHUB_RUN_NUMBER || 'local',
+      commit: process.env.GITHUB_SHA?.substring(0, 7) || 'local'
+    })
+  },
   resolve: {
     alias: {
       '@src': resolve(__dirname, './src'),
