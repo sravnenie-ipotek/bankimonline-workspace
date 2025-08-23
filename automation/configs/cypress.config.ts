@@ -100,7 +100,7 @@ export default defineConfig({
     viewportHeight: 1080,
     video: true,
     screenshotOnRunFailure: true,
-    screenshotsFolder: '../screenshots',
+    screenshotsFolder: 'tests/e2e/screenshots',
     trashAssetsBeforeRuns: false,
     chromeWebSecurity: false,
     defaultCommandTimeout: 10000,
@@ -709,10 +709,10 @@ export default defineConfig({
     ],
     
     // Test file patterns
-    specPattern: './tests/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
+    specPattern: 'tests/e2e/**/*.{cy,spec}.{js,ts,jsx,tsx}',
     
     // Support file
-    supportFile: './tests/e2e/support/e2e.ts',
+    supportFile: 'tests/e2e/support/e2e.ts',
     
     // Retry configuration for flaky tests
     retries: {
