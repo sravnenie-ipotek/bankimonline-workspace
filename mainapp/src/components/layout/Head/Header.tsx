@@ -40,9 +40,10 @@ const Header: React.FC<PropsTypes> = ({ onOpenMobileMenu, isMobile }) => {
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            width: '70.63rem',
+            width: '100%',  // FIX: Responsive width for mobile
+            maxWidth: '70.63rem',  // Limit width on desktop only
             margin: '0 auto',
-            padding: 0,
+            padding: isMobile ? '0 1rem' : 0,  // Add padding on mobile to prevent edge cut-off
           }}
         >
           <Logo />
