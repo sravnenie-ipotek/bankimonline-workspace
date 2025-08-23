@@ -278,13 +278,23 @@ const MainRoutes: React.FC = () => {
               {/*Рассчитать ипотеку*/}
               <Route path={'/services'}>
                 <Route index element={<ServicesOverview />} />
+                
+                {/* Calculate Mortgage - redirect to step 1 by default */}
+                <Route
+                  path="calculate-mortgage"
+                  element={<Navigate replace to="/services/calculate-mortgage/1" />}
+                />
                 <Route
                   path="calculate-mortgage/:stepNumber"
                   element={<CalculateMortgage />}
                 />
 
                 {/*Рефинансировать ипотеку*/}
-
+                
+                <Route
+                  path="refinance-mortgage"
+                  element={<Navigate replace to="/services/refinance-mortgage/1" />}
+                />
                 <Route
                   path="refinance-mortgage/:stepNumber"
                   element={<RefinanceMortgage />}
@@ -308,6 +318,10 @@ const MainRoutes: React.FC = () => {
                   element={<BorrowersPersonalData />}
                 />
 
+                <Route
+                  path="refinance-credit"
+                  element={<Navigate replace to="/services/refinance-credit/1" />}
+                />
                 <Route
                   path="refinance-credit/:stepNumber"
                   element={<RefinanceCredit />}
