@@ -62,6 +62,8 @@ jobs:
       - name: Build frontend
         run: |
           cd mainapp
+          # Clear Vite cache to ensure fresh build with updated version
+          rm -rf node_modules/.vite .vite dist 2>/dev/null || true
           npm run build
         env:
           CI: false
