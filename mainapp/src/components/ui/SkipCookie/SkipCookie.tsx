@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import { useTranslation } from 'react-i18next'
 
 import { Button } from '@components/ui/ButtonUI'
+import { useContentApi } from '@hooks/useContentApi'
 
 import styles from './skipCookie.module.scss'
 
@@ -17,6 +18,7 @@ type SkipCookieProps = {
 
 const SkipCookie: React.FC<SkipCookieProps> = ({ onAccept, onClose, onInfo }) => {
   const { t } = useTranslation()
+  const { getContent } = useContentApi('global_components')
   const [isCookieVisible, setCookieVisible] = useState(false)
 
   // при загрузке проверяет соглашен ли пользователь с куками
@@ -55,13 +57,15 @@ const SkipCookie: React.FC<SkipCookieProps> = ({ onAccept, onClose, onInfo }) =>
       <div className={cx('cookie')}>
         <img src="/static/cookie.svg" width="52" height="52" alt="" />
         <div className={cx('cookie-text')}>
-          <span>{t('cookie_message')}</span>
+          <span>
+            {getContent('shared_component_cookie_message', 'cookie_message')}
+          </span>
           <span 
             className={cx('cookie-learn-more')}
             onClick={onInfo}
             style={{ cursor: 'pointer', textDecoration: 'underline', color: '#F5D547' }}
           >
-            {t('cookie_learn_more')}
+            {getContent('shared_component_cookie_learn_more_link', 'cookie_learn_more')}
           </span>
         </div>
         <span className={cx('accept_btn')}>
@@ -71,7 +75,7 @@ const SkipCookie: React.FC<SkipCookieProps> = ({ onAccept, onClose, onInfo }) =>
             className={cx('cookie_accept')}
             onClick={handleCookie}
           >
-            {t('cookie_accept')}
+            {getContent('shared_component_cookie_accept_button', 'cookie_accept')}
           </Button>
         </span>
         <span>

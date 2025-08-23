@@ -115,6 +115,10 @@
   border-radius: 8px;
   padding: 8px;
   
+  /* CRITICAL FIX: Ensure hamburger menu is clickable */
+  pointer-events: auto !important;
+  z-index: 1001; /* Above other elements but below modals */
+  
   /* Mobile touch feedback */
   @media (hover: hover) {
     &:hover {
