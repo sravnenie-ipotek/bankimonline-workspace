@@ -1,6 +1,6 @@
 {
   "name": "bankimonline",
-  "version": "5.2.1",
+  "version": "5.3.0",
   "description": "React frontend application for Israeli banking services with multi-language support",
   "private": true,
   "module": "true",
