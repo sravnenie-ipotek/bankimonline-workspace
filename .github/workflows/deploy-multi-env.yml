@@ -20,8 +20,8 @@ on:
 env:
   TEST_HOST: 45.83.42.74
   PROD_HOST: 45.83.42.74
-  TEST_PATH: /var/www/bank-dev2
-  PROD_PATH: /var/www/bank-dev2
+  TEST_PATH: /var/www/bankim
+  PROD_PATH: /var/www/bankim
 
 jobs:
   build:
@@ -104,19 +104,47 @@ jobs:
           # Transfer deployment package
           scp deploy.tar.gz root@${{ env.TEST_HOST }}:/tmp/
           
-          # Deploy and restart
+          # Deploy using blue-green strategy
           ssh root@${{ env.TEST_HOST }} << 'EOF'
-            cd ${{ env.TEST_PATH }}
-            # Clear old build files to ensure fresh deployment
+            # Determine current active deployment (blue or green)
+            CURRENT=$(readlink ${{ env.TEST_PATH }}/current | xargs basename)
+            if [ "$CURRENT" = "blue" ]; then
+              TARGET="green"
+            else
+              TARGET="blue"
+            fi
+            
+            echo "🔄 Deploying to $TARGET (current: $CURRENT)"
+            
+            # Deploy to inactive folder
+            cd ${{ env.TEST_PATH }}/$TARGET
             rm -rf mainapp/build/*
             tar -xzf /tmp/deploy.tar.gz
             npm install --production
-            pm2 restart bankim-api || pm2 start server/server-db.js --name bankim-api
-            rm /tmp/deploy.tar.gz
             
-            # Health check
+            # Start new version in target folder
+            pm2 stop bankim-$TARGET 2>/dev/null || true
+            pm2 start server/server-db.js --name bankim-$TARGET
+            
+            # Health check new deployment
             sleep 5
             curl -f http://localhost:8003/api/health || exit 1
+            
+            # Switch symlink to new deployment
+            ln -sfn ${{ env.TEST_PATH }}/$TARGET ${{ env.TEST_PATH }}/current
+            
+            # Stop old version
+            pm2 stop bankim-$CURRENT 2>/dev/null || true
+            
+            # Reload nginx to pick up new files
+            nginx -s reload || systemctl reload nginx
+            
+            # Rename active process to standard name
+            pm2 delete bankim-api 2>/dev/null || true
+            pm2 restart bankim-$TARGET --name bankim-api
+            
+            rm /tmp/deploy.tar.gz
+            echo "✅ Deployed to $TARGET and switched successfully"
           EOF
 
       - name: Notify deployment
@@ -157,19 +185,47 @@ jobs:
           # Transfer deployment package
           scp deploy.tar.gz root@${{ env.PROD_HOST }}:/tmp/
           
-          # Deploy and restart
+          # Deploy using blue-green strategy
           ssh root@${{ env.PROD_HOST }} << 'EOF'
-            cd ${{ env.PROD_PATH }}
-            # Clear old build files to ensure fresh deployment
+            # Determine current active deployment (blue or green)
+            CURRENT=$(readlink ${{ env.PROD_PATH }}/current | xargs basename)
+            if [ "$CURRENT" = "blue" ]; then
+              TARGET="green"
+            else
+              TARGET="blue"
+            fi
+            
+            echo "🔄 Deploying to $TARGET (current: $CURRENT)"
+            
+            # Deploy to inactive folder
+            cd ${{ env.PROD_PATH }}/$TARGET
             rm -rf mainapp/build/*
             tar -xzf /tmp/deploy.tar.gz
             npm install --production
-            pm2 restart bankim-api || pm2 start server/server-db.js --name bankim-api
-            rm /tmp/deploy.tar.gz
             
-            # Health check
+            # Start new version in target folder
+            pm2 stop bankim-$TARGET 2>/dev/null || true
+            pm2 start server/server-db.js --name bankim-$TARGET
+            
+            # Health check new deployment
             sleep 5
             curl -f http://localhost:8003/api/health || exit 1
+            
+            # Switch symlink to new deployment
+            ln -sfn ${{ env.PROD_PATH }}/$TARGET ${{ env.PROD_PATH }}/current
+            
+            # Stop old version
+            pm2 stop bankim-$CURRENT 2>/dev/null || true
+            
+            # Reload nginx to pick up new files
+            nginx -s reload || systemctl reload nginx
+            
+            # Rename active process to standard name
+            pm2 delete bankim-api 2>/dev/null || true
+            pm2 restart bankim-$TARGET --name bankim-api
+            
+            rm /tmp/deploy.tar.gz
+            echo "✅ Deployed to $TARGET and switched successfully"
           EOF
 
       - name: Validate production
