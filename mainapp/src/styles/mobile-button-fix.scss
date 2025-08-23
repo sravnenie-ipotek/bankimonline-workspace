@@ -2,6 +2,30 @@
 // Fixes the issue where submit buttons appear outside viewport on mobile devices
 
 @media (max-width: 768px) {
+  
+  // CRITICAL EXCLUSIONS: Never apply mobile button fix to these elements
+  .burger,
+  [class*="burger"],
+  header button,
+  nav button,
+  [class*="header"] button,
+  [class*="navigation"] button,
+  [class*="menu"] button,
+  button[class*="menu"],
+  .video-buttons button,
+  [class*="video"] button,
+  [class*="video-wrapper"] button,
+  [class*="video-buttons"] button,
+  [class*="VideoPoster"] button,
+  [class*="videoPoster"] button {
+    position: static !important;
+    width: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    z-index: auto !important;
+  }
+
   // Fix for form containers to ensure buttons stay in viewport
   .form-container,
   form {
@@ -10,23 +34,35 @@
   }
 
   // ULTRA AGGRESSIVE: Make submit buttons sticky at bottom on mobile
-  // Using high specificity to override CSS modules
-  button[type="submit"],
-  input[type="submit"],
-  .submit-button,
-  .continue-button,
-  button.yellow-button,
-  button[class*="submit"],
-  button[class*="continue"],
-  button[class*="primary"],
-  .btn-primary,
-  .button-primary,
-  .primary-button,
-  [data-testid*="submit"],
-  [data-testid*="continue"],
-  [data-testid*="next"],
-  form button:last-child,
-  form button[type="button"]:last-child {
+  // BUT ONLY TARGET FORM BUTTONS IN MAIN CONTENT AREAS - EXCLUDE EVERYTHING ELSE
+  
+  // Target only buttons inside forms, main content areas, and specific UI components
+  main form button[type="submit"],
+  section form button[type="submit"], 
+  .form-container button[type="submit"],
+  .mortgage-form button[type="submit"],
+  .credit-form button[type="submit"],
+  .calculate-form button[type="submit"],
+  [class*="form"] button[type="submit"],
+  [class*="step"] button[type="submit"],
+  [class*="calculator"] button[type="submit"],
+  
+  // Form button containers
+  .form-container .submit-button,
+  .form-container .continue-button,
+  [class*="form"] .continue-button,
+  [class*="step"] .continue-button,
+  
+  // Only buttons with explicit continue/submit data attributes inside forms
+  form [data-testid*="submit"],
+  form [data-testid*="continue"],
+  form [data-testid*="next"],
+  
+  // Form buttons that are last children ONLY
+  main form button:last-child,
+  section form button:last-child,
+  .form-container button:last-child,
+  [class*="form-content"] button:last-child {
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;
@@ -56,8 +92,9 @@
     
     // Make sure button text is visible
     color: white !important;
-    background-color: #f39c12 !important; // Visible color
-    border: none !important;
+    // DISABLED: Orange background was causing full-screen overlay issue
+    // background-color: #f39c12 !important; // Visible color
+    // border: none !important;
     
     // Ensure button content is visible
     span, div, * {
@@ -67,12 +104,13 @@
     }
   }
   
-  // CSS Module override - ultra high specificity
-  [class*="continue"] button,
-  [class*="submit"] button,
-  [class*="primary"] button,
-  div[class*="button"] button,
-  form div[class*="button"] button {
+  // CSS Module override - ONLY for form content areas
+  main [class*="form"] button,
+  section [class*="form"] button,
+  .form-container [class*="continue"] button,
+  .form-container [class*="submit"] button,
+  [class*="step-content"] [class*="button"] button,
+  [class*="calculator"] [class*="button"] button {
     position: fixed !important;
     bottom: 0 !important;
     left: 0 !important;

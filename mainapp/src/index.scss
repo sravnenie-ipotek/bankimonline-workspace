@@ -1,7 +1,7 @@
 @tailwind base;
 
-// ULTRA BUG FIX: Import mobile button fix to restore continue buttons on smartphones
-@import './styles/mobile-button-fix.scss';
+// DISABLED: Mobile button fix was causing orange overlay and positioning issues
+// @import './styles/mobile-button-fix-safe.scss';
 
 @tailwind components;
 @tailwind utilities;
