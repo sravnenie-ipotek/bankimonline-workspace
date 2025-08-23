@@ -6,6 +6,9 @@ node_modules
 mainapp/build/
 mainapp/dist/
 
+# AUTOMATION DIRECTORY - COMPLETELY IGNORED (CAUSES CI/CD TIMEOUTS)
+automation/
+
 # Test artifacts and reports  
 *-test-results*.md
 *-test-results*.json
