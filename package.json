@@ -1,6 +1,6 @@
 {
   "name": "bankimonline-standalone",
-  "version": "5.0.0",
+  "version": "5.2.1",
   "description": "Standalone banking application with React frontend and Node.js backend for Israeli financial services",
   "private": true,
   "engines": {
