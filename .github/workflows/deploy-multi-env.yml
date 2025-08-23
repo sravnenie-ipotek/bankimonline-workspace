@@ -44,8 +44,8 @@ jobs:
       - name: Auto-increment version
         id: version
         run: |
-          node scripts/auto-version.js auto
-          echo "VERSION=$(node -p "require('./mainapp/package.json').version")" >> $GITHUB_ENV
+          node scripts/simple-version.js
+          echo "VERSION=$(cat scripts/simple-version.txt)" >> $GITHUB_ENV
           
       - name: Build frontend
         run: |
@@ -60,7 +60,7 @@ jobs:
       - name: Create deployment package
         run: |
           # Create list of files to include
-          FILES_TO_PACKAGE="server mainapp/build locales migrations package*.json"
+          FILES_TO_PACKAGE="server mainapp/build locales migrations scripts/simple-version.txt package*.json"
           
           # Add ecosystem config if it exists
           if [ -f ecosystem.config.js ]; then

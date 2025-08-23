@@ -4,9 +4,9 @@
  */
 
 export const BUILD_INFO = {
-  version: '5.3.1',
-  buildTime: '23/08/2025 17:02',
+  version: '0.6',
+  buildTime: '17:26 23.08.2025',
   environment: import.meta.env.MODE || 'production',
-  buildNumber: '604',
-  commit: '89425852'
+  buildNumber: '605',
+  commit: 'b95a868e'
 };

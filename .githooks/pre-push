@@ -5,10 +5,10 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 if [ "$BRANCH" = "production" ]; then
   echo "🚀 Auto-incrementing version for production deployment..."
-  node scripts/auto-version.js auto
+  node scripts/simple-version.js
   
   # Stage the updated files
-  git add mainapp/package.json mainapp/src/config/buildInfo.ts
+  git add scripts/simple-version.txt mainapp/src/config/buildInfo.ts
   
   # Amend the last commit with version update
   git commit --amend --no-edit
