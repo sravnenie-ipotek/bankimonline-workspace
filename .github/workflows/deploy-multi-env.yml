@@ -47,6 +47,17 @@ jobs:
           node scripts/simple-version.js
           echo "VERSION=$(cat scripts/simple-version.txt)" >> $GITHUB_ENV
           
+      - name: Pre-deployment validation
+        run: |
+          chmod +x .github/scripts/pre-deployment-checks.sh
+          .github/scripts/pre-deployment-checks.sh
+          
+      - name: Generate deployment manifest
+        run: |
+          chmod +x .github/scripts/deployment-manifest.js
+          node .github/scripts/deployment-manifest.js
+          echo "VERSION=$(cat scripts/simple-version.txt)" >> $GITHUB_ENV
+          
       - name: Build frontend
         run: |
           cd mainapp
@@ -149,6 +160,17 @@ jobs:
 
       - name: Notify deployment
         run: echo "✅ Deployed to TEST environment - https://dev2.bankimonline.com"
+        
+      - name: Verify deployment
+        run: |
+          chmod +x .github/scripts/verify-deployment.sh
+          .github/scripts/verify-deployment.sh dev2.bankimonline.com ${{ env.VERSION }}
+          
+      - name: Rollback on verification failure
+        if: failure()
+        run: |
+          chmod +x .github/scripts/rollback-deployment.sh
+          .github/scripts/rollback-deployment.sh ${{ env.TEST_HOST }} "Verification failed"
 
   deploy-production:
     needs: build
