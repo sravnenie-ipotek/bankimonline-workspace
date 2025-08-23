@@ -107,6 +107,8 @@ jobs:
           # Deploy and restart
           ssh root@${{ env.TEST_HOST }} << 'EOF'
             cd ${{ env.TEST_PATH }}
+            # Clear old build files to ensure fresh deployment
+            rm -rf mainapp/build/*
             tar -xzf /tmp/deploy.tar.gz
             npm install --production
             pm2 restart bankim-api || pm2 start server/server-db.js --name bankim-api
@@ -158,6 +160,8 @@ jobs:
           # Deploy and restart
           ssh root@${{ env.PROD_HOST }} << 'EOF'
             cd ${{ env.PROD_PATH }}
+            # Clear old build files to ensure fresh deployment
+            rm -rf mainapp/build/*
             tar -xzf /tmp/deploy.tar.gz
             npm install --production
             pm2 restart bankim-api || pm2 start server/server-db.js --name bankim-api
