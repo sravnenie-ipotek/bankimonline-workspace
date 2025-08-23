@@ -57,7 +57,7 @@ jobs:
       #   run: |
       #     chmod +x .github/scripts/deployment-manifest.js
       #     node .github/scripts/deployment-manifest.js
-          echo "VERSION=$(cat scripts/simple-version.txt)" >> $GITHUB_ENV
+      #     echo "VERSION=$(cat scripts/simple-version.txt)" >> $GITHUB_ENV
           
       - name: Build frontend
         run: |
