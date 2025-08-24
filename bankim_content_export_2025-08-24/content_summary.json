@@ -1,0 +1,30 @@
+{
+  "export_date": "2025-08-24T05:25:37.993Z",
+  "database_info": {
+    "content_database": "Configured",
+    "total_content_items": 2825,
+    "total_translations": 6722,
+    "unique_screens": 113,
+    "unique_component_types": 55
+  },
+  "language_coverage": {
+    "english": 2266,
+    "hebrew": 2266,
+    "russian": 2190
+  },
+  "files_exported": [
+    "component_types.csv",
+    "content_by_process.json",
+    "content_by_screen.json",
+    "content_translations.csv",
+    "screen_locations.csv",
+    "translation_status.csv"
+  ],
+  "recommendations": [
+    "Review content_translations.csv for complete translation coverage",
+    "Check content_by_screen.json for screen-specific content",
+    "Analyze content_by_process.json for process-specific content",
+    "Review translation_status.csv for missing translations",
+    "Verify screen_locations.csv for application flow coverage"
+  ]
+}

@@ -1,0 +1,45 @@
+table_name,column_name,data_type,is_nullable,column_default
+"banks","id","integer","NO","nextval('banks_id_seq'::regclass)"
+"banks","url","character varying","YES",
+"banks","logo","character varying","YES",
+"banks","tender","integer","YES","1"
+"banks","priority","integer","YES","1"
+"banks","created_at","timestamp without time zone","YES","CURRENT_TIMESTAMP"
+"banks","updated_at","timestamp without time zone","YES","CURRENT_TIMESTAMP"
+"banks","display_order","integer","YES","0"
+"banks","is_active","boolean","YES","true"
+"banks","show_in_fallback","boolean","YES","true"
+"banks","fallback_priority","integer","YES","1"
+"banks","fallback_interest_rate","numeric","YES","5.0"
+"banks","fallback_approval_rate","numeric","YES","80.0"
+"banks","key","character varying","YES",
+"banks","name_en","character varying","YES",
+"banks","name_he","character varying","YES",
+"banks","name_ru","character varying","YES",
+"clients","id","integer","NO","nextval('clients_id_seq'::regclass)"
+"clients","first_name","character varying","YES",
+"clients","last_name","character varying","YES",
+"clients","email","character varying","YES",
+"clients","phone","character varying","YES",
+"clients","created_at","timestamp without time zone","YES","CURRENT_TIMESTAMP"
+"clients","updated_at","timestamp without time zone","YES","CURRENT_TIMESTAMP"
+"clients","role","character varying","YES","'customer'::character varying"
+"clients","is_staff","boolean","YES","false"
+"clients","last_login","timestamp without time zone","YES",
+"clients","password_hash","character varying","YES",
+"loan_calculations","id","integer","NO","nextval('loan_calculations_id_seq'::regclass)"
+"loan_calculations","client_id","integer","YES",
+"loan_calculations","application_id","integer","YES",
+"loan_calculations","calculation_type","character varying","NO",
+"loan_calculations","input_data","jsonb","NO",
+"loan_calculations","calculation_result","jsonb","NO",
+"loan_calculations","calculated_at","timestamp without time zone","YES","now()"
+"loan_calculations","calculated_by","integer","YES",
+"users","id","integer","NO","nextval('users_id_seq'::regclass)"
+"users","name","character varying","YES",
+"users","email","character varying","YES",
+"users","password","character varying","YES",
+"users","role","character varying","YES",
+"users","photo","character varying","YES",
+"users","created_at","timestamp without time zone","YES","CURRENT_TIMESTAMP"
+"users","updated_at","timestamp without time zone","YES","CURRENT_TIMESTAMP"
