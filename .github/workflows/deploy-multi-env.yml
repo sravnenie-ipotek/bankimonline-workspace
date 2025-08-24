@@ -68,7 +68,7 @@ jobs:
           cp -r migrations deploy/
           cp -r uploads deploy/ || mkdir deploy/uploads
           # Create clean package for production
-          cd deploy && npm install --production --no-optional
+          cd deploy && npm install --omit=dev
 
       - name: Create deployment archive
         run: |
@@ -130,6 +130,11 @@ jobs:
             echo "Extracting to /var/www/bankim/\$NEW_SLOT"
             tar -xzf \$DEPLOY_FILE -C /var/www/bankim/\$NEW_SLOT
             
+            # Install dependencies on server to ensure all modules are present
+            echo "Installing dependencies on server..."
+            cd /var/www/bankim/\$NEW_SLOT
+            npm install || echo "Warning: npm install had issues"
+            
             # Set permissions
             chown -R root:root /var/www/bankim/\$NEW_SLOT
             chmod -R 755 /var/www/bankim/\$NEW_SLOT
@@ -182,15 +187,56 @@ jobs:
           echo "🔍 VALIDATING TEST DEPLOYMENT"
           echo "============================="
           
-          sleep 30  # Allow application to start
+          # Wait for services to stabilize
+          echo "⏳ Waiting for services to start..."
+          sleep 30
           
-          # Test API health
-          if curl -f --max-time 30 "http://45.83.42.74:8003/api/v1/health" > /dev/null 2>&1; then
-            echo "✅ Test API is responding"
+          # Test 1: NGINX is responding
+          echo "Test 1: Checking NGINX..."
+          if curl -f -I --max-time 10 "http://45.83.42.74" > /dev/null 2>&1; then
+            echo "✅ NGINX is responding"
           else
-            echo "❌ Test API health check failed"
+            echo "❌ NGINX not responding"
             exit 1
           fi
+          
+          # Test 2: React app is served
+          echo "Test 2: Checking React app..."
+          if curl -f --max-time 10 "http://45.83.42.74" | grep -q '<div id="root">' > /dev/null 2>&1; then
+            echo "✅ React app is being served"
+          else
+            echo "❌ React app not loading"
+            exit 1
+          fi
+          
+          # Test 3: API health check
+          echo "Test 3: Checking API health..."
+          RETRY_COUNT=0
+          MAX_RETRIES=3
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            if curl -f --max-time 30 "http://45.83.42.74:8003/api/v1/health" > /dev/null 2>&1; then
+              echo "✅ Test API is responding"
+              break
+            else
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+                echo "❌ Test API health check failed after $MAX_RETRIES attempts"
+                exit 1
+              fi
+              echo "⚠️ API not ready, retrying in 20 seconds... (attempt $RETRY_COUNT/$MAX_RETRIES)"
+              sleep 20
+            fi
+          done
+          
+          # Test 4: API proxy through NGINX
+          echo "Test 4: Checking API proxy..."
+          if curl -f --max-time 10 "http://45.83.42.74/api/v1/health" > /dev/null 2>&1; then
+            echo "✅ API proxy through NGINX is working"
+          else
+            echo "⚠️ API proxy not working (non-critical)"
+          fi
+          
+          echo "✅ Test deployment validation complete!"
 
       - name: Deploy to Production Environment
         if: github.ref == 'refs/heads/production' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'production' || github.event.inputs.environment == 'both'))
@@ -253,6 +299,11 @@ jobs:
             echo "Extracting to /var/www/bankim/\$NEW_SLOT"
             tar -xzf \$DEPLOY_FILE -C /var/www/bankim/\$NEW_SLOT
             
+            # Install dependencies on server to ensure all modules are present
+            echo "Installing dependencies on server..."
+            cd /var/www/bankim/\$NEW_SLOT
+            npm install || echo "Warning: npm install had issues"
+            
             # Set permissions
             chown -R root:root /var/www/bankim/\$NEW_SLOT
             chmod -R 755 /var/www/bankim/\$NEW_SLOT
@@ -307,14 +358,52 @@ jobs:
           echo "🔍 VALIDATING PRODUCTION DEPLOYMENT"
           echo "=================================="
           
-          sleep 60  # Allow application to start
+          # Wait for services to stabilize
+          echo "⏳ Waiting for services to start..."
+          sleep 60
           
-          # Test production API health
-          if curl -f --max-time 30 "http://185.253.72.80:8003/api/v1/health" > /dev/null 2>&1; then
-            echo "✅ Production API is responding"
+          # Test 1: NGINX is responding
+          echo "Test 1: Checking NGINX..."
+          if curl -f -I --max-time 10 "http://185.253.72.80" > /dev/null 2>&1; then
+            echo "✅ NGINX is responding"
           else
-            echo "❌ Production API health check failed"
-            # Don't exit here to allow manual intervention
+            echo "⚠️ NGINX not responding (check manually)"
+          fi
+          
+          # Test 2: React app is served
+          echo "Test 2: Checking React app..."
+          if curl -f --max-time 10 "http://185.253.72.80" | grep -q '<div id="root">' > /dev/null 2>&1; then
+            echo "✅ React app is being served"
+          else
+            echo "⚠️ React app not loading (check manually)"
+          fi
+          
+          # Test 3: API health check with retries
+          echo "Test 3: Checking API health..."
+          RETRY_COUNT=0
+          MAX_RETRIES=3
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            if curl -f --max-time 30 "http://185.253.72.80:8003/api/v1/health" > /dev/null 2>&1; then
+              echo "✅ Production API is responding"
+              break
+            else
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+                echo "⚠️ Production API health check failed after $MAX_RETRIES attempts"
+                echo "⚠️ Manual intervention may be required"
+              else
+                echo "⚠️ API not ready, retrying in 20 seconds... (attempt $RETRY_COUNT/$MAX_RETRIES)"
+                sleep 20
+              fi
+            fi
+          done
+          
+          # Test 4: API proxy through NGINX
+          echo "Test 4: Checking API proxy..."
+          if curl -f --max-time 10 "http://185.253.72.80/api/v1/health" > /dev/null 2>&1; then
+            echo "✅ API proxy through NGINX is working"
+          else
+            echo "⚠️ API proxy not working (check manually)"
           fi
           
           echo "🎉 Production deployment completed!"

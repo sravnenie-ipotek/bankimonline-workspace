@@ -25,6 +25,7 @@
   "scripts": {
     "start": "node server/server-db.js",
     "dev": "node server/start-dev.js",
+    "build": "cd mainapp && npm run build",
     "pm2:dev": "npx pm2 start ecosystem.dev.config.js",
     "pm2:stop": "npx pm2 delete ecosystem.dev.config.js",
     "pm2:restart": "npx pm2 restart ecosystem.dev.config.js",
