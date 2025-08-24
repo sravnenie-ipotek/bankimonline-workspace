@@ -1,0 +1,160 @@
+/**
+ * EMERGENCY FIX: Remove all ugly borders from buttons and dropdowns
+ * This file specifically targets the white/gray borders appearing on the mortgage calculator
+ */
+
+// Remove ALL borders from buttons in the mortgage calculator
+.modalBase,
+[class*="modalBase"],
+[class*="modal_base"],
+[class*="modal-base"] {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+// Target the specific dropdown buttons with borders
+button[class*="button_modalBase"],
+button[class*="modalBase"],
+button.modalBase {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+// Remove borders from all buttons in service pages
+[class*="services"] {
+  button {
+    border: none !important;
+    
+    &:hover,
+    &:focus,
+    &:active {
+      border: none !important;
+    }
+  }
+  
+  // Remove borders from dropdown containers
+  [class*="dropdown"],
+  [class*="select"] {
+    button {
+      border: none !important;
+      outline: none !important;
+    }
+  }
+}
+
+// Target mortgage calculator specifically
+[class*="calculate-mortgage"],
+[class*="calculateMortgage"],
+[class*="CalculateMortgage"] {
+  button {
+    border: none !important;
+    outline: none !important;
+    
+    &:hover,
+    &:focus,
+    &:active {
+      border: none !important;
+      outline: none !important;
+    }
+  }
+  
+  // Remove borders from dropdown buttons
+  [class*="dropdown"] button,
+  [class*="select"] button {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+// Global button border removal (aggressive)
+button {
+  &[class*="modal"] {
+    border: none !important;
+  }
+  
+  &[class*="dropdown"] {
+    border: none !important;
+  }
+  
+  &[class*="select"] {
+    border: none !important;
+  }
+}
+
+// Remove white borders specifically
+button {
+  &[style*="border"] {
+    border: none !important;
+  }
+}
+
+// Remove borders from form controls that look like buttons
+.form-control,
+.form-select,
+[class*="form-control"],
+[class*="form-select"] {
+  &[class*="modal"] {
+    border: none !important;
+  }
+}
+
+// Target the specific elements visible in the screenshot
+// City selector (אילת)
+// Period selector (מעל 12 חודשים)
+[class*="city"],
+[class*="period"],
+[class*="duration"],
+[class*="location"] {
+  button {
+    border: none !important;
+    outline: none !important;
+  }
+}
+
+// Nuclear option for all button-like elements
+button,
+[role="button"],
+[type="button"],
+.btn,
+.button {
+  // Only remove thick borders, keep subtle ones
+  &[class*="modal"],
+  &[class*="dropdown"],
+  &[class*="select"] {
+    border: none !important;
+    
+    &::before,
+    &::after {
+      border: none !important;
+    }
+  }
+}
+
+// Ensure focus styles are still visible (accessibility)
+button:focus-visible {
+  outline: 2px solid #0066cc !important;
+  outline-offset: 2px !important;
+  border: none !important; // Still no border, just outline
+}
+
+// Remove any remaining 2px borders
+* {
+  &[style*="border: 2px"],
+  &[style*="border:2px"] {
+    border: none !important;
+  }
+}
+
+// Target Hebrew UI specifically (RTL mode)
+[dir="rtl"] {
+  button {
+    &[class*="modal"],
+    &[class*="dropdown"],
+    &[class*="select"] {
+      border: none !important;
+    }
+  }
+}

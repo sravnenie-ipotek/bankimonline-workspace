@@ -1,5 +1,8 @@
 @tailwind base;
 
+// CRITICAL: Remove ugly borders from buttons and dropdowns
+@import './styles/remove-ugly-borders.scss';
+
 // DISABLED: Mobile button fix was causing orange overlay and positioning issues
 // @import './styles/mobile-button-fix-safe.scss';
 
