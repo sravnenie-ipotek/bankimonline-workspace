@@ -1,0 +1,21 @@
+{
+  "export_date": "2025-08-24T05:24:38.427Z",
+  "database_connections": {
+    "content_database": "Configured",
+    "main_database": "Configured",
+    "management_database": "Configured"
+  },
+  "files_exported": [
+    "database_permissions.csv",
+    "integration_apis.csv",
+    "system_settings.csv",
+    "user_roles.csv"
+  ],
+  "recommendations": [
+    "Review content_translations.csv for complete translation coverage",
+    "Verify banking_standards.csv for current business rules",
+    "Check user_roles.csv for permission matrix",
+    "Analyze application_statuses.csv for workflow optimization",
+    "Review banks.csv for partner institution data"
+  ]
+}
