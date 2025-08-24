@@ -140,7 +140,7 @@ jobs:
             # Restart application
             cd /var/www/bankim/current
             pm2 delete bankim-api 2>/dev/null || echo "Process not running"
-            pm2 start ecosystem.config.js --env production
+            pm2 start ecosystem.config.js --env test
             pm2 save
             
             echo "✅ Test deployment complete!"
