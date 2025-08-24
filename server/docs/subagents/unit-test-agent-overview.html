@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Unit Testing Agent - Banking Application Specialist</title>
+    <style>
+        :root {
+            --teal-primary: #008B8B;
+            --teal-light: #20B2AA;
+            --teal-dark: #006666;
+            --bg-dark: #1a1a1a;
+            --bg-card: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --accent: #00CED1;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --error: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #2a2a2a 100%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-light) 100%);
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .agent-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid var(--teal-primary);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 139, 139, 0.3);
+            border-color: var(--teal-light);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--teal-light);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .section {
+            margin: 3rem 0;
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 16px;
+            border-left: 4px solid var(--teal-primary);
+        }
+
+        .section h2 {
+            color: var(--teal-light);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .priority-list {
+            display: grid;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .priority-item {
+            background: var(--bg-dark);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--teal-primary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .priority-item:hover {
+            border-left-color: var(--teal-light);
+            transform: translateX(5px);
+        }
+
+        .priority-number {
+            display: inline-block;
+            background: var(--teal-primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+        }
+
+        .testing-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #333 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--teal-primary);
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            border-color: var(--teal-light);
+            box-shadow: 0 5px 15px rgba(0, 139, 139, 0.2);
+        }
+
+        .category-title {
+            color: var(--teal-light);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-features {
+            list-style: none;
+        }
+
+        .category-features li {
+            padding: 0.3rem 0;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .category-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .code-example {
+            background: #1e1e1e;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 3px solid var(--teal-primary);
+            overflow-x: auto;
+        }
+
+        .code-example pre {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85rem;
+            color: #d4d4d4;
+            margin: 0;
+        }
+
+        .code-title {
+            color: var(--teal-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .interactive-demo {
+            background: var(--bg-dark);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border: 2px solid var(--teal-primary);
+        }
+
+        .demo-input {
+            background: var(--bg-card);
+            border: 1px solid var(--teal-primary);
+            color: var(--text-primary);
+            padding: 0.75rem;
+            border-radius: 6px;
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+
+        .demo-button {
+            background: linear-gradient(135deg, var(--teal-primary) 0%, var(--teal-light) 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 139, 139, 0.4);
+        }
+
+        .demo-result {
+            background: var(--bg-card);
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+            border-left: 3px solid var(--success);
+            display: none;
+        }
+
+        .coverage-meter {
+            background: var(--bg-dark);
+            height: 20px;
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .coverage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--teal-primary) 0%, var(--success) 100%);
+            transition: width 2s ease;
+            border-radius: 10px;
+        }
+
+        .coverage-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            background: var(--bg-card);
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-item:hover {
+            background: var(--teal-dark);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            background: var(--bg-dark);
+            border-radius: 8px;
+            padding: 0.5rem;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: var(--teal-primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .checklist {
+            background: var(--bg-dark);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item:hover {
+            color: var(--teal-light);
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--teal-primary);
+            border-radius: 3px;
+            margin-right: 0.75rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox.checked {
+            background: var(--teal-primary);
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--bg-card);
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--teal-primary), var(--teal-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .critical-badge {
+            background: var(--error);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧪 Unit Testing Agent</h1>
+        <p>Banking Application Testing Specialist - Teal Edition</p>
+    </div>
+
+    <div class="container">
+        <!-- Agent Statistics -->
+        <div class="agent-stats">
+            <div class="stat-card" onclick="showDetail('coverage')">
+                <span class="stat-number">95%</span>
+                <div class="stat-label">Minimum Coverage for Financial Modules</div>
+            </div>
+            <div class="stat-card" onclick="showDetail('precision')">
+                <span class="stat-number">3+</span>
+                <div class="stat-label">Decimal Places Precision Testing</div>
+            </div>
+            <div class="stat-card" onclick="showDetail('frameworks')">
+                <span class="stat-number">6</span>
+                <div class="stat-label">Primary Testing Frameworks</div>
+            </div>
+            <div class="stat-card" onclick="showDetail('categories')">
+                <span class="stat-number">4</span>
+                <div class="stat-label">Major Testing Categories</div>
+            </div>
+        </div>
+
+        <!-- Mission Statement -->
+        <div class="section">
+            <h2>🎯 Primary Mission</h2>
+            <p>Create <span class="highlight">bulletproof, comprehensive test suites</span> for your banking application using modern JavaScript/TypeScript testing practices. Specializing in <span class="highlight">mathematical precision</span> and <span class="highlight">financial calculation accuracy</span> with zero tolerance for calculation errors.</p>
+            
+            <div class="priority-list">
+                <div class="priority-item">
+                    <span class="priority-number">1</span>
+                    <strong>Mathematical Precision</strong> → Coverage % → Test Performance → Code Elegance
+                </div>
+                <div class="priority-item">
+                    <span class="priority-number">2</span>
+                    <strong>Calculation Accuracy</strong> → Component Functionality → API Reliability → Documentation
+                </div>
+                <div class="priority-item">
+                    <span class="priority-number">3</span>
+                    <strong>Business Logic Validation</strong> → Edge Case Coverage → Error Handling → Maintainability
+                </div>
+                <div class="priority-item">
+                    <span class="priority-number">4</span>
+                    <strong>Financial Precision</strong> → User Experience → Developer Experience → Speed
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Demo -->
+        <div class="section">
+            <h2>🔧 Interactive Calculation Testing Demo</h2>
+            <div class="interactive-demo">
+                <h3>Mortgage Calculation Test Generator</h3>
+                <p>See how the agent would test your banking calculations:</p>
+                
+                <label>Property Value (₪):</label>
+                <input type="number" class="demo-input" id="propertyValue" value="1000000" placeholder="Enter property value">
+                
+                <label>Property Ownership Status:</label>
+                <select class="demo-input" id="propertyOwnership">
+                    <option value="no_property">I don't own any property (75% LTV)</option>
+                    <option value="has_property">I own a property (50% LTV)</option>
+                    <option value="selling_property">I'm selling a property (70% LTV)</option>
+                </select>
+                
+                <button class="demo-button" onclick="generateTest()">🧪 Generate Test Cases</button>
+                
+                <div class="demo-result" id="testResult">
+                    <div class="code-title">Generated Test Suite:</div>
+                    <div class="code-example">
+                        <pre id="generatedCode"></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testing Categories -->
+        <div class="section">
+            <h2>📋 Comprehensive Testing Categories</h2>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('financial')">💰 Financial Calculations</button>
+                <button class="tab" onclick="switchTab('react')">⚛️ React Components</button>
+                <button class="tab" onclick="switchTab('api')">🔗 API Endpoints</button>
+                <button class="tab" onclick="switchTab('integration')">🔄 Integration Tests</button>
+            </div>
+
+            <div class="tab-content active" id="financial">
+                <div class="testing-categories">
+                    <div class="category-card">
+                        <div class="category-title">🧮 Mathematical Precision <span class="critical-badge">CRITICAL</span></div>
+                        <div class="category-description">Zero tolerance for calculation errors in financial modules</div>
+                        <ul class="category-features">
+                            <li>Property ownership LTV rules (75%/50%/70%)</li>
+                            <li>Interest rate calculations with compound precision</li>
+                            <li>Currency rounding to exact 2 decimal places</li>
+                            <li>Tax calculations with multi-rate scenarios</li>
+                            <li>Monthly payment calculations with amortization</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-title">⚠️ Edge Case Testing</div>
+                        <div class="category-description">Comprehensive boundary value and error scenario testing</div>
+                        <ul class="category-features">
+                            <li>Zero, negative, and infinity value handling</li>
+                            <li>Division by zero graceful handling</li>
+                            <li>Number overflow and underflow scenarios</li>
+                            <li>Invalid input type validation (null, undefined, strings)</li>
+                            <li>Extreme value testing (max safe integers)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-title">📊 Property-Based Testing</div>
+                        <div class="category-description">Advanced testing for complex mathematical functions</div>
+                        <ul class="category-features">
+                            <li>Fast-check integration for mathematical properties</li>
+                            <li>Interest calculation invariant testing</li>
+                            <li>Loan amount boundary validation</li>
+                            <li>Rate calculation consistency checks</li>
+                            <li>Cross-browser number handling validation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="react">
+                <div class="testing-categories">
+                    <div class="category-card">
+                        <div class="category-title">🎨 Component Testing</div>
+                        <div class="category-description">Comprehensive React component validation</div>
+                        <ul class="category-features">
+                            <li>Multi-step form validation (Formik integration)</li>
+                            <li>Hebrew RTL rendering with proper fonts</li>
+                            <li>Dynamic dropdown population from API</li>
+                            <li>State persistence across form steps</li>
+                            <li>Error boundary and loading state testing</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-title">♿ Accessibility Testing</div>
+                        <div class="category-description">WCAG compliance and screen reader support</div>
+                        <ul class="category-features">
+                            <li>jest-axe integration for a11y violations</li>
+                            <li>Keyboard navigation testing</li>
+                            <li>ARIA labels and roles validation</li>
+                            <li>Focus management in modal dialogs</li>
+                            <li>Color contrast validation where applicable</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-title">🔄 State Management</div>
+                        <div class="category-description">Redux and local state testing patterns</div>
+                        <ul class="category-features">
+                            <li>Redux Toolkit slice testing</li>
+                            <li>RTK Query API integration mocking</li>
+                            <li>State persistence validation</li>
+                            <li>Action dispatch and reducer testing</li>
+                            <li>Selector function validation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="api">
+                <div class="testing-categories">
+                    <div class="category-card">
+                        <div class="category-title">🔐 Authentication Testing</div>
+                        <div class="category-description">Comprehensive auth flow validation</div>
+                        <ul class="category-features">
+                            <li>SMS login flow with mock OTP (972544123456)</li>
+                            <li>JWT token validation and expiry</li>
+                            <li>Role-based authorization (clients vs users)</li>
+                            <li>Protected route access control</li>
+                            <li>Session persistence and logout</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-title">📊 Data Validation</div>
+                        <div class="category-description">Request/response schema validation</div>
+                        <ul class="category-features">
+                            <li>Input sanitization and validation</li>
+                            <li>Database query mocking (PostgreSQL)</li>
+                            <li>Error response format consistency</li>
+                            <li>Rate limiting and throttling</li>
+                            <li>CORS configuration validation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-title">🏦 Banking API Endpoints</div>
+                        <div class="category-description">Financial service endpoint testing</div>
+                        <ul class="category-features">
+                            <li>/api/v1/mortgage/calculate precision testing</li>
+                            <li>/api/v1/banks data consistency</li>
+                            <li>/api/customer/compare-banks logic</li>
+                            <li>/api/v1/calculation-parameters validation</li>
+                            <li>Multi-language locale endpoint testing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="integration">
+                <div class="testing-categories">
+                    <div class="category-card">
+                        <div class="category-title">🌐 End-to-End Flows</div>
+                        <div class="category-description">Complete user journey validation</div>
+                        <ul class="category-features">
+                            <li>Mortgage application 10-step flow</li>
+                            <li>Credit calculation multi-step process</li>
+                            <li>User registration and profile setup</li>
+                            <li>Document upload and validation</li>
+                            <li>Bank authorization workflow</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-title">🗄️ Database Integration</div>
+                        <div class="category-description">Database operation testing with mocks</div>
+                        <ul class="category-features">
+                            <li>PostgreSQL query mocking and validation</li>
+                            <li>Migration script testing</li>
+                            <li>Content management system integration</li>
+                            <li>Translation database synchronization</li>
+                            <li>User data persistence validation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="category-card">
+                        <div class="category-title">⚡ Performance Testing</div>
+                        <div class="category-description">Performance benchmarking and optimization</div>
+                        <ul class="category-features">
+                            <li>Component render optimization testing</li>
+                            <li>Bundle size impact measurement</li>
+                            <li>API response time validation (&lt;200ms)</li>
+                            <li>Memory leak detection</li>
+                            <li>Large dataset calculation performance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="section">
+            <h2>💻 Code Examples</h2>
+            
+            <div class="code-title">Financial Calculation Test Example</div>
+            <div class="code-example">
+                <pre>describe('Property Ownership LTV Logic', () => {
+  it('should apply 75% LTV for no property ownership', () => {
+    const result = calculateMaxLoan(1000000, 'no_property');
+    expect(result.maxLoanAmount).toBe(750000);
+    expect(result.minDownPayment).toBe(250000);
+    expect(result.ltvRatio).toBeCloseTo(0.75, 3);
+  });
+
+  it('should handle floating-point precision correctly', () => {
+    const result = calculateMonthlyPayment(750000, 0.035, 25);
+    expect(result).toBeCloseTo(3756.85, 2); // Verified manually
+  });
+
+  it('should handle mathematical edge cases', () => {
+    expect(() => calculateMaxLoan(0, 'no_property')).not.toThrow();
+    expect(() => calculateMaxLoan(-100000, 'no_property')).toThrow();
+    expect(calculateMaxLoan(Infinity, 'no_property')).toBe(Infinity);
+  });
+});</pre>
+            </div>
+
+            <div class="code-title">React Component Test Example</div>
+            <div class="code-example">
+                <pre>import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { axe, toHaveNoViolations } from 'jest-axe';
+
+expect.extend(toHaveNoViolations);
+
+describe('MortgageCalculatorStep1', () => {
+  const user = userEvent.setup();
+  
+  beforeEach(() => {
+    jest.clearAllMocks();
+    server.resetHandlers();
+  });
+
+  it('should render Hebrew text with RTL support', () => {
+    render(&lt;MortgageCalculatorStep1 language="he" /&gt;);
+    expect(document.dir).toBe('rtl');
+    expect(screen.getByLabelText(/ערך נכס/)).toBeInTheDocument();
+  });
+
+  it('should not have accessibility violations', async () => {
+    const { container } = render(&lt;MortgageCalculatorStep1 /&gt;);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
+  it('should validate property ownership selection', async () => {
+    render(&lt;MortgageCalculatorStep1 /&gt;);
+    
+    await user.selectOptions(
+      screen.getByLabelText(/property ownership/i),
+      'no_property'
+    );
+    
+    await user.click(screen.getByRole('button', { name: /continue/i }));
+    
+    expect(screen.getByText(/75% financing/i)).toBeInTheDocument();
+  });
+});</pre>
+            </div>
+        </div>
+
+        <!-- Coverage Requirements -->
+        <div class="section">
+            <h2>📈 Coverage Requirements & Standards</h2>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="feature-icon">🎯</span>
+                    <strong>Financial Modules</strong>
+                    <div class="coverage-meter">
+                        <div class="coverage-fill" style="width: 95%"></div>
+                        <div class="coverage-text">95% Required</div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">⚙️</span>
+                    <strong>Standard Modules</strong>
+                    <div class="coverage-meter">
+                        <div class="coverage-fill" style="width: 90%"></div>
+                        <div class="coverage-text">90% Required</div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">🔗</span>
+                    <strong>API Endpoints</strong>
+                    <div class="coverage-meter">
+                        <div class="coverage-fill" style="width: 100%"></div>
+                        <div class="coverage-text">100% HTTP Status</div>
+                    </div>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">⚛️</span>
+                    <strong>React Components</strong>
+                    <div class="coverage-meter">
+                        <div class="coverage-fill" style="width: 85%"></div>
+                        <div class="coverage-text">85% Branches</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quality Checklist -->
+        <div class="section">
+            <h2>✅ Quality Assurance Checklist</h2>
+            
+            <div class="checklist">
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <span>All mathematical edge cases tested (zero, negative, infinity, NaN)</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <span>Floating-point precision verified with toBeCloseTo()</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <span>Property ownership business rules (75%/50%/70% LTV) validated</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <span>Multi-language RTL support tested</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <span>API authentication and authorization flows covered</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <span>Accessibility compliance with jest-axe validation</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <span>Performance benchmarks established and tested</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <span>Mock isolation and cleanup between tests</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <span>Error boundaries and loading states validated</span>
+                </div>
+                <div class="checklist-item" onclick="toggleCheck(this)">
+                    <div class="checkbox"></div>
+                    <span>Cross-browser number handling verified</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auto-Activation Triggers -->
+        <div class="section">
+            <h2>🎯 Auto-Activation Triggers</h2>
+            <p>The Unit Testing Agent will automatically activate when it detects:</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <span class="feature-icon">📊</span>
+                    <strong>Calculation Keywords</strong><br>
+                    <small>calculate, formula, interest, rate, percentage, tax, mortgage, loan</small>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">🧪</span>
+                    <strong>Testing Keywords</strong><br>
+                    <small>test, spec, coverage, validation, mock, assert, expect</small>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">📁</span>
+                    <strong>Test File Patterns</strong><br>
+                    <small>*.test.js, *.spec.ts, __tests__/*, cypress/*</small>
+                </div>
+                
+                <div class="feature-item">
+                    <span class="feature-icon">🔍</span>
+                    <strong>Quality Keywords</strong><br>
+                    <small>precision, accuracy, edge case, boundary, validation</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Stack -->
+        <div class="section">
+            <h2>🛠️ Technical Stack & Tools</h2>
+            
+            <div class="testing-categories">
+                <div class="category-card">
+                    <div class="category-title">🧪 Primary Testing Frameworks</div>
+                    <ul class="category-features">
+                        <li>Jest ^29.0.0 - Core testing framework</li>
+                        <li>@testing-library/react ^13.0.0 - Component testing</li>
+                        <li>@testing-library/user-event ^14.0.0 - User interactions</li>
+                        <li>Supertest ^6.0.0 - API endpoint testing</li>
+                        <li>MSW ^1.0.0 - API mocking service worker</li>
+                        <li>jest-axe - Accessibility testing</li>
+                    </ul>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-title">🔧 Specialized Libraries</div>
+                    <ul class="category-features">
+                        <li>@testing-library/jest-dom - Custom DOM matchers</li>
+                        <li>fast-check - Property-based testing</li>
+                        <li>@types/jest - TypeScript support</li>
+                        <li>jest-environment-jsdom - Browser environment</li>
+                        <li>babel-jest - ES6+ transformation</li>
+                        <li>identity-obj-proxy - CSS modules mocking</li>
+                    </ul>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-title">⚙️ Configuration & Setup</div>
+                    <ul class="category-features">
+                        <li>Jest configuration templates</li>
+                        <li>Coverage threshold enforcement</li>
+                        <li>Test environment setup</li>
+                        <li>Mock service worker configuration</li>
+                        <li>Babel transformation rules</li>
+                        <li>TypeScript integration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>🧪 <strong>Unit Testing Agent</strong> - Banking Application Specialist</p>
+        <p>Specialized in mathematical precision, financial calculations, and comprehensive test coverage</p>
+        <p><em>Teal Edition (#008B8B) - Laboratory-grade testing precision</em></p>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        function toggleCheck(element) {
+            const checkbox = element.querySelector('.checkbox');
+            checkbox.classList.toggle('checked');
+        }
+
+        function showDetail(type) {
+            const details = {
+                coverage: "95% minimum coverage required for all financial calculation modules to ensure zero calculation errors in production.",
+                precision: "All financial calculations tested to 3+ decimal places using Jest's toBeCloseTo() matcher for mathematical accuracy.",
+                frameworks: "Jest, React Testing Library, Supertest, MSW, jest-axe, and fast-check for comprehensive testing coverage.",
+                categories: "Financial Calculations, React Components, API Endpoints, and Integration Tests with specialized focus areas."
+            };
+            
+            alert(details[type]);
+        }
+
+        function generateTest() {
+            const propertyValue = document.getElementById('propertyValue').value;
+            const ownership = document.getElementById('propertyOwnership').value;
+            
+            const ltvRates = {
+                'no_property': 0.75,
+                'has_property': 0.50,
+                'selling_property': 0.70
+            };
+            
+            const ltvRate = ltvRates[ownership];
+            const maxLoan = propertyValue * ltvRate;
+            const downPayment = propertyValue - maxLoan;
+            
+            const testCode = `describe('Property Ownership LTV Logic', () => {
+  it('should calculate correct LTV for ${ownership.replace('_', ' ')}', () => {
+    const propertyValue = ${propertyValue};
+    const result = calculateMaxLoan(propertyValue, '${ownership}');
+    
+    // Test maximum loan amount
+    expect(result.maxLoanAmount).toBe(${maxLoan});
+    
+    // Test minimum down payment
+    expect(result.minDownPayment).toBe(${downPayment});
+    
+    // Test LTV ratio with precision
+    expect(result.ltvRatio).toBeCloseTo(${ltvRate}, 3);
+  });
+  
+  it('should handle edge cases for ${ownership.replace('_', ' ')}', () => {
+    // Test zero property value
+    const zeroResult = calculateMaxLoan(0, '${ownership}');
+    expect(zeroResult.maxLoanAmount).toBe(0);
+    
+    // Test invalid inputs
+    expect(() => calculateMaxLoan(-100000, '${ownership}')).toThrow();
+    expect(() => calculateMaxLoan(null, '${ownership}')).toThrow();
+    expect(() => calculateMaxLoan(undefined, '${ownership}')).toThrow();
+  });
+  
+  it('should maintain precision in calculations', () => {
+    const result = calculateMaxLoan(${propertyValue}, '${ownership}');
+    
+    // Verify calculation precision
+    expect(result.maxLoanAmount + result.minDownPayment).toBe(${propertyValue});
+    
+    // Test floating point precision
+    expect(result.ltvRatio).toBeCloseTo(${ltvRate}, 10);
+  });
+});
+
+describe('Monthly Payment Calculations', () => {
+  it('should calculate monthly payments with precision', () => {
+    const monthlyPayment = calculateMonthlyPayment(${maxLoan}, 0.035, 25);
+    
+    // Test payment precision to 2 decimal places (currency)
+    expect(monthlyPayment).toBeCloseTo(${(maxLoan * 0.035 / 12 / (1 - Math.pow(1 + 0.035/12, -25*12))).toFixed(2)}, 2);
+    
+    // Test payment is positive
+    expect(monthlyPayment).toBeGreaterThan(0);
+  });
+});`;
+
+            document.getElementById('generatedCode').textContent = testCode;
+            document.getElementById('testResult').style.display = 'block';
+        }
+
+        // Initialize coverage meters animation
+        window.addEventListener('load', () => {
+            const meters = document.querySelectorAll('.coverage-fill');
+            meters.forEach(meter => {
+                const width = meter.style.width;
+                meter.style.width = '0%';
+                setTimeout(() => {
+                    meter.style.width = width;
+                }, 1000);
+            });
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(-5px) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
