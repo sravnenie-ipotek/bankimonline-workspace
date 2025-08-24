@@ -1,0 +1,95 @@
+name: Deployment Validation Tests
+
+on:
+  workflow_run:
+    workflows: ["Deploy to Test & Production"]
+    types:
+      - completed
+
+jobs:
+  validate-test-deployment:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Wait for deployment to stabilize
+        run: sleep 60
+        
+      - name: Test 1 - NGINX Configuration
+        run: |
+          echo "🔍 Testing NGINX configuration..."
+          # Check if NGINX responds on port 80
+          if ! curl -f -I --max-time 10 "http://45.83.42.74" > /dev/null 2>&1; then
+            echo "❌ NGINX not responding on port 80"
+            exit 1
+          fi
+          echo "✅ NGINX is responding"
+          
+      - name: Test 2 - React Application Loading
+        run: |
+          echo "🔍 Testing React app loading..."
+          # Check if index.html is served
+          if ! curl -f --max-time 10 "https://dev2.bankimonline.com" | grep -q "<div id=\"root\">" > /dev/null 2>&1; then
+            echo "❌ React app not loading (missing root div)"
+            exit 1
+          fi
+          echo "✅ React app HTML is served"
+          
+      - name: Test 3 - API Health Check
+        run: |
+          echo "🔍 Testing API health..."
+          if ! curl -f --max-time 10 "http://45.83.42.74:8003/api/v1/health" > /dev/null 2>&1; then
+            echo "❌ API health check failed"
+            exit 1
+          fi
+          echo "✅ API is healthy"
+          
+      - name: Test 4 - API Proxy Through NGINX
+        run: |
+          echo "🔍 Testing API proxy..."
+          if ! curl -f --max-time 10 "https://dev2.bankimonline.com/api/v1/health" > /dev/null 2>&1; then
+            echo "❌ API proxy through NGINX failed"
+            exit 1
+          fi
+          echo "✅ API proxy is working"
+          
+      - name: Test 5 - Static Assets Loading
+        run: |
+          echo "🔍 Testing static assets..."
+          # Check if JavaScript bundles are accessible
+          RESPONSE=$(curl -s "https://dev2.bankimonline.com")
+          if echo "$RESPONSE" | grep -q "src=\"/assets/.*\.js\""; then
+            echo "✅ Static assets paths found"
+          else
+            echo "❌ No static asset paths found"
+            exit 1
+          fi
+          
+      - name: Test 6 - Version Check
+        run: |
+          echo "🔍 Testing version display..."
+          # Check if version is not the old one
+          VERSION=$(curl -s "https://dev2.bankimonline.com" | grep -o "v[0-9.]*" | head -1)
+          if [ "$VERSION" = "v0.1" ]; then
+            echo "❌ Old version still being served: $VERSION"
+            exit 1
+          fi
+          echo "✅ Version check passed: $VERSION"
+          
+      - name: Test 7 - Database Connection
+        run: |
+          echo "🔍 Testing database connection..."
+          # Test a content endpoint
+          if ! curl -f --max-time 10 "https://dev2.bankimonline.com/api/v1/banks" > /dev/null 2>&1; then
+            echo "⚠️ Database endpoint not responding (non-critical)"
+          else
+            echo "✅ Database connection working"
+          fi
+          
+      - name: Deployment Validation Summary
+        if: always()
+        run: |
+          echo "========================================="
+          echo "📊 DEPLOYMENT VALIDATION COMPLETE"
+          echo "========================================="
+          echo "Test results logged above"
