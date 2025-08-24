@@ -67,6 +67,8 @@ jobs:
           # Copy essential files
           cp -r migrations deploy/
           cp -r uploads deploy/ || mkdir deploy/uploads
+          # Copy scripts including health check
+          cp -r scripts deploy/
           # Create clean package for production
           cd deploy && npm install --omit=dev
 
@@ -186,46 +188,53 @@ jobs:
           
           # Wait for services to stabilize
           echo "⏳ Waiting for services to start..."
-          sleep 30
+          sleep 45
           
           # Use the comprehensive health check script on server
           echo "Running comprehensive health check..."
           sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST '
-            # Copy health check script from deployment if available
+            # Use the enhanced health check script from deployment
             if [ -f /var/www/bankim/current/scripts/deployment-health-check.sh ]; then
+              echo "✅ Using enhanced health check script from deployment"
               cp /var/www/bankim/current/scripts/deployment-health-check.sh /var/www/bankim/
               chmod +x /var/www/bankim/deployment-health-check.sh
-            elif [ ! -f /var/www/bankim/deployment-health-check.sh ]; then
-              # Skip heredoc creation - use script from deployment
-              echo "Health check script will be copied from deployment"
-              skip_heredoc=true
-            fi
-            
-            # Use the health check script from deployment or create fallback
-            if [ ! -f /var/www/bankim/deployment-health-check.sh ]; then
-              echo "Creating fallback health check script..."
-              echo "#!/bin/bash" > /var/www/bankim/deployment-health-check.sh
-              echo "pm2 status | grep -q bankim-api.*online && echo OK || exit 1" >> /var/www/bankim/deployment-health-check.sh
-              chmod +x /var/www/bankim/deployment-health-check.sh
-            fi
-            
-            # Run the comprehensive health check
-            if /var/www/bankim/deployment-health-check.sh; then
-              echo "✅ Test deployment validation successful"
-            else
-              echo "❌ Test deployment validation failed - initiating rollback"
-              # Simple rollback logic
-              if [ -d /var/www/bankim/blue ] && [ -d /var/www/bankim/green ]; then
-                CURRENT_SLOT=$(readlink /var/www/bankim/current | xargs basename)
-                ROLLBACK_SLOT=$([ "$CURRENT_SLOT" = "blue" ] && echo "green" || echo "blue")
-                echo "Rolling back to $ROLLBACK_SLOT..."
-                ln -sfn /var/www/bankim/$ROLLBACK_SLOT /var/www/bankim/current
-                pm2 restart bankim-api
-                systemctl reload nginx
-                sleep 10
-                echo "Rollback completed - please check manually"
+              
+              # Run the comprehensive health check (test environment)
+              if /var/www/bankim/deployment-health-check.sh test; then
+                echo "✅ Test deployment validation successful"
+              else
+                echo "❌ Test deployment validation failed - initiating rollback"
+                # Simple rollback logic
+                if [ -d /var/www/bankim/blue ] && [ -d /var/www/bankim/green ]; then
+                  CURRENT_SLOT=$(readlink /var/www/bankim/current | xargs basename)
+                  ROLLBACK_SLOT=$([ "$CURRENT_SLOT" = "blue" ] && echo "green" || echo "blue")
+                  echo "Rolling back to $ROLLBACK_SLOT..."
+                  ln -sfn /var/www/bankim/$ROLLBACK_SLOT /var/www/bankim/current
+                  pm2 restart bankim-api --update-env
+                  echo "Rollback completed - please check manually"
+                fi
+                exit 1
               fi
-              exit 1
+            else
+              echo "⚠️ Health check script not found, using basic validation"
+              # Basic validation without script
+              pm2 restart bankim-api --update-env || true
+              sleep 10
+              
+              # Simple health check
+              if pm2 status | grep -q "bankim-api.*online"; then
+                echo "✅ PM2 is running"
+                if curl -s -f --max-time 10 http://localhost:8003/api/health >/dev/null 2>&1; then
+                  echo "✅ API is responding"
+                  echo "✅ Basic validation successful"
+                else
+                  echo "❌ API not responding"
+                  exit 1
+                fi
+              else
+                echo "❌ PM2 not running properly"
+                exit 1
+              fi
             fi
           '
           
