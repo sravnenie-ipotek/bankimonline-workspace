@@ -42,9 +42,27 @@
 ## 🚀 Deployment Workflow
 
 ### Automatic Deployment Triggers
-1. **Push to `main` branch** → Deploys to TEST server (dev2.bankimonline.com)
-2. **Push to `production` branch** → Deploys to PRODUCTION server (bankimonline.com)
+1. **Push to `develop` branch** → Deploys to TEST server (dev2.bankimonline.com)
+2. **Push to `main` branch** → Deploys to PRODUCTION server (bankimonline.com)
 3. **Manual dispatch** → Choose environment (test/production/both)
+
+### 🏗️ Production-Grade Branching Strategy
+
+**Industry Standard Git Flow**:
+- **`main` (PRODUCTION)** 🎯 - Production-ready code only
+  - Protected branch with manual approval required
+  - Deploys to PROD Server (185.253.72.80)
+  - Only hotfixes and approved merges from develop
+  
+- **`develop` (STAGING/TEST)** 🧪 - Integration branch
+  - Auto-deploys to TEST Server (45.83.42.74)
+  - Integration branch for all feature development
+  - Must pass all CI checks before merge to main
+  
+- **`feature/*` (DEVELOPMENT)** 💻 - Short-lived branches
+  - Feature development and bug fixes
+  - Must pass CI before merge to develop
+  - Never deploy to any server directly
 
 ### Deployment Steps
 1. **Build Phase**

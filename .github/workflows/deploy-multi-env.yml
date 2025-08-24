@@ -3,8 +3,8 @@ name: Deploy to Test & Production
 on:
   push:
     branches:
-      - main  # Deploy to test on main push
-      - production  # Deploy to prod on production branch
+      - develop  # Deploy to test environment
+      - main     # Deploy to production environment
   workflow_dispatch:
     inputs:
       environment:
@@ -76,7 +76,7 @@ jobs:
           ls -la deployment-*.tar.gz
 
       - name: Deploy to Test Environment
-        if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'test' || github.event.inputs.environment == 'both'))
+        if: github.ref == 'refs/heads/develop' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'test' || github.event.inputs.environment == 'both'))
         run: |
           echo "🧪 DEPLOYING TO TEST ENVIRONMENT"
           echo "================================"
@@ -274,7 +274,7 @@ NGINX_EOF
           EOF
 
       - name: Validate Test Deployment
-        if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'test' || github.event.inputs.environment == 'both'))
+        if: github.ref == 'refs/heads/develop' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'test' || github.event.inputs.environment == 'both'))
         run: |
           echo "🔍 COMPREHENSIVE TEST DEPLOYMENT VALIDATION"
           echo "==========================================="
@@ -379,7 +379,7 @@ HEALTH_EOF
           echo "✅ Test deployment validation complete!"
 
       - name: Deploy to Production Environment
-        if: github.ref == 'refs/heads/production' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'production' || github.event.inputs.environment == 'both'))
+        if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'production' || github.event.inputs.environment == 'both'))
         run: |
           echo "🚀 DEPLOYING TO PRODUCTION ENVIRONMENT"
           echo "======================================"
@@ -495,7 +495,7 @@ PROD_NGINX_EOF
           EOF
 
       - name: Validate Production Deployment
-        if: github.ref == 'refs/heads/production' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'production' || github.event.inputs.environment == 'both'))
+        if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'production' || github.event.inputs.environment == 'both'))
         run: |
           echo "🔍 VALIDATING PRODUCTION DEPLOYMENT"
           echo "=================================="
@@ -546,7 +546,7 @@ PROD_NGINX_EOF
           echo "======================="
           
           # Setup monitoring for test server
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]] || [[ "${{ github.event.inputs.environment }}" == "test" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/develop" ]] || [[ "${{ github.event.inputs.environment }}" == "test" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
             echo "Setting up test server monitoring..."
             sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST '
               # Ensure monitoring script exists and is in crontab
@@ -559,7 +559,7 @@ PROD_NGINX_EOF
           fi
           
           # Setup monitoring for production server  
-          if [[ "${{ github.ref }}" == "refs/heads/production" ]] || [[ "${{ github.event.inputs.environment }}" == "production" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]] || [[ "${{ github.event.inputs.environment }}" == "production" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
             echo "Setting up production server monitoring..."
             sshpass -p "Q23YP4MwsaPzD7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST '
               mkdir -p /var/www/bankim
@@ -604,11 +604,11 @@ MONITOR_EOF
           echo "🕐 Time: $(date)"
           echo "📍 Branch: ${{ github.ref_name }}"
           echo "🔢 Commit: ${{ github.sha }}"
-          if [[ "${{ github.ref }}" == "refs/heads/main" ]] || [[ "${{ github.event.inputs.environment }}" == "test" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/develop" ]] || [[ "${{ github.event.inputs.environment }}" == "test" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
             echo "🧪 Test: https://dev2.bankimonline.com"
             echo "📊 Test API: https://dev2.bankimonline.com/api/health"
           fi
-          if [[ "${{ github.ref }}" == "refs/heads/production" ]] || [[ "${{ github.event.inputs.environment }}" == "production" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]] || [[ "${{ github.event.inputs.environment }}" == "production" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
             echo "🏦 Production: https://bankimonline.com"
             echo "📊 Production API: http://185.253.72.80:8003/api/health"
           fi
