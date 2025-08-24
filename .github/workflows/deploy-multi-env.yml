@@ -19,7 +19,7 @@ on:
 
 env:
   TEST_HOST: 45.83.42.74
-  PROD_HOST: 45.83.42.74
+  PROD_HOST: 185.253.72.80
   TEST_PATH: /var/www/bankim
   PROD_PATH: /var/www/bankim
 

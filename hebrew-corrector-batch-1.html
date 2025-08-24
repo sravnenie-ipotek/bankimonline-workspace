@@ -1,0 +1,1137 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hebrew Translation Corrector - Batch 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            direction: rtl;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .batch-info {
+            background: #ecf0f1;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #bdc3c7;
+        }
+        
+        .batch-info h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .translations-container {
+            padding: 30px;
+        }
+        
+        .translation-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .translation-item:hover {
+            border-color: #007bff;
+            box-shadow: 0 5px 15px rgba(0,123,255,0.2);
+        }
+        
+        .translation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .translation-number {
+            background: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .translation-key {
+            background: #6c757d;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+        
+        .translation-screen {
+            background: #28a745;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9em;
+        }
+        
+        .content-section {
+            margin-bottom: 20px;
+        }
+        
+        .content-label {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .content-text {
+            background: white;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            min-height: 60px;
+        }
+        
+        .hebrew-text {
+            font-size: 1.2em;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+        
+        .azure-suggestion {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .current-hebrew {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .english-text {
+            background: #f3e5f5;
+            border-left: 4px solid #9c27b0;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-approve {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+        }
+        
+        .btn-approve:hover {
+            background: linear-gradient(135deg, #218838 0%, #1ea085 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40,167,69,0.3);
+        }
+        
+        .btn-deny {
+            background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+            color: white;
+        }
+        
+        .btn-deny:hover {
+            background: linear-gradient(135deg, #c82333 0%, #c0392b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220,53,69,0.3);
+        }
+        
+        .btn-skip {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+        }
+        
+        .btn-skip:hover {
+            background: linear-gradient(135deg, #5a6268 0%, #343a40 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108,117,125,0.3);
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .footer .instructions {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .footer .batch-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .btn-nav {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .btn-nav:hover {
+            background: #0056b3;
+        }
+        
+        .stats {
+            background: #f8f9fa;
+            padding: 20px;
+            border-top: 1px solid #dee2e6;
+            text-align: center;
+        }
+        
+        .stats h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .translation-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 Hebrew Translation Corrector</h1>
+            <div class="subtitle">Azure Translator API Integration</div>
+        </div>
+        
+        <div class="batch-info">
+            <h2>📋 Batch 1 of 114</h2>
+            <p>20 Hebrew translations ready for review</p>
+        </div>
+        
+        <div class="translations-container">
+            
+                <div class="translation-item" id="translation-664">
+                    <div class="translation-header">
+                        <span class="translation-number">#1</span>
+                        <span class="translation-key">about_desc</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">We are leaders in the field of financing offer comparison and help our clients find the best financial solution for them.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">אנחנו מובילים בתחום השוואת הצעות מימון ועוזרים ללקוחותינו למצוא את הפתרון הפיננסי הטוב ביותר עבורם.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">אנו מובילים בתחום השוואת הצעות המימון ומסייעים ללקוחותינו למצוא את הפתרון הפיננסי הטוב ביותר עבורם.</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(664, 'אנו מובילים בתחום השוואת הצעות המימון ומסייעים ללקוחותינו למצוא את הפתרון הפיננסי הטוב ביותר עבורם.')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(664)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(664)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-665">
+                    <div class="translation-header">
+                        <span class="translation-number">#2</span>
+                        <span class="translation-key">about_how_it_work</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">How does it work?</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">איך זה עובד?</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">איך זה עובד?</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(665, 'איך זה עובד?')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(665)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(665)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-666">
+                    <div class="translation-header">
+                        <span class="translation-number">#3</span>
+                        <span class="translation-key">about_how_it_work_text</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Our platform connects to all major banks and allows you to receive personalized offers without leaving home. Simply register to</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">הפלטפורמה שלנו מתחברת לכל הבנקים הגדולים ומאפשרת לכם לקבל הצעות מותאמות אישית ללא יציאה מהבית. פשוט נרשמים ל</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">הפלטפורמה שלנו מתחברת לכל הבנקים הגדולים ומאפשרת לכם לקבל הצעות מותאמות אישית מבלי לצאת מהבית. כל שעליך לעשות הוא להירשם ל</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(666, 'הפלטפורמה שלנו מתחברת לכל הבנקים הגדולים ומאפשרת לכם לקבל הצעות מותאמות אישית מבלי לצאת מהבית. כל שעליך לעשות הוא להירשם ל')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(666)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(666)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-668">
+                    <div class="translation-header">
+                        <span class="translation-number">#4</span>
+                        <span class="translation-key">about_how_it_work_text_second</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text"> and all banks compete to give you the best offer.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text"> וכל הבנקים מתחרים בשבילכם לתת לכם את ההצעה הטובה ביותר.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text"> וכל הבנקים מתחרים כדי לתת לך את ההצעה הטובה ביותר.</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(668, ' וכל הבנקים מתחרים כדי לתת לך את ההצעה הטובה ביותר.')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(668)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(668)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-663">
+                    <div class="translation-header">
+                        <span class="translation-number">#5</span>
+                        <span class="translation-key">about_title</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">About us</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">אודותינו</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">עלינו</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(663, 'עלינו')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(663)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(663)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-673">
+                    <div class="translation-header">
+                        <span class="translation-number">#6</span>
+                        <span class="translation-key">about_why_bank</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Our platform allows sending applications to all banks and receiving the most profitable offers, without leaving home.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">הפלטפורמה שלנו מאפשרת לשלוח בקשה לכל הבנקים ולקבל את ההצעות הכי משתלמות, ללא יציאה מהבית.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">הפלטפורמה שלנו מאפשרת שליחת אפליקציות לכל הבנקים וקבלת ההצעות המשתלמות ביותר, מבלי לצאת מהבית.</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(673, 'הפלטפורמה שלנו מאפשרת שליחת אפליקציות לכל הבנקים וקבלת ההצעות המשתלמות ביותר, מבלי לצאת מהבית.')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(673)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(673)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-672">
+                    <div class="translation-header">
+                        <span class="translation-number">#7</span>
+                        <span class="translation-key">about_why_bank_title</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Banks compete for you</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">בנקים מתחרים בשבילכם</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">הבנקים מתחרים בשבילך</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(672, 'הבנקים מתחרים בשבילך')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(672)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(672)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-1953">
+                    <div class="translation-header">
+                        <span class="translation-number">#8</span>
+                        <span class="translation-key">about_why_credit</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">We do not impose hidden services or commissions. Everything is transparent and clear.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">אנחנו לא כופים שירותים נסתרים או עמלות. הכל שקוף וברור.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">אנחנו לא כופים שירותים או עמלות נסתרים. הכל שקוף וברור.</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(1953, 'אנחנו לא כופים שירותים או עמלות נסתרים. הכל שקוף וברור.')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(1953)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(1953)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-1952">
+                    <div class="translation-header">
+                        <span class="translation-number">#9</span>
+                        <span class="translation-key">about_why_credit_title</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Responsible credit</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">אשראי אחראי</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">אשראי אחראי</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(1952, 'אשראי אחראי')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(1952)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(1952)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-683">
+                    <div class="translation-header">
+                        <span class="translation-number">#10</span>
+                        <span class="translation-key">about_why_fast</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">We translate complex banking and insurance terms into everyday language and help with advice at every stage.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">אנחנו מתרגמים תנאים בנקאיים וביטוחיים מורכבים לשפה יומיומית ועוזרים בעצה בכל שלב.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">אנו מתרגמים מונחי בנקאות וביטוח מורכבים לשפה יומיומית ומסייעים בייעוץ בכל שלב.</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(683, 'אנו מתרגמים מונחי בנקאות וביטוח מורכבים לשפה יומיומית ומסייעים בייעוץ בכל שלב.')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(683)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(683)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-682">
+                    <div class="translation-header">
+                        <span class="translation-number">#11</span>
+                        <span class="translation-key">about_why_fast_title</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Fast and accessible</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">מהיר ונגיש</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">מהיר ונגיש</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(682, 'מהיר ונגיש')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(682)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(682)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-675">
+                    <div class="translation-header">
+                        <span class="translation-number">#12</span>
+                        <span class="translation-key">about_why_mortgage_complete</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Our platform provides solutions from our partner banks in a short time.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">הפלטפורמה שלנו מספקת פתרונות מהבנקים השותפים שלנו בזמן קצר.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">הפלטפורמה שלנו מספקת פתרונות מהבנקים השותפים שלנו תוך זמן קצר.</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(675, 'הפלטפורמה שלנו מספקת פתרונות מהבנקים השותפים שלנו תוך זמן קצר.')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(675)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(675)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-674">
+                    <div class="translation-header">
+                        <span class="translation-number">#13</span>
+                        <span class="translation-key">about_why_mortgage_complete_title</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Two days and the mortgage is ready</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">יומיים והמשכנתא מוכנה</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">יומיים והמשכנתא מוכנה</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(674, 'יומיים והמשכנתא מוכנה')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(674)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(674)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-681">
+                    <div class="translation-header">
+                        <span class="translation-number">#14</span>
+                        <span class="translation-key">about_why_security</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">We will never use your personal information beyond the purpose for which it is intended.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">אנחנו לעולם לא נשתמש במידע האישי שלכם מעבר למטרה שלשמה הוא נועד.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">לעולם לא נשתמש במידע האישי שלך מעבר למטרה שלשמה הוא נועד.</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(681, 'לעולם לא נשתמש במידע האישי שלך מעבר למטרה שלשמה הוא נועד.')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(681)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(681)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-680">
+                    <div class="translation-header">
+                        <span class="translation-number">#15</span>
+                        <span class="translation-key">about_why_security_title</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Confidentiality and security</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">סודיות ואבטחה</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">סודיות ואבטחה</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(680, 'סודיות ואבטחה')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(680)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(680)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-677">
+                    <div class="translation-header">
+                        <span class="translation-number">#16</span>
+                        <span class="translation-key">about_why_simple</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Our platform is simple and easy to use.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">הפלטפורמה שלנו פשוטה וקלה לשימוש.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">הפלטפורמה שלנו פשוטה וקלה לשימוש.</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(677, 'הפלטפורמה שלנו פשוטה וקלה לשימוש.')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(677)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(677)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-676">
+                    <div class="translation-header">
+                        <span class="translation-number">#17</span>
+                        <span class="translation-key">about_why_simple_title</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Simple and easy</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">פשוט וקל</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">פשוט וקל</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(676, 'פשוט וקל')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(676)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(676)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-671">
+                    <div class="translation-header">
+                        <span class="translation-number">#18</span>
+                        <span class="translation-key">about_why_solve_problem</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Our platform can help all users, even those who think they cannot get a mortgage due to poor credit history.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">הפלטפורמה שלנו יכולה לעזור לכל המשתמשים, אפילו לאלו שלדעתם אינם יכולים לקחת משכנתא בגלל היסטוריה אשראית לא טובה.</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">הפלטפורמה שלנו יכולה לעזור לכל המשתמשים, גם לאלה שחושבים שהם לא יכולים לקבל משכנתא בגלל היסטוריית אשראי גרועה.</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(671, 'הפלטפורמה שלנו יכולה לעזור לכל המשתמשים, גם לאלה שחושבים שהם לא יכולים לקבל משכנתא בגלל היסטוריית אשראי גרועה.')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(671)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(671)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-670">
+                    <div class="translation-header">
+                        <span class="translation-number">#19</span>
+                        <span class="translation-key">about_why_solve_problem_title</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Solve every problem</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">פותרים כל בעיה</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">לפתור כל בעיה</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(670, 'לפתור כל בעיה')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(670)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(670)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="translation-item" id="translation-669">
+                    <div class="translation-header">
+                        <span class="translation-number">#20</span>
+                        <span class="translation-key">about_why_title</span>
+                        <span class="translation-screen">about</span>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📖 English Text:</div>
+                        <div class="content-text english-text">Why choose us?</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">📝 Current Hebrew:</div>
+                        <div class="content-text current-hebrew hebrew-text">למה לבחור בנו?</div>
+                    </div>
+                    
+                    <div class="content-section">
+                        <div class="content-label">🤖 Azure Suggestion:</div>
+                        <div class="content-text azure-suggestion hebrew-text">למה לבחור בנו?</div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveTranslation(669, 'למה לבחור בנו?')">
+                            ✅ Approve Azure Suggestion
+                        </button>
+                        <button class="btn btn-deny" onclick="denyTranslation(669)">
+                            ❌ Keep Current
+                        </button>
+                        <button class="btn btn-skip" onclick="skipTranslation(669)">
+                            ⏭️ Skip
+                        </button>
+                    </div>
+                </div>
+            
+        </div>
+        
+        <div class="stats">
+            <h3>📊 Batch Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Total Translations</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="approved-count">0</div>
+                    <div class="stat-label">Approved</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="denied-count">0</div>
+                    <div class="stat-label">Denied</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="skipped-count">0</div>
+                    <div class="stat-label">Skipped</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="instructions">
+                <strong>Instructions:</strong> Review each translation and click the appropriate button to approve, deny, or skip.
+            </div>
+            <div class="batch-nav">
+                <a href="hebrew-corrector-batch-0.html" class="btn-nav" style="display:none">← Previous Batch</a>
+                <a href="hebrew-corrector-batch-2.html" class="btn-nav" >Next Batch →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let stats = {
+            approved: 0,
+            denied: 0,
+            skipped: 0
+        };
+
+        function updateStats() {
+            document.getElementById('approved-count').textContent = stats.approved;
+            document.getElementById('denied-count').textContent = stats.denied;
+            document.getElementById('skipped-count').textContent = stats.skipped;
+        }
+
+        function approveTranslation(contentItemId, azureSuggestion) {
+            if (!azureSuggestion || azureSuggestion === 'Loading...') {
+                alert('Azure suggestion is not available yet. Please wait.');
+                return;
+            }
+            
+            if (confirm('Are you sure you want to approve this Azure suggestion?')) {
+                // Here you would typically make an API call to update the database
+                console.log('Approving translation:', contentItemId, azureSuggestion);
+                
+                // Update UI
+                document.getElementById('translation-' + contentItemId).style.borderColor = '#28a745';
+                document.getElementById('translation-' + contentItemId).style.backgroundColor = '#d4edda';
+                
+                stats.approved++;
+                updateStats();
+                
+                // Disable buttons for this translation
+                const buttons = document.querySelectorAll(`#translation-${contentItemId} .btn`);
+                buttons.forEach(btn => btn.disabled = true);
+                
+                alert('Translation approved! (Note: This is a demo - database update would happen here)');
+            }
+        }
+
+        function denyTranslation(contentItemId) {
+            if (confirm('Are you sure you want to keep the current translation?')) {
+                console.log('Denying translation:', contentItemId);
+                
+                // Update UI
+                document.getElementById('translation-' + contentItemId).style.borderColor = '#dc3545';
+                document.getElementById('translation-' + contentItemId).style.backgroundColor = '#f8d7da';
+                
+                stats.denied++;
+                updateStats();
+                
+                // Disable buttons for this translation
+                const buttons = document.querySelectorAll(`#translation-${contentItemId} .btn`);
+                buttons.forEach(btn => btn.disabled = true);
+                
+                alert('Translation kept unchanged!');
+            }
+        }
+
+        function skipTranslation(contentItemId) {
+            if (confirm('Are you sure you want to skip this translation?')) {
+                console.log('Skipping translation:', contentItemId);
+                
+                // Update UI
+                document.getElementById('translation-' + contentItemId).style.borderColor = '#6c757d';
+                document.getElementById('translation-' + contentItemId).style.backgroundColor = '#e2e3e5';
+                
+                stats.skipped++;
+                updateStats();
+                
+                // Disable buttons for this translation
+                const buttons = document.querySelectorAll(`#translation-${contentItemId} .btn`);
+                buttons.forEach(btn => btn.disabled = true);
+                
+                alert('Translation skipped!');
+            }
+        }
+
+        // Auto-save stats to localStorage
+        setInterval(() => {
+            localStorage.setItem('hebrew-corrector-stats', JSON.stringify(stats));
+        }, 5000);
+
+        // Load stats from localStorage on page load
+        window.addEventListener('load', () => {
+            const savedStats = localStorage.getItem('hebrew-corrector-stats');
+            if (savedStats) {
+                stats = JSON.parse(savedStats);
+                updateStats();
+            }
+        });
+    </script>
+</body>
+</html>
