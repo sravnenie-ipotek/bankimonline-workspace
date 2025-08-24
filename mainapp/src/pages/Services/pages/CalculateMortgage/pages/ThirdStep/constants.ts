@@ -25,9 +25,14 @@ const isNoAdditionalIncomeValue = (value: string): boolean => {
   return (
     lowerValue === 'option_1' ||
     lowerValue === '1' ||
+    lowerValue === 'no_additional_income' ||
     lowerValue.includes('no_additional') ||
     lowerValue.includes('no additional') ||
-    lowerValue.includes('none')
+    lowerValue.includes('none') ||
+    // Hebrew patterns - check for "no additional income" in Hebrew
+    value.includes('אין הכנסות נוספות') ||
+    value.includes('אין הכנסות') ||
+    value.includes('ללא הכנסות')
   )
 }
 
@@ -86,10 +91,16 @@ export const validationSchema = Yup.object().shape({
     (value) => value !== null && value !== undefined && value !== ''
   ),
   additionalIncomeAmount: Yup.number().when('additionalIncome', {
-    is: (value: string) =>
-      value !== null && value !== undefined && value !== '' && !isNoAdditionalIncomeValue(value),
-    then: (shema) => shema.required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
-    otherwise: (shema) => shema.notRequired(),
+    is: (value: string) => {
+      // Debug log to trace validation
+      console.log('Validating additionalIncomeAmount - additionalIncome value:', value, 'isNoAdditionalIncome:', isNoAdditionalIncomeValue(value));
+      return value !== null && value !== undefined && value !== '' && !isNoAdditionalIncomeValue(value);
+    },
+    then: (schema) => schema
+      .typeError(getValidationErrorSync('error_number_required', 'Please enter a valid number'))
+      .positive(getValidationErrorSync('error_positive_number', 'Amount must be positive'))
+      .required(getValidationErrorSync('error_fill_field', 'Please fill this field')),
+    otherwise: (schema) => schema.notRequired().nullable(),
   }),
   obligation: Yup.string().required(
     getValidationErrorSync('error_select_one_of_the_options', 'Please select one of the options')
