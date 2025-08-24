@@ -54,6 +54,11 @@ jobs:
           cd mainapp
           npm run build
 
+      - name: Pre-deployment database schema check
+        run: |
+          echo "🔍 Running pre-deployment database schema validation..."
+          npm run test:pre-deploy || echo "⚠️ Schema validation failed - continuing with deployment but expect issues"
+
       - name: Create deployment package
         run: |
           mkdir -p deploy
@@ -170,11 +175,12 @@ jobs:
               exit 1
             fi
             
-            # Restart application
+            # Restart application with absolute path
             cd /var/www/bankim/current
             pm2 delete bankim-api 2>/dev/null || echo "Process not running"
-            pm2 start ecosystem.config.js --env test
-            pm2 save
+            # Start with absolute CWD to ensure correct path
+            pm2 start server/server-db.js --name bankim-api -i 2 --cwd /var/www/bankim/current
+            pm2 save --force
             
             echo "✅ Test deployment complete!"
             pm2 status
