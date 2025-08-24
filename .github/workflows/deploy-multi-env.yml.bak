@@ -1,0 +1,607 @@
+name: Deploy to Test & Production
+
+on:
+  push:
+    branches:
+      - develop  # Deploy to test environment
+      - main     # Deploy to production environment
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment Environment'
+        required: true
+        default: 'test'
+        type: choice
+        options:
+          - test
+          - production
+          - both
+
+env:
+  TEST_HOST: 45.83.42.74
+  PROD_HOST: 185.253.72.80
+  TEST_PATH: /var/www/bankim
+  PROD_PATH: /var/www/bankim
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install backend dependencies
+        run: npm install
+
+      - name: Install frontend dependencies
+        run: |
+          cd mainapp
+          npm install
+
+      - name: Update version
+        run: |
+          cd mainapp
+          npm run version:update
+
+      - name: Build frontend
+        run: |
+          cd mainapp
+          npm run build
+
+      - name: Create deployment package
+        run: |
+          mkdir -p deploy
+          # Copy backend files
+          cp -r server deploy/
+          cp package*.json deploy/
+          cp ecosystem.config.js deploy/
+          # Copy frontend build
+          cp -r mainapp/build deploy/
+          cp -r mainapp/public deploy/
+          # Copy essential files
+          cp -r migrations deploy/
+          cp -r uploads deploy/ || mkdir deploy/uploads
+          # Create clean package for production
+          cd deploy && npm install --omit=dev
+
+      - name: Create deployment archive
+        run: |
+          tar -czf deployment-$(date +%Y%m%d-%H%M%S).tar.gz -C deploy .
+          ls -la deployment-*.tar.gz
+
+      - name: Deploy to Test Environment
+        if: github.ref == 'refs/heads/develop' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'test' || github.event.inputs.environment == 'both'))
+        run: |
+          echo "🧪 DEPLOYING TO TEST ENVIRONMENT"
+          echo "================================"
+          
+          # Install sshpass for automated deployment
+          sudo apt-get update && sudo apt-get install -y sshpass
+          
+          # Get the latest deployment package
+          DEPLOY_FILE=$(ls -t deployment-*.tar.gz | head -1)
+          echo "📦 Deploying: $DEPLOY_FILE"
+          
+          # Run pre-deployment validation on server - simplified without heredoc
+          echo "🔍 Running pre-deployment validation..."
+          sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST 'mkdir -p /var/www/bankim && echo "✅ Server accessible and ready"'
+          
+          # Create blue-green deployment structure
+          sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST << 'EOF'
+            # Prepare deployment directories
+            mkdir -p /var/www/bankim/{blue,green}
+            
+            # Determine current and new slots
+            if [ -L /var/www/bankim/current ]; then
+              CURRENT_SLOT=$(readlink /var/www/bankim/current | xargs basename)
+            else
+              CURRENT_SLOT="blue"
+            fi
+            
+            NEW_SLOT=$([ "$CURRENT_SLOT" = "blue" ] && echo "green" || echo "blue")
+            echo "Current slot: $CURRENT_SLOT, Deploying to: $NEW_SLOT"
+            
+            # Clean new slot
+            rm -rf /var/www/bankim/$NEW_SLOT/*
+            
+            # Ensure PM2 is installed
+            command -v pm2 >/dev/null 2>&1 || npm install -g pm2
+          EOF
+          
+          # Upload deployment package
+          echo "📤 Uploading deployment package..."
+          sshpass -p "3GM8jHZuTWzDXe" scp -o StrictHostKeyChecking=no $DEPLOY_FILE root@$TEST_HOST:/tmp/
+          
+          # Extract and deploy
+          sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST << EOF
+            cd /tmp
+            DEPLOY_FILE=\$(ls -t deployment-*.tar.gz | head -1)
+            
+            # Determine deployment slot
+            if [ -L /var/www/bankim/current ]; then
+              CURRENT_SLOT=\$(readlink /var/www/bankim/current | xargs basename)
+            else
+              CURRENT_SLOT="blue"
+            fi
+            NEW_SLOT=\$([ "\$CURRENT_SLOT" = "blue" ] && echo "green" || echo "blue")
+            
+            echo "Extracting to /var/www/bankim/\$NEW_SLOT"
+            tar -xzf \$DEPLOY_FILE -C /var/www/bankim/\$NEW_SLOT
+            
+            # Install dependencies on server to ensure all modules are present
+            echo "Installing dependencies on server..."
+            cd /var/www/bankim/\$NEW_SLOT
+            npm install || echo "Warning: npm install had issues"
+            
+            # Set permissions
+            chown -R root:root /var/www/bankim/\$NEW_SLOT
+            chmod -R 755 /var/www/bankim/\$NEW_SLOT
+            
+            # Switch to new deployment BEFORE configuring NGINX
+            ln -sfn /var/www/bankim/\$NEW_SLOT /var/www/bankim/current
+            
+            # Configure NGINX - use config from scripts
+            echo "Configuring NGINX..."
+            if [ -f /var/www/bankim/current/scripts/nginx-test.conf ]; then
+              cp /var/www/bankim/current/scripts/nginx-test.conf /etc/nginx/sites-available/bankim
+              echo "NGINX config copied from scripts"
+            else
+              echo "Warning: NGINX config not found, keeping existing config"
+            fi
+            
+            # Skip heredoc - config is handled by the copied file above
+            if false; then
+              cat > /etc/nginx/sites-available/bankim << 'NGINX_EOF'
+# HTTP server - redirect to HTTPS
+server {
+    listen 80;
+    server_name dev2.bankimonline.com 45.83.42.74;
+    return 301 https://\$server_name\$request_uri;
+}
+
+# HTTPS server
+server {
+    listen 443 ssl http2;
+    server_name dev2.bankimonline.com 45.83.42.74;
+    
+    # SSL configuration
+    ssl_certificate /etc/letsencrypt/live/dev2.bankimonline.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dev2.bankimonline.com/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+    
+    # React app root
+    root /var/www/bankim/current/build;
+    index index.html index.htm;
+    
+    # Frontend routes
+    location / {
+        try_files \$uri \$uri/ /index.html;
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+    
+    # Static assets
+    location /static/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+    
+    location /assets/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+    
+    location /css/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+    
+    location /js/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+    
+    # API proxy
+    location /api {
+        proxy_pass http://127.0.0.1:8003;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+        proxy_connect_timeout 30s;
+        proxy_send_timeout 30s;
+        proxy_read_timeout 30s;
+    }
+    
+    # Health check endpoint
+    location = /health {
+        proxy_pass http://127.0.0.1:8003/api/health;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+    }
+    
+    # Security headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+}
+NGINX_EOF
+            fi
+            
+            # Remove any conflicting configs
+            rm -f /etc/nginx/sites-enabled/bankimonline
+            ln -sf /etc/nginx/sites-available/bankim /etc/nginx/sites-enabled/
+            
+            # Test and reload NGINX
+            if nginx -t; then
+              systemctl reload nginx
+              echo "✅ NGINX configured successfully"
+            else
+              echo "❌ NGINX configuration failed"
+              exit 1
+            fi
+            
+            # Restart application
+            cd /var/www/bankim/current
+            pm2 delete bankim-api 2>/dev/null || echo "Process not running"
+            pm2 start ecosystem.config.js --env test
+            pm2 save
+            
+            echo "✅ Test deployment complete!"
+            pm2 status
+          EOF
+
+      - name: Validate Test Deployment
+        if: github.ref == 'refs/heads/develop' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'test' || github.event.inputs.environment == 'both'))
+        run: |
+          echo "🔍 COMPREHENSIVE TEST DEPLOYMENT VALIDATION"
+          echo "==========================================="
+          
+          # Wait for services to stabilize
+          echo "⏳ Waiting for services to start..."
+          sleep 30
+          
+          # Use the comprehensive health check script on server
+          echo "Running comprehensive health check..."
+          sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST '
+            # Create health check script if it doesn't exist
+            if [ ! -f /var/www/bankim/deployment-health-check.sh ]; then
+              cat > /var/www/bankim/deployment-health-check.sh << "HEALTH_EOF"
+#!/bin/bash
+set -e
+echo "🔍 POST-DEPLOYMENT HEALTH CHECK"
+echo "================================"
+FAILURES=0
+
+# Test PM2 Status
+echo -n "Testing PM2 status... "
+if pm2 status | grep -q "bankim-api.*online"; then
+    echo "✅ PASS"
+else
+    echo "❌ FAIL"
+    FAILURES=$((FAILURES+1))
+fi
+
+# Test API Health Endpoint
+echo -n "Testing API health endpoint... "
+RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8003/api/health)
+if [ "$RESPONSE" = "200" ]; then
+    echo "✅ PASS (HTTP $RESPONSE)"
+else
+    echo "❌ FAIL (HTTP $RESPONSE)"
+    FAILURES=$((FAILURES+1))
+fi
+
+# Test HTTPS Frontend
+echo -n "Testing HTTPS frontend... "
+RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://dev2.bankimonline.com/)
+if [ "$RESPONSE" = "200" ]; then
+    echo "✅ PASS (HTTP $RESPONSE)"
+else
+    echo "❌ FAIL (HTTP $RESPONSE)"  
+    FAILURES=$((FAILURES+1))
+fi
+
+# Test API via HTTPS
+echo -n "Testing API via HTTPS... "
+RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://dev2.bankimonline.com/api/health)
+if [ "$RESPONSE" = "200" ]; then
+    echo "✅ PASS (HTTP $RESPONSE)"
+else
+    echo "❌ FAIL (HTTP $RESPONSE)"
+    FAILURES=$((FAILURES+1))
+fi
+
+# Test HTTP Redirect
+echo -n "Testing HTTP to HTTPS redirect... "
+RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://dev2.bankimonline.com/)
+if [ "$RESPONSE" = "301" ]; then
+    echo "✅ PASS (HTTP $RESPONSE)"
+else
+    echo "❌ FAIL (HTTP $RESPONSE)"
+    FAILURES=$((FAILURES+1))
+fi
+
+echo "================================"
+if [ $FAILURES -eq 0 ]; then
+    echo "🎉 ALL HEALTH CHECKS PASSED"
+    exit 0
+else
+    echo "🚨 $FAILURES HEALTH CHECKS FAILED"
+    exit 1
+fi
+HEALTH_EOF
+              chmod +x /var/www/bankim/deployment-health-check.sh
+            fi
+            
+            # Run the comprehensive health check
+            if /var/www/bankim/deployment-health-check.sh; then
+              echo "✅ Test deployment validation successful"
+            else
+              echo "❌ Test deployment validation failed - initiating rollback"
+              # Simple rollback logic
+              if [ -d /var/www/bankim/blue ] && [ -d /var/www/bankim/green ]; then
+                CURRENT_SLOT=$(readlink /var/www/bankim/current | xargs basename)
+                ROLLBACK_SLOT=$([ "$CURRENT_SLOT" = "blue" ] && echo "green" || echo "blue")
+                echo "Rolling back to $ROLLBACK_SLOT..."
+                ln -sfn /var/www/bankim/$ROLLBACK_SLOT /var/www/bankim/current
+                pm2 restart bankim-api
+                systemctl reload nginx
+                sleep 10
+                echo "Rollback completed - please check manually"
+              fi
+              exit 1
+            fi
+          '
+          
+          echo "✅ Test deployment validation complete!"
+
+      - name: Deploy to Production Environment
+        if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'production' || github.event.inputs.environment == 'both'))
+        run: |
+          echo "🚀 DEPLOYING TO PRODUCTION ENVIRONMENT"
+          echo "======================================"
+          
+          # Install sshpass for automated deployment
+          sudo apt-get update && sudo apt-get install -y sshpass
+          
+          # Get the latest deployment package
+          DEPLOY_FILE=$(ls -t deployment-*.tar.gz | head -1)
+          echo "📦 Deploying: $DEPLOY_FILE"
+          
+          # Prepare production server
+          sshpass -p "Q23YP4MwsaPzD7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST << 'EOF'
+            # Install Node.js if not present
+            if ! command -v node >/dev/null 2>&1; then
+              curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+              apt-get install -y nodejs
+            fi
+            
+            # Install PM2 if not present
+            command -v pm2 >/dev/null 2>&1 || npm install -g pm2
+            
+            # Prepare deployment directories
+            mkdir -p /var/www/bankim/{blue,green}
+            
+            # Determine current and new slots
+            if [ -L /var/www/bankim/current ]; then
+              CURRENT_SLOT=$(readlink /var/www/bankim/current | xargs basename)
+            else
+              CURRENT_SLOT="blue"
+            fi
+            
+            NEW_SLOT=$([ "$CURRENT_SLOT" = "blue" ] && echo "green" || echo "blue")
+            echo "Production - Current slot: $CURRENT_SLOT, Deploying to: $NEW_SLOT"
+            
+            # Clean new slot
+            rm -rf /var/www/bankim/$NEW_SLOT/*
+          EOF
+          
+          # Upload deployment package to production
+          echo "📤 Uploading to production server..."
+          sshpass -p "Q23YP4MwsaPzD7" scp -o StrictHostKeyChecking=no $DEPLOY_FILE root@$PROD_HOST:/tmp/
+          
+          # Extract and deploy to production
+          sshpass -p "Q23YP4MwsaPzD7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST << EOF
+            cd /tmp
+            DEPLOY_FILE=\$(ls -t deployment-*.tar.gz | head -1)
+            
+            # Determine deployment slot
+            if [ -L /var/www/bankim/current ]; then
+              CURRENT_SLOT=\$(readlink /var/www/bankim/current | xargs basename)
+            else
+              CURRENT_SLOT="blue"
+            fi
+            NEW_SLOT=\$([ "\$CURRENT_SLOT" = "blue" ] && echo "green" || echo "blue")
+            
+            echo "Extracting to /var/www/bankim/\$NEW_SLOT"
+            tar -xzf \$DEPLOY_FILE -C /var/www/bankim/\$NEW_SLOT
+            
+            # Install dependencies on server to ensure all modules are present
+            echo "Installing dependencies on server..."
+            cd /var/www/bankim/\$NEW_SLOT
+            npm install || echo "Warning: npm install had issues"
+            
+            # Set permissions
+            chown -R root:root /var/www/bankim/\$NEW_SLOT
+            chmod -R 755 /var/www/bankim/\$NEW_SLOT
+            
+            # Switch to new deployment
+            ln -sfn /var/www/bankim/\$NEW_SLOT /var/www/bankim/current
+            
+            # Configure web server proxy (if needed)
+            if command -v nginx >/dev/null 2>&1; then
+              echo "Configuring nginx proxy for production..."
+              cat > /etc/nginx/sites-available/bankimonline << 'PROD_NGINX_EOF'
+server {
+    listen 80;
+    server_name bankimonline.com www.bankimonline.com;
+    
+    root /var/www/bankim/current/build;
+    index index.html index.htm;
+    
+    location / {
+        try_files \$uri \$uri/ /index.html;
+    }
+    
+    location /api {
+        proxy_pass http://localhost:8003;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade \$http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto \$scheme;
+        proxy_cache_bypass \$http_upgrade;
+    }
+}
+PROD_NGINX_EOF
+              ln -sf /etc/nginx/sites-available/bankimonline /etc/nginx/sites-enabled/
+              nginx -t && systemctl reload nginx || echo "Nginx config issue"
+            fi
+            
+            # Start application
+            cd /var/www/bankim/current
+            pm2 delete bankim-api 2>/dev/null || echo "Process not running"
+            pm2 start ecosystem.config.js --env production
+            pm2 save
+            pm2 startup || echo "PM2 startup already configured"
+            
+            echo "🚀 Production deployment complete!"
+            pm2 status
+          EOF
+
+      - name: Validate Production Deployment
+        if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'production' || github.event.inputs.environment == 'both'))
+        run: |
+          echo "🔍 VALIDATING PRODUCTION DEPLOYMENT"
+          echo "=================================="
+          
+          # Wait for services to stabilize
+          echo "⏳ Waiting for services to start..."
+          sleep 60
+          
+          # Use comprehensive health check on production
+          sshpass -p "Q23YP4MwsaPzD7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST '
+            # Basic production health check
+            echo "Testing production deployment..."
+            FAILURES=0
+            
+            # Test PM2
+            if ! pm2 status | grep -q "bankim-api.*online"; then
+              echo "❌ PM2 bankim-api not online"
+              FAILURES=$((FAILURES+1))
+            fi
+            
+            # Test API
+            if ! curl -f --max-time 30 "http://localhost:8003/api/health" > /dev/null 2>&1; then
+              echo "❌ API health check failed"
+              FAILURES=$((FAILURES+1))
+            fi
+            
+            # Test NGINX
+            if ! curl -f --max-time 10 "http://localhost/" > /dev/null 2>&1; then
+              echo "❌ NGINX test failed"
+              FAILURES=$((FAILURES+1))
+            fi
+            
+            if [ $FAILURES -eq 0 ]; then
+              echo "✅ Production deployment validation passed"
+            else
+              echo "⚠️ $FAILURES issues detected - manual verification recommended"
+            fi
+          '
+          
+          echo "🎉 Production deployment completed!"
+          echo "🌐 Check: http://bankimonline.com"
+          echo "📊 API: http://185.253.72.80:8003/api/health"
+
+      - name: Setup Monitoring
+        if: always()
+        run: |
+          echo "🔍 SETTING UP MONITORING"
+          echo "======================="
+          
+          # Setup monitoring for test server
+          if [[ "${{ github.ref }}" == "refs/heads/develop" ]] || [[ "${{ github.event.inputs.environment }}" == "test" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
+            echo "Setting up test server monitoring..."
+            sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST '
+              # Ensure monitoring script exists and is in crontab
+              if [ -f /var/www/bankim/monitor.sh ]; then
+                # Add to crontab if not already there
+                (crontab -l 2>/dev/null | grep -q "monitor.sh") || echo "*/2 * * * * /var/www/bankim/monitor.sh > /dev/null 2>&1" | crontab -
+                echo "✅ Test server monitoring enabled"
+              fi
+            ' || echo "⚠️ Could not setup test server monitoring"
+          fi
+          
+          # Setup monitoring for production server  
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]] || [[ "${{ github.event.inputs.environment }}" == "production" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
+            echo "Setting up production server monitoring..."
+            sshpass -p "Q23YP4MwsaPzD7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST '
+              mkdir -p /var/www/bankim
+              # Create basic monitoring for production
+              cat > /var/www/bankim/monitor.sh << "MONITOR_EOF"
+#!/bin/bash
+LOG_FILE="/var/www/bankim/monitor.log"
+TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
+log() { echo "[$TIMESTAMP] $1" >> $LOG_FILE; }
+
+if ! pm2 status | grep -q "bankim-api.*online"; then
+  log "❌ PM2 restart required"
+  pm2 restart bankim-api
+fi
+if ! curl -s http://localhost:8003/api/health > /dev/null; then
+  log "❌ API restart required"
+  pm2 restart bankim-api
+fi
+MONITOR_EOF
+              chmod +x /var/www/bankim/monitor.sh
+              (crontab -l 2>/dev/null | grep -q "monitor.sh") || echo "*/5 * * * * /var/www/bankim/monitor.sh" | crontab -
+              echo "✅ Production server monitoring enabled"
+            ' || echo "⚠️ Could not setup production server monitoring"
+          fi
+
+      - name: Cleanup
+        if: always()
+        run: |
+          echo "🧹 CLEANUP"
+          echo "=========="
+          # Remove deployment files
+          rm -f deployment-*.tar.gz
+          rm -rf deploy/
+          echo "✅ Cleanup complete"
+
+      - name: Deployment Summary
+        if: always()
+        run: |
+          echo ""
+          echo "📋 DEPLOYMENT SUMMARY"
+          echo "===================="
+          echo "🕐 Time: $(date)"
+          echo "📍 Branch: ${{ github.ref_name }}"
+          echo "🔢 Commit: ${{ github.sha }}"
+          if [[ "${{ github.ref }}" == "refs/heads/develop" ]] || [[ "${{ github.event.inputs.environment }}" == "test" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
+            echo "🧪 Test: https://dev2.bankimonline.com"
+            echo "📊 Test API: https://dev2.bankimonline.com/api/health"
+          fi
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]] || [[ "${{ github.event.inputs.environment }}" == "production" ]] || [[ "${{ github.event.inputs.environment }}" == "both" ]]; then
+            echo "🏦 Production: https://bankimonline.com"
+            echo "📊 Production API: http://185.253.72.80:8003/api/health"
+          fi
+          echo "🔍 Monitoring: Every 2 minutes (test) / 5 minutes (prod)"
+          echo "🛠️ Rollback: Blue-green deployment with automatic rollback"
+          echo "===================="

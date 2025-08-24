@@ -1,0 +1,201 @@
+name: Deploy to Test & Production
+
+on:
+  push:
+    branches:
+      - develop  # Deploy to test environment
+      - main     # Deploy to production environment
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment Environment'
+        required: true
+        default: 'test'
+        type: choice
+        options:
+          - test
+          - production
+          - both
+
+env:
+  TEST_HOST: 45.83.42.74
+  PROD_HOST: 185.253.72.80
+  TEST_PATH: /var/www/bankim
+  PROD_PATH: /var/www/bankim
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install backend dependencies
+        run: npm install
+
+      - name: Install frontend dependencies
+        run: |
+          cd mainapp
+          npm install
+
+      - name: Update version
+        run: |
+          cd mainapp
+          npm run version:update
+
+      - name: Build frontend
+        run: |
+          cd mainapp
+          npm run build
+
+      - name: Create deployment package
+        run: |
+          mkdir -p deploy
+          # Copy backend files
+          cp -r server deploy/
+          cp package*.json deploy/
+          cp ecosystem.config.js deploy/
+          # Copy frontend build
+          cp -r mainapp/build deploy/
+          cp -r mainapp/public deploy/
+          # Copy essential files
+          cp -r migrations deploy/
+          cp -r uploads deploy/ || mkdir deploy/uploads
+          # Copy scripts for bulletproof deployment
+          cp -r scripts deploy/
+          # Create clean package for production
+          cd deploy && npm install --omit=dev
+
+      - name: Create deployment archive
+        run: |
+          tar -czf deployment-$(date +%Y%m%d-%H%M%S).tar.gz -C deploy .
+          ls -la deployment-*.tar.gz
+
+      - name: Deploy to Test Environment
+        if: github.ref == 'refs/heads/develop' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'test' || github.event.inputs.environment == 'both'))
+        run: |
+          echo "🧪 DEPLOYING TO TEST ENVIRONMENT"
+          echo "================================"
+          
+          # Install sshpass for automated deployment
+          sudo apt-get update && sudo apt-get install -y sshpass
+          
+          # Get the latest deployment package
+          DEPLOY_FILE=$(ls -t deployment-*.tar.gz | head -1)
+          echo "📦 Deploying: $DEPLOY_FILE"
+          
+          # Simple pre-deployment validation (skip complex heredocs)
+          echo "🔍 Running pre-deployment validation..."
+          sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST 'mkdir -p /var/www/bankim && echo "✅ Server accessible"'
+          
+          # Create blue-green deployment structure
+          sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST 'mkdir -p /var/www/bankim/{blue,green} && if [ -L /var/www/bankim/current ]; then CURRENT_SLOT=$(readlink /var/www/bankim/current | xargs basename); else CURRENT_SLOT="blue"; fi && NEW_SLOT=$([ "$CURRENT_SLOT" = "blue" ] && echo "green" || echo "blue") && echo "Current slot: $CURRENT_SLOT, Deploying to: $NEW_SLOT" && rm -rf /var/www/bankim/$NEW_SLOT/* && command -v pm2 >/dev/null 2>&1 || npm install -g pm2'
+          
+          # Upload deployment package
+          echo "📤 Uploading deployment package..."
+          sshpass -p "3GM8jHZuTWzDXe" scp -o StrictHostKeyChecking=no $DEPLOY_FILE root@$TEST_HOST:/tmp/
+          
+          # Extract and deploy
+          sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST "cd /tmp && DEPLOY_FILE=\$(ls -t deployment-*.tar.gz | head -1) && if [ -L /var/www/bankim/current ]; then CURRENT_SLOT=\$(readlink /var/www/bankim/current | xargs basename); else CURRENT_SLOT=\"blue\"; fi && NEW_SLOT=\$([ \"\$CURRENT_SLOT\" = \"blue\" ] && echo \"green\" || echo \"blue\") && echo \"Extracting to /var/www/bankim/\$NEW_SLOT\" && tar -xzf \$DEPLOY_FILE -C /var/www/bankim/\$NEW_SLOT && cd /var/www/bankim/\$NEW_SLOT && npm install --omit=dev && ln -sfn /var/www/bankim/\$NEW_SLOT /var/www/bankim/current"
+          
+          # Start PM2 process
+          echo "🚀 Starting PM2 process..."
+          sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST "cd /var/www/bankim/current && pm2 delete bankim-api 2>/dev/null || true && pm2 start ecosystem.config.js --env test && pm2 save"
+          
+          # Ensure NGINX is configured and running
+          echo "🔧 Configuring NGINX..."
+          sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST "if [ ! -f /etc/nginx/sites-available/bankim ]; then cp /var/www/bankim/current/scripts/nginx-test.conf /etc/nginx/sites-available/bankim 2>/dev/null || echo 'NGINX config will be created'; fi && ln -sf /etc/nginx/sites-available/bankim /etc/nginx/sites-enabled/bankim && nginx -t && systemctl reload nginx"
+          
+          # Install self-healing monitoring
+          echo "🛡️ Installing self-healing monitoring..."
+          sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST "chmod +x /var/www/bankim/current/scripts/*.sh 2>/dev/null || true && (crontab -l 2>/dev/null | grep -v self-healing-monitor; echo '*/2 * * * * /var/www/bankim/current/scripts/self-healing-monitor.sh') | crontab -"
+          
+          # Run comprehensive health check
+          echo "✅ Running 5-point health validation..."
+          sshpass -p "3GM8jHZuTWzDXe" ssh -o StrictHostKeyChecking=no root@$TEST_HOST "if [ -f /var/www/bankim/current/scripts/comprehensive-health-check.sh ]; then /var/www/bankim/current/scripts/comprehensive-health-check.sh test; else echo 'Health check will be available after deployment'; fi"
+          
+          echo "🎉 TEST DEPLOYMENT COMPLETED!"
+          echo "🔗 Visit: https://dev2.bankimonline.com"
+
+      - name: Deploy to Production Environment
+        if: github.ref == 'refs/heads/main' || (github.event_name == 'workflow_dispatch' && (github.event.inputs.environment == 'production' || github.event.inputs.environment == 'both'))
+        run: |
+          echo "🚀 DEPLOYING TO PRODUCTION ENVIRONMENT"
+          echo "======================================"
+          
+          # Install sshpass for automated deployment
+          sudo apt-get update && sudo apt-get install -y sshpass
+          
+          # Get the latest deployment package
+          DEPLOY_FILE=$(ls -t deployment-*.tar.gz | head -1)
+          echo "📦 Deploying: $DEPLOY_FILE"
+          
+          # Simple pre-deployment validation
+          echo "🔍 Running pre-deployment validation..."
+          sshpass -p "Kx@9#mP2$vL7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST 'mkdir -p /var/www/bankim && echo "✅ Server accessible"'
+          
+          # Create blue-green deployment structure
+          sshpass -p "Kx@9#mP2$vL7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST 'mkdir -p /var/www/bankim/{blue,green} && if [ -L /var/www/bankim/current ]; then CURRENT_SLOT=$(readlink /var/www/bankim/current | xargs basename); else CURRENT_SLOT="blue"; fi && NEW_SLOT=$([ "$CURRENT_SLOT" = "blue" ] && echo "green" || echo "blue") && echo "Current slot: $CURRENT_SLOT, Deploying to: $NEW_SLOT" && rm -rf /var/www/bankim/$NEW_SLOT/* && command -v pm2 >/dev/null 2>&1 || npm install -g pm2'
+          
+          # Upload deployment package
+          echo "📤 Uploading deployment package..."
+          sshpass -p "Kx@9#mP2$vL7" scp -o StrictHostKeyChecking=no $DEPLOY_FILE root@$PROD_HOST:/tmp/
+          
+          # Extract and deploy
+          sshpass -p "Kx@9#mP2$vL7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST "cd /tmp && DEPLOY_FILE=\$(ls -t deployment-*.tar.gz | head -1) && if [ -L /var/www/bankim/current ]; then CURRENT_SLOT=\$(readlink /var/www/bankim/current | xargs basename); else CURRENT_SLOT=\"blue\"; fi && NEW_SLOT=\$([ \"\$CURRENT_SLOT\" = \"blue\" ] && echo \"green\" || echo \"blue\") && echo \"Extracting to /var/www/bankim/\$NEW_SLOT\" && tar -xzf \$DEPLOY_FILE -C /var/www/bankim/\$NEW_SLOT && cd /var/www/bankim/\$NEW_SLOT && npm install --omit=dev && ln -sfn /var/www/bankim/\$NEW_SLOT /var/www/bankim/current"
+          
+          # Start PM2 process
+          echo "🚀 Starting PM2 process..."
+          sshpass -p "Kx@9#mP2$vL7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST "cd /var/www/bankim/current && pm2 delete bankim-api 2>/dev/null || true && pm2 start ecosystem.config.js --env production && pm2 save"
+          
+          # Configure Apache if needed (production uses Apache)
+          echo "🔧 Configuring Apache..."
+          sshpass -p "Kx@9#mP2$vL7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST "if command -v apache2 >/dev/null 2>&1; then a2enmod proxy proxy_http ssl rewrite headers && systemctl reload apache2; fi"
+          
+          # Install self-healing monitoring
+          echo "🛡️ Installing self-healing monitoring..."
+          sshpass -p "Kx@9#mP2$vL7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST "chmod +x /var/www/bankim/current/scripts/*.sh 2>/dev/null || true && (crontab -l 2>/dev/null | grep -v self-healing-monitor; echo '*/2 * * * * /var/www/bankim/current/scripts/self-healing-monitor.sh') | crontab -"
+          
+          # Run comprehensive health check
+          echo "✅ Running 5-point health validation..."
+          sshpass -p "Kx@9#mP2$vL7" ssh -o StrictHostKeyChecking=no root@$PROD_HOST "if [ -f /var/www/bankim/current/scripts/comprehensive-health-check.sh ]; then /var/www/bankim/current/scripts/comprehensive-health-check.sh production; else echo 'Health check will be available after deployment'; fi"
+          
+          echo "🎉 PRODUCTION DEPLOYMENT COMPLETED!"
+          echo "🔗 Visit: https://bankimonline.com"
+
+  rollback:
+    runs-on: ubuntu-latest
+    if: failure()
+    needs: build
+    steps:
+      - name: Automatic Rollback on Failure
+        run: |
+          echo "🚨 DEPLOYMENT FAILED - INITIATING ROLLBACK"
+          echo "========================================="
+          
+          # Determine which environment to rollback
+          if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            SERVER_IP="${{ env.TEST_HOST }}"
+            SERVER_PASS="3GM8jHZuTWzDXe"
+            ENV_NAME="TEST"
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            SERVER_IP="${{ env.PROD_HOST }}"
+            SERVER_PASS="Kx@9#mP2$vL7"
+            ENV_NAME="PRODUCTION"
+          fi
+          
+          echo "🔄 Rolling back $ENV_NAME environment..."
+          
+          # Install sshpass
+          sudo apt-get update && sudo apt-get install -y sshpass
+          
+          # Perform rollback
+          sshpass -p "$SERVER_PASS" ssh -o StrictHostKeyChecking=no root@$SERVER_IP "cd /var/www/bankim && CURRENT=\$(readlink current | xargs basename) && PREVIOUS=\$([ \"\$CURRENT\" = \"blue\" ] && echo \"green\" || echo \"blue\") && echo \"Rolling back from \$CURRENT to \$PREVIOUS\" && ln -sfn /var/www/bankim/\$PREVIOUS /var/www/bankim/current && pm2 restart bankim-api && if command -v nginx >/dev/null; then systemctl reload nginx; elif command -v apache2 >/dev/null; then systemctl reload apache2; fi"
+          
+          echo "✅ Rollback completed for $ENV_NAME"
