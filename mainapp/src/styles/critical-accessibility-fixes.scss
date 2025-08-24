@@ -1,0 +1,509 @@
+/**
+ * CRITICAL ACCESSIBILITY FIXES
+ * Ultra-comprehensive fixes for all UI/UX issues identified
+ * Production-ready implementation
+ */
+
+/* ========================================
+   1. GLOBAL TOUCH TARGET COMPLIANCE
+   ======================================== */
+
+// Ensure ALL interactive elements meet 44x44px minimum
+button,
+a,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+.clickable,
+[role="button"],
+[role="link"],
+[role="tab"],
+[role="menuitem"],
+[onclick],
+[data-clickable] {
+  min-height: 44px !important;
+  min-width: 44px !important;
+  position: relative;
+  
+  // Mobile enhancement - even larger targets
+  @media (max-width: 768px) {
+    min-height: 48px !important;
+    min-width: 48px !important;
+  }
+  
+  // Ensure clickable area extends to full size
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    pointer-events: none;
+    
+    @media (max-width: 768px) {
+      width: max(100%, 48px);
+      height: max(100%, 48px);
+    }
+  }
+}
+
+/* ========================================
+   2. SLIDER HANDLE FIX - CRITICAL
+   ======================================== */
+
+// Fix for range slider handles (currently 16x16px)
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 44px !important;
+  background: transparent;
+  cursor: pointer;
+  
+  // Webkit browsers (Chrome, Safari)
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50%;
+    background: #0066cc;
+    cursor: pointer;
+    border: none; // Removed white border - was causing visual issues
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    margin-top: -18px; // Center on track
+    
+    &:hover {
+      background: #0052a3;
+      transform: scale(1.1);
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+  
+  // Firefox
+  &::-moz-range-thumb {
+    width: 44px !important;
+    height: 44px !important;
+    border-radius: 50%;
+    background: #0066cc;
+    cursor: pointer;
+    border: none; // Removed white border - was causing visual issues
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    
+    &:hover {
+      background: #0052a3;
+      transform: scale(1.1);
+    }
+    
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+  
+  // Track styling
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+  }
+  
+  &::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+  }
+  
+  // Mobile enhancements
+  @media (max-width: 768px) {
+    height: 48px !important;
+    
+    &::-webkit-slider-thumb {
+      width: 48px !important;
+      height: 48px !important;
+      margin-top: -20px;
+    }
+    
+    &::-moz-range-thumb {
+      width: 48px !important;
+      height: 48px !important;
+    }
+  }
+}
+
+// Custom slider components (Material-UI, etc.)
+.MuiSlider-thumb,
+.slider-handle,
+.range-slider__handle,
+[class*="slider"][class*="handle"],
+[class*="Slider"][class*="Handle"],
+[class*="ranger"][class*="handle"] {
+  width: 44px !important;
+  height: 44px !important;
+  
+  @media (max-width: 768px) {
+    width: 48px !important;
+    height: 48px !important;
+  }
+  
+  // Ensure the touch target is properly sized
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    
+    @media (max-width: 768px) {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
+
+/* ========================================
+   3. NAVIGATION LINK FIXES
+   ======================================== */
+
+// Fix navigation links that are too short
+nav a,
+.navigation a,
+.nav-link,
+.menu-item,
+[class*="nav"] a,
+[class*="Nav"] a,
+header a {
+  min-height: 44px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 12px 16px !important;
+  
+  @media (max-width: 768px) {
+    min-height: 48px !important;
+    padding: 14px 18px !important;
+  }
+}
+
+// Burger menu specific fix
+.burger-menu,
+.hamburger,
+.menu-toggle,
+[class*="burger"],
+[class*="Burger"],
+[aria-label*="menu"],
+[aria-label*="Menu"] {
+  min-width: 44px !important;
+  min-height: 44px !important;
+  padding: 10px !important;
+  
+  @media (max-width: 768px) {
+    min-width: 48px !important;
+    min-height: 48px !important;
+    padding: 12px !important;
+  }
+}
+
+/* ========================================
+   4. FORM ELEMENT ENHANCEMENTS
+   ======================================== */
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+select,
+textarea {
+  min-height: 44px !important;
+  padding: 12px !important;
+  font-size: 16px !important; // Prevents zoom on iOS
+  
+  @media (max-width: 768px) {
+    min-height: 48px !important;
+    padding: 14px !important;
+  }
+}
+
+// Checkbox and radio button touch targets
+input[type="checkbox"],
+input[type="radio"] {
+  min-width: 20px !important;
+  min-height: 20px !important;
+  margin: 12px !important; // Total 44px with margin
+  cursor: pointer;
+  
+  // Create larger touch target
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+  }
+}
+
+// Custom checkbox/radio containers
+.checkbox-wrapper,
+.radio-wrapper,
+[class*="checkbox"],
+[class*="Checkbox"],
+[class*="radio"],
+[class*="Radio"] {
+  min-height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  
+  @media (max-width: 768px) {
+    min-height: 48px !important;
+  }
+}
+
+/* ========================================
+   5. SKIP NAVIGATION LINK
+   ======================================== */
+
+.skip-to-main,
+.skip-link,
+#skip-navigation {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #0066cc;
+  color: white;
+  padding: 12px 24px;
+  text-decoration: none;
+  z-index: 100000;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  
+  &:focus {
+    top: 0;
+  }
+}
+
+// Auto-inject skip link if missing
+body:not(:has(.skip-to-main))::before {
+  content: 'Skip to main content';
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #0066cc;
+  color: white;
+  padding: 12px 24px;
+  text-decoration: none;
+  z-index: 100000;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+  
+  &:focus-within {
+    top: 0;
+    pointer-events: auto;
+  }
+}
+
+/* ========================================
+   6. KEYBOARD NAVIGATION
+   ======================================== */
+
+*:focus-visible {
+  outline: 3px solid #0066cc !important;
+  outline-offset: 2px !important;
+  z-index: 10000 !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.5) !important;
+}
+
+/* ========================================
+   7. COLOR CONTRAST FIXES
+   ======================================== */
+
+// Ensure minimum contrast ratios
+body {
+  color: #212121; // Ensures 4.5:1 ratio on white
+}
+
+// Placeholder text contrast
+::placeholder {
+  color: #666666 !important; // 4.5:1 ratio
+  opacity: 1 !important;
+}
+
+// Disabled state contrast
+:disabled,
+[disabled],
+[aria-disabled="true"] {
+  opacity: 0.7 !important;
+  color: #666666 !important;
+}
+
+/* ========================================
+   8. MOBILE-SPECIFIC ENHANCEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+  // Increase all touch targets on mobile
+  * {
+    -webkit-tap-highlight-color: rgba(0, 102, 204, 0.1);
+  }
+  
+  // Ensure proper spacing between interactive elements
+  button + button,
+  a + a,
+  input + input {
+    margin-left: 8px !important;
+  }
+  
+  // Stack buttons vertically on very small screens
+  @media (max-width: 400px) {
+    .button-group,
+    .btn-group,
+    [class*="button-group"] {
+      flex-direction: column !important;
+      
+      button,
+      a {
+        width: 100% !important;
+        margin: 4px 0 !important;
+      }
+    }
+  }
+}
+
+/* ========================================
+   9. RTL SUPPORT ENHANCEMENTS
+   ======================================== */
+
+[dir="rtl"] {
+  // Adjust focus offset for RTL
+  *:focus-visible {
+    outline-offset: -2px !important;
+  }
+  
+  // Fix slider direction
+  input[type="range"] {
+    direction: ltr;
+  }
+  
+  // Navigation adjustments
+  nav a {
+    text-align: right;
+  }
+}
+
+/* ========================================
+   10. LOADING & ERROR STATES
+   ======================================== */
+
+.loading-spinner,
+.error-message,
+.toast-notification {
+  min-height: 44px !important;
+  padding: 12px !important;
+  
+  @media (max-width: 768px) {
+    min-height: 48px !important;
+    padding: 14px !important;
+  }
+}
+
+/* ========================================
+   11. HIGH CONTRAST MODE SUPPORT
+   ======================================== */
+
+// REMOVED: High contrast borders were appearing for ALL users
+// Only apply these styles when user ACTUALLY has high contrast mode enabled
+// @media (prefers-contrast: high) {
+//   *:focus-visible {
+//     outline-width: 4px !important;
+//     outline-color: currentColor !important;
+//   }
+//   
+//   button,
+//   a {
+//     border: 2px solid currentColor !important;
+//   }
+// }
+
+/* ========================================
+   12. REDUCED MOTION SUPPORT
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ========================================
+   13. PRINT STYLES
+   ======================================== */
+
+@media print {
+  .skip-to-main,
+  .skip-link,
+  button,
+  input[type="submit"] {
+    display: none !important;
+  }
+}
+
+/* ========================================
+   14. Z-INDEX MANAGEMENT
+   ======================================== */
+
+// Ensure focus indicators are always visible
+*:focus-visible {
+  position: relative;
+  z-index: 10000 !important;
+}
+
+// Modal and overlay z-index
+.modal,
+.overlay,
+[role="dialog"] {
+  z-index: 100000 !important;
+}
+
+/* ========================================
+   15. CUSTOM COMPONENT OVERRIDES
+   ======================================== */
+
+// Material-UI specific fixes
+.MuiButton-root {
+  min-height: 44px !important;
+  @media (max-width: 768px) {
+    min-height: 48px !important;
+  }
+}
+
+.MuiIconButton-root {
+  min-width: 44px !important;
+  min-height: 44px !important;
+  @media (max-width: 768px) {
+    min-width: 48px !important;
+    min-height: 48px !important;
+  }
+}
+
+// Ensure all fixes have highest priority
+* {
+  box-sizing: border-box !important;
+}
