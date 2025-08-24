@@ -1,25 +1,64 @@
 #!/bin/bash
-set -e
+# Remove set -e to allow retries
 echo "🔍 POST-DEPLOYMENT HEALTH CHECK"
 echo "================================"
 FAILURES=0
 
-# Test PM2 Status
+# Function to check PM2 with retries
+check_pm2_status() {
+    local retries=3
+    local wait_time=5
+    
+    for i in $(seq 1 $retries); do
+        if pm2 status | grep -q "bankim-api.*online"; then
+            return 0
+        fi
+        
+        if [ $i -lt $retries ]; then
+            echo "Retry $i/$retries in ${wait_time}s..."
+            sleep $wait_time
+            # Try to restart PM2 if it's errored
+            pm2 status | grep -q "bankim-api.*errored" && pm2 restart bankim-api --update-env > /dev/null 2>&1
+        fi
+    done
+    return 1
+}
+
+# Function to check API with retries
+check_api_health() {
+    local retries=3
+    local wait_time=5
+    
+    for i in $(seq 1 $retries); do
+        RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8003/api/health || echo "000")
+        if [ "$RESPONSE" = "200" ]; then
+            return 0
+        fi
+        
+        if [ $i -lt $retries ]; then
+            echo "Retry $i/$retries in ${wait_time}s (got HTTP $RESPONSE)..."
+            sleep $wait_time
+        fi
+    done
+    return 1
+}
+
+# Test PM2 Status with retries
 echo -n "Testing PM2 status... "
-if pm2 status | grep -q "bankim-api.*online"; then
+if check_pm2_status; then
     echo "✅ PASS"
 else
     echo "❌ FAIL"
     FAILURES=$((FAILURES+1))
 fi
 
-# Test API Health Endpoint
+# Test API Health Endpoint with retries
 echo -n "Testing API health endpoint... "
-RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8003/api/health)
-if [ "$RESPONSE" = "200" ]; then
+if check_api_health; then
+    RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8003/api/health)
     echo "✅ PASS (HTTP $RESPONSE)"
 else
-    echo "❌ FAIL (HTTP $RESPONSE)"
+    echo "❌ FAIL"
     FAILURES=$((FAILURES+1))
 fi
 

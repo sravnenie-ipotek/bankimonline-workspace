@@ -1,0 +1,42 @@
+// Additional test scripts to add to package.json
+
+{
+  "scripts": {
+    // Unit Testing Scripts
+    "test:unit": "jest --testPathPattern='(test|spec)\\.(ts|tsx)$'",
+    "test:unit:watch": "jest --watch --testPathPattern='(test|spec)\\.(ts|tsx)$'",
+    "test:unit:coverage": "jest --coverage --testPathPattern='(test|spec)\\.(ts|tsx)$'",
+    "test:unit:update-snapshots": "jest --updateSnapshot",
+    
+    // Component-Specific Testing
+    "test:forms": "jest --testPathPattern='(FirstStep|SecondStep|PersonalData|IncomeData).*test\\.(ts|tsx)$'",
+    "test:components": "jest --testPathPattern='(PropertyOwnership|BankOffers|DropdownMenu).*test\\.(ts|tsx)$'",
+    "test:accessibility": "jest --testPathPattern='accessibility.*test\\.(ts|tsx)$'",
+    "test:persistence": "jest --testPathPattern='Persistence.*test\\.(ts|tsx)$'",
+    
+    // Language-Specific Testing
+    "test:hebrew": "jest --testPathPattern='(test|spec)\\.(ts|tsx)$' --testNamePattern='(Hebrew|RTL|he)'",
+    "test:multilang": "jest --testPathPattern='(test|spec)\\.(ts|tsx)$' --testNamePattern='(Language|Multi-Language|i18n)'",
+    
+    // Banking Compliance Testing
+    "test:ltv": "jest --testPathPattern='(test|spec)\\.(ts|tsx)$' --testNamePattern='(LTV|Property Ownership|Business Rules)'",
+    "test:compliance": "jest --testPathPattern='(test|spec)\\.(ts|tsx)$' --testNamePattern='(Israeli|Banking|Compliance)'",
+    
+    // Performance Testing
+    "test:performance": "jest --testPathPattern='(test|spec)\\.(ts|tsx)$' --testNamePattern='Performance'",
+    "test:slow": "jest --testTimeout=30000 --testPathPattern='(integration|e2e).*test\\.(ts|tsx)$'",
+    
+    // Coverage Reports
+    "test:coverage:detailed": "jest --coverage --coverageReporters=html --coverageReporters=text --coverageReporters=lcov",
+    "test:coverage:ci": "jest --coverage --coverageReporters=text --coverageReporters=lcov --watchAll=false",
+    "test:coverage:open": "npm run test:coverage:detailed && open coverage/lcov-report/index.html",
+    
+    // Validation Scripts
+    "test:validate": "npm run test:unit:coverage && npm run test:accessibility && npm run test:compliance",
+    "test:ci": "npm run test:validate && npm run test:performance",
+    
+    // Debug Scripts
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand --testPathPattern='(test|spec)\\.(ts|tsx)$'",
+    "test:verbose": "jest --verbose --testPathPattern='(test|spec)\\.(ts|tsx)$'"
+  }
+}

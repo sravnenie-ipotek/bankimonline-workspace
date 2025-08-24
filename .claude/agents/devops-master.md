@@ -235,6 +235,208 @@ validate_railway_database() {
 }
 ```
 
+## ⚠️ CRITICAL YAML WORKFLOW PREVENTION RULES
+
+### MANDATORY: Prevent YAML Syntax Errors Forever
+**These rules MUST be followed to prevent deployment failures:**
+
+### PM2 Health Check Enhancement Rules
+**CRITICAL: PM2 processes may need restart after deployment:**
+
+```bash
+# PM2 HEALTH CHECK REQUIREMENTS
+pm2_health_check_rules() {
+    echo "🔍 PM2 HEALTH CHECK REQUIREMENTS"
+    echo "================================"
+    
+    # Rule 1: Always use retry logic for PM2 checks
+    echo "✅ Implement 3-retry mechanism with 5s delays"
+    
+    # Rule 2: Auto-restart errored processes
+    echo "✅ Detect and restart errored PM2 processes automatically"
+    
+    # Rule 3: Use --update-env flag
+    echo "✅ Always restart with --update-env to reload environment"
+    
+    # Rule 4: Save PM2 configuration
+    echo "✅ Run 'pm2 save' after successful restart"
+    
+    # Rule 5: Validate API response
+    echo "✅ Check actual API response, not just PM2 status"
+}
+
+# Enhanced PM2 restart function
+restart_pm2_safely() {
+    local app_name="bankim-api"
+    
+    # Check current status
+    local status=$(pm2 status --name $app_name | grep $app_name | awk '{print $12}')
+    
+    if [[ "$status" == "errored" ]] || [[ "$status" == "stopped" ]]; then
+        echo "⚠️ PM2 process is $status - restarting..."
+        pm2 delete $app_name 2>/dev/null || true
+        pm2 start server/server-db.js --name $app_name -i 2 --update-env
+        pm2 save
+        sleep 5  # Give time for process to start
+    elif [[ "$status" == "online" ]]; then
+        echo "✅ PM2 process is online - soft restart"
+        pm2 restart $app_name --update-env
+        pm2 save
+    else
+        echo "❌ Unknown PM2 status: $status"
+        return 1
+    fi
+}
+```
+
+```bash
+# YAML VALIDATION CHECKLIST - RUN BEFORE EVERY COMMIT
+validate_yaml_safety() {
+    echo "🔍 YAML SAFETY VALIDATION CHECKLIST"
+    echo "===================================="
+    
+    # Rule 1: NO HEREDOCS IN YAML FILES
+    echo "Checking for heredocs in workflow files..."
+    if grep -q '<<.*EOF' .github/workflows/*.yml; then
+        echo "❌ FATAL: Heredocs detected in YAML!"
+        echo "   SOLUTION: Move content to external scripts in scripts/ directory"
+        echo "   Example: scripts/deployment-health-check.sh"
+        return 1
+    fi
+    echo "✅ No heredocs found"
+    
+    # Rule 2: EXTERNAL CONFIG FILES
+    echo "Verifying external config files exist..."
+    local required_configs=(
+        "scripts/nginx-test.conf"
+        "scripts/nginx-prod.conf"
+        "scripts/deployment-health-check.sh"
+        "scripts/monitor.sh"
+    )
+    
+    for config in "${required_configs[@]}"; do
+        if [[ ! -f "$config" ]]; then
+            echo "❌ Missing required config: $config"
+            echo "   SOLUTION: Create external config file instead of inline content"
+            return 1
+        fi
+    done
+    echo "✅ All external configs present"
+    
+    # Rule 3: YAML SYNTAX VALIDATION
+    echo "Validating YAML syntax..."
+    if ! npx js-yaml .github/workflows/deploy-multi-env.yml > /dev/null 2>&1; then
+        echo "❌ YAML syntax validation failed!"
+        echo "   SOLUTION: Fix syntax errors before committing"
+        echo "   Command: npx js-yaml .github/workflows/deploy-multi-env.yml"
+        return 1
+    fi
+    echo "✅ YAML syntax valid"
+    
+    # Rule 4: BACKUP STRATEGY
+    echo "Creating backup before changes..."
+    cp .github/workflows/deploy-multi-env.yml .github/workflows/deploy-multi-env.yml.bak$(date +%Y%m%d)
+    echo "✅ Backup created"
+    
+    echo ""
+    echo "🎉 YAML SAFETY VALIDATION PASSED"
+    return 0
+}
+```
+
+### YAML Prevention Rules - NEVER VIOLATE THESE
+
+#### 1. ❌ NO HEREDOCS IN YAML - EVER!
+**Problem**: Comments inside heredocs break YAML parsing
+```yaml
+# ❌ NEVER DO THIS:
+run: |
+  cat > config.conf << 'EOF'
+  # This comment will break YAML parsing
+  server {
+    listen 80;
+  }
+  EOF
+
+# ✅ ALWAYS DO THIS:
+run: |
+  cp scripts/nginx-config.conf /etc/nginx/sites-available/
+```
+
+#### 2. ✅ EXTERNAL CONFIGURATIONS ONLY
+**All complex configs MUST be in external files:**
+```bash
+scripts/
+├── nginx-test.conf          # NGINX test config
+├── nginx-prod.conf          # NGINX production config
+├── deployment-health-check.sh   # Health check script
+├── monitor.sh               # Self-healing monitor
+└── self-healing-monitor.sh  # Enhanced monitoring
+```
+
+#### 3. ✅ MANDATORY YAML VALIDATION
+**Before EVERY workflow commit:**
+```bash
+# Validate YAML syntax
+npx js-yaml .github/workflows/deploy-multi-env.yml
+
+# Check for heredocs
+grep -n '<<.*EOF' .github/workflows/*.yml
+
+# Verify external scripts exist
+ls -la scripts/*.sh scripts/*.conf
+```
+
+#### 4. ✅ BACKUP BEFORE CHANGES
+**Always maintain rollback capability:**
+```bash
+# Create timestamped backup
+cp .github/workflows/deploy-multi-env.yml \
+   .github/workflows/deploy-multi-env.yml.bak$(date +%Y%m%d_%H%M%S)
+
+# Keep last 3 working versions
+ls -t .github/workflows/*.bak* | tail -n +4 | xargs rm -f 2>/dev/null
+```
+
+### Pre-Deployment YAML Safety Check
+```bash
+pre_deployment_yaml_check() {
+    echo "🛡️ PRE-DEPLOYMENT YAML SAFETY CHECK"
+    echo "===================================="
+    
+    # Absolute requirements before deployment
+    local checks_passed=true
+    
+    # Check 1: No heredocs
+    if grep -q '<<' .github/workflows/deploy-multi-env.yml; then
+        echo "❌ BLOCKED: Heredocs detected in workflow"
+        checks_passed=false
+    fi
+    
+    # Check 2: Valid YAML
+    if ! npx js-yaml .github/workflows/deploy-multi-env.yml >/dev/null 2>&1; then
+        echo "❌ BLOCKED: Invalid YAML syntax"
+        checks_passed=false
+    fi
+    
+    # Check 3: Required scripts exist
+    for script in nginx-test.conf nginx-prod.conf deployment-health-check.sh monitor.sh; do
+        if [[ ! -f "scripts/$script" ]]; then
+            echo "❌ BLOCKED: Missing scripts/$script"
+            checks_passed=false
+        fi
+    done
+    
+    if [[ "$checks_passed" == "true" ]]; then
+        echo "✅ YAML safety checks PASSED - Safe to deploy"
+        return 0
+    else
+        echo "🚨 DEPLOYMENT BLOCKED - Fix YAML issues first!"
+        return 1
+    fi
+}
+```
+
 ## 🚀 BULLETPROOF DEPLOYMENT ORCHESTRATION
 
 ### Complete Deployment Workflow
@@ -246,6 +448,14 @@ bulletproof_deployment_sequence() {
     echo "=============================================="
     echo "🎯 Target Environment: $target_env"
     echo "🕐 Deployment Start: $(date)"
+    
+    # Step 0: MANDATORY YAML SAFETY CHECK
+    echo "📋 STEP 0: YAML Safety Validation (MANDATORY)"
+    if ! pre_deployment_yaml_check; then
+        echo "🚨 DEPLOYMENT ABORTED - YAML safety check failed!"
+        echo "Fix YAML issues using the prevention rules above"
+        return 1
+    fi
     
     # Step 1: Pre-deployment validation
     echo "📋 STEP 1: Pre-deployment validation"

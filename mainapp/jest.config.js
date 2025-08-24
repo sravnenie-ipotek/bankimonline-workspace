@@ -7,7 +7,13 @@ module.exports = {
     '**/?(*.)+(spec|test).+(ts|tsx|js)'
   ],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
+    '^.+\\.(ts|tsx)$': ['ts-jest', {
+      tsconfig: {
+        jsx: 'react',
+        esModuleInterop: true,
+        allowSyntheticDefaultImports: true
+      }
+    }]
   },
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
@@ -32,12 +38,26 @@ module.exports = {
   ],
   coverageThreshold: {
     global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80
+      branches: 95,
+      functions: 95,
+      lines: 95,
+      statements: 95
+    },
+    // Stricter requirements for form validation components
+    'src/pages/Services/pages/CalculateMortgage/**/*.tsx': {
+      branches: 95,
+      functions: 95,
+      lines: 95,
+      statements: 95
+    },
+    'src/components/ui/**/*.tsx': {
+      branches: 95,
+      functions: 95,
+      lines: 95,
+      statements: 95
     }
   },
+  // Handle Vite-specific syntax in tests
   globals: {
     'ts-jest': {
       tsconfig: {
@@ -46,5 +66,17 @@ module.exports = {
         allowSyntheticDefaultImports: true
       }
     }
+  },
+  // Mock import.meta for Jest environment
+  moduleNameMapper: {
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '^@src/(.*)$': '<rootDir>/src/$1',
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@pages/(.*)$': '<rootDir>/src/pages/$1',
+    '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^@types/(.*)$': '<rootDir>/src/types/$1',
+    '^@services/(.*)$': '<rootDir>/src/services/$1',
+    '^@store/(.*)$': '<rootDir>/src/store/$1'
   }
 };
