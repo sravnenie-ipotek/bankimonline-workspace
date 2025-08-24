@@ -37,6 +37,11 @@ const calculatePeriod = (
     return 1
   }
 
+  // Handle NaN inputs
+  if (Number.isNaN(totalAmount) || Number.isNaN(initialPayment) || Number.isNaN(monthlyPayment) || Number.isNaN(annualRate)) {
+    return NaN
+  }
+
   // Сначала вычитаем первоначальный взнос из общей суммы
   const loanAmount = totalAmount - initialPayment
 
@@ -48,10 +53,20 @@ const calculatePeriod = (
     return 0
   }
 
+  // Check if payment is insufficient to cover interest (impossible scenario)
+  if (monthlyPayment <= loanAmount * monthlyRate) {
+    return NaN // Mathematically impossible - payment doesn't exceed interest
+  }
+
   // Расчет срока кредита в месяцах
   const termInMonths =
     Math.log(monthlyPayment / (monthlyPayment - loanAmount * monthlyRate)) /
     Math.log(1 + monthlyRate)
+
+  // Check for mathematical validity
+  if (!Number.isFinite(termInMonths) || termInMonths <= 0) {
+    return NaN
+  }
 
   // Переводим срок кредита в года
   const termInYears = termInMonths / 12

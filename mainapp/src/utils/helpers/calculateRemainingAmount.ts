@@ -18,6 +18,12 @@ const calculateRemainingAmount = (
   if (remainingMortgageAmount === null) {
     return 0
   }
+
+  // Handle NaN inputs
+  if (Number.isNaN(remainingMortgageAmount) || Number.isNaN(remainingYears) || Number.isNaN(annualRate)) {
+    return NaN
+  }
+
   // Проверка на нулевые или отрицательные значения
   if (remainingMortgageAmount <= 0 || remainingYears <= 0 || annualRate <= 0) {
     return 0

@@ -36,6 +36,12 @@ const calculateMonthlyPayment = (
   if (initialPayment === null) {
     return 1
   }
+
+  // Handle NaN inputs - propagate NaN through calculation for proper mathematical behavior
+  if (Number.isNaN(totalAmount) || Number.isNaN(initialPayment) || Number.isNaN(period) || Number.isNaN(annualRate)) {
+    return NaN
+  }
+
   // Проверка на нулевые или отрицательные значения
   if (period <= 0 || totalAmount <= 0 || annualRate <= 0) {
     return 0
