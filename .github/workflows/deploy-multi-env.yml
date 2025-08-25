@@ -67,9 +67,9 @@ jobs:
 
       - name: Build frontend
         run: |
-          # Update version chip with current build info
-          echo "📝 Updating version chip with build info..."
-          node scripts/auto-version.js
+          # Update build info with current version (no increment yet)
+          echo "📝 Updating build info with current version..."
+          node scripts/version-manager.js update
           
           cd mainapp
           npm run build
@@ -562,3 +562,45 @@ jobs:
           echo "🔍 Monitoring: Every 2 minutes (test) / 5 minutes (prod)"
           echo "🛠️ Rollback: Blue-green deployment with automatic rollback"
           echo "===================="
+
+  version-increment:
+    name: 📈 Increment Version After Successful Deployment
+    runs-on: ubuntu-latest
+    needs: [deploy-test]
+    if: success() && (github.ref == 'refs/heads/develop' || github.event_name == 'workflow_dispatch')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+      - name: Increment patch version
+        run: |
+          echo "📈 Incrementing patch version after successful deployment..."
+          node scripts/version-manager.js patch
+          
+      - name: Commit version changes
+        run: |
+          git add version.json mainapp/src/config/buildInfo.ts
+          git commit -m "chore: increment version to $(node scripts/version-manager.js show | grep 'Current Version:' | awk '{print $3}') [skip ci]
+
+          - Automatic version increment after successful deployment
+          - Updated buildInfo.ts with new version and timestamp
+          - Part of semantic versioning: patch increment on deploy"
+          
+      - name: Push version changes
+        run: |
+          git push origin ${{ github.ref_name }}
+          echo "✅ Version incremented and pushed successfully!"

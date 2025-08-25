@@ -1,0 +1,100 @@
+name: 🔢 Manual Version Bump
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Version bump type'
+        required: true
+        type: choice
+        options:
+          - minor
+          - major
+        default: minor
+      reason:
+        description: 'Reason for version bump'
+        required: true
+        type: string
+
+jobs:
+  bump-version:
+    name: 📈 Bump Version
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          
+      - name: Bump version
+        run: |
+          if [ "${{ github.event.inputs.version_type }}" == "minor" ]; then
+            echo "📦 Bumping MINOR version (stable TEST version)..."
+            node scripts/version-manager.js minor
+          else
+            echo "🎉 Bumping MAJOR version (PRODUCTION release)..."
+            node scripts/version-manager.js major
+          fi
+          
+      - name: Get new version
+        id: version
+        run: |
+          NEW_VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('version.json')).version)")
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "📊 New version: $NEW_VERSION"
+          
+      - name: Commit version changes
+        run: |
+          git add version.json mainapp/src/config/buildInfo.ts
+          git commit -m "chore: manual ${{ github.event.inputs.version_type }} version bump to ${{ steps.version.outputs.new_version }}
+
+          Reason: ${{ github.event.inputs.reason }}
+          
+          - Manual version bump triggered by: ${{ github.actor }}
+          - Type: ${{ github.event.inputs.version_type }}
+          - New version: ${{ steps.version.outputs.new_version }}
+          - Updated buildInfo.ts with new version"
+          
+      - name: Push version changes
+        run: |
+          git push origin ${{ github.ref_name }}
+          
+      - name: Create Git tag
+        if: github.event.inputs.version_type == 'major'
+        run: |
+          git tag -a "v${{ steps.version.outputs.new_version }}" -m "Release version ${{ steps.version.outputs.new_version }}
+          
+          ${{ github.event.inputs.reason }}"
+          git push origin "v${{ steps.version.outputs.new_version }}"
+          echo "✅ Created tag: v${{ steps.version.outputs.new_version }}"
+          
+      - name: Summary
+        run: |
+          echo "## 🎯 Version Bump Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Type**: ${{ github.event.inputs.version_type }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **New Version**: ${{ steps.version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Reason**: ${{ github.event.inputs.reason }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Triggered by**: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Time**: $(date)" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ github.event.inputs.version_type }}" == "minor" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "📦 This indicates a **stable TEST version**" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "🎉 This indicates a **PRODUCTION release**" >> $GITHUB_STEP_SUMMARY
+            echo "🏷️ Git tag created: v${{ steps.version.outputs.new_version }}" >> $GITHUB_STEP_SUMMARY
+          fi

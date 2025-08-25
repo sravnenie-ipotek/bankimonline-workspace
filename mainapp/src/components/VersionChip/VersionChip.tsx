@@ -29,8 +29,8 @@ const VersionChip: React.FC<VersionChipProps> = ({
   }, []);
   
   // Use build info for version and timestamp
-  // Force to use package.json version (5.2.1) instead of simple-version
-  const displayVersion = version || '5.2.1';
+  // Version now managed by version-manager.js with semantic versioning
+  const displayVersion = version || BUILD_INFO.version || '0.1.1';
   const timestamp = BUILD_INFO.buildTime;
   const buildNumber = BUILD_INFO.buildNumber;
   const commit = BUILD_INFO.commit;
