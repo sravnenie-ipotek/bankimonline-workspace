@@ -5,15 +5,15 @@
  * 
  * This script ensures that all database migrations have been applied
  * before allowing deployment. It's a HARD GATE that prevents code-database drift.
+ * 
+ * USES LOCAL .env AS SOURCE OF TRUTH - NO HARDCODED URLS!
  */
 
 const { Client } = require('pg');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-
-// Load environment variables
-require('dotenv').config();
+const { getDatabaseUrl, validateAllDatabaseConfigs } = require('../server/config/database-truth');
 
 const RED = '\x1b[31m';
 const GREEN = '\x1b[32m';
@@ -29,9 +29,14 @@ class MigrationValidator {
     }
 
     async connect() {
+        // ENFORCE: Use ONLY .env configuration - NO FALLBACKS!
+        console.log(`${YELLOW}🔍 Using database configuration from LOCAL .env (SOURCE OF TRUTH)${RESET}`);
+        validateAllDatabaseConfigs();
+        
+        const connectionString = getDatabaseUrl('main');
+        
         this.client = new Client({
-            connectionString: process.env.DATABASE_URL || 
-                'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway'
+            connectionString
         });
 
         try {

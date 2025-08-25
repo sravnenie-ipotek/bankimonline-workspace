@@ -4,19 +4,23 @@
  * These tests ensure that authentication endpoints work correctly
  * with the actual database schema. These are CRITICAL tests that
  * MUST pass before any deployment.
+ * 
+ * USES LOCAL .env AS SOURCE OF TRUTH - NO HARDCODED URLS!
  */
 
 const { Client } = require('pg');
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../../.env') });
+const { getDatabaseUrl, validateAllDatabaseConfigs } = require('../config/database-truth');
 
 describe('Authentication Integration Tests', () => {
     let client;
 
     beforeAll(async () => {
+        // ENFORCE: Use ONLY .env configuration - NO FALLBACKS!
+        validateAllDatabaseConfigs();
+        const connectionString = getDatabaseUrl('main');
+        
         client = new Client({
-            connectionString: process.env.DATABASE_URL || 
-                'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway'
+            connectionString
         });
         
         try {

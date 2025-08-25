@@ -3,19 +3,23 @@
  * 
  * These tests ensure that the database schema matches what the code expects.
  * They MUST pass before any deployment to prevent runtime errors.
+ * 
+ * USES LOCAL .env AS SOURCE OF TRUTH - NO HARDCODED URLS!
  */
 
 const { Client } = require('pg');
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '../../.env') });
+const { getDatabaseUrl, validateAllDatabaseConfigs } = require('../config/database-truth');
 
 describe('Database Schema Validation', () => {
     let client;
 
     beforeAll(async () => {
+        // ENFORCE: Use ONLY .env configuration - NO FALLBACKS!
+        validateAllDatabaseConfigs();
+        const connectionString = getDatabaseUrl('main');
+        
         client = new Client({
-            connectionString: process.env.DATABASE_URL || 
-                'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway'
+            connectionString
         });
         
         try {
@@ -238,9 +242,12 @@ describe('Pre-deployment Schema Checks', () => {
              WHERE business_path = 'mortgage' AND is_active = true`
         ];
 
+        // ENFORCE: Use ONLY .env configuration - NO FALLBACKS!
+        validateAllDatabaseConfigs();
+        const connectionString = getDatabaseUrl('main');
+        
         const client = new Client({
-            connectionString: process.env.DATABASE_URL || 
-                'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway'
+            connectionString
         });
 
         try {

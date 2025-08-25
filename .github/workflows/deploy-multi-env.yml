@@ -58,7 +58,17 @@ jobs:
         run: |
           echo "🔍 Running comprehensive pre-deployment validation..."
           echo "⚠️ HARD GATES ACTIVE: ALL validations MUST pass"
+          echo "🔐 LOCAL .env IS THE SOURCE OF TRUTH!"
           echo "================================"
+          
+          # 0. ENFORCE NO HARDCODED DATABASE URLS
+          echo "0️⃣ Enforcing no hardcoded database URLs..."
+          npm run enforce:no-hardcoded
+          if [ $? -ne 0 ]; then
+            echo "❌ DEPLOYMENT BLOCKED: Hardcoded database URLs found!"
+            echo "LOCAL .env MUST be the SOURCE OF TRUTH!"
+            exit 1
+          fi
           
           # 1. Validate all migrations are applied
           echo "1️⃣ Validating database migrations..."
@@ -89,6 +99,7 @@ jobs:
           
           echo "================================"
           echo "✅ ALL VALIDATIONS PASSED"
+          echo "✅ LOCAL .env is SOURCE OF TRUTH"
           echo "✅ Safe to proceed with deployment"
 
       - name: Create deployment package
