@@ -67,6 +67,10 @@ jobs:
 
       - name: Build frontend
         run: |
+          # Update version chip with current build info
+          echo "📝 Updating version chip with build info..."
+          node scripts/auto-version.js
+          
           cd mainapp
           npm run build
 
