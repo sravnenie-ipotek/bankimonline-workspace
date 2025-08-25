@@ -67,41 +67,41 @@ const App = () => {
     // Initialize translations and wait for them to load
     const initializeTranslations = async () => {
       try {
-        // Wait for i18n to be initialized first
-        if (!i18n.isInitialized) {
-          await new Promise((resolve) => {
-            const timeout = setTimeout(() => {
-              resolve(void 0)
-            }, 3000) // Max 3 second wait
-            
-            i18n.on('initialized', () => {
-              clearTimeout(timeout)
-              resolve(void 0)
-            })
-          })
-        }
+        // Simplified translation loading - fail fast to prevent infinite loading
+        const loadingTimeout = setTimeout(() => {
+          console.warn('⚠️ Translation loading timeout, continuing anyway')
+          setTranslationsLoaded(true)
+        }, 1000) // 1 second timeout
         
-        // Change language and wait for resources to load
-        await i18n.changeLanguage(language)
-        
-        // Check if resources are loaded for current language
-        const hasResources = i18n.hasResourceBundle(language, 'translation')
-        if (!hasResources) {
-          try {
-            await i18n.loadLanguages(language)
-            await new Promise(resolve => setTimeout(resolve, 1000)) // Wait for load
-          } catch (loadError) {
-            console.warn('❌ Failed to load language resources:', loadError)
+        try {
+          // Wait for i18n to be ready
+          if (!i18n.isInitialized) {
+            await Promise.race([
+              new Promise((resolve) => {
+                i18n.on('initialized', resolve)
+              }),
+              new Promise((resolve) => setTimeout(resolve, 1000))
+            ])
           }
+          
+          // Change language with timeout
+          await Promise.race([
+            i18n.changeLanguage(language),
+            new Promise((resolve) => setTimeout(resolve, 1000))
+          ])
+          
+          clearTimeout(loadingTimeout)
+          setTranslationsLoaded(true)
+          document.documentElement.setAttribute('dir', direction)
+          document.documentElement.setAttribute('lang', language)
+          // Initialize validation language listener
+          initializeValidationLanguageListener()
+        } catch (innerError) {
+          clearTimeout(loadingTimeout)
+          console.warn('⚠️ Translation loading failed:', innerError)
+          setTranslationsLoaded(true)
         }
-        
-        // Always set translations as loaded after reasonable attempts
-        setTranslationsLoaded(true)
-        document.documentElement.setAttribute('dir', direction)
-        document.documentElement.setAttribute('lang', language)
-        // Initialize validation language listener
-        initializeValidationLanguageListener()
-        } catch (error) {
+      } catch (error) {
         console.error('❌ Error loading translations:', error)
         setTranslationsLoaded(true) // Always continue to prevent infinite loading
       }

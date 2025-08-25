@@ -5,18 +5,18 @@
 
 export const VERSION_CONFIG = {
   // Version number (update manually)
-  version: '0.1.2',
+  version: '0.0.1',
   
   // Deployment timestamp (update manually when deploying)  
-  datetime: '25.08.2025 12:45',
+  datetime: '25.08.2025 14:17',
   
   // Environment visibility flags
   showOnTest: true,
   showOnProd: true,
   
   // Additional info
-  buildNumber: '001',
-  commit: 'manual',
+  buildNumber: '5.2.1',
+  commit: '5.2.1v',
   
   // Helper method to check if chip should be visible
   isVisible: () => {
