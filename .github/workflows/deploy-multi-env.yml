@@ -568,6 +568,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [deploy-test]
     if: success() && (github.ref == 'refs/heads/develop' || github.event_name == 'workflow_dispatch')
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout code
@@ -593,8 +595,9 @@ jobs:
           
       - name: Commit version changes
         run: |
+          NEW_VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('version.json')).version)")
           git add version.json mainapp/src/config/buildInfo.ts
-          git commit -m "chore: increment version to $(node scripts/version-manager.js show | grep 'Current Version:' | awk '{print $3}') [skip ci]
+          git commit -m "chore: increment version to $NEW_VERSION [skip ci]
 
           - Automatic version increment after successful deployment
           - Updated buildInfo.ts with new version and timestamp
