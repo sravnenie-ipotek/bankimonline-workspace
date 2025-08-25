@@ -240,21 +240,56 @@ app.get('/', (req, res) => {
     }
 });
 
-// Health check
-app.get('/api/health', (req, res) => {
-    // Detect if using Railway database
-    const databaseUrl = process.env.DATABASE_URL || '';
-    const isRailway = databaseUrl.includes('railway') || databaseUrl.includes('rlwy.net');
-    
-    res.json({ 
-        status: 'ok', 
-        database: isRailway ? 'railway' : 'local',
-        databaseHost: isRailway ? 'railway.app' : 'localhost',
-        version: '5.2.0-regex-greedy-fix',
-        timestamp: new Date().toISOString(),
-        environment: process.env.NODE_ENV || 'development',
-        corsEnabled: true
-    });
+// Health check with database validation
+app.get('/api/health', async (req, res) => {
+    try {
+        // Detect if using Railway database
+        const databaseUrl = process.env.DATABASE_URL || '';
+        const isRailway = databaseUrl.includes('railway') || databaseUrl.includes('rlwy.net');
+        
+        // Test database connection
+        let dbStatus = 'unknown';
+        let dbError = null;
+        
+        try {
+            const result = await pool.query('SELECT 1 as test');
+            dbStatus = result.rows.length > 0 ? 'connected' : 'error';
+        } catch (error) {
+            dbStatus = 'error';
+            dbError = error.message;
+            console.error('❌ Health check DB error:', error);
+        }
+        
+        const healthData = { 
+            status: dbStatus === 'connected' ? 'ok' : 'error',
+            database: isRailway ? 'railway' : 'local',
+            databaseHost: isRailway ? 'railway.app' : 'localhost',
+            databaseStatus: dbStatus,
+            version: '5.2.0-regex-greedy-fix',
+            timestamp: new Date().toISOString(),
+            environment: process.env.NODE_ENV || 'development',
+            corsEnabled: true,
+            port: process.env.PORT || '8003',
+            pid: process.pid
+        };
+        
+        if (dbError) {
+            healthData.databaseError = dbError;
+        }
+        
+        // Return appropriate status code
+        const statusCode = dbStatus === 'connected' ? 200 : 503;
+        res.status(statusCode).json(healthData);
+        
+    } catch (error) {
+        console.error('❌ Health check error:', error);
+        res.status(503).json({
+            status: 'error',
+            error: error.message,
+            timestamp: new Date().toISOString(),
+            pid: process.pid
+        });
+    }
 });
 
 
