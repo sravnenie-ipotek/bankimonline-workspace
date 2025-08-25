@@ -1,0 +1,181 @@
+# Progressive Test Enforcement Configuration
+# This file defines the testing requirements that will gradually increase over time
+# Tests remain non-blocking but this tracks our improvement goals
+
+version: 1.0
+enforcement_mode: advisory  # Options: advisory, warning, blocking
+
+# Coverage thresholds by date
+# These are targets, not hard requirements
+coverage_targets:
+  - date: "2025-02-01"
+    name: "Sprint 1-2: Foundation"
+    thresholds:
+      global:
+        statements: 20
+        branches: 15
+        functions: 20
+        lines: 20
+    focus_areas:
+      - "src/utils/calculations/**"  # Financial calculations
+      - "src/services/auth/**"       # Authentication
+    
+  - date: "2025-03-01"  
+    name: "Sprint 3-4: Core Features"
+    thresholds:
+      global:
+        statements: 40
+        branches: 35
+        functions: 40
+        lines: 40
+    focus_areas:
+      - "src/pages/Services/**"      # Main workflows
+      - "src/store/**"               # Redux state
+      - "server/routes/**"           # API endpoints
+    
+  - date: "2025-04-01"
+    name: "Sprint 5-6: Stability"
+    thresholds:
+      global:
+        statements: 60
+        branches: 55
+        functions: 60
+        lines: 60
+    focus_areas:
+      - "src/components/**"          # UI components
+      - "src/hooks/**"              # Custom hooks
+      - "src/utils/**"              # Utility functions
+    
+  - date: "2025-05-01"
+    name: "Sprint 7+: Excellence"
+    thresholds:
+      global:
+        statements: 80
+        branches: 75
+        functions: 80
+        lines: 80
+    focus_areas:
+      - "**/*.tsx"                   # All TypeScript files
+      - "**/*.ts"                    # All TypeScript files
+
+# Test quality metrics (for reporting only)
+quality_metrics:
+  test_execution_time:
+    warning: 300  # seconds
+    error: 600    # seconds
+  
+  flaky_test_threshold:
+    warning: 5    # percentage
+    error: 10     # percentage
+  
+  test_file_coverage:
+    warning: 50   # percentage of files with tests
+    error: 30     # percentage of files with tests
+
+# Notification settings
+notifications:
+  slack:
+    enabled: false
+    channel: "#testing"
+    on_improvement: true
+    on_regression: true
+  
+  email:
+    enabled: false
+    recipients: []
+    weekly_summary: true
+
+# Exemptions - files/patterns that don't need tests
+test_exemptions:
+  - "**/*.stories.tsx"
+  - "**/*.d.ts"
+  - "**/index.ts"
+  - "**/index.tsx"
+  - "src/vite-env.d.ts"
+  - "src/main.tsx"
+  - "**/__mocks__/**"
+  - "**/migrations/**"
+  - "**/scripts/**"
+
+# Improvement rewards - gamification to encourage testing
+achievements:
+  first_test:
+    name: "Test Pioneer"
+    description: "Wrote your first test"
+    icon: "🎯"
+  
+  coverage_50:
+    name: "Half Way There"
+    description: "Reached 50% coverage in a module"
+    icon: "📈"
+  
+  coverage_80:
+    name: "Test Champion"
+    description: "Reached 80% coverage in a module"
+    icon: "🏆"
+  
+  zero_failures:
+    name: "Green Machine"
+    description: "All tests passing for a week"
+    icon: "✅"
+  
+  bug_catcher:
+    name: "Bug Catcher"
+    description: "Test caught a bug before production"
+    icon: "🐛"
+
+# Team goals (optional motivational targets)
+team_goals:
+  q1_2025:
+    target_coverage: 40
+    focus: "Critical business logic"
+    reward: "Team lunch"
+  
+  q2_2025:
+    target_coverage: 60
+    focus: "User workflows"
+    reward: "Half-day Friday"
+  
+  q3_2025:
+    target_coverage: 80
+    focus: "Full coverage"
+    reward: "Team outing"
+
+# Configuration for test improvement suggestions
+improvement_suggestions:
+  enabled: true
+  frequency: "every_run"  # Options: every_run, daily, weekly
+  
+  suggestions:
+    low_coverage:
+      threshold: 30
+      message: "Consider adding basic tests for critical functions"
+      priority: "high"
+    
+    no_tests:
+      message: "This file has no tests. Start with simple unit tests."
+      priority: "medium"
+    
+    complex_untested:
+      cyclomatic_complexity: 10
+      message: "Complex code without tests is risky. Add tests for edge cases."
+      priority: "high"
+    
+    deprecated_patterns:
+      message: "Update tests to use modern testing patterns"
+      priority: "low"
+
+# Future automation settings (currently disabled)
+automation:
+  auto_generate_tests: false
+  auto_fix_snapshots: false
+  auto_update_mocks: false
+  suggest_test_cases: true
+
+# Reporting preferences
+reporting:
+  format: "markdown"  # Options: markdown, html, json
+  include_suggestions: true
+  include_trends: true
+  include_achievements: true
+  comparison_period: "last_week"  # Compare with last week's metrics
