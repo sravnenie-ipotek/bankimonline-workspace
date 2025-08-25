@@ -140,18 +140,51 @@ jobs:
             pm2 stop bankim-$TARGET 2>/dev/null || true
             pm2 start server/server-db.js --name bankim-$TARGET
             
-            # Wait longer for PM2 process to fully initialize
-            sleep 10
+            # Check PM2 process status
+            echo "🔍 Checking PM2 process status..."
+            pm2 list | grep bankim-$TARGET || echo "⚠️ PM2 process not found"
+            pm2 logs bankim-$TARGET --lines 10 --nostream || echo "⚠️ Could not read PM2 logs"
             
-            # Health check new deployment with retries
-            for i in {1..5}; do
-              if curl -f http://localhost:8003/api/health; then
-                echo "Health check passed on attempt $i"
+            # Wait longer for PM2 process to fully initialize
+            sleep 15
+            
+            # Enhanced health check with detailed debugging
+            echo "🔍 Starting health check with debugging..."
+            for i in {1..8}; do
+              echo "Health check attempt $i/8..."
+              
+              # Check if port is listening
+              if ! netstat -ln | grep :8003; then
+                echo "❌ Port 8003 not listening"
+                pm2 logs bankim-$TARGET --lines 5 --nostream || true
+                sleep 5
+                continue
+              fi
+              
+              # Test basic connectivity
+              HEALTH_RESPONSE=$(curl -s -w "%{http_code}" http://localhost:8003/api/health || echo "000")
+              HTTP_CODE="${HEALTH_RESPONSE: -3}"
+              
+              echo "HTTP Response Code: $HTTP_CODE"
+              
+              if [ "$HTTP_CODE" = "200" ]; then
+                echo "✅ Health check passed on attempt $i"
                 break
+              elif [ "$HTTP_CODE" = "503" ]; then
+                echo "⚠️ Server responding but database issue (503) - checking logs..."
+                curl -s http://localhost:8003/api/health | jq . || echo "Could not parse JSON response"
+                pm2 logs bankim-$TARGET --lines 5 --nostream || true
               else
-                echo "Health check failed, attempt $i/5, retrying in 3 seconds..."
-                sleep 3
-                if [ $i -eq 5 ]; then exit 1; fi
+                echo "❌ Health check failed with code $HTTP_CODE, retrying in 5 seconds..."
+                pm2 logs bankim-$TARGET --lines 3 --nostream || true
+              fi
+              
+              sleep 5
+              
+              if [ $i -eq 8 ]; then 
+                echo "❌ All health checks failed - deployment aborted"
+                pm2 logs bankim-$TARGET --lines 20 --nostream || true
+                exit 1
               fi
             done
             
@@ -245,22 +278,55 @@ jobs:
             tar -xzf /tmp/deploy.tar.gz
             npm install --production
             
-            # Start new version in target folder
+            # Start new version in target folder with environment variables
             pm2 stop bankim-$TARGET 2>/dev/null || true
-            pm2 start server/server-db.js --name bankim-$TARGET
+            NODE_ENV=production pm2 start server/server-db.js --name bankim-$TARGET
+            
+            # Check PM2 process status
+            echo "🔍 Checking PM2 process status..."
+            pm2 list | grep bankim-$TARGET || echo "⚠️ PM2 process not found"
+            pm2 logs bankim-$TARGET --lines 10 --nostream || echo "⚠️ Could not read PM2 logs"
             
             # Wait longer for PM2 process to fully initialize
-            sleep 10
+            sleep 15
             
-            # Health check new deployment with retries
-            for i in {1..5}; do
-              if curl -f http://localhost:8003/api/health; then
-                echo "Health check passed on attempt $i"
+            # Enhanced health check with detailed debugging  
+            echo "🔍 Starting health check with debugging..."
+            for i in {1..10}; do
+              echo "Health check attempt $i/10..."
+              
+              # Check if port is listening
+              if ! netstat -ln | grep :8003; then
+                echo "❌ Port 8003 not listening"
+                pm2 logs bankim-$TARGET --lines 5 --nostream || true
+                sleep 5
+                continue
+              fi
+              
+              # Test basic connectivity
+              HEALTH_RESPONSE=$(curl -s -w "%{http_code}" http://localhost:8003/api/health || echo "000")
+              HTTP_CODE="${HEALTH_RESPONSE: -3}"
+              
+              echo "HTTP Response Code: $HTTP_CODE"
+              
+              if [ "$HTTP_CODE" = "200" ]; then
+                echo "✅ Health check passed on attempt $i"
                 break
+              elif [ "$HTTP_CODE" = "503" ]; then
+                echo "⚠️ Server responding but database issue (503) - checking logs..."
+                curl -s http://localhost:8003/api/health | jq . || echo "Could not parse JSON response"
+                pm2 logs bankim-$TARGET --lines 5 --nostream || true
               else
-                echo "Health check failed, attempt $i/5, retrying in 3 seconds..."
-                sleep 3
-                if [ $i -eq 5 ]; then exit 1; fi
+                echo "❌ Health check failed with code $HTTP_CODE, retrying in 5 seconds..."
+                pm2 logs bankim-$TARGET --lines 3 --nostream || true
+              fi
+              
+              sleep 5
+              
+              if [ $i -eq 10 ]; then 
+                echo "❌ All health checks failed - deployment aborted"
+                pm2 logs bankim-$TARGET --lines 20 --nostream || true
+                exit 1
               fi
             done
             
