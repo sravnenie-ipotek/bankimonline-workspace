@@ -203,7 +203,7 @@ jobs:
             # Create .env file on server
             echo "🔐 Creating .env file on TEST server"
             cd /var/www/bankim/\$NEW_SLOT
-            cat > .env << 'ENVEOF'
+            cat > .env << 'EOF'
             # TEST Environment Configuration
             # CRITICAL: DATABASE_URL must point to CORE database (maglev), not CONTENT!
             DATABASE_URL=postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway
@@ -218,7 +218,7 @@ jobs:
             LOG_LEVEL=info
             HEALTH_CHECK_ENABLED=true
             METRICS_ENABLED=true
-ENVEOF
+            EOF
             echo "✅ .env file created on server"
             
             # Install dependencies on server to ensure all modules are present
@@ -380,7 +380,7 @@ ENVEOF
             # Create .env file on server
             echo "🔐 Creating .env file on TEST server"
             cd /var/www/bankim/\$NEW_SLOT
-            cat > .env << 'ENVEOF'
+            cat > .env << 'EOF'
             # TEST Environment Configuration
             # CRITICAL: DATABASE_URL must point to CORE database (maglev), not CONTENT!
             DATABASE_URL=postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway
@@ -395,7 +395,7 @@ ENVEOF
             LOG_LEVEL=info
             HEALTH_CHECK_ENABLED=true
             METRICS_ENABLED=true
-ENVEOF
+            EOF
             echo "✅ .env file created on server"
             
             # Install dependencies on server to ensure all modules are present
