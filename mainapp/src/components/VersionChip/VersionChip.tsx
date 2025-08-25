@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BUILD_INFO } from '@src/config/buildInfo';
+import VERSION_CONFIG from '@src/config/versionConfig';
 import styles from './VersionChip.module.scss';
 
 export interface VersionChipProps {
@@ -10,6 +10,14 @@ const VersionChip: React.FC<VersionChipProps> = ({
   version
 }) => {
   const [isRailway, setIsRailway] = useState(false);
+  
+  // Check if chip should be visible based on environment
+  const shouldShowChip = VERSION_CONFIG.isVisible();
+  
+  // Don't render if visibility is disabled for this environment
+  if (!shouldShowChip) {
+    return null;
+  }
   
   // Check if using Railway database
   useEffect(() => {
@@ -28,12 +36,11 @@ const VersionChip: React.FC<VersionChipProps> = ({
       });
   }, []);
   
-  // Use build info for version and timestamp
-  // Version now managed by version-manager.js with semantic versioning
-  const displayVersion = version || BUILD_INFO.version || '0.1.1';
-  const timestamp = BUILD_INFO.buildTime;
-  const buildNumber = BUILD_INFO.buildNumber;
-  const commit = BUILD_INFO.commit;
+  // Use hardcoded version config (manual management)
+  const displayVersion = version || VERSION_CONFIG.version;
+  const timestamp = VERSION_CONFIG.datetime;
+  const buildNumber = VERSION_CONFIG.buildNumber;
+  const commit = VERSION_CONFIG.commit;
   
   // Create detailed tooltip
   const tooltipText = `Deployed: ${timestamp}\nBuild: #${buildNumber}\nCommit: ${commit}`;
@@ -50,7 +57,7 @@ const VersionChip: React.FC<VersionChipProps> = ({
         <span className={styles.versionLabel}>v</span>
         <span className={styles.versionNumber}>{displayVersion}</span>
         <span className={styles.versionTimestamp}>{timestamp}</span>
-        {buildNumber !== 'local' && (
+        {buildNumber !== 'local' && buildNumber !== 'manual' && (
           <span className={styles.buildNumber}>#{buildNumber}</span>
         )}
       </div>
