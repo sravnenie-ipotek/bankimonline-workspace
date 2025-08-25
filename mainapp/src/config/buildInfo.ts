@@ -5,14 +5,8 @@
 
 export const BUILD_INFO = {
   version: '0.1.1',
-  buildTime: new Date().toLocaleString('en-GB', { 
-    hour: '2-digit', 
-    minute: '2-digit', 
-    day: '2-digit', 
-    month: '2-digit', 
-    year: 'numeric' 
-  }).replace(',', ''),
+  buildTime: '12:24 25.08.2025',
   environment: import.meta.env.MODE || 'production',
-  buildNumber: process.env.GITHUB_RUN_NUMBER || 'local',
-  commit: 'initial'
+  buildNumber: '7798',
+  commit: 'unknown'
 };
