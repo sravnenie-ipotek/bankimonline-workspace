@@ -134,9 +134,30 @@ jobs:
             cd ${{ env.TEST_PATH }}/$TARGET
             rm -rf mainapp/build/*
             tar -xzf /tmp/deploy.tar.gz
+            
+            # Create .env file with database configuration
+            echo "🔐 Creating .env file for API server..."
+            cat > .env.production << 'ENVEOF'
+            DATABASE_URL=postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway
+            CONTENT_DATABASE_URL=postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway
+            JWT_SECRET=your-secret-jwt-key-here
+            PORT=8003
+            NODE_ENV=production
+            RAILWAY_ENVIRONMENT=production
+            CORS_ALLOWED_ORIGINS=https://dev2.bankimonline.com,http://localhost:5173
+            LOG_LEVEL=info
+            HEALTH_CHECK_ENABLED=true
+            METRICS_ENABLED=true
+ENVEOF
+            echo "✅ .env.production file created successfully"
+            
+            # Also create regular .env as fallback
+            cp .env.production .env
+            echo "✅ .env fallback created"
+            
             npm install --production
             
-            # Start new version in target folder
+            # Start new version in target folder with environment loaded
             pm2 stop bankim-$TARGET 2>/dev/null || true
             pm2 start server/server-db.js --name bankim-$TARGET
             
@@ -276,6 +297,27 @@ jobs:
             cd ${{ env.PROD_PATH }}/$TARGET
             rm -rf mainapp/build/*
             tar -xzf /tmp/deploy.tar.gz
+            
+            # Create .env file with database configuration
+            echo "🔐 Creating .env file for API server..."
+            cat > .env.production << 'ENVEOF'
+            DATABASE_URL=postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway
+            CONTENT_DATABASE_URL=postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway
+            JWT_SECRET=your-secret-jwt-key-here
+            PORT=8003
+            NODE_ENV=production
+            RAILWAY_ENVIRONMENT=production
+            CORS_ALLOWED_ORIGINS=https://bankimonline.com,https://www.bankimonline.com
+            LOG_LEVEL=info
+            HEALTH_CHECK_ENABLED=true
+            METRICS_ENABLED=true
+ENVEOF
+            echo "✅ .env.production file created successfully"
+            
+            # Also create regular .env as fallback
+            cp .env.production .env
+            echo "✅ .env fallback created"
+            
             npm install --production
             
             # Start new version in target folder with environment variables
