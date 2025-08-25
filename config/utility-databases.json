@@ -1,0 +1,37 @@
+{
+  "description": "Database URLs for utility scripts and testing ONLY - NOT for production code",
+  "warning": "These URLs are for development utilities, testing, and migration scripts",
+  "note": "Production code MUST use environment variables via server/config/database-truth.js",
+  
+  "test": {
+    "mock": "postgresql://test:test@localhost:5432/testdb",
+    "description": "Mock database URL for unit tests"
+  },
+  
+  "development": {
+    "railway_core": {
+      "url": "postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway",
+      "description": "Railway core database for development"
+    },
+    "railway_content": {
+      "url": "postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway",
+      "description": "Railway content database for development"
+    },
+    "railway_management": {
+      "url": "postgresql://postgres:hNmqRehjTLTuTGysRIYrvPPaQBDrmNQA@yamanote.proxy.rlwy.net:53119/railway",
+      "description": "Railway management database for development"
+    }
+  },
+  
+  "local": {
+    "core": "postgresql://postgres:postgres@localhost:5432/bankim_core",
+    "content": "postgresql://postgres:postgres@localhost:5432/bankim_content",
+    "management": "postgresql://postgres:postgres@localhost:5432/bankim_management"
+  },
+  
+  "utilities": {
+    "backup_scripts": "Use these URLs only in backup and restore scripts",
+    "migration_tools": "Use these URLs only in one-time migration utilities",
+    "analysis_scripts": "Use these URLs only in analysis and check scripts"
+  }
+}

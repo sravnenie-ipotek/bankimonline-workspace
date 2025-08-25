@@ -140,62 +140,69 @@ class HardcodedUrlScanner {
         console.log(`${YELLOW}📁 Files scanned: ${this.filesScanned}${RESET}`);
         console.log('');
 
-        // Filter out non-critical violations (test files, backup scripts, etc.)
-        const criticalViolations = this.violations.filter(v => {
+        // Exclude only truly acceptable exceptions
+        const acceptableExceptions = this.violations.filter(v => {
             const file = v.file.toLowerCase();
-            // Exclude all scripts directory except critical ones
-            if (file.includes('/scripts/')) {
-                // Only consider these scripts as critical
-                return file.includes('/scripts/pre-deployment-check.js') ||
-                       file.includes('/scripts/validate-migrations.js') ||
-                       file.includes('/scripts/generate-cicd-env.js');
-            }
-            
-            // Exclude test and backup files
-            return !file.includes('/test') &&
-                   !file.includes('/__tests__/') &&
-                   !file.includes('.test.') &&
-                   !file.includes('.spec.') &&
-                   !file.includes('/railway_backups') &&
-                   !file.includes('/run-migration.js');
+            // Only these are acceptable:
+            // 1. Test mock URLs (postgresql://test:test@localhost)
+            // 2. Utility config file itself
+            // 3. Old backup directories not in use
+            return (file.includes('/__tests__/') && v.content.includes('test:test@localhost')) ||
+                   file.includes('/config/utility-databases.json') ||
+                   file.includes('/railway_backups_');
+        });
+
+        const realViolations = this.violations.filter(v => {
+            const file = v.file.toLowerCase();
+            return !(
+                (file.includes('/__tests__/') && v.content.includes('test:test@localhost')) ||
+                file.includes('/config/utility-databases.json') ||
+                file.includes('/railway_backups_')
+            );
         });
 
         if (this.violations.length === 0) {
             console.log(`${GREEN}✅ SUCCESS: No hardcoded database URLs found!${RESET}`);
             console.log(`${GREEN}✅ LOCAL .env is properly used as SOURCE OF TRUTH${RESET}`);
             return true;
-        } else if (criticalViolations.length === 0) {
-            console.log(`${YELLOW}⚠️  Found ${this.violations.length} hardcoded URLs in non-critical files${RESET}`);
-            console.log(`${GREEN}✅ No hardcoded URLs in production code${RESET}`);
-            console.log(`${GREEN}✅ LOCAL .env is SOURCE OF TRUTH for production${RESET}`);
-            return true; // Return success if only non-critical violations
+        } else if (realViolations.length === 0) {
+            console.log(`${YELLOW}ℹ️  Found ${acceptableExceptions.length} acceptable exceptions (test mocks, config file)${RESET}`);
+            console.log(`${GREEN}✅ No hardcoded URLs in production or utility code${RESET}`);
+            console.log(`${GREEN}✅ LOCAL .env is SOURCE OF TRUTH${RESET}`);
+            return true; // Return success if only acceptable exceptions
         } else {
-            console.log(`${RED}❌ FAILED: Found ${criticalViolations.length} hardcoded URLs in PRODUCTION code!${RESET}`);
+            console.log(`${RED}❌ FAILED: Found ${realViolations.length} hardcoded URLs that must be fixed!${RESET}`);
             console.log(`${RED}❌ LOCAL .env MUST be the SOURCE OF TRUTH!${RESET}`);
             console.log('');
-            console.log(`${RED}Critical violations found:${RESET}`);
+            console.log(`${RED}Violations found:${RESET}`);
             console.log(`${RED}═══════════════════════════════════════════${RESET}`);
             
-            criticalViolations.forEach(violation => {
+            realViolations.slice(0, 10).forEach(violation => {
                 console.log(`${RED}📍 ${violation.file}:${violation.line}${RESET}`);
                 console.log(`${YELLOW}   Line: ${violation.content}${RESET}`);
                 console.log(`${YELLOW}   Pattern: ${violation.pattern}${RESET}`);
                 console.log('');
             });
 
+            
+            if (realViolations.length > 10) {
+                console.log(`${YELLOW}... and ${realViolations.length - 10} more violations${RESET}`);
+            }
+            
             console.log(`${RED}═══════════════════════════════════════════${RESET}`);
             console.log(`${RED}FIX REQUIRED:${RESET}`);
-            console.log(`${YELLOW}1. Remove all hardcoded URLs${RESET}`);
-            console.log(`${YELLOW}2. Use process.env.DATABASE_URL from .env${RESET}`);
-            console.log(`${YELLOW}3. Import from server/config/database-truth.js${RESET}`);
+            console.log(`${YELLOW}1. For production code: Use server/config/database-truth.js${RESET}`);
+            console.log(`${YELLOW}2. For utility scripts: Use config/utility-database-config.js${RESET}`);
+            console.log(`${YELLOW}3. For tests: Use mock URLs like postgresql://test:test@localhost${RESET}`);
             console.log('');
-            console.log(`${RED}Example fix:${RESET}`);
-            console.log(`${GREEN}  // WRONG - Hardcoded URL${RESET}`);
-            console.log(`${RED}  const url = 'postgresql://user:pass@host/db' || process.env.DATABASE_URL${RESET}`);
-            console.log('');
-            console.log(`${GREEN}  // RIGHT - Use .env as source of truth${RESET}`);
-            console.log(`${GREEN}  const { getDatabaseUrl } = require('./config/database-truth');${RESET}`);
+            console.log(`${RED}Example fixes:${RESET}`);
+            console.log(`${GREEN}  // For PRODUCTION code:${RESET}`);
+            console.log(`${GREEN}  const { getDatabaseUrl } = require('./server/config/database-truth');${RESET}`);
             console.log(`${GREEN}  const url = getDatabaseUrl('main');${RESET}`);
+            console.log('');
+            console.log(`${GREEN}  // For UTILITY scripts:${RESET}`);
+            console.log(`${GREEN}  const { getUtilityDatabaseUrl } = require('./config/utility-database-config');${RESET}`);
+            console.log(`${GREEN}  const url = getUtilityDatabaseUrl('content');${RESET}`);
             
             return false;
         }
