@@ -535,18 +535,18 @@ jobs:
             exit 1
           fi
 
-# Cleanup job
-cleanup:
-  name: 🧹 Cleanup
-  runs-on: ubuntu-latest
-  needs: [percy-finalize, validate-percy-security]
-  if: always()
-  steps:
-    - name: 🧹 Clean up artifacts
-      run: |
-        echo "🗑️ Cleaning up temporary Percy artifacts..."
-        # Cleanup would be handled by GitHub automatically
-        # This step serves as documentation
+  # Cleanup job
+  cleanup:
+    name: 🧹 Cleanup
+    runs-on: ubuntu-latest
+    needs: [percy-finalize, validate-percy-security]
+    if: always()
+    steps:
+      - name: 🧹 Clean up artifacts
+        run: |
+          echo "🗑️ Cleaning up temporary Percy artifacts..."
+          # Cleanup would be handled by GitHub automatically
+          # This step serves as documentation
         echo "✅ Cleanup completed"
 
     - name: 📋 Summary report
