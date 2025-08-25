@@ -120,15 +120,43 @@ describe('Database Schema Validation', () => {
             expect(result.rows[0].exists).toBe(true);
         });
 
-        test('should have phone column for SMS login', async () => {
+        test('should have ALL required columns for SMS authentication', async () => {
+            const requiredColumns = [
+                'id',
+                'phone',
+                'email',
+                'role',  // CRITICAL: Required for INSERT in sms-code-login endpoint
+                'first_name',
+                'last_name',
+                'created_at',
+                'updated_at'
+            ];
+
             const result = await client.query(`
                 SELECT column_name 
                 FROM information_schema.columns 
+                WHERE table_name = 'clients'
+            `);
+
+            const actualColumns = result.rows.map(row => row.column_name);
+            
+            // Check each required column exists
+            for (const column of requiredColumns) {
+                expect(actualColumns).toContain(column);
+            }
+        });
+
+        test('should have role column with correct type', async () => {
+            const result = await client.query(`
+                SELECT column_name, data_type 
+                FROM information_schema.columns 
                 WHERE table_name = 'clients' 
-                AND column_name = 'phone'
+                AND column_name = 'role'
             `);
             
             expect(result.rows.length).toBe(1);
+            expect(result.rows[0].column_name).toBe('role');
+            expect(result.rows[0].data_type).toBe('character varying');
         });
     });
 

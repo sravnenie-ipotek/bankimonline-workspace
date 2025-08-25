@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 import InitialFeeContext from '@components/ui/ContextButtons/InitialFeeContext/InitialFeeContext'
 import CreditParams from '@components/ui/CreditParams'
@@ -19,6 +19,9 @@ import { CalculateMortgageTypes } from '@src/pages/Services/types/formTypes'
 import { useContentApi } from '@src/hooks/useContentApi'
 import { useAllDropdowns } from '@src/hooks/useDropdownData'
 import { calculationService } from '@src/services/calculationService'
+import { getApiBaseUrl } from '@src/utils/environment'
+import { fetchJsonWithFallback } from '@src/utils/apiWithFallback'
+import { FALLBACK_LTV_RATIOS, FALLBACK_CITIES } from '@src/config/fallbackDefaults'
 
 interface CityOption {
   value: string
@@ -40,19 +43,38 @@ const FirstStepForm = () => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await fetch(`/api/get-cities?lang=${i18n.language}`)
-        const data = await response.json()
-        if (data.status === 'success') {
-          const formattedCities = data.data.map((city) => ({
+        const data = await fetchJsonWithFallback(
+          `/api/get-cities?lang=${i18n.language}`,
+          {
+            fallbackData: {
+              status: 'fallback',
+              data: FALLBACK_CITIES
+            },
+            onRetry: (attempt, error) => {
+              console.warn(`Retrying city fetch (attempt ${attempt}):`, error.message)
+            }
+          }
+        )
+        
+        if (data.status === 'success' || data.status === 'fallback') {
+          const cities = data.status === 'fallback' ? data.data : data.data.map((city: any) => ({
             value: city.value,
             label: city.name,
           }))
-          setCityOptions(formattedCities)
+          setCityOptions(cities)
+          
+          if (data.status === 'fallback') {
+            console.info('Using fallback city list due to API unavailability')
+          }
         } else {
           console.error('Failed to fetch cities:', data.message)
+          // Use fallback cities anyway
+          setCityOptions(FALLBACK_CITIES)
         }
       } catch (error) {
         console.error('Error fetching cities:', error)
+        // Use fallback cities on error
+        setCityOptions(FALLBACK_CITIES)
       }
     }
 
@@ -60,50 +82,56 @@ const FirstStepForm = () => {
     const fetchLtvRatios = async () => {
       try {
         setIsLoadingLtvRatios(true)
-        const apiBaseUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-          ? '/api' 
-          : import.meta.env.VITE_NODE_API_BASE_URL || '/api'
-        const response = await fetch(`${apiBaseUrl}/v1/calculation-parameters?business_path=mortgage`)
-        const data = await response.json()
+        const apiBaseUrl = getApiBaseUrl()
         
-        if (data.status === 'success' && data.data.property_ownership_ltvs) {
-          // Convert the new API format to the expected format
+        // Use the new fetch utility with automatic retry and fallback
+        const data = await fetchJsonWithFallback(
+          `${apiBaseUrl}/v1/calculation-parameters?business_path=mortgage`,
+          {
+            fallbackData: {
+              status: 'fallback',
+              data: {
+                property_ownership_ltvs: {
+                  no_property: { ltv: 75, min_down_payment: 25 },
+                  has_property: { ltv: 50, min_down_payment: 50 },
+                  selling_property: { ltv: 70, min_down_payment: 30 }
+                },
+                current_interest_rate: 5.0,
+                is_fallback: true
+              }
+            },
+            onRetry: (attempt, error) => {
+              console.warn(`Retrying LTV fetch (attempt ${attempt}):`, error.message)
+            }
+          }
+        )
+        
+        if ((data.status === 'success' || data.status === 'fallback') && data.data?.property_ownership_ltvs) {
+          // Convert the API format to the expected format
           const ltvData: {[key: string]: number} = {}
           Object.keys(data.data.property_ownership_ltvs).forEach(key => {
             ltvData[key] = data.data.property_ownership_ltvs[key].ltv / 100 // Convert percentage to ratio
           })
           setLtvRatios(ltvData)
-          console.info('✅ LTV ratios loaded from database:', ltvData)
-        } else if (data.status === 'error' && data.data?.property_ownership_ltvs) {
-          // Use fallback values from API if database is down
-          const ltvData: {[key: string]: number} = {}
-          Object.keys(data.data.property_ownership_ltvs).forEach(key => {
-            ltvData[key] = data.data.property_ownership_ltvs[key].ltv / 100
-          })
-          setLtvRatios(ltvData)
-          console.info('📋 Using fallback LTV ratios (database connection issue):', ltvData)
+          
+          if (data.status === 'fallback' || data.data.is_fallback) {
+            if (process.env.NODE_ENV === 'development') {
+            console.info('📋 Using fallback LTV ratios due to database unavailability')
+          }
+          } else {
+            if (process.env.NODE_ENV === 'development') {
+            console.info('✅ LTV ratios loaded from database:', ltvData)
+          }
+          }
         } else {
-          throw new Error('No LTV data in response')
+          // Final fallback to hardcoded values
+          console.warn('⚠️ Using hardcoded fallback LTV ratios')
+          setLtvRatios(FALLBACK_LTV_RATIOS)
         }
       } catch (error) {
-        console.warn('⚠️ Error fetching LTV ratios from calculation parameters API:', error.message)
-        // Last resort fallback - use calculationService fallback values
-        console.info('📋 Using calculationService fallback values')
-        try {
-          const params = await calculationService.getAllParameters('mortgage')
-          setLtvRatios({
-            no_property: params.property_ownership_ltvs?.no_property?.ltv / 100 || 0.75,
-            has_property: params.property_ownership_ltvs?.has_property?.ltv / 100 || 0.50,
-            selling_property: params.property_ownership_ltvs?.selling_property?.ltv / 100 || 0.70
-          })
-        } catch (serviceError) {
-          console.warn('🚨 CRITICAL: Even calculationService failed, using hardcoded emergency values')
-          setLtvRatios({
-            no_property: 0.75,
-            has_property: 0.50,
-            selling_property: 0.70
-          })
-        }
+        console.error('🚨 Critical error fetching LTV ratios:', error)
+        // Use fallback values on any error
+        setLtvRatios(FALLBACK_LTV_RATIOS)
       } finally {
         setIsLoadingLtvRatios(false)
       }
@@ -167,22 +195,34 @@ const FirstStepForm = () => {
     return propertyValue - maxLoanAmount // Minimum down payment = property value - max loan
   }
 
-  // Auto-adjust initial payment when property ownership changes (real-time financing update)
+  // Track previous values to prevent infinite loops
+  const prevPropertyOwnership = useRef(values.propertyOwnership)
+  const prevPriceOfEstate = useRef(values.priceOfEstate)
+  
+  // Auto-adjust initial payment when property ownership or price changes (real-time financing update)
   useEffect(() => {
-    if (values.propertyOwnership && values.priceOfEstate) {
+    // Only update if propertyOwnership or priceOfEstate actually changed
+    const propertyOwnershipChanged = prevPropertyOwnership.current !== values.propertyOwnership
+    const priceOfEstateChanged = prevPriceOfEstate.current !== values.priceOfEstate
+    
+    if ((propertyOwnershipChanged || priceOfEstateChanged) && values.propertyOwnership && values.priceOfEstate) {
       const minPayment = getMinInitialPayment(values.priceOfEstate, values.propertyOwnership)
       const maxPayment = values.priceOfEstate
       
       // If current initial payment is below the new minimum, set it to minimum
       if (values.initialFee < minPayment) {
-        console.log('Setting initial fee to minimum:', minPayment)
+        // Remove console.log in production (Bug #10)
         setFieldValue('initialFee', minPayment)
       }
       // If current initial payment is above maximum, set it to maximum
       else if (values.initialFee > maxPayment) {
-        console.log('Setting initial fee to maximum:', maxPayment)
+        // Remove console.log in production (Bug #10)
         setFieldValue('initialFee', maxPayment)
       }
+      
+      // Update refs for next comparison
+      prevPropertyOwnership.current = values.propertyOwnership
+      prevPriceOfEstate.current = values.priceOfEstate
     }
   }, [values.propertyOwnership, values.priceOfEstate, values.initialFee, setFieldValue])
 

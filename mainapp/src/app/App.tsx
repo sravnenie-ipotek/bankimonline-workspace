@@ -14,6 +14,7 @@ import '@src/utils/yupLocale'
 import { RootState } from '../store'
 import { debounce } from '../utils/helpers/debounce.ts'
 import './App.css'
+import '@src/styles/rtl.css'
 import styles from './app.module.scss'
 
 const cx = classNames.bind(styles)

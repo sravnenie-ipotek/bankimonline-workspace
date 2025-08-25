@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { MemoryEfficientCache } from '@src/utils/memoryEfficientCache';
 
 // ==================== TYPES ====================
 
@@ -42,42 +43,18 @@ interface CacheEntry<T> {
 
 // ==================== CACHING SYSTEM ====================
 
-class DropdownCache {
-  private cache = new Map<string, CacheEntry<any>>();
-  private readonly TTL = 5 * 60 * 1000; // 5 minutes
-
-  set<T>(key: string, data: T): void {
-    const now = Date.now();
-    this.cache.set(key, {
-      data,
-      timestamp: now,
-      expires: now + this.TTL
-    });
-  }
-
-  get<T>(key: string): T | null {
-    const entry = this.cache.get(key);
-    if (!entry) return null;
-    
-    if (Date.now() > entry.expires) {
-      this.cache.delete(key);
-      return null;
+// Global cache instance with automatic cleanup to prevent memory leaks
+const dropdownCache = new MemoryEfficientCache({
+  ttl: 5 * 60 * 1000,        // 5 minutes
+  maxSize: 50,                // Maximum 50 dropdown entries
+  cleanupInterval: 60 * 1000, // Cleanup every minute
+  onEvict: (key, value) => {
+    // Log evictions in development for debugging
+    if (process.env.NODE_ENV === 'development') {
+      console.debug(`Dropdown cache evicted: ${key}`);
     }
-    
-    return entry.data as T;
   }
-
-  clear(): void {
-    this.cache.clear();
-  }
-
-  size(): number {
-    return this.cache.size;
-  }
-}
-
-// Global cache instance
-const dropdownCache = new DropdownCache();
+});
 
 // ==================== HOOKS ====================
 

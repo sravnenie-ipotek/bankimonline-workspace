@@ -28,8 +28,19 @@ type CalculateMortgageState = CalculateMortgageTypes & FormTypes & {
 export const calculateMortgageSlice = createSlice({
   name: 'mortgage',
   initialState: {
+    // Initialize required fields from CalculateMortgageTypes
+    priceOfEstate: 0,
+    cityWhereYouBuy: '',
+    whenDoYouNeedMoney: '',
+    initialFee: 0,
+    typeSelect: '',
+    willBeYourFirst: '',
+    propertyOwnership: 'no_property', // Default to 75% LTV scenario
+    period: 20, // Default 20 years
+    monthlyPayment: 0,
+    // Initialize income data
     incomeData: {}
-  } as unknown as CalculateMortgageState,
+  } as CalculateMortgageState,
   reducers: {
     updateMortgageData: (state, action) => {
       const newValues = { ...action.payload }

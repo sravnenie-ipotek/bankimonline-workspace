@@ -45,6 +45,7 @@ import { setActiveModal } from '@src/pages/Services/slices/loginSlice'
 import { openLoginModal } from '@src/pages/Services/slices/modalSlice'
 import AuthModal from '@src/pages/AuthModal/AuthModal'
 import MortgagePhoneVerificationModal from './MortgagePhoneVerificationModal'
+import { ApiErrorBoundary } from '@src/components/ErrorBoundary/ApiErrorBoundary'
 
 import { SingleButton } from '../../../../components/SingleButton'
 import FirstStepForm from './FirstStepForm/FirstStepForm'
@@ -137,7 +138,9 @@ const FirstStep = () => {
               text={getContent('show_offers', 'show_offers')}
               size="small"
             />
-            <FirstStepForm />
+            <ApiErrorBoundary>
+              <FirstStepForm />
+            </ApiErrorBoundary>
           </Container>
           <SingleButton />
         </Form>

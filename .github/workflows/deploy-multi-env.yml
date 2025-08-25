@@ -54,10 +54,42 @@ jobs:
           cd mainapp
           npm run build
 
-      - name: Pre-deployment database schema check
+      - name: Pre-deployment comprehensive validation
         run: |
-          echo "🔍 Running pre-deployment database schema validation..."
-          npm run test:pre-deploy || echo "⚠️ Schema validation failed - continuing with deployment but expect issues"
+          echo "🔍 Running comprehensive pre-deployment validation..."
+          echo "⚠️ HARD GATES ACTIVE: ALL validations MUST pass"
+          echo "================================"
+          
+          # 1. Validate all migrations are applied
+          echo "1️⃣ Validating database migrations..."
+          npm run validate:migrations
+          if [ $? -ne 0 ]; then
+            echo "❌ DEPLOYMENT BLOCKED: Missing database migrations"
+            echo "Apply all migrations before deployment"
+            exit 1
+          fi
+          
+          # 2. Validate database schema
+          echo "2️⃣ Validating database schema..."
+          npm run test:pre-deploy
+          if [ $? -ne 0 ]; then
+            echo "❌ DEPLOYMENT BLOCKED: Database schema validation FAILED"
+            echo "Fix the schema issues before attempting deployment"
+            exit 1
+          fi
+          
+          # 3. Run auth integration tests
+          echo "3️⃣ Running authentication integration tests..."
+          npm run test:auth
+          if [ $? -ne 0 ]; then
+            echo "❌ DEPLOYMENT BLOCKED: Authentication tests FAILED"
+            echo "Auth endpoints will fail in production!"
+            exit 1
+          fi
+          
+          echo "================================"
+          echo "✅ ALL VALIDATIONS PASSED"
+          echo "✅ Safe to proceed with deployment"
 
       - name: Create deployment package
         run: |
@@ -144,7 +176,13 @@ jobs:
             # Install dependencies on server to ensure all modules are present
             echo "Installing dependencies on server..."
             cd /var/www/bankim/\$NEW_SLOT
-            npm install || echo "Warning: npm install had issues"
+            npm install
+            if [ \$? -ne 0 ]; then
+              echo "❌ DEPLOYMENT BLOCKED: npm install FAILED"
+              echo "Cannot proceed without proper dependencies"
+              exit 1
+            fi
+            echo "✅ Dependencies installed successfully"
             
             # Set permissions
             chown -R root:root /var/www/bankim/\$NEW_SLOT
@@ -222,25 +260,10 @@ jobs:
                 exit 1
               fi
             else
-              echo "⚠️ Health check script not found, using basic validation"
-              # Basic validation without script
-              pm2 restart bankim-api --update-env || true
-              sleep 10
-              
-              # Simple health check
-              if pm2 status | grep -q "bankim-api.*online"; then
-                echo "✅ PM2 is running"
-                if curl -s -f --max-time 10 http://localhost:8003/api/health >/dev/null 2>&1; then
-                  echo "✅ API is responding"
-                  echo "✅ Basic validation successful"
-                else
-                  echo "❌ API not responding"
-                  exit 1
-                fi
-              else
-                echo "❌ PM2 not running properly"
-                exit 1
-              fi
+              echo "❌ DEPLOYMENT BLOCKED: Health check script not found"
+              echo "deployment-health-check.sh is REQUIRED for safe deployments"
+              echo "Cannot proceed without proper health validation"
+              exit 1
             fi
           '
           
@@ -310,7 +333,13 @@ jobs:
             # Install dependencies on server to ensure all modules are present
             echo "Installing dependencies on server..."
             cd /var/www/bankim/\$NEW_SLOT
-            npm install || echo "Warning: npm install had issues"
+            npm install
+            if [ \$? -ne 0 ]; then
+              echo "❌ DEPLOYMENT BLOCKED: npm install FAILED"
+              echo "Cannot proceed without proper dependencies"
+              exit 1
+            fi
+            echo "✅ Dependencies installed successfully"
             
             # Set permissions
             chown -R root:root /var/www/bankim/\$NEW_SLOT
