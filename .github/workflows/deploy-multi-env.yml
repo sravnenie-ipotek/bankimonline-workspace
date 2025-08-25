@@ -36,6 +36,22 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
+      - name: Create .env file from secrets
+        run: |
+          echo "🔐 Creating .env file from GitHub secrets (SOURCE OF TRUTH)"
+          cat > .env << EOF
+          # CI/CD Environment Configuration
+          # Generated from GitHub Secrets (SOURCE OF TRUTH)
+          DATABASE_URL=${{ secrets.DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway' }}
+          CONTENT_DATABASE_URL=${{ secrets.CONTENT_DATABASE_URL || 'postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway' }}
+          MANAGEMENT_DATABASE_URL=${{ secrets.MANAGEMENT_DATABASE_URL || 'postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway' }}
+          JWT_SECRET=${{ secrets.JWT_SECRET || 'your-super-secret-jwt-key-change-this-in-production-2024' }}
+          JWT_BANK_SECRET=${{ secrets.JWT_BANK_SECRET || 'your-bank-secret-key-2024' }}
+          PORT=8003
+          NODE_ENV=production
+          EOF
+          echo "✅ .env file created for CI/CD"
+
       - name: Install backend dependencies
         run: npm install
 
@@ -184,9 +200,29 @@ jobs:
             echo "Extracting to /var/www/bankim/\$NEW_SLOT"
             tar -xzf \$DEPLOY_FILE -C /var/www/bankim/\$NEW_SLOT
             
+            # Create .env file on server
+            echo "🔐 Creating .env file on TEST server"
+            cd /var/www/bankim/\$NEW_SLOT
+            cat > .env << 'ENVEOF'
+            # TEST Environment Configuration
+            # CRITICAL: DATABASE_URL must point to CORE database (maglev), not CONTENT!
+            DATABASE_URL=postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway
+            CONTENT_DATABASE_URL=postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway
+            MANAGEMENT_DATABASE_URL=postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway
+            JWT_SECRET=your-super-secret-jwt-key-change-this-in-production-2024
+            JWT_BANK_SECRET=your-bank-secret-key-2024
+            PORT=8003
+            NODE_ENV=production
+            RAILWAY_ENVIRONMENT=production
+            CORS_ALLOWED_ORIGINS=https://bankimonline.com,https://dev2.bankimonline.com,http://localhost:5173
+            LOG_LEVEL=info
+            HEALTH_CHECK_ENABLED=true
+            METRICS_ENABLED=true
+ENVEOF
+            echo "✅ .env file created on server"
+            
             # Install dependencies on server to ensure all modules are present
             echo "Installing dependencies on server..."
-            cd /var/www/bankim/\$NEW_SLOT
             npm install
             if [ \$? -ne 0 ]; then
               echo "❌ DEPLOYMENT BLOCKED: npm install FAILED"
@@ -341,9 +377,29 @@ jobs:
             echo "Extracting to /var/www/bankim/\$NEW_SLOT"
             tar -xzf \$DEPLOY_FILE -C /var/www/bankim/\$NEW_SLOT
             
+            # Create .env file on server
+            echo "🔐 Creating .env file on TEST server"
+            cd /var/www/bankim/\$NEW_SLOT
+            cat > .env << 'ENVEOF'
+            # TEST Environment Configuration
+            # CRITICAL: DATABASE_URL must point to CORE database (maglev), not CONTENT!
+            DATABASE_URL=postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway
+            CONTENT_DATABASE_URL=postgresql://postgres:SuFkUevgonaZFXJiJeczFiXYTlICHVJL@shortline.proxy.rlwy.net:33452/railway
+            MANAGEMENT_DATABASE_URL=postgresql://postgres:lgqPEzvVbSCviTybKqMbzJkYvOUetJjt@maglev.proxy.rlwy.net:43809/railway
+            JWT_SECRET=your-super-secret-jwt-key-change-this-in-production-2024
+            JWT_BANK_SECRET=your-bank-secret-key-2024
+            PORT=8003
+            NODE_ENV=production
+            RAILWAY_ENVIRONMENT=production
+            CORS_ALLOWED_ORIGINS=https://bankimonline.com,https://dev2.bankimonline.com,http://localhost:5173
+            LOG_LEVEL=info
+            HEALTH_CHECK_ENABLED=true
+            METRICS_ENABLED=true
+ENVEOF
+            echo "✅ .env file created on server"
+            
             # Install dependencies on server to ensure all modules are present
             echo "Installing dependencies on server..."
-            cd /var/www/bankim/\$NEW_SLOT
             npm install
             if [ \$? -ne 0 ]; then
               echo "❌ DEPLOYMENT BLOCKED: npm install FAILED"
