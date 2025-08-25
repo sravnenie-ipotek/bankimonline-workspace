@@ -148,7 +148,7 @@ jobs:
             LOG_LEVEL=info
             HEALTH_CHECK_ENABLED=true
             METRICS_ENABLED=true
-ENVEOF
+            EOF
             echo "✅ .env.production file created successfully"
             
             # Also create regular .env as fallback
@@ -311,7 +311,7 @@ ENVEOF
             LOG_LEVEL=info
             HEALTH_CHECK_ENABLED=true
             METRICS_ENABLED=true
-ENVEOF
+            EOF
             echo "✅ .env.production file created successfully"
             
             # Also create regular .env as fallback

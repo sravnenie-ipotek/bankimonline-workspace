@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { Dialog } from '@components/layout/Dialog/Dialog'
+import BrandedSplashScreen from '@components/ui/BrandedSplashScreen/BrandedSplashScreen'
 import { ErrorBoundary } from '@src/app/Errors/ErrorBoundary'
 import { useAppDispatch, useAppSelector } from '@src/hooks/store.ts'
 import { initializeUserData, setIsLogin } from '@src/pages/Services/slices/loginSlice'
@@ -127,20 +128,9 @@ const App = () => {
     }
   }, [dispatch])
 
-  // Show loading state until translations are loaded
+  // Show branded loading screen until translations are loaded
   if (!translationsLoaded) {
-    return (
-      <div style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        height: '100vh',
-        backgroundColor: '#161616',
-        color: '#FBE54D'
-      }}>
-        <div>Loading translations...</div>
-      </div>
-    )
+    return <BrandedSplashScreen language={language} />
   }
 
   return (

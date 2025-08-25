@@ -1,0 +1,321 @@
+// Professional branded splash screen for BANKIMONLINE
+// Banking-grade styling with elegant animations and professional appearance
+
+.splashContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: linear-gradient(135deg, #161616 0%, #1a1a1a 50%, #161616 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  max-width: 600px;
+  padding: 2rem;
+}
+
+.logoContainer {
+  margin-bottom: 3rem;
+  animation: logoFadeIn 1.2s ease-out;
+}
+
+.logoWrapper {
+  position: relative;
+  display: inline-block;
+  
+  // Subtle glow effect around logo
+  &::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: radial-gradient(circle, rgba(251, 229, 77, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: logoGlow 2s ease-in-out infinite alternate;
+  }
+}
+
+.spinnerContainer {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: spinnerFadeIn 0.8s ease-out 0.5s forwards;
+}
+
+.messageContainer {
+  margin-top: 1.5rem;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: messageFadeIn 0.8s ease-out 1s forwards;
+}
+
+.loadingMessage {
+  color: #FBE54D;
+  font-size: 1.125rem;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  margin: 0;
+  white-space: nowrap;
+  
+  // Hebrew text support
+  .hebrew & {
+    font-family: 'Heebo', 'Arial', sans-serif;
+    direction: rtl;
+  }
+  
+  // Russian text support  
+  .russian & {
+    font-family: 'Inter', 'Arial', sans-serif;
+  }
+}
+
+.versionIndicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(251, 229, 77, 0.6);
+  font-size: 0.875rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: versionFadeIn 1s ease-out 1.5s forwards;
+}
+
+// Animated background shapes for visual interest
+.backgroundAnimation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.animatedShape1,
+.animatedShape2,
+.animatedShape3 {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 229, 77, 0.03) 0%, transparent 70%);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.animatedShape1 {
+  width: 200px;
+  height: 200px;
+  top: 20%;
+  left: -100px;
+  animation: floatShape1 8s;
+}
+
+.animatedShape2 {
+  width: 150px;
+  height: 150px;
+  bottom: 25%;
+  right: -75px;
+  animation: floatShape2 10s;
+}
+
+.animatedShape3 {
+  width: 120px;
+  height: 120px;
+  top: 60%;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: floatShape3 12s;
+}
+
+// Keyframe animations
+@keyframes logoFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes logoGlow {
+  0% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes spinnerFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes messageFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes versionFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  100% {
+    opacity: 0.6;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes floatShape1 {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+    opacity: 0.02;
+  }
+  100% {
+    transform: translateX(50px) translateY(-30px) rotate(45deg);
+    opacity: 0.05;
+  }
+}
+
+@keyframes floatShape2 {
+  0% {
+    transform: translateX(0) translateY(0) rotate(0deg);
+    opacity: 0.03;
+  }
+  100% {
+    transform: translateX(-40px) translateY(25px) rotate(-30deg);
+    opacity: 0.06;
+  }
+}
+
+@keyframes floatShape3 {
+  0% {
+    transform: translateX(-50%) translateY(0) rotate(0deg);
+    opacity: 0.02;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-20px) rotate(60deg);
+    opacity: 0.04;
+  }
+}
+
+// Mobile responsiveness
+@media (max-width: 768px) {
+  .contentWrapper {
+    padding: 1.5rem;
+    max-width: 90%;
+  }
+  
+  .logoContainer {
+    margin-bottom: 2rem;
+  }
+  
+  .logoWrapper {
+    transform: scale(0.8);
+  }
+  
+  .loadingMessage {
+    font-size: 1rem;
+  }
+  
+  .versionIndicator {
+    bottom: 1.5rem;
+    font-size: 0.75rem;
+  }
+  
+  .animatedShape1 {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .animatedShape2 {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .animatedShape3 {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .splashContainer {
+    background: #000000;
+  }
+  
+  .loadingMessage {
+    color: #FFFFFF;
+  }
+  
+  .versionIndicator {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .animatedShape1,
+  .animatedShape2,
+  .animatedShape3 {
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .logoWrapper::before,
+  .animatedShape1,
+  .animatedShape2,
+  .animatedShape3 {
+    animation: none;
+  }
+  
+  .logoContainer,
+  .spinnerContainer,
+  .messageContainer,
+  .versionIndicator {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
