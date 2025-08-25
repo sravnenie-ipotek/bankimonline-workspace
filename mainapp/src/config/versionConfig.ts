@@ -7,8 +7,8 @@ export const VERSION_CONFIG = {
   // Version number (update manually)
   version: '0.1.2',
   
-  // Deployment timestamp (update manually when deploying)
-  datetime: '25.08.2025 12:35',
+  // Deployment timestamp (update manually when deploying)  
+  datetime: '25.08.2025 12:45',
   
   // Environment visibility flags
   showOnTest: true,
