@@ -1,9 +1,9 @@
 {
-  "version": "0.1.1",
+  "version": "0.1.2",
   "major": 0,
   "minor": 1,
-  "patch": 1,
-  "lastDeployment": null,
-  "lastCommit": null,
+  "patch": 2,
+  "lastDeployment": "2025-08-25T09:42:34.226Z",
+  "lastCommit": "1efd8741",
   "environment": null
 }
